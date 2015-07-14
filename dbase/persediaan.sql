@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 14, 2015 at 10:00 AM
+-- Generation Time: Jul 14, 2015 at 10:22 AM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -177,6 +177,7 @@ CREATE TABLE IF NOT EXISTS `sskel` (
   `kd_sskel` varchar(10) NOT NULL,
   `nm_sskel` varchar(30) NOT NULL,
   `kd_kbrg` varchar(20) NOT NULL,
+  `kd_perk` varchar(15) NOT NULL,
   PRIMARY KEY (`kd_sskel`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -212,10 +213,11 @@ CREATE TABLE IF NOT EXISTS `uakpb` (
   `kd_uappbe1` varchar(4) NOT NULL,
   `kd_uappbw` varchar(10) NOT NULL,
   `kd_uakpb` varchar(10) NOT NULL,
-  `kd_uapkpb` varchar(10) NOT NULL,
+  `kd_uapkpb` varchar(5) NOT NULL,
   `jk` varchar(3) NOT NULL,
   `nm_uakpb` varchar(25) NOT NULL,
-  `kd_lokasi` varchar(30) NOT NULL
+  `kd_lokasi` varchar(30) NOT NULL,
+  PRIMARY KEY (`kd_uakpb`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
