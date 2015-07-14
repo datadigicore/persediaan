@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <?php include("include/loadcss.php"); ?>
+  </head>
+  <header>
+  	<div class="headernya">
+  		<div class="login-logo">
+        	<img src="dist/img/icon.png" width="70px;">&nbsp;&nbsp;<b>CPanel</b> Aplikasi Persediaan</a>
+      	</div>
+  	</div>
+  </header>
+  <body class="login-page">
+    <div class="login-box">
+      
+      <div class="login-box-body">
+        <p class="login-box-msg">Silahkan isi Username dan Password</p>
+        <form action="index2.html" method="post">
+          <div class="form-group has-feedback">
+            <input type="text" class="form-control" placeholder="Username" />
+            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+          </div>
+          <div class="form-group has-feedback">
+            <input type="password" class="form-control" placeholder="Password" />
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          </div>
+          <div class="row">
+            <div class="col-xs-8"> 
+            </div>
+            <div class="col-xs-4">
+              <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+    <footer class="footernih">
+    	<div class="footernya">
+	  		<b>Copyright &copy; 2015</b> Team Gunadarma. All Rights Reserved.
+	  	</div>
+    </footer>
+    <?php include("include/loadjs.php"); ?>
+  </body>
+</html>
