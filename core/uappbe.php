@@ -1,17 +1,27 @@
 <?php
 include('../config/dbconf.php');
-
-$select = array();
-$sql='select * from uapb';
-$result = $connect->query($sql);
-echo '<option value="">-- Select Kode UAPB --</option>';
-while ($row = mysqli_fetch_array($result))
-{
-	// $s = array();
-	// $s['id'] = $row['kd_uapb'];
-	// $s['title'] = $row['nm_uapb'];
-	// array_push($select, $s);
-	echo '<option value="'.$row['kd_uapb'].'">'.$row['kd_uapb'].' '.$row['nm_uapb']."</option>";
+if (empty($_POST['manage'])) {
+	echo "Error Data Tidak Tersedia";
 }
-// echo json_encode($select);
+else
+{
+	$manage = $_POST['manage'];
+	switch ($manage)
+	{
+		case 'readuapb':
+			$select = array();
+			$sql='select * from uapb';
+			$result = $connect->query($sql);
+			echo '<option value="">-- Select Kode UAPB --</option>';
+			while ($row = mysqli_fetch_array($result))
+			{
+				echo '<option value="'.$row['kd_uapb'].'">'.$row['kd_uapb'].' '.$row['nm_uapb']."</option>";
+			}		
+		break;
+		default:
+			echo "Error Data Tidak Tersedia";
+		break;
+	}
+}
+
 ?>

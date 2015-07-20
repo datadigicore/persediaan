@@ -36,11 +36,6 @@
                   </div>
                   <div class="col-md-4 pull-right" style="padding:0;">
                   <select id="kodeuapb" class="form-control">
-                    
-                    <!-- <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option> -->
                   </select>
                   </div>
                 </div>
@@ -68,7 +63,9 @@
     <script type="text/javascript">
       $(function () {
         $.ajax({
+          type: "post",
           url: 'core/uappbe',
+          data: {manage:'readuapb'},
           success: function (output) {     
             $('#kodeuapb').html(output);
           }
