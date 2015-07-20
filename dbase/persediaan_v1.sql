@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.5
+-- version 4.4.3
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 15, 2015 at 09:02 AM
--- Server version: 5.5.16
--- PHP Version: 5.3.8
+-- Generation Time: Jul 20, 2015 at 05:27 
+-- Server version: 5.6.24
+-- PHP Version: 5.5.24
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -17,8 +17,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `persediaan`
+-- Database: `persediaan_v1`
 --
+CREATE DATABASE IF NOT EXISTS `persediaan_v1` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `persediaan_v1`;
 
 -- --------------------------------------------------------
 
@@ -30,8 +32,7 @@ CREATE TABLE IF NOT EXISTS `bid` (
   `kd_gol` varchar(10) NOT NULL,
   `kd_bid` varchar(10) NOT NULL,
   `nm_bid` varchar(30) NOT NULL,
-  `kd_bidbrg` varchar(5) NOT NULL,
-  PRIMARY KEY (`kd_bid`)
+  `kd_bidbrg` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -80,8 +81,7 @@ INSERT INTO `brg` (`kd_kbrg`, `kd_jbrg`, `kd_brg`, `nm_brg`, `satuan`, `kd_perk`
 
 CREATE TABLE IF NOT EXISTS `gol` (
   `kd_gol` varchar(10) NOT NULL,
-  `nm_gol` varchar(30) NOT NULL,
-  PRIMARY KEY (`kd_gol`)
+  `nm_gol` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -99,8 +99,7 @@ INSERT INTO `gol` (`kd_gol`, `nm_gol`) VALUES
 
 CREATE TABLE IF NOT EXISTS `jns_transaksi` (
   `kd_trans` varchar(10) NOT NULL,
-  `jns_trans` varchar(20) NOT NULL,
-  PRIMARY KEY (`kd_trans`)
+  `jns_trans` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -250,8 +249,7 @@ CREATE TABLE IF NOT EXISTS `kel` (
   `kd_bid` varchar(10) NOT NULL,
   `kd_kel` varchar(10) NOT NULL,
   `nm_kel` varchar(30) NOT NULL,
-  `kd_kelbrg` varchar(15) NOT NULL,
-  PRIMARY KEY (`kd_kel`)
+  `kd_kelbrg` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -280,8 +278,7 @@ CREATE TABLE IF NOT EXISTS `login` (
   `user_id` varchar(30) NOT NULL,
   `password` varchar(50) NOT NULL,
   `jabatan` varchar(30) NOT NULL,
-  `level` varchar(2) NOT NULL,
-  PRIMARY KEY (`kd_lokasi`)
+  `level` varchar(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -292,8 +289,7 @@ CREATE TABLE IF NOT EXISTS `login` (
 
 CREATE TABLE IF NOT EXISTS `perk` (
   `kd_perk` varchar(10) NOT NULL,
-  `nm_perk` varchar(30) NOT NULL,
-  PRIMARY KEY (`kd_perk`)
+  `nm_perk` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -410,8 +406,7 @@ CREATE TABLE IF NOT EXISTS `skel` (
   `kd_kel` varchar(10) NOT NULL,
   `kd_skel` varchar(10) NOT NULL,
   `nm_skel` varchar(30) NOT NULL,
-  `kd_skelbrg` varchar(15) NOT NULL,
-  PRIMARY KEY (`kd_skel`)
+  `kd_skelbrg` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -444,8 +439,7 @@ CREATE TABLE IF NOT EXISTS `sskel` (
   `nm_sskel` varchar(30) NOT NULL,
   `satuan` varchar(7) NOT NULL,
   `kd_brg` varchar(20) NOT NULL,
-  `kd_perk` varchar(15) NOT NULL,
-  PRIMARY KEY (`kd_sskel`)
+  `kd_perk` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -550,8 +544,7 @@ CREATE TABLE IF NOT EXISTS `uakpb` (
   `kd_uapkpb` varchar(5) NOT NULL,
   `jk` varchar(3) NOT NULL,
   `nm_uakpb` varchar(25) NOT NULL,
-  `kd_lokasi` varchar(30) NOT NULL,
-  PRIMARY KEY (`kd_uakpb`)
+  `kd_lokasi` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -562,8 +555,7 @@ CREATE TABLE IF NOT EXISTS `uakpb` (
 
 CREATE TABLE IF NOT EXISTS `uapb` (
   `kd_uapb` varchar(4) NOT NULL,
-  `nm_uapb` varchar(30) NOT NULL,
-  PRIMARY KEY (`kd_uapb`)
+  `nm_uapb` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1007,9 +999,29 @@ CREATE TABLE IF NOT EXISTS `uappbw` (
   `kd_uapb` varchar(4) NOT NULL,
   `kd_uappb` varchar(11) NOT NULL,
   `kd_uappbw` varchar(10) NOT NULL,
-  `nm_uappbw` varchar(30) NOT NULL,
-  PRIMARY KEY (`kd_uappbw`)
+  `nm_uappbw` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE IF NOT EXISTS `user` (
+  `user_id` int(32) NOT NULL,
+  `user_name` varchar(32) NOT NULL,
+  `user_pass` varchar(32) NOT NULL,
+  `user_email` varchar(64) NOT NULL,
+  `user_level` int(4) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `user_name`, `user_pass`, `user_email`, `user_level`) VALUES
+(1, 'masteradmin', '0192023a7bbd73250516f069df18b500', 'yohanes.christomas@gmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -1019,8 +1031,7 @@ CREATE TABLE IF NOT EXISTS `uappbw` (
 
 CREATE TABLE IF NOT EXISTS `wilayah` (
   `kd_wil` varchar(10) NOT NULL,
-  `nm_wil` varchar(20) NOT NULL,
-  PRIMARY KEY (`kd_wil`)
+  `nm_wil` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1733,10 +1744,97 @@ INSERT INTO `wilayah` (`kd_wil`, `nm_wil`) VALUES
 ('5916', 'MANAMA              '),
 ('5917', 'MUSCAT              ');
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `bid`
+--
+ALTER TABLE `bid`
+  ADD PRIMARY KEY (`kd_bid`);
+
+--
+-- Indexes for table `gol`
+--
+ALTER TABLE `gol`
+  ADD PRIMARY KEY (`kd_gol`);
+
+--
+-- Indexes for table `jns_transaksi`
+--
+ALTER TABLE `jns_transaksi`
+  ADD PRIMARY KEY (`kd_trans`);
+
+--
+-- Indexes for table `kel`
+--
+ALTER TABLE `kel`
+  ADD PRIMARY KEY (`kd_kel`);
+
+--
+-- Indexes for table `login`
+--
+ALTER TABLE `login`
+  ADD PRIMARY KEY (`kd_lokasi`);
+
+--
+-- Indexes for table `perk`
+--
+ALTER TABLE `perk`
+  ADD PRIMARY KEY (`kd_perk`);
+
+--
+-- Indexes for table `skel`
+--
+ALTER TABLE `skel`
+  ADD PRIMARY KEY (`kd_skel`);
+
+--
+-- Indexes for table `sskel`
+--
+ALTER TABLE `sskel`
+  ADD PRIMARY KEY (`kd_sskel`);
+
+--
+-- Indexes for table `uakpb`
+--
+ALTER TABLE `uakpb`
+  ADD PRIMARY KEY (`kd_uakpb`);
+
+--
+-- Indexes for table `uapb`
+--
+ALTER TABLE `uapb`
+  ADD PRIMARY KEY (`kd_uapb`);
+
+--
+-- Indexes for table `uappbw`
+--
+ALTER TABLE `uappbw`
+  ADD PRIMARY KEY (`kd_uappbw`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- Indexes for table `wilayah`
+--
+ALTER TABLE `wilayah`
+  ADD PRIMARY KEY (`kd_wil`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `user_id` int(32) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-<<<<<<< HEAD
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-=======
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
->>>>>>> e05e1bb4e9cb0d285b81d6873e5a482cf91c3901
