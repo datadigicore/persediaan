@@ -31,29 +31,31 @@
               </div>
               <div class="box box-success">
                 <div class="box-header">
-                  <h3 class="box-title">Tabel Data UAPPB-E1</h3>
-                </div><!-- /.box-header -->
+                  <div class="col-md-8" style="padding:0;">
+                    <h3 class="box-title">Tabel Data UAPPB-E1</h3>
+                  </div>
+                  <div class="col-md-4 pull-right" style="padding:0;">
+                  <select id="kodeuapb" class="form-control">
+                    
+                    <!-- <option value="volvo">Volvo</option>
+                    <option value="saab">Saab</option>
+                    <option value="mercedes">Mercedes</option>
+                    <option value="audi">Audi</option> -->
+                  </select>
+                  </div>
+                </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
+                        <th width="16%">Kode UAPB</th>
                         <th width="16%">Kode UAPPB-E1</th>
                         <th>Uraian UAPPB-E1</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>01</td>
-                        <td>SEKERTARIAT JENDERAL</td>
-                      </tr>
-                      <tr>
-                        <td>02</td>
-                        <td>MAJELIS</td>
-                      </tr>
-                    </tbody>
                   </table>
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
+                </div>
+              </div>
             </section>
           </div>
         </section>
@@ -65,7 +67,23 @@
     <script src="plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
-        $("#example1").DataTable();
+        $.ajax({
+          url: 'core/uappbe',
+          success: function (output) {     
+            $('#kodeuapb').html(output);
+          }
+        });
+        $("#example1").DataTable({
+          "processing": false,
+          "serverSide": true,
+          "ajax": "core/loadtable/loaduappbe",
+          "columnDefs":
+          [
+            {"targets": 0 },
+            {"targets": 1 },
+            {"targets": 2 }
+          ],
+        });
       });
     </script>
   </body>

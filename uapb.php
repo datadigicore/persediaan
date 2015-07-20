@@ -56,7 +56,7 @@
     <script type="text/javascript">
       $(function () {
         $("#example1").DataTable({
-          "processing": true,
+          "processing": false,
           "serverSide": true,
           "ajax": "core/loadtable/loaduapb",
           "columnDefs":

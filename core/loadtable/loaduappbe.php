@@ -5,7 +5,7 @@
 #Gunadarma University
 
 // Table yang di load
-$table = 'uapb';
+$table = 'uappbe1';
  
 // Primary Key table
 $primaryKey = 'kd_uapb';
@@ -13,7 +13,8 @@ $primaryKey = 'kd_uapb';
 // Load Data berdasarkan nama table nya
 $columns = array(
     array( 'db' => 'kd_uapb', 'dt' => 0 ),
-    array( 'db' => 'nm_uapb', 'dt' => 1 ),
+    array( 'db' => 'kd_uappbe1', 'dt' => 1 ),
+    array( 'db' => 'nm_uappbe1', 'dt' => 2 ),
 );
  
 // Settingan Koneksi Datatable

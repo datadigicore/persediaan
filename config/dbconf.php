@@ -5,9 +5,14 @@
 #Gunadarma University
 
 date_default_timezone_set("Asia/Jakarta"); 
-$host = 'localhost'; 
-$user = 'root'; 
-$pass = 'm4st3r4dm1n';
-$dbname = 'persediaan_v1';
-$connect = mysqli_connect($host, $user, $pass, $dbname) or die(mysql_error()); 
+
+$sql_details = array(
+    'user' => 'root',
+    'pass' => 'm4st3r4dm1n',
+    'db'   => 'persediaan_v1',
+    'host' => 'localhost'
+);
+
+$connect = mysqli_connect($sql_details['host'], $sql_details['user'], $sql_details['pass'], $sql_details['db']) or die(mysql_error()); 
+
 ?>
