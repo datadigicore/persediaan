@@ -41,20 +41,6 @@
                         <th>Uraian UAPB</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>001</td>
-                        <td>MAJELIS PERWAKILAN RAKYAT</td>
-                      </tr>
-                      <tr>
-                        <td>002</td>
-                        <td>DEWAN PERWAKILAN RAKYAT</td>
-                      </tr>
-                      <tr>
-                        <td>003</td>
-                        <td>BADAN PEMERIKSA KEUANGAN</td>
-                      </tr>
-                    </tbody>
                   </table>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
@@ -69,7 +55,16 @@
     <script src="plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
-        $("#example1").DataTable();
+        $("#example1").DataTable({
+          "processing": true,
+          "serverSide": true,
+          "ajax": "core/loadtable/loaduapb",
+          "columnDefs":
+          [
+            {"targets": 0 },
+            {"targets": 1 }
+          ],
+        });
       });
     </script>
   </body>
