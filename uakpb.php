@@ -26,9 +26,59 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Data</h3>
                 </div>
-                <div class="box-body">
-                  
-                </div>  
+                <form action="core/uakpb" method="post" class="form-horizontal" id="adduakpb">
+                  <div class="box-body">
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Kode UAPB</label>
+                      <div class="col-sm-9">
+					  <input type="text" name="kodeuapb" class="form-control" id="kodeuapb" placeholder="Masukkan Uraian UAKPB">
+                        <input type="hidden" name="manage" value="adduakpb">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Kode UAPPB-E1</label>
+                      <div class="col-sm-9">
+					  <input type="text" name="kodeuappbe1" class="form-control" id="kodeuappbe1" placeholder="Masukkan Uraian UAPPBE1">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Kode UAPPBW</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="kodeuappbw" class="form-control" id="kodeuappbw" placeholder="Masukkan Uraian UAPPBW">
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Kode UAKPB</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="kodeuakpb" class="form-control" id="kodeuakpb" placeholder="Masukkan Uraian UAKPB">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Kode UAPKPB</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="kodeuapkpb" class="form-control" id="kodeuapkpb" placeholder="Masukkan Kode UA">
+                      </div>
+                    </div>
+					<div class="form-group">
+                      <label class="col-sm-2 control-label">Kode JK</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="kodeJK" class="form-control" id="kodeJK" placeholder="Masukkan Kode JK">
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Uraian UAKPB</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="uraianuakpb" class="form-control" id="uraianuakpb" placeholder="Masukkan Uraian UAKPB">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="box-footer">
+                    <button type="Reset" class="btn btn-default">Reset</button>
+                    <button type="submit" class="btn btn-info pull-right">Submit</button>
+                  </div>
+                </form> 
               </div>
               <div class="box box-danger">
                 <div class="box-header with-border">
@@ -47,35 +97,7 @@
                         <th>Uraian UAKPB</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>001</td>
-                        <td>001</td>
-                        <td>001</td>
-                        <td>001</td>
-                        <td>001</td>
-                        <td>001</td>
-                        <td>URAIAN PERSEDIAAN</td>
-                      </tr>
-                      <tr>
-                        <td>002</td>
-                        <td>002</td>
-                        <td>002</td>
-                        <td>002</td>
-                        <td>002</td>
-                        <td>002</td>
-                        <td>URAIAN PERSEDIAAN</td>
-                      </tr>
-                      <tr>
-                        <td>003</td>
-                        <td>003</td>
-                        <td>003</td>
-                        <td>003</td>
-                        <td>003</td>
-                        <td>003</td>
-                        <td>URAIAN PERSEDIAAN</td>
-                      </tr>
-                    </tbody>
+
                   </table>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
@@ -90,7 +112,21 @@
     <script src="plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
-        $("#example1").DataTable();
+        $("#example1").DataTable({
+          "processing": false,
+          "serverSide": true,
+          "ajax": "core/loadtable/loaduakpb",
+          "columnDefs":
+          [
+            {"targets": 0 },
+			{"targets": 1 },
+			{"targets": 2 },
+			{"targets": 3 },
+			{"targets": 4 },
+			{"targets": 5 },
+			{"targets": 6 }
+          ],
+        });
       });
     </script>
   </body>

@@ -8,15 +8,24 @@ else
 	$manage = $_POST['manage'];
 	switch ($manage)
 	{
-		case 'readuapb':
-			$select = array();
-			$sql='select * from uapb';
-			$result = $connect->query($sql);
-			echo '<option value="">-- Select Kode UAPB --</option>';
-			while ($row = mysqli_fetch_array($result))
+		case 'adduakpb':
+			$kodeuapb = $_POST['kodeuapb'];
+			$kodeuappbe1 = $_POST['kodeuappbe1'];
+			$kodeuappbw = $_POST['kodeuappbw'];
+			$kodeuakpb = $_POST['kodeuakpb'];
+			$kodeuapkpb = $_POST['kodeuapkpb'];
+			$kodejk = $_POST['kodejk'];
+			$uraianuakpb = $_POST['uraianuakpb'];
+
+			$sql="insert into uakpb  values ('$kodeuapb','$kodeuappbe1','$kodeuappbw','$kodeuakpb','$kodeuapkpb','$kodejk','$uraianuakpb','asasasas')";
+			if ($connect->query($sql) === TRUE)
 			{
-				echo '<option value="'.$row['kd_uapb'].'">'.$row['kd_uapb'].' '.$row['nm_uapb']."</option>";
-			}		
+			    echo "Data Berhasil Ditambahkan";
+			}
+			else
+			{
+			    echo "Error: " . $sql . "<br>" . $connect->error;
+			}
 		break;
 		default:
 			echo "Error Data Tidak Tersedia";
