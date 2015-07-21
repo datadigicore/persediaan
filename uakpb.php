@@ -30,7 +30,7 @@
                 </div>  
               </div>
               <div class="box box-danger">
-                <div class="box-header">
+                <div class="box-header with-border">
                   <h3 class="box-title">Tabel Data UAKPB</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">

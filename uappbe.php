@@ -25,26 +25,50 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Data</h3>
                 </div>  
-                <div class="box-body">
-                  
-                </div>  
+                <form class="form-horizontal">
+                  <div class="box-body">
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Kode UAPB</label>
+                      <div class="col-sm-9">
+                        <select id="kodeuapb" class="form-control">
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Kode UAPPB-E1</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="kduapb" placeholder="Masukkan Kode UAPPB-E1">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Uraian UAPPB-E1</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="uraianuapb" placeholder="Masukkan Uraian UAPPB-E1">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="box-footer">
+                    <button type="Reset" class="btn btn-default">Reset</button>
+                    <button type="submit" class="btn btn-info pull-right">Submit</button>
+                  </div>
+                </form>
               </div>
               <div class="box box-success">
-                <div class="box-header">
-                  <div class="col-md-8" style="padding:0;">
+                <div class="box-header with-border">
+                  <!-- <div class="col-md-8" style="padding:0;"> -->
                     <h3 class="box-title">Tabel Data UAPPB-E1</h3>
-                  </div>
+                  <!-- </div>
                   <div class="col-md-4 pull-right" style="padding:0;">
                   <select id="kodeuapb" class="form-control">
                   </select>
-                  </div>
+                  </div> -->
                 </div>
                 <div class="box-body">
-                  <table id="example1" class="table table-bordered table-striped">
+                  <table id="tables" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th width="16%">Kode UAPB</th>
-                        <th width="16%">Kode UAPPB-E1</th>
+                        <th width="18%">Kode UAPB</th>
+                        <th width="18%">Kode UAPPB-E1</th>
                         <th>Uraian UAPPB-E1</th>
                       </tr>
                     </thead>
@@ -61,6 +85,7 @@
     <script src="plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
+      var table;
       $(function () {
         $.ajax({
           type: "post",
@@ -70,7 +95,7 @@
             $('#kodeuapb').html(output);
           }
         });
-        $("#example1").DataTable({
+        $("#tables").DataTable({
           "processing": false,
           "serverSide": true,
           "ajax": "core/loadtable/loaduappbe",
@@ -80,6 +105,26 @@
             {"targets": 1 },
             {"targets": 2 }
           ],
+        });
+        $('#kodeuapb').change(function(){
+          if($(this).val()==''){
+            $("#tables").DataTable({
+              "processing": false,
+              "serverSide": true,
+              "ajax": "core/loadtable/loaduappbe",
+              "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
+              "columnDefs":
+              [
+                {"targets": 0 },
+                {"targets": 1 },
+                {"targets": 2 }
+              ],
+            });
+          }
+          else{
+            $("#tables").DataTable().destroy();
+            $("#tables tbody").empty();
+          }
         });
       });
     </script>
