@@ -24,13 +24,13 @@
             <div class="col-lg-3 col-xs-6">
               <div class="small-box bg-aqua">
                 <div class="inner">
-                  <h3>150</h3>
+                  <h3 id="totaluapb">0</h3>
                   <p>Tabel UAPB</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-calendar"></i>
                 </div>
-                <a href="#" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="uapb" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <div class="col-lg-3 col-xs-6">
@@ -120,7 +120,15 @@
     <script src="plugins/knob/jquery.knob.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
-        "use strict";
+        $.ajax({
+          type: "post",
+          url: 'core/dashboard',
+          data: {manage:'totaluapb'},
+          success: function (output) {     
+            $('#totaluapb').html(output);
+          }
+        });
+        // "use strict";
         $(".knob").knob();
         //DONUT CHART
         var donut = new Morris.Donut({

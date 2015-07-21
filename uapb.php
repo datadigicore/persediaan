@@ -1,3 +1,4 @@
+<?php include("config/app.php"); ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -102,7 +103,7 @@
           ],
         });
       });
-      $(document).on('submit','#adduapb',function(e){
+      $('#adduapb').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false

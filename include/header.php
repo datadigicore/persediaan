@@ -1,5 +1,5 @@
 	  <header class="main-header">
-        <a href="index2.html" class="logo">
+        <a href="index" class="logo">
           <span class="logo-mini"><b>A</b>LT</span>
           <span class="logo-lg"><img src="dist/img/icon.png" width="35px;" style="margin-top:-2px;"> <b>Persediaan</b></span>
         </a>
