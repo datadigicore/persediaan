@@ -36,37 +36,37 @@
             <div class="col-lg-3 col-xs-6">
               <div class="small-box bg-green">
                 <div class="inner">
-                  <h3>53</h3>
+                  <h3 id="totaluappbe">0</h3>
                   <p>Tabel UAPPB - E1</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-calendar"></i>
                 </div>
-                <a href="#" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="uappbe" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <div class="col-lg-3 col-xs-6">
               <div class="small-box bg-yellow">
                 <div class="inner">
-                  <h3>44</h3>
+                  <h3 id="totaluappbw">0</h3>
                   <p>Tabel UAPPB - W</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-calendar"></i>
                 </div>
-                <a href="#" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="uappbw" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <div class="col-lg-3 col-xs-6">
               <div class="small-box bg-red">
                 <div class="inner">
-                  <h3>65</h3>
+                  <h3 id="totaluakpb">0</h3>
                   <p>Tabel UAKPB</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-calendar"></i>
                 </div>
-                <a href="#" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="uakpb" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
           </div>
@@ -123,9 +123,13 @@
         $.ajax({
           type: "post",
           url: 'core/dashboard',
-          data: {manage:'totaluapb'},
+          data: {manage:'countdata'},
+          dataType: "json",
           success: function (output) {     
-            $('#totaluapb').html(output);
+            $('#totaluapb').html(output.uapb);
+            $('#totaluappbe').html(output.uappbe);
+            $('#totaluappbw').html(output.uappbw);
+            $('#totaluakpb').html(output.uakpb);
           }
         });
         // "use strict";
