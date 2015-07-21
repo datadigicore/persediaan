@@ -109,6 +109,8 @@
         });
         $('#kodeuapb').change(function(){
           if($(this).val()==''){
+            $("#tables").DataTable().destroy();
+            $("#tables tbody").empty();
             $("#tables").DataTable({
               "processing": false,
               "serverSide": true,
@@ -123,8 +125,20 @@
             });
           }
           else{
+            var kduapb = $(this).val();
             $("#tables").DataTable().destroy();
             $("#tables tbody").empty();
+            $.ajax({
+              type: "post",
+              url: 'core/uappbe',
+              data: {manage:'readtable',kodeuapb:kduapb},
+              success: function (output) {
+                var dataoutput = JSON.parse(output);   
+                $("#tables").DataTable({
+                  "data" : dataoutput
+                });
+              }
+            });
           }
         });
       });
