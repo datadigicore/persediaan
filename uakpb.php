@@ -31,20 +31,24 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPB</label>
                       <div class="col-sm-9">
-					              <input type="text" name="kodeuapb" class="form-control" id="kodeuapb" placeholder="Masukkan Uraian UAKPB">
                         <input type="hidden" name="manage" value="adduakpb">
+                        <select name="kduapb" id="kodeuapb" class="form-control">
+                        </select>
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPPB-E1</label>
                       <div class="col-sm-9">
-					              <input type="text" name="kodeuappbe1" class="form-control" id="kodeuappbe1" placeholder="Masukkan Uraian UAPPBE1">
+					              <select name="kduappbe" id="kodeuappbe" class="form-control">
+                          <option value="">-- Pilih Kode UAPB Terlebih Dahulu --</option>
+                        </select>
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPPBW</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kodeuappbw" class="form-control" id="kodeuappbw" placeholder="Masukkan Uraian UAPPBW">
+                        <select name="kduappbw" id="kodeuappbw" class="form-control">
+                          <option value="">-- Pilih Kode UAPPB-E1 Terlebih Dahulu --</option>
                         </select>
                       </div>
                     </div>
@@ -112,6 +116,14 @@
     <script type="text/javascript">
       $(function () {
         $("li#uakpb").addClass("active");
+        $.ajax({
+          type: "post",
+          url: 'core/uakpb',
+          data: {manage:'readuapb'},
+          success: function (output) {     
+            $('#kodeuapb').html(output);
+          }
+        });
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
@@ -127,6 +139,39 @@
       			{"targets": 6 }
           ],
         });
+      });
+      $('#kodeuapb').change(function(){
+        if ($(this).val()=='') {
+          $('#kodeuappbe').html('<option value="">-- Pilih Kode UAPB Terlebih Dahulu --</option>');
+        }
+        else {
+          var kduapb = $(this).val();
+          $.ajax({
+            type: "post",
+            url: 'core/uappbw',
+            data: {manage:'readuappbe',kodeuapb:kduapb},
+            success: function (output) {
+              $('#kodeuappbe').html(output);
+            }
+          });
+        }
+      });
+      $('#kodeuappbe').change(function(){
+        if ($(this).val()=='') {
+          $('#kodeuappbw').html('<option value="">-- Pilih Kode UAPPB-E1 Terlebih Dahulu --</option>');
+        }
+        else {
+          var kduapb = $('#kodeuapb').val();
+          var kduappbe = $(this).val();
+          $.ajax({
+            type: "post",
+            url: 'core/uakpb',
+            data: {manage:'readuappbw',kodeuapb:kduapb,kodeuappbe:kduappbe},
+            success: function (output) {
+              $('#kodeuappbw').html(output);
+            }
+          });
+        }
       });
     </script>
   </body>
