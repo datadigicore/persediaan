@@ -60,7 +60,7 @@
                     <h3 class="box-title">Tabel Data UAPPB-E1</h3>
                 </div>
                 <div class="box-body">
-                  <table id="tables" class="table table-bordered table-striped">
+                  <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                         <th width="18%">Kode UAPB</th>
@@ -93,7 +93,7 @@
             $('#kodeuapb').html(output);
           }
         });
-        $("#tables").DataTable({
+        $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
           "ajax": "core/loadtable/loaduappbe",
@@ -106,9 +106,9 @@
         });
         $('#kodeuapb').change(function(){
           if($(this).val()==''){
-            $("#tables").DataTable().destroy();
-            $("#tables tbody").empty();
-            $("#tables").DataTable({
+            $("#example1").DataTable().destroy();
+            $("#example1 tbody").empty();
+            $("#example1").DataTable({
               "processing": false,
               "serverSide": true,
               "ajax": "core/loadtable/loaduappbe",
@@ -123,15 +123,15 @@
           }
           else{
             var kduapb = $(this).val();
-            $("#tables").DataTable().destroy();
-            $("#tables tbody").empty();
+            $("#example1").DataTable().destroy();
+            $("#example1 tbody").empty();
             $.ajax({
               type: "post",
               url: 'core/uappbe',
               data: {manage:'readtable',kodeuapb:kduapb},
               success: function (output) {
                 var dataoutput = JSON.parse(output);   
-                $("#tables").DataTable({
+                $("#example1").DataTable({
                   "data" : dataoutput
                 });
               }
