@@ -38,13 +38,21 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPPB-E1</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="kduapb" placeholder="Masukkan Kode UAPPB-E1">
+                        <select id="kodeuappbe" class="form-control">
+                          <option value="">-- Pilih Kode UAPB Terlebih Dahulu --</option>
+                        </select>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Uraian UAPPB-E1</label>
+                      <label class="col-sm-2 control-label">Kode UAPPB-W</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="uraianuapb" placeholder="Masukkan Uraian UAPPB-E1">
+                        <input type="text" class="form-control" id="kduappbw" placeholder="Masukkan Kode UAPPB-E1">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Uraian UAPPB-W</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="uraianuappbw" placeholder="Masukkan Uraian UAPPB-E1">
                       </div>
                     </div>
                   </div>
@@ -103,6 +111,30 @@
     <script type="text/javascript">
       $(function () {
         $("li#uappbw").addClass("active");
+        $.ajax({
+          type: "post",
+          url: 'core/uappbw',
+          data: {manage:'readuapb'},
+          success: function (output) {     
+            $('#kodeuapb').html(output);
+          }
+        });
+        $('#kodeuapb').change(function(){
+          if ($(this).val()=='') {
+            $('#kodeuappbe').html('<option value="">-- Pilih Kode UAPB Terlebih Dahulu --</option>');
+          }
+          else {
+            var kduapb = $(this).val();
+            $.ajax({
+              type: "post",
+              url: 'core/uappbw',
+              data: {manage:'readuappbe',kodeuapb:kduapb},
+              success: function (output) {
+                $('#kodeuappbe').html(output);
+              }
+            });
+          }
+        });
         $("#example1").DataTable();
       });
     </script>

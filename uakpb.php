@@ -31,14 +31,14 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPB</label>
                       <div class="col-sm-9">
-					  <input type="text" name="kodeuapb" class="form-control" id="kodeuapb" placeholder="Masukkan Uraian UAKPB">
+					              <input type="text" name="kodeuapb" class="form-control" id="kodeuapb" placeholder="Masukkan Uraian UAKPB">
                         <input type="hidden" name="manage" value="adduakpb">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPPB-E1</label>
                       <div class="col-sm-9">
-					  <input type="text" name="kodeuappbe1" class="form-control" id="kodeuappbe1" placeholder="Masukkan Uraian UAPPBE1">
+					              <input type="text" name="kodeuappbe1" class="form-control" id="kodeuappbe1" placeholder="Masukkan Uraian UAPPBE1">
                       </div>
                     </div>
                     <div class="form-group">
@@ -60,7 +60,7 @@
                         <input type="text" name="kodeuapkpb" class="form-control" id="kodeuapkpb" placeholder="Masukkan Kode UA">
                       </div>
                     </div>
-					<div class="form-group">
+					          <div class="form-group">
                       <label class="col-sm-2 control-label">Kode JK</label>
                       <div class="col-sm-9">
                         <input type="text" name="kodeJK" class="form-control" id="kodeJK" placeholder="Masukkan Kode JK">
@@ -97,10 +97,9 @@
                         <th>Uraian UAKPB</th>
                       </tr>
                     </thead>
-
                   </table>
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
+                </div>
+              </div>
             </section>
           </div>
         </section>
@@ -120,12 +119,12 @@
           "columnDefs":
           [
             {"targets": 0 },
-			{"targets": 1 },
-			{"targets": 2 },
-			{"targets": 3 },
-			{"targets": 4 },
-			{"targets": 5 },
-			{"targets": 6 }
+      			{"targets": 1 },
+      			{"targets": 2 },
+      			{"targets": 3 },
+      			{"targets": 4 },
+      			{"targets": 5 },
+      			{"targets": 6 }
           ],
         });
       });
