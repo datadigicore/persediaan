@@ -27,6 +27,20 @@ else
 			}
 			echo json_encode($rows);		
 		break;
+		case 'adduappbe':
+			$kodeuapb = $_POST['kduapb'];
+			$kodeuappbe = $_POST['kduappbe'];
+			$uraianuappbe = $_POST['uraianuappbe'];
+			$sql="insert into uappbe1 (kd_uapb,kd_uappbe1,nm_uappbe1) values ('$kodeuapb','$kodeuappbe','$uraianuappbe')";
+			if ($connect->query($sql) === TRUE)
+			{
+			    echo "Data Berhasil Ditambahkan";
+			}
+			else
+			{
+			    echo "Error: " . $sql . "<br>" . $connect->error;
+			}
+		break;
 		default:
 			echo "Error Data Tidak Tersedia";
 		break;

@@ -26,25 +26,26 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Data</h3>
                 </div>  
-                <form class="form-horizontal">
+                <form action="core/uappbe" method="post" class="form-horizontal" id="adduappbe">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPB</label>
                       <div class="col-sm-9">
-                        <select id="kodeuapb" class="form-control">
+                        <select name="kduapb" id="kodeuapb" class="form-control">
                         </select>
+                        <input type="hidden" name="manage" value="adduappbe">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPPB-E1</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="kduapb" placeholder="Masukkan Kode UAPPB-E1">
+                        <input type="text" name="kduappbe" class="form-control" placeholder="Masukkan Kode UAPPB-E1">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Uraian UAPPB-E1</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="uraianuapb" placeholder="Masukkan Uraian UAPPB-E1">
+                        <input type="text" name="uraianuappbe" class="form-control" placeholder="Masukkan Uraian UAPPB-E1">
                       </div>
                     </div>
                   </div>
@@ -56,13 +57,7 @@
               </div>
               <div class="box box-success">
                 <div class="box-header with-border">
-                  <!-- <div class="col-md-8" style="padding:0;"> -->
                     <h3 class="box-title">Tabel Data UAPPB-E1</h3>
-                  <!-- </div>
-                  <div class="col-md-4 pull-right" style="padding:0;">
-                  <select id="kodeuapb" class="form-control">
-                  </select>
-                  </div> -->
                 </div>
                 <div class="box-body">
                   <table id="tables" class="table table-bordered table-striped">
@@ -81,6 +76,7 @@
         </section>
       </div>
       <?php include("include/footer.php"); ?>
+      <?php include("include/success.php"); ?>
     </div>
     <?php include("include/loadjs.php"); ?>
     <script src="plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
@@ -141,6 +137,35 @@
             });
           }
         });
+      });
+      $('#adduappbe').submit(function(e){
+        $('#myModal').modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+        $('#myModal').modal('show');
+        e.preventDefault();
+        redirectTime = "2600";
+        redirectURL = "uappbe";
+        var formURL = $(this).attr("action");
+        var addData = new FormData(this);
+        $.ajax({
+          type: "post",
+          data: addData,
+          url : formURL,
+          contentType: false,
+          cache: false,  
+          processData: false,
+          success: function(data)
+          {
+            $("#success-alert").alert();
+            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+            $("#success-alert").alert('close');
+            });
+            setTimeout("location.href = redirectURL;",redirectTime); 
+          }
+        });
+        return false;
       });
     </script>
   </body>
