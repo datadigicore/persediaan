@@ -26,19 +26,20 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Data</h3>
                 </div>  
-                <form class="form-horizontal">
+                <form action="core/uappbw" method="post" class="form-horizontal" id="adduappbw">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPB</label>
                       <div class="col-sm-9">
-                        <select id="kodeuapb" class="form-control">
+                        <input type="hidden" name="manage" value="adduappbw">
+                        <select name="kduapb" id="kodeuapb" class="form-control">
                         </select>
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPPB-E1</label>
                       <div class="col-sm-9">
-                        <select id="kodeuappbe" class="form-control">
+                        <select name="kduappbe" id="kodeuappbe" class="form-control">
                           <option value="">-- Pilih Kode UAPB Terlebih Dahulu --</option>
                         </select>
                       </div>
@@ -46,13 +47,14 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPPB-W</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="kduappbw" placeholder="Masukkan Kode UAPPB-E1">
+                        <select name="kduappbw" id="kodewil" class="form-control">
+                        </select>
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Uraian UAPPB-W</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="uraianuappbw" placeholder="Masukkan Uraian UAPPB-E1">
+                        <input type="text" name="uraianuappbw" class="form-control" id="uraianuappbw" placeholder="Masukkan Uraian UAPPB-E1">
                       </div>
                     </div>
                   </div>
@@ -76,34 +78,15 @@
                         <th>Uraian UAPPB-W</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>001</td>
-                        <td>001</td>
-                        <td>001</td>
-                        <td>URAIAN PERSEDIAAN</td>
-                      </tr>
-                      <tr>
-                        <td>002</td>
-                        <td>002</td>
-                        <td>002</td>
-                        <td>URAIAN PERSEDIAAN</td>
-                      </tr>
-                      <tr>
-                        <td>003</td>
-                        <td>003</td>
-                        <td>003</td>
-                        <td>URAIAN PERSEDIAAN</td>
-                      </tr>
-                    </tbody>
                   </table>
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
+                </div>
+              </div>
             </section>
           </div>
         </section>
       </div>
       <?php include("include/footer.php"); ?>
+      <?php include("include/success.php"); ?>
     </div>
     <?php include("include/loadjs.php"); ?>
     <script src="plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
@@ -119,23 +102,71 @@
             $('#kodeuapb').html(output);
           }
         });
-        $('#kodeuapb').change(function(){
-          if ($(this).val()=='') {
-            $('#kodeuappbe').html('<option value="">-- Pilih Kode UAPB Terlebih Dahulu --</option>');
-          }
-          else {
-            var kduapb = $(this).val();
-            $.ajax({
-              type: "post",
-              url: 'core/uappbw',
-              data: {manage:'readuappbe',kodeuapb:kduapb},
-              success: function (output) {
-                $('#kodeuappbe').html(output);
-              }
-            });
+        $.ajax({
+          type: "post",
+          url: 'core/uappbw',
+          data: {manage:'readwil'},
+          success: function (output) {     
+            $('#kodewil').html(output);
           }
         });
-        $("#example1").DataTable();
+        $("#example1").DataTable({
+          "processing": false,
+          "serverSide": true,
+          "ajax": "core/loadtable/loaduappbw",
+          "columnDefs":
+          [
+            {"targets": 0 },
+            {"targets": 1 },
+            {"targets": 2 },
+            {"targets": 3 }
+          ],
+        });
+      });
+      $('#kodeuapb').change(function(){
+        if ($(this).val()=='') {
+          $('#kodeuappbe').html('<option value="">-- Pilih Kode UAPB Terlebih Dahulu --</option>');
+        }
+        else {
+          var kduapb = $(this).val();
+          $.ajax({
+            type: "post",
+            url: 'core/uappbw',
+            data: {manage:'readuappbe',kodeuapb:kduapb},
+            success: function (output) {
+              $('#kodeuappbe').html(output);
+            }
+          });
+        }
+      });
+      $('#adduappbw').submit(function(e){
+        $('#myModal').modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+        $('#myModal').modal('show');
+        e.preventDefault();
+        redirectTime = "2600";
+        redirectURL = "uappbw";
+        var formURL = $(this).attr("action");
+        var addData = new FormData(this);
+        $.ajax({
+          type: "post",
+          data: addData,
+          url : formURL,
+          contentType: false,
+          cache: false,  
+          processData: false,
+          success: function(data)
+          {
+            $("#success-alert").alert();
+            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+            $("#success-alert").alert('close');
+            });
+            setTimeout("location.href = redirectURL;",redirectTime); 
+          }
+        });
+        return false;
       });
     </script>
   </body>

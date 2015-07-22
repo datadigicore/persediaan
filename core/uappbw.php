@@ -26,6 +26,30 @@ else
 				echo '<option value="'.$row['kd_uappbe1'].'">'.$row['kd_uappbe1'].' '.$row['nm_uappbe1']."</option>";
 			}		
 		break;
+		case 'readwil':
+			$sql='select * from wilayah';
+			$result = $connect->query($sql);
+			echo '<option value="">-- Pilih Kode Wilayah --</option>';
+			while ($row = mysqli_fetch_array($result))
+			{
+				echo '<option value="'.$row['kd_wil'].'">'.$row['kd_wil'].' '.$row['nm_wil']."</option>";
+			}		
+		break;
+		case 'adduappbw':
+			$kodeuapb = $_POST['kduapb'];
+			$kodeuappbe = $_POST['kduappbe'];
+			$kodeuappbw = $_POST['kduappbw'];
+			$uraianuappbw = $_POST['uraianuappbw'];
+			$sql="insert into uappbw (kd_uapb,kd_uappb,kd_uappbw,nm_uappbw) values ('$kodeuapb','$kodeuappbe','$kodeuappbw','$uraianuappbw')";
+			if ($connect->query($sql) === TRUE)
+			{
+			    echo "Data Berhasil Ditambahkan";
+			}
+			else
+			{
+			    echo "Error: " . $sql . "<br>" . $connect->error;
+			}
+		break;
 		default:
 			echo "Error Data Tidak Tersedia";
 		break;
