@@ -148,7 +148,7 @@
           var kduapb = $(this).val();
           $.ajax({
             type: "post",
-            url: 'core/uappbw',
+            url: 'core/uakpb',
             data: {manage:'readuappbe',kodeuapb:kduapb},
             success: function (output) {
               $('#kodeuappbe').html(output);

@@ -45,47 +45,9 @@
                         <th>Uraian Kantor Wilayah</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>015</td>
-                        <td>04</td>
-                        <td>010</td>
-                        <td>KANTOR WILAYAH DJP NANGROE ACEH DARUSSALAM</td>
-                      </tr>
-                      <tr>
-                        <td>015</td>
-                        <td>04</td>
-                        <td>020</td>
-                        <td>KANTOR WILAYAH DJP SUMATERA UTARA I</td>
-                      </tr>
-                      <tr>
-                        <td>015</td>
-                        <td>04</td>
-                        <td>030</td>
-                        <td>KANTOR WILAYAH DJP SUMATERA UTARA II</td>
-                      </tr>
-                      <tr>
-                        <td>015</td>
-                        <td>04</td>
-                        <td>040</td>
-                        <td>KANTOR WILAYAH DJP RIAU DAN KEPULAUAN RIAU</td>
-                      </tr>
-                      <tr>
-                        <td>015</td>
-                        <td>04</td>
-                        <td>050</td>
-                        <td>KANTOR WILAYAH DJP SUMATERA BARAT DAN JAMBI</td>
-                      </tr>
-                      <tr>
-                        <td>015</td>
-                        <td>04</td>
-                        <td>060</td>
-                        <td>KANTOR WILAYAH DJP SUMATERA SELATAN DAN KEPULAUAN BANGKA BELITUNG</td>
-                      </tr>
-                    </tbody>
                   </table>
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
+                </div>
+              </div>
             </section>
           </div>
         </section>
@@ -99,7 +61,18 @@
       $(function () {
         $(".treeview").addClass("active");
         $("li#kanwil").addClass("active");
-        $("#example1").DataTable();
+        $("#example1").DataTable({
+          "processing": false,
+          "serverSide": true,
+          "ajax": "core/loadtable/loadkanwil",
+          "columnDefs":
+          [
+            {"targets": 0 },
+            {"targets": 1 },
+            {"targets": 2 },
+            {"targets": 3 }
+          ],
+        });
       });
     </script>
   </body>

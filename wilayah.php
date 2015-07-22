@@ -34,7 +34,7 @@
               <div class="box box-info">
                 <div class="box-header">
                   <h3 class="box-title">Tabel Daftar Wilayah</h3>
-                </div><!-- /.box-header -->
+                </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
@@ -43,39 +43,9 @@
                         <th>Uraian Wilayah</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>100</td>
-                        <td>DKI JAKARTA</td>
-                      </tr>
-                      <tr>
-                        <td>151</td>
-                        <td>JAKARTA PUSAT</td>
-                      </tr>
-                      <tr>
-                        <td>152</td>
-                        <td>JAKARTA UTARA</td>
-                      </tr>
-                      <tr>
-                        <td>153</td>
-                        <td>JAKARTA BARAT</td>
-                      </tr>
-                      <tr>
-                        <td>154</td>
-                        <td>JAKARTA SELATAN</td>
-                      </tr>
-                      <tr>
-                        <td>155</td>
-                        <td>JAKARTA TIMUR</td>
-                      </tr>
-                      <tr>
-                        <td>156</td>
-                        <td>KEPULAUAN SERIBU</td>
-                      </tr>
-                    </tbody>
                   </table>
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
+                </div>
+              </div>
             </section>
           </div>
         </section>
@@ -89,7 +59,16 @@
       $(function () {
         $(".treeview").addClass("active");
         $("li#wilayah").addClass("active");
-        $("#example1").DataTable();
+        $("#example1").DataTable({
+          "processing": false,
+          "serverSide": true,
+          "ajax": "core/loadtable/loadwilayah",
+          "columnDefs":
+          [
+            {"targets": 0 },
+            {"targets": 1 }
+          ],
+        });
       });
     </script>
   </body>

@@ -43,23 +43,9 @@
                         <th>Uraian Transaksi</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>H01</td>
-                        <td>HAPUS USANG</td>
-                      </tr>
-                      <tr>
-                        <td>H02</td>
-                        <td>HAPUS RUSAK</td>
-                      </tr>
-                      <tr>
-                        <td>K01</td>
-                        <td>HABIS PAKAI</td>
-                      </tr>
-                    </tbody>
                   </table>
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
+                </div>
+              </div>
             </section>
           </div>
         </section>
@@ -73,7 +59,16 @@
       $(function () {
         $(".treeview").addClass("active");
         $("li#transaksi").addClass("active");
-        $("#example1").DataTable();
+        $("#example1").DataTable({
+          "processing": false,
+          "serverSide": true,
+          "ajax": "core/loadtable/loadjnstrans",
+          "columnDefs":
+          [
+            {"targets": 0 },
+            {"targets": 1 }
+          ],
+        });
       });
     </script>
   </body>

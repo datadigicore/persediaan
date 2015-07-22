@@ -26,7 +26,7 @@
               <div class="box box-info">
                 <div class="box-header">
                   <h3 class="box-title">Tabel Sub Kelompok Barang Persediaan</h3>
-                </div><!-- /.box-header -->
+                </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
@@ -36,36 +36,9 @@
                         <th width="14%">Satuan</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>1010101001</td>
-                        <td>ASPAL</td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>1010101002</td>
-                        <td>SEMEN</td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>1010101003</td>
-                        <td>KACA</td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>1010101004</td>
-                        <td>PASIR</td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>1010101005</td>
-                        <td>BATU</td>
-                        <td></td>
-                      </tr>
-                    </tbody>
                   </table>
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
+                </div>
+              </div>
             </section>
           </div>
         </section>
@@ -79,7 +52,17 @@
       $(function () {
         $(".treeview").addClass("active");
         $("li#subkelbar").addClass("active");
-        $("#example1").DataTable();
+        $("#example1").DataTable({
+          "processing": false,
+          "serverSide": true,
+          "ajax": "core/loadtable/loadsubkelbar",
+          "columnDefs":
+          [
+            {"targets": 0 },
+            {"targets": 1 },
+            {"targets": 2 }
+          ],
+        });
       });
     </script>
   </body>
