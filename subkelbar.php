@@ -77,6 +77,8 @@
     <script src="plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
+        $(".treeview").addClass("active");
+        $("li#subkelbar").addClass("active");
         $("#example1").DataTable();
       });
     </script>

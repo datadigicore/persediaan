@@ -112,6 +112,7 @@
     <script src="plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
+        $("li#uakpb").addClass("active");
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,

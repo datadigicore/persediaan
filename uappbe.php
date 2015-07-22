@@ -84,6 +84,7 @@
     <script type="text/javascript">
       var table;
       $(function () {
+        $("li#uappbe").addClass("active");
         $.ajax({
           type: "post",
           url: 'core/uappbe',
