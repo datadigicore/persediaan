@@ -9,7 +9,8 @@ else
 	switch ($manage)
 	{
 		case 'readuapb':
-			$sql='select uappbw.kd_uapb as kd_uapb, uapb.nm_uapb as nm_uapb from uapb, uappbw where uappbw.kd_uapb = uapb.kd_uapb';
+			// $sql='select uappbw.kd_uapb as kd_uapb, uapb.nm_uapb as nm_uapb from uapb, uappbw where uappbw.kd_uapb = uapb.kd_uapb';
+			$sql = 'select * from uapb';
 			$result = $connect->query($sql);
 			echo '<option value="">-- Pilih Kode UAPB --</option>';
 			while ($row = mysqli_fetch_array($result))

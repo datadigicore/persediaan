@@ -31,8 +31,8 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th width="14%">Kode Transaksi</th>
-                        <th>Uraian Transaksi</th>
+                        <th width="14%">Kode Barang</th>
+                        <th>Uraian Sub-Sub Kelompok Barang</th>
                         <th width="14%">Satuan</th>
                       </tr>
                     </thead>

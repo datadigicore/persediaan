@@ -13,6 +13,7 @@
                 <li id="wilayah"><a href="wilayah">Tabel Wilayah</a></li>
                 <li id="kanwil"><a href="kanwil">Tabel Kanwil</a></li>
                 <li id="subkelbar"><a href="subkelbar">Tabel Sub Kelompok Barang</a></li>
+                <li id="barang"><a href="barang">Tabel Barang</a></li>
                 <li id="transaksi"><a href="transaksi">Tabel Jenis Transaksi</a></li>
               </ul>
             </li>

@@ -12,12 +12,12 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Daftar Kantor Wilayah
+            Sub Kelompok Barang Persediaan
             <small>Control Panel</small>
           </h1>
           <ol class="breadcrumb">
             <li><i class="fa fa-link"></i> Lain - lain</li>
-            <li class="active"><a href="#"><i class="fa fa-table"></i> Kantor Wilayah</a></li>
+            <li class="active"><a href="#"><i class="fa fa-table"></i> Sub Kelompok Barang</a></li>
           </ol>
         </section>
         <section class="content">
@@ -26,35 +26,33 @@
               <div class="box box-info">
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Data</h3>
-                </div>  
-                <form action="core/kanwil" method="post" class="form-horizontal" id="addkanwil">
+                </div>
+				<form action="core/barang" method="post" class="form-horizontal" id="addbarang">
                   <div class="box-body">
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode UAPB</label>
+                      <label class="col-sm-2 control-label">Kode Sub-sub Kelompok Barang</label>
                       <div class="col-sm-9">
-                        <input type="hidden" name="manage" value="addkanwil">
-                        <select name="kduapb" id="kodeuapb" class="form-control">
+                        <input type="text" name="kdsskel" class="form-control" id="kodesskel" placeholder="Masukkan Kode Barang">
+						  <input type="hidden" name="manage" value="addbarang">
                         </select>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode UAPPB-E1</label>
+                      <label class="col-sm-2 control-label">Kode Barang</label>
                       <div class="col-sm-9">
-                        <select name="kduappbe" id="kodeuappbe" class="form-control">
-                          <option value="">-- Pilih Kode UAPB Terlebih Dahulu --</option>
-                        </select>
+                        <input type="text" name="kdbarang" class="form-control" id="kodebarang" placeholder="Masukkan Kode Barang">
+                      </div>
+                    </div>                    
+					<div class="form-group">
+                      <label class="col-sm-2 control-label">Nama Barang</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="nmbarang" class="form-control" id="namabarang" placeholder="Masukkan Nama Barang">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode Kanwil</label>
+                      <label class="col-sm-2 control-label">Satuan</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kodekanwil" class="form-control" id="kdkanwil" placeholder="Masukkan Kode Kanwil">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Uraian Kanwil</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="uraiankanwil" class="form-control" id="uraiankanwil" placeholder="Masukkan Uraian Kantor Wilayah">
+                        <input type="text" name="satuan" class="form-control" id="satuan" placeholder="Masukkan Satuan Barang">
                       </div>
                     </div>
                   </div>
@@ -62,20 +60,18 @@
                     <button type="Reset" class="btn btn-default">Reset</button>
                     <button type="submit" class="btn btn-info pull-right">Submit</button>
                   </div>
-                </form>   
-              </div>
-              <div class="box box-info">
+                </form>				
                 <div class="box-header">
-                  <h3 class="box-title">Tabel Daftar Kantor Wilayah</h3>
-                </div><!-- /.box-header -->
+                  <h3 class="box-title">Tabel Barang Persediaan</h3>
+                </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th width="14%">Kode UAPB</th>
-                        <th width="18%">Kode UAPPB-E1</th>
-                        <th width="14%">Kode Kanwil</th>
-                        <th>Uraian Kantor Wilayah</th>
+                        <th width="14%">SSKel. Barang</th>
+                        <th>Kode Barang</th>
+						<th>Nama Barang</th>
+                        <th width="14%">Satuan</th>
                       </tr>
                     </thead>
                   </table>
@@ -93,43 +89,19 @@
     <script type="text/javascript">
       $(function () {
         $(".treeview").addClass("active");
-        $("li#kanwil").addClass("active");
+        $("li#barang").addClass("active");
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
-          "ajax": "core/loadtable/loadkanwil",
+          "ajax": "core/loadtable/loadbarang",
           "columnDefs":
           [
             {"targets": 0 },
             {"targets": 1 },
-            {"targets": 2 },
+			      {"targets": 2 },
             {"targets": 3 }
           ],
         });
-      });
-        $.ajax({
-          type: "post",
-          url: 'core/kanwil',
-          data: {manage:'readuapb'},
-          success: function (output) {     
-            $('#kodeuapb').html(output);
-          }
-        });
-      $('#kodeuapb').change(function(){
-        if ($(this).val()=='') {
-          $('#kodeuappbe').html('<option value="">-- Pilih Kode UAPB Terlebih Dahulu --</option>');
-        }
-        else {
-          var kduapb = $(this).val();
-          $.ajax({
-            type: "post",
-            url: 'core/uappbw',
-            data: {manage:'readuappbe',kodeuapb:kduapb},
-            success: function (output) {
-              $('#kodeuappbe').html(output);
-            }
-          });
-        }
       });
     </script>
   </body>
