@@ -17,6 +17,29 @@
                 <li id="transaksi"><a href="transaksi">Tabel Jenis Transaksi</a></li>
               </ul>
             </li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-link"></i> <span>Persediaan Masuk</span> <i class="fa fa-angle-left pull-right"></i></a>            
+              <ul class="treeview-menu">
+                <li id="saldo_awal"><a href="saldo_msk"><span>Saldo Awal</span></a></li>
+                <li id="pembelian"><a href="index"><span>Pembelian</span></a></li>
+                <li id="trf_msk"><a href="index"><span>Transfer Masuk</span></a></li>
+                <li id="hbh_msk"><a href="index"><span>Hibah Masuk</span></a></li>
+                <li id="rampasan"><a href="index"><span>Rampasan</span></a></li>
+                <li id="prlhn_lain"><a href="index"><span>Perolehan Lain</span></a></li>
+              </ul>
+            </li>            
+            <li class="treeview">
+              <a href="#"><i class="fa fa-link"></i> <span>Persediaan Keluar</span> <i class="fa fa-angle-left pull-right"></i></a>            
+              <ul class="treeview-menu">
+                <li id="saldo_awal"><a href="index"><span>Habis Pakai</span></a></li>
+                <li id="pembelian"><a href="index"><span>Transfer Keluar</span></a></li>
+                <li id="trf_msk"><a href="index"><span>Hibah Keluar</span></a></li>
+                <li id="hbh_msk"><a href="index"><span>Usang</span></a></li>
+                <li id="rampasan"><a href="index"><span>Rusak</span></a></li>
+                <li id="prlhn_lain"><a href="index"><span>Penghapusan Lain</span></a></li>
+              </ul>
+            </li>
+
             <li><a href="user"><i class="fa fa-user"></i> <span>Tambah Pengelola</span></a></li>
           </ul>
         </section>
