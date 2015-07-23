@@ -27,9 +27,27 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Data</h3>
                 </div>  
-                <div class="box-body">
-                  
-                </div>  
+                <form action="core/wilayah" method="post" class="form-horizontal" id="addwil">
+                  <div class="box-body">
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Kode Wilayah</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="kodewil" class="form-control" id="kdwil" placeholder="Masukkan Kode Wilayah">
+                        <input type="hidden" name="manage" value="addwil">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Uraian Wilayah</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="uraianwil" class="form-control" id="uraianwil" placeholder="Masukkan Uraian Wilayah">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="box-footer">
+                    <button type="Reset" class="btn btn-default">Reset</button>
+                    <button type="submit" class="btn btn-info pull-right">Submit</button>
+                  </div>
+                </form> 
               </div>
               <div class="box box-info">
                 <div class="box-header">
