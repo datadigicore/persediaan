@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.3
+-- version 3.4.5
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 20, 2015 at 05:27 
--- Server version: 5.6.24
--- PHP Version: 5.5.24
+-- Generation Time: Jul 24, 2015 at 06:29 AM
+-- Server version: 5.5.16
+-- PHP Version: 5.3.8
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `persediaan_v1`
 --
-CREATE DATABASE IF NOT EXISTS `persediaan_v1` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `persediaan_v1`;
 
 -- --------------------------------------------------------
 
@@ -32,7 +30,8 @@ CREATE TABLE IF NOT EXISTS `bid` (
   `kd_gol` varchar(10) NOT NULL,
   `kd_bid` varchar(10) NOT NULL,
   `nm_bid` varchar(30) NOT NULL,
-  `kd_bidbrg` varchar(5) NOT NULL
+  `kd_bidbrg` varchar(5) NOT NULL,
+  PRIMARY KEY (`kd_bid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -71,7 +70,8 @@ INSERT INTO `brg` (`kd_kbrg`, `kd_jbrg`, `kd_brg`, `nm_brg`, `satuan`, `kd_perk`
 ('1020103006', '000001', '1020103006000001', 'BAKTOR TIZERA', 'UNIT', '115199', '113010155000000000KP'),
 ('1010101006', '000001', '1010101006000001', 'NIPPON PAINT', 'UNIT', '115131', '113010155000000000KP'),
 ('1010304999', '000001', '1010304999000001', 'MONITOR', 'UNIT', '115111', '113010155000000000KP'),
-('1010304999', '000002', '1010304999000002', 'CENTRAL PROCESSING UNIT', 'UNIT', '115111', '113010155000000000KP');
+('1010304999', '000002', '1010304999000002', 'CENTRAL PROCESSING UNIT', 'UNIT', '115111', '113010155000000000KP'),
+('234255645', '23445', '234255645', 'Mesin Cair', 'Buah', 'aaa', 'aaaa');
 
 -- --------------------------------------------------------
 
@@ -81,7 +81,8 @@ INSERT INTO `brg` (`kd_kbrg`, `kd_jbrg`, `kd_brg`, `nm_brg`, `satuan`, `kd_perk`
 
 CREATE TABLE IF NOT EXISTS `gol` (
   `kd_gol` varchar(10) NOT NULL,
-  `nm_gol` varchar(30) NOT NULL
+  `nm_gol` varchar(30) NOT NULL,
+  PRIMARY KEY (`kd_gol`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -99,7 +100,8 @@ INSERT INTO `gol` (`kd_gol`, `nm_gol`) VALUES
 
 CREATE TABLE IF NOT EXISTS `jns_transaksi` (
   `kd_trans` varchar(10) NOT NULL,
-  `jns_trans` varchar(20) NOT NULL
+  `jns_trans` varchar(20) NOT NULL,
+  PRIMARY KEY (`kd_trans`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -236,7 +238,8 @@ INSERT INTO `kanwil` (`kd_uapb`, `kd_uappbe1`, `kd_kanwil`, `nm_kanwil`) VALUES
 ('015', '08', '026', 'Kanwil  XXVI  Gorontalo       '),
 ('015', '08', '027', 'Kanwil  XXVII  Manado         '),
 ('015', '08', '029', 'Kanwil  XXIX  Ambon           '),
-('015', '08', '030', 'Kanwil  XXX  Jayapura         ');
+('015', '08', '030', 'Kanwil  XXX  Jayapura         '),
+('123', '01', '920', 'Dummy Data');
 
 -- --------------------------------------------------------
 
@@ -249,7 +252,8 @@ CREATE TABLE IF NOT EXISTS `kel` (
   `kd_bid` varchar(10) NOT NULL,
   `kd_kel` varchar(10) NOT NULL,
   `nm_kel` varchar(30) NOT NULL,
-  `kd_kelbrg` varchar(15) NOT NULL
+  `kd_kelbrg` varchar(15) NOT NULL,
+  PRIMARY KEY (`kd_kel`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -278,7 +282,8 @@ CREATE TABLE IF NOT EXISTS `login` (
   `user_id` varchar(30) NOT NULL,
   `password` varchar(50) NOT NULL,
   `jabatan` varchar(30) NOT NULL,
-  `level` varchar(2) NOT NULL
+  `level` varchar(2) NOT NULL,
+  PRIMARY KEY (`kd_lokasi`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -289,7 +294,8 @@ CREATE TABLE IF NOT EXISTS `login` (
 
 CREATE TABLE IF NOT EXISTS `perk` (
   `kd_perk` varchar(10) NOT NULL,
-  `nm_perk` varchar(30) NOT NULL
+  `nm_perk` varchar(30) NOT NULL,
+  PRIMARY KEY (`kd_perk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -376,11 +382,34 @@ INSERT INTO `perk` (`kd_perk`, `nm_perk`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sedia`
+-- Table structure for table `sedia_klr`
 --
 
-CREATE TABLE IF NOT EXISTS `sedia` (
+CREATE TABLE IF NOT EXISTS `sedia_klr` (
   `kd_lokasi` varchar(20) NOT NULL,
+  `kd_lok_klr` varchar(20) DEFAULT NULL,
+  `thn_ang` varchar(4) NOT NULL,
+  `no_dok` varchar(20) NOT NULL,
+  `tgl_dok` date NOT NULL,
+  `tgl_buku` date NOT NULL,
+  `kd_brg` varchar(10) NOT NULL,
+  `kuantitas` int(11) NOT NULL,
+  `keterangan` varchar(50) NOT NULL,
+  `asal` varchar(20) NOT NULL,
+  `no_bukti` varchar(20) NOT NULL,
+  `jns_trans` varchar(5) NOT NULL,
+  `rph_sat` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sedia_msk`
+--
+
+CREATE TABLE IF NOT EXISTS `sedia_msk` (
+  `kd_lokasi` varchar(20) NOT NULL,
+  `kd_lok_msk` varchar(20) DEFAULT NULL,
   `thn_ang` varchar(4) NOT NULL,
   `no_dok` varchar(20) NOT NULL,
   `tgl_dok` date NOT NULL,
@@ -406,7 +435,8 @@ CREATE TABLE IF NOT EXISTS `skel` (
   `kd_kel` varchar(10) NOT NULL,
   `kd_skel` varchar(10) NOT NULL,
   `nm_skel` varchar(30) NOT NULL,
-  `kd_skelbrg` varchar(15) NOT NULL
+  `kd_skelbrg` varchar(15) NOT NULL,
+  PRIMARY KEY (`kd_skel`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -439,7 +469,8 @@ CREATE TABLE IF NOT EXISTS `sskel` (
   `nm_sskel` varchar(30) NOT NULL,
   `satuan` varchar(7) NOT NULL,
   `kd_brg` varchar(20) NOT NULL,
-  `kd_perk` varchar(15) NOT NULL
+  `kd_perk` varchar(15) NOT NULL,
+  PRIMARY KEY (`kd_sskel`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -544,8 +575,19 @@ CREATE TABLE IF NOT EXISTS `uakpb` (
   `kd_uapkpb` varchar(5) NOT NULL,
   `jk` varchar(3) NOT NULL,
   `nm_uakpb` varchar(25) NOT NULL,
-  `kd_lokasi` varchar(30) NOT NULL
+  `kd_lokasi` varchar(30) NOT NULL,
+  PRIMARY KEY (`kd_uakpb`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `uakpb`
+--
+
+INSERT INTO `uakpb` (`kd_uapb`, `kd_uappbe1`, `kd_uappbw`, `kd_uakpb`, `kd_uapkpb`, `jk`, `nm_uakpb`, `kd_lokasi`) VALUES
+('123', '01', '01', '0001', '1223', 'KD', 'DFWEF', '346'),
+('111', '111', '111', '111', '111', '', '1111', 'asasasas'),
+('111', '1111', '1111', '11111', '1111', '', '11111', 'asasasas'),
+('123', '123', '123', '123', '123', '', 'ssst', 'asasasas');
 
 -- --------------------------------------------------------
 
@@ -555,7 +597,8 @@ CREATE TABLE IF NOT EXISTS `uakpb` (
 
 CREATE TABLE IF NOT EXISTS `uapb` (
   `kd_uapb` varchar(4) NOT NULL,
-  `nm_uapb` varchar(30) NOT NULL
+  `nm_uapb` varchar(30) NOT NULL,
+  PRIMARY KEY (`kd_uapb`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -659,6 +702,7 @@ INSERT INTO `uapb` (`kd_uapb`, `nm_uapb`) VALUES
 ('112', 'ANGKUTAN KOTA'),
 ('113', 'KARANG TARUNA RW 20'),
 ('123', 'GUNADARMA'),
+('125', 'BADAN PERKREDITAN RAKYAT'),
 ('999', 'BENDAHARA UMUM NEGARA         ');
 
 -- --------------------------------------------------------
@@ -999,7 +1043,8 @@ CREATE TABLE IF NOT EXISTS `uappbw` (
   `kd_uapb` varchar(4) NOT NULL,
   `kd_uappb` varchar(11) NOT NULL,
   `kd_uappbw` varchar(10) NOT NULL,
-  `nm_uappbw` varchar(30) NOT NULL
+  `nm_uappbw` varchar(30) NOT NULL,
+  PRIMARY KEY (`kd_uappbw`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1009,12 +1054,13 @@ CREATE TABLE IF NOT EXISTS `uappbw` (
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
-  `user_id` int(32) NOT NULL,
+  `user_id` int(32) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(32) NOT NULL,
   `user_pass` varchar(32) NOT NULL,
   `user_email` varchar(64) NOT NULL,
-  `user_level` int(4) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `user_level` int(4) NOT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `user`
@@ -1031,7 +1077,8 @@ INSERT INTO `user` (`user_id`, `user_name`, `user_pass`, `user_email`, `user_lev
 
 CREATE TABLE IF NOT EXISTS `wilayah` (
   `kd_wil` varchar(10) NOT NULL,
-  `nm_wil` varchar(20) NOT NULL
+  `nm_wil` varchar(20) NOT NULL,
+  PRIMARY KEY (`kd_wil`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1039,6 +1086,7 @@ CREATE TABLE IF NOT EXISTS `wilayah` (
 --
 
 INSERT INTO `wilayah` (`kd_wil`, `nm_wil`) VALUES
+('', 'hiragana'),
 ('0100', 'DKI JAKARTA         '),
 ('0151', 'KOTA JAKARTA PUSAT  '),
 ('0152', 'KOTA JAKARTA UTARA  '),
@@ -1742,99 +1790,9 @@ INSERT INTO `wilayah` (`kd_wil`, `nm_wil`) VALUES
 ('5914', 'ATHENA              '),
 ('5915', 'DUBAI               '),
 ('5916', 'MANAMA              '),
-('5917', 'MUSCAT              ');
+('5917', 'MUSCAT              '),
+('5918', 'duoduo');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `bid`
---
-ALTER TABLE `bid`
-  ADD PRIMARY KEY (`kd_bid`);
-
---
--- Indexes for table `gol`
---
-ALTER TABLE `gol`
-  ADD PRIMARY KEY (`kd_gol`);
-
---
--- Indexes for table `jns_transaksi`
---
-ALTER TABLE `jns_transaksi`
-  ADD PRIMARY KEY (`kd_trans`);
-
---
--- Indexes for table `kel`
---
-ALTER TABLE `kel`
-  ADD PRIMARY KEY (`kd_kel`);
-
---
--- Indexes for table `login`
---
-ALTER TABLE `login`
-  ADD PRIMARY KEY (`kd_lokasi`);
-
---
--- Indexes for table `perk`
---
-ALTER TABLE `perk`
-  ADD PRIMARY KEY (`kd_perk`);
-
---
--- Indexes for table `skel`
---
-ALTER TABLE `skel`
-  ADD PRIMARY KEY (`kd_skel`);
-
---
--- Indexes for table `sskel`
---
-ALTER TABLE `sskel`
-  ADD PRIMARY KEY (`kd_sskel`);
-
---
--- Indexes for table `uakpb`
---
-ALTER TABLE `uakpb`
-  ADD PRIMARY KEY (`kd_uakpb`);
-
---
--- Indexes for table `uapb`
---
-ALTER TABLE `uapb`
-  ADD PRIMARY KEY (`kd_uapb`);
-
---
--- Indexes for table `uappbw`
---
-ALTER TABLE `uappbw`
-  ADD PRIMARY KEY (`kd_uappbw`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`user_id`);
-
---
--- Indexes for table `wilayah`
---
-ALTER TABLE `wilayah`
-  ADD PRIMARY KEY (`kd_wil`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `user_id` int(32) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
