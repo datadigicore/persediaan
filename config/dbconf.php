@@ -8,7 +8,7 @@ date_default_timezone_set("Asia/Jakarta");
 
 $sql_details = array(
     'user' => 'root',
-    'pass' => 'm4st3r4dm1n',
+    'pass' => '',
     'db'   => 'persediaan_v1',
     'host' => 'localhost'
 );
