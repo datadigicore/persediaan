@@ -143,6 +143,7 @@
       $('#kodeuapb').change(function(){
         if ($(this).val()=='') {
           $('#kodeuappbe').html('<option value="">-- Pilih Kode UAPB Terlebih Dahulu --</option>');
+          $('#kodeuappbw').html('<option value="">-- Pilih Kode UAPPB-E1 Terlebih Dahulu --</option>');
         }
         else {
           var kduapb = $(this).val();

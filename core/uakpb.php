@@ -33,6 +33,7 @@ else
 			$kodeuappbe = $_POST["kodeuappbe"];
 			$sql = "select kd_uappbw, nm_uappbw from uappbw where kd_uapb = '$kodeuapb' and kd_uappb = '$kodeuappbe'";
 			$result = $connect->query($sql);
+			echo '<option value="">-- Pilih Kode UAPPB-Wilayah --</option>';
 			while ($row = mysqli_fetch_array($result))
 			{
 				echo '<option value="'.$row['kd_uappbw'].'">'.$row['kd_uappbw'].' '.$row['nm_uappbw']."</option>";
