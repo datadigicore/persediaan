@@ -26,13 +26,13 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Data</h3>
                 </div>  
-                <form action="core/uappbw" method="post" class="form-horizontal" id="adduappbw">
+                <form action="core/uappbw/prosesuappbw" method="post" class="form-horizontal" id="adduappbw">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPB</label>
                       <div class="col-sm-9">
                         <input type="hidden" name="manage" value="adduappbw">
-                        <select name="kduapb" id="kodeuapb" class="form-control">
+                        <select name="kduapb" id="kduapb" class="form-control">
                         </select>
                       </div>
                     </div>
@@ -54,7 +54,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Uraian UAPPB-W</label>
                       <div class="col-sm-9">
-                        <input type="text" name="uraianuappbw" class="form-control" id="uraianuappbw" placeholder="Masukkan Uraian UAPPB-E1">
+                        <input type="text" name="nmuappbw" class="form-control" id="nmuappbw" placeholder="Masukkan Uraian UAPPB-E1">
                       </div>
                     </div>
                   </div>
@@ -96,15 +96,15 @@
         $("li#uappbw").addClass("active");
         $.ajax({
           type: "post",
-          url: 'core/uappbw',
+          url: 'core/uappbw/prosesuappbw',
           data: {manage:'readuapb'},
           success: function (output) {     
-            $('#kodeuapb').html(output);
+            $('#kduapb').html(output);
           }
         });
         $.ajax({
           type: "post",
-          url: 'core/uappbw',
+          url: 'core/uappbw/prosesuappbw',
           data: {manage:'readwil'},
           success: function (output) {     
             $('#kodewil').html(output);
@@ -123,7 +123,7 @@
           ],
         });
       });
-      $('#kodeuapb').change(function(){
+      $('#kduapb').change(function(){
         if ($(this).val()=='') {
           $('#kodeuappbe').html('<option value="">-- Pilih Kode UAPB Terlebih Dahulu --</option>');
         }
@@ -131,8 +131,8 @@
           var kduapb = $(this).val();
           $.ajax({
             type: "post",
-            url: 'core/uappbw',
-            data: {manage:'readuappbe',kodeuapb:kduapb},
+            url: 'core/uappbw/prosesuappbw',
+            data: {manage:'readuappbe',kduapb:kduapb},
             success: function (output) {
               $('#kodeuappbe').html(output);
             }

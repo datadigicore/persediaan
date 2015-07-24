@@ -26,12 +26,12 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Data</h3>
                 </div>  
-                <form action="core/uappbe" method="post" class="form-horizontal" id="adduappbe">
+                <form action="core/uappbe/prosesuappbe" method="post" class="form-horizontal" id="adduappbe">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPB</label>
                       <div class="col-sm-9">
-                        <select name="kduapb" id="kodeuapb" class="form-control">
+                        <select name="kduapb" id="kduapb" class="form-control">
                         </select>
                         <input type="hidden" name="manage" value="adduappbe">
                       </div>
@@ -45,7 +45,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Uraian UAPPB-E1</label>
                       <div class="col-sm-9">
-                        <input type="text" name="uraianuappbe" class="form-control" placeholder="Masukkan Uraian UAPPB-E1">
+                        <input type="text" name="nmuappbe" class="form-control" placeholder="Masukkan Uraian UAPPB-E1">
                       </div>
                     </div>
                   </div>
@@ -87,10 +87,10 @@
         $("li#uappbe").addClass("active");
         $.ajax({
           type: "post",
-          url: 'core/uappbe',
+          url: 'core/uappbe/prosesuappbe',
           data: {manage:'readuapb'},
           success: function (output) {     
-            $('#kodeuapb').html(output);
+            $('#kduapb').html(output);
           }
         });
         $("#example1").DataTable({
@@ -104,7 +104,7 @@
             {"targets": 2 }
           ],
         });
-        $('#kodeuapb').change(function(){
+        $('#kduapb').change(function(){
           if($(this).val()==''){
             $("#example1").DataTable().destroy();
             $("#example1 tbody").empty();
@@ -127,8 +127,8 @@
             $("#example1 tbody").empty();
             $.ajax({
               type: "post",
-              url: 'core/uappbe',
-              data: {manage:'readtable',kodeuapb:kduapb},
+              url: 'core/uappbe/prosesuappbe',
+              data: {manage:'readtable',kduapb:kduapb},
               success: function (output) {
                 var dataoutput = JSON.parse(output);   
                 $("#example1").DataTable({

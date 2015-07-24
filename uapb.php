@@ -26,19 +26,19 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Data UAPB</h3>
                 </div>  
-                <form action="core/uapb" method="post" class="form-horizontal" id="adduapb">
+                <form action="core/uapb/prosesuapb" method="post" class="form-horizontal" id="adduapb">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPB</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kodeuapb" class="form-control" id="kduapb" placeholder="Masukkan Kode UAPB">
+                        <input type="text" name="kduapb" class="form-control" id="kduapb" placeholder="Masukkan Kode UAPB">
                         <input type="hidden" name="manage" value="adduapb">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Uraian UAPB</label>
                       <div class="col-sm-9">
-                        <input type="text" name="uraianuapb" class="form-control" id="uraianuapb" placeholder="Masukkan Uraian UAPB">
+                        <input type="text" name="nmuapb" class="form-control" id="nmuapb" placeholder="Masukkan Uraian UAPB">
                       </div>
                     </div>
                   </div>

@@ -123,7 +123,7 @@
         $("li#index").addClass("active");
         $.ajax({
           type: "post",
-          url: 'core/dashboard',
+          url: 'core/dashboard/prosesdashboard',
           data: {manage:'countdata'},
           dataType: "json",
           success: function (output) {     
