@@ -6,21 +6,12 @@
 
 date_default_timezone_set("Asia/Jakarta"); 
 
-<<<<<<< HEAD
 class config {
     
     public $db_host = "localhost";
     public $db_user = "root";
     public $db_pass = "m4st3r4dm1n";
     public $database = "persediaan_v1";
-=======
-$sql_details = array(
-    'user' => 'root',
-    'pass' => '',
-    'db'   => 'persediaan_v1',
-    'host' => 'localhost'
-);
->>>>>>> b9e81c9540be87ae52ced9fd94ca5657a8ab6686
 
     public function open_connection() {
 	    $this->link_db = mysqli_connect($this->db_host, $this->db_user, $this->db_pass,$this->database)or die("Koneksi Database gagal");
