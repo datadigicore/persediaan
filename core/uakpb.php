@@ -20,11 +20,12 @@ else
 		break;
 		case 'readuappbe':
 			$kodeuapb = $_POST["kodeuapb"];
-			$sql = "select kd_uappbe1, nm_uappbe1 from uappbe1 where kd_uapb = '$kodeuapb'";
+			$sql = "select y.kd_uapb, y.kd_uappb, x.nm_uappbe1 from (select kd_uapb, kd_uappbe1, nm_uappbe1 from uappbe1 where kd_uapb = '$kodeuapb') as x inner join (SELECT kd_uapb, kd_uappb FROM uappbw WHERE kd_uapb = '$kodeuapb') as y where x.kd_uappbe1 = y.kd_uappb";
 			$result = $connect->query($sql);
+			echo '<option value="">-- Pilih Kode UAPPB-E1 --</option>';
 			while ($row = mysqli_fetch_array($result))
 			{
-				echo '<option value="'.$row['kd_uappbe1'].'">'.$row['kd_uappbe1'].' '.$row['nm_uappbe1']."</option>";
+				echo '<option value="'.$row['kd_uappb'].'">'.$row['kd_uappb'].' '.$row['nm_uappbe1']."</option>";
 			}		
 		break;
 		case 'readuappbw':
