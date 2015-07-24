@@ -21,6 +21,7 @@ else
 			$kodeuapb = $_POST["kodeuapb"];
 			$sql = "select kd_uappbe1, nm_uappbe1 from uappbe1 where kd_uapb = '$kodeuapb'";
 			$result = $connect->query($sql);
+			echo '<option value="">-- Pilih Kode UAPPB-E1 --</option>';
 			while ($row = mysqli_fetch_array($result))
 			{
 				echo '<option value="'.$row['kd_uappbe1'].'">'.$row['kd_uappbe1'].' '.$row['nm_uappbe1']."</option>";
