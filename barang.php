@@ -27,7 +27,7 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Data</h3>
                 </div>
-				<form action="core/barang" method="post" class="form-horizontal" id="addbarang">
+				<form action="core/barang/prosesbarang" method="post" class="form-horizontal" id="addbarang">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode Sub-sub Kelompok Barang</label>

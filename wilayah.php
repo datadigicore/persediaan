@@ -27,7 +27,7 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Data</h3>
                 </div>  
-                <form action="core/wilayah" method="post" class="form-horizontal" id="addwil">
+                <form action="core/wilayah/proseswilayah" method="post" class="form-horizontal" id="addwil">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode Wilayah</label>

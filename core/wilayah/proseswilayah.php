@@ -1,5 +1,7 @@
 <?php
-include('../config/dbconf.php');
+include('../../model/modelWilayah.php');
+include('../../config/purifier.php');
+$Wilayah = new modelWilayah();
 if (empty($_POST['manage'])) {
 	echo "Error Data Tidak Tersedia";
 }
@@ -9,17 +11,14 @@ else
 	switch ($manage)
 	{
 		case 'addwil':
-			$kodewil = $_POST['kodewil'];
-			$uraianwil = $_POST['uraianwil'];
-			$sql="insert into wilayah  values ('$kodewil','$uraianwil')";
-			if ($connect->query($sql) === TRUE)
-			{
-			    echo "Data Berhasil Ditambahkan";
-			}
-			else
-			{
-			    echo "Error: " . $sql . "<br>" . $connect->error;
-			}
+
+			$kodewil = $purifier->purify($_POST['kodewil']);
+			$uraianwil = $purifier->purify($_POST['uraianwil']);
+			$data = array(
+				"kd_wil" => $kodewil,
+		    	"nm_wil" => $uraianwil
+		    );
+			$Wilayah->tambahwilayah($data);
 		break;
 		default:
 			echo "Error Data Tidak Tersedia";
