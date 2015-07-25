@@ -26,20 +26,20 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Data</h3>
                 </div>
-                <form action="core/uakpb" method="post" class="form-horizontal" id="adduakpb">
+                <form action="core/uakpb/prosesuakpb" method="post" class="form-horizontal" id="adduakpb">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPB</label>
                       <div class="col-sm-9">
                         <input type="hidden" name="manage" value="adduakpb">
-                        <select name="kduapb" id="kodeuapb" class="form-control">
+                        <select name="kduapb" id="kduapb" class="form-control">
                         </select>
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPPB-E1</label>
                       <div class="col-sm-9">
-					              <select name="kduappbe" id="kodeuappbe" class="form-control">
+					              <select name="kduappbe" id="kduappbe" class="form-control">
                           <option value="">-- Pilih Kode UAPB Terlebih Dahulu --</option>
                         </select>
                       </div>
@@ -47,7 +47,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPPBW</label>
                       <div class="col-sm-9">
-                        <select name="kduappbw" id="kodeuappbw" class="form-control">
+                        <select name="kduappbw" id="kduappbw" class="form-control">
                           <option value="">-- Pilih Kode UAPPB-E1 Terlebih Dahulu --</option>
                         </select>
                       </div>
@@ -55,26 +55,26 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAKPB</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kodeuakpb" class="form-control" id="kodeuakpb" placeholder="Masukkan Uraian UAKPB">
+                        <input type="text" name="kduakpb" class="form-control" id="kduakpb" placeholder="Masukkan Uraian UAKPB">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPKPB</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kodeuapkpb" class="form-control" id="kodeuapkpb" placeholder="Masukkan Kode UA">
+                        <input type="text" name="kduapkpb" class="form-control" id="kduapkpb" placeholder="Masukkan Kode UA">
                       </div>
                     </div>
 					          <div class="form-group">
                       <label class="col-sm-2 control-label">Kode JK</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kodeJK" class="form-control" id="kodeJK" placeholder="Masukkan Kode JK">
+                        <input type="text" name="kdjkel" class="form-control" id="kdjkel" placeholder="Masukkan Kode JK">
                         </select>
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Uraian UAKPB</label>
                       <div class="col-sm-9">
-                        <input type="text" name="uraianuakpb" class="form-control" id="uraianuakpb" placeholder="Masukkan Uraian UAKPB">
+                        <input type="text" name="nmuakpb" class="form-control" id="nmuakpb" placeholder="Masukkan Uraian UAKPB">
                       </div>
                     </div>
                   </div>
@@ -118,10 +118,10 @@
         $("li#uakpb").addClass("active");
         $.ajax({
           type: "post",
-          url: 'core/uakpb',
+          url: 'core/uakpb/prosesuakpb',
           data: {manage:'readuapb'},
           success: function (output) {     
-            $('#kodeuapb').html(output);
+            $('#kduapb').html(output);
           }
         });
         $("#example1").DataTable({
@@ -140,36 +140,36 @@
           ],
         });
       });
-      $('#kodeuapb').change(function(){
+      $('#kduapb').change(function(){
         if ($(this).val()=='') {
-          $('#kodeuappbe').html('<option value="">-- Pilih Kode UAPB Terlebih Dahulu --</option>');
-          $('#kodeuappbw').html('<option value="">-- Pilih Kode UAPPB-E1 Terlebih Dahulu --</option>');
+          $('#kduappbe').html('<option value="">-- Pilih Kode UAPB Terlebih Dahulu --</option>');
+          $('#kduappbw').html('<option value="">-- Pilih Kode UAPPB-E1 Terlebih Dahulu --</option>');
         }
         else {
           var kduapb = $(this).val();
           $.ajax({
             type: "post",
-            url: 'core/uakpb',
-            data: {manage:'readuappbe',kodeuapb:kduapb},
+            url: 'core/uakpb/prosesuakpb',
+            data: {manage:'readuappbe',kduapb:kduapb},
             success: function (output) {
-              $('#kodeuappbe').html(output);
+              $('#kduappbe').html(output);
             }
           });
         }
       });
-      $('#kodeuappbe').change(function(){
+      $('#kduappbe').change(function(){
         if ($(this).val()=='') {
-          $('#kodeuappbw').html('<option value="">-- Pilih Kode UAPPB-E1 Terlebih Dahulu --</option>');
+          $('#kduappbw').html('<option value="">-- Pilih Kode UAPPB-E1 Terlebih Dahulu --</option>');
         }
         else {
-          var kduapb = $('#kodeuapb').val();
+          var kduapb = $('#kduapb').val();
           var kduappbe = $(this).val();
           $.ajax({
             type: "post",
-            url: 'core/uakpb',
-            data: {manage:'readuappbw',kodeuapb:kduapb,kodeuappbe:kduappbe},
+            url: 'core/uakpb/prosesuakpb',
+            data: {manage:'readuappbw',kduapb:kduapb,kduappbe:kduappbe},
             success: function (output) {
-              $('#kodeuappbw').html(output);
+              $('#kduappbw').html(output);
             }
           });
         }

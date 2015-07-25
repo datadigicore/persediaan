@@ -19,7 +19,7 @@ class modelUappbe extends mysql_db
 		$query = "select * from uapb";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode UAPB --</option>';
-		while ($row = mysqli_fetch_array($result))
+		while ($row = $this->fetch_array($result))
 		{
 			echo '<option value="'.$row['kd_uapb'].'">'.$row['kd_uapb'].' '.$row['nm_uapb']."</option>";
 		}	
