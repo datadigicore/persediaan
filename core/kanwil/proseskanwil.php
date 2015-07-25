@@ -1,5 +1,7 @@
 <?php
-include('../config/dbconf.php');
+include('../../model/modelKanwil.php');
+include('../../config/purifier.php');
+$Kanwil = new modelKanwil();
 if (empty($_POST['manage'])) {
 	echo "Error Data Tidak Tersedia";
 }
@@ -18,19 +20,28 @@ else
 			}		
 		break;
 		case 'addkanwil':
-			$kodeuapb = $_POST['kodeuapb'];
-			$kodeuappbe1 = $_POST['kodeuappbe1'];
-			$kodekanwil = $_POST['kodekanwil'];
-			$uraiankanwil = $_POST['uraiankanwil'];
-			$sql="insert into kanwil  values ('$kodeuapb','$kodeuappbe1','$kodekanwil','$uraiankanwil')";
-			if ($connect->query($sql) === TRUE)
-			{
-			    echo "Data Berhasil Ditambahkan";
-			}
-			else
-			{
-			    echo "Error: " . $sql . "<br>" . $connect->error;
-			}
+			$kodeuapb = $purifier->purify($_POST['kodeuapb']);
+			$kodeuappbe1 = $purifier->purify($_POST['kodeuappbe1']);
+			$kodekanwil = $purifier->purify($_POST['kodekanwil']);
+			$uraiankanwil = $purifier->purify($_POST['uraiankanwil']);
+
+			$data = array(
+				"kd_uapb" => $kodeuapb,
+				"kd_uappbe1" => $kodeuappbe1,
+				"kd_kanwil" => $kodekanwil,
+		    	"nm_kanwil" => $uraiankanwil
+		    );
+			$Kanwil->tambahkanwil($data);
+
+			// $sql="insert into kanwil  values ('$kodeuapb','$kodeuappbe1','$kodekanwil','$uraiankanwil')";
+			// if ($connect->query($sql) === TRUE)
+			// {
+			//     echo "Data Berhasil Ditambahkan";
+			// }
+			// else
+			// {
+			//     echo "Error: " . $sql . "<br>" . $connect->error;
+			// }
 		break;
 		default:
 			echo "Error Data Tidak Tersedia";
