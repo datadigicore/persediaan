@@ -2,9 +2,9 @@
 include('../../utility/mysql_db.php');
 class modelUappbe extends mysql_db
 {
-	public function tambahuapb($data)
+	public function tambahuappbe($data)
 	{
-		$kd_uapb = $data['kd_uapb'];
+		$kd_uapb = $data['kduapb'];
 		$kd_uappbe1 = $data['kd_uappbe1'];
 		$nm_uappbe1 = $data['nm_uappbe1'];
 		$query = "insert into uappbe1
@@ -14,7 +14,7 @@ class modelUappbe extends mysql_db
         $result = $this->query($query);
 		return $result;
 	}	
-	public function ubahuapb($data)
+	public function ubahuappbe($data)
 	{
 		$kd_uapb = $data['kd_uapb'];
 		$kd_uappbe1 = $data['kd_uappbe1'];
@@ -26,7 +26,7 @@ class modelUappbe extends mysql_db
         $result = $this->query($query);
 		return $result;
 	}	
-	public function hapusuapb($data)
+	public function hapusuappbe($data)
 	{
 		$kd_uapb = $data['kd_uapb'];
 		$kd_uappbe1 = $data['kd_uappbe1'];
@@ -53,7 +53,7 @@ class modelUappbe extends mysql_db
         $result = $this->query($query);
         while ($row = $this->fetch_assoc($result))
 		{
-			$rows[] = [$row['kd_uapb'],$row["kd_uappbe1"],$row["nm_uappbe1"]];
+			//$rows[] = [$row['kd_uapb'],$row["kd_uappbe1"],$row["nm_uappbe1"]];
 		}
 		echo json_encode($rows);		
 	}
