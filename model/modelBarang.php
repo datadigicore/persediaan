@@ -1,6 +1,6 @@
 <?php
 include('../../utility/mysql_db.php');
-class modelKanwil extends mysql_db
+class modelBarang extends mysql_db
 {
 	public function tambahbrg($data)
 	{

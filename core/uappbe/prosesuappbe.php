@@ -18,7 +18,7 @@ else
 			$Uappbe->bacatable($kduapb);
 		break;
 		case 'adduappbe':
-			$kduapb = $purifier->purify($_POST['kduapb']);
+			$kduapb = "aa";
 			$kduappbe1 = $purifier->purify($_POST['kduappbe']);
 			$nmuappbe1 = $purifier->purify($_POST['nmuappbe']);
 			$data = array(
@@ -26,7 +26,8 @@ else
 				"kd_uappbe1" => $kduappbe1,
 			  	"nm_uappbe1" => $nmuappbe1
 			);
-			$Uappbe->tambahuapb($data);
+			$Uappbe->tambahuappbe($data);
+			
 		break;
 		default:
 			echo "Error Data Tidak Tersedia";
