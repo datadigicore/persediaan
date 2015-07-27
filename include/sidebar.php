@@ -40,7 +40,8 @@
                 <li id="prlhn_lain"><a href="index"><span>Penghapusan Lain</span></a></li>
               </ul>
             </li>
-
+            <li id="opsik"><a href="opsik"><i class="fa fa-table"></i> <span>Hasil Opname Fisik</span></a></li>
+            <li id="opsik"><a href="opsik"><i class="fa fa-table"></i> <span>Laporan</span></a></li>
             <li><a href="user"><i class="fa fa-user"></i> <span>Tambah Pengelola</span></a></li>
           </ul>
         </section>
