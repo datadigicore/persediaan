@@ -16,5 +16,27 @@ class modelKanwil extends mysql_db
         $result = $this->query($query);
 		return $result;
 	}
+
+    public function bacakanwil()
+    {
+        $query = "select * from kanwil";
+        $result = $this->query($query);
+        echo '<option value="">-- Pilih Kode UAPB --</option>';
+        while ($row = $this->fetch_array($result))
+        {
+            echo '<option value="'.$row['kd_uapb'].'">'.$row['kd_uappbe1'].' '.$row['kd_kanwil'].' '.$row['nm_kanwil']"</option>";
+        }   
+    }
+    public function bacatable($data)
+    {
+        $query = "select * from kanwil
+                    where kd_uapb = '$data'";
+        $result = $this->query($query);
+        while ($row = $this->fetch_assoc($result))
+        {
+            $rows[] = [$row['kd_uapb'],$row["kd_uappbe1"],$row["kd_kanwil"],$row["nm_kanwil"]];
+        }
+        echo json_encode($rows);        
+    }
 }
 ?>
