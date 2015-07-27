@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 24, 2015 at 06:29 AM
+-- Generation Time: Jul 26, 2015 at 02:25 AM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -71,7 +71,8 @@ INSERT INTO `brg` (`kd_kbrg`, `kd_jbrg`, `kd_brg`, `nm_brg`, `satuan`, `kd_perk`
 ('1010101006', '000001', '1010101006000001', 'NIPPON PAINT', 'UNIT', '115131', '113010155000000000KP'),
 ('1010304999', '000001', '1010304999000001', 'MONITOR', 'UNIT', '115111', '113010155000000000KP'),
 ('1010304999', '000002', '1010304999000002', 'CENTRAL PROCESSING UNIT', 'UNIT', '115111', '113010155000000000KP'),
-('234255645', '23445', '234255645', 'Mesin Cair', 'Buah', 'aaa', 'aaaa');
+('234255645', '23445', '234255645', 'Mesin Cair', 'Buah', 'aaa', 'aaaa'),
+('101', '1110', '1211', 'Laptop', 'Buah', 'sementara', 'sementara');
 
 -- --------------------------------------------------------
 
@@ -289,6 +290,32 @@ CREATE TABLE IF NOT EXISTS `login` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `opsik`
+--
+
+CREATE TABLE IF NOT EXISTS `opsik` (
+  `thn_ang` int(11) DEFAULT NULL,
+  `kd_lokasi` text,
+  `kd_brg` int(11) DEFAULT NULL,
+  `tglbuku` text,
+  `tgldok` text,
+  `nodok` text,
+  `no_bukti` text,
+  `kuantitas` int(11) DEFAULT NULL,
+  `rph_sat` int(11) DEFAULT NULL,
+  `keterangan` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `opsik`
+--
+
+INSERT INTO `opsik` (`thn_ang`, `kd_lokasi`, `kd_brg`, `tglbuku`, `tgldok`, `nodok`, `no_bukti`, `kuantitas`, `rph_sat`, `keterangan`) VALUES
+(2010, '113010155000000000KP', 2147483647, '2010-07-12', '2010-07-12', '113010155000000000KP201000001P', '', 5, 12000, 'LIMA');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `perk`
 --
 
@@ -395,7 +422,6 @@ CREATE TABLE IF NOT EXISTS `sedia_klr` (
   `kd_brg` varchar(10) NOT NULL,
   `kuantitas` int(11) NOT NULL,
   `keterangan` varchar(50) NOT NULL,
-  `asal` varchar(20) NOT NULL,
   `no_bukti` varchar(20) NOT NULL,
   `jns_trans` varchar(5) NOT NULL,
   `rph_sat` int(11) NOT NULL
@@ -417,7 +443,6 @@ CREATE TABLE IF NOT EXISTS `sedia_msk` (
   `kd_brg` varchar(10) NOT NULL,
   `kuantitas` int(11) NOT NULL,
   `keterangan` varchar(50) NOT NULL,
-  `asal` varchar(20) NOT NULL,
   `no_bukti` varchar(20) NOT NULL,
   `jns_trans` varchar(5) NOT NULL,
   `rph_sat` int(11) NOT NULL
@@ -703,6 +728,9 @@ INSERT INTO `uapb` (`kd_uapb`, `nm_uapb`) VALUES
 ('113', 'KARANG TARUNA RW 20'),
 ('123', 'GUNADARMA'),
 ('125', 'BADAN PERKREDITAN RAKYAT'),
+('2e3', 'Sisyem'),
+('979', 'persedia'),
+('980', 'Percobaan'),
 ('999', 'BENDAHARA UMUM NEGARA         ');
 
 -- --------------------------------------------------------
@@ -1031,7 +1059,16 @@ INSERT INTO `uappbe1` (`kd_uapb`, `kd_uappbe1`, `nm_uappbe1`) VALUES
 ('112', '01', 'SUPIR'),
 ('112', '02', 'KENECK'),
 ('113', '01', 'SEKRETARIAT'),
-('113', '02', 'PEMBINA');
+('113', '02', 'PEMBINA'),
+('1122', '135', ''),
+('1122', '135', ''),
+('1122', '1555', ''),
+('979', '878', ''),
+('979', '878', ''),
+('9009', '4445', ''),
+('909', '303', ''),
+('3121', '213', ''),
+('303', '202', 'IBC CN');
 
 -- --------------------------------------------------------
 
@@ -1047,6 +1084,14 @@ CREATE TABLE IF NOT EXISTS `uappbw` (
   PRIMARY KEY (`kd_uappbw`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `uappbw`
+--
+
+INSERT INTO `uappbw` (`kd_uapb`, `kd_uappb`, `kd_uappbw`, `nm_uappbw`) VALUES
+('001', '01', '0100', 'SEKBER'),
+('001', '01', '0807', 'Kab. Tanah Datar');
+
 -- --------------------------------------------------------
 
 --
@@ -1059,6 +1104,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `user_pass` varchar(32) NOT NULL,
   `user_email` varchar(64) NOT NULL,
   `user_level` int(4) NOT NULL,
+  `kd_lokasi` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
@@ -1066,8 +1112,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `user_name`, `user_pass`, `user_email`, `user_level`) VALUES
-(1, 'masteradmin', '0192023a7bbd73250516f069df18b500', 'yohanes.christomas@gmail.com', 1);
+INSERT INTO `user` (`user_id`, `user_name`, `user_pass`, `user_email`, `user_level`, `kd_lokasi`) VALUES
+(1, 'masteradmin', '0192023a7bbd73250516f069df18b500', 'yohanes.christomas@gmail.com', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -1791,7 +1837,8 @@ INSERT INTO `wilayah` (`kd_wil`, `nm_wil`) VALUES
 ('5915', 'DUBAI               '),
 ('5916', 'MANAMA              '),
 ('5917', 'MUSCAT              '),
-('5918', 'duoduo');
+('5918', 'duoduo'),
+('77A', 'BKS TMR');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

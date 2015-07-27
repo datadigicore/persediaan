@@ -39,13 +39,13 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPPB-E1</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kduappbe" class="form-control" placeholder="Masukkan Kode UAPPB-E1">
+                        <input type="text" name="kduappbe" id="kduappbe" class="form-control" placeholder="Masukkan Kode UAPPB-E1">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Uraian UAPPB-E1</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nmuappbe" class="form-control" placeholder="Masukkan Uraian UAPPB-E1">
+                        <input type="text" name="nmuappbe" id="nmuappbe" class="form-control" placeholder="Masukkan Uraian UAPPB-E1">
                       </div>
                     </div>
                   </div>
@@ -87,7 +87,7 @@
         $("li#uappbe").addClass("active");
         $.ajax({
           type: "post",
-          url: 'core/uappbe/prosesuappbe',
+          url: 'core/uappbw/prosesuappbw',
           data: {manage:'readuapb'},
           success: function (output) {     
             $('#kduapb').html(output);
