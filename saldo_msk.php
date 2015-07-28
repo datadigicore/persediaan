@@ -26,13 +26,18 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Transaksi Saldo Awal</h3>
                 </div>  
-                <form action="core/uapb" method="post" class="form-horizontal" id="adduapb">
+                <form action="core/transaksi/prosestransmsk" method="post" class="form-horizontal" id="addtransmsk">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>
                       <div class="col-sm-9">
                         <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="Seharsnya No. Dok Auto Generated">
-                        <input type="hidden" name="manage" value="adduapb">
+                        <input type="hidden" name="manage" value="addtransmsk">
+                      </div>
+                    </div>                      
+                    <label class="col-sm-2 control-label">Nomor Bukti</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor BUkti">
                       </div>
                     </div>
                     <div class="form-group">
@@ -48,11 +53,15 @@
                       </div> 
                     </div>                   
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode Persediaan</label>
+                      <label class="col-sm-2 control-label">Kode Barang</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kd_sedia" class="form-control" id="kd_sedia" placeholder="Masukkan Kode persediaan">
+                        <select name="kd_brg" id="kd_brg" class="form-control">
+                        </select>
                       </div>
-                    </div>                    
+                    </div>
+
+
+
                   <div class="form-group">
                       <label class="col-sm-2 control-label">Jumlah Masuk</label>
                       <div class="col-sm-9">
@@ -62,13 +71,13 @@
                   <div class="form-group">
                       <label class="col-sm-2 control-label">Harga Beli Satuan</label>
                       <div class="col-sm-9">
-                        <input type="text" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Masuk">
+                        <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="Masukkan Jumlah Masuk">
                       </div>
                     </div>                  
                   <div class="form-group">
                       <label class="col-sm-2 control-label">Keterangan</label>
                       <div class="col-sm-9">
-                        <input type="text" name="harga" class="form-control" id="harga" placeholder="Masukkan Keterangan">
+                        <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Keterangan">
                       </div>
                     </div>
                   </div>
@@ -117,6 +126,14 @@
           ],
         });
       });
+       $.ajax({
+          type: "post",
+          url: 'core/transaksi/prosestransmsk',
+          data: {manage:'readbrg'},
+          success: function (output) {     
+            $('#kd_brg').html(output);
+          }
+       });
       $('#adduapb').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',

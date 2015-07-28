@@ -20,5 +20,18 @@ class modelBarang extends mysql_db
         $result = $this->query($query);
 		return $result;
 	}
+
+	public function bacabrg($data)
+	{
+		$query = "select * from brg";
+        $result = $this->query($query);
+        echo '<option value="">-- Pilih Kode Barang --</option>';
+		while ($row = $this->fetch_array($result))
+		{
+			echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg']."</option>";
+		}	
+	}
+
+
 }
 ?>

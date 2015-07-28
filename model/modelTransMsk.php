@@ -13,7 +13,6 @@ class modelTransMsk extends mysql_db
 		$kd_brg = $data['kd_brg'];
 		$kuantitas = $data['kuantitas'];
 		$keterangan = $data['keterangan'];
-		$asal = $data['asal'];
 		$no_bukti = $data['no_bukti'];
 		$jns_trans = $data['jns_trans'];
 		$rph_sat = $data['rph_sat'];
@@ -27,7 +26,6 @@ class modelTransMsk extends mysql_db
         			kd_brg='$kd_brg',
         			kuantitas='$kuantitas',
         			keterangan='$keterangan',
-        			asal='$asal',
         			no_bukti='$no_bukti',
         			jns_trans='$jns_trans',
                     rph_sat='$rph_sat'";
@@ -46,6 +44,17 @@ class modelTransMsk extends mysql_db
             // $rows[] = [$row['kd_lokasi'],$row["kd_lok_msk"],$row["thn_ang"],$row["no_dok"],$row["tgl_dok"],$row["tgl_buku"],$row["kd_brg"],$row["kuantitas"],$row["keterangan"],$row["asal"],$row["no_bukti"],$row["jns_trans"],$row["rph_sat"]];
         }
         echo json_encode($rows);
+    }
+
+    public function bacabrg($data)
+    {
+        $query = "select * from brg";
+        $result = $this->query($query);
+        echo '<option value="">-- Pilih Kode Barang --</option>';
+        while ($row = $this->fetch_array($result))
+        {
+            echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg']."</option>";
+        }   
     }
 }
 ?>
