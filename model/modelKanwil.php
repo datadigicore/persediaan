@@ -24,7 +24,7 @@ class modelKanwil extends mysql_db
         echo '<option value="">-- Pilih Kode UAPB --</option>';
         while ($row = $this->fetch_array($result))
         {
-            echo '<option value="'.$row['kd_uapb'].'">'.$row['kd_uappbe1'].' '.$row['kd_kanwil'].' '.$row['nm_kanwil']"</option>";
+            echo '<option value="'.$row['kd_uapb'].'">'.$row['kd_uappbe1'].' '.$row['kd_kanwil'].' '.$row['nm_kanwil']."</option>";
         }   
     }
     public function bacatable($data)
@@ -34,7 +34,7 @@ class modelKanwil extends mysql_db
         $result = $this->query($query);
         while ($row = $this->fetch_assoc($result))
         {
-            $rows[] = [$row['kd_uapb'],$row["kd_uappbe1"],$row["kd_kanwil"],$row["nm_kanwil"]];
+            //$rows[] = [$row['kd_uapb'], $row["kd_uappbe1"], $row["kd_kanwil"], $row["nm_kanwil"] ];
         }
         echo json_encode($rows);        
     }

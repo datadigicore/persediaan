@@ -1,6 +1,6 @@
 <?php
 include('../../utility/mysql_db.php');
-class modelTransMsk extends mysql_db
+class modelTransKlr extends mysql_db
 {
 	public function tambahtransklr($data)
 	{

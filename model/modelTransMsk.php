@@ -35,16 +35,7 @@ class modelTransMsk extends mysql_db
 		return $result;
 	}
 
-    public function bacaTransMsk()
-    {
-        $query = "select * from sedia_msk";
-        $result = $this->query($query);
-        echo '<option value="">-- Pilih Kode UAPB --</option>';
-        while ($row = $this->fetch_array($result))
-        {
-            echo '<option value="'.$row['kd_lokasi'].'">'.$row['kd_lok_msk'].' '.$row['thn_ang'].' '.$row['no_dok'].' '.$row['tgl_dok'].' '.$row['tgl_buku'].' '.$row['kd_brg'].' '.$row['kuantitas'].' '.$row['keterangan'].' '.$row['asal'].' '.$row['no_bukti'].' '.$row['jns_trans'].' '.$row['rph_sat']"</option>";
-        }   
-    }
+
     public function bacatable($data)
     {
         $query = "select * from sedia_msk
@@ -52,7 +43,7 @@ class modelTransMsk extends mysql_db
         $result = $this->query($query);
         while ($row = $this->fetch_assoc($result))
         {
-            $rows[] = [$row['kd_lokasi'],$row["kd_lok_msk"],$row["thn_ang"],$row["no_dok"],$row["tgl_dok"],$row["tgl_buku"],$row["kd_brg"],$row["kuantitas"],$row["keterangan"],$row["asal"],$row["no_bukti"],$row["jns_trans"],$row["rph_sat"]];
+            // $rows[] = [$row['kd_lokasi'],$row["kd_lok_msk"],$row["thn_ang"],$row["no_dok"],$row["tgl_dok"],$row["tgl_buku"],$row["kd_brg"],$row["kuantitas"],$row["keterangan"],$row["asal"],$row["no_bukti"],$row["jns_trans"],$row["rph_sat"]];
         }
         echo json_encode($rows);
     }

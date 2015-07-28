@@ -1,7 +1,7 @@
 <?php
-include('../../model/modelTndatgn.php');
+include('../../model/modelTndtgn.php');
 include('../../config/purifier.php');
-$Tndatgn = new modelTndatgn();
+$Tndatgn = new modelTndtgn();
 if (empty($_POST['manage'])) {
 	echo "Error Data Tidak Tersedia";
 }
@@ -28,14 +28,14 @@ else
 				"kd_lokasi" => $kdlokasi,
 				"kota" => $kota,
 				"tanggal" => $tanggal,
-				"nip" => $nip;
-				"nama" => $nama;
-				"jabatan" => $jabatan;
-				"nip2" => $nip2;
-				"nama2" => $nama2;
-				"jabatan2" => $jabatan2;
-				"tgl_isi" => $tgl_isi;
-				"tgl_setuju" => $tgl_setuju;
+				"nip" => $nip,
+				"nama" => $nama,
+				"jabatan" => $jabatan,
+				"nip2" => $nip2,
+				"nama2" => $nama2,
+				"jabatan2" => $jabatan2,
+				"tgl_isi" => $tgl_isi,
+				"tgl_setuju" => $tgl_setuju,
 		    	"unit" => $unit
 		    );
 			$Tndatgn->tambahtndatgn($data);
