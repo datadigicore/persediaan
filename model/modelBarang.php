@@ -1,6 +1,6 @@
 <?php
 include('../../utility/mysql_db.php');
-class modelKanwil extends mysql_db
+class modelBarang extends mysql_db
 {
 	public function tambahbrg($data)
 	{
@@ -22,17 +22,16 @@ class modelKanwil extends mysql_db
 	}
 
 
-	public function bacabrg($data)
+	public function bacasskel()
 	{
-		$query = "select * from brg";
+		$query = "select * from sskel";
         $result = $this->query($query);
-        echo '<option value="">-- Pilih Kode Barang --</option>';
+        echo '<option value="">-- Pilih Kode Sub Kelompok Barang --</option>';
 		while ($row = $this->fetch_array($result))
 		{
-			echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg']."</option>";
+			echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_sskel']."</option>";
 		}	
 	}
-
 
 
 	public function ubahbrg($data)

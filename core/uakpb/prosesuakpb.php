@@ -34,7 +34,7 @@ else
 			$kodeuapkpb = $purifier->purify($_POST['kduapkpb']);
 			$kodejk = $purifier->purify($_POST['kdjkel']);
 			$nmuakpb = $purifier->purify($_POST['nmuakpb']);
-			$kd_lokasi = $kodeuapb+$kodeuappbe1+$kodeuappbw+$kodeuakpb+$kodeuapkpb+$kodejk;
+			$kd_lokasi = $kodeuapb.''.$kodeuappbe1.''.$kodeuappbw.''.$kodeuakpb.''.$kodeuapkpb.''.$kodejk;
 
 			$data = array(
 				"kd_uapb" => $kodeuapb,

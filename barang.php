@@ -27,14 +27,14 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Data</h3>
                 </div>
-				<form action="core/barang/prosesbarang" method="post" class="form-horizontal" id="addbarang">
+				        <form action="core/barang/prosesbarang" method="post" class="form-horizontal" id="addbarang">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode Sub-sub Kelompok Barang</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kdsskel" class="form-control" id="kodesskel" placeholder="Masukkan Kode Barang">
-						  <input type="hidden" name="manage" value="addbarang">
+                        <select name="kdsskel" id="kdsskel" class="form-control">
                         </select>
+						              <input type="hidden" name="manage" value="addbarang">                   
                       </div>
                     </div>
                     <div class="form-group">
@@ -90,6 +90,14 @@
       $(function () {
         $(".treeview").addClass("active");
         $("li#barang").addClass("active");
+        $.ajax({
+          type: "post",
+          url: 'core/barang/prosesbarang',
+          data: {manage:'readsskel'},
+          success: function (output) {     
+            $('#kdsskel').html(output);
+          }
+        });
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,

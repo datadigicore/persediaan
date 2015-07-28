@@ -10,10 +10,14 @@ else
 	$manage = $_POST['manage'];
 	switch ($manage)
 	{
+		case 'readsskel':
+				$Barang->bacasskel();
+		break;
+
 		case 'addbarang':
 			$kdbarang = $purifier->purify($_POST['kdbarang']);
 			$kd_jbrg = $purifier->purify($_POST['kd_jbrg']);
-			$kd_brg = $kdbarang+$kd_jbrg;
+			$kd_brg = $kdbarang.''.$kd_jbrg;
 			$nm_brg = $purifier->purify($_POST['nmbarang']);
 			$satuan = $purifier->purify($_POST['satuan']);
 
@@ -29,15 +33,11 @@ else
 			$Barang->tambahbarang($data);
 		break;
 
-		case 'readksskel':
-				$kdsskel = $purifier->purify($_POST['kdkdsskel']);
-				$Barang->$bacasskel($kdsskel);
-		break;
 
 		case 'ubahbarang':
 			$kdbarang = $purifier->purify($_POST['kdbarang']);
 			$kd_jbrg = $purifier->purify($_POST['kd_jbrg']);
-			$kd_brg = $kdbarang+$kd_jbrg;
+			$kd_brg = $kdbarang.''.$kd_jbrg;
 			$nm_brg = $purifier->purify($_POST['nmbarang']);
 			$satuan = $purifier->purify($_POST['satuan']);
 

@@ -26,6 +26,16 @@ class modelKanwil extends mysql_db
         {
             echo '<option value="'.$row['kd_uapb'].'">'.$row['kd_uappbe1'].' '.$row['kd_kanwil'].' '.$row['nm_kanwil']."</option>";
         }   
+    }    
+    public function bacawilayah()
+    {
+        $query = "select * from wilayah";
+        $result = $this->query($query);
+        echo '<option value="">-- Pilih Kode Wilayah --</option>';
+        while ($row = $this->fetch_array($result))
+        {
+            echo '<option value="'.$row['kd_wil'].'">'.$row['kd_wil'].' '.$row['nm_wil']."</option>";
+        }   
     }
     public function bacatable($data)
     {
