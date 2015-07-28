@@ -27,23 +27,26 @@ else
 			$Uakpb->bacauappbw($data);		
 		break;
 		case 'adduakpb':
-			$kodeuapb = $purifier->purify($_POST['kodeuapb']);
-			$kodeuappbe1 = $purifier->purify($_POST['kodeuappbe1']);
-			$kodeuappbw = $purifier->purify($_POST['kodeuappbw']);
-			$kodeuakpb = $purifier->purify($_POST['kodeuakpb']);
-			$kodeuapkpb = $purifier->purify($_POST['kodeuapkpb']);
-			$kodejk = $purifier->purify($_POST['kodejk']);
-			$uraianuakpb = $purifier->purify($_POST['uraianuakpb']);
+			$kodeuapb = $purifier->purify($_POST['kduapb']);
+			$kodeuappbe1 = $purifier->purify($_POST['kduappbe1']);
+			$kodeuappbw = $purifier->purify($_POST['kduappbw']);
+			$kodeuakpb = $purifier->purify($_POST['kduakpb']);
+			$kodeuapkpb = $purifier->purify($_POST['kduapkpb']);
+			$kodejk = $purifier->purify($_POST['kdjkel']);
+			$nmuakpb = $purifier->purify($_POST['nmuakpb']);
+			$kd_lokasi = $kodeuapb+$kodeuappbe1+$kodeuappbw+$kodeuakpb+$kodeuapkpb+$kodejk;
 
-			$sql="insert into uakpb  values ('$kodeuapb','$kodeuappbe1','$kodeuappbw','$kodeuakpb','$kodeuapkpb','$kodejk','$uraianuakpb','asasasas')";
-			if ($connect->query($sql) === TRUE)
-			{
-			    echo "Data Berhasil Ditambahkan";
-			}
-			else
-			{
-			    echo "Error: " . $sql . "<br>" . $connect->error;
-			}
+			$data = array(
+				"kd_uapb" => $kodeuapb,
+				"kd_uappbe1" => $kodeuappbe1,
+				"kd_uappbw" => $kodeuappbw,
+				"kd_uakpb" => $kodeuakpb,
+				"kd_uapkpb" => $kodeuapkpb,
+				"jk" => $kodejk,
+			  	"nm_uakpb" => $nmuakpb,
+			  	"kd_lokasi" => $kd_lokasi
+			);
+			$Uakpb->tambahuakpb($data);
 		break;
 		default:
 			echo "Error Data Tidak Tersedia";

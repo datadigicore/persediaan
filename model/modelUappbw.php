@@ -15,7 +15,35 @@ class modelUappbw extends mysql_db
                     	nm_uappbw='$nm_uappbw'";
         $result = $this->query($query);
 		return $result;
+	}	
+
+	public function ubahuappbw($data)
+	{
+		$kd_uapb = $data['kd_uapb'];
+		$kd_uappbe1 = $data['kd_uappbe1'];
+		$kd_uappbw = $data['kd_uappbw'];
+		$nm_uappbw = $data['nm_uappbw'];
+		$query = "update uappbw
+        			set kd_uapb='$kd_uapb',
+        				kd_uappb='$kd_uappbe1',
+        				kd_uappbw='$kd_uappbw',
+                    	nm_uappbw='$nm_uappbw' where kd_uapb='$kd_uapb' and kd_uappb='$kd_uappbe1' ";
+        $result = $this->query($query);
+		return $result;
+	}	
+
+	public function hapusuappbw($data)
+	{
+		$kd_uapb = $data['kd_uapb'];
+		$kd_uappbe1 = $data['kd_uappbe1'];
+		$kd_uappbw = $data['kd_uappbw'];
+		$nm_uappbw = $data['nm_uappbw'];
+		$query = "delete from uappbw
+        			where kd_uapb='$kd_uapb' and kd_uappb='$kd_uappbe1' ";
+        $result = $this->query($query);
+		return $result;
 	}
+
 	public function bacauapb()
 	{
 		$query = "select * from uapb";

@@ -2,20 +2,78 @@
 include('../../utility/mysql_db.php');
 class modelUakpb extends mysql_db
 {
-	public function tambahuappbw($data)
+	public function tambahuakpb($data)
 	{
 		$kd_uapb = $data['kd_uapb'];
 		$kd_uappbe1 = $data['kd_uappbe1'];
 		$kd_uappbw = $data['kd_uappbw'];
-		$nm_uappbw = $data['nm_uappbw'];
-		$query = "insert into uappbw
+		$kd_uakpb = $data['kd_uakpb'];
+		$kd_uapkpb = $data['kd_uapkpb'];
+		$jk = $data['jk'];
+		$nm_uakpb = $data['nm_uakpb'];
+		$kd_lokasi = $data['kd_lokasi'];
+		
+		$query = "insert into uakpb
         			set kd_uapb='$kd_uapb',
-        				kd_uappb='$kd_uappbe1',
+        				kd_uappbe1='$kd_uappbe1',
         				kd_uappbw='$kd_uappbw',
-                    	nm_uappbw='$nm_uappbw'";
+        				kd_uakpb='$kd_uakpb',
+        				kd_uapkpb='$kd_uapkpb',
+        				jk='$jk',
+        				nm_uakpb='$nm_uakpb',
+                    	kd_lokasi='$kd_lokasi'";
+        $result = $this->query($query);
+		return $result;
+	} 	
+
+	public function ubahuakpb($data)
+	{
+		$kd_uapb = $data['kd_uapb'];
+		$kd_uappbe1 = $data['kd_uappbe1'];
+		$kd_uappbw = $data['kd_uappbw'];
+		$kd_uakpb = $data['kd_uakpb'];
+		$kd_uapkpb = $data['kd_uapkpb'];
+		$jk = $data['jk'];
+		$nm_uakpb = $data['nm_uakpb'];
+		$kd_lokasi = $data['kd_lokasi'];
+		
+		$query = "update uakpb
+        			set kd_uapb='$kd_uapb',
+        				kd_uappbe1='$kd_uappbe1',
+        				kd_uappbw='$kd_uappbw',
+        				kd_uakpb='$kd_uakpb',
+        				kd_uapkpb='$kd_uapkpb',
+        				jk='$jk',
+        				nm_uakpb='$nm_uakpb',
+                    	kd_lokasi='$kd_lokasi' 
+                    where kd_uapb='$kd_uapb' and
+        					kd_uappbe1='$kd_uappbe1' and
+        					kd_uappbw='$kd_uappbw' and
+        					kd_uakpb='$kd_uakpb' and kd_lokasi='$kd_lokasi' ";
+        $result = $this->query($query);
+		return $result;
+	}	
+	public function hapusuakpb($data)
+	{
+		$kd_uapb = $data['kd_uapb'];
+		$kd_uappbe1 = $data['kd_uappbe1'];
+		$kd_uappbw = $data['kd_uappbw'];
+		$kd_uakpb = $data['kd_uakpb'];
+		$kd_uapkpb = $data['kd_uapkpb'];
+		$jk = $data['jk'];
+		$nm_uakpb = $data['nm_uakpb'];
+		$kd_lokasi = $data['kd_lokasi'];
+		
+		$query = "delete from uakpb
+   
+                    where kd_uapb='$kd_uapb' and
+        					kd_uappbe1='$kd_uappbe1' and
+        					kd_uappbw='$kd_uappbw' and
+        					kd_uakpb='$kd_uakpb' and kd_lokasi='$kd_lokasi' ";
         $result = $this->query($query);
 		return $result;
 	}
+
 	public function bacauapb()
 	{
 		$query = "select * from uapb";
