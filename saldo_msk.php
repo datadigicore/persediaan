@@ -80,7 +80,7 @@
               </div>
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tabel Data UAPB</h3>
+                  <h3 class="box-title">Daftar Saldo Masuk</h3>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
@@ -105,7 +105,7 @@
     <script src="plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
-        $("li#uapb").addClass("active");
+        $("li#saldo_awal").addClass("active");
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
