@@ -63,14 +63,15 @@
               </div>
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tabel Data UAPB</h3>
+                  <h3 class="box-title">Tabel Data Pengelola</h3>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th width="14%">Kode UAPB</th>
-                        <th>Uraian UAPB</th>
+                        <th width="14%">Username</th>
+                        <th>Email</th>
+                        <th>Nama UAKPB</th>
                       </tr>
                     </thead>
                   </table>
@@ -92,11 +93,12 @@
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
-          "ajax": "core/loadtable/loaduapb",
+          "ajax": "core/loadtable/loaduser",
           "columnDefs":
           [
             {"targets": 0 },
-            {"targets": 1 }
+            {"targets": 1 },
+            {"targets": 2 }
           ],
         });
       });

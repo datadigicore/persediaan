@@ -10,7 +10,7 @@ class config {
     
     public $db_host = "localhost";
     public $db_user = "root";
-    public $db_pass = "m4st3r4dm1n";
+    public $db_pass = "";
     public $database = "persediaan_v1";
 
     public function open_connection() {
