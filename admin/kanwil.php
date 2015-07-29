@@ -116,7 +116,7 @@
       });
         $.ajax({
           type: "post",
-          url: '../core/uappbe/prosesuappbe',
+          url: '../core/uakpb/prosesuakpb',
           data: {manage:'readuapb'},
           success: function (output) {     
             $('#kodeuapb').html(output);

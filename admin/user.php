@@ -11,11 +11,11 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Unit Akuntansi Pengguna Barang
+            Tambah Pengelola Baru
             <small>Control Panel</small>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-table"></i> Tabel UAPB</a></li>
+            <li class="active"><a href="#"><i class="fa fa-table"></i> Tabel User UAKPB</a></li>
           </ol>
         </section>
         <section class="content">
@@ -23,21 +23,35 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tambah Data UAPB</h3>
+                  <h3 class="box-title">Tambah Data User UAKPB</h3>
                 </div>  
                 <form action="core/uapb/prosesuapb" method="post" class="form-horizontal" id="adduapb">
                   <div class="box-body">
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode UAPB</label>
+                      <label class="col-sm-2 control-label">User ID</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kduapb" class="form-control" id="kduapb" placeholder="Masukkan Kode UAPB">
-                        <input type="hidden" name="manage" value="adduapb">
+                        <input type="text" name="user_name" class="form-control" id="user_name" placeholder="Masukkan Kode UAPB">
+                        <input type="hidden" name="manage" value="adduser">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Uraian UAPB</label>
+                      <label class="col-sm-2 control-label">Password</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nmuapb" class="form-control" id="nmuapb" placeholder="Masukkan Uraian UAPB">
+                        <input type="password" name="user_pass" class="form-control" id="user_pass" placeholder="Masukkan Uraian UAPB">
+                      </div>
+                    </div>                    
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Konfirmasi Password</label>
+                      <div class="col-sm-9">
+                        <input type="password" name="konf_pass" class="form-control" id="konf_pass" placeholder="Masukkan Uraian UAPB">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Kode UAKPB</label>
+                      <div class="col-sm-9">
+                        <select name="kduakpb" id="kduakpb" class="form-control">
+                        </select>
+                        <input type="hidden" name="manage" value="adduappbe">
                       </div>
                     </div>
                   </div>
@@ -86,6 +100,14 @@
           ],
         });
       });
+        $.ajax({
+          type: "post",
+          url: '../core/uakpb/prosesuakpb',
+          data: {manage:'readuakpb'},
+          success: function (output) {     
+            $('#kduakpb').html(output);
+          }
+        });
       $('#adduapb').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
