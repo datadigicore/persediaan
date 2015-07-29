@@ -12,11 +12,11 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Unit Akuntansi Pengguna Barang
+            Persediaan Masuk
             <small>Control Panel</small>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-table"></i> Tabel UAPB</a></li>
+            <li class="active"><a href="#"><i class="fa fa-table"></i>Daftar Transaski Saldo Awal</a></li>
           </ol>
         </section>
         <section class="content">

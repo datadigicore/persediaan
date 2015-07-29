@@ -21,7 +21,7 @@ else
 			$nama2 = $purifier->purify($_POST['nama2']);
 			$jabatan2 = $purifier->purify($_POST['jabatan2']);
 			$tgl_isi = $purifier->purify($_POST['tgl_isi']);
-			$tgl_setuju = $purifier->purify($_POST['tgl_isi']);
+			$tgl_setuju = $purifier->purify($_POST['tgl_setuju']);
 			$unit = "1";
 			
 			$data = array(
@@ -38,7 +38,7 @@ else
 				"tgl_setuju" => $tgl_setuju,
 		    	"unit" => $unit
 		    );
-			$Tndatgn->tambahtndatgn($data);
+			$Tndatgn->tambahttd($data);
 		break;
 		default:
 			echo "Error Data Tidak Tersedia";

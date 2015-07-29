@@ -26,64 +26,62 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Penanggung Jawab UAKPB</h3>
                 </div>  
-                <form action="core/uapb" method="post" class="form-horizontal" id="adduapb">
+                <form action="core/tandatgn/prosestndatgn" method="post" class="form-horizontal" id="addtndatgn">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nama</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kodeuapb" class="form-control" id="kduapb" placeholder="">
-                        <input type="hidden" name="manage" value="adduapb">
+                        <input type="text" name="nama" class="form-control" id="nama" placeholder="">
+                        <input type="hidden" name="manage" value="addtndatgn">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Jabatan</label>
                       <div class="col-sm-9">
-                        <input type="text" name="uraianuapb" class="form-control" id="uraianuapb" placeholder="">
+                        <input type="text" name="jabatan" class="form-control" id="ujabatan" placeholder="">
                       </div>
                     </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">NIP</label>
                       <div class="col-sm-9">
-                        <input type="text" name="uraianuapb" class="form-control" id="uraianuapb" placeholder="">
+                        <input type="text" name="nip" class="form-control" id="nip" placeholder="">
                       </div>
                     </div>
                     <h4>Pengelola Barang Persediaan</h4>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nama</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kodeuapb" class="form-control" id="kduapb" placeholder="">
-                        <input type="hidden" name="manage" value="adduapb">
+                        <input type="text" name="nama2" class="form-control" id="nama2" placeholder="">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Jabatan</label>
                       <div class="col-sm-9">
-                        <input type="text" name="uraianuapb" class="form-control" id="uraianuapb" placeholder="">
+                        <input type="text" name="jabatan2" class="form-control" id="jabatan2" placeholder="">
                       </div>
                     </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">NIP</label>
                       <div class="col-sm-9">
-                        <input type="text" name="uraianuapb" class="form-control" id="uraianuapb" placeholder="">
+                        <input type="text" name="nip2" class="form-control" id="nip2" placeholder="">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kota</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kodeuapb" class="form-control" id="kduapb" placeholder="">
-                        <input type="hidden" name="manage" value="adduapb">
+                        <input type="text" name="kota" class="form-control" id="kota" placeholder="">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Isi</label>
                       <div class="col-sm-9">
-                        <input type="text" name="uraianuapb" class="form-control" id="uraianuapb" placeholder="">
+                        <input type="text" name="tgl_isi" class="form-control" id="tgl_isi" placeholder="">
                       </div>
                     </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Setuju</label>
                       <div class="col-sm-9">
-                        <input type="text" name="uraianuapb" class="form-control" id="uraianuapb" placeholder="">
+                        <input type="text" name="tgl_setuju" class="form-control" id="tgl_setuju" placeholder="">
                       </div>
                     </div>
                   </div>
