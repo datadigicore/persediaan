@@ -83,6 +83,17 @@ class modelUakpb extends mysql_db
 		{
 			echo '<option value="'.$row['kd_uapb'].'">'.$row['kd_uapb'].' '.$row['nm_uapb']."</option>";
 		}	
+	}	
+
+	public function bacauakpb()
+	{
+		$query = "select * from uakpb";
+        $result = $this->query($query);
+        echo '<option value="">-- Pilih Kode UAKPB --</option>';
+		while ($row = $this->fetch_array($result))
+		{
+			echo '<option value="'.$row['kd_lokasi'].'">'.$row['kd_lokasi'].' '.$row['nm_uakpb']."</option>";
+		}	
 	}
 	public function bacauappbe($data)
 	{

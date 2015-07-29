@@ -22,9 +22,9 @@
               <a href="#"><i class="fa fa-link"></i> <span>Persediaan Masuk</span> <i class="fa fa-angle-left pull-right"></i></a>            
               <ul class="treeview-menu">
                 <li id="saldo_awal"><a href="saldo_msk"><span>Saldo Awal</span></a></li>
-                <li id="pembelian"><a href="saldo_msk"><span>Pembelian</span></a></li>
-                <li id="trf_msk"><a href="saldo_msk"><span>Transfer Masuk</span></a></li>
-                <li id="hbh_msk"><a href="saldo_msk"><span>Hibah Masuk</span></a></li>
+                <li id="pembelian"><a href="pembelian"><span>Pembelian</span></a></li>
+                <li id="trf_msk"><a href="trf_msk"><span>Transfer Masuk</span></a></li>
+                <li id="hbh_msk"><a href="hibah_msk"><span>Hibah Masuk</span></a></li>
                 <li id="rampasan"><a href="saldo_msk"><span>Rampasan</span></a></li>
                 <li id="prlhn_lain"><a href="saldo_msk"><span>Perolehan Lain</span></a></li>
               </ul>

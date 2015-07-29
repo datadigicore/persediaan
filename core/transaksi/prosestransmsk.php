@@ -15,7 +15,7 @@ else
 		break;
 		case 'addtransmsk':
 			$kd_lokasi = "TEST";
-			$kd_lok_msk = $purifier->purify($_POST['kd_lok_msk']);
+			$kd_lok_msk = $purifier->purify($_POST['kduakpb']);
 			$thn_ang = $purifier->purify($_POST['thn_ang']);
 			$no_dok = $purifier->purify($_POST['no_dok']);
 			$tgl_dok = $purifier->purify($_POST['tgl_dok']);

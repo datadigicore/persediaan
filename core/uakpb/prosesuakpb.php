@@ -26,6 +26,9 @@ else
 			);
 			$Uakpb->bacauappbw($data);		
 		break;
+		case 'readuakpb':
+			$Uakpb->bacauakpb();
+		break;
 		case 'adduakpb':
 			$kodeuapb = $purifier->purify($_POST['kduapb']);
 			$kodeuappbe1 = $purifier->purify($_POST['kduappbe1']);
