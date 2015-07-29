@@ -2,7 +2,7 @@
 <html>
   <head>
     <?php include("include/loadcss.php"); ?>
-    <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
   </head>
   <body class="skin-blue layout-boxed">
     <div class="wrapper">
@@ -25,7 +25,7 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Data</h3>
                 </div>  
-                <form action="core/uappbe/prosesuappbe" method="post" class="form-horizontal" id="adduappbe">
+                <form action="../core/uappbe/prosesuappbe" method="post" class="form-horizontal" id="adduappbe">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPB</label>
@@ -65,6 +65,7 @@
                         <th width="18%">Kode UAPB</th>
                         <th width="18%">Kode UAPPB-E1</th>
                         <th>Uraian UAPPB-E1</th>
+                        <th width="9%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -78,15 +79,15 @@
       <?php include("include/success.php"); ?>
     </div>
     <?php include("include/loadjs.php"); ?>
-    <script src="plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
-    <script src="plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       var table;
       $(function () {
         $("li#uappbe").addClass("active");
         $.ajax({
           type: "post",
-          url: 'core/uappbw/prosesuappbw',
+          url: '../core/uappbw/prosesuappbw',
           data: {manage:'readuapb'},
           success: function (output) {     
             $('#kduapb').html(output);
@@ -95,12 +96,19 @@
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
-          "ajax": "core/loadtable/loaduappbe",
+          "ajax": "../core/loadtable/loaduappbe",
           "columnDefs":
           [
             {"targets": 0 },
             {"targets": 1 },
-            {"targets": 2 }
+            {"targets": 2 },
+            {"orderable": false,
+             "data": null,
+             "defaultContent":  '<div class="box-tools">'+
+                                  '<button class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                  '<button class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                '</div>',
+             "targets": [3],"targets": 3 }
           ],
         });
         $('#kduapb').change(function(){
@@ -110,14 +118,8 @@
             $("#example1").DataTable({
               "processing": false,
               "serverSide": true,
-              "ajax": "core/loadtable/loaduappbe",
+              "ajax": "../core/loadtable/loaduappbe",
               "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
-              "columnDefs":
-              [
-                {"targets": 0 },
-                {"targets": 1 },
-                {"targets": 2 }
-              ],
             });
           }
           else{
@@ -126,7 +128,7 @@
             $("#example1 tbody").empty();
             $.ajax({
               type: "post",
-              url: 'core/uappbe/prosesuappbe',
+              url: '../core/uappbe/prosesuappbe',
               data: {manage:'readtable',kduapb:kduapb},
               success: function (output) {
                 var dataoutput = JSON.parse(output);   
