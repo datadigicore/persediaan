@@ -99,7 +99,7 @@ class modelUakpb extends mysql_db
 	{
 		$query = "select y.kd_uapb, y.kd_uappb, x.nm_uappbe1
 					from (select kd_uapb, kd_uappbe1, nm_uappbe1 from uappbe1 where kd_uapb = '$data') as x
-					inner join (SELECT kd_uapb, kd_uappb FROM uappbw WHERE kd_uapb = '$data') as y
+					inner join (SELECT kd_uapb, kd_uappb FROM uappbw WHERE kd_uapb = '$data' group by kd_uappb) as y
 					where x.kd_uappbe1 = y.kd_uappb";
 		$result = $this->query($query);
 		echo '<option value="">-- Pilih Kode UAPPB-E1 --</option>';

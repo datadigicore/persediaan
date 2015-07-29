@@ -2,7 +2,7 @@
 <html>
   <head>
     <?php include("include/loadcss.php"); ?>
-    <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
   </head>
   <body class="skin-blue layout-boxed">
     <div class="wrapper">
@@ -25,7 +25,7 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Data</h3>
                 </div>
-                <form action="core/uakpb/prosesuakpb" method="post" class="form-horizontal" id="adduakpb">
+                <form action="../core/uakpb/prosesuakpb" method="post" class="form-horizontal" id="adduakpb">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPB</label>
@@ -54,7 +54,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAKPB</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kduakpb" class="form-control" id="kduakpb" placeholder="Masukkan Uraian UAKPB">
+                        <input type="text" name="kduakpb" class="form-control" id="kduakpb" placeholder="Masukkan Kode UAKPB">
                       </div>
                     </div>
                     <div class="form-group">
@@ -66,7 +66,13 @@
 					          <div class="form-group">
                       <label class="col-sm-2 control-label">Kode JK</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kdjkel" class="form-control" id="kdjkel" placeholder="Masukkan Kode JK">
+                        <select name="kdjk" id="kdjk" class="form-control">
+                          <option value="">-- Pilih Kode Jenis Kantor --</option>
+                          <option value="KD">KD  Kantor Daerah</option>
+                          <option value="KP">KP  Kantor Pusat</option>
+                          <option value="DK">DK  Dekonsentrasi</option>
+                          <option value="TP">TP  Tugas Pembantuan</option>
+                          <option value="UB">UB  Urusan Bersama</option>
                         </select>
                       </div>
                     </div>
@@ -86,7 +92,7 @@
               <div class="box box-danger">
                 <div class="box-header with-border">
                   <h3 class="box-title">Tabel Data UAKPB</h3>
-                </div><!-- /.box-header -->
+                </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
@@ -98,6 +104,7 @@
                         <th width="10%">UAPKPB</th>
                         <th width="10%">JK</th>
                         <th>Uraian UAKPB</th>
+                        <th width="9%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -110,14 +117,14 @@
       <?php include("include/footer.php"); ?>
     </div>
     <?php include("include/loadjs.php"); ?>
-    <script src="plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
-    <script src="plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
         $("li#uakpb").addClass("active");
         $.ajax({
           type: "post",
-          url: 'core/uakpb/prosesuakpb',
+          url: '../core/uakpb/prosesuakpb',
           data: {manage:'readuapb'},
           success: function (output) {     
             $('#kduapb').html(output);
@@ -126,7 +133,7 @@
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
-          "ajax": "core/loadtable/loaduakpb",
+          "ajax": "../core/loadtable/loaduakpb",
           "columnDefs":
           [
             {"targets": 0 },
@@ -135,7 +142,14 @@
       			{"targets": 3 },
       			{"targets": 4 },
       			{"targets": 5 },
-      			{"targets": 6 }
+      			{"targets": 6 },
+            {"orderable": false,
+             "data": null,
+             "defaultContent":  '<div class="box-tools">'+
+                                  '<button class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                  '<button class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                '</div>',
+             "targets": [7],"targets": 7 }
           ],
         });
       });
@@ -145,10 +159,11 @@
           $('#kduappbw').html('<option value="">-- Pilih Kode UAPPB-E1 Terlebih Dahulu --</option>');
         }
         else {
+          $('#kduappbw').html('<option value="">-- Pilih Kode UAPPB-E1 Terlebih Dahulu --</option>');
           var kduapb = $(this).val();
           $.ajax({
             type: "post",
-            url: 'core/uakpb/prosesuakpb',
+            url: '../core/uakpb/prosesuakpb',
             data: {manage:'readuappbe',kduapb:kduapb},
             success: function (output) {
               $('#kduappbe').html(output);
@@ -165,7 +180,7 @@
           var kduappbe = $(this).val();
           $.ajax({
             type: "post",
-            url: 'core/uakpb/prosesuakpb',
+            url: '../core/uakpb/prosesuakpb',
             data: {manage:'readuappbw',kduapb:kduapb,kduappbe:kduappbe},
             success: function (output) {
               $('#kduappbw').html(output);
