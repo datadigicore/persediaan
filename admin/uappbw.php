@@ -1,9 +1,8 @@
-<?php include("config/app.php"); ?>
 <!DOCTYPE html>
 <html>
   <head>
     <?php include("include/loadcss.php"); ?>
-    <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
   </head>
   <body class="skin-blue layout-boxed">
     <div class="wrapper">
@@ -12,40 +11,49 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Unit Akuntansi Pembantu Pengguna Barang - Eselon 1
+            Unit Akuntansi Pembantu Pengguna Barang - Wilayah
             <small>Control Panel</small>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-table"></i> Tabel UAPPB-E1</a></li>
+            <li class="active"><a href="#"><i class="fa fa-table"></i> Tabel UAPPB-Wilayah</a></li>
           </ol>
         </section>
         <section class="content">
           <div class="row">
             <section class="col-lg-12 connectedSortable">
-              <div class="box box-success">
+              <div class="box box-warning">
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Data</h3>
                 </div>  
-                <form action="core/uappbe/prosesuappbe" method="post" class="form-horizontal" id="adduappbe">
+                <form action="../core/uappbw/prosesuappbw" method="post" class="form-horizontal" id="adduappbw">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPB</label>
                       <div class="col-sm-9">
+                        <input type="hidden" name="manage" value="adduappbw">
                         <select name="kduapb" id="kduapb" class="form-control">
                         </select>
-                        <input type="hidden" name="manage" value="adduappbe">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPPB-E1</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kduappbe" id="kduappbe" class="form-control" placeholder="Masukkan Kode UAPPB-E1">
+                        <select name="kduappbe" id="kodeuappbe" class="form-control">
+                          <option value="">-- Pilih Kode UAPB Terlebih Dahulu --</option>
+                        </select>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Uraian UAPPB-E1</label>
+                      <label class="col-sm-2 control-label">Kode UAPPB-W</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nmuappbe" id="nmuappbe" class="form-control" placeholder="Masukkan Uraian UAPPB-E1">
+                        <select name="kduappbw" id="kodewil" class="form-control">
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Uraian UAPPB-W</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="nmuappbw" class="form-control" id="nmuappbw" placeholder="Masukkan Uraian UAPPB-E1">
                       </div>
                     </div>
                   </div>
@@ -55,17 +63,19 @@
                   </div>
                 </form>
               </div>
-              <div class="box box-success">
+              <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Tabel Data UAPPB-E1</h3>
+                  <h3 class="box-title">Tabel Data UAPPB-W</h3>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th width="18%">Kode UAPB</th>
-                        <th width="18%">Kode UAPPB-E1</th>
-                        <th>Uraian UAPPB-E1</th>
+                        <th width="14%">UAPB</th>
+                        <th width="14%">UAPPB-E1</th>
+                        <th width="14%">UAPPB-W</th>
+                        <th>Uraian UAPPB-W</th>
+                        <th width="9%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -79,67 +89,64 @@
       <?php include("include/success.php"); ?>
     </div>
     <?php include("include/loadjs.php"); ?>
-    <script src="plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
-    <script src="plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-      var table;
       $(function () {
-        $("li#uappbe").addClass("active");
+        $("li#uappbw").addClass("active");
         $.ajax({
           type: "post",
-          url: 'core/uappbw/prosesuappbw',
+          url: '../core/uappbw/prosesuappbw',
           data: {manage:'readuapb'},
           success: function (output) {     
             $('#kduapb').html(output);
           }
         });
+        $.ajax({
+          type: "post",
+          url: '../core/uappbw/prosesuappbw',
+          data: {manage:'readwil'},
+          success: function (output) {     
+            $('#kodewil').html(output);
+          }
+        });
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
-          "ajax": "core/loadtable/loaduappbe",
+          "ajax": "../core/loadtable/loaduappbw",
           "columnDefs":
           [
             {"targets": 0 },
             {"targets": 1 },
-            {"targets": 2 }
+            {"targets": 2 },
+            {"targets": 3 },
+            {"orderable": false,
+             "data": null,
+             "defaultContent":  '<div class="box-tools">'+
+                                  '<button class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                  '<button class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                '</div>',
+             "targets": [4],"targets": 4 }
           ],
         });
-        $('#kduapb').change(function(){
-          if($(this).val()==''){
-            $("#example1").DataTable().destroy();
-            $("#example1 tbody").empty();
-            $("#example1").DataTable({
-              "processing": false,
-              "serverSide": true,
-              "ajax": "core/loadtable/loaduappbe",
-              "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
-              "columnDefs":
-              [
-                {"targets": 0 },
-                {"targets": 1 },
-                {"targets": 2 }
-              ],
-            });
-          }
-          else{
-            var kduapb = $(this).val();
-            $("#example1").DataTable().destroy();
-            $("#example1 tbody").empty();
-            $.ajax({
-              type: "post",
-              url: 'core/uappbe/prosesuappbe',
-              data: {manage:'readtable',kduapb:kduapb},
-              success: function (output) {
-                var dataoutput = JSON.parse(output);   
-                $("#example1").DataTable({
-                  "data" : dataoutput
-                });
-              }
-            });
-          }
-        });
       });
-      $('#adduappbe').submit(function(e){
+      $('#kduapb').change(function(){
+        if ($(this).val()=='') {
+          $('#kodeuappbe').html('<option value="">-- Pilih Kode UAPB Terlebih Dahulu --</option>');
+        }
+        else {
+          var kduapb = $(this).val();
+          $.ajax({
+            type: "post",
+            url: '../core/uappbw/prosesuappbw',
+            data: {manage:'readuappbe',kduapb:kduapb},
+            success: function (output) {
+              $('#kodeuappbe').html(output);
+            }
+          });
+        }
+      });
+      $('#adduappbw').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
@@ -147,7 +154,7 @@
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "2600";
-        redirectURL = "uappbe";
+        redirectURL = "uappbw";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({

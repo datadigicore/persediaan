@@ -1,9 +1,8 @@
-<?php include("config/app.php"); ?>
 <!DOCTYPE html>
 <html>
   <head>
     <?php include("include/loadcss.php"); ?>
-    <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
   </head>
   <body class="skin-blue layout-boxed">
     <div class="wrapper">
@@ -26,7 +25,7 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Data UAPB</h3>
                 </div>  
-                <form action="core/uapb/prosesuapb" method="post" class="form-horizontal" id="adduapb">
+                <form action="../core/uapb/prosesuapb" method="post" class="form-horizontal" id="adduapb">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPB</label>
@@ -58,6 +57,7 @@
                       <tr>
                         <th width="14%">Kode UAPB</th>
                         <th>Uraian UAPB</th>
+                        <th width="9%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -71,19 +71,26 @@
       <?php include("include/success.php"); ?>
     </div>
     <?php include("include/loadjs.php"); ?>
-    <script src="plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
-    <script src="plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
         $("li#uapb").addClass("active");
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
-          "ajax": "core/loadtable/loaduapb",
+          "ajax": "../core/loadtable/loaduapb",
           "columnDefs":
           [
             {"targets": 0 },
-            {"targets": 1 }
+            {"targets": 1 },
+            {"orderable": false,
+             "data": null,
+             "defaultContent":  '<div class="box-tools">'+
+                                  '<button class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                  '<button class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                '</div>',
+             "targets": [2],"targets": 2 }
           ],
         });
       });

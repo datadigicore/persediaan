@@ -1,4 +1,3 @@
-<?php include("config/app.php"); ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -12,12 +11,12 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Daftar Wilayah
+            Daftar Jenis Transaksi
             <small>Control Panel</small>
           </h1>
           <ol class="breadcrumb">
             <li><i class="fa fa-link"></i> Lain - lain</li>
-            <li class="active"><a href="#"><i class="fa fa-table"></i> Wilayah</a></li>
+            <li class="active"><a href="#"><i class="fa fa-table"></i> Jenis Transaksi</a></li>
           </ol>
         </section>
         <section class="content">
@@ -27,38 +26,20 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Data</h3>
                 </div>  
-                <form action="core/wilayah/proseswilayah" method="post" class="form-horizontal" id="addwil">
-                  <div class="box-body">
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode Wilayah</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="kodewil" class="form-control" id="kdwil" placeholder="Masukkan Kode Wilayah">
-                        <input type="hidden" name="manage" value="addwil">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Uraian Wilayah</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="uraianwil" class="form-control" id="uraianwil" placeholder="Masukkan Uraian Wilayah">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="box-footer">
-                    <button type="Reset" class="btn btn-default">Reset</button>
-                    <button type="submit" class="btn btn-info pull-right">Submit</button>
-                  </div>
-                </form> 
+                <div class="box-body">
+                  
+                </div>  
               </div>
               <div class="box box-info">
                 <div class="box-header">
-                  <h3 class="box-title">Tabel Daftar Wilayah</h3>
-                </div>
+                  <h3 class="box-title">Tabel Daftar Jenis Transaksi</h3>
+                </div><!-- /.box-header -->
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th width="14%">Kode Wilayah</th>
-                        <th>Uraian Wilayah</th>
+                        <th width="14%">Kode Transaksi</th>
+                        <th>Uraian Transaksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -76,11 +57,11 @@
     <script type="text/javascript">
       $(function () {
         $(".treeview").addClass("active");
-        $("li#wilayah").addClass("active");
+        $("li#transaksi").addClass("active");
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
-          "ajax": "core/loadtable/loadwilayah",
+          "ajax": "core/loadtable/loadjnstrans",
           "columnDefs":
           [
             {"targets": 0 },

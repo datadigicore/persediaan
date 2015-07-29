@@ -1,4 +1,3 @@
-<?php include("config/app.php"); ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -12,11 +11,11 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Unit Akuntansi Pengguna Barang
+            Persediaan Masuk
             <small>Control Panel</small>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-table"></i> Tabel UAPB</a></li>
+            <li class="active"><a href="#"><i class="fa fa-table"></i>Daftar Transaski Saldo Awal</a></li>
           </ol>
         </section>
         <section class="content">
@@ -24,64 +23,61 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Penanggung Jawab UAKPB</h3>
+                  <h3 class="box-title">Tambah Transaksi Saldo Awal</h3>
                 </div>  
-                <form action="core/tandatgn/prosestndatgn" method="post" class="form-horizontal" id="addtndatgn">
+                <form action="core/transaksi/prosestransmsk" method="post" class="form-horizontal" id="addtransmsk">
                   <div class="box-body">
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Nama</label>
+                      <label class="col-sm-2 control-label">Nomor Dokumen</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nama" class="form-control" id="nama" placeholder="">
-                        <input type="hidden" name="manage" value="addtndatgn">
+                        <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="Seharsnya No. Dok Auto Generated">
+                        <input type="hidden" name="manage" value="addtransmsk">
+                      </div>
+                    </div> 
+                    <div class="form-group">                     
+                    <label class="col-sm-2 control-label">Nomor Bukti</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor BUkti">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Jabatan</label>
+                      <label class="col-sm-2 control-label">Tanggal Dokumen</label>
                       <div class="col-sm-9">
-                        <input type="text" name="jabatan" class="form-control" id="ujabatan" placeholder="">
+                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen">
                       </div>
                     </div>                    
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">NIP</label>
+                      <label class="col-sm-2 control-label">Tanggal Buku</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nip" class="form-control" id="nip" placeholder="">
+                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku">
+                      </div> 
+                    </div>                   
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Kode Barang</label>
+                      <div class="col-sm-9">
+                        <select name="kd_brg" id="kd_brg" class="form-control">
+                        </select>
                       </div>
                     </div>
-                    <h4>Pengelola Barang Persediaan</h4>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Nama</label>
+
+
+
+                  <div class="form-group">
+                      <label class="col-sm-2 control-label">Jumlah Masuk</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nama2" class="form-control" id="nama2" placeholder="">
+                        <input type="text" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Masuk">
                       </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Jabatan</label>
+                    </div>                  
+                  <div class="form-group">
+                      <label class="col-sm-2 control-label">Harga Beli Satuan</label>
                       <div class="col-sm-9">
-                        <input type="text" name="jabatan2" class="form-control" id="jabatan2" placeholder="">
+                        <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="Masukkan Jumlah Masuk">
                       </div>
-                    </div>                    
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">NIP</label>
+                    </div>                  
+                  <div class="form-group">
+                      <label class="col-sm-2 control-label">Keterangan</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nip2" class="form-control" id="nip2" placeholder="">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Kota</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="kota" class="form-control" id="kota" placeholder="">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Tanggal Isi</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="tgl_isi" class="form-control" id="tgl_isi" placeholder="">
-                      </div>
-                    </div>                    
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Tanggal Setuju</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="tgl_setuju" class="form-control" id="tgl_setuju" placeholder="">
+                        <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Keterangan">
                       </div>
                     </div>
                   </div>
@@ -91,8 +87,21 @@
                   </div>
                 </form>
               </div>
-
-              </div> 
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Daftar Saldo Masuk</h3>
+                </div>
+                <div class="box-body">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th width="14%">Kode UAPB</th>
+                        <th>Uraian UAPB</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
             </section>
           </div>
         </section>
@@ -105,7 +114,7 @@
     <script src="plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
-        $("li#uapb").addClass("active");
+        $("li#saldo_awal").addClass("active");
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
@@ -117,6 +126,14 @@
           ],
         });
       });
+       $.ajax({
+          type: "post",
+          url: 'core/transaksi/prosestransmsk',
+          data: {manage:'readbrg'},
+          success: function (output) {     
+            $('#kd_brg').html(output);
+          }
+       });
       $('#adduapb').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',

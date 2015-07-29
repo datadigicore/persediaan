@@ -51,9 +51,10 @@ class modelUappbe extends mysql_db
 		$query = "select * from uappbe1
         			where kd_uapb = '$data'";
         $result = $this->query($query);
+        $button = '<div class="box-tools"><button class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button></div>';
         while ($row = $this->fetch_assoc($result))
 		{
-			//$rows[] = [$row['kd_uapb'],$row["kd_uappbe1"],$row["nm_uappbe1"]];
+			$rows[] = [$row['kd_uapb'],$row["kd_uappbe1"],$row["nm_uappbe1"],$button];
 		}
 		echo json_encode($rows);		
 	}
