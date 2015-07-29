@@ -2,7 +2,7 @@
 <html>
   <head>
     <?php include("include/loadcss.php"); ?>
-    <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
   </head>
   <body class="skin-blue layout-boxed">
     <div class="wrapper">
@@ -22,7 +22,7 @@
         <section class="content">
           <div class="row">
             <section class="col-lg-12 connectedSortable">
-              <div class="box box-info">
+              <div class="box box-primary">
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Data</h3>
                 </div>  
@@ -63,7 +63,7 @@
                   </div>
                 </form>   
               </div>
-              <div class="box box-info">
+              <div class="box box-primary">
                 <div class="box-header">
                   <h3 class="box-title">Tabel Daftar Kantor Wilayah</h3>
                 </div>
@@ -75,6 +75,7 @@
                         <th width="18%">Kode UAPPB-E1</th>
                         <th width="14%">Kode Kanwil</th>
                         <th>Uraian Kantor Wilayah</th>
+                        <th width="9%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -102,7 +103,14 @@
             {"targets": 0 },
             {"targets": 1 },
             {"targets": 2 },
-            {"targets": 3 }
+            {"targets": 3 },
+            {"orderable": false,
+             "data": null,
+             "defaultContent":  '<div class="box-tools">'+
+                                  '<button class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                  '<button class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                '</div>',
+             "targets": [4],"targets": 4 }
           ],
         });
       });
