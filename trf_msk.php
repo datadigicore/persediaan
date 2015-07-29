@@ -26,7 +26,7 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Transaksi Saldo Awal</h3>
                 </div>  
-                <form action="core/transaksi/prosestransmsk" method="post" class="form-horizontal" id="addtransmsk">
+                <form action="core/transaksi/prosestransmsk" method="post" class="form-horizontal" id="addtrfmsk">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>
@@ -151,7 +151,7 @@
             $('#kduakpb').html(output);
           }
        });
-      $('#adduapb').submit(function(e){
+      $('#addtrfmsk').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
