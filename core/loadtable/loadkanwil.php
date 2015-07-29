@@ -20,6 +20,8 @@ $columns = array(
  
 // Settingan Koneksi Datatable
 require('../../config/dbconf.php');
+$config = new config();
+$sql_details = $config->sql_details();
  
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp.class.php' );
