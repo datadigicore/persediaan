@@ -132,12 +132,46 @@
             $("#uruappbe"+kduapb_row+kduappbe_row+"").val(uruappbe_row);
           }
         });
+        $(document).on('click', '#btnhps', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+        redirectTime = "2600";
+        redirectURL = "uappbe";
+        kduapb_row = row.data()[0];
+        kduappbe_row = row.data()[1];
+        managedata = "deluappbe";
+        job=confirm("Anda yakin ingin menghapus data ini?");
+          if(job!=true){
+            return false;
+          }
+          else{
+            $('#myModal').modal({
+              backdrop: 'static',
+              keyboard: false
+            });
+            $('#myModal').modal('show');
+            $.ajax({
+              type: "post",
+              url : "../core/uappbe/prosesuappbe",
+              data: {manage:managedata,kduapb:kduapb_row,kduappbe:kduappbe_row},
+              success: function(data)
+              {
+                $("#success-alert").alert();
+                $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+                $("#success-alert").alert('close');
+                });
+                setTimeout("location.href = redirectURL;",redirectTime); 
+              }
+            });
+            return false;
+          }
+        });
         function format ( d ) {
           return '<div class="slider">'+
-          '<form action="../core/uapb/prosesuapb" method="post" class="form-horizontal" id="upduapb">'+
+          '<form action="../core/uappbe/prosesuappbe" method="post" class="form-horizontal" id="upduappbe">'+
           '<table width="100%">'+
              '<tr>'+
-                '<input type="hidden" name="manage" value="upduapb">'+
+                '<input type="hidden" name="manage" value="upduappbe">'+
                 '<td width="18.5%"><input style="width:90%" id="kduapb'+d[0]+d[1]+'" name="updkduapb" class="form-control" type="text" placeholder="Kode UAPB"></td>'+
                 '<td width="18.5%"><input style="width:90%" id="kduappbe'+d[0]+d[1]+'" name="updkduappbe" class="form-control" type="text" placeholder="Kode UAPPB-E1"></td>'+
                 '<td><input style="width:96%" id="uruappbe'+d[0]+d[1]+'" name="upduruappbe" class="form-control" type="text" placeholder="Uraian UAPPB-E1"></td>'+
@@ -151,6 +185,35 @@
           '</table>'+
           '</form></div>';
         }
+        $(document).on('submit', '#upduappbe', function (e) {
+          $('#myModal').modal({
+            backdrop: 'static',
+            keyboard: false
+          });
+          $('#myModal').modal('show');
+          e.preventDefault();
+          redirectTime = "2600";
+          redirectURL = "uappbe";
+          var formURL = $(this).attr("action");
+          var addData = new FormData(this);
+          $.ajax({
+            type: "post",
+            data: addData,
+            url : formURL,
+            contentType: false,
+            cache: false,  
+            processData: false,
+            success: function(data)
+            {
+              $("#success-alert").alert();
+              $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+              $("#success-alert").alert('close');
+              });
+              setTimeout("location.href = redirectURL;",redirectTime); 
+            }
+          });
+          return false;
+        });
         $('#kduapb').change(function(){
           if($(this).val()==''){
             $("#example1").DataTable().destroy();
