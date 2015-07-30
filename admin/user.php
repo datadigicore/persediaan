@@ -25,25 +25,31 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Data User UAKPB</h3>
                 </div>  
-                <form action="core/uapb/prosesuapb" method="post" class="form-horizontal" id="adduapb">
+                <form action="../core/user/prosesuser" method="post" class="form-horizontal" id="adduser">
                   <div class="box-body">
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">User ID</label>
+                      <label class="col-sm-2 control-label">User Name</label>
                       <div class="col-sm-9">
-                        <input type="text" name="user_name" class="form-control" id="user_name" placeholder="Masukkan Kode UAPB">
+                        <input type="text" name="user_name" class="form-control" id="user_name" placeholder="Masukkan User Name">
                         <input type="hidden" name="manage" value="adduser">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Password</label>
                       <div class="col-sm-9">
-                        <input type="password" name="user_pass" class="form-control" id="user_pass" placeholder="Masukkan Uraian UAPB">
+                        <input type="password" name="user_pass" class="form-control" id="user_pass" placeholder="Masukkan Password">
                       </div>
                     </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Konfirmasi Password</label>
                       <div class="col-sm-9">
-                        <input type="password" name="konf_pass" class="form-control" id="konf_pass" placeholder="Masukkan Uraian UAPB">
+                        <input type="password" name="konf_pass" class="form-control" id="konf_pass" placeholder="Konfirmasi Pasword">
+                      </div>
+                    </div>                    
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Email</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="email" class="form-control" id="email" placeholder="Masukkan Email">
                       </div>
                     </div>
                     <div class="form-group">
@@ -51,7 +57,7 @@
                       <div class="col-sm-9">
                         <select name="kduakpb" id="kduakpb" class="form-control">
                         </select>
-                        <input type="hidden" name="manage" value="adduappbe">
+
                       </div>
                     </div>
                   </div>
@@ -93,7 +99,7 @@
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
-          "ajax": "core/loadtable/loaduser",
+          "ajax": "../core/loadtable/loaduser",
           "columnDefs":
           [
             {"targets": 0 },
@@ -110,7 +116,7 @@
             $('#kduakpb').html(output);
           }
         });
-      $('#adduapb').submit(function(e){
+      $('#adduser').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
