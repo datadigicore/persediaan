@@ -22,25 +22,16 @@
         <section class="content">
           <div class="row">
             <section class="col-lg-12 connectedSortable">
-              <!-- <div class="box box-info">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Tambah Data</h3>
-                </div>  
-                <div class="box-body">
-                  
-                </div>  
-              </div> -->
               <div class="box box-primary">
                 <div class="box-header">
                   <h3 class="box-title">Tabel Daftar Jenis Transaksi</h3>
-                </div><!-- /.box-header -->
+                </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                         <th width="14%">Kode Transaksi</th>
                         <th>Uraian Transaksi</th>
-                        <th width="9%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -66,14 +57,7 @@
           "columnDefs":
           [
             {"targets": 0 },
-            {"targets": 1 },
-            {"orderable": false,
-             "data": null,
-             "defaultContent":  '<div class="box-tools">'+
-                                  '<button class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
-                                  '<button class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
-                                '</div>',
-             "targets": [2],"targets": 2 }
+            {"targets": 1 }
           ],
         });
       });

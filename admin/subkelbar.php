@@ -30,10 +30,9 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th width="14%">Kode Barang</th>
+                        <th width="16%">Kode Barang</th>
                         <th>Uraian Sub-Sub Kelompok Barang</th>
                         <th width="14%">Satuan</th>
-                        <th width="9%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -60,14 +59,7 @@
           [
             {"targets": 0 },
             {"targets": 1 },
-            {"targets": 2 },
-            {"orderable": false,
-             "data": null,
-             "defaultContent":  '<div class="box-tools">'+
-                                  '<button class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
-                                  '<button class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
-                                '</div>',
-             "targets": [3],"targets": 3 }
+            {"targets": 2 }
           ],
         });
       });

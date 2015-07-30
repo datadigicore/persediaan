@@ -31,14 +31,14 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode Wilayah</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kodewil" class="form-control" id="kdwil" placeholder="Masukkan Kode Wilayah">
+                        <input type="text" name="kdwil" class="form-control" id="kdwil" placeholder="Masukkan Kode Wilayah">
                         <input type="hidden" name="manage" value="addwil">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Uraian Wilayah</label>
                       <div class="col-sm-9">
-                        <input type="text" name="uraianwil" class="form-control" id="uraianwil" placeholder="Masukkan Uraian Wilayah">
+                        <input type="text" name="urwil" class="form-control" id="urwil" placeholder="Masukkan Uraian Wilayah">
                       </div>
                     </div>
                   </div>
@@ -69,15 +69,17 @@
         </section>
       </div>
       <?php include("include/footer.php"); ?>
+      <?php include("include/success.php"); ?>
     </div>
     <?php include("include/loadjs.php"); ?>
     <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
+      var table;
       $(function () {
         $(".treeview").addClass("active");
         $("li#wilayah").addClass("active");
-        $("#example1").DataTable({
+        table = $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
           "ajax": "../core/loadtable/loadwilayah",
@@ -88,12 +90,140 @@
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
-                                  '<button class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
-                                  '<button class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                  '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                  '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
                                 '</div>',
              "targets": [2],"targets": 2 }
           ],
         });
+      });
+      $(document).on('click', '#btnedt', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+        kdwil_row = row.data()[0];
+        urwil_row  = row.data()[1];
+        if ( row.child.isShown() ) {
+          $('div.slider', row.child()).slideUp( function () {
+            row.child.hide();
+            tr.removeClass('shown');
+          });
+        }
+        else {
+          row.child( format(row.data())).show();
+          tr.addClass('shown');
+          $('div.slider', row.child()).slideDown();
+          $("#kdwil"+kdwil_row +"").val(kdwil_row);
+          $("#urwil"+kdwil_row +"").val(urwil_row);
+        }
+      });
+      $(document).on('click', '#btnhps', function () {
+      var tr = $(this).closest('tr');
+      var row = table.row( tr );
+      redirectTime = "2600";
+      redirectURL = "wilayah";
+      kdwil_row = row.data()[0];
+      managedata = "delwil";
+      job=confirm("Anda yakin ingin menghapus data ini?");
+        if(job!=true){
+          return false;
+        }
+        else{
+          $('#myModal').modal({
+            backdrop: 'static',
+            keyboard: false
+          });
+          $('#myModal').modal('show');
+          $.ajax({
+            type: "post",
+            url : "../core/wilayah/proseswilayah",
+            data: {manage:managedata,kdwil:kdwil_row},
+            success: function(data)
+            {
+              $("#success-alert").alert();
+              $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+              $("#success-alert").alert('close');
+              });
+              setTimeout("location.href = redirectURL;",redirectTime); 
+            }
+          });
+          return false;
+        }
+      });
+      function format ( d ) {
+        return '<div class="slider">'+
+        '<form action="../core/wilayah/proseswilayah" method="post" class="form-horizontal" id="updwil">'+
+        '<table width="100%">'+
+           '<tr>'+
+              '<input type="hidden" name="manage" value="updwil">'+
+              '<td width="14%"><input style="width:90%" id="kdwil'+d[0]+'" name="updkdwil" class="form-control" type="text" placeholder="Kode Wilayah"></td>'+
+              '<td><input style="width:98%" id="urwil'+d[0]+'" name="updurwil" class="form-control" type="text" placeholder="Uraian Wilayah"></td>'+
+              '<td style="vertical-align:middle; width:15%;">'+
+                '<div class="box-tools">'+
+                  '<button id="btnrst" class="btn btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
+                  '<button id="btnupd" class="btn btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
+                '</div>'
+              '</td>'+
+           '</tr>'+
+        '</table>'+
+        '</form></div>';
+      }
+      $(document).on('submit', '#updwil', function (e) {
+        $('#myModal').modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+        $('#myModal').modal('show');
+        e.preventDefault();
+        redirectTime = "2600";
+        redirectURL = "wilayah";
+        var formURL = $(this).attr("action");
+        var addData = new FormData(this);
+        $.ajax({
+          type: "post",
+          data: addData,
+          url : formURL,
+          contentType: false,
+          cache: false,  
+          processData: false,
+          success: function(data)
+          {
+            $("#success-alert").alert();
+            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+            $("#success-alert").alert('close');
+            });
+            setTimeout("location.href = redirectURL;",redirectTime); 
+          }
+        });
+        return false;
+      });
+       $('#addwil').submit(function(e){
+        $('#myModal').modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+        $('#myModal').modal('show');
+        e.preventDefault();
+        redirectTime = "2600";
+        redirectURL = "wilayah";
+        var formURL = $(this).attr("action");
+        var addData = new FormData(this);
+        $.ajax({
+          type: "post",
+          data: addData,
+          url : formURL,
+          contentType: false,
+          cache: false,  
+          processData: false,
+          success: function(data)
+          {
+            $("#success-alert").alert();
+            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+            $("#success-alert").alert('close');
+            });
+            setTimeout("location.href = redirectURL;",redirectTime); 
+          }
+        });
+        return false;
       });
     </script>
   </body>

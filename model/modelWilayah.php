@@ -19,16 +19,14 @@ class modelWilayah extends mysql_db
 		$nm_wil = $data['nm_wil'];
 		$query = "update wilayah
         			set kd_wil='$kd_wil',
-                    	nm_wil='$nm_wil' where kd_wil='kd_wil'";
+                    	nm_wil='$nm_wil' where kd_wil='$kd_wil'";
         $result = $this->query($query);
 		return $result;
 	}	
 
 	public function hapuswilayah($data)
 	{
-		$kd_wil = $data['kd_wil'];
-		$nm_wil = $data['nm_wil'];
-		$query = "delete from wilayah where kd_wil='kd_wil'";
+		$query = "delete from wilayah where kd_wil='$data'";
         $result = $this->query($query);
 		return $result;
 	}
