@@ -118,15 +118,15 @@
       <?php include("include/success.php"); ?>
     </div>
     <?php include("include/loadjs.php"); ?>
-    <script src="plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
-    <script src="plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
         $("li#trf_msk").addClass("active");
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
-          "ajax": "core/loadtable/loaduapb",
+          "ajax": "../core/loadtable/loaduapb",
           "columnDefs":
           [
             {"targets": 0 },
@@ -136,7 +136,7 @@
       });
        $.ajax({
           type: "post",
-          url: 'core/transaksi/prosestransmsk',
+          url: '../core/transaksi/prosestransmsk',
           data: {manage:'readbrg'},
           success: function (output) {     
             $('#kd_brg').html(output);
@@ -144,7 +144,7 @@
        });       
        $.ajax({
           type: "post",
-          url: 'core/uakpb/prosesuakpb',
+          url: '../core/uakpb/prosesuakpb',
           data: {manage:'readuakpb'},
           success: function (output) {     
             $('#kduakpb').html(output);
@@ -158,7 +158,7 @@
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "2600";
-        redirectURL = "uapb";
+        redirectURL = "trf_msk";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({

@@ -25,7 +25,7 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Transaksi Saldo Awal</h3>
                 </div>  
-                <form action="core/transaksi/prosestransmsk" method="post" class="form-horizontal" id="addtransmsk">
+                <form action="../core/transaksi/prosestransmsk" method="post" class="form-horizontal" id="addtransmsk">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>
@@ -110,15 +110,15 @@
       <?php include("include/success.php"); ?>
     </div>
     <?php include("include/loadjs.php"); ?>
-    <script src="plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
-    <script src="plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
         $("li#saldo_awal").addClass("active");
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
-          "ajax": "core/loadtable/loaduapb",
+          "ajax": "../core/loadtable/loaduapb",
           "columnDefs":
           [
             {"targets": 0 },
@@ -128,7 +128,7 @@
       });
        $.ajax({
           type: "post",
-          url: 'core/transaksi/prosestransmsk',
+          url: '../core/transaksi/prosestransmsk',
           data: {manage:'readbrg'},
           success: function (output) {     
             $('#kd_brg').html(output);
@@ -142,7 +142,7 @@
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "2600";
-        redirectURL = "uapb";
+        redirectURL = "saldo_msk";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({

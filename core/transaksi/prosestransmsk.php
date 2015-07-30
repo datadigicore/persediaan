@@ -1,6 +1,7 @@
 <?php
 include('../../model/modelTransMsk.php');
 include('../../config/purifier.php');
+session_start();
 $TransMsk = new modelTransMsk();
 if (empty($_POST['manage'])) {
 	echo "Error Data Tidak Tersedia";
@@ -16,7 +17,7 @@ else
 		case 'addtransmsk':
 			$kd_lokasi = "TEST";
 			$kd_lok_msk = $purifier->purify($_POST['kduakpb']);
-			$thn_ang = $purifier->purify($_POST['thn_ang']);
+			$thn_ang = $_SESSION['thn_ang'];
 			$no_dok = $purifier->purify($_POST['no_dok']);
 			$tgl_dok = $purifier->purify($_POST['tgl_dok']);
 			$tgl_buku = $purifier->purify($_POST['tgl_buku']);

@@ -24,6 +24,10 @@
           <div class="form-group has-feedback">
             <input type="password" name="password" class="form-control" placeholder="Password" />
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          </div>          
+          <div class="form-group has-feedback">
+            <input type="password" name="thn_ang" class="form-control" placeholder="Tahun Anggaran" />
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
           <div class="row">
             <div class="col-xs-8"> 
