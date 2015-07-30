@@ -26,8 +26,9 @@
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>          
           <div class="form-group has-feedback">
-            <input type="password" name="thn_ang" class="form-control" placeholder="Tahun Anggaran" />
-            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            <select id="thn_ang" name="thn_ang" class="form-control">
+              <option value="">-- Pilih Tahun Anggaran --</option>
+            </select>
           </div>
           <div class="row">
             <div class="col-xs-8"> 
@@ -47,5 +48,16 @@
 	  	</div>
     </footer>
     <?php include("include/loadjs.php"); ?>
+    <script type="text/javascript">
+      var start = 1990;
+      var end = new Date().getFullYear();
+      var options ="";
+      for(var year = start ; year <= end; year++)
+      {
+          options += "<option>"+ year + "</option>";
+      }
+      document.getElementById("thn_ang").innerHTML = options;
+    </script>
   </body>
 </html>
+              
