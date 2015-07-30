@@ -135,7 +135,7 @@
             $('#kd_brg').html(output);
           }
        });
-      $('#adduapb').submit(function(e){
+      $('#addtransmsk').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
