@@ -139,8 +139,8 @@
              '<tr>'+
                 '<input type="hidden" name="manage" value="upduapb">'+
                 '<td width="18.5%"><input style="width:90%" id="kduapb'+d[0]+d[1]+'" name="updkduapb" class="form-control" type="text" placeholder="Kode UAPB"></td>'+
-                '<td width="18.5%"><input style="width:90%" id="kduappbe'+d[0]+d[1]+'" name="upduruapb" class="form-control" type="text" placeholder="Uraian UAPB"></td>'+
-                '<td><input style="width:96%" id="uruappbe'+d[0]+d[1]+'" name="upduruapb" class="form-control" type="text" placeholder="Uraian UAPB"></td>'+
+                '<td width="18.5%"><input style="width:90%" id="kduappbe'+d[0]+d[1]+'" name="updkduappbe" class="form-control" type="text" placeholder="Kode UAPPB-E1"></td>'+
+                '<td><input style="width:96%" id="uruappbe'+d[0]+d[1]+'" name="upduruappbe" class="form-control" type="text" placeholder="Uraian UAPPB-E1"></td>'+
                 '<td style="vertical-align:middle; width:15%;">'+
                   '<div class="box-tools">'+
                     '<button id="btnrst" class="btn btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
