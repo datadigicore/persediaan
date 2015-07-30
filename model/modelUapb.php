@@ -18,15 +18,15 @@ class modelUapb extends mysql_db
 		$nm_uapb = $data['nm_uapb'];
 		$query = "update uapb
         			set kd_uapb='$kd_uapb',
-                    	nm_uapb='$nm_uapb' where kd_uapb='$kd_uapb'";
+                    	nm_uapb='$nm_uapb'
+                    where kd_uapb='$kd_uapb'";
+        print_r($query);
         $result = $this->query($query);
 		return $result;
 	}	
 	public function hapusuapb($data)
 	{
-		$kd_uapb = $data['kd_uapb'];
-		$nm_uapb = $data['nm_uapb'];
-		$query = "delete from uapb where kd_uapb='$kd_uapb'";
+		$query = "delete from uapb where kd_uapb='$data'";
         $result = $this->query($query);
 		return $result;
 	}

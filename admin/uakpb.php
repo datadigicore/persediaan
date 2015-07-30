@@ -60,7 +60,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPKPB</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kduapkpb" class="form-control" id="kduapkpb" placeholder="Masukkan Kode UA">
+                        <input type="text" name="kduapkpb" class="form-control" id="kduapkpb" placeholder="Masukkan Kode UAPKPB">
                       </div>
                     </div>
 					          <div class="form-group">

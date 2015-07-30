@@ -114,24 +114,86 @@
           $("#uruapb"+kduapb_row +"").val(uruapb_row);
         }
       });
+      $(document).on('click', '#btnhps', function () {
+      var tr = $(this).closest('tr');
+      var row = table.row( tr );
+      redirectTime = "2600";
+      redirectURL = "uapb";
+      kduapb_row = row.data()[0];
+      managedata = "deluapb";
+      job=confirm("Anda yakin ingin menghapus data ini?");
+        if(job!=true){
+          return false;
+        }
+        else{
+          $('#myModal').modal({
+            backdrop: 'static',
+            keyboard: false
+          });
+          $('#myModal').modal('show');
+          $.ajax({
+            type: "post",
+            url : "../core/uapb/prosesuapb",
+            data: {manage:managedata,kduapb:kduapb_row},
+            success: function(data)
+            {
+              $("#success-alert").alert();
+              $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+              $("#success-alert").alert('close');
+              });
+              setTimeout("location.href = redirectURL;",redirectTime); 
+            }
+          });
+          return false;
+        }
+      });
       function format ( d ) {
         return '<div class="slider">'+
-        '<form method="post">'+
+        '<form action="../core/uapb/prosesuapb" method="post" class="form-horizontal" id="upduapb">'+
         '<table width="100%">'+
            '<tr>'+
-              '<input type="hidden" name="idkduapb" id="idkduapb">'+
-              '<input type="hidden" name="manage" id="">'+
-              '<td width="14%"><input style="width:90%" id="kduapb'+d[0]+'" name="judul" class="form-control" type="text" placeholder="Kode UAPB"></td>'+
-              '<td><input style="width:98%" id="uruapb'+d[0]+'" name="judul" class="form-control" type="text" placeholder="Uraian UAPB"></td>'+
+              '<input type="hidden" name="manage" value="upduapb">'+
+              '<td width="14%"><input style="width:90%" id="kduapb'+d[0]+'" name="updkduapb" class="form-control" type="text" placeholder="Kode UAPB"></td>'+
+              '<td><input style="width:98%" id="uruapb'+d[0]+'" name="upduruapb" class="form-control" type="text" placeholder="Uraian UAPB"></td>'+
               '<td style="vertical-align:middle; width:15%;">'+
                 '<div class="box-tools">'+
-                  '<button type="reset" id="btnedt" class="btn btn-warning btn-sm daterange pull-left"><i class="fa fa-refresh"></i> Reset</button>'+
-                  '<button id="btnhps" class="btn btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
+                  '<button id="btnrst" class="btn btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
+                  '<button id="btnupd" class="btn btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
                 '</div>'
               '</td>'+
            '</tr>'+
-        '</table></form></div>';
+        '</table>'+
+        '</form></div>';
       }
+      $(document).on('submit', '#upduapb', function (e) {
+        $('#myModal').modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+        $('#myModal').modal('show');
+        e.preventDefault();
+        redirectTime = "2600";
+        redirectURL = "uapb";
+        var formURL = $(this).attr("action");
+        var addData = new FormData(this);
+        $.ajax({
+          type: "post",
+          data: addData,
+          url : formURL,
+          contentType: false,
+          cache: false,  
+          processData: false,
+          success: function(data)
+          {
+            $("#success-alert").alert();
+            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+            $("#success-alert").alert('close');
+            });
+            setTimeout("location.href = redirectURL;",redirectTime); 
+          }
+        });
+        return false;
+      });
       $('#adduapb').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
