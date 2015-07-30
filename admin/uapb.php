@@ -74,9 +74,10 @@
     <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
+      var table;
       $(function () {
         $("li#uapb").addClass("active");
-        $("#example1").DataTable({
+        table = $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
           "ajax": "../core/loadtable/loaduapb",
@@ -87,13 +88,50 @@
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
-                                  '<button class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
-                                  '<button class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                  '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                  '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
                                 '</div>',
              "targets": [2],"targets": 2 }
           ],
         });
       });
+      $(document).on('click', '#btnedt', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+        kduapb_row = row.data()[0];
+        uruapb_row  = row.data()[1];
+        if ( row.child.isShown() ) {
+          $('div.slider', row.child()).slideUp( function () {
+            row.child.hide();
+            tr.removeClass('shown');
+          });
+        }
+        else {
+          row.child( format(row.data())).show();
+          tr.addClass('shown');
+          $('div.slider', row.child()).slideDown();
+          $("#kduapb"+kduapb_row +"").val(kduapb_row);
+          $("#uruapb"+kduapb_row +"").val(uruapb_row);
+        }
+      });
+      function format ( d ) {
+        return '<div class="slider">'+
+        '<form method="post">'+
+        '<table width="100%">'+
+           '<tr>'+
+              '<input type="hidden" name="idkduapb" id="idkduapb">'+
+              '<input type="hidden" name="manage" id="">'+
+              '<td width="14%"><input style="width:90%" id="kduapb'+d[0]+'" name="judul" class="form-control" type="text" placeholder="Kode UAPB"></td>'+
+              '<td><input style="width:98%" id="uruapb'+d[0]+'" name="judul" class="form-control" type="text" placeholder="Uraian UAPB"></td>'+
+              '<td style="vertical-align:middle; width:15%;">'+
+                '<div class="box-tools">'+
+                  '<button type="reset" id="btnedt" class="btn btn-warning btn-sm daterange pull-left"><i class="fa fa-refresh"></i> Reset</button>'+
+                  '<button id="btnhps" class="btn btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
+                '</div>'
+              '</td>'+
+           '</tr>'+
+        '</table></form></div>';
+      }
       $('#adduapb').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
