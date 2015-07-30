@@ -115,7 +115,8 @@
           var tr = $(this).closest('tr');
           var row = table.row( tr );
           kduapb_row = row.data()[0];
-          uruapb_row  = row.data()[1];
+          kduappbe_row  = row.data()[1];
+          uruappbe_row  = row.data()[2];
           if ( row.child.isShown() ) {
             $('div.slider', row.child()).slideUp( function () {
               row.child.hide();
@@ -126,8 +127,9 @@
             row.child( format(row.data())).show();
             tr.addClass('shown');
             $('div.slider', row.child()).slideDown();
-            $("#kduapb"+kduapb_row +"").val(kduapb_row);
-            $("#uruapb"+kduapb_row +"").val(uruapb_row);
+            $("#kduapb"+kduapb_row+kduappbe_row+"").val(kduapb_row);
+            $("#kduappbe"+kduapb_row+kduappbe_row+"").val(kduappbe_row);
+            $("#uruappbe"+kduapb_row+kduappbe_row+"").val(uruappbe_row);
           }
         });
         function format ( d ) {
@@ -136,9 +138,9 @@
           '<table width="100%">'+
              '<tr>'+
                 '<input type="hidden" name="manage" value="upduapb">'+
-                '<td width="18.5%"><input style="width:90%" id="kduapb'+d[0]+'" name="updkduapb" class="form-control" type="text" placeholder="Kode UAPB"></td>'+
-                '<td width="18.5%"><input style="width:90%" id="uruapb'+d[0]+'" name="upduruapb" class="form-control" type="text" placeholder="Uraian UAPB"></td>'+
-                '<td><input style="width:96%" id="uruapb'+d[0]+'" name="upduruapb" class="form-control" type="text" placeholder="Uraian UAPB"></td>'+
+                '<td width="18.5%"><input style="width:90%" id="kduapb'+d[0]+d[1]+'" name="updkduapb" class="form-control" type="text" placeholder="Kode UAPB"></td>'+
+                '<td width="18.5%"><input style="width:90%" id="kduappbe'+d[0]+d[1]+'" name="upduruapb" class="form-control" type="text" placeholder="Uraian UAPB"></td>'+
+                '<td><input style="width:96%" id="uruappbe'+d[0]+d[1]+'" name="upduruapb" class="form-control" type="text" placeholder="Uraian UAPB"></td>'+
                 '<td style="vertical-align:middle; width:15%;">'+
                   '<div class="box-tools">'+
                     '<button id="btnrst" class="btn btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
