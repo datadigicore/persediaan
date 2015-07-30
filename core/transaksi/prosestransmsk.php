@@ -15,8 +15,8 @@ else
 			$TransMsk->bacabrg();
 		break;
 		case 'addtransmsk':
-			$kd_lokasi = "TEST";
-			$kd_lok_msk = $purifier->purify($_POST['kduakpb']);
+			$kd_lokasi = $_SESSION['kd_lok'];
+			$kd_lok_msk = $_SESSION['kd_lok'];
 			$thn_ang = $_SESSION['thn_ang'];
 			$no_dok = $purifier->purify($_POST['no_dok']);
 			$tgl_dok = $purifier->purify($_POST['tgl_dok']);

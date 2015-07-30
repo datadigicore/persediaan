@@ -32,6 +32,7 @@
                       <div class="col-sm-9">
                         <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="Seharsnya No. Dok Auto Generated">
                         <input type="hidden" name="manage" value="addtransmsk">
+                        
                       </div>
                     </div> 
                     <div class="form-group">                     
