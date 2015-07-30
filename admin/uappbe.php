@@ -93,7 +93,7 @@
             $('#kduapb').html(output);
           }
         });
-        $("#example1").DataTable({
+        var table = $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
           "ajax": "../core/loadtable/loaduappbe",
@@ -105,12 +105,50 @@
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
-                                  '<button class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
-                                  '<button class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                  '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                  '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
                                 '</div>',
              "targets": [3],"targets": 3 }
           ],
         });
+        $(document).on("click", "#btnedt", function(){
+          var tr = $(this).closest('tr');
+          var row = table.row( tr );
+          kduapb_row = row.data()[0];
+          uruapb_row  = row.data()[1];
+          if ( row.child.isShown() ) {
+            $('div.slider', row.child()).slideUp( function () {
+              row.child.hide();
+              tr.removeClass('shown');
+            });
+          }
+          else {
+            row.child( format(row.data())).show();
+            tr.addClass('shown');
+            $('div.slider', row.child()).slideDown();
+            $("#kduapb"+kduapb_row +"").val(kduapb_row);
+            $("#uruapb"+kduapb_row +"").val(uruapb_row);
+          }
+        });
+        function format ( d ) {
+          return '<div class="slider">'+
+          '<form action="../core/uapb/prosesuapb" method="post" class="form-horizontal" id="upduapb">'+
+          '<table width="100%">'+
+             '<tr>'+
+                '<input type="hidden" name="manage" value="upduapb">'+
+                '<td width="18.5%"><input style="width:90%" id="kduapb'+d[0]+'" name="updkduapb" class="form-control" type="text" placeholder="Kode UAPB"></td>'+
+                '<td width="18.5%"><input style="width:90%" id="uruapb'+d[0]+'" name="upduruapb" class="form-control" type="text" placeholder="Uraian UAPB"></td>'+
+                '<td><input style="width:96%" id="uruapb'+d[0]+'" name="upduruapb" class="form-control" type="text" placeholder="Uraian UAPB"></td>'+
+                '<td style="vertical-align:middle; width:15%;">'+
+                  '<div class="box-tools">'+
+                    '<button id="btnrst" class="btn btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
+                    '<button id="btnupd" class="btn btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
+                  '</div>'
+                '</td>'+
+             '</tr>'+
+          '</table>'+
+          '</form></div>';
+        }
         $('#kduapb').change(function(){
           if($(this).val()==''){
             $("#example1").DataTable().destroy();
