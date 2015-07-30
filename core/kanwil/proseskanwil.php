@@ -10,12 +10,18 @@ else
 	$manage = $_POST['manage'];
 	switch ($manage)
 	{
+		case 'readuapb':
+			$Kanwil->bacauapb();
+		break;
+		case 'readuappbe':
+			$kduapb = $purifier->purify($_POST["kduapb"]);
+			$Kanwil->bacauappbe($kduapb);
+		break;
 		case 'addkanwil':
-			$kodeuapb = $purifier->purify($_POST['kodeuapb']);
-			$kodeuappbe = $purifier->purify($_POST['kodeuappbe']);
-			$kodekanwil = $purifier->purify($_POST['kodekanwil']);
-			$uraiankanwil = $purifier->purify($_POST['uraiankanwil']);
-
+			$kodeuapb = $purifier->purify($_POST['kduapb']);
+			$kodeuappbe = $purifier->purify($_POST['kduappbe']);
+			$kodekanwil = $purifier->purify($_POST['kdkanwil']);
+			$uraiankanwil = $purifier->purify($_POST['urkanwil']);
 			$data = array(
 				"kd_uapb" => $kodeuapb,
 				"kd_uappbe1" => $kodeuappbe,
@@ -24,18 +30,18 @@ else
 		    );
 			$Kanwil->tambahkanwil($data);
 		break;
-
-		case 'readuapb':
-				$kduapb = $purifier->purify($_POST['kduapb']);
-				$Kanwil->$bacauapb($kduapb);
-
-		case 'ubahkanwil':
-			$kodeuapb = $purifier->purify($_POST['kodeuapb']);
-			$kodeuappbe = $purifier->purify($_POST['kodeuappbe']);
-			$kodekanwil = $purifier->purify($_POST['kodekanwil']);
-			$uraiankanwil = $purifier->purify($_POST['uraiankanwil']);
-
+		case 'updkanwil':
+			$iduapb = $purifier->purify($_POST['updiduapb']);
+			$iduappbe = $purifier->purify($_POST['updiduappbe']);
+			$idkanwil = $purifier->purify($_POST['updidkanwil']);
+			$kodeuapb = $purifier->purify($_POST['updkduapb']);
+			$kodeuappbe = $purifier->purify($_POST['updkduappbe']);
+			$kodekanwil = $purifier->purify($_POST['updkdkanwil']);
+			$uraiankanwil = $purifier->purify($_POST['updurkanwil']);
 			$data = array(
+				"id_uapb" => $iduapb,
+				"id_uappbe1" => $iduappbe,
+				"id_kanwil" => $idkanwil,
 				"kd_uapb" => $kodeuapb,
 				"kd_uappbe1" => $kodeuappbe,
 				"kd_kanwil" => $kodekanwil,
@@ -43,18 +49,14 @@ else
 		    );
 			$Kanwil->ubahkanwil($data);
 		break;
-
-		case 'hapuskanwil':
-			$kodeuapb = $purifier->purify($_POST['kodeuapb']);
-			$kodeuappbe = $purifier->purify($_POST['kodeuappbe']);
-			$kodekanwil = $purifier->purify($_POST['kodekanwil']);
-			$uraiankanwil = $purifier->purify($_POST['uraiankanwil']);
-
+		case 'delkanwil':
+			$kodeuapb = $purifier->purify($_POST['kduapb']);
+			$kodeuappbe = $purifier->purify($_POST['kduappbe']);
+			$kodekanwil = $purifier->purify($_POST['kdkanwil']);
 			$data = array(
 				"kd_uapb" => $kodeuapb,
 				"kd_uappbe1" => $kodeuappbe,
 				"kd_kanwil" => $kodekanwil,
-		    	"nm_kanwil" => $uraiankanwil
 		    );
 			$Kanwil->hapuskanwil($data);
 		break;
