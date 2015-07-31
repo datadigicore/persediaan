@@ -19,6 +19,9 @@ class modelUappbw extends mysql_db
 
 	public function ubahuappbw($data)
 	{
+		$id_uapb = $data['id_uapb'];
+		$id_uappbe1 = $data['id_uappbe1'];
+		$id_uappbw = $data['id_uappbw'];
 		$kd_uapb = $data['kd_uapb'];
 		$kd_uappbe1 = $data['kd_uappbe1'];
 		$kd_uappbw = $data['kd_uappbw'];
@@ -27,7 +30,7 @@ class modelUappbw extends mysql_db
         			set kd_uapb='$kd_uapb',
         				kd_uappb='$kd_uappbe1',
         				kd_uappbw='$kd_uappbw',
-                    	nm_uappbw='$nm_uappbw' where kd_uapb='$kd_uapb' and kd_uappb='$kd_uappbe1' ";
+                    	nm_uappbw='$nm_uappbw' where kd_uapb='$id_uapb' and kd_uappb='$id_uappbe1' and kd_uappbw='$id_uappbw'";
         $result = $this->query($query);
 		return $result;
 	}	
@@ -37,9 +40,8 @@ class modelUappbw extends mysql_db
 		$kd_uapb = $data['kd_uapb'];
 		$kd_uappbe1 = $data['kd_uappbe1'];
 		$kd_uappbw = $data['kd_uappbw'];
-		$nm_uappbw = $data['nm_uappbw'];
 		$query = "delete from uappbw
-        			where kd_uapb='$kd_uapb' and kd_uappb='$kd_uappbe1' ";
+        			where kd_uapb='$kd_uapb' and kd_uappb='$kd_uappbe1' and kd_uappbw='$kd_uappbw'";
         $result = $this->query($query);
 		return $result;
 	}

@@ -92,6 +92,7 @@
     <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
+      var table;
       $(function () {
         $("li#uappbw").addClass("active");
         $.ajax({
@@ -110,7 +111,7 @@
             $('#kodewil').html(output);
           }
         });
-        $("#example1").DataTable({
+        table = $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
           "ajax": "../core/loadtable/loaduappbw",
@@ -123,12 +124,122 @@
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
-                                  '<button class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
-                                  '<button class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                  '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                  '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
                                 '</div>',
              "targets": [4],"targets": 4 }
           ],
         });
+      });
+      $(document).on('click', '#btnedt', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+        kduapb_row = row.data()[0];
+        kduappbe_row  = row.data()[1];
+        kduappbw_row  = row.data()[2];
+        uruappbw_row  = row.data()[3];
+        if ( row.child.isShown() ) {
+          $('div.slider', row.child()).slideUp( function () {
+            row.child.hide();
+            tr.removeClass('shown');
+          });
+        }
+        else {
+          row.child( format(row.data())).show();
+          tr.addClass('shown');
+          $('div.slider', row.child()).slideDown();
+          $("#kduapb"+kduapb_row+kduappbe_row+kduappbw_row+"").val(kduapb_row);
+          $("#kduappbe"+kduapb_row+kduappbe_row+kduappbw_row+"").val(kduappbe_row);
+          $("#kduappbw"+kduapb_row+kduappbe_row+kduappbw_row+"").val(kduappbw_row);
+          $("#uruappbw"+kduapb_row+kduappbe_row+kduappbw_row+"").val(uruappbw_row);
+        }
+      });
+      $(document).on('click', '#btnhps', function () {
+      var tr = $(this).closest('tr');
+      var row = table.row( tr );
+      redirectTime = "2600";
+      redirectURL = "uappbw";
+      kduapb_row = row.data()[0];
+      kduappbe_row = row.data()[1];
+      kduappbw_row = row.data()[2];
+      managedata = "deluappbw";
+      job=confirm("Anda yakin ingin menghapus data ini?");
+        if(job!=true){
+          return false;
+        }
+        else{
+          $('#myModal').modal({
+            backdrop: 'static',
+            keyboard: false
+          });
+          $('#myModal').modal('show');
+          $.ajax({
+            type: "post",
+            url : "../core/uappbw/prosesuappbw",
+            data: {manage:managedata,kduapb:kduapb_row,kduappbe:kduappbe_row,kduappbw:kduappbw_row},
+            success: function(data)
+            {
+              $("#success-alert").alert();
+              $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+              $("#success-alert").alert('close');
+              });
+              setTimeout("location.href = redirectURL;",redirectTime); 
+            }
+          });
+          return false;
+        }
+      });
+      function format ( d ) {
+        return '<div class="slider">'+
+        '<form action="../core/uappbw/prosesuappbw" method="post" class="form-horizontal" id="upduappbw">'+
+        '<table width="100%">'+
+           '<tr>'+
+              '<input type="hidden" name="manage" value="upduappbw">'+
+              '<input type="hidden" name="iduapb" value="'+d[0]+'">'+
+              '<input type="hidden" name="iduappbe" value="'+d[1]+'">'+
+              '<input type="hidden" name="iduappbw" value="'+d[2]+'">'+
+              '<td width="14%"><input style="width:90%" id="kduapb'+d[0]+d[1]+d[2]+'" name="updkduapb" class="form-control" type="text" placeholder="Kode UAPB"></td>'+
+              '<td width="14.2%"><input style="width:90%" id="kduappbe'+d[0]+d[1]+d[2]+'" name="updkduappbe" class="form-control" type="text" placeholder="Kode UAPPB-E1"></td>'+
+              '<td width="14.2%"><input style="width:90%" id="kduappbw'+d[0]+d[1]+d[2]+'" name="updkduappbw" class="form-control" type="text" placeholder="Kode UAPPB-W"></td>'+
+              '<td><input style="width:97%" id="uruappbw'+d[0]+d[1]+d[2]+'" name="upduruappbw" class="form-control" type="text" placeholder="Uraian UAPPB-W"></td>'+
+              '<td style="vertical-align:middle; width:15%;">'+
+                '<div class="box-tools">'+
+                  '<button id="btnrst" class="btn btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
+                  '<button id="btnupd" class="btn btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
+                '</div>'
+              '</td>'+
+           '</tr>'+
+        '</table>'+
+        '</form></div>';
+      }
+      $(document).on('submit', '#upduappbw', function (e) {
+        $('#myModal').modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+        $('#myModal').modal('show');
+        e.preventDefault();
+        redirectTime = "2600";
+        redirectURL = "uappbw";
+        var formURL = $(this).attr("action");
+        var addData = new FormData(this);
+        $.ajax({
+          type: "post",
+          data: addData,
+          url : formURL,
+          contentType: false,
+          cache: false,  
+          processData: false,
+          success: function(data)
+          {
+            $("#success-alert").alert();
+            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+            $("#success-alert").alert('close');
+            });
+            setTimeout("location.href = redirectURL;",redirectTime); 
+          }
+        });
+        return false;
       });
       $('#kduapb').change(function(){
         if ($(this).val()=='') {
