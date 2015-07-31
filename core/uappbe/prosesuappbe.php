@@ -29,10 +29,14 @@ else
 			$Uappbe->tambahuappbe($data);
 		break;
 		case 'upduappbe':
+			$iduapb = $purifier->purify($_POST['iduapb']);
+			$iduappbe = $purifier->purify($_POST['iduappbe']);
 			$kduapb = $purifier->purify($_POST['updkduapb']);
 			$kduappbe = $purifier->purify($_POST['updkduappbe']);
 			$nmuappbe = $purifier->purify($_POST['upduruappbe']);
 			$data = array(
+				"id_uapb" => $iduapb,
+				"id_uappbe" => $iduappbe,
 				"kd_uapb" => $kduapb,
 				"kd_uappbe1" => $kduappbe,
 		    	"nm_uappbe1" => $nmuappbe

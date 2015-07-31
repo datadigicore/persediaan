@@ -172,6 +172,8 @@
           '<table width="100%">'+
              '<tr>'+
                 '<input type="hidden" name="manage" value="upduappbe">'+
+                '<input type="hidden" name="iduapb" value="'+d[0]+'">'+
+                '<input type="hidden" name="iduappbe" value="'+d[1]+'">'+
                 '<td width="18.5%"><input style="width:90%" id="kduapb'+d[0]+d[1]+'" name="updkduapb" class="form-control" type="text" placeholder="Kode UAPB"></td>'+
                 '<td width="18.5%"><input style="width:90%" id="kduappbe'+d[0]+d[1]+'" name="updkduappbe" class="form-control" type="text" placeholder="Kode UAPPB-E1"></td>'+
                 '<td><input style="width:96%" id="uruappbe'+d[0]+d[1]+'" name="upduruappbe" class="form-control" type="text" placeholder="Uraian UAPPB-E1"></td>'+

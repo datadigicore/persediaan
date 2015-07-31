@@ -16,13 +16,15 @@ class modelUappbe extends mysql_db
 	}	
 	public function ubahuappbe($data)
 	{
+		$id_uapb = $data['id_uapb'];
+		$id_uappbe = $data['id_uappbe'];
 		$kd_uapb = $data['kd_uapb'];
 		$kd_uappbe1 = $data['kd_uappbe1'];
 		$nm_uappbe1 = $data['nm_uappbe1'];
 		$query = "update uappbe1
         			set kd_uapb='$kd_uapb',
         				kd_uappbe1='$kd_uappbe1',
-                    	nm_uappbe1='$nm_uappbe1' where kd_uapb='$kd_uapb' and kd_uappbe1='$kd_uappbe1' ";
+                    	nm_uappbe1='$nm_uappbe1' where kd_uapb='$id_uapb' and kd_uappbe1='$id_uappbe' ";
         $result = $this->query($query);
 		return $result;
 	}	
