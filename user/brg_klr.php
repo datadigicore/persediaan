@@ -3,7 +3,6 @@
   <head>
     <?php include("include/loadcss.php"); ?>
     <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="../dist/css/datepicker.css" rel="stylesheet" type="text/css" />
   </head>
   <body class="skin-blue layout-boxed">
     <div class="wrapper">
@@ -16,7 +15,7 @@
             <small>Habis Pakai</small>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-table"></i>Daftar Transaski Keluar</a></li>
+            <li class="active"><a href="#"><i class="fa fa-table"></i>Detil Transaksi</a></li>
           </ol>
         </section>
         <section class="content">
@@ -24,46 +23,43 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                   <a href="trans_klr" class="btn btn-primary  btn-s">1.Dokumen</a>
-                   <a href="brg_klr" class="btn btn-primary  btn-s">2.Barang</a>
+                   <a href="trans_klr" class="btn btn-primary  btn-s">1. Dokumen</a> 
+                   <a href="brg_klr" class="btn btn-primary  btn-s">2. Barang</a> 
                 </div>
                 <div class="box-header with-border">
-                  <h3 class="box-title">Detil Transaksi</h3>
+                  <h3 class="box-title">Tambah Barang</h3>
                 </div>  
-                <form action="../core/transaksi/prosestransklr" method="post" class="form-horizontal" id="addtransmsk">
+                <form action="../core/transaksi/prosestransklr" method="post" class="form-horizontal" id="addtransm">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>
                       <div class="col-sm-9">
-                        <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="Seharsnya No. Dok Auto Generated">
-                        <input type="hidden" name="manage" value="tbhdokklr">
-                        
-                      </div>
-                    </div> 
-                    <div class="form-group">                     
-                    <label class="col-sm-2 control-label">Nomor Bukti</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor BUkti">
+                        <select name="no_dok" id="no_dok" class="form-control">
+                        </select>
+                        <input type="hidden" name="manage" value="tbhbrgmsk">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Tanggal Dokumen</label>
+                      <label class="col-sm-2 control-label">Kode Barang</label>
                       <div class="col-sm-9">
-                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen">
+                        <select name="kd_brg" id="kd_brg" class="form-control">
+                        </select>
                       </div>
-                    </div>                    
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Tanggal Buku</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku">
-                      </div> 
-                    </div>                   
+                    </div>
                   <div class="form-group">
-                      <label class="col-sm-2 control-label">Keterangan</label>
+                      <label class="col-sm-2 control-label">Jumlah Keluar</label>
                       <div class="col-sm-9">
-                        <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Keterangan">
+                        <input type="text" name="jml_msk" class="form-control" id="jml_msk" >
                       </div>
-                    </div>
+                    </div>                  
+                  <div class="form-group">
+                      <label class="col-sm-2 control-label">Harga Beli Satuan</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="rph_sat" class="form-control" id="rph_sat" disabled>
+                      </div>
+                    </div>                  
+
+                  </div>
                   <div class="box-footer">
                     <button type="Reset" class="btn btn-default">Reset</button>
                     <button type="submit" class="btn btn-info pull-right">Submit</button>
@@ -79,11 +75,10 @@
                     <thead>
                       <tr>
                         <th width="10%">ID</th>
-                        <th width="14%">Nomor Dokumen</th>
-                        <th>Nomor Bukti</th>
-                        <th>Tanggal Dokumen</th>
-                        <th>Tanggal Buku</th>
-                        <th>Keterangan</th>
+                        <th>Nomor Dokumen</th>
+                        <th>Kode Barang</th>
+                        <th>Jumah Barang</th>
+                        <th>Harga Satuan</th>
                       </tr>
                     </thead>
                   </table>
@@ -99,31 +94,32 @@
     <?php include("include/loadjs.php"); ?>
     <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
-    <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
-        $('#tgl_dok').datepicker({
-          format: "yyyy/mm/dd"
-        });         
-        $('#tgl_buku').datepicker({
-          format: "yyyy/mm/dd"
-        }); 
-        $("li#keluar").addClass("active");
+        $("li#saldo_awal").addClass("active");
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
-          "ajax": "../core/loadtable/loaddok",
+          "ajax": "../core/loadtable/loadbrgmsk",
           "columnDefs":
           [
             {"targets": 0 },
             {"targets": 1 },
             {"targets": 2 },
             {"targets": 3 },
-            {"targets": 4 },
-            {"targets": 5 }
+            {"targets": 4 }
+
           ],
         });
       });
+       $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransklr',
+          data: {manage:'readdok'},
+          success: function (output) {     
+            $('#no_dok').html(output);
+          }
+       });
        $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransklr',
@@ -131,7 +127,8 @@
           success: function (output) {     
             $('#kd_brg').html(output);
           }
-       });
+       });       
+
       $('#addtransmsk').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
