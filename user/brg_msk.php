@@ -23,8 +23,8 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                   <a href="saldo_msk" class="btn btn-primary  btn-s">1. Dokumen</a> <br/><br/>
-                   <a href="brg_msk" class="btn btn-primary  btn-s">2. Barang</a> <br/><br/>
+                   <a href="saldo_msk" class="btn btn-primary  btn-s">1. Dokumen</a> 
+                   <a href="brg_msk" class="btn btn-primary  btn-s">2. Barang</a> 
                 </div>
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Barang</h3>

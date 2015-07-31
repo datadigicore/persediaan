@@ -2,7 +2,8 @@
 <html>
   <head>
     <?php include("include/loadcss.php"); ?>
-    <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="../dist/css/datepicker.css" rel="stylesheet" type="text/css" />
   </head>
   <body class="skin-blue layout-boxed">
     <div class="wrapper">
@@ -23,13 +24,13 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                   <a href="saldo_msk" class="btn btn-primary  btn-s">1.Dokumen</a> <br/><br/>
-                   <a href="brg_msk" class="btn btn-primary  btn-s">2.Barang</a> <br/><br/>
+                   <a href="saldo_msk" class="btn btn-primary  btn-s">1.Dokumen</a> 
+                   <a href="brg_msk" class="btn btn-primary  btn-s">2.Barang</a> 
                 </div>
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Dokumen Transaksi Saldo Awal</h3>
                 </div>  
-                <form action="../core/transaksi/prosestransmsk" method="post" class="form-horizontal" id="addtransms">
+                <form action="../core/transaksi/prosestransmsk" method="post" class="form-horizontal" id="addtransmsk">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>
@@ -47,13 +48,13 @@
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Dokumen</label>
-                      <div class="col-sm-9">
+                      <div class="col-sm-4">
                         <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen">
                       </div>
                     </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Buku</label>
-                      <div class="col-sm-9">
+                      <div class="col-sm-4">
                         <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku">
                       </div> 
                     </div>                   
@@ -98,8 +99,15 @@
     <?php include("include/loadjs.php"); ?>
     <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
+        $('#tgl_dok').datepicker({
+          format: "yyyy/mm/dd"
+        });         
+        $('#tgl_buku').datepicker({
+          format: "yyyy/mm/dd"
+        });             
         $("li#saldo_awal").addClass("active");
         $("#example1").DataTable({
           "processing": false,
