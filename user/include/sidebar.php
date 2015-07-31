@@ -32,12 +32,12 @@
             <li class="treeview">
               <a href="#"><i class="fa fa-link"></i> <span>Persediaan Keluar</span> <i class="fa fa-angle-left pull-right"></i></a>            
               <ul class="treeview-menu">
-                <li id="saldo_awal"><a href="index"><span>Habis Pakai</span></a></li>
-                <li id="pembelian"><a href="index"><span>Transfer Keluar</span></a></li>
-                <li id="trf_msk"><a href="index"><span>Hibah Keluar</span></a></li>
-                <li id="hbh_msk"><a href="index"><span>Usang</span></a></li>
-                <li id="rampasan"><a href="index"><span>Rusak</span></a></li>
-                <li id="prlhn_lain"><a href="index"><span>Penghapusan Lain</span></a></li>
+                <li id="keluar"><a href="trans_klr"><span>Habis Pakai</span></a></li>
+                <li id="keluar"><a href="trans_klr"><span>Transfer Keluar</span></a></li>
+                <li id="keluar"><a href="trans_klr"><span>Hibah Keluar</span></a></li>
+                <li id="keluar"><a href="trans_klr"><span>Usang</span></a></li>
+                <li id="keluar"><a href="trans_klr"><span>Rusak</span></a></li>
+                <li id="keluar"><a href="trans_klr"><span>Penghapusan Lain</span></a></li>
               </ul>
             </li>
             <li id="opsik"><a href="opsik"><i class="fa fa-table"></i> <span>Hasil Opname Fisik</span></a></li>

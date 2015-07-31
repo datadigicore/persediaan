@@ -14,21 +14,43 @@ else
 		case 'readbrg':
 			$TransMsk->bacabrg();
 		break;
-		case 'addtransmsk':
+
+		case 'readdok':
+			$TransMsk->bacadok();
+		break;
+
+		case 'tbhbrgmsk':
+			$no_dok = $purifier->purify($_POST['no_dok']);
+			$kd_brg = $purifier->purify($_POST['kd_brg']);
+			$kuantitas = $purifier->purify($_POST['jml_msk']);
+			$rph_sat = $purifier->purify($_POST['rph_sat']);
+			$user_id = $_SESSION['username'];
+
+			$data = array(
+				"no_dok" => $no_dok,
+				"kd_brg" => $kd_brg,
+				"kuantitas" => $kuantitas,
+				"keterangan" => $keterangan,
+		    	"rph_sat" => $rph_sat,
+				"user_id" => $user_id
+		    );
+			$TransMsk->tambahbrgmsk($data);
+
+		break;		
+
+		case 'tbhdokmsk':
 			$kd_lokasi = $_SESSION['kd_lok'];
 			$kd_lok_msk = $_SESSION['kd_lok'];
 			$thn_ang = $_SESSION['thn_ang'];
 			$no_dok = $purifier->purify($_POST['no_dok']);
 			$tgl_dok = $purifier->purify($_POST['tgl_dok']);
 			$tgl_buku = $purifier->purify($_POST['tgl_buku']);
-			$kd_brg = $purifier->purify($_POST['kd_brg']);
-			$kuantitas = $purifier->purify($_POST['jml_msk']);
-			$keterangan = $purifier->purify($_POST['keterangan']);
 			$no_bukti = $purifier->purify($_POST['no_bukti']);
 			$jns_trans = "M01";
-			$rph_sat = $purifier->purify($_POST['rph_sat']);
-
-
+			$keterangan = $purifier->purify($_POST['keterangan']);
+			$user_id = $_SESSION['username'];
+			
+			
 			$data = array(
 				"kd_lokasi" => $kd_lokasi,
 				"kd_lok_msk" => $kd_lok_msk,
@@ -36,14 +58,12 @@ else
 				"no_dok" => $no_dok,
 				"tgl_dok" => $tgl_dok,
 				"tgl_buku" => $tgl_buku,
-				"kd_brg" => $kd_brg,
-				"kuantitas" => $kuantitas,
-				"keterangan" => $keterangan,
 				"no_bukti" => $no_bukti,
 				"jns_trans" => $jns_trans,
-		    	"rph_sat" => $rph_sat
+				"keterangan" => $keterangan,
+				"user_id" => $user_id
 		    );
-			$TransMsk->tambahtransmsk($data);
+			$TransMsk->tambahdokumen($data);
 		break;
 
 		case 'ubahtransmsk':

@@ -83,15 +83,15 @@
       <?php include("include/footer.php"); ?>
     </div>
     <?php include("include/loadjs.php"); ?>
-    <script src="plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
-    <script src="plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
         $(".treeview").addClass("active");
         $("li#barang").addClass("active");
         $.ajax({
           type: "post",
-          url: 'core/barang/prosesbarang',
+          url: '../core/barang/prosesbarang',
           data: {manage:'readsskel'},
           success: function (output) {     
             $('#kdsskel').html(output);
@@ -100,7 +100,7 @@
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
-          "ajax": "core/loadtable/loadbarang",
+          "ajax": "../core/loadtable/loadbarang",
           "columnDefs":
           [
             {"targets": 0 },

@@ -23,15 +23,19 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tambah Transaksi Saldo Awal</h3>
+                   <a href="saldo_msk" class="btn btn-primary  btn-s">1.Dokumen</a> <br/><br/>
+                   <a href="brg_msk" class="btn btn-primary  btn-s">2.Barang</a> <br/><br/>
+                </div>
+                <div class="box-header with-border">
+                  <h3 class="box-title">Tambah Dokumen Transaksi Saldo Awal</h3>
                 </div>  
-                <form action="../core/transaksi/prosestransmsk" method="post" class="form-horizontal" id="addtransmsk">
+                <form action="../core/transaksi/prosestransmsk" method="post" class="form-horizontal" id="addtransms">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>
                       <div class="col-sm-9">
                         <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="Seharsnya No. Dok Auto Generated">
-                        <input type="hidden" name="manage" value="addtransmsk">
+                        <input type="hidden" name="manage" value="tbhdokmsk">
                         
                       </div>
                     </div> 
@@ -53,35 +57,12 @@
                         <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku">
                       </div> 
                     </div>                   
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode Barang</label>
-                      <div class="col-sm-9">
-                        <select name="kd_brg" id="kd_brg" class="form-control">
-                        </select>
-                      </div>
-                    </div>
-
-
-
-                  <div class="form-group">
-                      <label class="col-sm-2 control-label">Jumlah Masuk</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Masuk">
-                      </div>
-                    </div>                  
-                  <div class="form-group">
-                      <label class="col-sm-2 control-label">Harga Beli Satuan</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="Masukkan Jumlah Masuk">
-                      </div>
-                    </div>                  
                   <div class="form-group">
                       <label class="col-sm-2 control-label">Keterangan</label>
                       <div class="col-sm-9">
                         <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Keterangan">
                       </div>
                     </div>
-                  </div>
                   <div class="box-footer">
                     <button type="Reset" class="btn btn-default">Reset</button>
                     <button type="submit" class="btn btn-info pull-right">Submit</button>
@@ -96,8 +77,12 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th width="14%">Kode UAPB</th>
-                        <th>Uraian UAPB</th>
+                        <th width="10%">ID</th>
+                        <th width="14%">Nomor Dokumen</th>
+                        <th>Nomor Bukti</th>
+                        <th>Tanggal Dokumen</th>
+                        <th>Tanggal Buku</th>
+                        <th>Keterangan</th>
                       </tr>
                     </thead>
                   </table>
@@ -119,11 +104,15 @@
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
-          "ajax": "../core/loadtable/loaduapb",
+          "ajax": "../core/loadtable/loaddok",
           "columnDefs":
           [
             {"targets": 0 },
-            {"targets": 1 }
+            {"targets": 1 },
+            {"targets": 2 },
+            {"targets": 3 },
+            {"targets": 4 },
+            {"targets": 5 }
           ],
         });
       });

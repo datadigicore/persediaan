@@ -2,7 +2,7 @@
 <html>
   <head>
     <?php include("include/loadcss.php"); ?>
-    <link href="../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
   </head>
   <body class="skin-blue layout-boxed">
     <div class="wrapper">
@@ -11,11 +11,11 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Tambah Pengelola Baru
+            Persediaan Masuk
             <small>Control Panel</small>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-table"></i> Tabel User UAKPB</a></li>
+            <li class="active"><a href="#"><i class="fa fa-table"></i>Daftar Transaski Saldo Awal</a></li>
           </ol>
         </section>
         <section class="content">
@@ -23,42 +23,42 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tambah Data User UAKPB</h3>
+                   <a href="saldo_msk" class="btn btn-primary  btn-s">1. Dokumen</a> <br/><br/>
+                   <a href="brg_msk" class="btn btn-primary  btn-s">2. Barang</a> <br/><br/>
+                </div>
+                <div class="box-header with-border">
+                  <h3 class="box-title">Tambah Barang</h3>
                 </div>  
-                <form action="../core/user/prosesuser" method="post" class="form-horizontal" id="adduser">
+                <form action="../core/transaksi/prosestransmsk" method="post" class="form-horizontal" id="addtransm">
                   <div class="box-body">
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">User Name</label>
+                      <label class="col-sm-2 control-label">Nomor Dokumen</label>
                       <div class="col-sm-9">
-                        <input type="text" name="user_name" class="form-control" id="user_name" placeholder="Masukkan User Name">
-                        <input type="hidden" name="manage" value="adduser">
+                        <select name="no_dok" id="no_dok" class="form-control">
+                        </select>
+                        <input type="hidden" name="manage" value="tbhbrgmsk">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Password</label>
+                      <label class="col-sm-2 control-label">Kode Barang</label>
                       <div class="col-sm-9">
-                        <input type="password" name="user_pass" class="form-control" id="user_pass" placeholder="Masukkan Password">
-                      </div>
-                    </div>                    
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Konfirmasi Password</label>
-                      <div class="col-sm-9">
-                        <input type="password" name="konf_pass" class="form-control" id="konf_pass" placeholder="Konfirmasi Pasword">
-                      </div>
-                    </div>                    
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Email</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="email" class="form-control" id="email" placeholder="Masukkan Email">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode UAKPB</label>
-                      <div class="col-sm-9">
-                        <select name="kduakpb" id="kduakpb" class="form-control">
+                        <select name="kd_brg" id="kd_brg" class="form-control">
                         </select>
                       </div>
-                    </div>                 
+                    </div>
+                  <div class="form-group">
+                      <label class="col-sm-2 control-label">Jumlah Masuk</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Masuk">
+                      </div>
+                    </div>                  
+                  <div class="form-group">
+                      <label class="col-sm-2 control-label">Harga Beli Satuan</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="Masukkan Jumlah Masuk">
+                      </div>
+                    </div>                  
+
                   </div>
                   <div class="box-footer">
                     <button type="Reset" class="btn btn-default">Reset</button>
@@ -68,15 +68,17 @@
               </div>
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tabel Data Pengelola</h3>
+                  <h3 class="box-title">Daftar Saldo Masuk</h3>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th width="14%">Username</th>
-                        <th>Email</th>
-                        <th>Nama UAKPB</th>
+                        <th width="10%">ID</th>
+                        <th>Nomor Dokumen</th>
+                        <th>Kode Barang</th>
+                        <th>Jumah Barang</th>
+                        <th>Harga Satuan</th>
                       </tr>
                     </thead>
                   </table>
@@ -94,45 +96,39 @@
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
-        $("li#user").addClass("active");
+        $("li#saldo_awal").addClass("active");
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
-          "ajax": "../core/loadtable/loaduser",
+          "ajax": "../core/loadtable/loadbrgmsk",
           "columnDefs":
           [
             {"targets": 0 },
             {"targets": 1 },
-            {"targets": 2 }
+            {"targets": 2 },
+            {"targets": 3 },
+            {"targets": 4 }
+
           ],
         });
       });
-        $.ajax({
+       $.ajax({
           type: "post",
-          url: '../core/uakpb/prosesuakpb',
-          data: {manage:'readuakpb'},
+          url: '../core/transaksi/prosestransmsk',
+          data: {manage:'readbrg'},
           success: function (output) {     
-            $('#kduakpb').html(output);
+            $('#kd_brg').html(output);
           }
-        });
-      $('#kduakpb').change(function(){
-        if ($(this).val()=='') {
-          $('#nmuapb').html('<select name="kduakpb" id="kduakpb"</select>');
-        }
-        else {
-          var kduapb = $('#kduapb').val();
-          var kduappbe = $(this).val();
-          $.ajax({
-            type: "post",
-            url: '../core/uakpb/prosesuakpb',
-            data: {manage:'readuappbw',kduapb:kduapb,kduappbe:kduappbe},
-            success: function (output) {
-              $('#kduappbw').html(output);
-            }
-          });
-        }
-      });
-      $('#adduser').submit(function(e){
+       });       
+       $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransmsk',
+          data: {manage:'readdok'},
+          success: function (output) {     
+            $('#no_dok').html(output);
+          }
+       });
+      $('#addtransmsk').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
@@ -140,7 +136,7 @@
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "2600";
-        redirectURL = "uapb";
+        redirectURL = "saldo_msk";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({
