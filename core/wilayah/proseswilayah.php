@@ -20,9 +20,11 @@ else
 			$Wilayah->tambahwilayah($data);
 		break;
 		case 'updwil':
+			$idwil = $purifier->purify($_POST['idwil']);
 			$kdwil = $purifier->purify($_POST['updkdwil']);
 			$nmwil = $purifier->purify($_POST['updurwil']);
 			$data = array(
+				"id_wil" => $idwil,
 				"kd_wil" => $kdwil,
 		    	"nm_wil" => $nmwil
 		    );

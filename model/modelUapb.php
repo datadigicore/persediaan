@@ -14,12 +14,13 @@ class modelUapb extends mysql_db
 	}	
 	public function ubahuapb($data)
 	{
+		$id_uapb = $data['id_uapb'];
 		$kd_uapb = $data['kd_uapb'];
 		$nm_uapb = $data['nm_uapb'];
 		$query = "update uapb
         			set kd_uapb='$kd_uapb',
                     	nm_uapb='$nm_uapb'
-                    where kd_uapb='$kd_uapb'";
+                    where kd_uapb='$id_uapb'";
         print_r($query);
         $result = $this->query($query);
 		return $result;

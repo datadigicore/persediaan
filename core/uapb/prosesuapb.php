@@ -20,9 +20,11 @@ else
 			$Uapb->tambahuapb($data);
 		break;
 		case 'upduapb':
+			$iduapb = $purifier->purify($_POST['iduapb']);
 			$kduapb = $purifier->purify($_POST['updkduapb']);
 			$nmuapb = $purifier->purify($_POST['upduruapb']);
 			$data = array(
+				"id_uapb" => $iduapb,
 				"kd_uapb" => $kduapb,
 		    	"nm_uapb" => $nmuapb
 		    );

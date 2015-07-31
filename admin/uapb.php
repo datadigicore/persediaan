@@ -153,6 +153,7 @@
         '<table width="100%">'+
            '<tr>'+
               '<input type="hidden" name="manage" value="upduapb">'+
+              '<input type="hidden" name="iduapb" value="'+d[0]+'">'+
               '<td width="14%"><input style="width:90%" id="kduapb'+d[0]+'" name="updkduapb" class="form-control" type="text" placeholder="Kode UAPB"></td>'+
               '<td><input style="width:98%" id="uruapb'+d[0]+'" name="upduruapb" class="form-control" type="text" placeholder="Uraian UAPB"></td>'+
               '<td style="vertical-align:middle; width:15%;">'+

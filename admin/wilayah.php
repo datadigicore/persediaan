@@ -155,6 +155,7 @@
         '<table width="100%">'+
            '<tr>'+
               '<input type="hidden" name="manage" value="updwil">'+
+              '<input type="hidden" name="idwil" value="'+d[0]+'">'+
               '<td width="14%"><input style="width:90%" id="kdwil'+d[0]+'" name="updkdwil" class="form-control" type="text" placeholder="Kode Wilayah"></td>'+
               '<td><input style="width:98%" id="urwil'+d[0]+'" name="updurwil" class="form-control" type="text" placeholder="Uraian Wilayah"></td>'+
               '<td style="vertical-align:middle; width:15%;">'+
