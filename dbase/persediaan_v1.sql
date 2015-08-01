@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 31, 2015 at 06:43 PM
+-- Generation Time: Aug 01, 2015 at 06:50 PM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `barang_klr` (
   `rph_sat` int(11) NOT NULL,
   `user_id` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -52,12 +52,21 @@ CREATE TABLE IF NOT EXISTS `barang_msk` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `barang_msk`
+-- Table structure for table `barang_opsik`
 --
 
-INSERT INTO `barang_msk` (`id`, `no_dok`, `kd_brg`, `kuantitas`, `rph_sat`, `user_id`) VALUES
-(5, 'TMSA', '1010304007', 56, 20000, 'masteruser');
+CREATE TABLE IF NOT EXISTS `barang_opsik` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `no_dok` varchar(20) NOT NULL,
+  `kd_brg` varchar(10) NOT NULL,
+  `kuantitas` int(11) NOT NULL,
+  `rph_sat` int(11) NOT NULL,
+  `user_id` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -324,25 +333,24 @@ INSERT INTO `kel` (`id`, `kd_gol`, `kd_bid`, `kd_kel`, `nm_kel`, `kd_kelbrg`) VA
 
 CREATE TABLE IF NOT EXISTS `opsik` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `thn_ang` int(11) DEFAULT NULL,
-  `kd_lokasi` text,
-  `kd_brg` int(11) DEFAULT NULL,
-  `tglbuku` text,
-  `tgldok` text,
-  `nodok` text,
-  `no_bukti` text,
-  `kuantitas` int(11) DEFAULT NULL,
-  `rph_sat` int(11) DEFAULT NULL,
-  `keterangan` text,
+  `kd_lokasi` varchar(20) NOT NULL,
+  `thn_ang` varchar(4) NOT NULL,
+  `no_dok` varchar(20) NOT NULL,
+  `tgl_dok` date NOT NULL,
+  `tgl_buku` date NOT NULL,
+  `no_bukti` varchar(20) NOT NULL,
+  `jns_trans` varchar(5) NOT NULL,
+  `keterangan` varchar(100) NOT NULL,
+  `user_id` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `opsik`
 --
 
-INSERT INTO `opsik` (`id`, `thn_ang`, `kd_lokasi`, `kd_brg`, `tglbuku`, `tgldok`, `nodok`, `no_bukti`, `kuantitas`, `rph_sat`, `keterangan`) VALUES
-(1, 2010, '113010155000000000KP', 2147483647, '2010-07-12', '2010-07-12', '113010155000000000KP201000001P', '', 5, 12000, 'LIMA');
+INSERT INTO `opsik` (`id`, `kd_lokasi`, `thn_ang`, `no_dok`, `tgl_dok`, `tgl_buku`, `no_bukti`, `jns_trans`, `keterangan`, `user_id`) VALUES
+(5, '1130257010001', '2015', 'wef', '2015-08-13', '2015-08-06', 'df', 'P01', 'sDFsdf', 'fikri.fd');
 
 -- --------------------------------------------------------
 
@@ -577,16 +585,6 @@ CREATE TABLE IF NOT EXISTS `trans_klr` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
---
--- Dumping data for table `trans_klr`
---
-
-INSERT INTO `trans_klr` (`id`, `kd_lokasi`, `kd_lok_msk`, `thn_ang`, `no_dok`, `tgl_dok`, `tgl_buku`, `no_bukti`, `jns_trans`, `keterangan`, `user_id`) VALUES
-(8, '', '', '2014', 'TKHP', '0000-00-00', '0000-00-00', '0001', 'K01', 'Transaksi Keluar Habis Pakai', 'masteruser'),
-(9, '', '', '2014', '21', '0000-00-00', '0000-00-00', 'f', 'K01', 'wef', 'masteruser'),
-(10, '', '', '2014', 'asd', '0000-00-00', '0000-00-00', 'asd', 'K01', 'asd', 'masteruser'),
-(11, '', '', '2014', 'TKKKP', '0000-00-00', '0000-00-00', 'AFD', 'K01', 'ASDASD', 'masteruser');
-
 -- --------------------------------------------------------
 
 --
@@ -606,15 +604,7 @@ CREATE TABLE IF NOT EXISTS `trans_msk` (
   `keterangan` varchar(100) NOT NULL,
   `user_id` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
-
---
--- Dumping data for table `trans_msk`
---
-
-INSERT INTO `trans_msk` (`id`, `kd_lokasi`, `kd_lok_msk`, `thn_ang`, `no_dok`, `tgl_dok`, `tgl_buku`, `no_bukti`, `jns_trans`, `keterangan`, `user_id`) VALUES
-(10, '', '', '2014', 'TMSA', '2015-07-14', '2015-07-23', '001', 'M01', 'Saldo Awal Pembukaan Tahun', 'masteruser'),
-(11, '', '', '2014', 'asd', '0000-00-00', '0000-00-00', 'asd', 'M01', 'asd', 'masteruser');
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 -- --------------------------------------------------------
 
@@ -656,7 +646,7 @@ CREATE TABLE IF NOT EXISTS `uakpb` (
   `nm_uakpb` varchar(40) NOT NULL,
   `kd_lokasi` varchar(25) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -769,11 +759,7 @@ INSERT INTO `uapb` (`id`, `kd_uapb`, `nm_uapb`) VALUES
 (91, '999', 'BENDAHARA UMUM NEGARA                   '),
 (92, '008', 'WAKIL PRESIDEN                          '),
 (93, '053', 'BADAN URUSAN LOGISTIK                   '),
-(94, '094', 'BADAN  REHABILITASI DAN REKONSTRUKSI NAD'),
-(95, '112', 'ANGKUTAN KOTA'),
-(96, '113', 'KARANG TARUNA RW 20'),
-(97, '123', 'GUNADARMA'),
-(98, '118', 'PPA');
+(94, '094', 'BADAN  REHABILITASI DAN REKONSTRUKSI NAD');
 
 -- --------------------------------------------------------
 
@@ -1099,20 +1085,7 @@ INSERT INTO `uappbe1` (`id`, `kd_uapb`, `kd_uappbe1`, `nm_uappbe1`) VALUES
 (303, '094', '07', 'BIDANG INFRASTRUKTUR, LIN'),
 (304, '094', '08', 'BIDANG KELEMBAGAAN DAN PE'),
 (305, '094', '09', 'SEKRETARIAT, KOMUNIKASI D'),
-(306, '094', '10', 'BIDANG OPERASI           '),
-(307, '112', '01', 'SUPIR'),
-(308, '112', '02', 'KENECK'),
-(309, '113', '01', 'SEKRETARIAT'),
-(310, '113', '02', 'PEMBINA'),
-(311, '1122', '135', ''),
-(312, '1122', '135', ''),
-(313, '1122', '1555', ''),
-(314, '979', '878', ''),
-(315, '979', '878', ''),
-(316, '9009', '4445', ''),
-(317, '909', '303', ''),
-(318, '3121', '213', ''),
-(319, '303', '202', 'IBC CN');
+(306, '094', '10', 'BIDANG OPERASI           ');
 
 -- --------------------------------------------------------
 
@@ -1127,7 +1100,7 @@ CREATE TABLE IF NOT EXISTS `uappbw` (
   `kd_uappbw` varchar(10) NOT NULL,
   `nm_uappbw` varchar(40) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -1143,7 +1116,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `user_level` int(4) NOT NULL,
   `kd_lokasi` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `user`
@@ -1151,7 +1124,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`user_id`, `user_name`, `user_pass`, `user_email`, `user_level`, `kd_lokasi`) VALUES
 (1, 'masteradmin', '0192023a7bbd73250516f069df18b500', 'yohanes.christomas@gmail.com', 1, NULL),
-(2, 'masteruser', '0192023a7bbd73250516f069df18b500', 'yohanes.christomas@gmail.com', 2, NULL);
+(2, 'masteruser', '0192023a7bbd73250516f069df18b500', 'yohanes.christomas@gmail.com', 2, NULL),
+(4, 'fikri.fd', 'e10adc3949ba59abbe56e057f20f883e', 'fikri.fadlillah@yahoo.com', 2, '');
 
 -- --------------------------------------------------------
 

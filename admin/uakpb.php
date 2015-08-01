@@ -153,6 +153,7 @@
           ],
         });
       });
+
       $('#kduapb').change(function(){
         if ($(this).val()=='') {
           $('#kduappbe').html('<option value="">-- Pilih Kode UAPB Terlebih Dahulu --</option>');
@@ -188,6 +189,7 @@
           });
         }
       });
+
     </script>
   </body>
 </html>

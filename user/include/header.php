@@ -1,4 +1,4 @@
-	  <?php include("../config/user.php"); ?>
+	  <?php include("../config/user.php");  ?>
     <header class="main-header">
         <a href="index" class="logo">
           <span class="logo-mini"><b>A</b>LT</span>
@@ -13,14 +13,14 @@
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="../dist/img/adminpic.png" class="user-image" alt="User Image" />
-                  <span class="hidden-xs">Admin Persediaan</span>
+                  <span class="hidden-xs"><?php echo $_SESSION['username']; ?></span>
                 </a>
                 <ul class="dropdown-menu">
                   <li class="user-header">
                     <img src="../dist/img/adminpic.png" class="img-circle" alt="User Image" />
                     <p>
-                      Administrator - Aplikasi Persediaan
-                      <small>Admin Control Panel</small>
+                      <?php echo $_SESSION['username']; ?>
+                      <small>User UAKPB</small>
                     </p>
                   </li>
                   <li class="user-footer">

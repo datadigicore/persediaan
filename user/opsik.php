@@ -3,6 +3,7 @@
   <head>
     <?php include("include/loadcss.php"); ?>
     <link href="../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="../dist/css/datepicker.css" rel="stylesheet" type="text/css" />
   </head>
   <body class="skin-blue layout-boxed">
     <div class="wrapper">
@@ -11,11 +12,11 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Tambah Pengelola Baru
+            Hasil Opname Fisik
             <small>Control Panel</small>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-table"></i> Tabel User UAKPB</a></li>
+            <li class="active"><a href="#"><i class="fa fa-table"></i>Daftar Hasil Opname Fisik</a></li>
           </ol>
         </section>
         <section class="content">
@@ -23,43 +24,46 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tambah Data User UAKPB</h3>
+                   <a href="saldo_msk" class="btn btn-primary  btn-s">1.Dokumen</a> 
+                   <a href="brg_msk" class="btn btn-primary  btn-s">2.Barang</a> 
+                </div>
+                <div class="box-header with-border">
+                  <h3 class="box-title">Tambah Hasil Opname Fisik</h3>
                 </div>  
-                <form action="../core/user/prosesuser" method="post" class="form-horizontal" id="adduser">
+                <form action="../core/opsik/prosesopsik" method="post" class="form-horizontal" id="addtransmsk">
                   <div class="box-body">
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">User Name</label>
+                      <label class="col-sm-2 control-label">Nomor Dokumen</label>
                       <div class="col-sm-9">
-                        <input type="text" name="user_name" class="form-control" id="user_name" placeholder="Masukkan User Name">
-                        <input type="hidden" name="manage" value="adduser">
+                        <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="Seharsnya No. Dok Auto Generated">
+                        <input type="hidden" name="manage" value="tbhopsik">
+                        
+                      </div>
+                    </div> 
+                    <div class="form-group">                     
+                    <label class="col-sm-2 control-label">Nomor Bukti</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor BUkti">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Password</label>
-                      <div class="col-sm-9">
-                        <input type="password" name="user_pass" class="form-control" id="user_pass" placeholder="Masukkan Password">
+                      <label class="col-sm-2 control-label">Tanggal Dokumen</label>
+                      <div class="col-sm-4">
+                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen">
                       </div>
                     </div>                    
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Konfirmasi Password</label>
+                      <label class="col-sm-2 control-label">Tanggal Buku</label>
+                      <div class="col-sm-4">
+                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku">
+                      </div> 
+                    </div>                   
+                  <div class="form-group">
+                      <label class="col-sm-2 control-label">Keterangan</label>
                       <div class="col-sm-9">
-                        <input type="password" name="konf_pass" class="form-control" id="konf_pass" placeholder="Konfirmasi Pasword">
-                      </div>
-                    </div>                    
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Email</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="email" class="form-control" id="email" placeholder="Masukkan Email">
+                        <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Keterangan">
                       </div>
                     </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode UAKPB</label>
-                      <div class="col-sm-9">
-                        <select name="kduakpb" id="kduakpb" class="form-control">
-                        </select>
-                      </div>
-                    </div>                 
-                  </div>
                   <div class="box-footer">
                     <button type="Reset" class="btn btn-default">Reset</button>
                     <button type="submit" class="btn btn-info pull-right">Submit</button>
@@ -68,15 +72,18 @@
               </div>
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tabel Data Pengelola</h3>
+                  <h3 class="box-title">Daftar Opname Fisik</h3>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th width="14%">Username</th>
-                        <th>Email</th>
-                        <th>Nama UAKPB</th>
+                        <th width="10%">ID</th>
+                        <th width="14%">Nomor Dokumen</th>
+                        <th>Nomor Bukti</th>
+                        <th>Tanggal Dokumen</th>
+                        <th>Tanggal Buku</th>
+                        <th>Keterangan</th>
                       </tr>
                     </thead>
                   </table>
@@ -92,47 +99,40 @@
     <?php include("include/loadjs.php"); ?>
     <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
-        $("li#user").addClass("active");
+        $('#tgl_dok').datepicker({
+          format: "yyyy/mm/dd"
+        });         
+        $('#tgl_buku').datepicker({
+          format: "yyyy/mm/dd"
+        });             
+        $("li#saldo_awal").addClass("active");
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
-          "ajax": "../core/loadtable/loaduser",
+          "ajax": "../core/loadtable/loaddok",
           "columnDefs":
           [
             {"targets": 0 },
             {"targets": 1 },
-            {"targets": 2 }
+            {"targets": 2 },
+            {"targets": 3 },
+            {"targets": 4 },
+            {"targets": 5 }
           ],
         });
       });
-        $.ajax({
+       $.ajax({
           type: "post",
-          url: '../core/uakpb/prosesuakpb',
-          data: {manage:'readuakpb'},
+          url: '../core/transaksi/prosestransmsk',
+          data: {manage:'readbrg'},
           success: function (output) {     
-            $('#kduakpb').html(output);
+            $('#kd_brg').html(output);
           }
-        });
-      $('#kduakpb').change(function(){
-        if ($(this).val()=='') {
-          $('#nmuapb').html('<select name="kduakpb" id="kduakpb"</select>');
-        }
-        else {
-          var kduapb = $('#kduapb').val();
-          var kduappbe = $(this).val();
-          $.ajax({
-            type: "post",
-            url: '../core/uakpb/prosesuakpb',
-            data: {manage:'readuappbw',kduapb:kduapb,kduappbe:kduappbe},
-            success: function (output) {
-              $('#kduappbw').html(output);
-            }
-          });
-        }
-      });
-      $('#adduser').submit(function(e){
+       });
+      $('#addtransmsk').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
@@ -140,7 +140,7 @@
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "2600";
-        redirectURL = "user";
+        redirectURL = "saldo_msk";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({
