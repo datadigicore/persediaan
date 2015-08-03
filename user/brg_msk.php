@@ -79,6 +79,7 @@
                         <th>Kode Barang</th>
                         <th>Jumah Barang</th>
                         <th>Harga Satuan</th>
+                        <th>Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -107,7 +108,14 @@
             {"targets": 1 },
             {"targets": 2 },
             {"targets": 3 },
-            {"targets": 4 }
+            {"targets": 4 },
+            {"orderable": false,
+             "data": null,
+             "defaultContent":  '<div class="box-tools">'+
+                                  '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                  '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                '</div>',
+             "targets": [5],"targets": 5 }
 
           ],
         });

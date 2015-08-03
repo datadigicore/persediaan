@@ -30,7 +30,7 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Detil Transaksi</h3>
                 </div>  
-                <form action="../core/transaksi/prosestransklr" method="post" class="form-horizontal" id="addtransmsk">
+                <form action="../core/transaksi/prosestransklr" method="post" class="form-horizontal" id="addtransklr">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>
@@ -84,6 +84,7 @@
                         <th>Tanggal Dokumen</th>
                         <th>Tanggal Buku</th>
                         <th>Keterangan</th>
+                        <th>Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -120,7 +121,14 @@
             {"targets": 2 },
             {"targets": 3 },
             {"targets": 4 },
-            {"targets": 5 }
+            {"targets": 5 },
+            {"orderable": false,
+             "data": null,
+             "defaultContent":  '<div class="box-tools">'+
+                                  '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                  '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                '</div>',
+             "targets": [6],"targets": 6 }
           ],
         });
       });
@@ -132,7 +140,7 @@
             $('#kd_brg').html(output);
           }
        });
-      $('#addtransmsk').submit(function(e){
+      $('#addtransklr').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
@@ -140,7 +148,7 @@
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "2600";
-        redirectURL = "saldo_msk";
+        redirectURL = "trans_klr";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({
