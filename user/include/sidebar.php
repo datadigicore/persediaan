@@ -11,20 +11,19 @@
             <li class="treeview">
               <a href="#"><i class="fa fa-link"></i> <span>Lain-Lain</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
-                <li id="wilayah"><a href="wilayah">Tabel Wilayah</a></li>
-                <li id="kanwil"><a href="kanwil">Tabel Kanwil</a></li>
+              <!--li id="wilayah"><a href="wilayah">Tabel Wilayah</a></li>
+                <li id="kanwil"><a href="kanwil">Tabel Kanwil</a></li> -->
                 <li id="subkelbar"><a href="subkelbar">Tabel Sub Kelompok Barang</a></li>
                 <li id="barang"><a href="barang">Tabel Barang</a></li>
-                <li id="transaksi"><a href="transaksi">Tabel Jenis Transaksi</a></li>
               </ul>
             </li>
             <li class="treeview">
               <a href="#"><i class="fa fa-link"></i> <span>Persediaan Masuk</span> <i class="fa fa-angle-left pull-right"></i></a>            
               <ul class="treeview-menu">
                 <li id="saldo_awal"><a href="saldo_msk"><span>Saldo Awal</span></a></li>
-                <li id="pembelian"><a href="pembelian"><span>Pembelian</span></a></li>
+                <li id="pembelian"><a href="saldo_msk"><span>Pembelian</span></a></li>
                 <li id="trf_msk"><a href="trf_msk"><span>Transfer Masuk</span></a></li>
-                <li id="hbh_msk"><a href="hibah_msk"><span>Hibah Masuk</span></a></li>
+                <li id="hbh_msk"><a href="trf_msk"><span>Hibah Masuk</span></a></li>
                 <li id="rampasan"><a href="saldo_msk"><span>Rampasan</span></a></li>
                 <li id="prlhn_lain"><a href="saldo_msk"><span>Perolehan Lain</span></a></li>
               </ul>

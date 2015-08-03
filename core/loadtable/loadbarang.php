@@ -8,18 +8,20 @@
 $table = 'brg';
  
 // Primary Key table
-$primaryKey = 'kd_brg';
+$primaryKey = 'id';
  
 // Load Data berdasarkan nama table nya
 $columns = array(
     array( 'db' => 'kd_kbrg', 'dt' => 0 ),
     array( 'db' => 'kd_jbrg', 'dt' => 1 ),
-	array( 'db' => 'nm_brg', 'dt' => 2 ),
-    array( 'db' => 'satuan', 'dt' => 3 )
+    array( 'db' => 'nm_brg', 'dt' => 2 ),
+    array( 'db' => 'satuan', 'dt' => 3 ),
 );
  
 // Settingan Koneksi Datatable
 require('../../config/dbconf.php');
+$config = new config();
+$sql_details = $config->sql_details();
  
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp.class.php' );

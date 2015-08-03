@@ -2,7 +2,7 @@
 <html>
   <head>
     <?php include("include/loadcss.php"); ?>
-    <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
   </head>
   <body class="skin-blue layout-boxed">
     <div class="wrapper">
