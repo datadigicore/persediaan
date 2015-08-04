@@ -26,7 +26,7 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Data</h3>
                 </div>
-				        <form action="core/barang/prosesbarang" method="post" class="form-horizontal" id="addbarang">
+				        <form action="../core/barang/prosesbarang" method="post" class="form-horizontal" id="addbarang">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode Sub-sub Kelompok Barang</label>
@@ -39,13 +39,13 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode Barang</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kdbarang" class="form-control" id="kodebarang" placeholder="Masukkan Kode Barang">
+                        <input type="text" name="kodebarang" class="form-control" id="kodebarang" placeholder="Masukkan Kode Barang">
                       </div>
                     </div>                    
 					<div class="form-group">
                       <label class="col-sm-2 control-label">Nama Barang</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nmbarang" class="form-control" id="namabarang" placeholder="Masukkan Nama Barang">
+                        <input type="text" name="namabarang" class="form-control" id="namabarang" placeholder="Masukkan Nama Barang">
                       </div>
                     </div>
                     <div class="form-group">
@@ -118,6 +118,8 @@
           ],
         });
       });
+      
+
     </script>
   </body>
 </html>

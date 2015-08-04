@@ -6,6 +6,7 @@ class modelBarang extends mysql_db
 	{
 		$kd_kbrg = $data['kd_kbrg'];
 		$kd_jbrg = $data['kd_jbrg'];
+		$kd_brg = $data['kd_brg'];
 		$nm_brg = $data['nm_brg'];
 		$satuan = $data['satuan'];
 		$kd_perk = $data['kd_perk'];
@@ -13,6 +14,7 @@ class modelBarang extends mysql_db
 		$query = "Insert into brg
         			set kd_kbrg='$kd_kbrg',
         			kd_jbrg='$kd_jbrg',
+        			kd_brg='$kd_brg',
         			nm_brg='$nm_brg',
                     satuan='$satuan',
                     kd_perk='$kd_perk',
@@ -24,7 +26,7 @@ class modelBarang extends mysql_db
 
 	public function bacasskel()
 	{
-		$query = "select * from sskel";
+		$query = "select * from sskel group by nm_sskel asc";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Sub Kelompok Barang --</option>';
 		while ($row = $this->fetch_array($result))

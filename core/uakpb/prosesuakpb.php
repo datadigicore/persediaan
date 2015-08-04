@@ -31,7 +31,7 @@ else
 		break;
 		case 'adduakpb':
 			$kodeuapb = $purifier->purify($_POST['kduapb']);
-			$kodeuappbe1 = $purifier->purify($_POST['kduappbe1']);
+			$kodeuappbe1 = $purifier->purify($_POST['kduappbe']);
 			$kodeuappbw = $purifier->purify($_POST['kduappbw']);
 			$kodeuakpb = $purifier->purify($_POST['kduakpb']);
 			$kodeuapkpb = $purifier->purify($_POST['kduapkpb']);
