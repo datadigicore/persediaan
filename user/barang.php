@@ -68,10 +68,10 @@
                     <thead>
                       <tr>
                         <th width="14%">SSKel. Barang</th>
-                        <th>Kode Barang</th>
-						<th>Nama Barang</th>
+                        <th width="14%">Kode Barang</th>
+						            <th>Nama Barang</th>
                         <th width="14%">Satuan</th>
-                        <th width="14%">Aksi</th>
+                        <th width="10%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -88,7 +88,6 @@
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
-        $(".treeview").addClass("active");
         $("li#barang").addClass("active");
         $.ajax({
           type: "post",
