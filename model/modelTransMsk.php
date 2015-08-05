@@ -82,6 +82,17 @@ class modelTransMsk extends mysql_db
         {
             echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg']."</option>";
         }   
+    }    
+
+    public function bacauakpb($data)
+    {
+        $query = "select * from uakpb";
+        $result = $this->query($query);
+        echo '<option value="">-- Pilih Kode Barang --</option>';
+        while ($row = $this->fetch_array($result))
+        {
+            echo '<option value="'.$row['kd_lokasi'].'">'.$row['kd_lokasi'].' '.$row['nm_uakpb']."</option>";
+        }   
     }
 }
 ?>

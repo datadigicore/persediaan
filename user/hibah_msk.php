@@ -35,31 +35,31 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>
                       <div class="col-sm-9">
-                        <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="Seharsnya No. Dok Auto Generated">
+                        <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="">
                         <input type="hidden" name="manage" value="tbhdokmsk">
                       </div>
                     </div> 
                     <div class="form-group">                     
                     <label class="col-sm-2 control-label">Nomor Bukti</label>
                       <div class="col-sm-9">
-                        <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor BUkti">
+                        <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Dokumen</label>
-                      <div class="col-sm-4">
-                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen">
+                      <div class="col-sm-2">
+                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="">
                       </div>
                     </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Buku</label>
-                      <div class="col-sm-4">
-                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku">
+                      <div class="col-sm-2">
+                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="">
                       </div> 
                     </div>                     
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Organisasi / Lembaga Pengirim</label>
-                      <div class="col-sm-4">
+                      <div class="col-sm-5">
                         <select name="kd_org" id="kd_org" class="form-control">
                         </select>
                       </div>
@@ -144,6 +144,14 @@
           data: {manage:'readbrg'},
           success: function (output) {     
             $('#kd_brg').html(output);
+          }
+       });       
+       $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransmsk',
+          data: {manage:'readuakpb'},
+          success: function (output) {     
+            $('#kd_org').html(output);
           }
        });
       $('#addtransmsk').submit(function(e){

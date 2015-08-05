@@ -13,6 +13,10 @@ else
 	{
 		case 'readbrg':
 			$TransMsk->bacabrg();
+		break;		
+
+		case 'readuakpb':
+			$TransMsk->bacauakpb();
 		break;
 
 		case 'readdok':
