@@ -23,7 +23,7 @@
               <ul class="treeview-menu">
                 <li id="saldo_awal"><a href="saldo_msk"><span>Saldo Awal</span></a></li>
                 <li id="pembelian"><a href="saldo_msk"><span>Pembelian</span></a></li>
-                <li id="hibah_msk"><a href="hibah_msk"><span>Transfer Masuk</span></a></li>
+                <li id="hibah_msk"><a href="hibah_msk"><span>Transfer</span></a></li>
                 <li id="hibah_msk"><a href="hibah_msk"><span>Hibah Masuk</span></a></li>
                 <li id="rampasan"><a href="saldo_msk"><span>Rampasan</span></a></li>
                 <li id="prlhn_lain"><a href="saldo_msk"><span>Perolehan Lain</span></a></li>
@@ -33,8 +33,8 @@
               <a href="#"><i class="fa fa-link"></i> <span>Persediaan Keluar</span> <i class="fa fa-angle-left pull-right"></i></a>            
               <ul class="treeview-menu">
                 <li id="keluar"><a href="trans_klr"><span>Habis Pakai</span></a></li>
-                <li id="keluar"><a href="trans_klr"><span>Transfer Keluar</span></a></li>
-                <li id="keluar"><a href="trans_klr"><span>Hibah Keluar</span></a></li>
+                <li id="keluar"><a href="hibah_klr"><span>Transfer Keluar</span></a></li>
+                <li id="keluar"><a href="hibah_klr"><span>Hibah Keluar</span></a></li>
                 <li id="keluar"><a href="trans_klr"><span>Usang</span></a></li>
                 <li id="keluar"><a href="trans_klr"><span>Rusak</span></a></li>
                 <li id="keluar"><a href="trans_klr"><span>Penghapusan Lain</span></a></li>

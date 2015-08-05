@@ -71,7 +71,16 @@ class modelTransKlr extends mysql_db
     }
 
 
-
+    public function bacauakpb($data)
+    {
+        $query = "select * from uakpb";
+        $result = $this->query($query);
+        echo '<option value="">-- Pilih Kode Barang --</option>';
+        while ($row = $this->fetch_array($result))
+        {
+            echo '<option value="'.$row['kd_lokasi'].'">'.$row['kd_lokasi'].' '.$row['nm_uakpb']."</option>";
+        }   
+    }
 
 
 	public function ubahtransklr($data)

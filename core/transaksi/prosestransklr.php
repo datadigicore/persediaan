@@ -29,6 +29,10 @@ else
 	{
 		case 'readbrg':
 			$TransKlr->bacabrg();
+		break;		
+
+		case 'readuakpb':
+			$TransKlr->bacauakpb();
 		break;
 
 		case 'readdok':
@@ -44,7 +48,7 @@ else
 				"tgl_dok" => $tgl_dok,
 				"tgl_buku" => $tgl_buku,
 				"no_bukti" => $no_bukti,
-				"jns_trans" => $jns_trans,
+				"jns_trans" => "K02",
 				"keterangan" => $keterangan,
 				"user_id" => $user_id
 			   );

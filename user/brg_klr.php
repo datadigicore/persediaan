@@ -11,11 +11,11 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Transaksi Keluar
-            <small>Habis Pakai</small>
+            Hasil Opname Fisik
+            <small>Control Panel</small>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-table"></i>Detil Transaksi</a></li>
+            <li class="active"><a href="#"><i class="fa fa-table"></i>Detil Opname Fisik</a></li>
           </ol>
         </section>
         <section class="content">
@@ -29,7 +29,7 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Barang</h3>
                 </div>  
-                <form action="../core/transaksi/prosestransklr" method="post" class="form-horizontal" id="addtran">
+                <form action="../core/opsik/prosesopsik" method="post" class="form-horizontal" id="addtran">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>
@@ -101,7 +101,7 @@
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
-          "ajax": "../core/loadtable/loadbrgmsk",
+          "ajax": "../core/loadtable/loadbrgklr",
           "columnDefs":
           [
             {"targets": 0 },
@@ -122,7 +122,7 @@
       });
        $.ajax({
           type: "post",
-          url: '../core/transaksi/prosestransklr',
+          url: '../core/transaksi/prosesopsik',
           data: {manage:'readdok'},
           success: function (output) {     
             $('#no_dok').html(output);
@@ -130,7 +130,7 @@
        });
        $.ajax({
           type: "post",
-          url: '../core/transaksi/prosestransklr',
+          url: '../core/transaksi/prosesopsik',
           data: {manage:'readbrg'},
           success: function (output) {     
             $('#kd_brg').html(output);

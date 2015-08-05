@@ -24,8 +24,8 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                   <a href="saldo_msk" class="btn btn-primary  btn-s">1.Dokumen</a> 
-                   <a href="brg_msk" class="btn btn-primary  btn-s">2.Barang</a> 
+                   <a href="opsik" class="btn btn-primary  btn-s">1.Dokumen</a> 
+                   <a href="brg_opsik" class="btn btn-primary  btn-s">2.Barang</a> 
                 </div>
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Hasil Opname Fisik</h3>

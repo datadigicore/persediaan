@@ -12,8 +12,8 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Persediaan Masuk
-            <small>Control Panel</small>
+            Persediaan Keluar
+            <small>Transfer Keluar</small>
           </h1>
           <ol class="breadcrumb">
             <li class="active"><a href="#"><i class="fa fa-table"></i>Daftar Transaski Saldo Awal</a></li>
@@ -28,38 +28,38 @@
                    <a href="brg_klr" class="btn btn-primary  btn-s">2.Barang</a> 
                 </div>
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tambah Dokumen Transaksi Saldo Awal</h3>
+                  <h3 class="box-title">Tambah Dokumen Transaksi Transfer Keluar</h3>
                 </div>  
-                <form action="../core/transaksi/prosestransmsk" method="post" class="form-horizontal" id="addtransmsk">
+                <form action="../core/transaksi/prosestransklr" method="post" class="form-horizontal" id="addtransklr">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>
                       <div class="col-sm-9">
-                        <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="Seharsnya No. Dok Auto Generated">
-                        <input type="hidden" name="manage" value="tbhdokmsk">
+                        <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="">
+                        <input type="hidden" name="manage" value="tbhdokklr">
                       </div>
                     </div> 
                     <div class="form-group">                     
                     <label class="col-sm-2 control-label">Nomor Bukti</label>
                       <div class="col-sm-9">
-                        <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor BUkti">
+                        <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Dokumen</label>
-                      <div class="col-sm-4">
-                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen">
+                      <div class="col-sm-2">
+                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="">
                       </div>
                     </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Buku</label>
-                      <div class="col-sm-4">
-                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku">
+                      <div class="col-sm-2">
+                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="">
                       </div> 
                     </div>                     
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Organisasi / Lembaga Penerima</label>
-                      <div class="col-sm-4">
+                      <div class="col-sm-5">
                         <select name="kd_org" id="kd_org" class="form-control">
                         </select>
                       </div>
@@ -145,8 +145,16 @@
           success: function (output) {     
             $('#kd_brg').html(output);
           }
+       });       
+       $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransklr',
+          data: {manage:'readuakpb'},
+          success: function (output) {     
+            $('#kd_org').html(output);
+          }
        });
-      $('#addtransmsk').submit(function(e){
+      $('#addtransklr').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
@@ -154,7 +162,7 @@
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "2600";
-        redirectURL = "saldo_msk";
+        redirectURL = "hibah_klr";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({

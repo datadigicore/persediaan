@@ -113,7 +113,7 @@
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
-          "ajax": "../core/loadtable/loaddok",
+          "ajax": "../core/loadtable/loadtransklr",
           "columnDefs":
           [
             {"targets": 0 },
