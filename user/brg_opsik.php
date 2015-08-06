@@ -36,7 +36,7 @@
                       <div class="col-sm-9">
                         <select name="no_dok" id="no_dok" class="form-control">
                         </select>
-                        <input type="hidden" name="manage" value="tbhbrgklr">
+                        <input type="hidden" name="manage" value="tbhbrgopsik">
                       </div>
                     </div>
                     <div class="form-group">
@@ -101,7 +101,7 @@
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
-          "ajax": "../core/loadtable/loadbrgklr",
+          "ajax": "../core/loadtable/loadbrgopsik",
           "columnDefs":
           [
             {"targets": 0 },
@@ -122,7 +122,7 @@
       });
        $.ajax({
           type: "post",
-          url: '../core/transaksi/prosesopsik',
+          url: '../core/opsik/prosesopsik',
           data: {manage:'readdok'},
           success: function (output) {     
             $('#no_dok').html(output);
@@ -130,7 +130,7 @@
        });
        $.ajax({
           type: "post",
-          url: '../core/transaksi/prosesopsik',
+          url: '../core/opsik/prosesopsik',
           data: {manage:'readbrg'},
           success: function (output) {     
             $('#kd_brg').html(output);
@@ -145,7 +145,7 @@
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "2600";
-        redirectURL = "saldo_msk";
+        redirectURL = "brg_opsik";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({

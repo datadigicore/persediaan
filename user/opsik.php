@@ -113,7 +113,7 @@
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
-          "ajax": "../core/loadtable/loaddok",
+          "ajax": "../core/loadtable/loadopsik",
           "columnDefs":
           [
             {"targets": 0 },
@@ -148,7 +148,7 @@
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "2600";
-        redirectURL = "saldo_msk";
+        redirectURL = "opsik";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({

@@ -4,7 +4,7 @@ class modelOpsik extends mysql_db
 {
 	public function tambahbrgopsik($data)
 	{
-        $kd_lokasi = $data['kd_lokasi'];
+
         $no_dok = $data['no_dok'];
 		$kd_brg = $data['kd_brg'];
 		$kuantitas = $data['kuantitas'];
@@ -12,9 +12,8 @@ class modelOpsik extends mysql_db
 		$rph_sat = $data['rph_sat'];
         $user_id = $data['user_id'];
 
-		$query = "Insert into barang_msk 
-        			set kd_lokasi='$kd_lokasi',
-                    no_dok='$no_dok', 
+		$query = "Insert into barang_opsik 
+        			set no_dok='$no_dok', 
                     kd_brg='$kd_brg',
         			kuantitas='$kuantitas',
                     rph_sat='$rph_sat',

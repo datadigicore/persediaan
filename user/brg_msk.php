@@ -29,7 +29,7 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Barang</h3>
                 </div>  
-                <form action="../core/transaksi/prosestransmsk" method="post" class="form-horizontal" id="addtransm">
+                <form action="../core/transaksi/prosestransmsk" method="post" class="form-horizontal" id="addtransmsk">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>

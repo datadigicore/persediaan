@@ -42,7 +42,7 @@
                         <input type="text" name="kodebarang" class="form-control" id="kodebarang" placeholder="Masukkan Kode Barang">
                       </div>
                     </div>                    
-					<div class="form-group">
+					         <div class="form-group">
                       <label class="col-sm-2 control-label">Nama Barang</label>
                       <div class="col-sm-9">
                         <input type="text" name="namabarang" class="form-control" id="namabarang" placeholder="Masukkan Nama Barang">
@@ -84,6 +84,7 @@
       <?php include("include/footer.php"); ?>
     </div>
     <?php include("include/loadjs.php"); ?>
+    <?php include("include/success.php"); ?>
     <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -117,8 +118,35 @@
           ],
         });
       });
-      
-
+      $('#addbarang').submit(function(e){
+        $('#myModal').modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+        $('#myModal').modal('show');
+        e.preventDefault();
+        redirectTime = "2600";
+        redirectURL = "barang";
+        var formURL = $(this).attr("action");
+        var addData = new FormData(this);
+        $.ajax({
+          type: "post",
+          data: addData,
+          url : formURL,
+          contentType: false,
+          cache: false,  
+          processData: false,
+          success: function(data)
+          {
+            $("#success-alert").alert();
+            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+            $("#success-alert").alert('close');
+            });
+            setTimeout("location.href = redirectURL;",redirectTime); 
+          }
+        });
+        return false;
+      });
     </script>
   </body>
 </html>

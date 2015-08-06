@@ -12,6 +12,13 @@ else
 	switch ($manage)
 	{
 
+		case 'readdok':
+			$Opsik->bacadok();
+		break;		
+
+		case 'readbrg':
+			$Opsik->bacabrg();
+		break;
 
 		case 'tbhbrgopsik':
 			$no_dok = $purifier->purify($_POST['no_dok']);
