@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 06, 2015 at 03:16 PM
+-- Generation Time: Aug 08, 2015 at 07:52 AM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `persediaan_v3`
+-- Database: `persediaan_v1`
 --
 
 -- --------------------------------------------------------
@@ -27,6 +27,62 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `barang` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `no_dok` varchar(20) NOT NULL,
+  `kd_brg` varchar(30) NOT NULL,
+  `kuantitas` int(11) NOT NULL,
+  `rph_sat` int(11) NOT NULL,
+  `user_id` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `barang_klr`
+--
+
+CREATE TABLE IF NOT EXISTS `barang_klr` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `no_dok` varchar(20) NOT NULL,
+  `kd_brg` varchar(30) NOT NULL,
+  `kuantitas` int(11) NOT NULL,
+  `rph_sat` int(11) NOT NULL,
+  `user_id` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `barang_msk`
+--
+
+CREATE TABLE IF NOT EXISTS `barang_msk` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `no_dok` varchar(20) NOT NULL,
+  `kd_brg` varchar(30) NOT NULL,
+  `kuantitas` int(11) NOT NULL,
+  `rph_sat` int(11) NOT NULL,
+  `user_id` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+
+--
+-- Dumping data for table `barang_msk`
+--
+
+INSERT INTO `barang_msk` (`id`, `no_dok`, `kd_brg`, `kuantitas`, `rph_sat`, `user_id`) VALUES
+(10, '010100000KPA01', 'andreas', 5, 30000, 'fikri.fd'),
+(11, 'rert', '101030600912', 4, 60000, 'fikri.fd');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `barang_opsik`
+--
+
+CREATE TABLE IF NOT EXISTS `barang_opsik` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `no_dok` varchar(20) NOT NULL,
   `kd_brg` varchar(30) NOT NULL,
@@ -1255,9 +1311,31 @@ CREATE TABLE IF NOT EXISTS `transaksi` (
   `tgl_buku` date NOT NULL,
   `no_bukti` varchar(20) NOT NULL,
   `kd_brg` varchar(30) NOT NULL,
-  `nm_brg` varchar(30) NOT NULL,
+  `nm_brg` varchar(30) DEFAULT NULL,
   `qty` mediumint(9) NOT NULL,
   `harga_sat` int(11) NOT NULL,
+  `jns_trans` varchar(5) NOT NULL,
+  `keterangan` varchar(100) NOT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  `user_id` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `trans_klr`
+--
+
+CREATE TABLE IF NOT EXISTS `trans_klr` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `kd_lokasi` varchar(20) NOT NULL,
+  `kd_lok_msk` varchar(20) DEFAULT NULL,
+  `thn_ang` varchar(4) NOT NULL,
+  `no_dok` varchar(20) NOT NULL,
+  `tgl_dok` date NOT NULL,
+  `tgl_buku` date NOT NULL,
+  `no_bukti` varchar(20) NOT NULL,
   `jns_trans` varchar(5) NOT NULL,
   `keterangan` varchar(100) NOT NULL,
   `user_id` varchar(20) NOT NULL,
@@ -1267,11 +1345,31 @@ CREATE TABLE IF NOT EXISTS `transaksi` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaksi_andreas`
+-- Table structure for table `trans_msk`
 --
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `persediaan_v3`.`transaksi_andreas` AS select `persediaan_v3`.`barang_msk`.`id` AS `id`,`persediaan_v3`.`barang_msk`.`no_dok` AS `no_dok`,`persediaan_v3`.`barang_msk`.`kd_brg` AS `kd_brg`,`persediaan_v3`.`barang_msk`.`kuantitas` AS `kuantitas`,`persediaan_v3`.`barang_msk`.`rph_sat` AS `rph_sat`,`persediaan_v3`.`barang_msk`.`user_id` AS `user_id` from `persediaan_v3`.`barang_msk`;
--- in use (#1356 - View 'persediaan_v3.transaksi_andreas' references invalid table(s) or column(s) or function(s) or definer/invoker of view lack rights to use them)
+CREATE TABLE IF NOT EXISTS `trans_msk` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `kd_lokasi` varchar(20) NOT NULL,
+  `kd_lok_msk` varchar(20) DEFAULT NULL,
+  `thn_ang` varchar(4) NOT NULL,
+  `no_dok` varchar(20) NOT NULL,
+  `tgl_dok` date NOT NULL,
+  `tgl_buku` date NOT NULL,
+  `no_bukti` varchar(20) NOT NULL,
+  `jns_trans` varchar(5) NOT NULL,
+  `keterangan` varchar(100) NOT NULL,
+  `user_id` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `trans_msk`
+--
+
+INSERT INTO `trans_msk` (`id`, `kd_lokasi`, `kd_lok_msk`, `thn_ang`, `no_dok`, `tgl_dok`, `tgl_buku`, `no_bukti`, `jns_trans`, `keterangan`, `user_id`) VALUES
+(1, '018010100010111', '018010100010111', '-- T', 'sdf', '2015-08-06', '2015-08-13', 'sdf', 'M01', 'sdfsdf', 'fikri.fd'),
+(2, '018010100010111', '018010100010111', '-- T', 'KPAI10000', '2015-08-07', '2015-08-08', '09976344', 'M01', 'MASUK', 'fikri.fd');
 
 -- --------------------------------------------------------
 

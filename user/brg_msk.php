@@ -29,14 +29,15 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Barang</h3>
                 </div>  
-                <form action="../core/transaksi/prosestransmsk" method="post" class="form-horizontal" id="addtransmsk">
+                <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="addtransms">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>
                       <div class="col-sm-9">
                         <select name="no_dok" id="no_dok" class="form-control">
                         </select>
-                        <input type="hidden" name="manage" value="tbhbrgmsk">
+                        <input type="hidden" name="manage" value="tbh_transaksi">
+                        <input type="hidden" name="jenis_trans" value="M01">
                       </div>
                     </div>
                     <div class="form-group">
