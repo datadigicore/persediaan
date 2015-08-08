@@ -13,6 +13,7 @@ class modelTransaksi extends mysql_db
         $tgl_buku = $data['tgl_buku'];
         $no_bukti = $data['no_bukti'];
         $kd_brg = $data['kd_brg'];
+        $nm_brg = $data['nm_brg'];
 
         $kuantitas = $data['kuantitas'];
         $harga_sat = $data['harga_sat'];
@@ -33,6 +34,7 @@ class modelTransaksi extends mysql_db
                     no_bukti='$no_bukti',
                     jns_trans='$jns_trans',
                     kd_brg='$kd_brg',
+                    nm_brg='$nm_brg',
                     qty=1,
                     harga_sat='$harga_sat',
                     keterangan='$keterangan',

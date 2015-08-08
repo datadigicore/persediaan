@@ -70,6 +70,7 @@ class modelTransMsk extends mysql_db
         while ($row = $this->fetch_array($result))
         {
             echo '<option value="'.$row['no_dok'].'">'.$row['no_dok'].' '.$row['tgl_dok']."</option>";
+
         }   
     }    
 
@@ -81,6 +82,7 @@ class modelTransMsk extends mysql_db
         while ($row = $this->fetch_array($result))
         {
             echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg']."</option>";
+             echo '<input type="text" name="nm_brg" value='.$row['nm_brg'].'>';
         }   
     }    
 

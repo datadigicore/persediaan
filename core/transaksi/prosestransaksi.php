@@ -35,6 +35,7 @@ else
 			$no_bukti = $purifier->purify($_POST['no_bukti']);
 			$jns_trans = $_POST['jenis_trans'];
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
+			$nm_brg = $purifier->purify($_POST['nm_brg']);
 			$kuantitas = $purifier->purify($_POST['jml_msk']);
 			$keterangan = $purifier->purify($_POST['keterangan']);
 			$hrg_sat = $purifier->purify($_POST['rph_sat']);
@@ -51,6 +52,7 @@ else
 				"tgl_buku" => $tgl_buku,
 				"no_bukti" => $no_bukti,
 				"kd_brg" => $kd_brg,
+				"nm_brg" => $nm_brg,
 				"kuantitas" => $kuantitas,
 				"keterangan" => $keterangan,
 		    	"harga_sat" => $hrg_sat,
