@@ -31,14 +31,15 @@
                       <label class="col-sm-2 control-label">Kode UAPB</label>
                       <div class="col-sm-9">
                         <input type="hidden" name="manage" value="adduappbw">
-                        <select name="kduapb" id="kduapb" class="form-control">
+                        <select name="kduapb" id="kduapb" class="form-control select2">
+                          <option selected="selected">-- Pilih Kode UAPB --</option>
                         </select>
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPPB-E1</label>
                       <div class="col-sm-9">
-                        <select name="kduappbe" id="kodeuappbe" class="form-control">
+                        <select name="kduappbe" id="kodeuappbe" class="form-control select2">
                           <option value="">-- Pilih Kode UAPB Terlebih Dahulu --</option>
                         </select>
                       </div>
@@ -46,7 +47,8 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPPB-W</label>
                       <div class="col-sm-9">
-                        <select name="kduappbw" id="kodewil" class="form-control">
+                        <select name="kduappbw" id="kodewil" class="form-control select2">
+                          <option value="">-- Pilih Kode Wilayah --</option>
                         </select>
                       </div>
                     </div>
@@ -95,6 +97,7 @@
       var table;
       $(function () {
         $("li#uappbw").addClass("active");
+        $(".select2").select2();
         $.ajax({
           type: "post",
           url: '../core/uappbw/prosesuappbw',

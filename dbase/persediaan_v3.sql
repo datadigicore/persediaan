@@ -1267,15 +1267,6 @@ CREATE TABLE IF NOT EXISTS `transaksi` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaksi_andreas`
---
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `persediaan_v3`.`transaksi_andreas` AS select `persediaan_v3`.`barang_msk`.`id` AS `id`,`persediaan_v3`.`barang_msk`.`no_dok` AS `no_dok`,`persediaan_v3`.`barang_msk`.`kd_brg` AS `kd_brg`,`persediaan_v3`.`barang_msk`.`kuantitas` AS `kuantitas`,`persediaan_v3`.`barang_msk`.`rph_sat` AS `rph_sat`,`persediaan_v3`.`barang_msk`.`user_id` AS `user_id` from `persediaan_v3`.`barang_msk`;
--- in use (#1356 - View 'persediaan_v3.transaksi_andreas' references invalid table(s) or column(s) or function(s) or definer/invoker of view lack rights to use them)
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `ttd`
 --
 

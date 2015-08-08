@@ -11,7 +11,7 @@ class config {
     public $db_host = "localhost";
     public $db_user = "root";
     public $db_pass = "";
-    public $database = "persediaan_v1";
+    public $database = "persediaan_v3";
 
     public function open_connection() {
 	    $this->link_db = mysqli_connect($this->db_host, $this->db_user, $this->db_pass,$this->database)or die("Koneksi Database gagal");
