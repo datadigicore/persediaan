@@ -30,7 +30,8 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAPB</label>
                       <div class="col-sm-9">
-                        <select name="kduapb" id="kduapb" class="form-control">
+                        <select name="kduapb" id="kduapb" class="form-control select2">
+                          <option selected="selected">-- Pilih Kode UAPB --</option>
                         </select>
                         <input type="hidden" name="manage" value="adduappbe">
                       </div>
@@ -85,9 +86,10 @@
       var table;
       $(function () {
         $("li#uappbe").addClass("active");
+        $(".select2").select2();
         $.ajax({
           type: "post",
-          url: '../core/uappbw/prosesuappbw',
+          url: '../core/uappbe/prosesuappbe',
           data: {manage:'readuapb'},
           success: function (output) {     
             $('#kduapb').html(output);
@@ -224,6 +226,19 @@
               "processing": false,
               "serverSide": true,
               "ajax": "../core/loadtable/loaduappbe",
+              "columnDefs":
+              [
+                {"targets": 0 },
+                {"targets": 1 },
+                {"targets": 2 },
+                {"orderable": false,
+                 "data": null,
+                 "defaultContent":  '<div class="box-tools">'+
+                                      '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                      '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                    '</div>',
+                 "targets": [3],"targets": 3 }
+              ],
               "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
             });
           }

@@ -1345,6 +1345,7 @@ CREATE TABLE IF NOT EXISTS `trans_klr` (
 -- --------------------------------------------------------
 
 --
+<<<<<<< HEAD
 -- Table structure for table `trans_msk`
 --
 
@@ -1374,6 +1375,8 @@ INSERT INTO `trans_msk` (`id`, `kd_lokasi`, `kd_lok_msk`, `thn_ang`, `no_dok`, `
 -- --------------------------------------------------------
 
 --
+=======
+>>>>>>> a1637323e4106540a744eb3eb2b3b1008562a398
 -- Table structure for table `ttd`
 --
 

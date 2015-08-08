@@ -5,10 +5,10 @@
 #Gunadarma University
 
 // Table yang di load
-$table = 'uakpb';
+$table = 'satker';
  
 // Primary Key table
-$primaryKey = 'kd_uakpb';
+$primaryKey = 'id';
  
 // Load Data berdasarkan nama table nya
 $columns = array(
@@ -18,7 +18,7 @@ $columns = array(
 	array( 'db' => 'kd_uakpb', 'dt' => 3 ),
     array( 'db' => 'kd_uapkpb', 'dt' => 4 ),
     array( 'db' => 'jk', 'dt' => 5 ),
-    array( 'db' => 'nm_uakpb', 'dt' => 6 ),
+    array( 'db' => 'nm_satker', 'dt' => 6 ),
    
 );
  
@@ -26,9 +26,15 @@ $columns = array(
 require('../../config/dbconf.php');
 $config = new config();
 $sql_details = $config->sql_details();
- 
+
+// Kondisi Where
+$where = '	kd_uapb is not null and
+			kd_uappbe1 is not null and
+			kd_uappbw is not null and
+			kd_uakpb is not null' ;
+
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp.class.php' );
 echo json_encode(
-    SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns)
+    SSP::simplewhere( $_GET, $sql_details, $table, $primaryKey, $columns, $where )
 ); 

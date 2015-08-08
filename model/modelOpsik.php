@@ -49,6 +49,39 @@ class modelOpsik extends mysql_db
     }
 
 
+    public function tambahopsiknew($data)
+    {
+        $kd_lokasi = $data['kd_lokasi'];
+        $thn_ang = $data['thn_ang'];
+        $no_dok = $data['no_dok'];
+        $tgl_dok = $data['tgl_dok'];
+        $tgl_buku = $data['tgl_buku'];
+        $no_bukti = $data['no_bukti'];
+        $jns_trans = $data['jns_trans'];
+        $keterangan = $data['keterangan'];
+        $user_id = $data['user_id'];
+        $kd_brg = $data['kd_brg'];
+        $kuantitas = $data['kuantitas'];
+        $rph_sat = $data['rph_sat'];
+
+        $query = "Insert into opsik
+                    set kd_lokasi='$kd_lokasi',
+                    thn_ang='$thn_ang',
+                    no_dok='$no_dok',
+                    tgl_dok='$tgl_dok',
+                    tgl_buku='$tgl_buku',
+                    no_bukti='$no_bukti',
+                    jns_trans='$jns_trans',
+                    keterangan='$keterangan',
+                    user_id='$user_id',
+                    kd_brg='$kd_brg',
+                    kuantitas='$kuantitas',
+                    rph_sat='$rph_sat'";
+        $result = $this->query($query);
+        return $result;
+    }
+
+        
 
 
     public function bacadok($data)
