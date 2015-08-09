@@ -102,9 +102,16 @@
     <?php include("include/loadjs.php"); ?>
     <script src="plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
         $("li#tndtgn").addClass("active");
+        $('#tgl_isi').datepicker({
+          format: "yyyy/mm/dd"
+        });         
+        $('#tgl_setuju').datepicker({
+          format: "yyyy/mm/dd"
+        });  
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
@@ -116,7 +123,7 @@
           ],
         });
       });
-      $('#adduapb').submit(function(e){
+      $('#addtndatgn').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
@@ -124,7 +131,7 @@
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "2600";
-        redirectURL = "uapb";
+        redirectURL = "tndtgn";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({
@@ -145,6 +152,7 @@
         });
         return false;
       });
+
     </script>
   </body>
 </html>

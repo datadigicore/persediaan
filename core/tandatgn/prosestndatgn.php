@@ -2,6 +2,7 @@
 include('../../model/modelTndtgn.php');
 include('../../config/purifier.php');
 $Tndatgn = new modelTndtgn();
+session_start();
 if (empty($_POST['manage'])) {
 	echo "Error Data Tidak Tersedia";
 }
