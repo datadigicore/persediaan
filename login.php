@@ -60,28 +60,30 @@
           setupFormValidation: function()
           {
             $("#login-form").validate({
-                rules: {
-                    username: "required",
-                    password: "required",
-                    thn_ang: "required"
-                },
-                errorPlacement: function (error, element) {
-                    $(element).css({border:"1px solid red"});
-                },
-                success: function (label, element) {
-                    $(element).css({border:"1px solid #ccc"});
-                },
-                submitHandler: function(form) {
-                    form.submit();
+              rules: {
+                username: "required",
+                password: "required",
+                thn_ang: {
+                  required: true,
+                  number: true
                 }
+              },
+              errorPlacement: function (error, element) {
+                $(element).css({border:"1px solid red"});
+              },
+              success: function (label, element) {
+                $(element).css({border:"1px solid #ccc"});
+              },
+              submitHandler: function(form) {
+                form.submit();
+              }
             });
+          }
         }
-    }
-    //when the dom has loaded setup form validation rules
-    $(D).ready(function($) {
-        JQUERY4U.UTIL.setupFormValidation();
-    });
-    })(jQuery, window, document);
+        $(D).ready(function($) {
+            JQUERY4U.UTIL.setupFormValidation();
+        });
+      })(jQuery, window, document);
     </script>
   </body>
 </html>

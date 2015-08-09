@@ -20,19 +20,19 @@ else
 			$Uapb->tambahuapb($data);
 		break;
 		case 'upduapb':
-			$iduapb = $purifier->purify($_POST['iduapb']);
+			$id = $purifier->purify($_POST['id']);
 			$kduapb = $purifier->purify($_POST['updkduapb']);
 			$nmuapb = $purifier->purify($_POST['upduruapb']);
 			$data = array(
-				"id_uapb" => $iduapb,
+				"id" => $id,
 				"kd_uapb" => $kduapb,
 		    	"nm_uapb" => $nmuapb
 		    );
 			$Uapb->ubahuapb($data);
 		break;
 		case 'deluapb':
-			$kduapb = $purifier->purify($_POST['kduapb']);
-			$Uapb->hapusuapb($kduapb);
+			$id = $purifier->purify($_POST['id']);
+			$Uapb->hapusuapb($id);
 		break;
 		default:
 			echo "Error Data Tidak Tersedia";

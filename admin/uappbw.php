@@ -32,7 +32,7 @@
                       <div class="col-sm-9">
                         <input type="hidden" name="manage" value="adduappbw">
                         <select name="kduapb" id="kduapb" class="form-control select2">
-                          <option selected="selected">-- Pilih Kode UAPB --</option>
+                          <option value="">-- Pilih Kode UAPB --</option>
                         </select>
                       </div>
                     </div>
@@ -247,9 +247,12 @@
       $('#kduapb').change(function(){
         if ($(this).val()=='') {
           $('#kodeuappbe').html('<option value="">-- Pilih Kode UAPB Terlebih Dahulu --</option>');
+          $('#kodeuappbe').val("").trigger("change");
         }
         else {
           var kduapb = $(this).val();
+          $('#kodeuappbe').html('<option value="">-- Pilih Kode UAPPB-E1 --</option>');
+          $('#kodeuappbe').val("").trigger("change");
           $.ajax({
             type: "post",
             url: '../core/uappbw/prosesuappbw',

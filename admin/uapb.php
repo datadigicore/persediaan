@@ -55,6 +55,7 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
+                        <th width="14%">ID Satker</th>
                         <th width="14%">Kode UAPB</th>
                         <th>Uraian UAPB</th>
                         <th width="9%">Aksi</th>
@@ -75,6 +76,7 @@
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       var table;
+      var id_row;
       $(function () {
         $("li#uapb").addClass("active");
         table = $("#example1").DataTable({
@@ -83,23 +85,27 @@
           "ajax": "../core/loadtable/loaduapb",
           "columnDefs":
           [
-            {"targets": 0 },
+            {"targets": 0,
+             "visible": false },
             {"targets": 1 },
+            {"targets": 2 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                   '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
                                   '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
                                 '</div>',
-             "targets": [2],"targets": 2 }
+             "targets": [3],"targets": 3 },
           ],
+          "order": [[ 1, "asc" ]]
         });
       });
       $(document).on('click', '#btnedt', function () {
         var tr = $(this).closest('tr');
         var row = table.row( tr );
-        kduapb_row = row.data()[0];
-        uruapb_row  = row.data()[1];
+        id_row = row.data()[0];
+        kduapb_row = row.data()[1];
+        uruapb_row  = row.data()[2];
         if ( row.child.isShown() ) {
           $('div.slider', row.child()).slideUp( function () {
             row.child.hide();
@@ -110,8 +116,8 @@
           row.child( format(row.data())).show();
           tr.addClass('shown');
           $('div.slider', row.child()).slideDown();
-          $("#kduapb"+kduapb_row +"").val(kduapb_row);
-          $("#uruapb"+kduapb_row +"").val(uruapb_row);
+          $("#kduapb"+id_row +"").val(kduapb_row);
+          $("#uruapb"+id_row +"").val(uruapb_row);
         }
       });
       $(document).on('click', '#btnhps', function () {
@@ -119,7 +125,7 @@
       var row = table.row( tr );
       redirectTime = "2600";
       redirectURL = "uapb";
-      kduapb_row = row.data()[0];
+      id_row = row.data()[0];
       managedata = "deluapb";
       job=confirm("Anda yakin ingin menghapus data ini?");
         if(job!=true){
@@ -134,7 +140,7 @@
           $.ajax({
             type: "post",
             url : "../core/uapb/prosesuapb",
-            data: {manage:managedata,kduapb:kduapb_row},
+            data: {manage:managedata,id:id_row},
             success: function(data)
             {
               $("#success-alert").alert();
@@ -153,7 +159,7 @@
         '<table width="100%">'+
            '<tr>'+
               '<input type="hidden" name="manage" value="upduapb">'+
-              '<input type="hidden" name="iduapb" value="'+d[0]+'">'+
+              '<input type="hidden" name="id" value="'+d[0]+'">'+
               '<td width="14%"><input style="width:90%" id="kduapb'+d[0]+'" name="updkduapb" class="form-control" type="text" placeholder="Kode UAPB"></td>'+
               '<td><input style="width:98%" id="uruapb'+d[0]+'" name="upduruapb" class="form-control" type="text" placeholder="Uraian UAPB"></td>'+
               '<td style="vertical-align:middle; width:15%;">'+
@@ -190,7 +196,7 @@
             $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
             $("#success-alert").alert('close');
             });
-            setTimeout("location.href = redirectURL;",redirectTime); 
+            // setTimeout("location.href = redirectURL;",redirectTime); 
           }
         });
         return false;

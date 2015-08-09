@@ -6,28 +6,29 @@ class modelUapb extends mysql_db
 	{
 		$kd_uapb = $data['kd_uapb'];
 		$nm_uapb = $data['nm_uapb'];
-		$query = "Insert into uapb
+		$query = "Insert into satker
         			set kd_uapb='$kd_uapb',
-                    	nm_uapb='$nm_uapb'";
+                    	nm_satker='$nm_uapb',
+                    	kode='$kd_uapb'";
         $result = $this->query($query);
 		return $result;
 	}	
 	public function ubahuapb($data)
 	{
-		$id_uapb = $data['id_uapb'];
+		$id = $data['id'];
 		$kd_uapb = $data['kd_uapb'];
 		$nm_uapb = $data['nm_uapb'];
-		$query = "update uapb
+		$query = "update satker
         			set kd_uapb='$kd_uapb',
-                    	nm_uapb='$nm_uapb'
-                    where kd_uapb='$id_uapb'";
-        print_r($query);
+                    	nm_satker='$nm_uapb',
+                    	kode='$kd_uapb' 
+                    where id='$id'";
         $result = $this->query($query);
 		return $result;
 	}	
 	public function hapusuapb($data)
 	{
-		$query = "delete from uapb where kd_uapb='$data'";
+		$query = "delete from satker where id='$data'";
         $result = $this->query($query);
 		return $result;
 	}
