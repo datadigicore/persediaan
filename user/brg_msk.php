@@ -29,7 +29,7 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Barang</h3>
                 </div>  
-                <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="addtransms">
+                <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="addtransmsk">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>
@@ -145,7 +145,7 @@
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "2600";
-        redirectURL = "saldo_msk";
+        redirectURL = "brg_msk";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({

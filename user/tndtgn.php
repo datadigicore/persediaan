@@ -25,7 +25,7 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Penanggung Jawab UAKPB</h3>
                 </div>  
-                <form action="core/tandatgn/prosestndatgn" method="post" class="form-horizontal" id="addtndatgn">
+                <form action="../core/tandatgn/prosestndatgn" method="post" class="form-horizontal" id="addtndatgn">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nama</label>

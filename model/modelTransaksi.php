@@ -3,7 +3,7 @@ include('../../utility/mysql_db.php');
 class modelTransaksi extends mysql_db
 {
 	
-	public function transaksi_masuk($data)
+    public function transaksi_masuk($data)
     {
         $kd_lokasi = $data['kd_lokasi'];
         $kd_lok_msk = $data['kd_lok_msk'];
@@ -36,6 +36,48 @@ class modelTransaksi extends mysql_db
                     kd_brg='$kd_brg',
                     nm_brg='$nm_brg',
                     qty=1,
+                    harga_sat='$harga_sat',
+                    keterangan='$keterangan',
+                    status='$status',
+                    user_id='$user_id'";
+            $result = $this->query($query);
+        }
+            return $result;
+    }	
+
+    public function transaksi_keluar($data)
+    {
+        $kd_lokasi = $data['kd_lokasi'];
+        $kd_lok_msk = $data['kd_lok_msk'];
+        $thn_ang = $data['thn_ang'];
+        $no_dok = $data['no_dok'];
+        $tgl_dok = $data['tgl_dok'];
+        $tgl_buku = $data['tgl_buku'];
+        $no_bukti = $data['no_bukti'];
+        $kd_brg = $data['kd_brg'];
+        $nm_brg = $data['nm_brg'];
+
+        $kuantitas = $data['kuantitas'];
+        $harga_sat = $data['harga_sat'];
+        $jns_trans = $data['jns_trans'];
+        $keterangan = $data['keterangan'];
+        $status = $data['status'];
+        $user_id = $data['user_id'];
+        
+        for($i=0; $i<$kuantitas; $i++)
+        {
+            $query = "Insert into transaksi
+                    set kd_lokasi='$kd_lokasi',
+                    kd_lok_msk='$kd_lok_msk',
+                    thn_ang='$thn_ang',
+                    no_dok='$no_dok',
+                    tgl_dok='$tgl_dok',
+                    tgl_buku='$tgl_buku',
+                    no_bukti='$no_bukti',
+                    jns_trans='$jns_trans',
+                    kd_brg='$kd_brg',
+                    nm_brg='$nm_brg',
+                    qty=-1,
                     harga_sat='$harga_sat',
                     keterangan='$keterangan',
                     status='$status',

@@ -11,7 +11,7 @@ else
 	switch ($manage)
 	{
 		case 'addtndatgn':
-			$kdlokasi = $purifier->purify($_POST['kdlokasi']);
+			$kdlokasi = $_SESSION['kd_lok'];
 			$kota = $purifier->purify($_POST['kota']);
 			$tanggal = $purifier->purify($_POST['tanggal']);
 			$nip = $purifier->purify($_POST['nip']);
