@@ -55,7 +55,7 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th width="14%">ID Satker</th>
+                        <th>ID Satker</th>
                         <th width="14%">Kode UAPB</th>
                         <th>Uraian UAPB</th>
                         <th width="9%">Aksi</th>
@@ -76,7 +76,6 @@
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       var table;
-      var id_row;
       $(function () {
         $("li#uapb").addClass("active");
         table = $("#example1").DataTable({

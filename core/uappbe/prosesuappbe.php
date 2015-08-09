@@ -29,14 +29,12 @@ else
 			$Uappbe->tambahuappbe($data);
 		break;
 		case 'upduappbe':
-			$iduapb = $purifier->purify($_POST['iduapb']);
-			$iduappbe = $purifier->purify($_POST['iduappbe']);
+			$id = $purifier->purify($_POST['id']);
 			$kduapb = $purifier->purify($_POST['updkduapb']);
 			$kduappbe = $purifier->purify($_POST['updkduappbe']);
 			$nmuappbe = $purifier->purify($_POST['upduruappbe']);
 			$data = array(
-				"id_uapb" => $iduapb,
-				"id_uappbe" => $iduappbe,
+				"id" => $id,
 				"kd_uapb" => $kduapb,
 				"kd_uappbe1" => $kduappbe,
 		    	"nm_uappbe1" => $nmuappbe
@@ -44,13 +42,8 @@ else
 			$Uappbe->ubahuappbe($data);
 		break;
 		case 'deluappbe':
-			$kduapb = $purifier->purify($_POST['kduapb']);
-			$kduappbe = $purifier->purify($_POST['kduappbe']);
-			$data = array(
-				"kd_uapb" => $kduapb,
-				"kd_uappbe1" => $kduappbe
-			);
-			$Uappbe->hapusuappbe($data);
+			$id = $purifier->purify($_POST['id']);
+			$Uappbe->hapusuappbe($id);
 		break;
 		default:
 			echo "Error Data Tidak Tersedia";

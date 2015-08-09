@@ -12,6 +12,6 @@ $now = time();
 if ($now > $_SESSION['expire'])
 {
   session_destroy();
-  header("Location: login");
+  header("Location:../login");
 }
 ?>
