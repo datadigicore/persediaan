@@ -7,7 +7,7 @@
 
 
 // Table yang di load
-$table = 'transaksi';
+$table = 'view_brg';
  
 // Primary Key table
 $primaryKey = 'id';
@@ -17,8 +17,9 @@ $columns = array(
     array( 'db' => 'id', 'dt' => 0 ),
     array( 'db' => 'no_dok', 'dt' => 1 ),
     array( 'db' => 'kd_brg', 'dt' => 2 ),
-    array( 'db' => 'qty', 'dt' => 3 ),
-    array( 'db' => 'harga_sat', 'dt' => 4 ),
+    array( 'db' => 'nm_brg', 'dt' => 3 ),
+    array( 'db' => 'masuk', 'dt' => 4 ),
+    array( 'db' => 'saldo', 'dt' => 5 ),
 
 );
  
@@ -32,5 +33,5 @@ $sql_details = $config->sql_details();
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp.class.php' );
 echo json_encode(
-    SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns, $where)
+    SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns)
 ); 
