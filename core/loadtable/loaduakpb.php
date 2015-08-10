@@ -12,13 +12,14 @@ $primaryKey = 'id';
  
 // Load Data berdasarkan nama table nya
 $columns = array(
-    array( 'db' => 'kd_uapb', 'dt' => 0 ),
-    array( 'db' => 'kd_uappbe1', 'dt' => 1 ),
-	array( 'db' => 'kd_uappbw', 'dt' => 2 ),
-	array( 'db' => 'kd_uakpb', 'dt' => 3 ),
-    array( 'db' => 'kd_uapkpb', 'dt' => 4 ),
-    array( 'db' => 'jk', 'dt' => 5 ),
-    array( 'db' => 'nm_satker', 'dt' => 6 ),
+    array( 'db' => 'id', 'dt' => 0 ),
+    array( 'db' => 'kd_uapb', 'dt' => 1 ),
+    array( 'db' => 'kd_uappbe1', 'dt' => 2 ),
+	array( 'db' => 'kd_uappbw', 'dt' => 3 ),
+	array( 'db' => 'kd_uakpb', 'dt' => 4 ),
+    array( 'db' => 'kd_uapkpb', 'dt' => 5 ),
+    array( 'db' => 'jk', 'dt' => 6 ),
+    array( 'db' => 'nm_satker', 'dt' => 7 ),
    
 );
  

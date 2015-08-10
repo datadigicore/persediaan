@@ -35,10 +35,9 @@ else
 			$kodeuappbw = $purifier->purify($_POST['kduappbw']);
 			$kodeuakpb = $purifier->purify($_POST['kduakpb']);
 			$kodeuapkpb = $purifier->purify($_POST['kduapkpb']);
-			$kodejk = $purifier->purify($_POST['kdjkel']);
+			$kodejk = $purifier->purify($_POST['kdjk']);
 			$nmuakpb = $purifier->purify($_POST['nmuakpb']);
 			$kd_lokasi = $kodeuapb.''.$kodeuappbe1.''.$kodeuappbw.''.$kodeuakpb.''.$kodeuapkpb.''.$kodejk;
-
 			$data = array(
 				"kd_uapb" => $kodeuapb,
 				"kd_uappbe1" => $kodeuappbe1,
@@ -50,6 +49,33 @@ else
 			  	"kd_lokasi" => $kd_lokasi
 			);
 			$Uakpb->tambahuakpb($data);
+		break;
+		case 'upduakpb':
+			$id = $purifier->purify($_POST['id']);
+			$kodeuapb = $purifier->purify($_POST['updkduapb']);
+			$kodeuappbe1 = $purifier->purify($_POST['updkduappbe']);
+			$kodeuappbw = $purifier->purify($_POST['updkduappbw']);
+			$kodeuakpb = $purifier->purify($_POST['updkduakpb']);
+			$kodeuapkpb = $purifier->purify($_POST['updkduapkpb']);
+			$kodejk = $purifier->purify($_POST['updkdjk']);
+			$nmuakpb = $purifier->purify($_POST['upduruakpb']);
+			$kd_lokasi = $kodeuapb.''.$kodeuappbe1.''.$kodeuappbw.''.$kodeuakpb.''.$kodeuapkpb.''.$kodejk;
+			$data = array(
+				"id" => $id,
+				"kd_uapb" => $kodeuapb,
+				"kd_uappbe1" => $kodeuappbe1,
+				"kd_uappbw" => $kodeuappbw,
+				"kd_uakpb" => $kodeuakpb,
+				"kd_uapkpb" => $kodeuapkpb,
+				"jk" => $kodejk,
+			  	"nm_uakpb" => $nmuakpb,
+			  	"kd_lokasi" => $kd_lokasi
+			);
+			$Uakpb->ubahuakpb($data);
+		break;
+		case 'deluakpb':
+			$id = $purifier->purify($_POST['id']);
+			$Uakpb->hapusuakpb($id);
 		break;
 		default:
 			echo "Error Data Tidak Tersedia";
