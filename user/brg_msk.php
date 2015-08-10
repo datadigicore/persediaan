@@ -59,7 +59,9 @@
                         <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="Masukkan Jumlah Masuk">
                       </div>
                     </div>                  
+                  <div name="detil_transaksi" id="detil_transaksi">
 
+                  </div>
                   </div>
                   <div class="box-footer">
                     <button type="Reset" class="btn btn-default">Reset</button>
@@ -121,6 +123,7 @@
           ],
         });
       });
+
        $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransmsk',
@@ -136,7 +139,24 @@
           success: function (output) {     
             $('#no_dok').html(output);
           }
+       });       
+      $('#kd_brg').change(function(){
+        if ($(this).val()=='') {
+          $('#detil_transaksi').html('<option value="">-- Belum Dicetak --</option>');
+        }
+        else {
+          var kd_brg = $('#kd_brg').val(); 
+          var no_dok = $('#no_dok').val(); 
+          $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'baca_detil_trans',kd_brg:kd_brg,no_dok:no_dok},
+          success: function (output) {     
+            $('#detil_transaksi').html(output);
+          }
        });
+        }
+      });
       $('#addtransmsk').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
@@ -164,6 +184,7 @@
             setTimeout("location.href = redirectURL;",redirectTime); 
           }
         });
+
         return false;
       });
     </script>

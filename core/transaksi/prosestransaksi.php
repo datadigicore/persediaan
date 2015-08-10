@@ -21,6 +21,16 @@ else
 
 		case 'readdok':
 			$TransMsk->bacadok();
+		break;		
+
+		case 'baca_detil_trans':
+			$kd_brg = $purifier->purify($_POST['kd_brg']);
+			$no_dok = $purifier->purify($_POST['no_dok']);
+			$data = array(
+				"no_dok" => $no_dok,
+				"kd_brg" => $kd_brg
+				);
+			$Transaksi->baca_detil_trans($data);
 		break;
 
 		case 'tbh_transaksi':

@@ -40,16 +40,15 @@
                 <li id="keluar"><a href="trans_klr"><span>Penghapusan Lain</span></a></li>
               </ul>
             </li>
-            <li id="opsik"><a href="opsik"><i class="fa fa-table"></i> <span>Hasil Opname Fisik</span></a></li>
-            <li id="opsik"><a href="opsik"><i class="fa fa-table"></i> <span>Penghapusan Usang / Rusak</span></a></li>
+            <li id="opsik"><a href="#"><i class="fa fa-table"></i> <span>Hasil Opname Fisik</span></a></li>
+            <li id="opsik"><a href="#"><i class="fa fa-table"></i> <span>Penghapusan Usang / Rusak</span></a></li>
             <li class="treeview">
               <a href="#"><i class="fa fa-link"></i> <span>Laporan</span> <i class="fa fa-angle-left pull-right"></i></a>            
               <ul class="treeview-menu">
-                <li id="bukusedia"><a href="bukusedia"><span>Buku Persediaan</span></a></li>
-                <li id="lap_sedia"><a href="lap_sedia"><span>Laporan Persediaan</span></a></li>
-                <li id="lap_rinci_sedia"><a href="lap_rinci_sedia"><span>Laporan Rincian Persediaan</span></a></li>
-                <li id="neraca"><a href="index"><span>Neraca Persediaan</span></a></li>
-                <li id="mutasi"><a href="index"><span>Mutasi Persediaan</span></a></li>
+                <li id="bukusedia"><a href="#"><span>Buku Persediaan</span></a></li>
+                <li id="lap_sedia"><a href="#"><span>Laporan Persediaan</span></a></li>
+                <li id="neraca"><a href="#"><span>Neraca Persediaan</span></a></li>
+
               </ul>
             </li>           
             <!-- <li><a href="user"><i class="fa fa-user"></i> <span>Tambah Pengelola</span></a></li> -->

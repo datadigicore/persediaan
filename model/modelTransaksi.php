@@ -121,6 +121,31 @@ class modelTransaksi extends mysql_db
         }   
     }
 
+    public function baca_detil_trans($data)
+    {
+        $kd_brg = $data['kd_brg'];
+        $no_dok = $data['no_dok'];
+
+        $query_brg = "select * from brg where kd_brg = '$kd_brg'";
+        $query_dok = "select * from trans_msk where no_dok = '$no_dok'";
+
+        $result_brg = $this->query($query_brg);
+        $result_dok = $this->query($query_dok);
+
+        $row_brg = $this->fetch_array($result_brg);
+        $row_dok = $this->fetch_array($result_dok);
+        
+        echo "Hasil Nama Barang : ".' '.$row_brg['nm_brg'];
+        echo " Hasil No DOk: ".$row_dok['tgl_dok'];
+        echo " Hasil : ".$row_dok['tgl_buku'];
+        echo " Hasil : ".$row_dok['no_bukti'];
+        echo " Hasil : ".$row_dok['keterangan'];
+
+        echo '<input type="hidden" name="tgl_dok" value="'.$row_dok['tgl_dok'].'">';
+        echo '<input type="hidden" name="tgl_buku" value="'.$row_dok['tgl_buku'].'">';
+        echo '<input type="hidden" name="no_bukti" value="'.$row_dok['no_bukti'].'">';
+        echo '<input type="hidden" name="keterangan" value="'.$row_dok['keterangan'].'">';
+    }
 
 	public function ubahtransklr($data)
 	{
