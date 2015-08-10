@@ -55,7 +55,7 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th>ID Satker</th>
+                        <th>ID</th>
                         <th width="14%">Kode UAPB</th>
                         <th>Uraian UAPB</th>
                         <th width="9%">Aksi</th>

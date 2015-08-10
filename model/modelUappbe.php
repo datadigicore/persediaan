@@ -39,7 +39,12 @@ class modelUappbe extends mysql_db
 	}
 	public function bacauapb()
 	{
-		$query = "select kd_uapb, nm_satker from satker";
+		$query = "select kd_uapb, nm_satker from satker
+						where kd_uapb is not null and
+							  kd_uappbe1 is null and
+							  kd_uappbw is null and
+							  kd_uakpb is null 
+						order by kd_uapb asc";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode UAPB --</option>';
 		while ($row = $this->fetch_array($result))
@@ -52,7 +57,9 @@ class modelUappbe extends mysql_db
 		$query = "select id, kd_uapb, kd_uappbe1, nm_satker 
 					from satker
         			where kd_uapb = '$data' and 
-        				  kd_uappbe1 is not null";
+        				  kd_uappbe1 is not null and
+        				  kd_uappbw is null and
+						  kd_uakpb is null";
         $result = $this->query($query);
         $button = '<div class="box-tools"><button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button><button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button></div>';
         while ($row = $this->fetch_assoc($result))

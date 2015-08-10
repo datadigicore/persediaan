@@ -73,6 +73,7 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
+                        <th>ID</th>
                         <th width="14%">UAPB</th>
                         <th width="14%">UAPPB-E1</th>
                         <th width="14%">UAPPB-W</th>
@@ -120,27 +121,31 @@
           "ajax": "../core/loadtable/loaduappbw",
           "columnDefs":
           [
-            {"targets": 0 },
+            {"targets": 0,
+             "visible": false },
             {"targets": 1 },
             {"targets": 2 },
             {"targets": 3 },
+            {"targets": 4 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                   '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
                                   '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
                                 '</div>',
-             "targets": [4],"targets": 4 }
+             "targets": [5],"targets": 5 }
           ],
+          "order": [[ 1, "asc" ]]
         });
       });
       $(document).on('click', '#btnedt', function () {
         var tr = $(this).closest('tr');
         var row = table.row( tr );
-        kduapb_row = row.data()[0];
-        kduappbe_row  = row.data()[1];
-        kduappbw_row  = row.data()[2];
-        uruappbw_row  = row.data()[3];
+        id_row = row.data()[0];
+        kduapb_row = row.data()[1];
+        kduappbe_row  = row.data()[2];
+        kduappbw_row  = row.data()[3];
+        uruappbw_row  = row.data()[4];
         if ( row.child.isShown() ) {
           $('div.slider', row.child()).slideUp( function () {
             row.child.hide();
@@ -151,10 +156,10 @@
           row.child( format(row.data())).show();
           tr.addClass('shown');
           $('div.slider', row.child()).slideDown();
-          $("#kduapb"+kduapb_row+kduappbe_row+kduappbw_row+"").val(kduapb_row);
-          $("#kduappbe"+kduapb_row+kduappbe_row+kduappbw_row+"").val(kduappbe_row);
-          $("#kduappbw"+kduapb_row+kduappbe_row+kduappbw_row+"").val(kduappbw_row);
-          $("#uruappbw"+kduapb_row+kduappbe_row+kduappbw_row+"").val(uruappbw_row);
+          $("#kduapb"+id_row+"").val(kduapb_row);
+          $("#kduappbe"+id_row+"").val(kduappbe_row);
+          $("#kduappbw"+id_row+"").val(kduappbw_row);
+          $("#uruappbw"+id_row+"").val(uruappbw_row);
         }
       });
       $(document).on('click', '#btnhps', function () {
@@ -162,9 +167,7 @@
       var row = table.row( tr );
       redirectTime = "2600";
       redirectURL = "uappbw";
-      kduapb_row = row.data()[0];
-      kduappbe_row = row.data()[1];
-      kduappbw_row = row.data()[2];
+      id_row = row.data()[0];
       managedata = "deluappbw";
       job=confirm("Anda yakin ingin menghapus data ini?");
         if(job!=true){
@@ -179,7 +182,7 @@
           $.ajax({
             type: "post",
             url : "../core/uappbw/prosesuappbw",
-            data: {manage:managedata,kduapb:kduapb_row,kduappbe:kduappbe_row,kduappbw:kduappbw_row},
+            data: {manage:managedata,id:id_row},
             success: function(data)
             {
               $("#success-alert").alert();
@@ -198,13 +201,11 @@
         '<table width="100%">'+
            '<tr>'+
               '<input type="hidden" name="manage" value="upduappbw">'+
-              '<input type="hidden" name="iduapb" value="'+d[0]+'">'+
-              '<input type="hidden" name="iduappbe" value="'+d[1]+'">'+
-              '<input type="hidden" name="iduappbw" value="'+d[2]+'">'+
-              '<td width="14%"><input style="width:90%" id="kduapb'+d[0]+d[1]+d[2]+'" name="updkduapb" class="form-control" type="text" placeholder="Kode UAPB"></td>'+
-              '<td width="14.2%"><input style="width:90%" id="kduappbe'+d[0]+d[1]+d[2]+'" name="updkduappbe" class="form-control" type="text" placeholder="Kode UAPPB-E1"></td>'+
-              '<td width="14.2%"><input style="width:90%" id="kduappbw'+d[0]+d[1]+d[2]+'" name="updkduappbw" class="form-control" type="text" placeholder="Kode UAPPB-W"></td>'+
-              '<td><input style="width:97%" id="uruappbw'+d[0]+d[1]+d[2]+'" name="upduruappbw" class="form-control" type="text" placeholder="Uraian UAPPB-W"></td>'+
+              '<input type="hidden" name="id" value="'+d[0]+'">'+
+              '<td width="14%"><input style="width:90%" id="kduapb'+d[0]+'" name="updkduapb" class="form-control" type="text" placeholder="Kode UAPB"></td>'+
+              '<td width="14.2%"><input style="width:90%" id="kduappbe'+d[0]+'" name="updkduappbe" class="form-control" type="text" placeholder="Kode UAPPB-E1"></td>'+
+              '<td width="14.2%"><input style="width:90%" id="kduappbw'+d[0]+'" name="updkduappbw" class="form-control" type="text" placeholder="Kode UAPPB-W"></td>'+
+              '<td><input style="width:97%" id="uruappbw'+d[0]+'" name="upduruappbw" class="form-control" type="text" placeholder="Uraian UAPPB-W"></td>'+
               '<td style="vertical-align:middle; width:15%;">'+
                 '<div class="box-tools">'+
                   '<button id="btnrst" class="btn btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
@@ -239,7 +240,7 @@
             $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
             $("#success-alert").alert('close');
             });
-            setTimeout("location.href = redirectURL;",redirectTime); 
+            // setTimeout("location.href = redirectURL;",redirectTime); 
           }
         });
         return false;
