@@ -12,8 +12,9 @@ $primaryKey = 'id';
  
 // Load Data berdasarkan nama table nya
 $columns = array(
-    array( 'db' => 'kd_uapb', 'dt' => 0 ),
-    array( 'db' => 'nm_satker', 'dt' => 1 ),
+    array( 'db' => 'id', 'dt' => 0 ),
+    array( 'db' => 'kd_uapb', 'dt' => 1 ),
+    array( 'db' => 'nm_satker', 'dt' => 2 ),
 );
  
 // Settingan Koneksi Datatable

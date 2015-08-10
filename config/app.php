@@ -7,6 +7,6 @@
 session_start();
 
 require_once "dbconf.php";
-require_once "timeout.php";
+// require_once "timeout.php";
 require_once "session.php";
 ?>

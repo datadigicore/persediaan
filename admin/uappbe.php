@@ -63,6 +63,7 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
+                        <th>ID</th>
                         <th width="18%">Kode UAPB</th>
                         <th width="18%">Kode UAPPB-E1</th>
                         <th>Uraian UAPPB-E1</th>
@@ -101,24 +102,28 @@
           "ajax": "../core/loadtable/loaduappbe",
           "columnDefs":
           [
-            {"targets": 0 },
+            {"targets": 0,
+             "visible": false},
             {"targets": 1 },
             {"targets": 2 },
+            {"targets": 3 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                   '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
                                   '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
                                 '</div>',
-             "targets": [3],"targets": 3 }
+             "targets": [4],"targets": 4 }
           ],
+          "order": [[ 1, "asc" ]]
         });
         $(document).on("click", "#btnedt", function(){
           var tr = $(this).closest('tr');
           var row = table.row( tr );
-          kduapb_row = row.data()[0];
-          kduappbe_row  = row.data()[1];
-          uruappbe_row  = row.data()[2];
+          id_row = row.data()[0];
+          kduapb_row = row.data()[1];
+          kduappbe_row  = row.data()[2];
+          uruappbe_row  = row.data()[3];
           if ( row.child.isShown() ) {
             $('div.slider', row.child()).slideUp( function () {
               row.child.hide();
@@ -129,9 +134,9 @@
             row.child( format(row.data())).show();
             tr.addClass('shown');
             $('div.slider', row.child()).slideDown();
-            $("#kduapb"+kduapb_row+kduappbe_row+"").val(kduapb_row);
-            $("#kduappbe"+kduapb_row+kduappbe_row+"").val(kduappbe_row);
-            $("#uruappbe"+kduapb_row+kduappbe_row+"").val(uruappbe_row);
+            $("#kduapb"+id_row+"").val(kduapb_row);
+            $("#kduappbe"+id_row+"").val(kduappbe_row);
+            $("#uruappbe"+id_row+"").val(uruappbe_row);
           }
         });
         $(document).on('click', '#btnhps', function () {
@@ -139,8 +144,7 @@
         var row = table.row( tr );
         redirectTime = "2600";
         redirectURL = "uappbe";
-        kduapb_row = row.data()[0];
-        kduappbe_row = row.data()[1];
+        id_row = row.data()[0];
         managedata = "deluappbe";
         job=confirm("Anda yakin ingin menghapus data ini?");
           if(job!=true){
@@ -155,7 +159,7 @@
             $.ajax({
               type: "post",
               url : "../core/uappbe/prosesuappbe",
-              data: {manage:managedata,kduapb:kduapb_row,kduappbe:kduappbe_row},
+              data: {manage:managedata,id:id_row},
               success: function(data)
               {
                 $("#success-alert").alert();
@@ -174,11 +178,10 @@
           '<table width="100%">'+
              '<tr>'+
                 '<input type="hidden" name="manage" value="upduappbe">'+
-                '<input type="hidden" name="iduapb" value="'+d[0]+'">'+
-                '<input type="hidden" name="iduappbe" value="'+d[1]+'">'+
-                '<td width="18.5%"><input style="width:90%" id="kduapb'+d[0]+d[1]+'" name="updkduapb" class="form-control" type="text" placeholder="Kode UAPB"></td>'+
-                '<td width="18.5%"><input style="width:90%" id="kduappbe'+d[0]+d[1]+'" name="updkduappbe" class="form-control" type="text" placeholder="Kode UAPPB-E1"></td>'+
-                '<td><input style="width:96%" id="uruappbe'+d[0]+d[1]+'" name="upduruappbe" class="form-control" type="text" placeholder="Uraian UAPPB-E1"></td>'+
+                '<input type="hidden" name="id" value="'+d[0]+'">'+
+                '<td width="18.5%"><input style="width:90%" id="kduapb'+d[0]+'" name="updkduapb" class="form-control" type="text" placeholder="Kode UAPB"></td>'+
+                '<td width="18.5%"><input style="width:90%" id="kduappbe'+d[0]+'" name="updkduappbe" class="form-control" type="text" placeholder="Kode UAPPB-E1"></td>'+
+                '<td><input style="width:96%" id="uruappbe'+d[0]+'" name="upduruappbe" class="form-control" type="text" placeholder="Uraian UAPPB-E1"></td>'+
                 '<td style="vertical-align:middle; width:15%;">'+
                   '<div class="box-tools">'+
                     '<button id="btnrst" class="btn btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
@@ -213,7 +216,7 @@
               $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
               $("#success-alert").alert('close');
               });
-              setTimeout("location.href = redirectURL;",redirectTime); 
+              // setTimeout("location.href = redirectURL;",redirectTime); 
             }
           });
           return false;
@@ -222,24 +225,27 @@
           if($(this).val()==''){
             $("#example1").DataTable().destroy();
             $("#example1 tbody").empty();
-            $("#example1").DataTable({
+            table = $("#example1").DataTable({
               "processing": false,
               "serverSide": true,
               "ajax": "../core/loadtable/loaduappbe",
               "columnDefs":
               [
-                {"targets": 0 },
+                {"targets": 0,
+                 "visible": false},
                 {"targets": 1 },
                 {"targets": 2 },
+                {"targets": 3 },
                 {"orderable": false,
                  "data": null,
                  "defaultContent":  '<div class="box-tools">'+
                                       '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
                                       '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
                                     '</div>',
-                 "targets": [3],"targets": 3 }
+                 "targets": [4],"targets": 4 }
               ],
               "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
+              "order": [[ 1, "asc" ]]
             });
           }
           else{
@@ -252,8 +258,16 @@
               data: {manage:'readtable',kduapb:kduapb},
               success: function (output) {
                 var dataoutput = JSON.parse(output);   
-                $("#example1").DataTable({
-                  "data" : dataoutput
+                table = $("#example1").DataTable({
+                  data : dataoutput,
+                  columns: [
+                        { data: [0],
+                          visible : false },
+                        { data: [1] },
+                        { data: [2] },
+                        { data: [3] },
+                        { data: [4] }
+                    ]
                 });
               }
             });
