@@ -71,7 +71,7 @@
                         <th width="14%">Kode Barang</th>
 						            <th>Nama Barang</th>
                         <th width="14%">Satuan</th>
-                        <th width="10%">Aksi</th>
+
                       </tr>
                     </thead>
                   </table>
@@ -107,14 +107,7 @@
             {"targets": 0 },
             {"targets": 1 },
 			      {"targets": 2 },
-            {"targets": 3 },
-            {"orderable": false,
-             "data": null,
-             "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
-                                  '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
-                                '</div>',
-             "targets": [4],"targets": 4 }
+            {"targets": 3 }
           ],
         });
       });
