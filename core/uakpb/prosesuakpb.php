@@ -37,7 +37,6 @@ else
 			$kodeuapkpb = $purifier->purify($_POST['kduapkpb']);
 			$kodejk = $purifier->purify($_POST['kdjk']);
 			$nmuakpb = $purifier->purify($_POST['nmuakpb']);
-			$kd_lokasi = $kodeuapb.''.$kodeuappbe1.''.$kodeuappbw.''.$kodeuakpb.''.$kodeuapkpb.''.$kodejk;
 			$data = array(
 				"kd_uapb" => $kodeuapb,
 				"kd_uappbe1" => $kodeuappbe1,
@@ -45,8 +44,7 @@ else
 				"kd_uakpb" => $kodeuakpb,
 				"kd_uapkpb" => $kodeuapkpb,
 				"jk" => $kodejk,
-			  	"nm_uakpb" => $nmuakpb,
-			  	"kd_lokasi" => $kd_lokasi
+			  	"nm_uakpb" => $nmuakpb
 			);
 			$Uakpb->tambahuakpb($data);
 		break;

@@ -74,7 +74,6 @@ class modelUakpb extends mysql_db
 		$kd_uapkpb = $data['kd_uapkpb'];
 		$jk = $data['jk'];
 		$nm_uakpb = $data['nm_uakpb'];
-		$kd_lokasi = $data['kd_lokasi'];
 		$query = "insert into satker
         			set kd_uapb='$kd_uapb',
         				kd_uappbe1='$kd_uappbe1',
@@ -83,8 +82,7 @@ class modelUakpb extends mysql_db
         				kd_uapkpb='$kd_uapkpb',
         				jk='$jk',
         				nm_satker='$nm_uakpb',
-                    	kd_jk='$kd_lokasi',
-                    	kode='$kd_uapb.$kd_uappbe1.$kd_uappbw.$kd_uakpb.$kd_uapkpb'";
+                    	kode='$kd_uapb.$kd_uappbe1.$kd_uappbw.$kd_uakpb.$kd_uapkpb.$jk'";
         $result = $this->query($query);
 		return $result;
 	} 	
