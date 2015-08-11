@@ -14,7 +14,7 @@
   <header>
   	<div class="headernya">
   		<div class="login-logo">
-        	<img src="dist/img/icon.png" width="70px;">&nbsp;&nbsp;<b>CPanel</b> Aplikasi Persediaan</a>
+        	<img src="dist/img/icon.png" width="70px;">&nbsp;&nbsp; Aplikasi Persediaan</a>
       	</div>
   	</div>
   </header>
