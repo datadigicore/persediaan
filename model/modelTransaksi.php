@@ -135,14 +135,9 @@ class modelTransaksi extends mysql_db
         $row_brg = $this->fetch_array($result_brg);
         $row_dok = $this->fetch_array($result_dok);
         
-        echo "Hasil Nama Barang : ".' '.$row_brg['nm_brg'];
-        echo " Hasil No DOk: ".$row_dok['tgl_dok'];
-        echo " Hasil : ".$row_dok['tgl_buku'];
-        echo " Hasil : ".$row_dok['no_bukti'];
-        echo " Hasil : ".$row_dok['keterangan'];
-
         echo '<input type="hidden" name="tgl_dok" value="'.$row_dok['tgl_dok'].'">';
         echo '<input type="hidden" name="tgl_buku" value="'.$row_dok['tgl_buku'].'">';
+        echo '<input type="hidden" name="nm_brg" value="'.$row_brg['nm_brg'].'">';
         echo '<input type="hidden" name="no_bukti" value="'.$row_dok['no_bukti'].'">';
         echo '<input type="hidden" name="keterangan" value="'.$row_dok['keterangan'].'">';
     }

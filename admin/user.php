@@ -60,7 +60,7 @@
                 </div>  
                   <div class="box-body">
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode UAKPB</label>
+                      <label class="col-sm-2 control-label">Kode Satker</label>
                       <div class="col-sm-9">
                         <select name="kduakpb" id="kduakpb" class="form-control">
                         </select>
