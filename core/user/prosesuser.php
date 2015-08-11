@@ -10,11 +10,18 @@ else
 	$manage = $_POST['manage'];
 	switch ($manage)
 	{
+		case 'readsatker':
+			$User->bacauakpb();
+		break;
+		case 'readdata':
+			$kd_lokasi = $purifier->purify($_POST['kdsatker']);
+			$User->bacadata($kd_lokasi);
+		break;
 		case 'adduser':
-			$user_name = $purifier->purify($_POST['user_name']);
-			$user_pass = $purifier->purify(md5($_POST['user_pass']));
+			$user_name = $purifier->purify($_POST['username']);
+			$user_pass = $purifier->purify(md5($_POST['password']));
 			$email = $purifier->purify($_POST['email']);
-			$kd_lokasi = $purifier->purify($_POST['kduakpb']);
+			$kd_lokasi = $purifier->purify($_POST['kdsatker']);
 			$data = array(
 				"user_name" => $user_name,
 				"user_pass" => $user_pass,

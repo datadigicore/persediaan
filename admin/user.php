@@ -23,27 +23,33 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tambah Data User UAKPB</h3>
+                  <h3 class="box-title">Identitas User</h3>
                 </div>  
                 <form action="../core/user/prosesuser" method="post" class="form-horizontal" id="adduser">
                   <div class="box-body">
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">User Name</label>
+                    <!-- <div class="form-group">
+                      <label class="col-sm-2 control-label">Nama</label>
                       <div class="col-sm-9">
-                        <input type="text" name="user_name" class="form-control" id="user_name" placeholder="Masukkan User Name">
+                        <input type="text" name="fullname" class="form-control" id="fullname" placeholder="Masukkan Nama Lengkap">
                         <input type="hidden" name="manage" value="adduser">
+                      </div>
+                    </div> -->
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Username</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="username" class="form-control" id="username" placeholder="Masukkan Username">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Password</label>
                       <div class="col-sm-9">
-                        <input type="password" name="user_pass" class="form-control" id="user_pass" placeholder="Masukkan Password">
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Masukkan Password">
                       </div>
                     </div>                    
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Konfirmasi Password</label>
+                      <label class="col-sm-2 control-label">Re-type Password</label>
                       <div class="col-sm-9">
-                        <input type="password" name="konf_pass" class="form-control" id="konf_pass" placeholder="Konfirmasi Pasword">
+                        <input type="password" name="konf_pass" class="form-control" id="konf_pass" placeholder="Konfirmasi Ulang Pasword">
                       </div>
                     </div>                    
                     <div class="form-group">
@@ -56,39 +62,49 @@
                   <div class="box-footer" style="padding:0;">
                   </div>
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tambah Data User UAKPB</h3>
+                  <h3 class="box-title">Lokasi User</h3>
                 </div>  
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode Satker</label>
                       <div class="col-sm-9">
-                        <select name="kduakpb" id="kduakpb" class="form-control">
+                        <select name="kdsatker" id="kdsatker" class="form-control select2">
+                          <option value="">-- Pilih Kode Satker--</option>
                         </select>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">User Name</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="user_name" class="form-control" id="user_name" placeholder="Masukkan User Name">
+                      <label class="col-sm-2 control-label">UAPB</label>
+                      <div class="col-sm-2">
+                        <input type="text" name="kduapb" class="form-control" id="kduapb" placeholder="Kode UAPB" disabled>
                         <input type="hidden" name="manage" value="adduser">
+                      </div>
+                      <div class="col-sm-7">
+                        <input type="text" name="uruapb" class="form-control" id="uruapb" placeholder="Uraian Kode UAPB" disabled>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Password</label>
-                      <div class="col-sm-9">
-                        <input type="password" name="user_pass" class="form-control" id="user_pass" placeholder="Masukkan Password">
+                      <label class="col-sm-2 control-label">UAPPB-E1</label>
+                      <div class="col-sm-2">
+                        <input type="text" name="kduappbe" class="form-control" id="kduappbe" placeholder="Kode UAPPB-E1" disabled>
+                      </div>
+                      <div class="col-sm-7">
+                        <input type="text" name="uruappbe" class="form-control" id="uruappbe" placeholder="Uraian Kode UAPPB-E1" disabled>
                       </div>
                     </div>                    
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Konfirmasi Password</label>
-                      <div class="col-sm-9">
-                        <input type="password" name="konf_pass" class="form-control" id="konf_pass" placeholder="Konfirmasi Pasword">
+                      <label class="col-sm-2 control-label">UAPPB-W</label>
+                      <div class="col-sm-2">
+                        <input type="text" name="kduappbw" class="form-control" id="kduappbw" placeholder="Kode UAPPB-Wilayah" disabled>
+                      </div>
+                      <div class="col-sm-7">
+                        <input type="text" name="uruappbw" class="form-control" id="uruappbw" placeholder="Uraian Kode UAPPB-Wilayah" disabled>
                       </div>
                     </div>                    
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Email</label>
+                      <label class="col-sm-2 control-label">Kode JK</label>
                       <div class="col-sm-9">
-                        <input type="text" name="email" class="form-control" id="email" placeholder="Masukkan Email">
+                        <input type="text" name="kdjk" class="form-control" id="kdjk" placeholder="Kode Jenis Kewenangan" disabled>
                       </div>
                     </div>
                   </div>
@@ -106,9 +122,12 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th width="14%">Username</th>
+                        <th>ID</th>
+                        <th width="5%">ID</th>
+                        <th width="16%">Username</th>
                         <th>Email</th>
-                        <th>Nama UAKPB</th>
+                        <th width="20%">Kode Satker</th>
+                        <th width="9%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -127,39 +146,57 @@
     <script type="text/javascript">
       $(function () {
         $("li#user").addClass("active");
+        $(".select2").select2();
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
           "ajax": "../core/loadtable/loaduser",
           "columnDefs":
           [
-            {"targets": 0 },
+            {"targets": 0,
+             "visible": false },
             {"targets": 1 },
-            {"targets": 2 }
+            {"targets": 2 },
+            {"targets": 3 },
+            {"targets": 4 },
+            {"orderable": false,
+             "data": null,
+             "defaultContent":  '<div class="box-tools">'+
+                                  '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                  '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                '</div>',
+             "targets": [5],"targets": 5 }
           ],
+          "order": [[ 1, "asc" ]]
         });
       });
-        $.ajax({
-          type: "post",
-          url: '../core/uakpb/prosesuakpb',
-          data: {manage:'readuakpb'},
-          success: function (output) {     
-            $('#kduakpb').html(output);
-          }
-        });
-      $('#kduakpb').change(function(){
+      $.ajax({
+        type: "post",
+        url: '../core/user/prosesuser',
+        data: {manage:'readsatker'},
+        success: function (output) {     
+          $('#kdsatker').html(output);
+        }
+      });
+      $('#kdsatker').change(function(){
         if ($(this).val()=='') {
-          $('#nmuapb').html('<select name="kduakpb" id="kduakpb"</select>');
+          alert("Kode Satker Null");
         }
         else {
-          var kduapb = $('#kduapb').val();
-          var kduappbe = $(this).val();
+          var kdsatker = $(this).val();
           $.ajax({
             type: "post",
-            url: '../core/uakpb/prosesuakpb',
-            data: {manage:'readuappbw',kduapb:kduapb,kduappbe:kduappbe},
+            url: '../core/user/prosesuser',
+            data: {manage:'readdata',kdsatker:kdsatker},
+            dataType: "json",
             success: function (output) {
-              $('#kduappbw').html(output);
+            $('#kduapb').val(output.kduapb);
+            $('#kduappbe').val(output.kduappbe);
+            $('#kduappbw').val(output.kduappbw);
+            $('#kdjk').val(output.kdjk);
+            $('#uruapb' ).val(output.uruapb);
+            $('#uruappbe').val(output.uruappbe);
+            $('#uruappbw').val(output.uruappbw);
             }
           });
         }

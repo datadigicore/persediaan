@@ -13,8 +13,10 @@ $primaryKey = 'user_id';
 // Load Data berdasarkan nama table nya
 $columns = array(
     array( 'db' => 'user_id', 'dt' => 0 ),
-    array( 'db' => 'user_email', 'dt' => 1 ),
-    array( 'db' => 'kd_lokasi', 'dt' => 2 ),
+    array( 'db' => 'user_id', 'dt' => 1 ),
+    array( 'db' => 'user_name', 'dt' => 2 ),
+    array( 'db' => 'user_email', 'dt' => 3 ),
+    array( 'db' => 'kd_lokasi', 'dt' => 4 ),
 );
 
 // Settingan Koneksi Datatable

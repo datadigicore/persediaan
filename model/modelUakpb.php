@@ -48,23 +48,6 @@ class modelUakpb extends mysql_db
 			echo '<option value="'.$row['kd_uappbw'].'">'.$row['kd_uappbw'].' '.$row['nm_satker']."</option>";
 		}
 	}
-	public function bacauakpb()
-	{
-
-		$query = "select * from satker
-					where kd_uapb is not null and
-						  kd_uappbe1 is not null and
-						  kd_uappbw is not null and
-						  kd_uakpb is not null and
-						  kd_uapkpb is not null and
-						  kd_jk is not null";
-		$result = $this->query($query);
-		echo '<option value="">-- Pilih Kode Satker--</option>';
-		while ($row = $this->fetch_array($result))
-		{
-			echo '<option value="'.$row['kode'].'">'.$row['kode'].' '.$row['nm_satker']."</option>";
-		}
-	}
 	public function tambahuakpb($data)
 	{
 		$kd_uapb = $data['kd_uapb'];
