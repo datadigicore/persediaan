@@ -52,13 +52,45 @@
                         <input type="text" name="email" class="form-control" id="email" placeholder="Masukkan Email">
                       </div>
                     </div>
+                  </div>
+                  <div class="box-footer" style="padding:0;">
+                  </div>
+                <div class="box-header with-border">
+                  <h3 class="box-title">Tambah Data User UAKPB</h3>
+                </div>  
+                  <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode UAKPB</label>
                       <div class="col-sm-9">
                         <select name="kduakpb" id="kduakpb" class="form-control">
                         </select>
                       </div>
-                    </div>                 
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">User Name</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="user_name" class="form-control" id="user_name" placeholder="Masukkan User Name">
+                        <input type="hidden" name="manage" value="adduser">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Password</label>
+                      <div class="col-sm-9">
+                        <input type="password" name="user_pass" class="form-control" id="user_pass" placeholder="Masukkan Password">
+                      </div>
+                    </div>                    
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Konfirmasi Password</label>
+                      <div class="col-sm-9">
+                        <input type="password" name="konf_pass" class="form-control" id="konf_pass" placeholder="Konfirmasi Pasword">
+                      </div>
+                    </div>                    
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Email</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="email" class="form-control" id="email" placeholder="Masukkan Email">
+                      </div>
+                    </div>
                   </div>
                   <div class="box-footer">
                     <button type="Reset" class="btn btn-default">Reset</button>
