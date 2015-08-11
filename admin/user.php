@@ -180,7 +180,13 @@
       });
       $('#kdsatker').change(function(){
         if ($(this).val()=='') {
-          alert("Kode Satker Null");
+          $('#kduapb').val('');
+          $('#kduappbe').val('');
+          $('#kduappbw').val('');
+          $('#kdjk').val('');
+          $('#uruapb' ).val('');
+          $('#uruappbe').val('');
+          $('#uruappbw').val('');
         }
         else {
           var kdsatker = $(this).val();
