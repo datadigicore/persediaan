@@ -8,12 +8,13 @@
 $table = 'wilayah';
  
 // Primary Key table
-$primaryKey = 'kd_wil';
+$primaryKey = 'id';
  
 // Load Data berdasarkan nama table nya
 $columns = array(
-    array( 'db' => 'kd_wil', 'dt' => 0 ),
-    array( 'db' => 'nm_wil', 'dt' => 1 ),
+    array( 'db' => 'id', 'dt' => 0 ),
+    array( 'db' => 'kd_wil', 'dt' => 1 ),
+    array( 'db' => 'nm_wil', 'dt' => 2 ),
 );
  
 // Settingan Koneksi Datatable

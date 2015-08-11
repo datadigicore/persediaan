@@ -56,6 +56,7 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
+                        <th>ID</th>
                         <th width="14%">Kode Wilayah</th>
                         <th>Uraian Wilayah</th>
                         <th width="9%">Aksi</th>
@@ -85,23 +86,26 @@
           "ajax": "../core/loadtable/loadwilayah",
           "columnDefs":
           [
-            {"targets": 0 },
+            {"targets": 0,
+             "visible": false },
             {"targets": 1 },
+            {"targets": 2 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                   '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
                                   '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
                                 '</div>',
-             "targets": [2],"targets": 2 }
+             "targets": [3],"targets": 3 }
           ],
         });
       });
       $(document).on('click', '#btnedt', function () {
         var tr = $(this).closest('tr');
         var row = table.row( tr );
-        kdwil_row = row.data()[0];
-        urwil_row  = row.data()[1];
+        id_row = row.data()[0];
+        kdwil_row = row.data()[1];
+        urwil_row  = row.data()[2];
         if ( row.child.isShown() ) {
           $('div.slider', row.child()).slideUp( function () {
             row.child.hide();
@@ -112,8 +116,8 @@
           row.child( format(row.data())).show();
           tr.addClass('shown');
           $('div.slider', row.child()).slideDown();
-          $("#kdwil"+kdwil_row +"").val(kdwil_row);
-          $("#urwil"+kdwil_row +"").val(urwil_row);
+          $("#kdwil"+id_row +"").val(kdwil_row);
+          $("#urwil"+id_row +"").val(urwil_row);
         }
       });
       $(document).on('click', '#btnhps', function () {
@@ -155,7 +159,7 @@
         '<table width="100%">'+
            '<tr>'+
               '<input type="hidden" name="manage" value="updwil">'+
-              '<input type="hidden" name="idwil" value="'+d[0]+'">'+
+              '<input type="hidden" name="id" value="'+d[0]+'">'+
               '<td width="14%"><input style="width:90%" id="kdwil'+d[0]+'" name="updkdwil" class="form-control" type="text" placeholder="Kode Wilayah"></td>'+
               '<td><input style="width:98%" id="urwil'+d[0]+'" name="updurwil" class="form-control" type="text" placeholder="Uraian Wilayah"></td>'+
               '<td style="vertical-align:middle; width:15%;">'+

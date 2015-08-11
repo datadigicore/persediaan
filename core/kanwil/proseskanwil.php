@@ -31,17 +31,13 @@ else
 			$Kanwil->tambahkanwil($data);
 		break;
 		case 'updkanwil':
-			$iduapb = $purifier->purify($_POST['updiduapb']);
-			$iduappbe = $purifier->purify($_POST['updiduappbe']);
-			$idkanwil = $purifier->purify($_POST['updidkanwil']);
+			$id = $purifier->purify($_POST['id']);
 			$kodeuapb = $purifier->purify($_POST['updkduapb']);
 			$kodeuappbe = $purifier->purify($_POST['updkduappbe']);
 			$kodekanwil = $purifier->purify($_POST['updkdkanwil']);
 			$uraiankanwil = $purifier->purify($_POST['updurkanwil']);
 			$data = array(
-				"id_uapb" => $iduapb,
-				"id_uappbe1" => $iduappbe,
-				"id_kanwil" => $idkanwil,
+				"id" => $id,
 				"kd_uapb" => $kodeuapb,
 				"kd_uappbe1" => $kodeuappbe,
 				"kd_kanwil" => $kodekanwil,
@@ -50,15 +46,8 @@ else
 			$Kanwil->ubahkanwil($data);
 		break;
 		case 'delkanwil':
-			$kodeuapb = $purifier->purify($_POST['kduapb']);
-			$kodeuappbe = $purifier->purify($_POST['kduappbe']);
-			$kodekanwil = $purifier->purify($_POST['kdkanwil']);
-			$data = array(
-				"kd_uapb" => $kodeuapb,
-				"kd_uappbe1" => $kodeuappbe,
-				"kd_kanwil" => $kodekanwil,
-		    );
-			$Kanwil->hapuskanwil($data);
+			$id = $purifier->purify($_POST['id']);
+			$Kanwil->hapuskanwil($id);
 		break;
 		default:
 			echo "Error Data Tidak Tersedia";

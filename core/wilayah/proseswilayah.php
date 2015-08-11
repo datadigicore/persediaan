@@ -20,19 +20,19 @@ else
 			$Wilayah->tambahwilayah($data);
 		break;
 		case 'updwil':
-			$idwil = $purifier->purify($_POST['idwil']);
+			$id = $purifier->purify($_POST['id']);
 			$kdwil = $purifier->purify($_POST['updkdwil']);
 			$nmwil = $purifier->purify($_POST['updurwil']);
 			$data = array(
-				"id_wil" => $idwil,
+				"id" => $id,
 				"kd_wil" => $kdwil,
 		    	"nm_wil" => $nmwil
 		    );
 			$Wilayah->ubahwilayah($data);
 		break;
 		case 'delwil':
-			$kdwil = $purifier->purify($_POST['kdwil']);
-			$Wilayah->hapuswilayah($kdwil);
+			$id = $purifier->purify($_POST['id']);
+			$Wilayah->hapuswilayah($id);
 		break;
 		default:
 			echo "Error Data Tidak Tersedia";

@@ -8,14 +8,15 @@
 $table = 'kanwil';
  
 // Primary Key table
-$primaryKey = 'kd_kanwil';
+$primaryKey = 'id';
  
 // Load Data berdasarkan nama table nya
 $columns = array(
-    array( 'db' => 'kd_uapb', 'dt' => 0 ),
-    array( 'db' => 'kd_uappbe1', 'dt' => 1 ),
-    array( 'db' => 'kd_kanwil', 'dt' => 2 ),
-    array( 'db' => 'nm_kanwil', 'dt' => 3 )
+    array( 'db' => 'id', 'dt' => 0 ),
+    array( 'db' => 'kd_uapb', 'dt' => 1 ),
+    array( 'db' => 'kd_uappbe1', 'dt' => 2 ),
+    array( 'db' => 'kd_kanwil', 'dt' => 3 ),
+    array( 'db' => 'nm_kanwil', 'dt' => 4 )
 );
  
 // Settingan Koneksi Datatable
