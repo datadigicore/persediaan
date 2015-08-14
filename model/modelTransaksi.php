@@ -87,6 +87,49 @@ class modelTransaksi extends mysql_db
                     user_id='$user_id'";
             $result = $this->query($query);       
             return $result;
+    }       
+
+    public function tbh_koreksi_masuk($data)
+    {
+        $kd_lokasi = $data['kd_lokasi'];
+        $kd_lok_msk = $data['kd_lokasi'];
+        $thn_ang = $data['thn_ang'];
+        $no_dok = $data['no_dok'];
+        $tgl_dok = $data['tgl_dok'];
+        $tgl_buku = $data['tgl_buku'];
+        $no_bukti = $data['no_bukti'];
+        $kd_brg = $data['kd_brg'];
+        $nm_brg = $data['nm_brg'];
+        $satuan = $data['satuan'];
+        $kuantitas = $data['kuantitas'];
+        $harga_sat = $data['harga_sat'];
+        $total_harga = $kuantitas*$harga_sat;
+        $jns_trans = $data['jns_trans'];
+        $keterangan = $data['keterangan'];
+        $status = $data['status'];
+        $user_id = $data['user_id'];
+        
+        $query = "Insert into transaksi_masuk
+                    set kd_lokasi='$kd_lokasi',
+                    kd_lok_msk='$kd_lok_msk',
+                    thn_ang='$thn_ang',
+                    no_dok='$no_dok',
+                    tgl_dok='$tgl_dok',
+                    tgl_buku='$tgl_buku',
+                    no_bukti='$no_bukti',
+                    jns_trans='$jns_trans',
+                    kd_brg='$kd_brg',
+                    nm_brg='$nm_brg',
+                    satuan='$satuan',
+                    qty='$kuantitas',
+                    harga_sat='$harga_sat',
+                    total_harga='$total_harga',
+                    keterangan='$keterangan',
+                    status='$status',
+                    tgl_update=CURDATE(),
+                    user_id='$user_id'";
+            $result = $this->query($query);       
+            return $result;
     }   
 
   
