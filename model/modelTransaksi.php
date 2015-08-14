@@ -58,7 +58,7 @@ class modelTransaksi extends mysql_db
         $kd_brg = $data['kd_brg'];
         $nm_brg = $data['nm_brg'];
         $satuan = $data['satuan'];
-        $kuantitas = -$data['kuantitas'];
+        $kuantitas = $data['kuantitas'];
         $harga_sat = $data['harga_sat'];
         $total_harga = $kuantitas*$harga_sat;
         $jns_trans = $data['jns_trans'];
