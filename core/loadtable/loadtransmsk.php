@@ -5,15 +5,21 @@
 #Gunadarma University
 
 // Table yang di load
-$table = 'uapb';
+$table = 'transaksi_masuk';
  
 // Primary Key table
-$primaryKey = 'kd_uapb';
+$primaryKey = 'id';
  
 // Load Data berdasarkan nama table nya
 $columns = array(
-    array( 'db' => 'kd_uapb', 'dt' => 0 ),
-    array( 'db' => 'nm_uapb', 'dt' => 1 ),
+    array( 'db' => 'id', 'dt' => 0 ),
+    array( 'db' => 'no_dok', 'dt' => 1 ),
+    array( 'db' => 'tgl_buku', 'dt' => 2 ),
+    array( 'db' => 'nm_brg', 'dt' => 3 ),
+    array( 'db' => 'qty', 'dt' => 4 ),
+    array( 'db' => 'harga_sat', 'dt' => 5 ),
+    array( 'db' => 'total_harga', 'dt' => 6 ),
+    array( 'db' => 'Keterangan', 'dt' => 7 ),
 );
  
 // Settingan Koneksi Datatable

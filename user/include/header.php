@@ -20,7 +20,6 @@
                     <img src="../dist/img/adminpic.png" class="img-circle" alt="User Image" />
                     <p>
                       <?php echo $_SESSION['username']; ?>
-                      <small>User UAKPB</small>
                     </p>
                   </li>
                   <li class="user-footer">
