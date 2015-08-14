@@ -5,7 +5,7 @@
 #Gunadarma University
 
 // Table yang di load
-$table = 'brg';
+$table = 'persediaan';
  
 // Primary Key table
 $primaryKey = 'id';

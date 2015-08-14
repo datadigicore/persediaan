@@ -135,7 +135,7 @@ class modelTransaksi extends mysql_db
   
     public function bacabrg($data)
     {
-        $query = "select * from brg";
+        $query = "select * from persediaan";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         while ($row = $this->fetch_array($result))

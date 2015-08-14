@@ -11,7 +11,7 @@ class modelBarang extends mysql_db
 		$satuan = $data['satuan'];
 		$kd_perk = $data['kd_perk'];
 		$kd_lokasi = $data['kd_lokasi'];
-		$query = "Insert into brg
+		$query = "Insert into persediaan
         			set kd_kbrg='$kd_kbrg',
         			kd_jbrg='$kd_jbrg',
         			kd_brg='$kd_brg',
