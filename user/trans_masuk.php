@@ -158,7 +158,7 @@
       });
        $.ajax({
           type: "post",
-          url: '../core/transaksi/prosestransmsk',
+          url: '../core/transaksi/prosestransaksi',
           data: {manage:'readbrg'},
           success: function (output) {     
             $('#kd_brg').html(output);

@@ -12,15 +12,11 @@ else
 	switch ($manage)
 	{
 		case 'readbrg':
-			$TransMsk->bacabrg();
+			$Transaksi->bacabrg();
 		break;		
 
-		case 'readuakpb':
-			$TransMsk->bacauakpb();
-		break;
-
-		case 'readdok':
-			$TransMsk->bacadok();
+		case 'readbrgmsk':
+			$Transaksi->baca_persediaan_masuk();
 		break;		
 
 		case 'baca_detil_trans':
@@ -31,6 +27,11 @@ else
 				"kd_brg" => $kd_brg
 				);
 			$Transaksi->baca_detil_trans($data);
+		break;		
+
+		case 'bacaharga':
+			$kd_brg = $purifier->purify($_POST['kd_brg']);
+			$Transaksi->harga_terakhir($kd_brg);
 		break;
 
 		case 'tbh_transaksi_klr':

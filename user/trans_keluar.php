@@ -87,7 +87,7 @@
                   <div class="form-group">
                       <label class="col-sm-2 control-label">Harga Beli Satuan</label>
                       <div class="col-sm-4">
-                        <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="">
+                        <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="" readonly>
                       </div>
                     </div>                  
                   <div name="detil_transaksi" id="detil_transaksi">
@@ -159,8 +159,8 @@
       });
        $.ajax({
           type: "post",
-          url: '../core/transaksi/prosestransmsk',
-          data: {manage:'readbrg'},
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'readbrgmsk'},
           success: function (output) {     
             $('#kd_brg').html(output);
           }
@@ -180,6 +180,24 @@
             $('#detil_transaksi').html(output);
           }
        });
+        }
+      });
+      $('#kd_brg').change(function(){
+        if ($(this).val()=='') {
+          $('#rph_sat').val('');
+        }
+        else {
+          var kd_brg = $('#kd_brg').val(); 
+          $.ajax({
+            type: "post",
+            url: '../core/transaksi/prosestransaksi',
+            data: {manage:'bacaharga',kd_brg:kd_brg},
+            dataType: "json",
+            success: function (output) {
+            $('#rph_sat').val(output.harga_sat);
+
+            }
+          });
         }
       });
       $('#addtransmsk').submit(function(e){

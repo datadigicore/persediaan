@@ -142,6 +142,17 @@ class modelTransaksi extends mysql_db
         {
             echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg']."</option>";
         }   
+    }    
+
+    public function baca_persediaan_masuk()
+    {
+        $query = "select * FROM transaksi_masuk  GROUP by kd_brg";
+        $result = $this->query($query);
+        echo '<option value="">-- Pilih Kode Barang --</option>';
+        while ($row = $this->fetch_array($result))
+        {
+            echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg']."</option>";
+        }   
     }
 
 
@@ -160,18 +171,29 @@ class modelTransaksi extends mysql_db
     {
         $kd_brg = $data['kd_brg'];
         $no_dok = $data['no_dok'];
-
-        $query_brg = "select * from brg where kd_brg = '$kd_brg'";
+        $query_brg = "select * from transaksi_masuk where kd_brg = '$kd_brg'";
         $result_brg = $this->query($query_brg);
         $row_brg = $this->fetch_array($result_brg);
         echo '<input type="hidden" name="nm_brg" value="'.$row_brg['nm_brg'].'">';
-        echo '<input type="hidden" name="satuan" value="'.$row_brg['satuan'].'">';
-       
-        echo $row_brg['nm_brg'].'  '.$row_brg['satuan'];
-
-
+        echo '<input type="hidden" name="satuan" value="'.$row_brg['satuan'].'">';      
+        // echo $row_brg['nm_brg'].'  '.$row_brg['satuan'];
+        // echo json_encode(array("harga_sat"=>$row_brg["harga_sat"]));
     }
 
+    public function harga_terakhir($data)
+    {
+
+        $query = "select  nm_brg, harga_sat FROM transaksi_masuk where kd_brg = '$data'  GROUP by kd_brg, nm_brg, tgl_buku DESC LIMIT 1";
+        $query_saldo = "select suma.a - sumb.b as saldo from (SELECT sum(qty) as a FROM transaksi_masuk WHERE kd_brg = '$data') as suma, (SELECT sum(qty) as b FROM transaksi_keluar WHERE kd_brg = '$data') as sumb";
+        
+        $result = $this->query($query);
+        $result_saldo = $this->query($query_saldo);
+        $row_harga = $this->fetch_array($result);
+        $row_saldo = $this->fetch_array($result_saldo);
+
+        echo json_encode(array("harga_sat"=>$row_harga["harga_sat"],"saldo"=>$row_saldo["saldo"]));
+        
+    }
 
     
 
