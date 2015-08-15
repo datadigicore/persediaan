@@ -85,7 +85,7 @@
                       </div>
                     </div>                  
                   <div class="form-group">
-                      <label class="col-sm-2 control-label">Harga Beli Satuan</label>
+                      <label class="col-sm-2 control-label">Harga Satuan (Rp.)</label>
                       <div class="col-sm-4">
                         <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="" readonly>
                       </div>
