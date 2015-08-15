@@ -180,6 +180,17 @@
        });
         }
       });
+      $('#jenis_trans').change(function(){
+        if ($(this).val()=='M99') {
+          document.getElementById("rph_sat").readOnly=false;
+          $('#rph_sat').val('Masukan Harga Satuan');
+        }
+        else {
+          document.getElementById("rph_sat").readOnly=true;
+          $('#rph_sat').val(' ');
+        }
+      });
+
       $('#addtransmsk').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
