@@ -171,12 +171,12 @@ class modelTransaksi extends mysql_db
     {
         $kd_brg = $data['kd_brg'];
         $no_dok = $data['no_dok'];
-        $query_brg = "select * from transaksi_masuk where kd_brg = '$kd_brg'";
+        $query_brg = "select * from persediaan where kd_brg = '$kd_brg'";
         $result_brg = $this->query($query_brg);
         $row_brg = $this->fetch_array($result_brg);
         echo '<input type="hidden" name="nm_brg" value="'.$row_brg['nm_brg'].'">';
         echo '<input type="hidden" name="satuan" value="'.$row_brg['satuan'].'">';      
-        // echo $row_brg['nm_brg'].'  '.$row_brg['satuan'];
+        echo $row_brg['nm_brg'].'  '.$row_brg['satuan'];
         // echo json_encode(array("harga_sat"=>$row_brg["harga_sat"]));
     }
 

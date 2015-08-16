@@ -83,9 +83,9 @@
                       </div>
                     </div>                  
                   <div class="form-group">
-                      <label class="col-sm-2 control-label">Harga Beli Satuan</label>
+                      <label class="col-sm-2 control-label">Harga Satuan</label>
                       <div class="col-sm-8">
-                        <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="Masukkan Jumlah Masuk">
+                        <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="Masukkan Harga Satuan" readonly>
                       </div>
                     </div>                  
                   <div name="detil_transaksi" id="detil_transaksi">
@@ -157,8 +157,8 @@
       });
        $.ajax({
           type: "post",
-          url: '../core/transaksi/prosestransmsk',
-          data: {manage:'readbrg'},
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'readbrgmsk'},
           success: function (output) {     
             $('#kd_brg').html(output);
           }
@@ -183,7 +183,6 @@
       $('#jenis_trans').change(function(){
         if ($(this).val()=='M99') {
           document.getElementById("rph_sat").readOnly=false;
-          $('#rph_sat').val('Masukan Harga Satuan');
         }
         else {
           document.getElementById("rph_sat").readOnly=true;
