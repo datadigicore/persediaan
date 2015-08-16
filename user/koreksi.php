@@ -189,7 +189,24 @@
           $('#rph_sat').val(' ');
         }
       });
+      $('#kd_brg').change(function(){
+        if ($(this).val()=='') {
+          $('#rph_sat').val('');
+        }
+        else {
+          var kd_brg = $('#kd_brg').val(); 
+          $.ajax({
+            type: "post",
+            url: '../core/transaksi/prosestransaksi',
+            data: {manage:'bacaharga',kd_brg:kd_brg},
+            dataType: "json",
+            success: function (output) {
+            $('#rph_sat').val(output.harga_sat);
 
+            }
+          });
+        }
+      });
       $('#addtransmsk').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
