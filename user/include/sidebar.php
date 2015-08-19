@@ -47,7 +47,7 @@
             <li class="treeview">
               <a href="#"><i class="fa fa-link"></i> <span>Laporan</span> <i class="fa fa-angle-left pull-right"></i></a>            
               <ul class="treeview-menu">
-                <li id="bukusedia"><a href="#"><span>Buku Persediaan</span></a></li>
+                <li id="bukusedia"><a href="buku_persediaan"><span>Buku Persediaan</span></a></li>
                 <li id="lap_sedia"><a href="#"><span>Laporan Persediaan</span></a></li>
                 <li id="neraca"><a href="#"><span>Neraca Persediaan</span></a></li>
               </ul>
