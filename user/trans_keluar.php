@@ -115,6 +115,7 @@
                         <th>Harga Satuan</th>
                         <th>Total</th>
                         <th>Keterangan</th>
+                        <th width="10%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -132,6 +133,7 @@
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">
+    var table;
       $(function () {
         $("li#trans_keluar").addClass("active");
         $('#tgl_dok').datepicker({
@@ -141,7 +143,7 @@
           format: "yyyy/mm/dd"
         });             
         $("li#saldo_awal").addClass("active");
-        $("#example1").DataTable({
+        table = $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
           "ajax": "../core/loadtable/loadtransklr",
@@ -152,10 +154,50 @@
             {"targets": 2 },
             {"targets": 3 },
             {"targets": 4 },
-            {"targets": 5 }            
+            {"targets": 5 },
+            {"orderable": false,
+             "data": null,
+             "defaultContent":  '<div class="box-tools">'+
+                                  '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                  '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                '</div>',
+             "targets": [8],"targets": 8 }         
 
           ],
         });
+      });
+      $(document).on('click', '#btnhps', function () {
+      var tr = $(this).closest('tr');
+      var row = table.row( tr );
+      redirectTime = "2600";
+      redirectURL = "trans_keluar";
+      id_row = row.data()[0];
+      managedata = "hapusTransKeluar";
+      job=confirm("Anda yakin ingin menghapus data ini?");
+        if(job!=true){
+          return false;
+        }
+        else{
+          $('#myModal').modal({
+            backdrop: 'static',
+            keyboard: false
+          });
+          $('#myModal').modal('show');
+          $.ajax({
+            type: "post",
+            url : "../core/transaksi/prosestransaksi",
+            data: {manage:managedata,id:id_row},
+            success: function(data)
+            {
+              $("#success-alert").alert();
+              $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+              $("#success-alert").alert('close');
+              });
+              setTimeout("location.href = redirectURL;",redirectTime); 
+            }
+          });
+          return false;
+        }
       });
        $.ajax({
           type: "post",

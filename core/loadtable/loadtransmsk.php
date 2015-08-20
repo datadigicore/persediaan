@@ -30,7 +30,7 @@ require('../../config/dbconf.php');
 $config = new config();
 $sql_details = $config->sql_details();
 
-$where = "user_id = '$user_id'";
+$where = "user_id = '$user_id' and status_hapus=0 ";
  
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp.class.php' );

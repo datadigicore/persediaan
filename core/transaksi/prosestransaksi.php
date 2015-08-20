@@ -206,6 +206,30 @@ else
 			$Transaksi->tbh_koreksi_masuk($data);
 		break;
 
+		case 'hapusTransMasuk':
+			$id = $purifier->purify($_POST['id']);
+			$user_id = $_SESSION['username'];
+
+			$data = array(
+				"id" => $id,
+				"user_id" => $user_id
+			);
+
+			$Transaksi->hapus_transaksi_masuk($data);
+		break;		
+
+		case 'hapusTransKeluar':
+			$id = $purifier->purify($_POST['id']);
+			$user_id = $_SESSION['username'];
+
+			$data = array(
+				"id" => $id,
+				"user_id" => $user_id
+			);
+
+			$Transaksi->hapus_transaksi_keluar($data);
+		break;
+
 		default:
 			echo "Error Data Tidak Tersedia";
 		break;

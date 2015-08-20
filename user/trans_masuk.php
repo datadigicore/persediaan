@@ -132,6 +132,7 @@
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">
+    var table;
       $(function () {
         $("li#trans_masuk").addClass("active");
         $('#tgl_dok').datepicker({
@@ -141,7 +142,7 @@
           format: "yyyy/mm/dd"
         });             
         $("li#saldo_awal").addClass("active");
-        $("#example1").DataTable({
+        table = $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
           "ajax": "../core/loadtable/loadtransmsk",
@@ -162,13 +163,44 @@
                                   '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
                                 '</div>',
              "targets": [8],"targets": 8 },
-            {"targets": 9, 
-             "visible": false}
-
-
           ],
         });
       });
+      $(document).on('click', '#btnhps', function () {
+      var tr = $(this).closest('tr');
+      var row = table.row( tr );
+      redirectTime = "2600";
+      redirectURL = "trans_masuk";
+      id_row = row.data()[0];
+      managedata = "hapusTransMasuk";
+      job=confirm("Anda yakin ingin menghapus data ini?");
+        if(job!=true){
+          return false;
+        }
+        else{
+          $('#myModal').modal({
+            backdrop: 'static',
+            keyboard: false
+          });
+          $('#myModal').modal('show');
+          $.ajax({
+            type: "post",
+            url : "../core/transaksi/prosestransaksi",
+            data: {manage:managedata,id:id_row},
+            success: function(data)
+            {
+              $("#success-alert").alert();
+              $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+              $("#success-alert").alert('close');
+              });
+              setTimeout("location.href = redirectURL;",redirectTime); 
+            }
+          });
+          return false;
+        }
+      });
+
+
        $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
@@ -194,6 +226,9 @@
        });
         }
       });
+
+
+
       $('#addtransmsk').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
