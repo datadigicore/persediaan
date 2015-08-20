@@ -7,6 +7,7 @@ class modelTransaksi extends mysql_db
     {
         $kd_lokasi = $data['kd_lokasi'];
         $kd_lok_msk = $data['kd_lokasi'];
+        $nm_satker = $data['nm_satker'];
         $thn_ang = $data['thn_ang'];
         $no_dok = $data['no_dok'];
         $tgl_dok = $data['tgl_dok'];
@@ -27,6 +28,7 @@ class modelTransaksi extends mysql_db
         $query = "Insert into transaksi_masuk
                     set kd_lokasi='$kd_lokasi',
                     kd_lok_msk='$kd_lok_msk',
+                    nm_satker='$nm_satker',
                     thn_ang='$thn_ang',
                     no_dok='$no_dok',
                     tgl_dok='$tgl_dok',
@@ -150,6 +152,9 @@ class modelTransaksi extends mysql_db
                 $result_idk = $this->query($query_idk);
                 $row_idk = $this->fetch_array($result_idk);
                 $id_transk = $row_idk['id'];
+                $minus_qty = -$kuantitas;
+                $minus_hrg = -$harga_sat;
+                $minus_total = -$total_harga;
                 echo "id trans keluar : ".$id_transk;
                 echo '<br>';
 
@@ -166,9 +171,9 @@ class modelTransaksi extends mysql_db
                                 kd_brg='$kd_brg',
                                 nm_brg='$nm_brg',
                                 satuan='$satuan',
-                                qty='$kuantitas',
-                                harga_sat='$harga_sat',
-                                total_harga='$total_harga',
+                                qty='$minus_qty',
+                                harga_sat='$minus_hrg',
+                                total_harga='$minus_total',
                                 keterangan='$keterangan',
                                 status='$status',
                                 tgl_update=CURDATE(),
@@ -401,7 +406,7 @@ class modelTransaksi extends mysql_db
   
     public function bacabrg($data)
     {
-        $query = "select * from persediaan";
+        $query = "select * from persediaan where user_id='$data'";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         while ($row = $this->fetch_array($result))
@@ -410,9 +415,9 @@ class modelTransaksi extends mysql_db
         }   
     }    
 
-    public function baca_persediaan_masuk()
+    public function baca_persediaan_masuk($data)
     {
-        $query = "select * FROM transaksi_masuk GROUP BY kd_brg ORDER BY nm_brg ASC ";
+        $query = "select kd_brg, nm_brg FROM transaksi_masuk where user_id = '$data' GROUP BY kd_brg ORDER BY nm_brg ASC ";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         while ($row = $this->fetch_array($result))

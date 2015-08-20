@@ -69,13 +69,21 @@ class modelUser extends mysql_db
 		$user_name = $data['user_name'];
 		$user_pass = $data['user_pass'];
         $user_email = $data['user_email'];
+        $kd_satker= $data['kd_lokasi'];
+        echo "kd_satker : ".$kd_satker;
+        $query_satker = "select nm_satker from satker where kode='$kd_satker'";
+        $result_satker = $this->query($query_satker);
+        $data_satker = mysqli_fetch_assoc($result_satker);
+        $nm_satker = $data_satker["nm_satker"];
+
 		$kd_lokasi = str_replace(array('.'), '' , $data['kd_lokasi']);
 		$user_level = 2;
 		$query = "Insert into user
         			set user_name='$user_name',
                     user_pass='$user_pass',
                     user_email='$user_email',
-        			kd_lokasi='$kd_lokasi',
+                    kd_lokasi='$kd_lokasi',
+        			nm_satker='$nm_satker',
                     user_level='$user_level'";         
         $result = $this->query($query);
 		return $result;

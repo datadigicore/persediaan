@@ -3,7 +3,8 @@
 #This code provided by:
 #Yohanes Christomas Daimler(yohanes.christomas@gmail.com)
 #Gunadarma University
-
+session_start();
+$user_id=$_SESSION['username'];
 // Table yang di load
 $table = 'transaksi_masuk';
  
@@ -19,16 +20,20 @@ $columns = array(
     array( 'db' => 'qty', 'dt' => 4 ),
     array( 'db' => 'harga_sat', 'dt' => 5 ),
     array( 'db' => 'total_harga', 'dt' => 6 ),
-    array( 'db' => 'Keterangan', 'dt' => 7 ),
+    array( 'db' => 'keterangan', 'dt' => 7 ),
+    array( 'db' => 'user_id', 'dt' => 9 ),
+
 );
  
 // Settingan Koneksi Datatable
 require('../../config/dbconf.php');
 $config = new config();
 $sql_details = $config->sql_details();
+
+$where = "user_id = '$user_id'";
  
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp.class.php' );
 echo json_encode(
-    SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns)
+    SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns, $where )
 ); 

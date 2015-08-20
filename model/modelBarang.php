@@ -11,6 +11,8 @@ class modelBarang extends mysql_db
 		$satuan = $data['satuan'];
 		$kd_perk = $data['kd_perk'];
 		$kd_lokasi = $data['kd_lokasi'];
+		$nm_satker = $data['nm_satker'];
+		$user_id = $data['user_id'];
 		$query = "Insert into persediaan
         			set kd_kbrg='$kd_kbrg',
         			kd_jbrg='$kd_jbrg',
@@ -18,6 +20,8 @@ class modelBarang extends mysql_db
         			nm_brg='$nm_brg',
                     satuan='$satuan',
                     kd_perk='$kd_perk',
+                    nm_satker='$nm_satker',
+                    user_id='$user_id',
                     kd_lokasi='$kd_lokasi'";
         $result = $this->query($query);
 		return $result;

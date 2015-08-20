@@ -27,6 +27,7 @@ $data = mysqli_fetch_assoc($query);
 if (mysqli_num_rows($query) == 1) {
 	$_SESSION['kd_lok'] = $data['kd_lokasi'];
 	$_SESSION['username'] = $data['user_name'];
+	$_SESSION['nama_satker'] = $data['nm_satker'];
 	$_SESSION['thn_ang'] = $purifier->purify($_POST['thn_ang']);
 	$_SESSION['level'] = $data['user_level'];
 	$_SESSION['start'] = time();

@@ -22,6 +22,8 @@ else
 			$nm_brg = $purifier->purify($_POST['namabarang']);
 			$satuan = $purifier->purify($_POST['satuan']);
 			$kd_lokasi = $_SESSION['kd_lok'];
+			$nm_satker = $_SESSION['nama_satker'];
+			$user_id = $_SESSION['username'];
 
 			$data = array(
 				"kd_kbrg" => $kdbarang,
@@ -30,7 +32,9 @@ else
 				"kd_brg" => $kd_brg,
 				"nm_brg" => $nm_brg,
 				"satuan" => $satuan,
-				"kd_perk" => "sementara",
+				"kd_perk" => "0",
+				"nm_satker" => $nm_satker,
+				"user_id" => $user_id,
 		    	"kd_lokasi" => $kd_lokasi
 		    );
 			$Barang->tambahbrg($data);
