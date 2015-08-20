@@ -72,7 +72,7 @@ else
 				"status" => $status,
 				"user_id" => $user_id
 			);
-			$Transaksi->transaksi_keluar($data);
+			$Transaksi->trnsaksi_keluar($data);
 		break;
 
 		case 'tbh_transaksi_msk':

@@ -37,6 +37,7 @@ class modelTransaksi extends mysql_db
                     nm_brg='$nm_brg',
                     satuan='$satuan',
                     qty='$kuantitas',
+                    qty_akhir='$kuantitas',
                     harga_sat='$harga_sat',
                     total_harga='$total_harga',
                     keterangan='$keterangan',
@@ -76,7 +77,180 @@ class modelTransaksi extends mysql_db
             $result2 = $this->query($query_full);       
             return $result;
             return $result2;
-    }    
+    }      
+
+
+
+    public function trnsaksi_keluar($data)
+    {
+        $kd_lokasi = $data['kd_lokasi'];
+        $kd_lok_msk = $data['kd_lokasi'];
+        $thn_ang = $data['thn_ang'];
+        $no_dok = $data['no_dok'];
+        $tgl_dok = $data['tgl_dok'];
+        $tgl_buku = $data['tgl_buku'];
+        $no_bukti = $data['no_bukti'];
+        $kd_brg = $data['kd_brg'];
+        $nm_brg = $data['nm_brg'];
+        $satuan = $data['satuan'];
+        $kuantitas = $data['kuantitas'];
+        $harga_sat = $data['harga_sat'];
+        
+        $jns_trans = $data['jns_trans'];
+        $keterangan = $data['keterangan'];
+        $status = $data['status'];
+        $user_id = $data['user_id'];
+
+
+        while($kuantitas > 0)
+        {   
+            echo " kuantitas tersisa : ".$kuantitas; 
+            $query_id = "select id,kd_brg,qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and user_id='$user_id' and qty_akhir>0 order by tgl_buku asc limit 1";     
+            $result_id = $this->query($query_id);
+            $row_id = $this->fetch_array($result_id);
+            $id_trans_m = $row_id['id'];   
+            $qty_akhir = $row_id['qty_akhir'];      
+            $harga_sat = $row_id['harga_sat']; 
+            $total_harga = $kuantitas*$harga_sat;     
+            echo "ID transaksi masuk : ".$id_trans_m.' '.$qty_akhir.' '.$harga_sat;
+            echo '<br>';
+
+            
+            if($kuantitas<$qty_akhir)
+            {
+                echo "terbukti sisa kuantitas : ".$kuantitas.' dengan qy akhir : '.$qty_akhir;
+                echo '<br>';
+
+                $query_keluar = "Insert into transaksi_keluar
+                                    set kd_lokasi='$kd_lokasi',
+                                    id_masuk = '$id_trans_m',
+                                    kd_lok_msk='$kd_lok_msk',
+                                    thn_ang='$thn_ang',
+                                    no_dok='$no_dok',
+                                    tgl_dok='$tgl_dok',
+                                    tgl_buku='$tgl_buku',
+                                    no_bukti='$no_bukti',
+                                    jns_trans='$jns_trans',
+                                    kd_brg='$kd_brg',
+                                    nm_brg='$nm_brg',
+                                    satuan='$satuan',
+                                    qty='$kuantitas',
+                                    harga_sat='$harga_sat',
+                                    total_harga='$total_harga',
+                                    keterangan='$keterangan',
+                                    status='$status',
+                                    tgl_update=CURDATE(),
+                                    user_id='$user_id'";   
+                $result_keluar = $this->query($query_keluar);
+
+                $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $kuantitas where user_id='$user_id' and id='$id_trans_m'";
+                $result_upd_masuk = $this->query($query_upd_masuk);
+
+                $query_idk = "select id from transaksi_keluar WHERE kd_brg='$kd_brg' and user_id='$user_id' order by id DESC";
+                $result_idk = $this->query($query_idk);
+                $row_idk = $this->fetch_array($result_idk);
+                $id_transk = $row_idk['id'];
+                echo "id trans keluar : ".$id_transk;
+                echo '<br>';
+
+                $query_full = "Insert into transaksi_full
+                                set kd_lokasi='$kd_lokasi',
+                                id_trans='$id_transk',
+                                kd_lok_msk='$kd_lok_msk',
+                                thn_ang='$thn_ang',
+                                no_dok='$no_dok',
+                                tgl_dok='$tgl_dok',
+                                tgl_buku='$tgl_buku',
+                                no_bukti='$no_bukti',
+                                jns_trans='$jns_trans',
+                                kd_brg='$kd_brg',
+                                nm_brg='$nm_brg',
+                                satuan='$satuan',
+                                qty='$kuantitas',
+                                harga_sat='$harga_sat',
+                                total_harga='$total_harga',
+                                keterangan='$keterangan',
+                                status='$status',
+                                tgl_update=CURDATE(),
+                                user_id='$user_id'"; 
+                $result_trans_full = $this->query($query_full);
+                $kuantitas = 0;
+                break;
+            }
+            // else
+            // {
+                $query_id = "select id,kd_brg,qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and user_id='$user_id' and qty_akhir>0 order by tgl_buku asc limit 1"; 
+                $result_id = $this->query($query_id);
+                $row_id = $this->fetch_array($result_id);
+                $id_trans = $row_id['id'];   
+                $qty_akhir = $row_id['qty_akhir'];      
+                $harga_sat = $row_id['harga_sat']; 
+
+                echo $id_trans.' '.$qty_akhir.' '.$harga_sat;
+                echo '<br>';
+
+                $query_keluar = "Insert into transaksi_keluar
+                                set 
+                                kd_lokasi='$kd_lokasi',
+                                id_masuk = '$id_trans',
+                                kd_lok_msk='$kd_lok_msk',
+                                thn_ang='$thn_ang',
+                                no_dok='$no_dok',
+                                tgl_dok='$tgl_dok',
+                                tgl_buku='$tgl_buku',
+                                no_bukti='$no_bukti',
+                                jns_trans='$jns_trans',
+                                kd_brg='$kd_brg',
+                                nm_brg='$nm_brg',
+                                satuan='$satuan',
+                                qty='$qty_akhir',
+                                harga_sat='$harga_sat',
+                                total_harga='$total_harga',
+                                keterangan='$keterangan',
+                                status='$status',
+                                tgl_update=CURDATE(),
+                                user_id='$user_id'"; 
+                $result_keluar = $this->query($query_keluar);
+
+                $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $qty_akhir where user_id='$user_id' and id='$id_trans'";
+                $result_upd_masuk = $this->query($query_upd_masuk);
+
+                $query_idk = "select id from transaksi_keluar WHERE kd_brg='$kd_brg' and user_id='$user_id' order by id DESC";
+                $result_idk = $this->query($query_idk);
+                $row_idk = $this->fetch_array($result_idk);
+                $id_transk = $row_idk['id'];
+
+                $query_full = "Insert into transaksi_full
+                                set kd_lokasi='$kd_lokasi',
+                                id_trans='$id_transk',
+                                kd_lok_msk='$kd_lok_msk',
+                                thn_ang='$thn_ang',
+                                no_dok='$no_dok',
+                                tgl_dok='$tgl_dok',
+                                tgl_buku='$tgl_buku',
+                                no_bukti='$no_bukti',
+                                jns_trans='$jns_trans',
+                                kd_brg='$kd_brg',
+                                nm_brg='$nm_brg',
+                                satuan='$satuan',
+                                qty='$qty_akhir',
+                                harga_sat='$harga_sat',
+                                total_harga='$total_harga',
+                                keterangan='$keterangan',
+                                status='$status',
+                                tgl_update=CURDATE(),
+                                user_id='$user_id'"; 
+                $result_full = $this->query($query_full);
+                $kuantitas = $kuantitas - $qty_akhir;
+                              
+            // }
+            
+
+        }               
+
+    }
+
+   
 
 
     public function ubah_transaksi_masuk($data)
@@ -109,6 +283,7 @@ class modelTransaksi extends mysql_db
         $user_id = $data['user_id'];
         $query_ubah = "update transaksi_masuk 
                         set qty='$kuantitas', 
+                        qty_akhir = qty_akhir + '$selisih_qty',
                         harga_sat='$harga_sat', 
                         tgl_update=CURDATE() 
                         where id= '$id' ";
@@ -135,7 +310,7 @@ class modelTransaksi extends mysql_db
             $result2 = $this->query($query_full);       
             return $result;
             return $result2;
-    }
+    }  
 
     public function transaksi_keluar($data)
     {

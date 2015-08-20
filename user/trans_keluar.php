@@ -25,7 +25,7 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Transaksi Keluar </h3>
                 </div>  
-                <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="addtransmsk">
+                <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="addtransms">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Jenis Transaksi</label>
