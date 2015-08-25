@@ -95,6 +95,11 @@ else
 			$hrg_sat = $purifier->purify($_POST['rph_sat']);
 			$status = 1;
 			$user_id = $_SESSION['username'];
+			$_SESSION['jns_trans'] = $purifier->purify($_POST['jenis_trans']);
+			$_SESSION['no_dok'] = $purifier->purify($_POST['no_dok']);
+			$_SESSION['no_bukti'] = $purifier->purify($_POST['no_bukti']);
+			$_SESSION['tgl_dok'] = $purifier->purify($_POST['tgl_dok']);
+			$_SESSION['tgl_buku'] = $purifier->purify($_POST['tgl_buku']);
 			
 			
 			$data = array(

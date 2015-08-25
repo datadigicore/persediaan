@@ -585,7 +585,7 @@ class modelTransaksi extends mysql_db
     public function harga_terakhir($data)
     {
 
-        $query = "select  nm_brg, harga_sat FROM transaksi_masuk where kd_brg = '$data'  GROUP by kd_brg, nm_brg, tgl_buku ASC LIMIT 1";
+        $query = "select  nm_brg, harga_sat FROM transaksi_masuk where kd_brg = '$data' and qty_akhir>0 GROUP by kd_brg, nm_brg, tgl_buku ASC LIMIT 1";
         $query_saldo = "select suma.a - sumb.b as saldo from (SELECT sum(qty) as a FROM transaksi_masuk WHERE kd_brg = '$data') as suma, (SELECT sum(qty) as b FROM transaksi_keluar WHERE kd_brg = '$data') as sumb";
         
         $result = $this->query($query);
