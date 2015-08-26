@@ -12,7 +12,7 @@
         <section class="content-header">
           <h1>
             Dashboard
-            <small>Control Panel</small>
+            <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           <ol class="breadcrumb">
             <li class="active"><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
@@ -24,7 +24,7 @@
               <div class="small-box bg-aqua">
                 <div class="inner">
                   <h3 id="totaluapb">0</h3>
-                  <p>Tabel UAPB</p>
+                  <p>Data Sektor</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-calendar"></i>
@@ -36,7 +36,7 @@
               <div class="small-box bg-green">
                 <div class="inner">
                   <h3 id="totaluappbe">0</h3>
-                  <p>Tabel UAPPB - E1</p>
+                  <p>Data Satker</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-calendar"></i>
@@ -48,7 +48,7 @@
               <div class="small-box bg-yellow">
                 <div class="inner">
                   <h3 id="totaluappbw">0</h3>
-                  <p>Tabel UAPPB - W</p>
+                  <p>Data Unit</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-calendar"></i>
@@ -60,7 +60,7 @@
               <div class="small-box bg-red">
                 <div class="inner">
                   <h3 id="totaluakpb">0</h3>
-                  <p>Tabel UAKPB</p>
+                  <p>Data Gudang</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-calendar"></i>

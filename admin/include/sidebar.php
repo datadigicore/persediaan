@@ -1,12 +1,12 @@
       <aside class="main-sidebar">
         <section class="sidebar">
           <ul class="sidebar-menu">
-            <li class="header">PENGELOLAAN</li>
+            <li class="header">PENGOLAHAN&nbsp;&nbsp;&nbsp;DATA</li>
             <li id="index"><a href="index"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-            <li id="uapb"><a href="uapb"><i class="fa fa-table"></i> <span>Tabel UAPB</span></a></li>
-            <li id="uappbe"><a href="uappbe"><i class="fa fa-table"></i> <span>Tabel UAPPB-E1</span></a></li>
-            <li id="uappbw"><a href="uappbw"><i class="fa fa-table"></i> <span>Tabel UAPPB-Wilayah</span></a></li>
-            <li id="uakpb"><a href="uakpb"><i class="fa fa-table"></i> <span>Tabel UAKPB</span></a></li>
+            <li id="skpd"><a href="sektor"><i class="fa fa-table"></i> <span>Tabel SKPD</span></a></li>
+            <!-- <li id="satker"><a href="satker"><i class="fa fa-table"></i> <span>Tabel Satker</span></a></li>
+            <li id="uappbw"><a href="uappbw"><i class="fa fa-table"></i> <span>Tabel Unit</span></a></li>
+            <li id="uakpb"><a href="uakpb"><i class="fa fa-table"></i> <span>Tabel Gudang</span></a></li> -->
             <li class="treeview">
               <a href="#"><i class="fa fa-link"></i> <span>Lain-Lain</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">

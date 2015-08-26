@@ -102,14 +102,14 @@ class mysql_db extends config {
           switch ($this->debug) {
                case 1:
                     $message = die(mysqli_error($this->connect));
-                    break;
+               break;
                case 2:
                     $message = die("Ada Kesalahan Query");
+               break;
                default:
-                    $message = "";
-                    break;
+                    $message = die(mysqli_error($this->connect));;
+               break;
           }
-
           return $message;
      }
 

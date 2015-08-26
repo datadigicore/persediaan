@@ -11,33 +11,34 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Unit Akuntansi Pengguna Barang
-            <small>Control Panel</small>
+            Satuan Kerja Perangkat Daerah
+            <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-table"></i> Tabel UAPB</a></li>
+            <li class="active"><a href="#"><i class="fa fa-table"></i> Kode Sektor</a></li>
           </ol>
         </section>
         <section class="content">
           <div class="row">
+            <?php include("include/navtab.php"); ?>
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tambah Data UAPB</h3>
+                  <h3 class="box-title">Tambah Data Sektor</h3>
                 </div>  
-                <form action="../core/uapb/prosesuapb" method="post" class="form-horizontal" id="adduapb">
+                <form action="../core/sektor/prosessektor" method="post" class="form-horizontal" id="addsektor">
                   <div class="box-body">
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode UAPB</label>
+                      <label class="col-sm-2 control-label">Kode Sektor </label>
                       <div class="col-sm-9">
-                        <input type="text" name="kduapb" class="form-control" id="kduapb" placeholder="Masukkan Kode UAPB">
-                        <input type="hidden" name="manage" value="adduapb">
+                        <input type="text" name="kdsektor" class="form-control" id="kdsektor" placeholder="Masukkan Kode Sektor">
+                        <input type="hidden" name="manage" value="addsektor">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Uraian UAPB</label>
+                      <label class="col-sm-2 control-label">Uraian Sektor</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nmuapb" class="form-control" id="nmuapb" placeholder="Masukkan Uraian UAPB">
+                        <input type="text" name="nmsektor" class="form-control" id="nmsektor" placeholder="Masukkan Uraian Sektor">
                       </div>
                     </div>
                   </div>
@@ -49,15 +50,15 @@
               </div>
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tabel Data UAPB</h3>
+                  <h3 class="box-title">Tabel Data Sektor</h3>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th width="14%">Kode UAPB</th>
-                        <th>Uraian UAPB</th>
+                        <th width="14%">Kode Sektor</th>
+                        <th>Uraian Sektor</th>
                         <th width="9%">Aksi</th>
                       </tr>
                     </thead>
@@ -77,11 +78,16 @@
     <script type="text/javascript">
       var table;
       $(function () {
-        $("li#uapb").addClass("active");
+        $("li#skpd").addClass("active");
+        $("li.sektor").addClass("active1");
+        $("li.sektor>a").append('<i class="fa fa-angle-right pull-right" style="margin-top:3px;"></i>');
         table = $("#example1").DataTable({
+          "oLanguage": {
+            "sInfoFiltered": ""
+          },
           "processing": false,
           "serverSide": true,
-          "ajax": "../core/loadtable/loaduapb",
+          "ajax": "../core/loadtable/tablesektor",
           "columnDefs":
           [
             {"targets": 0,
@@ -103,8 +109,8 @@
         var tr = $(this).closest('tr');
         var row = table.row( tr );
         id_row = row.data()[0];
-        kduapb_row = row.data()[1];
-        uruapb_row  = row.data()[2];
+        kdsektor_row = row.data()[1];
+        ursektor_row  = row.data()[2];
         if ( row.child.isShown() ) {
           $('div.slider', row.child()).slideUp( function () {
             row.child.hide();
@@ -115,17 +121,17 @@
           row.child( format(row.data())).show();
           tr.addClass('shown');
           $('div.slider', row.child()).slideDown();
-          $("#kduapb"+id_row +"").val(kduapb_row);
-          $("#uruapb"+id_row +"").val(uruapb_row);
+          $("#kdsektor"+id_row +"").val(kdsektor_row);
+          $("#ursektor"+id_row +"").val(ursektor_row);
         }
       });
       $(document).on('click', '#btnhps', function () {
       var tr = $(this).closest('tr');
       var row = table.row( tr );
       redirectTime = "2600";
-      redirectURL = "uapb";
+      redirectURL = "sektor";
       id_row = row.data()[0];
-      managedata = "deluapb";
+      managedata = "delsektor";
       job=confirm("Anda yakin ingin menghapus data ini?");
         if(job!=true){
           return false;
@@ -138,7 +144,7 @@
           $('#myModal').modal('show');
           $.ajax({
             type: "post",
-            url : "../core/uapb/prosesuapb",
+            url : "../core/sektor/prosessektor",
             data: {manage:managedata,id:id_row},
             success: function(data)
             {
@@ -154,13 +160,13 @@
       });
       function format ( d ) {
         return '<div class="slider">'+
-        '<form action="../core/uapb/prosesuapb" method="post" class="form-horizontal" id="upduapb">'+
+        '<form action="../core/sektor/prosessektor" method="post" class="form-horizontal" id="updsektor">'+
         '<table width="100%">'+
            '<tr>'+
-              '<input type="hidden" name="manage" value="upduapb">'+
+              '<input type="hidden" name="manage" value="updsektor">'+
               '<input type="hidden" name="id" value="'+d[0]+'">'+
-              '<td width="14%"><input style="width:90%" id="kduapb'+d[0]+'" name="updkduapb" class="form-control" type="text" placeholder="Kode UAPB"></td>'+
-              '<td><input style="width:98%" id="uruapb'+d[0]+'" name="upduruapb" class="form-control" type="text" placeholder="Uraian UAPB"></td>'+
+              '<td width="14%"><input style="width:90%" id="kdsektor'+d[0]+'" name="updkdsektor" class="form-control" type="text" placeholder="Kode Sektor"></td>'+
+              '<td><input style="width:98%" id="ursektor'+d[0]+'" name="updursektor" class="form-control" type="text" placeholder="Uraian Sektor"></td>'+
               '<td style="vertical-align:middle; width:15%;">'+
                 '<div class="box-tools">'+
                   '<button id="btnrst" class="btn btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
@@ -171,7 +177,7 @@
         '</table>'+
         '</form></div>';
       }
-      $(document).on('submit', '#upduapb', function (e) {
+      $(document).on('submit', '#updsektor', function (e) {
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
@@ -179,7 +185,7 @@
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "2600";
-        redirectURL = "uapb";
+        redirectURL = "sektor";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({
@@ -195,12 +201,12 @@
             $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
             $("#success-alert").alert('close');
             });
-            // setTimeout("location.href = redirectURL;",redirectTime); 
+            setTimeout("location.href = redirectURL;",redirectTime); 
           }
         });
         return false;
       });
-      $('#adduapb').submit(function(e){
+      $('#addsektor').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
@@ -208,7 +214,7 @@
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "2600";
-        redirectURL = "uapb";
+        redirectURL = "sektor";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({

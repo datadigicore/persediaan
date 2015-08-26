@@ -11,41 +11,42 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Unit Akuntansi Pembantu Pengguna Barang - Eselon 1
-            <small>Control Panel</small>
+            Satuan Kerja Perangkat Daerah
+            <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-table"></i> Tabel UAPPB-E1</a></li>
+            <li class="active"><a href="#"><i class="fa fa-table"></i> Tabel Satker</a></li>
           </ol>
         </section>
         <section class="content">
           <div class="row">
+            <?php include("include/navtab.php"); ?>
             <section class="col-lg-12 connectedSortable">
               <div class="box box-success">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tambah Data</h3>
+                  <h3 class="box-title">Tambah Data Satker</h3>
                 </div>  
-                <form action="../core/uappbe/prosesuappbe" method="post" class="form-horizontal" id="adduappbe">
+                <form action="../core/satker/prosessatker" method="post" class="form-horizontal" id="addsatker">
                   <div class="box-body">
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode UAPB</label>
+                      <label class="col-sm-2 control-label">Kode Sektor</label>
                       <div class="col-sm-9">
-                        <select name="kduapb" id="kduapb" class="form-control select2">
-                          <option selected="selected">-- Pilih Kode UAPB --</option>
+                        <select name="kdsektor" id="kdsektor" class="form-control select2">
+                          <option selected="selected">-- Pilih Kode Sektor --</option>
                         </select>
-                        <input type="hidden" name="manage" value="adduappbe">
+                        <input type="hidden" name="manage" value="addsatker">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode UAPPB-E1</label>
+                      <label class="col-sm-2 control-label">Kode Satker</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kduappbe" id="kduappbe" class="form-control" placeholder="Masukkan Kode UAPPB-E1">
+                        <input type="text" name="kdsatker" id="kdsatker" class="form-control" placeholder="Masukkan Kode Satker">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Uraian UAPPB-E1</label>
+                      <label class="col-sm-2 control-label">Uraian Satker</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nmuappbe" id="nmuappbe" class="form-control" placeholder="Masukkan Uraian UAPPB-E1">
+                        <input type="text" name="nmsatker" id="nmsatker" class="form-control" placeholder="Masukkan Uraian Satker">
                       </div>
                     </div>
                   </div>
@@ -57,16 +58,16 @@
               </div>
               <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Tabel Data UAPPB-E1</h3>
+                    <h3 class="box-title">Tabel Data Satker</h3>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th width="18%">Kode UAPB</th>
-                        <th width="18%">Kode UAPPB-E1</th>
-                        <th>Uraian UAPPB-E1</th>
+                        <th width="18%">Kode Sektor</th>
+                        <th width="18%">Kode Satker</th>
+                        <th>Uraian Satker</th>
                         <th width="9%">Aksi</th>
                       </tr>
                     </thead>
@@ -86,20 +87,25 @@
     <script type="text/javascript">
       var table;
       $(function () {
-        $("li#uappbe").addClass("active");
+        $("li#skpd").addClass("active");
+        $("li.satker").addClass("active2");
+        $("li.satker>a").append('<i class="fa fa-angle-right pull-right" style="margin-top:3px;"></i>');
         $(".select2").select2();
         $.ajax({
           type: "post",
-          url: '../core/uappbe/prosesuappbe',
-          data: {manage:'readuapb'},
+          url: '../core/satker/prosessatker',
+          data: {manage:'readsektor'},
           success: function (output) {     
-            $('#kduapb').html(output);
+            $('#kdsektor').html(output);
           }
         });
         var table = $("#example1").DataTable({
+          "oLanguage": {
+            "sInfoFiltered": ""
+          },
           "processing": false,
           "serverSide": true,
-          "ajax": "../core/loadtable/loaduappbe",
+          "ajax": "../core/loadtable/loadsatker",
           "columnDefs":
           [
             {"targets": 0,
@@ -121,9 +127,9 @@
           var tr = $(this).closest('tr');
           var row = table.row( tr );
           id_row = row.data()[0];
-          kduapb_row = row.data()[1];
-          kduappbe_row  = row.data()[2];
-          uruappbe_row  = row.data()[3];
+          kdsektor_row = row.data()[1];
+          kdsatker_row  = row.data()[2];
+          ursatker_row  = row.data()[3];
           if ( row.child.isShown() ) {
             $('div.slider', row.child()).slideUp( function () {
               row.child.hide();
@@ -134,18 +140,18 @@
             row.child( format(row.data())).show();
             tr.addClass('shown');
             $('div.slider', row.child()).slideDown();
-            $("#kduapb"+id_row+"").val(kduapb_row);
-            $("#kduappbe"+id_row+"").val(kduappbe_row);
-            $("#uruappbe"+id_row+"").val(uruappbe_row);
+            $("#kdsektor"+id_row+"").val(kdsektor_row);
+            $("#kdsatker"+id_row+"").val(kdsatker_row);
+            $("#ursatker"+id_row+"").val(ursatker_row);
           }
         });
         $(document).on('click', '#btnhps', function () {
         var tr = $(this).closest('tr');
         var row = table.row( tr );
         redirectTime = "2600";
-        redirectURL = "uappbe";
+        redirectURL = "satker";
         id_row = row.data()[0];
-        managedata = "deluappbe";
+        managedata = "delsatker";
         job=confirm("Anda yakin ingin menghapus data ini?");
           if(job!=true){
             return false;
@@ -158,7 +164,7 @@
             $('#myModal').modal('show');
             $.ajax({
               type: "post",
-              url : "../core/uappbe/prosesuappbe",
+              url : "../core/satker/prosessatker",
               data: {manage:managedata,id:id_row},
               success: function(data)
               {
@@ -174,14 +180,14 @@
         });
         function format ( d ) {
           return '<div class="slider">'+
-          '<form action="../core/uappbe/prosesuappbe" method="post" class="form-horizontal" id="upduappbe">'+
+          '<form action="../core/satker/prosessatker" method="post" class="form-horizontal" id="updsatker">'+
           '<table width="100%">'+
              '<tr>'+
-                '<input type="hidden" name="manage" value="upduappbe">'+
+                '<input type="hidden" name="manage" value="updsatker">'+
                 '<input type="hidden" name="id" value="'+d[0]+'">'+
-                '<td width="18.5%"><input style="width:90%" id="kduapb'+d[0]+'" name="updkduapb" class="form-control" type="text" placeholder="Kode UAPB"></td>'+
-                '<td width="18.5%"><input style="width:90%" id="kduappbe'+d[0]+'" name="updkduappbe" class="form-control" type="text" placeholder="Kode UAPPB-E1"></td>'+
-                '<td><input style="width:96%" id="uruappbe'+d[0]+'" name="upduruappbe" class="form-control" type="text" placeholder="Uraian UAPPB-E1"></td>'+
+                '<td width="18.5%"><input style="width:90%" id="kdsektor'+d[0]+'" name="updkdsektor" class="form-control" type="text" placeholder="Kode Sektor"></td>'+
+                '<td width="18.5%"><input style="width:90%" id="kdsatker'+d[0]+'" name="updkdsatker" class="form-control" type="text" placeholder="Kode Satker"></td>'+
+                '<td><input style="width:96%" id="ursatker'+d[0]+'" name="updursatker" class="form-control" type="text" placeholder="Uraian Satker"></td>'+
                 '<td style="vertical-align:middle; width:15%;">'+
                   '<div class="box-tools">'+
                     '<button id="btnrst" class="btn btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
@@ -192,7 +198,7 @@
           '</table>'+
           '</form></div>';
         }
-        $(document).on('submit', '#upduappbe', function (e) {
+        $(document).on('submit', '#updsatker', function (e) {
           $('#myModal').modal({
             backdrop: 'static',
             keyboard: false
@@ -200,7 +206,7 @@
           $('#myModal').modal('show');
           e.preventDefault();
           redirectTime = "2600";
-          redirectURL = "uappbe";
+          redirectURL = "satker";
           var formURL = $(this).attr("action");
           var addData = new FormData(this);
           $.ajax({
@@ -216,19 +222,19 @@
               $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
               $("#success-alert").alert('close');
               });
-              // setTimeout("location.href = redirectURL;",redirectTime); 
+              setTimeout("location.href = redirectURL;",redirectTime); 
             }
           });
           return false;
         });
-        $('#kduapb').change(function(){
+        $('#kdsektor').change(function(){
           if($(this).val()==''){
             $("#example1").DataTable().destroy();
             $("#example1 tbody").empty();
             table = $("#example1").DataTable({
               "processing": false,
               "serverSide": true,
-              "ajax": "../core/loadtable/loaduappbe",
+              "ajax": "../core/loadtable/loadsatker",
               "columnDefs":
               [
                 {"targets": 0,
@@ -249,13 +255,13 @@
             });
           }
           else{
-            var kduapb = $(this).val();
+            var kdsektor = $(this).val();
             $("#example1").DataTable().destroy();
             $("#example1 tbody").empty();
             $.ajax({
               type: "post",
-              url: '../core/uappbe/prosesuappbe',
-              data: {manage:'readtable',kduapb:kduapb},
+              url: '../core/satker/prosessatker',
+              data: {manage:'readtable',kdsektor:kdsektor},
               success: function (output) {
                 var dataoutput = JSON.parse(output);   
                 table = $("#example1").DataTable({
@@ -274,7 +280,7 @@
           }
         });
       });
-      $('#adduappbe').submit(function(e){
+      $('#addsatker').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
@@ -282,7 +288,7 @@
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "2600";
-        redirectURL = "uappbe";
+        redirectURL = "satker";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({
