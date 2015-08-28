@@ -4,6 +4,11 @@
 #Yohanes Christomas Daimler(yohanes.christomas@gmail.com)
 #Gunadarma University
 
+//Mendapatkan Data Sesi Username dan kode satker
+session_start();
+$user_id=$_SESSION['username'];
+$kd_satker=$_SESSION['kd_lok'];
+
 // Table yang di load
 $table = 'persediaan';
  
@@ -23,8 +28,10 @@ require('../../config/dbconf.php');
 $config = new config();
 $sql_details = $config->sql_details();
  
+$where = "kd_lokasi='$kd_satker'";
+
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp.class.php' );
 echo json_encode(
-    SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns)
+    SSP::simplewhere( $_GET, $sql_details, $table, $primaryKey, $columns, $where)
 ); 
