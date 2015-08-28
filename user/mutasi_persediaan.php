@@ -24,17 +24,11 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Laporan Buku Persediaan </h3>
+                  <h3 class="box-title">Mutasi Persediaan </h3>
                 </div>  
                 <form action="../core/report/prosesreport" method="post" class="form-horizontal" id="addtransmsk">
-                   <input type="hidden" name="manage" value="buku_persediaan">  
-                  <div class="box-body">
-                      <label class="col-sm-2 control-label">Kode Persediaan</label>
-                      <div class="col-sm-4">
-                        <select name="kd_brg" id="kd_brg" class="form-control">
-                        </select>
-                      </div>
-                    </div>                   
+                   <input type="hidden" name="manage" value="mutasi">  
+                  
                     <div class="box-body">
                       <label class="col-sm-2 control-label">Tanggal Awal</label>
                       <div class="col-sm-4">
@@ -78,18 +72,10 @@
         $('#tgl_akhir').datepicker({
           format: "yyyy/mm/dd"
         });             
-        $("li#saldo_awal").addClass("active");
+        $("li#mutasi_sedia").addClass("active");
 
       });
 
-       $.ajax({
-          type: "post",
-          url: '../core/transaksi/prosestransaksi',
-          data: {manage:'readbrgmsk'},
-          success: function (output) {     
-            $('#kd_brg').html(output);
-          }
-       });
     </script>
   </body>
 </html>

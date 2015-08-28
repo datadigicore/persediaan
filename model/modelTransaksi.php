@@ -23,7 +23,15 @@ class modelTransaksi extends mysql_db
         $keterangan = $data['keterangan'];
         $status = $data['status'];
         $user_id = $data['user_id'];
-   
+
+        $query_perk = "SELECT kd_kbrg, nm_sskel, kd_perk, nm_perk from persediaan where kd_brg='$kd_brg' ";
+        $result_perk = $this->query($query_perk);
+        $data_perk = $this->fetch_array($result_perk);
+        $kd_sskel = $data_perk['kd_kbrg'];
+        $nm_sskel = $data_perk['nm_sskel'];
+        $kd_perk = $data_perk['kd_perk'];
+        $nm_perk = $data_perk['nm_perk'];
+
 // Memasukan Data Transaksi Masuk ke tabel Transaksi Masuk        
         $query = "Insert into transaksi_masuk
                     set kd_lokasi='$kd_lokasi',
@@ -35,8 +43,12 @@ class modelTransaksi extends mysql_db
                     tgl_buku='$tgl_buku',
                     no_bukti='$no_bukti',
                     jns_trans='$jns_trans',
+                    kd_sskel='$kd_sskel',
+                    nm_sskel='$nm_sskel',
                     kd_brg='$kd_brg',
                     nm_brg='$nm_brg',
+                    kd_perk='$kd_perk',
+                    nm_perk='$nm_perk',
                     satuan='$satuan',
                     qty='$kuantitas',
                     qty_akhir='$kuantitas',
@@ -65,8 +77,12 @@ class modelTransaksi extends mysql_db
                         tgl_buku='$tgl_buku',
                         no_bukti='$no_bukti',
                         jns_trans='$jns_trans',
+                        kd_sskel='$kd_sskel',
+                        nm_sskel='$nm_sskel',
                         kd_brg='$kd_brg',
                         nm_brg='$nm_brg',
+                        kd_perk='$kd_perk',
+                        nm_perk='$nm_perk',
                         satuan='$satuan',
                         qty='$kuantitas',
                         harga_sat='$harga_sat',
@@ -107,13 +123,19 @@ class modelTransaksi extends mysql_db
         while($kuantitas > 0)
         {   
             echo " kuantitas tersisa : ".$kuantitas; 
-            $query_id = "select id,kd_brg,qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and user_id='$user_id' and qty_akhir>0 order by tgl_buku asc limit 1";     
+            $query_id = "select id, kd_sskel, nm_sskel, kd_brg, kd_perk, nm_perk, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and user_id='$user_id' and qty_akhir>0 order by tgl_buku asc limit 1";     
             $result_id = $this->query($query_id);
             $row_id = $this->fetch_array($result_id);
             $id_trans_m = $row_id['id'];   
             $qty_akhir = $row_id['qty_akhir'];      
             $harga_sat = $row_id['harga_sat']; 
-            $total_harga = $kuantitas*$harga_sat;     
+            $total_harga = $kuantitas*$harga_sat;  
+
+            $kd_sskel = $row_id['kd_sskel'];
+            $nm_sskel = $row_id['nm_sskel'];
+            $kd_perk = $row_id['kd_perk'];
+            $nm_perk = $row_id['nm_perk'];
+
             echo "ID transaksi masuk : ".$id_trans_m.' '.$qty_akhir.' '.$harga_sat;
             echo '<br>';
 
@@ -133,6 +155,10 @@ class modelTransaksi extends mysql_db
                                     tgl_buku='$tgl_buku',
                                     no_bukti='$no_bukti',
                                     jns_trans='$jns_trans',
+                                    kd_sskel='$kd_sskel',
+                                    nm_sskel='$nm_sskel',
+                                    kd_perk='$kd_perk',
+                                    nm_perk='$nm_perk',                                    
                                     kd_brg='$kd_brg',
                                     nm_brg='$nm_brg',
                                     satuan='$satuan',
@@ -168,6 +194,10 @@ class modelTransaksi extends mysql_db
                                 tgl_buku='$tgl_buku',
                                 no_bukti='$no_bukti',
                                 jns_trans='$jns_trans',
+                                kd_sskel='$kd_sskel',
+                                nm_sskel='$nm_sskel',
+                                kd_perk='$kd_perk',
+                                nm_perk='$nm_perk',
                                 kd_brg='$kd_brg',
                                 nm_brg='$nm_brg',
                                 satuan='$satuan',
@@ -190,7 +220,7 @@ class modelTransaksi extends mysql_db
                 $id_trans = $row_id['id'];   
                 $qty_akhir = $row_id['qty_akhir'];      
                 $harga_sat = $row_id['harga_sat']; 
-
+                $total_harga = $qty_akhir * $harga_sat;
                 echo $id_trans.' '.$qty_akhir.' '.$harga_sat;
                 echo '<br>';
 
@@ -205,6 +235,10 @@ class modelTransaksi extends mysql_db
                                 tgl_buku='$tgl_buku',
                                 no_bukti='$no_bukti',
                                 jns_trans='$jns_trans',
+                                kd_sskel='$kd_sskel',
+                                nm_sskel='$nm_sskel',
+                                kd_perk='$kd_perk',
+                                nm_perk='$nm_perk',
                                 kd_brg='$kd_brg',
                                 nm_brg='$nm_brg',
                                 satuan='$satuan',
@@ -239,6 +273,10 @@ class modelTransaksi extends mysql_db
                                 tgl_buku='$tgl_buku',
                                 no_bukti='$no_bukti',
                                 jns_trans='$jns_trans',
+                                kd_sskel='$kd_sskel',
+                                nm_sskel='$nm_sskel',
+                                kd_perk='$kd_perk',
+                                nm_perk='$nm_perk',
                                 kd_brg='$kd_brg',
                                 nm_brg='$nm_brg',
                                 satuan='$satuan',
