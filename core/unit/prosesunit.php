@@ -14,40 +14,37 @@ else
 		case 'readsatker':
 			$Unit->bacasatker();
 		break;
-		case 'readwil':
-			$Unit->bacawilayah();
-		break;
-		case 'adduappbw':
-			$kduapb = $purifier->purify($_POST['kduapb']);
-			$kduappbe1 = $purifier->purify($_POST['kduappbe']);
-			$kduappbw = $purifier->purify($_POST['kduappbw']);
-			$nmuappbw = $purifier->purify($_POST['nmuappbw']);
+		case 'addunit':
+			$kdsektor = $purifier->purify(substr($_POST['kdsatker'], 0, 2));
+			$kdsatker = $purifier->purify($_POST['kdsatker']);
+			$kdunit = $purifier->purify($_POST['kdunit']);
+			$nmunit = $purifier->purify($_POST['nmunit']);
 			$data = array(
-				"kd_uapb" => $kduapb,
-				"kd_uappbe1" => $kduappbe1,
-				"kd_uappbw" => $kduappbw,
-			  	"nm_uappbw" => $nmuappbw
+				"kd_sektor" => $kdsektor,
+				"kd_satker" => $kdsatker,
+				"kd_unit" => $kdunit,
+			  	"nm_unit" => $nmunit
 			);
-			$Unit->tambahuappbw($data);
+			$Unit->tambahunit($data);
 		break;
-		case 'upduappbw':
+		case 'updunit':
 			$id = $purifier->purify($_POST['id']);
-			$kodeuapb = $purifier->purify($_POST['updkduapb']);
-			$kodeuappbe = $purifier->purify($_POST['updkduappbe']);
-			$kodeuappbw = $purifier->purify($_POST['updkduappbw']);
-			$uraianuappbw = $purifier->purify($_POST['upduruappbw']);
+			$kdsektor = $purifier->purify($_POST['updkdsektor']);
+			$kdsatker = $purifier->purify($_POST['updkdsatker']);
+			$kdunit = $purifier->purify($_POST['updkdunit']);
+			$nmunit = $purifier->purify($_POST['updurunit']);
 			$data = array(
 				"id" => $id,
-				"kd_uapb" => $kodeuapb,
-				"kd_uappbe1" => $kodeuappbe,
-				"kd_uappbw" => $kodeuappbw,
-		    	"nm_uappbw" => $uraianuappbw
+				"kd_sektor" => $kdsektor,
+				"kd_satker" => $kdsatker,
+				"kd_unit" => $kdunit,
+		    	"nm_unit" => $nmunit
 		    );
-			$Unit->ubahuappbw($data);
+			$Unit->ubahunit($data);
 		break;
-		case 'deluappbw':
+		case 'delunit':
 			$id = $purifier->purify($_POST['id']);
-			$Unit->hapusuappbw($id);
+			$Unit->hapusunit($id);
 		break;
 		default:
 			echo "Error Data Tidak Tersedia";

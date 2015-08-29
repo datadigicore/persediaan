@@ -38,7 +38,7 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode Satker</label>
+                      <label class="col-sm-2 control-label">Kode Unit</label>
                       <div class="col-sm-9">
                         <input type="text" name="kdunit" id="kdunit" class="form-control" placeholder="Masukkan Kode Unit">
                       </div>
@@ -190,7 +190,7 @@
            '<tr>'+
               '<input type="hidden" name="manage" value="updunit">'+
               '<input type="hidden" name="id" value="'+d[0]+'">'+
-              '<td width="14%"><input style="width:90%" id="kdsektor'+d[0]+'" name="updkdsektor" class="form-control" type="text" placeholder="Kode UAPB"></td>'+
+              '<td width="14%"><input style="width:90%" id="kdsektor'+d[0]+'" name="updkdsektor" class="form-control" type="text" placeholder="Kode Sektor"></td>'+
               '<td width="14.2%"><input style="width:90%" id="kdsatker'+d[0]+'" name="updkdsatker" class="form-control" type="text" placeholder="Kode Satker"></td>'+
               '<td width="14.2%"><input style="width:90%" id="kdunit'+d[0]+'" name="updkdunit" class="form-control" type="text" placeholder="Kode Unit"></td>'+
               '<td><input style="width:97%" id="urunit'+d[0]+'" name="updurunit" class="form-control" type="text" placeholder="Uraian Unit"></td>'+

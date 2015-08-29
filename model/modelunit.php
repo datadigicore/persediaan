@@ -32,66 +32,42 @@ class modelUnit extends mysql_db
 			}
 		}	
 	}
-	public function bacauappbe($data)
+	public function tambahunit($data)
 	{
-		$query = "select kd_uappbe1, nm_satker from satker
-					where kd_uapb = '$data' and
-						kd_uappbe1 is not null and
-						kd_uappbw is null and
-						kd_uakpb is null 
-					order by kd_uappbe1 asc";
-		$result = $this->query($query);
-		echo '<option value="">-- Pilih Kode UAPPB-E1 --</option>';
-		while ($row = $this->fetch_array($result))
-		{
-			echo '<option value="'.$row['kd_uappbe1'].'">'.$row['kd_uappbe1'].' '.$row['nm_satker']."</option>";
-		}		
-	}
-	public function bacawilayah()
-	{
-		$query = 'select kd_wil, nm_wil from wilayah order by kd_wil asc';
-		$result = $this->query($query);
-		echo '<option value="">-- Pilih Kode Wilayah --</option>';
-		while ($row = $this->fetch_array($result))
-		{
-			echo '<option value="'.$row['kd_wil'].'">'.$row['kd_wil'].' '.$row['nm_wil']."</option>";
-		}				
-	}
-	public function tambahuappbw($data)
-	{
-		$kd_uapb = $data['kd_uapb'];
-		$kd_uappbe1 = $data['kd_uappbe1'];
-		$kd_uappbw = $data['kd_uappbw'];
-		$nm_uappbw = $data['nm_uappbw'];
+		$kodesektor = $data['kd_sektor'];
+		$kodesatker = $data['kd_satker'];
+		$kodeunit = $data['kd_unit'];
+		$namaunit = $data['nm_unit'];
 		$query = "insert into satker
-        			set kd_uapb='$kd_uapb',
-        				kd_uappbe1='$kd_uappbe1',
-        				kd_uappbw='$kd_uappbw',
-                    	nm_satker='$nm_uappbw',
-                    	kode='$kd_uapb.$kd_uappbe1.$kd_uappbw'";
+        			set kodesektor='$kodesektor',
+        				kodesatker='$kodesatker',
+        				kodeunit='$kodeunit',
+                    	namasatker='$namaunit',
+                    	kode='$kodesatker.$kodeunit'";
         $result = $this->query($query);
 		return $result;
 	}	
-	public function ubahuappbw($data)
+	public function ubahunit($data)
 	{
 		$id = $data['id'];
-		$kd_uapb = $data['kd_uapb'];
-		$kd_uappbe1 = $data['kd_uappbe1'];
-		$kd_uappbw = $data['kd_uappbw'];
-		$nm_uappbw = $data['nm_uappbw'];
+		$kodesektor = $data['kd_sektor'];
+		$kodesatker = $data['kd_satker'];
+		$kodeunit = substr($data['kd_unit'], -2);
+		$kode = $data['kd_unit'];
+		$namaunit = $data['nm_unit'];
 		$query = "update satker
-        			set kd_uapb='$kd_uapb',
-        				kd_uappbe1='$kd_uappbe1',
-        				kd_uappbw='$kd_uappbw',
-                    	nm_satker='$nm_uappbw',
-                    	kode='$kd_uapb.$kd_uappbe1.$kd_uappbw'
-                    where id='$id'";
+        			set kodesektor='$kodesektor',
+        				kodesatker='$kodesatker',
+        				kodeunit='$kodeunit',
+                    	namasatker='$namaunit',
+                    	kode='$kode'
+                    where satker_id='$id'";
         $result = $this->query($query);
 		return $result;
 	}	
-	public function hapusuappbw($data)
+	public function hapusunit($data)
 	{
-		$query = "delete from satker where id='$data'";
+		$query = "delete from satker where satker_id='$data'";
         $result = $this->query($query);
 		return $result;
 	}
