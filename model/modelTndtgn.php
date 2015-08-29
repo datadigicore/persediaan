@@ -16,6 +16,9 @@ class modelTndtgn extends mysql_db
 		$tgl_isi = $data['tgl_isi'];
 		$tgl_setuju = $data['tgl_setuju'];
 		$unit = $data['unit'];
+
+
+
 		$query = "Insert into ttd
         			set kd_lokasi='$kd_lokasi',
         			    kota='$kota',
@@ -26,11 +29,26 @@ class modelTndtgn extends mysql_db
                     	nip2='$nip2',
                     	nama2='$nama2',
                     	jabatan2='$jabatan2',
-                    	tgl_isi='$tgl_isi',                   	
-                    	tgl_setuju='$tgl_setuju',
-                    	unit='$unit'";
+
+                    	unit='$unit'
+
+                    	";
         $result = $this->query($query);
 		return $result;
 	}
+
+	public function baca_data_pj($data)
+	{
+		$query = "select * from ttd where kd_lokasi='$data'";
+        $result = $this->query($query);
+
+        $data_pj = $this->fetch_array($result);
+
+        echo json_encode(array("nip"=>$data_pj["nip"], "nama"=>$data_pj["nama"], "jabatan"=>$data_pj["jabatan"], "nip2"=>$data_pj["nip2"], "nama2"=>$data_pj["nama2"], "jabatan2"=>$data_pj["jabatan2"], "kota"=>$data_pj["kota"]));
+
+	
+
+
+}
 }
 ?>

@@ -41,6 +41,12 @@ else
 		    );
 			$Tndatgn->tambahttd($data);
 		break;
+
+		case 'baca_data_pj':
+		$data = $_SESSION['kd_lok'];
+		$Tndatgn->baca_data_pj($data);
+		break;
+
 		default:
 			echo "Error Data Tidak Tersedia";
 		break;

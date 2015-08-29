@@ -49,7 +49,7 @@
                     <div class="form-group">                     
                     <label class="col-sm-2 control-label">Nomor Bukti</label>
                       <div class="col-sm-8">
-                        <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor BUkti">
+                        <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor Bukti">
                       </div>
                     </div>
                     <div class="form-group">
@@ -67,7 +67,7 @@
                   <div class="form-group">
                       <label class="col-sm-2 control-label">Keterangan</label>
                       <div class="col-sm-8">
-                        <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Keterangan">
+                        <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Uraian / Keterangan">
                       </div>
                     </div>
                     <div class="form-group">
@@ -80,13 +80,13 @@
                   <div class="form-group">
                       <label class="col-sm-2 control-label">Jumlah Masuk</label>
                       <div class="col-sm-8">
-                        <input type="text" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Masuk">
+                        <input type="number" min="1" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Masuk">
                       </div>
                     </div>                  
                   <div class="form-group">
                       <label class="col-sm-2 control-label">Harga Beli Satuan</label>
                       <div class="col-sm-8">
-                        <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="Masukkan Jumlah Masuk">
+                        <input type="number" min="1" name="rph_sat" class="form-control" id="rph_sat" placeholder="Masukkan Harga ">
                       </div>
                     </div>                  
                   <div name="detil_transaksi" id="detil_transaksi">

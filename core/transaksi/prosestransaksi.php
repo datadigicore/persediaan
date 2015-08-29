@@ -12,12 +12,12 @@ else
 	switch ($manage)
 	{
 		case 'readbrg':
-			$data = $_SESSION['username'];
+			$data = $_SESSION['kd_lok'];
 			$Transaksi->bacabrg($data);
 		break;		
 
 		case 'readbrgmsk':
-			$data = $_SESSION['username'];
+			$data = $_SESSION['kd_lok'];
 			$Transaksi->baca_persediaan_masuk($data);
 		break;		
 
@@ -31,9 +31,14 @@ else
 			$Transaksi->baca_detil_trans($data);
 		break;		
 
-		case 'bacaharga':
+		case 'sisabarang':
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
-			$Transaksi->harga_terakhir($kd_brg);
+			$kd_lokasi = $_SESSION['kd_lok'];
+			$data = array(
+				"kd_lokasi" => $kd_lokasi,
+				"kd_brg" => $kd_brg
+				);
+			$Transaksi->sisa_barang($data);
 		break;
 
 		case 'tbh_transaksi_klr':

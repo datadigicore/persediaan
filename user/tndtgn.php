@@ -2,7 +2,7 @@
 <html>
   <head>
     <?php include("include/loadcss.php"); ?>
-    <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
   </head>
   <body class="skin-blue layout-boxed">
     <div class="wrapper">
@@ -11,7 +11,7 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Unit Akuntansi Pengguna Barang
+            Unit Pengguna Barang
             <small>Control Panel</small>
           </h1>
           <ol class="breadcrumb">
@@ -23,7 +23,7 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Penanggung Jawab UAKPB</h3>
+                  <h3 class="box-title">Penanggung Jawab Barang Persediaan</h3>
                 </div>  
                 <form action="../core/tandatgn/prosestndatgn" method="post" class="form-horizontal" id="addtndatgn">
                   <div class="box-body">
@@ -37,7 +37,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Jabatan</label>
                       <div class="col-sm-9">
-                        <input type="text" name="jabatan" class="form-control" id="ujabatan" placeholder="">
+                        <input type="text" name="jabatan" class="form-control" id="jabatan" placeholder="">
                       </div>
                     </div>                    
                     <div class="form-group">
@@ -71,7 +71,7 @@
                         <input type="text" name="kota" class="form-control" id="kota" placeholder="">
                       </div>
                     </div>
-                    <div class="form-group">
+<!--                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Isi</label>
                       <div class="col-sm-9">
                         <input type="text" name="tgl_isi" class="form-control" id="tgl_isi" placeholder="">
@@ -83,7 +83,7 @@
                         <input type="text" name="tgl_setuju" class="form-control" id="tgl_setuju" placeholder="">
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                   <div class="box-footer">
                     <button type="Reset" class="btn btn-default">Reset</button>
                     <button type="submit" class="btn btn-info pull-right">Submit</button>
@@ -100,29 +100,28 @@
       <?php include("include/success.php"); ?>
     </div>
     <?php include("include/loadjs.php"); ?>
-    <script src="plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
-    <script src="plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">
-      $(function () {
-        $("li#tndtgn").addClass("active");
-        $('#tgl_isi').datepicker({
-          format: "yyyy/mm/dd"
-        });         
-        $('#tgl_setuju').datepicker({
-          format: "yyyy/mm/dd"
-        });  
-        $("#example1").DataTable({
-          "processing": false,
-          "serverSide": true,
-          "ajax": "core/loadtable/loaduapb",
-          "columnDefs":
-          [
-            {"targets": 0 },
-            {"targets": 1 }
-          ],
-        });
-      });
+
+          $.ajax({
+            type: "post",
+            url: '../core/tandatgn/prosestndatgn',
+            data: {manage:'baca_data_pj'},
+            dataType: "json",
+            success: function (output) {
+            $('#nama').val(output.nama);
+            $('#nip').val(output.nip);
+            $('#jabatan').val(output.jabatan);            
+            $('#nama2').val(output.nama2);
+            $('#nip2').val(output.nip2);
+            $('#jabatan2').val(output.jabatan2);
+            $('#kota').val(output.kota);
+            }
+          });
+
+
       $('#addtndatgn').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
@@ -131,7 +130,7 @@
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "2600";
-        redirectURL = "tndtgn";
+        redirectURL = "tndatgn";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({

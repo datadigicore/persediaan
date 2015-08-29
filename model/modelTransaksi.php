@@ -162,9 +162,9 @@ class modelTransaksi extends mysql_db
                                     kd_brg='$kd_brg',
                                     nm_brg='$nm_brg',
                                     satuan='$satuan',
-                                    qty='$kuantitas',
+                                    qty=-1*'$kuantitas',
                                     harga_sat='$harga_sat',
-                                    total_harga='$total_harga',
+                                    total_harga=-1*'$total_harga',
                                     keterangan='$keterangan',
                                     status='$status',
                                     tgl_update=CURDATE(),
@@ -242,9 +242,9 @@ class modelTransaksi extends mysql_db
                                 kd_brg='$kd_brg',
                                 nm_brg='$nm_brg',
                                 satuan='$satuan',
-                                qty='$qty_akhir',
+                                qty=-1*'$qty_akhir',
                                 harga_sat='$harga_sat',
-                                total_harga='$total_harga',
+                                total_harga=-1*'$total_harga',
                                 keterangan='$keterangan',
                                 status='$status',
                                 tgl_update=CURDATE(),
@@ -480,13 +480,13 @@ class modelTransaksi extends mysql_db
         $id_trans = $row_id['id'];
         $qty_awal = $row_id['qty'];
         $harga_sat = $row_id['harga_sat'];
-        $total_harga = $row_id['total_harga'];
+        $total_harga = abs($row_id['total_harga']);
 
 
 
-        $qty = $row_id['qty'];
+        $qty = abs($row_id['qty']);
         $harga_sat = $row_id['harga_sat'];
-        $total_harga = $row_id['total_harga'];
+        $total_harga = abs($row_id['total_harga']);
         $id_masuk = $row_id['id_masuk'];
 
         
@@ -575,7 +575,7 @@ class modelTransaksi extends mysql_db
   
     public function bacabrg($data)
     {
-        $query = "select * from persediaan where user_id='$data'";
+        $query = "select * from persediaan where kd_lokasi='$data'";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         while ($row = $this->fetch_array($result))
@@ -586,7 +586,7 @@ class modelTransaksi extends mysql_db
 
     public function baca_persediaan_masuk($data)
     {
-        $query = "select kd_brg, nm_brg FROM transaksi_masuk where user_id = '$data' GROUP BY kd_brg ORDER BY nm_brg ASC ";
+        $query = "select kd_brg, nm_brg FROM transaksi_masuk where kd_lokasi = '$data' GROUP BY kd_brg ORDER BY nm_brg ASC ";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         while ($row = $this->fetch_array($result))
@@ -632,6 +632,30 @@ class modelTransaksi extends mysql_db
         $row_saldo = $this->fetch_array($result_saldo);
 
         echo json_encode(array("harga_sat"=>$row_harga["harga_sat"],"saldo"=>$row_saldo["saldo"]));
+        
+    }    
+
+    public function sisa_barang($data)
+    {
+        $kd_lokasi = $data['kd_lokasi'];
+        $kd_brg = $data['kd_brg'];
+        $query = "select sum(qty_akhir) as sisa,satuan from transaksi_masuk  where kd_brg = '$kd_brg' and kd_lokasi='$kd_lokasi' and status_hapus=0";  
+        $result = $this->query($query);
+        $sisa_brg = $this->fetch_array($result);
+
+        echo json_encode(array("sisa"=>$sisa_brg["sisa"], "satuan"=>$sisa_brg["satuan"]));
+
+        // if(!empty($sisa_brg["sisa"]))
+        // {
+        //     echo json_encode(array("sisa"=>$sisa_brg["sisa"], "satuan"=>$sisa_brg["satuan"]));
+        // }
+        // else
+        // {
+        //     echo json_encode(array("sisa"=>"0", "satuan"=>$sisa_brg["satuan"]));
+        // }
+
+
+        
         
     }
 

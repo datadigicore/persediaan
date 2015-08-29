@@ -79,13 +79,13 @@
                       </div>
                     </div>
                   <div class="form-group">
-                      <label class="col-sm-2 control-label">Jumlah Keluar</label>
+                      <label class="col-sm-2 control-label">Jumlah Dikeluarkan</label>
                       <div class="col-sm-4">
-                        <input type="text" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Keluar">
+                        <input type="number" min="1" max name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Keluar">
                       </div>
                     </div>                  
                   <div class="form-group">
-                      <label class="col-sm-2 control-label">Harga Satuan (Rp.)</label>
+                      <label class="col-sm-2 control-label">Saldo Barang</label>
                       <div class="col-sm-4">
                         <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="" readonly>
                       </div>
@@ -133,6 +133,10 @@
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">
+
+
+
+
     var table;
       $(function () {
         $("li#trans_keluar").addClass("active");
@@ -233,10 +237,12 @@
           $.ajax({
             type: "post",
             url: '../core/transaksi/prosestransaksi',
-            data: {manage:'bacaharga',kd_brg:kd_brg},
+            data: {manage:'sisabarang',kd_brg:kd_brg},
             dataType: "json",
             success: function (output) {
-            $('#rph_sat').val(output.harga_sat);
+            $('#rph_sat').val(output.sisa);
+
+            document.getElementById("jml_msk").setAttribute("max",output.sisa)
 
             }
           });

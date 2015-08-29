@@ -30,13 +30,14 @@ class modelReport extends mysql_db
                 <br></br>
                 <table style="text-align: center; width: 100%; " align="left">
                 <tr>
-                    <td width="60%" align="left">UAKPB :'.''.'</td>
+                    <td width="60%" align="left"></td>
                     <td align="left">Kode Barang :'.$kd_brg.'</td>
                 </tr>                
                 <tr>
-                    <td width="60%" align="left">Kode UAKPB :'.$brg['kd_lokasi'].'</td>
+                    <td width="60%" align="left"></td>
                     <td align="left">Nama Barang :'.$brg['nm_brg'].'</td>
-                </tr>                <tr>
+                </tr>                
+                <tr>
                     <td width="60%" align="left"></td>
                     <td align="left">Satuan :'.$brg['satuan'].'</td>
                 </tr>
@@ -57,7 +58,20 @@ class modelReport extends mysql_db
                 </tr>';
 
 
-                $sql=mysql_query("SELECT tgl_buku, keterangan,qty,harga_sat FROM transaksi_full where tgl_buku BETWEEN '$tgl_awal' AND '$tgl_akhir' AND kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi'  ORDER BY tgl_buku ASC;");
+                $sql=mysql_query("SELECT tgl_buku, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                                    FROM transaksi_masuk 
+                                    where tgl_buku BETWEEN '$tgl_awal' AND '$tgl_akhir' 
+                                     AND kd_brg='$kd_brg' 
+                                     and kd_lokasi='$kd_lokasi'  
+                                     AND status_hapus=0
+                                     union all 
+                                     SELECT tgl_buku, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                                     FROM transaksi_keluar 
+                                     where tgl_buku BETWEEN '$tgl_awal' AND '$tgl_akhir' 
+                                     AND kd_brg='$kd_brg' 
+                                     and kd_lokasi='$kd_lokasi'  
+                                     AND status_hapus=0
+                                     ORDER BY tgl_buku ASC;");
                 $no=0;
                 $jumlah=0;
                 $saldo=0;
@@ -117,10 +131,10 @@ class modelReport extends mysql_db
                     <td>TAHUN ANGGARAN : '.substr($tgl_akhir,0,4).'</td>
                 </tr>
                 <tr>
-                    <td width="60%" align="left">UAKPB :'.''.'</td>
+
                 </tr>                
                 <tr>
-                    <td width="60%" align="left">Kode UAKPB :'.''.'</td>
+
                 </tr>               
                  <tr>
                     <td width="60%" align="left"></td>
@@ -196,10 +210,10 @@ class modelReport extends mysql_db
                 <br></br>
                 <table style="text-align: center; width: 90%; " align="center">
                 <tr>
-                    <td width="60%" align="left">UAKPB :'.''.'</td>
+
                 </tr>                
                 <tr>
-                    <td width="60%" align="left">Kode UAKPB :'.''.'</td>
+
                 </tr>               
                  <tr>
                     <td width="60%" align="left"></td>
@@ -218,17 +232,20 @@ class modelReport extends mysql_db
                         <td>JUMLAH</td>
                         <td>RUPIAH</td>
                     </tr>  
-                     <tr>
-
-
-                    </tr> 
                 </tr>';
 
                 $sql=mysql_query("SELECT kd_brg, nm_brg, sum(case WHEN jns_trans like 'M%' THEN qty else 0 end) as masuk, sum(case WHEN jns_trans like 'K%' THEN qty else 0 end) as keluar,
-                                    sum(case WHEN jns_trans like 'M%' THEN qty else 0 end) - sum(case WHEN jns_trans like 'K%' THEN qty else 0 end) as jumlah, sum(case WHEN jns_trans like 'M%' THEN total_harga else 0 end) - sum(case WHEN jns_trans like 'K%' THEN total_harga else 0 end) as nilai 
+                                    sum(case WHEN jns_trans like 'M%' THEN qty else 0 end) + sum(case WHEN jns_trans like 'K%' THEN qty else 0 end) as jumlah, sum(case WHEN jns_trans like 'M%' THEN total_harga else 0 end) + sum(case WHEN jns_trans like 'K%' THEN total_harga else 0 end) as nilai 
                                     FROM transaksi
                                     where tgl_buku BETWEEN '$tgl_awal' AND '$tgl_akhir' and kd_lokasi='$kd_lokasi'
                                     GROUP by kd_brg");
+                // $sql=mysql_query("SELECT kd_brg, nm_brg, 
+                //                     sum(case when qty > 0 then qty else 0) as masuk,
+                //                     sum(case when qty < 0 then qty else 0) as keluar,
+                //                     sum(total_harga) as nilai
+                //                     FROM transaksi_full
+                //                      where  kd_lokasi='$kd_lokasi'
+                //                      GROUP by kd_brg");
                 $no=0;
                 while($data=mysql_fetch_assoc($sql))
                 {
@@ -237,7 +254,7 @@ class modelReport extends mysql_db
                              <td  align="center">'.$data[kd_brg].'</td> 
                              <td  align="left">'.$data[nm_brg].'</td> 
                              <td align="center">'.$data[masuk].'</td> 
-                             <td align="center">'.$data[keluar].'</td> 
+                             <td align="center">'.abs($data[keluar]).'</td> 
                              <td align="center">'.$data[jumlah].'</td> 
                              <td align="center">'.$data[jumlah].'</td> 
                              <td align="center">'.$data[nilai].'</td> 
@@ -280,7 +297,7 @@ class modelReport extends mysql_db
                         <td>NILAI</td>
                 </tr>';
 
-                $sql=mysql_query("SELECT kd_perk, nm_perk, sum(total_harga) as nilai FROM transaksi_full GROUP BY kd_perk");
+                $sql=mysql_query("SELECT kd_perk, nm_perk, sum(total_harga) as nilai FROM transaksi GROUP BY kd_perk");
                 $no=0;
                 $total=0;
                 while($data=mysql_fetch_assoc($sql))
