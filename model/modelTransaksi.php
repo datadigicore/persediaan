@@ -500,7 +500,6 @@ class modelTransaksi extends mysql_db
 
         $result_upd_masuk = $this->query($query_upd_masuk);
 
-
         $query_full = "Insert into transaksi_full
                         set 
                         kd_lokasi='$kd_lokasi',
