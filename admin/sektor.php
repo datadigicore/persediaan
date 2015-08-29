@@ -15,7 +15,7 @@
             <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-table"></i> Kode Sektor</a></li>
+            <li class="active"><a href="#"><i class="fa fa-table"></i> Tabel Sektor</a></li>
           </ol>
         </section>
         <section class="content">

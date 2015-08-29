@@ -40,19 +40,19 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode Gudang</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kdgudang" class="form-control" id="kdgudang" placeholder="Masukkan Kode UAPKPB">
+                        <input type="text" name="kdgudang" class="form-control" id="kdgudang" placeholder="Masukkan Kode Gudang">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode Ruang</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kdruang" class="form-control" id="kdruang" placeholder="Masukkan Kode UAPKPB">
+                        <input type="text" name="kdruang" class="form-control" id="kdruang" placeholder="Masukkan Kode Ruang">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Uraian Ruang</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nmruang" class="form-control" id="nmruang" placeholder="Masukkan Uraian ruang">
+                        <input type="text" name="nmruang" class="form-control" id="nmruang" placeholder="Masukkan Uraian Ruang">
                       </div>
                     </div>
                   </div>
@@ -64,7 +64,7 @@
               </div>
               <div class="box box-danger">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tabel Data ruang</h3>
+                  <h3 class="box-title">Tabel Data Ruang</h3>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
@@ -102,7 +102,7 @@
         $.ajax({
           type: "post",
           url: '../core/ruang/prosesruang',
-          data: {manage:'readuapb'},
+          data: {manage:'readunit'},
           success: function (output) {     
             $('#kdunit').html(output);
           }

@@ -1,20 +1,48 @@
 <?php
 include('../../utility/mysql_db.php');
-class modelUakpb extends mysql_db
+class modelRuang extends mysql_db
 {
-	public function bacauapb()
+	public function bacaunit()
 	{
-		$query = "select kd_uapb, nm_satker from satker
-						where kd_uapb is not null and
-							  kd_uappbe1 is null and
-							  kd_uappbw is null and
-							  kd_uakpb is null 
-						order by kd_uapb asc";
+		$query = "select kodesektor, namasatker from satker
+						where kodesektor is not null and
+							  kodesatker is null and
+							  kodeunit is null and
+							  gudang is null 
+						order by kodesektor asc";
         $result = $this->query($query);
-        echo '<option value="">-- Pilih Kode UAPB --</option>';
-		while ($row = $this->fetch_array($result))
+        echo '<option value="">-- Pilih Kode Unit --</option>';
+        while ($row = $this->fetch_array($result))
 		{
-			echo '<option value="'.$row['kd_uapb'].'">'.$row['kd_uapb'].' '.$row['nm_satker']."</option>";
+			if (!empty($row)) {
+				echo '<optgroup label="'.$row['kodesektor'].' '.$row['namasatker'].'">';
+				$query2 = "select kodesatker, namasatker from satker
+						where kodesektor ='$row[kodesektor]' and
+							  kodesatker is not null and
+							  kodeunit is null and
+							  gudang is null 
+						order by kodesektor asc";
+        		$result2 = $this->query($query2);
+        		while ($row2 = $this->fetch_array($result2))
+				{
+					if (!empty($row2)) {
+						echo '<optgroup label="&nbsp;&nbsp;'.$row2['kodesatker'].' '.$row2['namasatker'].'">';
+						$query3 = "select kodesatker, kodeunit, namasatker from satker
+								where kodesektor is not null and
+									  kodesatker ='$row2[kodesatker]' and
+									  kodeunit is not null and
+									  gudang is null 
+								order by kodesektor asc";
+		        		$result3 = $this->query($query3);
+		        		while ($row3 = $this->fetch_array($result3))
+						{
+							echo '<option value="'.$row3['kodeunit'].'">&nbsp;&nbsp;'.$row3['kodesatker'].'.'.$row3['kodeunit'].' '.$row3['namasatker']."</option>";
+						}
+						echo '</optgroup>';
+					}
+				}
+				echo '</optgroup>';
+			}
 		}
 	}	
 	public function bacauappbe($data)

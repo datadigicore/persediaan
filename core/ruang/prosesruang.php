@@ -1,7 +1,8 @@
 <?php
-include('../../model/modelUakpb.php');
+include('../../model/modelruang.php');
 include('../../config/purifier.php');
-$Uakpb = new modelUakpb();
+include('../../config/admin.php');
+$Ruang = new modelRuang();
 if (empty($_POST['manage'])) {
 	echo "Error Data Tidak Tersedia";
 }
@@ -10,12 +11,12 @@ else
 	$manage = $_POST['manage'];
 	switch ($manage)
 	{
-		case 'readuapb':
-			$Uakpb->bacauapb();
+		case 'readunit':
+			$Ruang->bacaunit();
 		break;
 		case 'readuappbe':
 			$kduapb = $purifier->purify($_POST["kduapb"]);
-			$Uakpb->bacauappbe($kduapb);
+			$Ruang->bacauappbe($kduapb);
 		break;
 		case 'readuappbw':
 			$kduapb = $purifier->purify($_POST["kduapb"]);
@@ -24,7 +25,7 @@ else
 				'kd_uapb' => $kduapb,
 				'kd_uappbe' => $kduappbe,
 			);
-			$Uakpb->bacauappbw($data);		
+			$Ruang->bacauappbw($data);		
 		break;
 		case 'adduakpb':
 			$kodeuapb = $purifier->purify($_POST['kduapb']);
@@ -43,7 +44,7 @@ else
 				"jk" => $kodejk,
 			  	"nm_uakpb" => $nmuakpb
 			);
-			$Uakpb->tambahuakpb($data);
+			$Ruang->tambahuakpb($data);
 		break;
 		case 'upduakpb':
 			$id = $purifier->purify($_POST['id']);
@@ -66,11 +67,11 @@ else
 			  	"nm_uakpb" => $nmuakpb,
 			  	"kd_lokasi" => $kd_lokasi
 			);
-			$Uakpb->ubahuakpb($data);
+			$Ruang->ubahuakpb($data);
 		break;
 		case 'deluakpb':
 			$id = $purifier->purify($_POST['id']);
-			$Uakpb->hapusuakpb($id);
+			$Ruang->hapusuakpb($id);
 		break;
 		default:
 			echo "Error Data Tidak Tersedia";
