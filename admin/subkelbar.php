@@ -32,7 +32,6 @@
                       <tr>
                         <th width="16%">Kode Barang</th>
                         <th>Uraian Sub-Sub Kelompok Barang</th>
-                        <th width="14%">Satuan</th>
                       </tr>
                     </thead>
                   </table>
@@ -58,8 +57,7 @@
           "columnDefs":
           [
             {"targets": 0 },
-            {"targets": 1 },
-            {"targets": 2 }
+            {"targets": 1 }
           ],
         });
       });

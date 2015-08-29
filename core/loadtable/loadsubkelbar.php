@@ -13,8 +13,7 @@ $primaryKey = 'kd_sskel';
 // Load Data berdasarkan nama table nya
 $columns = array(
     array( 'db' => 'kd_brg', 'dt' => 0 ),
-    array( 'db' => 'nm_sskel', 'dt' => 1 ),
-    array( 'db' => 'satuan', 'dt' => 2 )
+    array( 'db' => 'nm_sskel', 'dt' => 1 )
 );
  
 // Settingan Koneksi Datatable

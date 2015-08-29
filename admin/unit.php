@@ -101,6 +101,9 @@
           }
         });
         table = $("#example1").DataTable({
+          "oLanguage": {
+            "sInfoFiltered": ""
+          },
           "processing": false,
           "serverSide": true,
           "ajax": "../core/loadtable/loadunit",

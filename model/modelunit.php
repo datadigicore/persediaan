@@ -15,7 +15,8 @@ class modelUnit extends mysql_db
         while ($row = $this->fetch_array($result))
 		{
 			if (!empty($row)) {
-				echo '<option value="'.$row['kodesektor'].'" disabled>'.$row['kodesektor'].' '.$row['namasatker']."</option>";
+				// echo '<option value="'.$row['kodesektor'].'" disabled>'.$row['kodesektor'].'. '.$row['namasatker']."</option>";
+				echo '<optgroup label="'.$row['kodesektor'].' '.$row['namasatker'].'">';
 				$query2 = "select kodesatker, namasatker from satker
 						where kodesektor ='$row[kodesektor]' and
 							  kodesatker is not null and
@@ -25,8 +26,9 @@ class modelUnit extends mysql_db
         		$result2 = $this->query($query2);
         		while ($row2 = $this->fetch_array($result2))
 				{
-					echo '<option value="'.$row2['kodesatker'].'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$row2['kodesatker'].' '.$row2['namasatker']."</option>";
+					echo '<option value="'.$row2['kodesatker'].'">'.$row2['kodesatker'].' '.$row2['namasatker']."</option>";
 				}
+				echo '</optgroup>';
 			}
 		}	
 	}

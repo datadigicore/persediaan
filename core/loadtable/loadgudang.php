@@ -8,19 +8,17 @@
 $table = 'satker';
  
 // Primary Key table
-$primaryKey = 'id';
+$primaryKey = 'satker_id';
  
 // Load Data berdasarkan nama table nya
 $columns = array(
-    array( 'db' => 'id', 'dt' => 0 ),
-    array( 'db' => 'kd_uapb', 'dt' => 1 ),
-    array( 'db' => 'kd_uappbe1', 'dt' => 2 ),
-	array( 'db' => 'kd_uappbw', 'dt' => 3 ),
-	array( 'db' => 'kd_uakpb', 'dt' => 4 ),
-    array( 'db' => 'kd_uapkpb', 'dt' => 5 ),
-    array( 'db' => 'jk', 'dt' => 6 ),
-    array( 'db' => 'nm_satker', 'dt' => 7 ),
-   
+    array( 'db' => 'satker_id', 'dt' => 0 ),
+    array( 'db' => 'kodesektor', 'dt' => 1 ),
+    array( 'db' => 'kodesatker', 'dt' => 2 ),
+	array( 'db' => 'kodeunit', 'dt' => 3 ),
+	array( 'db' => 'kode', 'dt' => 4 ),
+	array( 'db' => 'kd_ruang', 'dt' => 5 ),
+    array( 'db' => 'namasatker', 'dt' => 6 )
 );
  
 // Settingan Koneksi Datatable
@@ -29,10 +27,11 @@ $config = new config();
 $sql_details = $config->sql_details();
 
 // Kondisi Where
-$where = '	kd_uapb is not null and
-			kd_uappbe1 is not null and
-			kd_uappbw is not null and
-			kd_uakpb is not null' ;
+$where = '	kodesektor is not null and
+			kodesatker is not null and
+			kodeunit is not null and
+			gudang is not null and
+			kd_ruang is not null' ;
 
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp.class.php' );
