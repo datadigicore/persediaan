@@ -36,7 +36,7 @@ class modelRuang extends mysql_db
 		        		$result3 = $this->query($query3);
 		        		while ($row3 = $this->fetch_array($result3))
 						{
-							echo '<option value="'.$row3['kodeunit'].'">&nbsp;&nbsp;'.$row3['kodesatker'].'.'.$row3['kodeunit'].' '.$row3['namasatker']."</option>";
+							echo '<option value="'.$row3['kodesatker'].'.'.$row3['kodeunit'].'">&nbsp;&nbsp;'.$row3['kodesatker'].'.'.$row3['kodeunit'].' '.$row3['namasatker']."</option>";
 						}
 						echo '</optgroup>';
 					}
@@ -45,85 +45,52 @@ class modelRuang extends mysql_db
 			}
 		}
 	}	
-	public function bacauappbe($data)
+	public function tambahruang($data)
 	{
-		$query = "select kd_uappbe1, nm_satker from satker
-					where kd_uapb = '$data' and
-						kd_uappbe1 is not null and
-						kd_uappbw is null and
-						kd_uakpb is null 
-					order by kd_uappbe1 asc";
-		$result = $this->query($query);
-		echo '<option value="">-- Pilih Kode UAPPB-E1 --</option>';
-		while ($row = $this->fetch_array($result))
-		{
-			echo '<option value="'.$row['kd_uappbe1'].'">'.$row['kd_uappbe1'].' '.$row['nm_satker']."</option>";
-		}		
-	}
-	public function bacauappbw($data)
-	{
-		$kd_uapb = $data['kd_uapb'];
-		$kd_uappbe = $data['kd_uappbe'];
-		$query = "select kd_uappbw, nm_satker from satker
-					where kd_uapb = '$kd_uapb' and
-						  kd_uappbe1 = '$kd_uappbe' and
-						  kd_uappbw is not null and
-						  kd_uakpb is null";
-		$result = $this->query($query);
-		echo '<option value="">-- Pilih Kode UAPPB-Wilayah --</option>';
-		while ($row = $this->fetch_array($result))
-		{
-			echo '<option value="'.$row['kd_uappbw'].'">'.$row['kd_uappbw'].' '.$row['nm_satker']."</option>";
-		}
-	}
-	public function tambahuakpb($data)
-	{
-		$kd_uapb = $data['kd_uapb'];
-		$kd_uappbe1 = $data['kd_uappbe1'];
-		$kd_uappbw = $data['kd_uappbw'];
-		$kd_uakpb = $data['kd_uakpb'];
-		$kd_uapkpb = $data['kd_uapkpb'];
-		$jk = $data['jk'];
-		$nm_uakpb = $data['nm_uakpb'];
+		$kodesektor = $data['kodesektor'];
+		$kodesatker = $data['kodesatker'];
+		$kodeunit = $data['kodeunit'];
+		$koderuang = $data['koderuang'];
+		$gudang = $data['gudang'];
+		$namaruang = $data['namaruang'];
 		$query = "insert into satker
-        			set kd_uapb='$kd_uapb',
-        				kd_uappbe1='$kd_uappbe1',
-        				kd_uappbw='$kd_uappbw',
-        				kd_uakpb='$kd_uakpb',
-        				kd_uapkpb='$kd_uapkpb',
-        				jk='$jk',
-        				nm_satker='$nm_uakpb',
-                    	kode='$kd_uapb.$kd_uappbe1.$kd_uappbw.$kd_uakpb.$kd_uapkpb.$jk'";
+        			set kodesektor='$kodesektor',
+        				kodesatker='$kodesatker',
+        				kodeunit='$kodeunit',
+        				kd_ruang='$koderuang',
+        				gudang='$gudang',
+        				namasatker='$namaruang',
+                    	kode='$kodesatker.$kodeunit.$gudang'";
         $result = $this->query($query);
 		return $result;
 	} 	
-	public function ubahuakpb($data)
+	public function ubahruang($data)
 	{
 		$id = $data['id'];
-		$kd_uapb = $data['kd_uapb'];
-		$kd_uappbe1 = $data['kd_uappbe1'];
-		$kd_uappbw = $data['kd_uappbw'];
-		$kd_uakpb = $data['kd_uakpb'];
-		$kd_uapkpb = $data['kd_uapkpb'];
+		$kodesektor = $data['kd_sektor'];
+		$kodesatker = $data['kd_satker'];
+		$kodeunit = $data['kd_unit'];
+		$koderuang = $data['kd_ruang'];
+		$kodegudang = $data['kd_gudang'];
 		$jk = $data['jk'];
-		$nm_uakpb = $data['nm_uakpb'];
-		$kd_lokasi = $data['kd_lokasi'];
+		$namaruang = $data['nm_ruang'];
+		$kodelokasi = $data['kd_lokasi'];
 		$query = "update satker
-        			set kd_uapb='$kd_uapb',
-        				kd_uappbe1='$kd_uappbe1',
-        				kd_uappbw='$kd_uappbw',
-        				kd_uakpb='$kd_uakpb',
-        				kd_uapkpb='$kd_uapkpb',
+        			set kd_sektor='$kodesektor',
+        				kd_satker='$kodesatker',
+        				kd_unit='$kodeunit',
+        				kd_ruang='$koderuang',
+        				kd_gudang='$kodegudang',
         				jk='$jk',
-        				nm_satker='$nm_uakpb',
-                    	kd_jk='$kd_lokasi' 
+        				nm_satker='$namaruang',
+                    	kd_jk='$kodelokasi' 
                     where id='$id'";
         $result = $this->query($query);
 		return $result;
 	}	
-	public function hapusuakpb($data)
+	public function hapusruang($data)
 	{
-		$query = "delete from satker where id='$data'";
+		$query = "delete from satker where satker_id='$data'";
         $result = $this->query($query);
 		return $result;
 	}

@@ -14,64 +14,47 @@ else
 		case 'readunit':
 			$Ruang->bacaunit();
 		break;
-		case 'readuappbe':
-			$kduapb = $purifier->purify($_POST["kduapb"]);
-			$Ruang->bacauappbe($kduapb);
-		break;
-		case 'readuappbw':
-			$kduapb = $purifier->purify($_POST["kduapb"]);
-			$kduappbe = $purifier->purify($_POST["kduappbe"]);
+		case 'addruang':
+			$kdunit = $purifier->purify(substr($_POST['kdunit'], -2));
+			$kdsektor = $purifier->purify(substr($_POST['kdunit'], 0, 2));
+			$kdsatker = $purifier->purify(substr($_POST['kdunit'], 0, 5));
+			$kdruang = $purifier->purify($_POST['kdruang']);
+			$kdgudang = $purifier->purify($_POST['kdgudang']);
+			$nmruang = $purifier->purify($_POST['nmruang']);
 			$data = array(
-				'kd_uapb' => $kduapb,
-				'kd_uappbe' => $kduappbe,
+				"kodesektor" => $kdsektor,
+				"kodesatker" => $kdsatker,
+				"kodeunit" => $kdunit,
+				"koderuang" => $kdruang,
+				"gudang" => $kdgudang,
+				"namaruang" => $nmruang
 			);
-			$Ruang->bacauappbw($data);		
+			$Ruang->tambahruang($data);
 		break;
-		case 'adduakpb':
-			$kodeuapb = $purifier->purify($_POST['kduapb']);
-			$kodeuappbe1 = $purifier->purify($_POST['kduappbe']);
-			$kodeuappbw = $purifier->purify($_POST['kduappbw']);
-			$kodeuakpb = $purifier->purify($_POST['kduakpb']);
-			$kodeuapkpb = $purifier->purify($_POST['kduapkpb']);
-			$kodejk = $purifier->purify($_POST['kdjk']);
-			$nmuakpb = $purifier->purify($_POST['nmuakpb']);
-			$data = array(
-				"kd_uapb" => $kodeuapb,
-				"kd_uappbe1" => $kodeuappbe1,
-				"kd_uappbw" => $kodeuappbw,
-				"kd_uakpb" => $kodeuakpb,
-				"kd_uapkpb" => $kodeuapkpb,
-				"jk" => $kodejk,
-			  	"nm_uakpb" => $nmuakpb
-			);
-			$Ruang->tambahuakpb($data);
-		break;
-		case 'upduakpb':
+		case 'updruang':
 			$id = $purifier->purify($_POST['id']);
-			$kodeuapb = $purifier->purify($_POST['updkduapb']);
-			$kodeuappbe1 = $purifier->purify($_POST['updkduappbe']);
-			$kodeuappbw = $purifier->purify($_POST['updkduappbw']);
-			$kodeuakpb = $purifier->purify($_POST['updkduakpb']);
-			$kodeuapkpb = $purifier->purify($_POST['updkduapkpb']);
-			$kodejk = $purifier->purify($_POST['updkdjk']);
-			$nmuakpb = $purifier->purify($_POST['upduruakpb']);
-			$kd_lokasi = $kodeuapb.''.$kodeuappbe1.''.$kodeuappbw.''.$kodeuakpb.''.$kodeuapkpb.''.$kodejk;
+			$kdsektor = $purifier->purify($_POST['updkdsektor']);
+			$kdsatker = $purifier->purify($_POST['updkdsatker']);
+			$kdunit = $purifier->purify($_POST['updkdunit']);
+			$kdruang = $purifier->purify($_POST['updkdruang']);
+			$kdgudang = $purifier->purify($_POST['updkdgudang']);
+			$kdjk = $purifier->purify($_POST['updkdjk']);
+			$nmruang = $purifier->purify($_POST['updurruang']);
 			$data = array(
 				"id" => $id,
-				"kd_uapb" => $kodeuapb,
-				"kd_uappbe1" => $kodeuappbe1,
-				"kd_uappbw" => $kodeuappbw,
-				"kd_uakpb" => $kodeuakpb,
-				"kd_uapkpb" => $kodeuapkpb,
-				"jk" => $kodejk,
-			  	"nm_uakpb" => $nmuakpb,
-			  	"kd_lokasi" => $kd_lokasi
+				"kodesektor" => $kdsektor,
+				"kodesatker" => $kdsatker,
+				"kodeunit" => $kdunit,
+				"koderuang" => $kdruang,
+				"gudang" => $kdgudang,
+			  	"namaruang" => $nmruang,
+			  	"kode" => $kode
 			);
-			$Ruang->ubahuakpb($data);
+			$Ruang->ubahruang($data);
 		break;
-		case 'deluakpb':
+		case 'delruang':
 			$id = $purifier->purify($_POST['id']);
-			$Ruang->hapusuakpb($id);
+			$Ruang->hapusruang($id);
 		break;
 		default:
 			echo "Error Data Tidak Tersedia";
