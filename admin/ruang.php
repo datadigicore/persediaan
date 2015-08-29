@@ -15,7 +15,7 @@
             <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-table"></i> Tabel gudang</a></li>
+            <li class="active"><a href="#"><i class="fa fa-table"></i> Tabel Ruang</a></li>
           </ol>
         </section>
         <section class="content">
@@ -24,14 +24,14 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-danger">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tambah Data Gudang</h3>
+                  <h3 class="box-title">Tambah Data Ruang</h3>
                 </div>
-                <form action="../core/gudang/prosesgudang" method="post" class="form-horizontal" id="addgudang">
+                <form action="../core/ruang/prosesruang" method="post" class="form-horizontal" id="addruang">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode Unit</label>
                       <div class="col-sm-9">
-                        <input type="hidden" name="manage" value="addgudang">
+                        <input type="hidden" name="manage" value="addruang">
                         <select name="kdunit" id="kdunit" class="form-control select2">
                           <option value="">-- Pilih Kode Unit --</option>
                         </select>
@@ -44,9 +44,15 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Uraian Gudang</label>
+                      <label class="col-sm-2 control-label">Kode Ruang</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nmgudang" class="form-control" id="nmgudang" placeholder="Masukkan Uraian gudang">
+                        <input type="text" name="kdruang" class="form-control" id="kdruang" placeholder="Masukkan Kode UAPKPB">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Uraian Ruang</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="nmruang" class="form-control" id="nmruang" placeholder="Masukkan Uraian ruang">
                       </div>
                     </div>
                   </div>
@@ -58,7 +64,7 @@
               </div>
               <div class="box box-danger">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tabel Data Gudang</h3>
+                  <h3 class="box-title">Tabel Data ruang</h3>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
@@ -70,7 +76,7 @@
                         <th width="14%">Kode Unit</th>
                         <th width="14%">Kode Gudang</th>
                         <th width="8%">Ruang</th>
-                        <th>Uraian Gudang</th>
+                        <th>Uraian ruang</th>
                         <th width="9%">Aksi</th>
                       </tr>
                     </thead>
@@ -91,20 +97,23 @@
       var table;
       $(function () {
         $("li#skpd").addClass("active");
-        $("li.gudang").addClass("active4");
+        $("li.ruang").addClass("active4");
         $(".select2").select2();
         $.ajax({
           type: "post",
-          url: '../core/gudang/prosesgudang',
+          url: '../core/ruang/prosesruang',
           data: {manage:'readuapb'},
           success: function (output) {     
             $('#kdunit').html(output);
           }
         });
         table = $("#example1").DataTable({
+          "oLanguage": {
+            "sInfoFiltered": ""
+          },
           "processing": false,
           "serverSide": true,
-          "ajax": "../core/loadtable/loadgudang",
+          "ajax": "../core/loadtable/loadruang",
           "columnDefs":
           [
             {"targets": 0,
@@ -133,10 +142,10 @@
         kdunit_row = row.data()[1];
         kduappbe_row  = row.data()[2];
         kduappbw_row  = row.data()[3];
-        kdgudang_row  = row.data()[4];
-        kdgudang_row  = row.data()[5];
+        kdruang_row  = row.data()[4];
+        kdruang_row  = row.data()[5];
         kdjk_row  = row.data()[6];
-        nmgudang_row  = row.data()[7];
+        nmruang_row  = row.data()[7];
         if ( row.child.isShown() ) {
           $('div.slider', row.child()).slideUp( function () {
             row.child.hide();
@@ -150,19 +159,19 @@
           $("#kdunit"+id_row+"").val(kdunit_row);
           $("#kduappbe"+id_row+"").val(kduappbe_row);
           $("#kduappbw"+id_row+"").val(kduappbw_row);
-          $("#kdgudang"+id_row+"").val(kdgudang_row);
-          $("#kdgudang"+id_row+"").val(kdgudang_row);
+          $("#kdruang"+id_row+"").val(kdruang_row);
+          $("#kdruang"+id_row+"").val(kdruang_row);
           $("#kdjk"+id_row+"").val(kdjk_row);
-          $("#nmgudang"+id_row+"").val(nmgudang_row);
+          $("#nmruang"+id_row+"").val(nmruang_row);
         }
       });
       $(document).on('click', '#btnhps', function () {
       var tr = $(this).closest('tr');
       var row = table.row( tr );
       redirectTime = "2600";
-      redirectURL = "gudang";
+      redirectURL = "ruang";
       id_row = row.data()[0];
-      managedata = "delgudang";
+      managedata = "delruang";
       job=confirm("Anda yakin ingin menghapus data ini?");
         if(job!=true){
           return false;
@@ -175,7 +184,7 @@
           $('#myModal').modal('show');
           $.ajax({
             type: "post",
-            url : "../core/gudang/prosesgudang",
+            url : "../core/ruang/prosesruang",
             data: {manage:managedata,id:id_row},
             success: function(data)
             {
@@ -191,18 +200,18 @@
       });
       function format ( d ) {
         return '<div class="slider">'+
-        '<form action="../core/gudang/prosesgudang" method="post" class="form-horizontal" id="updgudang">'+
+        '<form action="../core/ruang/prosesruang" method="post" class="form-horizontal" id="updruang">'+
         '<table width="100%">'+
            '<tr>'+
-              '<input type="hidden" name="manage" value="updgudang">'+
+              '<input type="hidden" name="manage" value="updruang">'+
               '<input type="hidden" name="id" value="'+d[0]+'">'+
               '<td width="9.8%"><input style="width:90%" id="kdunit'+d[0]+'" name="updkdunit" class="form-control" type="text" placeholder="UAPB"></td>'+
               '<td width="10.2%"><input style="width:90%" id="kduappbe'+d[0]+'" name="updkduappbe" class="form-control" type="text" placeholder="UAPPB-E1"></td>'+
               '<td width="10.2%"><input style="width:90%" id="kduappbw'+d[0]+'" name="updkduappbw" class="form-control" type="text" placeholder="UAPPB-W"></td>'+
-              '<td width="10%"><input style="width:90%" id="kdgudang'+d[0]+'" name="updkdgudang" class="form-control" type="text" placeholder="gudang"></td>'+
-              '<td width="10.2%"><input style="width:90%" id="kdgudang'+d[0]+'" name="updkdgudang" class="form-control" type="text" placeholder="UAPKPB"></td>'+
+              '<td width="10%"><input style="width:90%" id="kdruang'+d[0]+'" name="updkdruang" class="form-control" type="text" placeholder="ruang"></td>'+
+              '<td width="10.2%"><input style="width:90%" id="kdruang'+d[0]+'" name="updkdruang" class="form-control" type="text" placeholder="UAPKPB"></td>'+
               '<td width="10.2%"><input style="width:90%" id="kdjk'+d[0]+'" name="updkdjk" class="form-control" type="text" placeholder="JK"></td>'+
-              '<td><input style="width:97%" id="nmgudang'+d[0]+'" name="updnmgudang" class="form-control" type="text" placeholder="Uraian UAPPB-W"></td>'+
+              '<td><input style="width:97%" id="nmruang'+d[0]+'" name="updnmruang" class="form-control" type="text" placeholder="Uraian UAPPB-W"></td>'+
               '<td style="vertical-align:middle; width:15%;">'+
                 '<div class="box-tools">'+
                   '<button id="btnrst" class="btn btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
@@ -213,7 +222,7 @@
         '</table>'+
         '</form></div>';
       }
-      $(document).on('submit', '#updgudang', function (e) {
+      $(document).on('submit', '#updruang', function (e) {
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
@@ -221,7 +230,7 @@
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "2600";
-        redirectURL = "gudang";
+        redirectURL = "ruang";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({
@@ -257,7 +266,7 @@
           var kdunit = $(this).val();
           $.ajax({
             type: "post",
-            url: '../core/gudang/prosesgudang',
+            url: '../core/ruang/prosesruang',
             data: {manage:'readuappbe',kdunit:kdunit},
             success: function (output) {
               $('#kduappbe').html(output);
@@ -277,7 +286,7 @@
           var kduappbe = $(this).val();
           $.ajax({
             type: "post",
-            url: '../core/gudang/prosesgudang',
+            url: '../core/ruang/prosesruang',
             data: {manage:'readuappbw',kdunit:kdunit,kduappbe:kduappbe},
             success: function (output) {
               $('#kduappbw').html(output);
@@ -285,7 +294,7 @@
           });
         }
       });
-      $('#addgudang').submit(function(e){
+      $('#addruang').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
@@ -293,7 +302,7 @@
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "2600";
-        redirectURL = "gudang";
+        redirectURL = "ruang";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({
