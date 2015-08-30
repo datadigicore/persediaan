@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 30, 2015 at 02:43 
+-- Generation Time: Aug 30, 2015 at 03:27 
 -- Server version: 5.6.24
 -- PHP Version: 5.5.24
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `persediaan_v3`
 --
-CREATE DATABASE IF NOT EXISTS `persediaan_v3` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `persediaan_v3`;
 
 -- --------------------------------------------------------
 
@@ -8819,7 +8817,6 @@ INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUni
 (8456, 2014, '06', '01', '01', '01', '5', '06.01.01.01', 'ruang angkutan', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8457, 2014, '21', '01', '01', '01', '14', '21.01.01.01', 'Ruang Konten Lokal dan Terbitan Berkala', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8458, 2014, '06', '01', '01', '01', '6', '06.01.01.01', 'Sekretariat', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8460, 0, '', '', '', '', '2', '', 'Ruang UKS', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8461, 2014, '08', '01', '01', '37', '9', '08.01.01.37', 'Gudang', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8462, 2014, '08', '01', '01', '37', '10', '08.01.01.37', 'Ruang Perpustakaan', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8463, 2014, '08', '01', '01', '37', '11', '08.01.01.37', 'Ruang UKS', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -8827,39 +8824,27 @@ INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUni
 (8465, 2014, '08', '01', '04', '01', '1', '08.01.04.01', 'Ruang Guru', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8466, 2014, '08', '01', '01', '23', '1', '08.01.01.23', '  Ruang Kepala Sekolah', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8467, 2014, '08', '01', '04', '01', '2', '08.01.04.01', 'Ruang Kepala Sekolah', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8468, 0, '', '', '', '', '3', '', 'Ruang Kepala Sekolah', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8469, 2014, '08', '01', '01', '23', '2', '08.01.01.23', 'Ruang Tata Usaha', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8470, 2014, '08', '01', '04', '01', '3', '08.01.04.01', 'Ruang Tata Usaha', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8471, 2014, '08', '01', '01', '16', '1', '08.01.01.16', 'RUANG KEPALA SEKOLAH', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8472, 0, '', '', '', '', '4', '', 'Ruang guru', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8473, 2014, '08', '01', '04', '01', '4', '08.01.04.01', 'Ruang Kelas 7A', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8474, 0, '', '', '', '', '5', '', 'Ruang kelas 1', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8475, 2014, '08', '01', '01', '16', '2', '08.01.01.16', 'RUANG GURU', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8476, 2014, '08', '01', '04', '01', '5', '08.01.04.01', 'Ruang Kelas 7B', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8477, 2014, '08', '01', '01', '16', '3', '08.01.01.16', 'RUANG KELAS 1', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8478, 0, '', '', '', '', '6', '', 'Ruang Kelas 2', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8479, 2014, '08', '01', '04', '01', '6', '08.01.04.01', 'Ruang Kelas 7C', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8480, 2014, '08', '01', '13', '01', '1', '08.01.13.01', 'Ruang kepala sekolah', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8481, 0, '', '', '', '', '7', '', 'RUANG KEPALA SEKOLAH', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8482, 2014, '08', '01', '01', '16', '4', '08.01.01.16', 'RUANG KELAS 2', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8483, 2014, '08', '01', '01', '25', '1', '08.01.01.25', 'Ruang Kepala Sekolah', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8484, 2014, '08', '01', '09', '01', '1', '08.01.09.01', 'Ruang Kepala Sekolah', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8485, 0, '', '', '', '', '8', '', 'Ruang kelas 3', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8486, 2014, '08', '01', '04', '01', '7', '08.01.04.01', 'Ruang Kelas 7D', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8487, 2014, '08', '01', '13', '01', '2', '08.01.13.01', 'Ruang Tata Usaha', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8488, 2014, '08', '01', '01', '25', '2', '08.01.01.25', 'Ruang Guru', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8489, 0, '', '', '', '', '9', '', 'Ruang Kelas 4', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8490, 0, '', '', '', '', '10', '', 'Ruang Guru', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8491, 0, '', '', '', '', '11', '', 'RUANG KEPALA SEKOLAH', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8492, 2014, '08', '01', '09', '01', '2', '08.01.09.01', 'Ruang Tata Usaha', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8493, 2014, '08', '01', '01', '25', '3', '08.01.01.25', 'Mushola', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8494, 0, '', '', '', '', '12', '', 'Ruang Kelas 5', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8495, 2014, '08', '01', '04', '01', '8', '08.01.04.01', ' Ruang Kelas 8A', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8496, 0, '', '', '', '', '13', '', 'Ruang Perpustakaan', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8497, 2014, '08', '01', '01', '25', '4', '08.01.01.25', 'Ruang Komputer', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8498, 2014, '08', '01', '01', '16', '5', '08.01.01.16', 'RUANG KELAS 3', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8499, 2014, '08', '01', '14', '01', '1', '08.01.14.01', ' R. Kepala Sekolah ', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8500, 0, '', '', '', '', '14', '', 'Ruang kelas 6', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8501, 2014, '08', '01', '04', '01', '9', '08.01.04.01', 'Ruang Kelas 8B', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8502, 2014, '08', '01', '13', '01', '3', '08.01.13.01', 'Ruang Guru', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8503, 2014, '08', '01', '09', '01', '3', '08.01.09.01', 'Ruang Guru', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -8872,7 +8857,6 @@ INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUni
 (8511, 2014, '08', '01', '09', '01', '5', '08.01.09.01', 'Ruang Lab IPA', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8512, 2014, '08', '01', '13', '01', '6', '08.01.13.01', 'Ruang Perpustakaan', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8513, 2014, '08', '01', '26', '01', '1', '08.01.26.01', 'Ruang Kepala Sekolah', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8514, 0, '', '', '', '', '15', '', 'Ruang Kelas 1 A ', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8515, 2014, '08', '01', '26', '01', '2', '08.01.26.01', 'Ruang Guru', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8516, 2014, '08', '01', '13', '01', '7', '08.01.13.01', 'Ruang Lab. Komputer', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8517, 2014, '08', '01', '26', '01', '3', '08.01.26.01', 'Ruang TU', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -8899,8 +8883,7 @@ INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUni
 (8538, 2014, '08', '01', '04', '01', '13', '08.01.04.01', 'Ruang Kelas 9B', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8539, 2014, '08', '01', '04', '01', '14', '08.01.04.01', 'Ruang Kelas 9C', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8540, 2014, '08', '01', '04', '01', '15', '08.01.04.01', 'Ruang Kelas 9D', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8541, 2014, '08', '01', '04', '01', '16', '08.01.04.01', 'Musholla', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUnit`, `Gudang`, `Kd_Ruang`, `kode`, `NamaSatker`, `AlamatSatker`, `NGO`, `RAND_ID`, `IndukSatker`, `NGO1_ID`, `NGO2_ID`, `NGO3_ID`, `NGO4_ID`, `CNOTE1`, `CNOTE2`, `Tmp_KodeSatker`, `KotaSatker`, `BuatKIB`) VALUES
+(8541, 2014, '08', '01', '04', '01', '16', '08.01.04.01', 'Musholla', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8542, 2014, '08', '01', '04', '01', '17', '08.01.04.01', 'Ruang Koperasi', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8543, 2014, '08', '01', '04', '01', '18', '08.01.04.01', 'Ruang OSIS', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8545, 2014, '08', '01', '04', '01', '19', '08.01.04.01', 'Perpustakaan', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -8912,7 +8895,8 @@ INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUni
 (8551, 2014, '08', '01', '01', '15', '3', '08.01.01.15', 'Ruang Guru', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8552, 2014, '08', '01', '04', '01', '23', '08.01.04.01', 'Ruang Komite', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8553, 2014, '08', '01', '04', '01', '24', '08.01.04.01', 'Lab. IPA', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8554, 2014, '08', '01', '04', '01', '25', '08.01.04.01', 'Lab. Komputer', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(8554, 2014, '08', '01', '04', '01', '25', '08.01.04.01', 'Lab. Komputer', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUnit`, `Gudang`, `Kd_Ruang`, `kode`, `NamaSatker`, `AlamatSatker`, `NGO`, `RAND_ID`, `IndukSatker`, `NGO1_ID`, `NGO2_ID`, `NGO3_ID`, `NGO4_ID`, `CNOTE1`, `CNOTE2`, `Tmp_KodeSatker`, `KotaSatker`, `BuatKIB`) VALUES
 (8555, 2014, '08', '01', '01', '15', '4', '08.01.01.15', 'Ruang Kelas 1', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8556, 2014, '08', '01', '22', '01', '56', '08.01.22.01', ' Ruan Lap. Fisika', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8557, 2014, '08', '01', '01', '15', '5', '08.01.01.15', 'Ruang Kelas 2', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -9032,9 +9016,6 @@ INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUni
 (8673, 2014, '08', '01', '01', '47', '8', '08.01.01.47', 'KELAS 5', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8674, 2014, '08', '01', '01', '47', '9', '08.01.01.47', 'KELAS 6', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8675, 2014, '08', '01', '01', '47', '10', '08.01.01.47', 'PERPUSTAKAAN', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8676, 0, '', '', '', '', '16', '', '', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8677, 0, '', '', '', '', '17', '', 'I (SATU)', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8678, 0, '', '', '', '', '18', '', 'II (DUA)', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8679, 2014, '08', '01', '01', '31', '2', '08.01.01.31', 'RUANG KEPALA SEKOLAH', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8680, 2014, '08', '01', '01', '31', '3', '08.01.01.31', 'RUANG KELAS 1', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8681, 2014, '08', '01', '01', '31', '4', '08.01.01.31', 'RUANG KELAS 2', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -9193,8 +9174,6 @@ INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUni
 (8840, 2008, '11', '01', '01', '01', '8', '11.01.01.01', 'BALAI PENYULUHAN PERTANIAN ( BPP )', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8841, 2008, '11', '01', '01', '01', '9', '11.01.01.01', 'TEMPAT PELELANGAN IKAN ( TPI )', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8842, 2008, '11', '01', '01', '01', '10', '11.01.01.01', 'TANPA RUANGAN', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8843, 0, '', '', '', '', '19', '', 'XIV (EMPAT BELAS)', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8844, 0, '', '', '', '', '20', '', 'XIV (EMPAT BELAS)', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8845, 2007, '11', '01', '01', '01', '4', '11.01.01.01', 'PETERNAKAN', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8846, 2007, '11', '01', '01', '01', '5', '11.01.01.01', 'PERIKANAN', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8847, 2007, '11', '01', '01', '01', '6', '11.01.01.01', 'KELAUTAN', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -9234,8 +9213,7 @@ INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUni
 (8881, 2004, '11', '01', '01', '01', '10', '11.01.01.01', 'TANPA RUANGAN', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8882, 2003, '11', '01', '01', '01', '1', '11.01.01.01', 'KEPALA DINAS', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8883, 2003, '11', '01', '01', '01', '2', '11.01.01.01', 'SEKRETARIAT ( TU )', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8884, 2003, '11', '01', '01', '01', '3', '11.01.01.01', 'PERTANIAN', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUnit`, `Gudang`, `Kd_Ruang`, `kode`, `NamaSatker`, `AlamatSatker`, `NGO`, `RAND_ID`, `IndukSatker`, `NGO1_ID`, `NGO2_ID`, `NGO3_ID`, `NGO4_ID`, `CNOTE1`, `CNOTE2`, `Tmp_KodeSatker`, `KotaSatker`, `BuatKIB`) VALUES
+(8884, 2003, '11', '01', '01', '01', '3', '11.01.01.01', 'PERTANIAN', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8885, 2003, '11', '01', '01', '01', '4', '11.01.01.01', 'PETERNAKAN', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8886, 2003, '11', '01', '01', '01', '5', '11.01.01.01', 'PERIKANAN', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8887, 2003, '11', '01', '01', '01', '6', '11.01.01.01', 'KELAUTAN', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -9251,7 +9229,8 @@ INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUni
 (8897, 2015, '08', '01', '01', '07', '6', '08.01.01.07', 'ruang dapur', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8898, 2015, '08', '01', '01', '07', '7', '08.01.01.07', 'ruang dapur', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8899, 2015, '08', '01', '01', '07', '8', '08.01.01.07', 'ruang kelas 4', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8900, 2015, '08', '01', '01', '07', '9', '08.01.01.07', 'ruang kelas 5', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(8900, 2015, '08', '01', '01', '07', '9', '08.01.01.07', 'ruang kelas 5', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUnit`, `Gudang`, `Kd_Ruang`, `kode`, `NamaSatker`, `AlamatSatker`, `NGO`, `RAND_ID`, `IndukSatker`, `NGO1_ID`, `NGO2_ID`, `NGO3_ID`, `NGO4_ID`, `CNOTE1`, `CNOTE2`, `Tmp_KodeSatker`, `KotaSatker`, `BuatKIB`) VALUES
 (8901, 2015, '08', '01', '01', '07', '10', '08.01.01.07', 'ruang kelas 6', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8902, 2015, '08', '01', '01', '07', '11', '08.01.01.07', 'ruang perpustakaan', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8903, 2015, '08', '01', '01', '07', '12', '08.01.01.07', 'ruang gudang', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -9578,8 +9557,7 @@ INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUni
 (9241, 2004, '07', '01', '01', '27', '3', '07.01.01.27', ' tu', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9242, 2004, '07', '01', '01', '27', '4', '07.01.01.27', 'data', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9243, 2004, '07', '01', '01', '27', '5', '07.01.01.27', 'tamu', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(9244, 2004, '07', '01', '01', '27', '6', '07.01.01.27', 'rapat', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUnit`, `Gudang`, `Kd_Ruang`, `kode`, `NamaSatker`, `AlamatSatker`, `NGO`, `RAND_ID`, `IndukSatker`, `NGO1_ID`, `NGO2_ID`, `NGO3_ID`, `NGO4_ID`, `CNOTE1`, `CNOTE2`, `Tmp_KodeSatker`, `KotaSatker`, `BuatKIB`) VALUES
+(9244, 2004, '07', '01', '01', '27', '6', '07.01.01.27', 'rapat', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9245, 2004, '07', '01', '01', '27', '7', '07.01.01.27', 'logistik', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9246, 2004, '07', '01', '01', '27', '8', '07.01.01.27', 'musolla', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9247, 2004, '07', '01', '01', '27', '9', '07.01.01.27', 'bp dewasa', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -9596,7 +9574,8 @@ INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUni
 (9258, 2004, '07', '01', '01', '27', '20', '07.01.01.27', 'BP LANSIA', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9259, 2004, '07', '01', '01', '27', '21', '07.01.01.27', 'HS', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9260, 2004, '07', '01', '01', '27', '22', '07.01.01.27', 'P2', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(9261, 2004, '07', '01', '01', '27', '23', '07.01.01.27', 'LABORAT', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9261, 2004, '07', '01', '01', '27', '23', '07.01.01.27', 'LABORAT', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUnit`, `Gudang`, `Kd_Ruang`, `kode`, `NamaSatker`, `AlamatSatker`, `NGO`, `RAND_ID`, `IndukSatker`, `NGO1_ID`, `NGO2_ID`, `NGO3_ID`, `NGO4_ID`, `CNOTE1`, `CNOTE2`, `Tmp_KodeSatker`, `KotaSatker`, `BuatKIB`) VALUES
 (9262, 2004, '07', '01', '01', '27', '24', '07.01.01.27', 'REHAT', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9263, 2004, '07', '01', '01', '27', '25', '07.01.01.27', 'GARASI', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9264, 2004, '07', '01', '01', '27', '26', '07.01.01.27', 'DAHAK', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -9921,8 +9900,7 @@ INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUni
 (9583, 2014, '07', '01', '01', '15', '5 ', '07.01.01.15', 'Kosong', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9584, 2014, '07', '01', '01', '15', '6 ', '07.01.01.15', 'Tunggu', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9585, 1998, '07', '01', '01', '27', '32', '07.01.01.27', 'DAPUR/ MENYUSUI', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(9586, 2015, '08', '01', '01', '01', '1', '08.01.01.01', 'kepala dinas', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUnit`, `Gudang`, `Kd_Ruang`, `kode`, `NamaSatker`, `AlamatSatker`, `NGO`, `RAND_ID`, `IndukSatker`, `NGO1_ID`, `NGO2_ID`, `NGO3_ID`, `NGO4_ID`, `CNOTE1`, `CNOTE2`, `Tmp_KodeSatker`, `KotaSatker`, `BuatKIB`) VALUES
+(9586, 2015, '08', '01', '01', '01', '1', '08.01.01.01', 'kepala dinas', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9587, 2015, '08', '01', '01', '01', '2', '08.01.01.01', 'sekertaris', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9588, 2015, '08', '01', '01', '01', '3', '08.01.01.01', 'lobby', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9589, 2015, '08', '01', '01', '01', '4', '08.01.01.01', ' subbag umum', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -9939,7 +9917,8 @@ INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUni
 (9600, 2015, '08', '01', '01', '39', '3', '08.01.01.39', 'Ruang Perpustakaan', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9601, 2015, '08', '01', '01', '39', '4', '08.01.01.39', 'Ruang Aula', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9602, 2015, '08', '01', '01', '39', '5', '08.01.01.39', 'Ruang Mushola', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(9603, 2015, '08', '01', '01', '39', '6', '08.01.01.39', 'Ruang UKS', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9603, 2015, '08', '01', '01', '39', '6', '08.01.01.39', 'Ruang UKS', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUnit`, `Gudang`, `Kd_Ruang`, `kode`, `NamaSatker`, `AlamatSatker`, `NGO`, `RAND_ID`, `IndukSatker`, `NGO1_ID`, `NGO2_ID`, `NGO3_ID`, `NGO4_ID`, `CNOTE1`, `CNOTE2`, `Tmp_KodeSatker`, `KotaSatker`, `BuatKIB`) VALUES
 (9604, 2015, '08', '01', '01', '39', '7', '08.01.01.39', 'Ruang Kelas 1', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9605, 2015, '08', '01', '01', '39', '8', '08.01.01.39', 'Ruang Kelas 2', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9606, 2015, '08', '01', '01', '39', '9', '08.01.01.39', 'Ruang Kelas 3', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -10200,8 +10179,7 @@ INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUni
 (9894, 2014, '08', '01', '01', '20', '14', '08.01.01.20', 'Ruang Komputer / Gudang', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9895, 2014, '08', '01', '01', '20', '15', '08.01.01.20', 'Ruang Musholla', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9896, 2014, '50', '01', '08', '01', '13', '50.01.08.01', 'r .aula alas', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(9897, 2014, '08', '01', '01', '31', '9', '08.01.01.31', 'perpustakaan', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(9915, NULL, '11', '01', '01', '10', '102', '11.01.01.10', 'AHOH1', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(9897, 2014, '08', '01', '01', '31', '9', '08.01.01.31', 'perpustakaan', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 

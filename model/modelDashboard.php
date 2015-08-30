@@ -4,35 +4,35 @@ class modelDashboard extends mysql_db
 {
 	public function countdata()
 	{
-		$sql1="select kd_uapb from satker
-					where kd_uapb is not null and
-						kd_uappbe1 is null and
-						kd_uappbw is null and
-						kd_uakpb is null";
-		$sql2="select kd_uappbe1 from satker
-					where kd_uapb is not null and
-						kd_uappbe1 is not null and
-						kd_uappbw is null and
-						kd_uakpb is null";
-		$sql3="select kd_uappbw from satker
-					where kd_uapb is not null and
-						kd_uappbe1 is not null and
-						kd_uappbw is not null and
-						kd_uakpb is null";
-		$sql4="select kd_uakpb from satker
-					where kd_uapb is not null and
-						kd_uappbe1 is not null and
-						kd_uappbw is not null and
-						kd_uakpb is not null";
+		$sql1="select kodesektor from satker
+					where kodesektor is not null and
+						kodesatker is null and
+						kodeunit is null and
+						gudang is null";
+		$sql2="select kodesatker from satker
+					where kodesektor is not null and
+						kodesatker is not null and
+						kodeunit is null and
+						gudang is null";
+		$sql3="select kodeunit from satker
+					where kodesektor is not null and
+						kodesatker is not null and
+						kodeunit is not null and
+						gudang is null";
+		$sql4="select gudang from satker
+					where kodesektor is not null and
+						kodesatker is not null and
+						kodeunit is not null and
+						gudang is not null";
 		$result1 = $this->query($sql1);
 		$result2 = $this->query($sql2);
 		$result3 = $this->query($sql3);
 		$result4 = $this->query($sql4);
-   		$totaluapb = mysqli_num_rows($result1);
-   		$totaluappbe = mysqli_num_rows($result2);
-   		$totaluappbw = mysqli_num_rows($result3);
-   		$totaluakpb = mysqli_num_rows($result4);
-  		echo json_encode(array("uapb"=>$totaluapb,"uappbe"=>$totaluappbe,"uappbw"=>$totaluappbw,"uakpb"=>$totaluakpb));
+   		$totalsektor = mysqli_num_rows($result1);
+   		$totalsatker = mysqli_num_rows($result2);
+   		$totalunit = mysqli_num_rows($result3);
+   		$totalruang = mysqli_num_rows($result4);
+  		echo json_encode(array("sektor"=>$totalsektor,"satker"=>$totalsatker,"unit"=>$totalunit,"ruang"=>$totalruang));
 	}
 }
 ?>

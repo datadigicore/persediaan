@@ -23,49 +23,49 @@
             <div class="col-lg-3 col-xs-6">
               <div class="small-box bg-aqua">
                 <div class="inner">
-                  <h3 id="totaluapb">0</h3>
+                  <h3 id="totalsektor">0</h3>
                   <p>Data Sektor</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-calendar"></i>
                 </div>
-                <a href="uapb" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="sektor" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <div class="col-lg-3 col-xs-6">
               <div class="small-box bg-green">
                 <div class="inner">
-                  <h3 id="totaluappbe">0</h3>
+                  <h3 id="totalsatker">0</h3>
                   <p>Data Satker</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-calendar"></i>
                 </div>
-                <a href="uappbe" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="satker" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <div class="col-lg-3 col-xs-6">
               <div class="small-box bg-yellow">
                 <div class="inner">
-                  <h3 id="totaluappbw">0</h3>
+                  <h3 id="totalunit">0</h3>
                   <p>Data Unit</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-calendar"></i>
                 </div>
-                <a href="uappbw" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="unit" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <div class="col-lg-3 col-xs-6">
               <div class="small-box bg-red">
                 <div class="inner">
-                  <h3 id="totaluakpb">0</h3>
-                  <p>Data Gudang</p>
+                  <h3 id="totalruang">0</h3>
+                  <p>Data Ruang</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-calendar"></i>
                 </div>
-                <a href="uakpb" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="ruang" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
           </div>
@@ -76,7 +76,7 @@
                   <h3 class="box-title">Grafik Donat</h3>
                 </div>
                 <div class="box-body chart-responsive">
-                  <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
+                  <div class="chart" id="graphic-donut" style="height: 300px; position: relative;"></div>
                 </div>
               </div>
             </section>
@@ -125,15 +125,15 @@
           data: {manage:'countdata'},
           dataType: "json",
           success: function (output) {     
-            $('#totaluapb').html(output.uapb);
-            $('#totaluappbe').html(output.uappbe);
-            $('#totaluappbw').html(output.uappbw);
-            $('#totaluakpb').html(output.uakpb);
+            $('#totalsektor').html(output.sektor);
+            $('#totalsatker').html(output.satker);
+            $('#totalunit').html(output.unit);
+            $('#totalruang').html(output.ruang);
           }
         });
         $(".knob").knob();
         var donut = new Morris.Donut({
-          element: 'sales-chart',
+          element: 'graphic-donut',
           resize: true,
           colors: ["#3c8dbc", "#f56954", "#00a65a"],
           data: [
