@@ -16,7 +16,7 @@ class modelRuang extends mysql_db
 		{
 			if (!empty($row)) {
 				echo '<optgroup label="'.$row['kodesektor'].' '.$row['namasatker'].'">';
-				$query2 = "select kodesatker, namasatker from satker
+				$query2 = "select kodesektor, kodesatker, namasatker from satker
 						where kodesektor ='$row[kodesektor]' and
 							  kodesatker is not null and
 							  kodeunit is null and
@@ -26,9 +26,9 @@ class modelRuang extends mysql_db
         		while ($row2 = $this->fetch_array($result2))
 				{
 					if (!empty($row2)) {
-						echo '<optgroup label="&nbsp;&nbsp;'.$row2['kodesatker'].' '.$row2['namasatker'].'">';
-						$query3 = "select kodesatker, kodeunit, namasatker from satker
-								where kodesektor is not null and
+						echo '<optgroup label="&nbsp;&nbsp;'.$row2['kodesektor'].' '.$row2['kodesatker'].' '.$row2['namasatker'].'">';
+						$query3 = "select kodesektor, kodesatker, kodeunit, namasatker from satker
+								where kodesektor ='$row2[kodesektor]' and
 									  kodesatker ='$row2[kodesatker]' and
 									  kodeunit is not null and
 									  gudang is null 
@@ -36,7 +36,7 @@ class modelRuang extends mysql_db
 		        		$result3 = $this->query($query3);
 		        		while ($row3 = $this->fetch_array($result3))
 						{
-							echo '<option value="'.$row3['kodesatker'].'.'.$row3['kodeunit'].'">&nbsp;&nbsp;'.$row3['kodesatker'].'.'.$row3['kodeunit'].' '.$row3['namasatker']."</option>";
+							echo '<option value="'.$row3['kodesektor'].'.'.$row3['kodesatker'].'.'.$row3['kodeunit'].'">&nbsp;&nbsp;'.$row3['kodesektor'].'.'.$row3['kodesatker'].'.'.$row3['kodeunit'].' '.$row3['namasatker']."</option>";
 						}
 						echo '</optgroup>';
 					}
@@ -67,24 +67,21 @@ class modelRuang extends mysql_db
 	public function ubahruang($data)
 	{
 		$id = $data['id'];
-		$kodesektor = $data['kd_sektor'];
-		$kodesatker = $data['kd_satker'];
-		$kodeunit = $data['kd_unit'];
-		$koderuang = $data['kd_ruang'];
-		$kodegudang = $data['kd_gudang'];
-		$jk = $data['jk'];
-		$namaruang = $data['nm_ruang'];
-		$kodelokasi = $data['kd_lokasi'];
+		$kodesektor = $data['kodesektor'];
+		$kodesatker = $data['kodesatker'];
+		$kodeunit = $data['kodeunit'];
+		$koderuang = $data['koderuang'];
+		$kodegudang = $data['kodegudang'];
+		$namaruang = $data['namaruang'];
 		$query = "update satker
-        			set kd_sektor='$kodesektor',
-        				kd_satker='$kodesatker',
-        				kd_unit='$kodeunit',
+        			set kodesektor='$kodesektor',
+        				kodesatker='$kodesatker',
+        				kodeunit='$kodeunit',
         				kd_ruang='$koderuang',
-        				kd_gudang='$kodegudang',
-        				jk='$jk',
-        				nm_satker='$namaruang',
-                    	kd_jk='$kodelokasi' 
-                    where id='$id'";
+        				gudang='$kodegudang',
+        				namasatker='$namaruang',
+        				kode='$kodesektor.$kodesatker.$kodeunit.$kodegudang'
+                    where satker_id='$id'";
         $result = $this->query($query);
 		return $result;
 	}	

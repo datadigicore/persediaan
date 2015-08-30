@@ -40,7 +40,7 @@ class modelSatker extends mysql_db
 		$namasatker = $data['namasatker'];
 		$query = "insert into satker
         			set kodesektor='$kodesektor',
-        				kodesatker='$kodesektor.$kodesatker',
+        				kodesatker='$kodesatker',
                     	namasatker='$namasatker',
                     	kode='$kodesektor.$kodesatker'";
         $result = $this->query($query);
@@ -56,7 +56,7 @@ class modelSatker extends mysql_db
         			set kodesektor='$kodesektor',
         				kodesatker='$kodesatker',
                     	namasatker='$namasatker',
-                    	kode='$kodesatker'
+                    	kode='$kodesektor.$kodesatker'
                     where satker_id='$id'";
         $result = $this->query($query);
         return $result;

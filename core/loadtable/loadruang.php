@@ -16,7 +16,7 @@ $columns = array(
     array( 'db' => 'kodesektor', 'dt' => 1 ),
     array( 'db' => 'kodesatker', 'dt' => 2 ),
 	array( 'db' => 'kodeunit', 'dt' => 3 ),
-	array( 'db' => 'kode', 'dt' => 4 ),
+	array( 'db' => 'gudang', 'dt' => 4 ),
 	array( 'db' => 'kd_ruang', 'dt' => 5 ),
     array( 'db' => 'namasatker', 'dt' => 6 )
 );

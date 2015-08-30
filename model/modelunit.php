@@ -17,7 +17,7 @@ class modelUnit extends mysql_db
 			if (!empty($row)) {
 				// echo '<option value="'.$row['kodesektor'].'" disabled>'.$row['kodesektor'].'. '.$row['namasatker']."</option>";
 				echo '<optgroup label="'.$row['kodesektor'].' '.$row['namasatker'].'">';
-				$query2 = "select kodesatker, namasatker from satker
+				$query2 = "select kodesektor, kodesatker, namasatker from satker
 						where kodesektor ='$row[kodesektor]' and
 							  kodesatker is not null and
 							  kodeunit is null and
@@ -26,7 +26,7 @@ class modelUnit extends mysql_db
         		$result2 = $this->query($query2);
         		while ($row2 = $this->fetch_array($result2))
 				{
-					echo '<option value="'.$row2['kodesatker'].'">'.$row2['kodesatker'].' '.$row2['namasatker']."</option>";
+					echo '<option value="'.$row2['kodesektor'].'.'.$row2['kodesatker'].'">'.$row2['kodesektor'].'.'.$row2['kodesatker'].' '.$row2['namasatker']."</option>";
 				}
 				echo '</optgroup>';
 			}
@@ -43,7 +43,7 @@ class modelUnit extends mysql_db
         				kodesatker='$kodesatker',
         				kodeunit='$kodeunit',
                     	namasatker='$namaunit',
-                    	kode='$kodesatker.$kodeunit'";
+                    	kode='$kodesektor.$kodesatker.$kodeunit'";
         $result = $this->query($query);
 		return $result;
 	}	
@@ -60,7 +60,7 @@ class modelUnit extends mysql_db
         				kodesatker='$kodesatker',
         				kodeunit='$kodeunit',
                     	namasatker='$namaunit',
-                    	kode='$kode'
+                    	kode='$kodesektor.$kodesatker.$kodeunit'
                     where satker_id='$id'";
         $result = $this->query($query);
 		return $result;

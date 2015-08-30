@@ -15,9 +15,9 @@ else
 			$Ruang->bacaunit();
 		break;
 		case 'addruang':
-			$kdunit = $purifier->purify(substr($_POST['kdunit'], -2));
 			$kdsektor = $purifier->purify(substr($_POST['kdunit'], 0, 2));
-			$kdsatker = $purifier->purify(substr($_POST['kdunit'], 0, 5));
+			$kdsatker = $purifier->purify(substr($_POST['kdunit'], 3, 2));
+			$kdunit = $purifier->purify(substr($_POST['kdunit'], -2));
 			$kdruang = $purifier->purify($_POST['kdruang']);
 			$kdgudang = $purifier->purify($_POST['kdgudang']);
 			$nmruang = $purifier->purify($_POST['nmruang']);
@@ -30,6 +30,7 @@ else
 				"namaruang" => $nmruang
 			);
 			$Ruang->tambahruang($data);
+			print_r($data);
 		break;
 		case 'updruang':
 			$id = $purifier->purify($_POST['id']);
@@ -38,17 +39,15 @@ else
 			$kdunit = $purifier->purify($_POST['updkdunit']);
 			$kdruang = $purifier->purify($_POST['updkdruang']);
 			$kdgudang = $purifier->purify($_POST['updkdgudang']);
-			$kdjk = $purifier->purify($_POST['updkdjk']);
-			$nmruang = $purifier->purify($_POST['updurruang']);
+			$nmruang = $purifier->purify($_POST['updnmruang']);
 			$data = array(
 				"id" => $id,
 				"kodesektor" => $kdsektor,
 				"kodesatker" => $kdsatker,
 				"kodeunit" => $kdunit,
 				"koderuang" => $kdruang,
-				"gudang" => $kdgudang,
+				"kodegudang" => $kdgudang,
 			  	"namaruang" => $nmruang,
-			  	"kode" => $kode
 			);
 			$Ruang->ubahruang($data);
 		break;

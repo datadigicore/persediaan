@@ -139,13 +139,12 @@
         var tr = $(this).closest('tr');
         var row = table.row( tr );
         id_row = row.data()[0];
-        kdunit_row = row.data()[1];
-        kduappbe_row  = row.data()[2];
-        kduappbw_row  = row.data()[3];
-        kdruang_row  = row.data()[4];
+        kdsektor_row = row.data()[1];
+        kdsatker_row  = row.data()[2];
+        kdunit_row  = row.data()[3];
+        kdgudang_row  = row.data()[4];
         kdruang_row  = row.data()[5];
-        kdjk_row  = row.data()[6];
-        nmruang_row  = row.data()[7];
+        nmruang_row  = row.data()[6];
         if ( row.child.isShown() ) {
           $('div.slider', row.child()).slideUp( function () {
             row.child.hide();
@@ -156,12 +155,11 @@
           row.child( format(row.data())).show();
           tr.addClass('shown');
           $('div.slider', row.child()).slideDown();
+          $("#kdsektor"+id_row+"").val(kdsektor_row);
+          $("#kdsatker"+id_row+"").val(kdsatker_row);
           $("#kdunit"+id_row+"").val(kdunit_row);
-          $("#kduappbe"+id_row+"").val(kduappbe_row);
-          $("#kduappbw"+id_row+"").val(kduappbw_row);
+          $("#kdgudang"+id_row+"").val(kdgudang_row);
           $("#kdruang"+id_row+"").val(kdruang_row);
-          $("#kdruang"+id_row+"").val(kdruang_row);
-          $("#kdjk"+id_row+"").val(kdjk_row);
           $("#nmruang"+id_row+"").val(nmruang_row);
         }
       });
@@ -205,13 +203,12 @@
            '<tr>'+
               '<input type="hidden" name="manage" value="updruang">'+
               '<input type="hidden" name="id" value="'+d[0]+'">'+
-              '<td width="9.8%"><input style="width:90%" id="kdunit'+d[0]+'" name="updkdunit" class="form-control" type="text" placeholder="UAPB"></td>'+
-              '<td width="10.2%"><input style="width:90%" id="kduappbe'+d[0]+'" name="updkduappbe" class="form-control" type="text" placeholder="UAPPB-E1"></td>'+
-              '<td width="10.2%"><input style="width:90%" id="kduappbw'+d[0]+'" name="updkduappbw" class="form-control" type="text" placeholder="UAPPB-W"></td>'+
-              '<td width="10%"><input style="width:90%" id="kdruang'+d[0]+'" name="updkdruang" class="form-control" type="text" placeholder="ruang"></td>'+
-              '<td width="10.2%"><input style="width:90%" id="kdruang'+d[0]+'" name="updkdruang" class="form-control" type="text" placeholder="UAPKPB"></td>'+
-              '<td width="10.2%"><input style="width:90%" id="kdjk'+d[0]+'" name="updkdjk" class="form-control" type="text" placeholder="JK"></td>'+
-              '<td><input style="width:97%" id="nmruang'+d[0]+'" name="updnmruang" class="form-control" type="text" placeholder="Uraian UAPPB-W"></td>'+
+              '<td width="14.15%"><input style="width:90%" id="kdsektor'+d[0]+'" name="updkdsektor" class="form-control" type="text" placeholder="Kode Sektor"></td>'+
+              '<td width="14.15%"><input style="width:90%" id="kdsatker'+d[0]+'" name="updkdsatker" class="form-control" type="text" placeholder="Kode Satker"></td>'+
+              '<td width="14.2%"><input style="width:90%" id="kdunit'+d[0]+'" name="updkdunit" class="form-control" type="text" placeholder="Kode Unit"></td>'+
+              '<td width="14.2%"><input style="width:90%" id="kdgudang'+d[0]+'" name="updkdgudang" class="form-control" type="text" placeholder="Kode Gudang"></td>'+
+              '<td width="7.8%"><input style="width:90%" id="kdruang'+d[0]+'" name="updkdruang" class="form-control" type="text" placeholder="Ruang"></td>'+
+              '<td><input style="width:97%" id="nmruang'+d[0]+'" name="updnmruang" class="form-control" type="text" placeholder="Uraian Ruang"></td>'+
               '<td style="vertical-align:middle; width:15%;">'+
                 '<div class="box-tools">'+
                   '<button id="btnrst" class="btn btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
@@ -246,53 +243,10 @@
             $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
             $("#success-alert").alert('close');
             });
-            setTimeout("location.href = redirectURL;",redirectTime); 
+            // setTimeout("location.href = redirectURL;",redirectTime); 
           }
         });
         return false;
-      });
-      $('#kdunit').change(function(){
-        if ($(this).val()=='') {
-          $('#kduappbe').html('<option value="">-- Pilih Kode UAPB Terlebih Dahulu --</option>');
-          $('#kduappbw').html('<option value="">-- Pilih Kode UAPPB-E1 Terlebih Dahulu --</option>');
-          $('#kduappbe').val("").trigger("change");
-          $('#kduappbw').val("").trigger("change");
-        }
-        else {
-          $('#kduappbe').html('<option value="">-- Pilih Kode UAPPB-E1 --</option>');
-          $('#kduappbw').html('<option value="">-- Pilih Kode UAPPB-E1 Terlebih Dahulu --</option>');
-          $('#kduappbe').val("").trigger("change");
-          $('#kduappbw').val("").trigger("change");
-          var kdunit = $(this).val();
-          $.ajax({
-            type: "post",
-            url: '../core/ruang/prosesruang',
-            data: {manage:'readuappbe',kdunit:kdunit},
-            success: function (output) {
-              $('#kduappbe').html(output);
-            }
-          });
-        }
-      });
-      $('#kduappbe').change(function(){
-        if ($(this).val()=='') {
-          $('#kduappbw').html('<option value="">-- Pilih Kode UAPPB-E1 Terlebih Dahulu --</option>');
-          $('#kduappbw').val("").trigger("change");
-        }
-        else {
-          $('#kduappbw').html('<option value="">-- Pilih Kode UAPPB-Wilayah --</option>');
-          $('#kduappbw').val("").trigger("change");
-          var kdunit = $('#kdunit').val();
-          var kduappbe = $(this).val();
-          $.ajax({
-            type: "post",
-            url: '../core/ruang/prosesruang',
-            data: {manage:'readuappbw',kdunit:kdunit,kduappbe:kduappbe},
-            success: function (output) {
-              $('#kduappbw').html(output);
-            }
-          });
-        }
       });
       $('#addruang').submit(function(e){
         $('#myModal').modal({

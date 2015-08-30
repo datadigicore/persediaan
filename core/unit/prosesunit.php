@@ -16,7 +16,7 @@ else
 		break;
 		case 'addunit':
 			$kdsektor = $purifier->purify(substr($_POST['kdsatker'], 0, 2));
-			$kdsatker = $purifier->purify($_POST['kdsatker']);
+			$kdsatker = $purifier->purify(substr($_POST['kdsatker'], -2));
 			$kdunit = $purifier->purify($_POST['kdunit']);
 			$nmunit = $purifier->purify($_POST['nmunit']);
 			$data = array(
