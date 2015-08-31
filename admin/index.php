@@ -60,12 +60,12 @@
               <div class="small-box bg-red">
                 <div class="inner">
                   <h3 id="totalruang">0</h3>
-                  <p>Data Ruang</p>
+                  <p>Data Pengguna</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-calendar"></i>
                 </div>
-                <a href="ruang" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="user" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
           </div>

@@ -19,11 +19,8 @@ class modelDashboard extends mysql_db
 						kodesatker is not null and
 						kodeunit is not null and
 						gudang is null";
-		$sql4="select gudang from satker
-					where kodesektor is not null and
-						kodesatker is not null and
-						kodeunit is not null and
-						gudang is not null";
+		$sql4="select user_name from user
+				where user_level = 2";
 		$result1 = $this->query($sql1);
 		$result2 = $this->query($sql2);
 		$result3 = $this->query($sql3);

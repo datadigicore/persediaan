@@ -26,7 +26,7 @@ class modelRuang extends mysql_db
         		while ($row2 = $this->fetch_array($result2))
 				{
 					if (!empty($row2)) {
-						echo '<optgroup label="&nbsp;&nbsp;'.$row2['kodesektor'].' '.$row2['kodesatker'].' '.$row2['namasatker'].'">';
+						echo '<optgroup label="&nbsp;&nbsp;'.$row2['kodesektor'].'.'.$row2['kodesatker'].' '.$row2['namasatker'].'">';
 						$query3 = "select kodesektor, kodesatker, kodeunit, namasatker from satker
 								where kodesektor ='$row2[kodesektor]' and
 									  kodesatker ='$row2[kodesatker]' and
