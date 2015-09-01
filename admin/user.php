@@ -28,13 +28,6 @@
                 </div>  
                 <form action="../core/user/prosesuser" method="post" class="form-horizontal" id="adduser">
                   <div class="box-body">
-                    <!-- <div class="form-group">
-                      <label class="col-sm-2 control-label">Nama</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="fullname" class="form-control" id="fullname" placeholder="Masukkan Nama Lengkap">
-                        <input type="hidden" name="manage" value="adduser">
-                      </div>
-                    </div> -->
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Username</label>
                       <div class="col-sm-9">
@@ -69,7 +62,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode Unit Satker</label>
                       <div class="col-sm-9">
-                        <select name="kdunitsat" id="kdunitsat" class="form-control select2">
+                        <select name="kdunitgudang" id="kdunitgudang" class="form-control select2">
                           <option value="">-- Pilih Kode Satker--</option>
                         </select>
                       </div>
@@ -100,7 +93,16 @@
                       </div>
                       <div class="col-sm-7">
                         <input type="text" name="urunit" class="form-control" id="urunit" placeholder="Uraian Kode Unit" disabled>
-                        <input type="hidden" name="urunith" class="form-control" id="urunith" placeholder="Uraian Kode Unit">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Gudang</label>
+                      <div class="col-sm-2">
+                        <input type="text" name="kdgudang" class="form-control" id="kdgudang" placeholder="Kode Gudang" disabled>
+                      </div>
+                      <div class="col-sm-7">
+                        <input type="text" name="urgudang" class="form-control" id="urgudang" placeholder="Uraian Kode Gudang" disabled>
+                        <input type="hidden" name="urgudangh" class="form-control" id="urgudangh">
                       </div>
                     </div>                    
                   </div>
@@ -236,10 +238,10 @@
         url: '../core/user/prosesuser',
         data: {manage:'readsatker'},
         success: function (output) {     
-          $('#kdunitsat').html(output);
+          $('#kdunitgudang').html(output);
         }
       });
-      $('#kdunitsat').change(function(){
+      $('#kdunitgudang').change(function(){
         if ($(this).val()=='') {
           $('#kdsektor').val('');
           $('#kdsatker').val('');
@@ -249,20 +251,22 @@
           $('#urunit').val('');
         }
         else {
-          var kdunitsat = $(this).val();
+          var kdunitgudang = $(this).val();
           $.ajax({
             type: "post",
             url: '../core/user/prosesuser',
-            data: {manage:'readdata',kdunitsat:kdunitsat},
+            data: {manage:'readdata',kdunitgudang:kdunitgudang},
             dataType: "json",
             success: function (output) {
             $('#kdsektor').val(output.kdsektor);
             $('#kdsatker').val(output.kdsatker);
             $('#kdunit').val(output.kdunit);
+            $('#kdgudang').val(output.kdgudang);
             $('#ursektor' ).val(output.ursektor);
             $('#ursatker').val(output.ursatker);
             $('#urunit').val(output.urunit);
-            $('#urunith').val(output.urunit);
+            $('#urgudang').val(output.urgudang);
+            $('#urgudangh').val(output.urgudang);
             }
           });
         }

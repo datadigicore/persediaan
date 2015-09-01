@@ -15,21 +15,21 @@ else
 			$User->bacaunitsatker();
 		break;
 		case 'readdata':
-			$kdunitsat = $purifier->purify($_POST['kdunitsat']);
-			$User->bacadata($kdunitsat);
+			$kdunitgudang = $purifier->purify($_POST['kdunitgudang']);
+			$User->bacadata($kdunitgudang);
 		break;
 		case 'adduser':
 			$user_name = $purifier->purify($_POST['username']);
 			$user_pass = $purifier->purify(md5($_POST['password']));
 			$email = $purifier->purify($_POST['email']);
-			$kdunitsat = $purifier->purify($_POST['kdunitsat']);
-			$urunitsat = $purifier->purify($_POST['urunith']);
+			$kdgudang = $purifier->purify($_POST['kdunitgudang']);
+			$urgudang = $purifier->purify($_POST['urgudangh']);
 			$data = array(
 				"user_name" => $user_name,
 				"user_pass" => $user_pass,
 				"user_email" => $email,
-		    	"kd_lokasi" => $kdunitsat,
-		    	"nm_satker" => $urunitsat
+		    	"kd_satker" => $kdgudang,
+		    	"nm_satker" => $urgudang
 		    );
 			$User->tambahuser($data);
 		break;
