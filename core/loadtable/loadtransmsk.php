@@ -7,6 +7,7 @@
 session_start();
 $user_id=$_SESSION['username'];
 $kd_satker=$_SESSION['kd_lok'];
+$thn_ang=$_SESSION['thn_ang'];
 // Table yang di load
 $table = 'transaksi_masuk';
  
@@ -32,7 +33,7 @@ require('../../config/dbconf.php');
 $config = new config();
 $sql_details = $config->sql_details();
 
-$where = "kd_lokasi='$kd_satker' and status_hapus=0";
+$where = "kd_lokasi='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang'";
  
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp.class.php' );

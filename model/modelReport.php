@@ -65,6 +65,7 @@ class modelReport extends mysql_db
                                      AND kd_brg='$kd_brg' 
                                      and kd_lokasi='$kd_lokasi'  
                                      AND status_hapus=0
+                                     AND thn_ang='$thn_ang'
                                      union all 
                                      SELECT tgl_buku, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
                                      FROM transaksi_keluar 
@@ -72,6 +73,9 @@ class modelReport extends mysql_db
                                      AND kd_brg='$kd_brg' 
                                      and kd_lokasi='$kd_lokasi'  
                                      AND status_hapus=0
+                                     
+                                     AND thn_ang='$thn_ang'
+ 
                                      ORDER BY tgl_buku ASC;");
                 $no=0;
                 $jumlah=0;
@@ -130,7 +134,7 @@ class modelReport extends mysql_db
                     <td>UNTUK PERIODE YANG BERAKHIR TANGGAL '.date("d-m-Y",strtotime($tgl_akhir)).'</td>
                 </tr>
                 <tr>
-                    <td>TAHUN ANGGARAN : '.substr($tgl_akhir,0,4).'</td>
+                    <td>TAHUN ANGGARAN : '.$thn_ang.'</td>
                 </tr>
                 <tr>
 
@@ -151,7 +155,7 @@ class modelReport extends mysql_db
                 </tr>';
 
 
-                $sql=mysql_query("SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, sum(total_harga) as nilai from transaksi_full where tgl_buku BETWEEN '$tgl_awal' AND '$tgl_akhir' and kd_lokasi='$kd_lokasi' GROUP BY kd_brg");
+                $sql=mysql_query("SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, sum(total_harga) as nilai from transaksi_full where tgl_buku BETWEEN '$tgl_awal' AND '$tgl_akhir' and kd_lokasi='$kd_lokasi' AND thn_ang='$thn_ang' GROUP BY kd_brg");
                 $no=0;
                 $jumlah=0;
                 $saldo=0;
