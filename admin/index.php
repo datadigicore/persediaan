@@ -59,13 +59,13 @@
             <div class="col-lg-3 col-xs-6">
               <div class="small-box bg-red">
                 <div class="inner">
-                  <h3 id="totalruang">0</h3>
-                  <p>Data Pengguna</p>
+                  <h3 id="totalgudang">0</h3>
+                  <p>Data Gudang</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-calendar"></i>
                 </div>
-                <a href="user" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="gudang" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
           </div>
@@ -128,7 +128,7 @@
             $('#totalsektor').html(output.sektor);
             $('#totalsatker').html(output.satker);
             $('#totalunit').html(output.unit);
-            $('#totalruang').html(output.ruang);
+            $('#totalgudang').html(output.gudang);
           }
         });
         $(".knob").knob();

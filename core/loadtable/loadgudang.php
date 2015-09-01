@@ -17,7 +17,7 @@ $columns = array(
     array( 'db' => 'kodesatker', 'dt' => 2 ),
 	array( 'db' => 'kodeunit', 'dt' => 3 ),
 	array( 'db' => 'gudang', 'dt' => 4 ),
-	array( 'db' => 'namasatker', 'dt' => 5 )
+    array( 'db' => 'namasatker', 'dt' => 5 )
 );
  
 // Settingan Koneksi Datatable

@@ -11,11 +11,12 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Tambah Pengelola Baru
-            <small>Control Panel</small>
+            Tambah Pengelola
+            <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
+          </h1>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-table"></i> Tabel User UAKPB</a></li>
+            <li class="active"><a href="#"><i class="fa fa-user"></i> Tambah Pengelola</a></li>
           </ol>
         </section>
         <section class="content">
@@ -23,7 +24,7 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-danger">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Identitas User</h3>
+                  <h3 class="box-title">Identitas Pengelola</h3>
                 </div>  
                 <form action="../core/user/prosesuser" method="post" class="form-horizontal" id="adduser">
                   <div class="box-body">
@@ -62,7 +63,7 @@
                   <div class="box-footer" style="padding:0;">
                   </div>
                 <div class="box-header with-border">
-                  <h3 class="box-title">Lokasi User</h3>
+                  <h3 class="box-title">Unit Satker Pengelola</h3>
                 </div>  
                   <div class="box-body">
                     <div class="form-group">

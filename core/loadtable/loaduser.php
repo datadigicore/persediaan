@@ -24,7 +24,7 @@ require('../../config/dbconf.php');
 $config = new config();
 $sql_details = $config->sql_details();
  
-$where = 'user_level = 2' ;
+$where = 'user_name != "masteradmin" and user_name != "masteruser"' ;
 
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp.class.php' );

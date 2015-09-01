@@ -1,8 +1,8 @@
 <?php
-include('../../model/modelruang.php');
+include('../../model/modelgudang.php');
 include('../../config/purifier.php');
 include('../../config/admin.php');
-$Ruang = new modelRuang();
+$Gudang = new modelGudang();
 if (empty($_POST['manage'])) {
 	echo "Error Data Tidak Tersedia";
 }
@@ -12,48 +12,44 @@ else
 	switch ($manage)
 	{
 		case 'readunit':
-			$Ruang->bacaunit();
+			$Gudang->bacaunit();
 		break;
-		case 'addruang':
+		case 'addgudang':
 			$kdsektor = $purifier->purify(substr($_POST['kdunit'], 0, 2));
 			$kdsatker = $purifier->purify(substr($_POST['kdunit'], 3, 2));
 			$kdunit = $purifier->purify(substr($_POST['kdunit'], -2));
-			$kdruang = $purifier->purify($_POST['kdruang']);
 			$kdgudang = $purifier->purify($_POST['kdgudang']);
-			$nmruang = $purifier->purify($_POST['nmruang']);
+			$nmgudang = $purifier->purify($_POST['nmgudang']);
 			$data = array(
 				"kodesektor" => $kdsektor,
 				"kodesatker" => $kdsatker,
 				"kodeunit" => $kdunit,
-				"koderuang" => $kdruang,
 				"gudang" => $kdgudang,
-				"namaruang" => $nmruang
+				"namagudang" => $nmgudang
 			);
-			$Ruang->tambahruang($data);
+			$Gudang->tambahgudang($data);
 			print_r($data);
 		break;
-		case 'updruang':
+		case 'updgudang':
 			$id = $purifier->purify($_POST['id']);
 			$kdsektor = $purifier->purify($_POST['updkdsektor']);
 			$kdsatker = $purifier->purify($_POST['updkdsatker']);
 			$kdunit = $purifier->purify($_POST['updkdunit']);
-			$kdruang = $purifier->purify($_POST['updkdruang']);
 			$kdgudang = $purifier->purify($_POST['updkdgudang']);
-			$nmruang = $purifier->purify($_POST['updnmruang']);
+			$nmgudang = $purifier->purify($_POST['updnmgudang']);
 			$data = array(
 				"id" => $id,
 				"kodesektor" => $kdsektor,
 				"kodesatker" => $kdsatker,
 				"kodeunit" => $kdunit,
-				"koderuang" => $kdruang,
 				"kodegudang" => $kdgudang,
-			  	"namaruang" => $nmruang,
+			  	"namagudang" => $nmgudang,
 			);
-			$Ruang->ubahruang($data);
+			$Gudang->ubahgudang($data);
 		break;
-		case 'delruang':
+		case 'delgudang':
 			$id = $purifier->purify($_POST['id']);
-			$Ruang->hapusruang($id);
+			$Gudang->hapusgudang($id);
 		break;
 		default:
 			echo "Error Data Tidak Tersedia";

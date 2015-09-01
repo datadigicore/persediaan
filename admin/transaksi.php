@@ -12,7 +12,7 @@
         <section class="content-header">
           <h1>
             Daftar Jenis Transaksi
-            <small>Control Panel</small>
+            <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           <ol class="breadcrumb">
             <li><i class="fa fa-link"></i> Lain - lain</li>

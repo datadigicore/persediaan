@@ -1,6 +1,6 @@
 <?php
 include('../../utility/mysql_db.php');
-class modelRuang extends mysql_db
+class modelGudang extends mysql_db
 {
 	public function bacaunit()
 	{
@@ -45,47 +45,43 @@ class modelRuang extends mysql_db
 			}
 		}
 	}	
-	public function tambahruang($data)
+	public function tambahgudang($data)
 	{
 		$kodesektor = $data['kodesektor'];
 		$kodesatker = $data['kodesatker'];
 		$kodeunit = $data['kodeunit'];
-		$koderuang = $data['koderuang'];
 		$gudang = $data['gudang'];
-		$namaruang = $data['namaruang'];
+		$namagudang = $data['namagudang'];
 		$query = "insert into satker
         			set kodesektor='$kodesektor',
         				kodesatker='$kodesatker',
         				kodeunit='$kodeunit',
-        				kd_ruang='$koderuang',
         				gudang='$gudang',
-        				namasatker='$namaruang',
-                    	kode='$kodesatker.$kodeunit.$gudang'";
+        				namasatker='$namagudang',
+                    	kode='$kodesektor.$kodesatker.$kodeunit.$kodegudang'";
         $result = $this->query($query);
 		return $result;
 	} 	
-	public function ubahruang($data)
+	public function ubahgudang($data)
 	{
 		$id = $data['id'];
 		$kodesektor = $data['kodesektor'];
 		$kodesatker = $data['kodesatker'];
 		$kodeunit = $data['kodeunit'];
-		$koderuang = $data['koderuang'];
 		$kodegudang = $data['kodegudang'];
-		$namaruang = $data['namaruang'];
+		$namagudang = $data['namagudang'];
 		$query = "update satker
         			set kodesektor='$kodesektor',
         				kodesatker='$kodesatker',
         				kodeunit='$kodeunit',
-        				kd_ruang='$koderuang',
         				gudang='$kodegudang',
-        				namasatker='$namaruang',
+        				namasatker='$namagudang',
         				kode='$kodesektor.$kodesatker.$kodeunit.$kodegudang'
                     where satker_id='$id'";
         $result = $this->query($query);
 		return $result;
 	}	
-	public function hapusruang($data)
+	public function hapusgudang($data)
 	{
 		$query = "delete from satker where satker_id='$data'";
         $result = $this->query($query);

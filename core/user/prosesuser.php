@@ -1,6 +1,7 @@
 <?php
 include('../../model/modelUser.php');
 include('../../config/purifier.php');
+include('../../config/admin.php');
 $User = new modelUser();
 if (empty($_POST['manage'])) {
 	echo "Error Data Tidak Tersedia";
