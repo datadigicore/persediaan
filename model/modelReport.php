@@ -27,6 +27,8 @@ class modelReport extends mysql_db
         $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi'";
         $result_detail = $this->query($detail_brg);
         $brg = $this->fetch_array($result_detail);
+
+        $this->getsatker($kd_lokasi);
         
         echo ' <p align="center">BUKU PERSEDIAAN</p>
                 <br></br>
@@ -172,7 +174,7 @@ class modelReport extends mysql_db
         $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi'";
         $result_detail = $this->query($detail_brg);
         $brg = $this->fetch_array($result_detail);
-
+        $this->getsatker($kd_lokasi);
         echo ' 
                 <table style="text-align: center; width: 90%; " align="center">
                 <tr>
@@ -274,7 +276,7 @@ class modelReport extends mysql_db
         $thn_ang_lalu = intval($thn_ang)-1;
         $kd_brg = $data['kd_brg'];
         $kd_lokasi = $data['kd_lokasi'];
-
+        $this->getsatker($kd_lokasi);
         $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi'";
         $result_detail = $this->query($detail_brg);
         $brg = $this->fetch_array($result_detail);
@@ -393,6 +395,7 @@ class modelReport extends mysql_db
         $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg'";
         $result_detail = $this->query($detail_brg);
         $brg = $this->fetch_array($result_detail);
+        $this->getsatker($kd_lokasi);
         echo ' <p align="center">LAPORAN POSISI PERSEDIAAN DI NERACA</p>
                 <br></br>
                 <table style="text-align: center; width: 90%; " align="center">
@@ -437,7 +440,7 @@ class modelReport extends mysql_db
                 ob_end_clean();
                 //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
                 $mpdf->WriteHTML(utf8_encode($html));
-                $mpdf->Output($nama_dokumen.".pdf" ,'I');
+                $mpdf->Output("posisi_persediaan.pdf" ,'I');
                 exit;
     }
 
@@ -671,6 +674,55 @@ class modelReport extends mysql_db
                 $mpdf->Output($nama_dokumen.".pdf" ,'I');
                 exit;
     }
+
+    public function getsatker($kd_lokasi)
+    {
+        $detil = explode(".", $kd_lokasi);
+        $sektor = $detil[0];
+        $satker = $detil[0].'.'.$detil[1];
+        $unit = $detil[0].'.'.$detil[1].'.'.$detil[2];
+        $gudang = $detil[0].'.'.$detil[1].'.'.$detil[2].'.'.$detil[3];
+
+        $query_sektor = "SELECT NamaSatker from satker where kode='$sektor'";
+        $query_satker = "select NamaSatker from satker where kode='$satker'";
+        $query_unit = "select NamaSatker from satker where kode='$unit'";
+        $query_gudang = "select NamaSatker from satker where kode='$gudang'";
+
+        $result_sektor = $this->query($query_sektor);
+        $data_sektor = $this->fetch_array($result_sektor);
+        $nama_sektor = $data_sektor['NamaSatker'];
+
+        $result_satker = $this->query($query_satker);
+        $data_satker = $this->fetch_array($result_satker);
+        $nama_satker = $data_sektor['NamaSatker'];
+
+        $result_unit = $this->query($query_unit);
+        $data_unit = $this->fetch_array($result_unit);
+        $nama_unit = $data_unit['NamaSatker'];
+        
+        $result_gudang = $this->query($query_gudang);
+        $data_gudang = $this->fetch_array($result_gudang);
+        $nama_gudang = $data_unit['NamaSatker'];
+
+        echo '<table style="text-align: left; width: 50%; ">
+                    <tr>
+                        <td>Sektor</td>
+                        <td>'.':  '.$nama_sektor.'</td>
+                    </tr>                
+                    <tr>
+                        <td>Satker </td>
+                        <td>'.':  '.$nama_satker.'</td>
+                    </tr>                
+                    <tr>
+                        <td>Unit </td>
+                        <td>'.':  '.$nama_unit.'</td>
+                    </tr>                
+                    </table>';
+
+
+
+    }
+
 }
 
 

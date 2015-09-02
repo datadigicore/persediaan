@@ -71,6 +71,7 @@ class modelTransaksi extends mysql_db
                         set kd_lokasi='$kd_lokasi',
                         id_trans='$id_trans',
                         kd_lok_msk='$kd_lok_msk',
+                        nm_satker='$nm_satker',
                         thn_ang='$thn_ang',
                         no_dok='$no_dok',
                         tgl_dok='$tgl_dok',
@@ -103,6 +104,8 @@ class modelTransaksi extends mysql_db
     {
         $kd_lokasi = $data['kd_lokasi'];
         $kd_lok_msk = $data['kd_lokasi'];
+        $nm_satker = $data['nm_satker'];
+
         $thn_ang = $data['thn_ang'];
         $no_dok = $data['no_dok'];
         $tgl_dok = $data['tgl_dok'];
@@ -149,6 +152,7 @@ class modelTransaksi extends mysql_db
                                     set kd_lokasi='$kd_lokasi',
                                     id_masuk = '$id_trans_m',
                                     kd_lok_msk='$kd_lok_msk',
+                                    nm_satker='$nm_satker',
                                     thn_ang='$thn_ang',
                                     no_dok='$no_dok',
                                     tgl_dok='$tgl_dok',
@@ -188,6 +192,7 @@ class modelTransaksi extends mysql_db
                                 set kd_lokasi='$kd_lokasi',
                                 id_trans='$id_transk',
                                 kd_lok_msk='$kd_lok_msk',
+                                nm_satker='$nm_satker',
                                 thn_ang='$thn_ang',
                                 no_dok='$no_dok',
                                 tgl_dok='$tgl_dok',
@@ -229,6 +234,7 @@ class modelTransaksi extends mysql_db
                                 kd_lokasi='$kd_lokasi',
                                 id_masuk = '$id_trans',
                                 kd_lok_msk='$kd_lok_msk',
+                                nm_satker='$nm_satker',
                                 thn_ang='$thn_ang',
                                 no_dok='$no_dok',
                                 tgl_dok='$tgl_dok',
@@ -267,6 +273,7 @@ class modelTransaksi extends mysql_db
                                 set kd_lokasi='$kd_lokasi',
                                 id_trans='$id_transk',
                                 kd_lok_msk='$kd_lok_msk',
+                                nm_satker='$nm_satker',
                                 thn_ang='$thn_ang',
                                 no_dok='$no_dok',
                                 tgl_dok='$tgl_dok',
@@ -305,6 +312,8 @@ class modelTransaksi extends mysql_db
         $id = $data['id'];
         $kd_lokasi = $data['kd_lokasi'];
         $kd_lok_msk = $data['kd_lokasi'];
+        $nm_satker = $data['nm_satker'];
+
         $thn_ang = $data['thn_ang'];
         $no_dok = $data['no_dok'];
         $tgl_dok = $data['tgl_dok'];
@@ -363,6 +372,7 @@ class modelTransaksi extends mysql_db
     {
         $kd_lokasi = $data['kd_lokasi'];
         $kd_lok_msk = $data['kd_lokasi'];
+        $nm_satker = $data['nm_satker'];
         $thn_ang = $data['thn_ang'];
         $no_dok = $data['no_dok'];
         $tgl_dok = $data['tgl_dok'];
@@ -382,6 +392,7 @@ class modelTransaksi extends mysql_db
         $query = "Insert into transaksi_keluar
                     set kd_lokasi='$kd_lokasi',
                     kd_lok_msk='$kd_lok_msk',
+                    nm_satker='$nm_satker',
                     thn_ang='$thn_ang',
                     no_dok='$no_dok',
                     tgl_dok='$tgl_dok',
@@ -504,6 +515,7 @@ class modelTransaksi extends mysql_db
                         set 
                         kd_lokasi='$kd_lokasi',
                         kd_lok_msk='$kd_lok_msk',
+                        nm_satker='$nm_satker',
                         id_trans='$id_trans',
                         thn_ang='$thn_ang',
                         no_dok='$no_dok',

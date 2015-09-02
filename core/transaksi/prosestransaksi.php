@@ -44,6 +44,7 @@ else
 		case 'tbh_transaksi_klr':
 			$kd_lokasi = $_SESSION['kd_lok'];
 			$kd_lok_msk = $_SESSION['kd_lok'];
+			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
 			$no_dok = $purifier->purify($_POST['no_dok']);
 			$no_bukti = $purifier->purify($_POST['no_bukti']);
@@ -63,6 +64,7 @@ else
 			$data = array(
 				"kd_lokasi" => $kd_lokasi,
 				"kd_lok_msk" => $kd_lok_msk,
+				"nm_satker" => $nm_satker,
 				"thn_ang" => $thn_ang,
 				"no_dok" => $no_dok,
 				"tgl_dok" => $tgl_dok,
@@ -100,6 +102,7 @@ else
 			$hrg_sat = $purifier->purify($_POST['rph_sat']);
 			$status = 1;
 			$user_id = $_SESSION['username'];
+
 			$_SESSION['jns_trans'] = $purifier->purify($_POST['jenis_trans']);
 			$_SESSION['no_dok'] = $purifier->purify($_POST['no_dok']);
 			$_SESSION['no_bukti'] = $purifier->purify($_POST['no_bukti']);
@@ -133,6 +136,7 @@ else
 		case 'ubah_transaksi_msk':
 			$kd_lokasi = $_SESSION['kd_lok'];
 			$kd_lok_msk = $_SESSION['kd_lok'];
+			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
 			$no_dok = $purifier->purify($_POST['no_dok']);
 			$no_bukti = $purifier->purify($_POST['no_bukti']);
@@ -154,6 +158,7 @@ else
 			$data = array(
 				"kd_lokasi" => $kd_lokasi,
 				"kd_lok_msk" => $kd_lok_msk,
+				"nm_satker" => $nm_satker,
 				"thn_ang" => $thn_ang,
 				"no_dok" => $no_dok,
 				"tgl_dok" => $tgl_dok,
@@ -178,6 +183,7 @@ else
 		case 'tbh_koreksi':
 			$kd_lokasi = $_SESSION['kd_lok'];
 			$kd_lok_msk = $_SESSION['kd_lok'];
+			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
 			$no_dok = $purifier->purify($_POST['no_dok']);
 			$no_bukti = $purifier->purify($_POST['no_bukti']);
@@ -219,9 +225,13 @@ else
 		case 'hapusTransMasuk':
 			$id = $purifier->purify($_POST['id']);
 			$user_id = $_SESSION['username'];
+			$kd_lokasi = $_SESSION['kd_lok'];
+			$nm_satker = $_SESSION['nama_satker'];
 
 			$data = array(
 				"id" => $id,
+				"kd_lokasi" => $kd_lokasi,
+				"nm_satker" => $nm_satker,
 				"user_id" => $user_id
 			);
 
@@ -231,9 +241,13 @@ else
 		case 'hapusTransKeluar':
 			$id = $purifier->purify($_POST['id']);
 			$user_id = $_SESSION['username'];
+			$kd_lokasi = $_SESSION['kd_lok'];
+			$nm_satker = $_SESSION['nama_satker'];
 
 			$data = array(
 				"id" => $id,
+				"kd_lokasi" => $kd_lokasi,
+				"nm_satker" => $nm_satker,
 				"user_id" => $user_id
 			);
 
