@@ -13,8 +13,10 @@
               <ul class="treeview-menu">
                 <li id="buku_brg"><a href="buku_brg"><span>Buku Persediaan</span></a></li>
                 <li id="lap_sedia"><a href="lap_persediaan"><span>Laporan Persediaan</span></a></li>
-                <li id="mutasi_sedia"><a href="mutasi_persediaan"><span>Rincian Persediaan</span></a></li>
-                <li id="mutasi_sedia"><a href="neraca"><span>Posisi Persediaan</span></a></li>
+                <li id="rincian_persediaan"><a href="rincian_persediaan"><span>Rincian Persediaan</span></a></li>
+                <li id="neraca"><a href="neraca"><span>Posisi Persediaan</span></a></li>
+                <li id="mutasi_prsedia"><a href="mutasi_prsedia"><span>Mutasi Persediaan</span></a></li>
+                <li id="transaksi_persediaan"><a href="transaksi_persediaan"><span>Daftar Transaksi Persediaan</span></a></li>
               </ul>
             </li>           
             <!-- <li><a href="user"><i class="fa fa-user"></i> <span>Tambah Pengelola</span></a></li> -->

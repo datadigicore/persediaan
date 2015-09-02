@@ -24,14 +24,22 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Laporan Buku Persediaan </h3>
+                  <h3 class="box-title">Laporan Daftar Transaksi Persediaan </h3>
                 </div>  
                 <form action="../core/report/prosesreport" method="post" class="form-horizontal" id="addtransmsk">
-                   <input type="hidden" name="manage" value="buku_persediaan">  
+                   <input type="hidden" name="manage" value="transaksi">  
                   <div class="box-body">
-                      <label class="col-sm-2 control-label">Kode Persediaan</label>
+                      <label class="col-sm-2 control-label">Jenis Transaksi</label>
                       <div class="col-sm-4">
-                        <select name="kd_brg" id="kd_brg" class="form-control">
+                        <select name="jenis_trans" id="jenis_trans" class="form-control">
+                          <option value="">---Pilih Jenis Transaksi---</option>
+                          <option value="M01-Saldo Awal">Saldo Awal</option>
+                          <option value="M02-Pembelian">Pembelian</option>
+                          <option value="M03-Transfer Masuk">Transfer Masuk</option>
+                          <option value="K01-Habis Pakai">Habis Pakai</option>
+                          <option value="K02-Usang">Usang</option>
+                          <option value="K03-Rusak">Rusak</option>
+                          <option value="K04-Transfer Keluar">Transfer Keluar</option>
                         </select>
                       </div>
                     </div>  
@@ -130,14 +138,6 @@
           $("#akhir").hide();
       });
 
-       $.ajax({
-          type: "post",
-          url: '../core/transaksi/prosestransaksi',
-          data: {manage:'readbrgmsk'},
-          success: function (output) {     
-            $('#kd_brg').html(output);
-          }
-       });
     </script>
   </body>
 </html>
