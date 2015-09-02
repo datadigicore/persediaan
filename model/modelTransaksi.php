@@ -24,7 +24,7 @@ class modelTransaksi extends mysql_db
         $status = $data['status'];
         $user_id = $data['user_id'];
 
-        $query_perk = "SELECT kd_kbrg, nm_sskel, kd_perk, nm_perk from persediaan where kd_brg='$kd_brg' ";
+        $query_perk = "SELECT kd_kbrg, nm_sskel, kd_perk, nm_perk from persediaan where kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' ";
         $result_perk = $this->query($query_perk);
         $data_perk = $this->fetch_array($result_perk);
         $kd_sskel = $data_perk['kd_kbrg'];
@@ -61,7 +61,7 @@ class modelTransaksi extends mysql_db
         $result = $this->query($query);
         
 // Mendapatkan ID transaksi masuk dan disimpan ke variabel id_trans             
-        $query_id = "select id from transaksi_masuk WHERE kd_brg='$kd_brg' and qty='$kuantitas' and user_id='$user_id' and no_dok='$no_dok' order by ID DESC";
+        $query_id = "select id from transaksi_masuk WHERE kd_brg='$kd_brg' and qty='$kuantitas' and kd_lokasi='$kd_lokasi' and no_dok='$no_dok' order by ID DESC";
         $result_id = $this->query($query_id);
         $row_id = $this->fetch_array($result_id);
         $id_trans = $row_id['id'];
@@ -126,7 +126,7 @@ class modelTransaksi extends mysql_db
         while($kuantitas > 0)
         {   
             echo " kuantitas tersisa : ".$kuantitas; 
-            $query_id = "select id, kd_sskel, nm_sskel, kd_brg, kd_perk, nm_perk, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and user_id='$user_id' and qty_akhir>0 order by tgl_buku asc limit 1";     
+            $query_id = "select id, kd_sskel, nm_sskel, kd_brg, kd_perk, nm_perk, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and qty_akhir>0 order by tgl_buku asc limit 1";     
             $result_id = $this->query($query_id);
             $row_id = $this->fetch_array($result_id);
             $id_trans_m = $row_id['id'];   
@@ -219,7 +219,7 @@ class modelTransaksi extends mysql_db
             }
             // else
             // {
-                $query_id = "select id,kd_brg,qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and user_id='$user_id' and qty_akhir>0 order by tgl_buku asc limit 1"; 
+                $query_id = "select id,kd_brg,qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and qty_akhir>0 order by tgl_buku asc limit 1"; 
                 $result_id = $this->query($query_id);
                 $row_id = $this->fetch_array($result_id);
                 $id_trans = $row_id['id'];   
@@ -257,10 +257,10 @@ class modelTransaksi extends mysql_db
                                 user_id='$user_id'"; 
                 $result_keluar = $this->query($query_keluar);
 
-                $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $qty_akhir where user_id='$user_id' and id='$id_trans'";
+                $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $qty_akhir where kd_lokasi='$kd_lokasi' and id='$id_trans'";
                 $result_upd_masuk = $this->query($query_upd_masuk);
 
-                $query_idk = "select id from transaksi_keluar WHERE kd_brg='$kd_brg' and user_id='$user_id' order by id DESC";
+                $query_idk = "select id from transaksi_keluar WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' order by id DESC";
                 $result_idk = $this->query($query_idk);
                 $row_idk = $this->fetch_array($result_idk);
                 $id_transk = $row_idk['id'];

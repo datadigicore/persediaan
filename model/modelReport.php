@@ -134,18 +134,18 @@ class modelReport extends mysql_db
                     if($data[qty]>0) 
                     {
                         echo '<center><td  align="center">'.$data[qty].'</td></center> 
-                                <center><td  align="center">'.$data[harga_sat].'</td></center>
+                                <center><td  align="right">'.number_format($data[harga_sat]).'</td></center>
                                 <center><td  align="center">'.'0'.'</td></center>';
                     }
                     else {
                     echo '<center><td  align="center">'.'0'.'</td></center>
-                                <center><td  align="center">'.abs($data[harga_sat]).'</td></center>
+                                <center><td  align="right">'.number_format(abs($data[harga_sat])).'</td></center>
                                 <center><td  align="center">'.abs($data[qty]).'</td></center>';
                     }
                     $saldo +=$data[qty]*abs($data[harga_sat]);
                     $jumlah+=$data[qty];
                     echo '<td>'.$jumlah.'</td>
-                    <center><td align="center">'.$saldo.'</td></center>
+                    <center><td align="right">'.number_format($saldo).'</td></center>
                     </tr>';
                 }
                 echo '</table>';
@@ -153,7 +153,7 @@ class modelReport extends mysql_db
                 ob_end_clean();
                 //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
                 $mpdf->WriteHTML(utf8_encode($html));
-                $mpdf->Output($nama_dokumen.".pdf" ,'I');
+                $mpdf->Output("buku_persediaan.pdf" ,'I');
                 exit;
          }
 
@@ -226,21 +226,23 @@ class modelReport extends mysql_db
                 while($data=mysql_fetch_assoc($sql))
                 {
                     $no+=1;
-                    if($prev_perk!=$data[nm_sskel])
+                    if($prev_perk!=$data[kd_perk])
                     {
                         echo '
                         <tr >
                                 <td align="right" ><b>'.$data[kd_perk].'</b></td>
                                 <td colspan="2" align="left"><b>'.$data[nm_perk].'</b></td>
                               </tr> ';
+                        $prev_perk=$data[kd_perk];
                     }                    
 
-                    if($prev_sskel!=$data[nm_sskel])
+                    if($prev_sskel!=$data[kd_sskel])
                     {
                         echo '<tr >
                                 <td align="right" ><b>'.$data[kd_sskel].'</b></td>
                                 <td colspan="2" align="left"><b>'.$data[nm_sskel].'</b></td>
                               </tr> ';
+                        $prev_sskel=$data[kd_sskel];
                     }
 
                     echo '<tr>
@@ -312,43 +314,44 @@ class modelReport extends mysql_db
                 </tr>';
                 if($jenis=="semester")
                 {
-                $sql=mysql_query("SELECT kd_brg, nm_brg, 
+                $sql=mysql_query("SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, 
                                     sum(case WHEN thn_ang='$thn_ang_lalu' THEN qty else 0 end) as brg_thn_lalu,  
                                     sum(case WHEN thn_ang='$thn_ang_lalu' THEN total_harga else 0 end) as hrg_thn_lalu,  
                                     sum(case WHEN qty>=0 and month(tgl_buku) >= '$bln_awal' and month(tgl_buku) <= '$bln_akhir' and thn_ang='$thn_ang' THEN qty else 0 end) as masuk, 
                                     sum(case WHEN qty<0 and month(tgl_buku) >= '$bln_awal' and month(tgl_buku) <= '$bln_akhir' and thn_ang='$thn_ang' THEN qty else 0 end) as keluar,
                                     sum(case WHEN qty>=0 and month(tgl_buku) >= '$bln_awal' and month(tgl_buku) <= '$bln_akhir' and thn_ang='$thn_ang' THEN total_harga else 0 end) + sum(case WHEN qty<0 and month(tgl_buku) >= '$bln_awal' and month(tgl_buku) <= '$bln_akhir' THEN total_harga else 0 end) as nilai 
-                                    FROM transaksi
+                                    FROM transaksi_full
                                     where  kd_lokasi='$kd_lokasi' and thn_ang>='$thn_ang_lalu'
                                     GROUP by kd_brg");
                 }
                 elseif($jenis=="tanggal")
                 {
-                $sql=mysql_query("SELECT kd_brg, nm_brg, 
+                $sql=mysql_query("SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, 
                                     sum(case WHEN thn_ang='$thn_ang_lalu' THEN qty else 0 end) as brg_thn_lalu,  
                                     sum(case WHEN thn_ang='$thn_ang_lalu' THEN total_harga else 0 end) as hrg_thn_lalu,  
                                     sum(case WHEN qty>=0 and tgl_buku BETWEEN '$tgl_awal' AND '$tgl_akhir' THEN qty else 0 end) as masuk, 
                                     sum(case WHEN qty<0 and tgl_buku BETWEEN '$tgl_awal' AND '$tgl_akhir' THEN qty else 0 end) as keluar,
                                     sum(case WHEN qty>=0 and tgl_buku BETWEEN '$tgl_awal' AND '$tgl_akhir' THEN total_harga else 0 end) + sum(case WHEN qty<0 and tgl_buku BETWEEN '$tgl_awal' AND '$tgl_akhir' THEN total_harga else 0 end) as nilai 
-                                    FROM transaksi
+                                    FROM transaksi_full
                                     where  kd_lokasi='$kd_lokasi' and thn_ang>='$thn_ang_lalu'
                                     GROUP by kd_brg");
                 }
                 else
                 {
-                $sql=mysql_query("SELECT kd_brg, nm_brg, 
+                $sql=mysql_query("SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, 
                                     sum(case WHEN thn_ang='$thn_ang_lalu' THEN qty else 0 end) as brg_thn_lalu,  
                                     sum(case WHEN thn_ang='$thn_ang_lalu' THEN total_harga else 0 end) as hrg_thn_lalu,  
                                     sum(case WHEN qty>=0 and thn_ang='$thn_ang' THEN qty else 0 end) as masuk, 
                                     sum(case WHEN qty<0 and thn_ang='$thn_ang' THEN qty else 0 end) as keluar,
                                     sum(case WHEN qty>=0 and thn_ang='$thn_ang' THEN total_harga else 0 end) + sum(case WHEN qty<0 and thn_ang='$thn_ang' THEN total_harga else 0 end) as nilai 
-                                    FROM transaksi
+                                    FROM transaksi_full
                                     where  kd_lokasi='$kd_lokasi' and thn_ang>='$thn_ang_lalu'
                                     GROUP by kd_brg");
                 }
                 $no=0;
                 $total_thn_lalu=0;
                 $total_akumulasi=0;
+                $prev_sskel=null;
                 while($data=mysql_fetch_assoc($sql))
                 {
                     $no+=1;
@@ -357,6 +360,15 @@ class modelReport extends mysql_db
                     $hrg_selisih = $data[hrg_thn_lalu]+$data[nilai];
                     $total_thn_lalu+=$data[hrg_thn_lalu];
                     $total_akumulasi+=$hrg_selisih;
+                    
+                    if($prev_sskel!=$data[kd_sskel])
+                    {
+                        echo '<tr >
+                                <td align="right" ></td>
+                                <td colspan="9" align="left"><b>'.$data[nm_sskel].'</b></td>
+                              </tr> ';
+                        $prev_sskel=$data[kd_sskel];
+                    }
 
                     echo '<tr>
                              <td  align="center">'.$data[kd_brg].'</td> 
@@ -367,14 +379,14 @@ class modelReport extends mysql_db
                              <td align="center">'.abs($data[keluar]).'</td> 
                              <td align="center">'.$jumlah.'</td> 
                              <td align="center">'.$jml_selisih.'</td> 
-                             <td align="center">'.$hrg_selisih.'</td> 
+                             <td align="right">'.number_format($hrg_selisih).'</td> 
                         </tr>';
                 }
                 echo '<tr>
                             <td colspan="2">JUMLAH</td>  
                             <td colspan="2">'.$total_thn_lalu.'</td> 
                             <td colspan="3"></td>  
-                            <td colspan="2">'.$total_akumulasi.'</td>  
+                            <td colspan="2" align="right">'.number_format($total_akumulasi).'</td>  
                         </tr>';
                 echo '</table>';
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
@@ -426,13 +438,13 @@ class modelReport extends mysql_db
                     echo '<tr>
                              <td  align="center">'.$data[kd_perk].'</td> 
                              <td  align="left">'.$data[nm_perk].'</td> 
-                             <td align="center">'.$data[nilai].'</td> </tr>';
+                             <td align="center">'.number_format($data[nilai]).'</td> </tr>';
                     $total+=$data[nilai];
                 }
                     
                     echo '<tr>
                             <td colspan="2">JUMLAH</td>  
-                            <td>'.$total.'</td>  
+                            <td>'.number_format($total).'</td>  
                         </tr>
                         </table>';
 
@@ -500,16 +512,16 @@ class modelReport extends mysql_db
                              <td align="center">'.$data[thn_lalu].'</td>
                              <td align="center">'.$data[tambah].'</td> 
                              <td align="center">'.abs($data[kurang]).'</td> 
-                             <td align="center">'.$saldo_akhir.'</td> 
+                             <td align="center">'.number_format($saldo_akhir).'</td> 
                            </tr>';
                     $total+=$data[nilai];
                 }
                     
                     echo '<tr>
                             <td colspan="2">JUMLAH</td>  
-                            <td>'.$saldo_thn_lalu.'</td>
+                            <td>'.number_format($saldo_thn_lalu).'</td>
                             <td colspan="2"></td>  
-                            <td>'.$saldo_akumulasi.'</td>  
+                            <td>'.number_format($saldo_akumulasi).'</td>  
                         </tr>
                         </table>';
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..

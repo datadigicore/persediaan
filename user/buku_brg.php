@@ -26,7 +26,7 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Laporan Buku Persediaan </h3>
                 </div>  
-                <form action="../core/report/prosesreport" method="post" class="form-horizontal" id="addtransmsk">
+                <form action="../core/report/prosesreport" method="post" class="form-horizontal" id="addtransmsk" >
                    <input type="hidden" name="manage" value="buku_persediaan">  
                   <div class="box-body">
                       <label class="col-sm-2 control-label">Kode Persediaan</label>
@@ -94,21 +94,22 @@
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">
-    var table;
-      $(function () {
-          $("#bln").hide();
-          $("#awal").hide();
-          $("#akhir").hide();
-        $("li#buku_brg").addClass("active");
-        $('#tgl_awal').datepicker({
-          format: "yyyy/mm/dd"
-        });         
-        $('#tgl_akhir').datepicker({
-          format: "yyyy/mm/dd"
-        });             
-        $("li#saldo_awal").addClass("active");
 
-      });
+      var table;
+      $(function () {
+      $("#bln").hide();
+      $("#awal").hide();
+      $("#akhir").hide();
+      $("li#buku_brg").addClass("active");
+      $('#tgl_awal').datepicker({
+          format: "yyyy/mm/dd"
+      });         
+      $('#tgl_akhir').datepicker({
+            format: "yyyy/mm/dd"
+        });             
+      $("li#saldo_awal").addClass("active");
+
+        });
       
       $("input[id=tanggal]").click(function()
       {
@@ -116,18 +117,23 @@
           $("#bln").hide();
           $("#awal").show();
           $("#akhir").show();
+
       });
       $("input[id=bulan]").click(function()
       {
           $("#bln").show();
           $("#awal").hide();
           $("#akhir").hide();
+          $("#tgl_awal").val('');
+          $("#tgl_akhir").val('');
       });
       $("input[id=tahun]").click(function()
       {
           $("#bln").hide();
           $("#awal").hide();
           $("#akhir").hide();
+          $("#tgl_awal").val('');
+          $("#tgl_akhir").val('');
       });
 
        $.ajax({
@@ -138,6 +144,28 @@
             $('#kd_brg').html(output);
           }
        });
+
+    $('form').on('submit', function() {
+      var D1 = document.getElementById("tgl_awal").value;
+      var D2 = document.getElementById("tgl_akhir").value;
+
+      if(document.getElementById("kd_brg").value=="")
+      {
+        alert("Barang Persediaan Belum Dipilih");
+        return false;
+      }
+
+      if( (new Date(D1).getTime() > new Date(D2).getTime()))
+      {
+        alert("Tanggal Awal Tidak Boleh Lebih Besar dari Tanggal Akhir");
+        return false;
+      }
+      else
+      {
+        return true;
+      }
+    });
+
     </script>
   </body>
 </html>

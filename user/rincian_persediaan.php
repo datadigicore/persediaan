@@ -29,7 +29,7 @@
                 <form action="../core/report/prosesreport" method="post" class="form-horizontal" id="addtransmsk">
                    <input type="hidden" name="manage" value="rincian">  
                     <div class="box-body radio">
-                        <label class="col-sm-2 control-label"><input type="radio" name="jenis" id="tanggal" value="tanggal">S/d Tanggal</label>
+                        <label class="col-sm-2 control-label"><input type="radio" name="jenis" id="tanggal" value="tanggal">Tanggal</label>
                         <label class="col-sm-2 control-label"><input type="radio" name="jenis" id="semester" value="semester">Semester</label>
                         <label class="col-sm-2 control-label"><input type="radio" name="jenis" id="tahun" value="tahun" checked>Tahun <?php echo $_SESSION['thn_ang'];?></label>
                     </div>                   
@@ -117,7 +117,20 @@
         });
 
       });
+    $('form').on('submit', function() {
+      var D1 = document.getElementById("tgl_awal").value;
+      var D2 = document.getElementById("tgl_akhir").value;
 
+      if( (new Date(D1).getTime() > new Date(D2).getTime()))
+      {
+        alert("Tanggal Awal Tidak Boleh Lebih Besar dari Tanggal Akhir");
+        return false;
+      }
+      else
+      {
+        return true;
+      }
+    });
     </script>
   </body>
 </html>
