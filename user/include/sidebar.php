@@ -7,7 +7,7 @@
             <li id="tnda_tangan"><a href="tndtgn"><i class="fa fa-table"></i> <span>Penandatanganan</span></a></li>
             <li id="trans_masuk"><a href="trans_masuk"><i class="fa fa-table"></i> <span>Transaksi Masuk</span></a></li>
             <li id="trans_keluar"><a href="trans_keluar"><i class="fa fa-table"></i> <span>Transaksi Keluar</span></a></li>
-            <!-- <li id="opname"><a href="opname"><i class="fa fa-table"></i> <span>Opname</span></a></li> -->
+            <li id="opname"><a href="opname"><i class="fa fa-table"></i> <span>Hasil Opname Fisik</span></a></li>
             <li class="treeview">
               <a href="#"><i class="fa fa-link"></i> <span>Laporan</span> <i class="fa fa-angle-left pull-right"></i></a>            
               <ul class="treeview-menu">

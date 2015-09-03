@@ -602,7 +602,7 @@ class modelTransaksi extends mysql_db
 
     public function baca_persediaan_masuk($data)
     {
-        $query = "select kd_brg, nm_brg FROM transaksi_masuk where kd_lokasi = '$data' GROUP BY kd_brg ORDER BY nm_brg ASC ";
+        $query = "select kd_brg, nm_brg FROM transaksi_masuk where kd_lokasi = '$data' and status_hapus=0 GROUP BY kd_brg ORDER BY nm_brg ASC ";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         while ($row = $this->fetch_array($result))
@@ -675,7 +675,9 @@ class modelTransaksi extends mysql_db
         
     }
 
-    
+   
+   
+          
 
 }
 ?>

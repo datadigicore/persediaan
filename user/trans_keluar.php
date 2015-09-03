@@ -9,6 +9,7 @@
     <div class="wrapper">
       <?php include("include/header.php"); ?>
       <?php include("include/sidebar.php"); ?>
+
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
@@ -44,6 +45,7 @@
                       <div class="col-sm-4">
                         <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="Masukkan No. Dokumen">
                         <input type="hidden" name="manage" value="tbh_transaksi_klr">  
+                        <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>  
                       </div>
                     </div>
 
@@ -56,13 +58,13 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Dokumen</label>
                       <div class="col-sm-4">
-                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen">
+                        <input type="text" name="tgl_dok" max="10" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" readonly>
                       </div>
                     </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Buku</label>
                       <div class="col-sm-4">
-                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku">
+                        <input type="text" name="tgl_buku" max="10" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" readonly>
                       </div> 
                     </div>                   
                   <div class="form-group">
@@ -140,6 +142,9 @@
     var table;
       $(function () {
         $("li#trans_keluar").addClass("active");
+        $('#tgl_dok').css('background-color' , '#FFFFFF');
+        $('#tgl_buku').css('background-color' , '#FFFFFF');
+        $('#rph_sat').css('background-color' , '#FFFFFF');
         $('#tgl_dok').datepicker({
           format: "yyyy/mm/dd"
         });         
@@ -249,6 +254,32 @@
         }
       });
       $('#addtransmsk').submit(function(e){
+        var tahun_ang = document.getElementById("tahun_ang").value;
+        var sisa = document.getElementById("rph_sat").value;
+        var jumlah_input = document.getElementById("jml_msk").value;
+        var tgl_dok = document.getElementById("tgl_dok").value;
+        var tgl_buku = document.getElementById("tgl_buku").value;
+
+      if(tgl_dok.substring(0,4)!=tahun_ang){
+        alert("Tahun Dokumen Tidak Sesuai Dengan Tahun Anggaran");
+        return false;
+      }
+
+      if(tgl_buku.substring(0,4)!=tahun_ang){
+        alert("Tahun BUkti Tidak Sesuai Dengan Tahun Anggaran");
+        return false;
+      }
+      
+      if(parseInt(jumlah_input)>parseInt(sisa))
+      {
+        alert("Jumlah Keluar tidak boleh melebihi saldo barang "+jumlah_input+" "+sisa);
+        
+        return false;
+      }
+
+
+
+
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false

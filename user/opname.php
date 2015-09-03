@@ -12,10 +12,10 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Persediaan Keluar
+            Hasil Opname Fisik
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-table"></i>Daftar Transaksi Keluar</a></li>
+            <li class="active"><a href="#"><i class="fa fa-table"></i>Daftar  Hasil Opname Fisik</a></li>
           </ol>
         </section>
         <section class="content">
@@ -23,9 +23,9 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tambah Transaksi Keluar </h3>
+                  <h3 class="box-title">Tambah  Hasil Opname Fisik </h3>
                 </div>  
-                <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="addtransmsk">
+                <form action="../core/opsik/prosesopsik" method="post" class="form-horizontal" id="addtransms">
                   <div class="box-body">
 
                     <div class="form-group">

@@ -149,6 +149,7 @@ class modelReport extends mysql_db
                     </tr>';
                 }
                 echo '</table>';
+
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
                 ob_end_clean();
                 //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
@@ -256,7 +257,9 @@ class modelReport extends mysql_db
                         <td colspan="2">JUMLAH</td>
                         <td>'.number_format($saldo).'</td>
                       </tr>';
+                
                 echo '</table>';
+                $this->hitung_brg_rusak($kd_lokasi);
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
                 ob_end_clean();
                 //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
@@ -373,8 +376,8 @@ class modelReport extends mysql_db
                     echo '<tr>
                              <td  align="center">'.$data[kd_brg].'</td> 
                              <td  align="left">'.$data[nm_brg].'</td> 
-                             <td  align="left">'.$data[brg_thn_lalu].'</td> 
-                             <td  align="left">'.$data[hrg_thn_lalu].'</td> 
+                             <td  align="center">'.$data[brg_thn_lalu].'</td> 
+                             <td  align="right">'.number_format($data[hrg_thn_lalu]).'</td> 
                              <td align="center">'.$data[masuk].'</td> 
                              <td align="center">'.abs($data[keluar]).'</td> 
                              <td align="center">'.$jumlah.'</td> 
@@ -384,11 +387,12 @@ class modelReport extends mysql_db
                 }
                 echo '<tr>
                             <td colspan="2">JUMLAH</td>  
-                            <td colspan="2">'.$total_thn_lalu.'</td> 
+                            <td colspan="2" align="right">'.number_format($total_thn_lalu).'</td> 
                             <td colspan="3"></td>  
                             <td colspan="2" align="right">'.number_format($total_akumulasi).'</td>  
                         </tr>';
                 echo '</table>';
+                $this->hitung_brg_rusak($kd_lokasi);
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
                 ob_end_clean();
                 //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
@@ -731,6 +735,27 @@ class modelReport extends mysql_db
                     </tr>                
                     </table>';
 
+
+
+    }
+
+    public function hitung_brg_rusak($kd_lokasi)
+    {
+        $query_rusak = "SELECT sum(total_harga) as saldo_rusak from transaksi_keluar where kd_lokasi='$kd_lokasi' and jns_trans='K03'";
+        $result_rusak = $this->query($query_rusak);
+        $data_rusak = $this->fetch_array($result_rusak);
+        $saldo_rusak = 0 +$data_rusak['saldo_rusak'];        
+
+        $query_usang = "SELECT sum(total_harga) as saldo_usang from transaksi_keluar where kd_lokasi='$kd_lokasi' and jns_trans='K02'";
+        $result_usang = $this->query($query_usang);
+        $data_usang = $this->fetch_array($result_usang);
+        $saldo_usang = 0+$data_usang['saldo_usang'];
+        echo '
+        <tr><b>Keterangan :</b></tr><br>        
+                    <tr>1. Persediaan Senilai Rp. '.abs($saldo_rusak).',- dalam kondisi rusak</tr> <br>               
+                    <tr>2. Persediaan Senilai Rp. '.$saldo_usang.',- dalam kondisi usang</tr>                
+             
+                    ';
 
 
     }

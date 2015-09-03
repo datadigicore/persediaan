@@ -42,7 +42,8 @@
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>
                       <div class="col-sm-8">
                         <input type="text" name="no_dok" class="form-control"  id="no_dok" placeholder="Masukkan No. Dokumen">
-                        <input type="hidden" name="manage" value="tbh_transaksi_msk">  
+                        <input type="hidden" name="manage" value="tbh_transaksi_msk">
+                        <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>    
                       </div>
                     </div>
 
@@ -55,13 +56,13 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Dokumen</label>
                       <div class="col-sm-8">
-                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen">
+                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" readonly>
                       </div>
                     </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Buku</label>
                       <div class="col-sm-8">
-                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku">
+                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" readonly>
                       </div> 
                     </div>                   
                   <div class="form-group">
@@ -134,6 +135,8 @@
     <script type="text/javascript">
     var table;
       $(function () {
+        $('#tgl_dok').css('background-color' , '#FFFFFF');
+        $('#tgl_buku').css('background-color' , '#FFFFFF');
         $("li#trans_masuk").addClass("active");
         $('#tgl_dok').datepicker({
           format: "yyyy/mm/dd"
@@ -247,6 +250,37 @@
 
 
       $('#addtransmsk').submit(function(e){
+        var jns_trans = document.getElementById("jenis_trans").value;
+        var kd_brg = document.getElementById("kd_brg").value;
+        var tahun_ang = document.getElementById("tahun_ang").value;
+        var sisa = document.getElementById("rph_sat").value;
+        var jumlah_input = document.getElementById("jml_msk").value;
+        var tgl_dok = document.getElementById("tgl_dok").value;
+        var tgl_buku = document.getElementById("tgl_buku").value;
+        
+        if(jns_trans=="")
+         {
+          alert("Jenis Transaksi Belum Dipilih")
+          return false;
+         }
+        if(tgl_dok.substring(0,4)!=tahun_ang){
+          alert("Tahun Dokumen Tidak Sesuai Dengan Tahun Anggaran");
+          return false;
+        }
+
+        if(tgl_buku.substring(0,4)!=tahun_ang){
+          alert("Tahun BUkti Tidak Sesuai Dengan Tahun Anggaran");
+          return false;
+        }
+        
+
+
+         if(kd_brg=="")
+         {
+          alert("Kode Barang Belum Dipilih")
+          return false;
+         } 
+
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
