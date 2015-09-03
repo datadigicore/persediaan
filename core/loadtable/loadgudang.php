@@ -29,8 +29,7 @@ $sql_details = $config->sql_details();
 $where = '	kodesektor is not null and
 			kodesatker is not null and
 			kodeunit is not null and
-			gudang is not null and
-			kd_ruang is null' ;
+			gudang is not null' ;
 
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp.class.php' );

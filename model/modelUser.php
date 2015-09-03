@@ -42,8 +42,7 @@ class modelUser extends mysql_db
                                         where kodesektor ='$row3[kodesektor]' and
                                               kodesatker ='$row3[kodesatker]' and
                                               kodeunit ='$row3[kodeunit]' and
-                                              gudang is not null and
-                                              kd_ruang is null
+                                              gudang is not null
                                         order by kodesektor asc";
                                 $result4 = $this->query($query4);
                                 while ($row4 = $this->fetch_array($result4))
