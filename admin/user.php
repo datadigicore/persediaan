@@ -276,7 +276,7 @@
               '<input type="hidden" name="id" value="'+d[0]+'">'+
               '<td width="16.2%"><input style="width:90%" id="username'+d[0]+'" name="updusername" class="form-control" type="text" placeholder="Username"></td>'+
               '<td width="18.2%"><input style="width:90%" id="email'+d[0]+'" name="updemail" class="form-control" type="text" placeholder="Email"></td>'+
-              '<td width="17.7%"><input style="width:90%" id="password" name="updpassword" class="form-control" type="password" placeholder="Password"></td>'+
+              '<td width="17.7%"><input type="checkbox" id="checkpass" style="margin-top:11px;margin-left:-5px;position:absolute;"><input style="width:90%" id="updpassword" name="updpassword" class="form-control" type="password" placeholder="Password" disabled></td>'+
               '<td width="14.2%"><input style="width:90%" id="kdsatker'+d[0]+'" name="updkdsatker" class="form-control" type="text" placeholder="Kode Satker"></td>'+
               '<td><input style="width:97%" id="nmsatker'+d[0]+'" name="updnmsatker" class="form-control" type="text" placeholder="Uraian Satker"></td>'+
               '<td style="vertical-align:middle; width:15%;">'+
@@ -313,10 +313,19 @@
             $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
             $("#success-alert").alert('close');
             });
-            // setTimeout("location.href = redirectURL;",redirectTime); 
+            setTimeout("location.href = redirectURL;",redirectTime); 
           }
         });
         return false;
+      });
+      $(document).on("change", "#checkpass", function(){
+        var passwordcheck = document.getElementById("#updpassword");
+        if(this.checked){
+          document.getElementById("updpassword").removeAttribute("disabled");
+        }
+        else {
+          document.getElementById("updpassword").setAttribute("disabled","disabled");
+        }
       });
       $('#adduser').submit(function(e){
         $('#myModal').modal({
