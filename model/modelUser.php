@@ -138,15 +138,36 @@ class modelUser extends mysql_db
     public function ubahuser($data)
     {
 
+        $id = $data['id'];
+        $user_name = $data['user_name'];
+        $user_email = $data['user_email'];
+        $kd_lokasi = $data['kd_lokasi'];
+        $nm_lokasi = $data['nm_lokasi'];
+        $query = "update user
+                    set user_name='$user_name',
+                    user_email='$user_email',
+                    kd_lokasi='$kd_lokasi',
+                    nm_satker='$nm_lokasi'
+                    where user_id='$id'";
+        $result = $this->query($query);
+        return $result;
+    }
+
+    public function ubahuserpass($data)
+    {
+        $id = $data['id'];
         $user_name = $data['user_name'];
         $user_pass = $data['user_pass'];
         $user_email = $data['user_email'];
-        $user_level = $data['user_level'];
+        $kd_lokasi = $data['kd_lokasi'];
+        $nm_lokasi = $data['nm_lokasi'];
         $query = "update user
-                    set user_id='$user_id',
-                    user_name='$user_name',
+                    set user_name='$user_name',
                     user_pass='$user_pass',
-                    user_level='$user_level'";
+                    user_email='$user_email',
+                    kd_lokasi='$kd_lokasi',
+                    nm_satker='$nm_lokasi'
+                    where user_id='$id'";
         $result = $this->query($query);
         return $result;
     }

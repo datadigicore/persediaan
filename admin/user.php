@@ -176,12 +176,10 @@
         var tr = $(this).closest('tr');
         var row = table.row( tr );
         id_row = row.data()[0];
-        kdsektor_row = row.data()[1];
-        kdsatker_row  = row.data()[2];
-        kdunit_row  = row.data()[3];
-        kdgudang_row  = row.data()[4];
-        kdruang_row  = row.data()[5];
-        nmruang_row  = row.data()[6];
+        username_row = row.data()[1];
+        email_row  = row.data()[2];
+        kdsatker_row  = row.data()[3];
+        nmsatker_row  = row.data()[4];
         if ( row.child.isShown() ) {
           $('div.slider', row.child()).slideUp( function () {
             row.child.hide();
@@ -192,12 +190,10 @@
           row.child( format(row.data())).show();
           tr.addClass('shown');
           $('div.slider', row.child()).slideDown();
-          $("#kdsektor"+id_row+"").val(kdsektor_row);
+          $("#username"+id_row+"").val(username_row);
+          $("#email"+id_row+"").val(email_row);
           $("#kdsatker"+id_row+"").val(kdsatker_row);
-          $("#kdunit"+id_row+"").val(kdunit_row);
-          $("#kdgudang"+id_row+"").val(kdgudang_row);
-          $("#kdruang"+id_row+"").val(kdruang_row);
-          $("#nmruang"+id_row+"").val(nmruang_row);
+          $("#nmsatker"+id_row+"").val(nmsatker_row);
         }
       });
       $(document).on('click', '#btnhps', function () {
@@ -270,6 +266,57 @@
             }
           });
         }
+      });
+      function format ( d ) {
+        return '<div class="slider">'+
+        '<form action="../core/user/prosesuser" method="post" class="form-horizontal" id="upduser">'+
+        '<table width="100%">'+
+           '<tr>'+
+              '<input type="hidden" name="manage" value="upduser">'+
+              '<input type="hidden" name="id" value="'+d[0]+'">'+
+              '<td width="16.2%"><input style="width:90%" id="username'+d[0]+'" name="updusername" class="form-control" type="text" placeholder="Username"></td>'+
+              '<td width="18.2%"><input style="width:90%" id="email'+d[0]+'" name="updemail" class="form-control" type="text" placeholder="Email"></td>'+
+              '<td width="17.7%"><input style="width:90%" id="password" name="updpassword" class="form-control" type="password" placeholder="Password"></td>'+
+              '<td width="14.2%"><input style="width:90%" id="kdsatker'+d[0]+'" name="updkdsatker" class="form-control" type="text" placeholder="Kode Satker"></td>'+
+              '<td><input style="width:97%" id="nmsatker'+d[0]+'" name="updnmsatker" class="form-control" type="text" placeholder="Uraian Satker"></td>'+
+              '<td style="vertical-align:middle; width:15%;">'+
+                '<div class="box-tools">'+
+                  '<button id="btnrst" class="btn btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
+                  '<button id="btnupd" class="btn btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
+                '</div>'
+              '</td>'+
+           '</tr>'+
+        '</table>'+
+        '</form></div>';
+      }
+      $(document).on('submit', '#upduser', function (e) {
+        $('#myModal').modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+        $('#myModal').modal('show');
+        e.preventDefault();
+        redirectTime = "2600";
+        redirectURL = "user";
+        var formURL = $(this).attr("action");
+        var addData = new FormData(this);
+        $.ajax({
+          type: "post",
+          data: addData,
+          url : formURL,
+          contentType: false,
+          cache: false,  
+          processData: false,
+          success: function(data)
+          {
+            $("#success-alert").alert();
+            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+            $("#success-alert").alert('close');
+            });
+            // setTimeout("location.href = redirectURL;",redirectTime); 
+          }
+        });
+        return false;
       });
       $('#adduser').submit(function(e){
         $('#myModal').modal({
