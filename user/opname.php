@@ -136,7 +136,7 @@
         table = $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
-          "ajax": "../opnamecore/loadtable/loadopname",
+          "ajax": "../core/loadtable/loadopsik",
           "columnDefs":
           [
             {"targets": 0 },
@@ -145,6 +145,8 @@
             {"targets": 3 },
             {"targets": 4 },
             {"targets": 5 },
+            {"targets": 6 },
+            {"targets": 7 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
