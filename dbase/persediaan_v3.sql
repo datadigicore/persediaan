@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.3
+-- version 4.4.12
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Aug 30, 2015 at 03:27 
--- Server version: 5.6.24
--- PHP Version: 5.5.24
+-- Host: 127.0.0.1
+-- Generation Time: 03 Sep 2015 pada 11.50
+-- Versi Server: 5.6.25
+-- PHP Version: 5.6.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `persediaan_v3`
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bid`
+-- Struktur dari tabel `bid`
 --
 
 CREATE TABLE IF NOT EXISTS `bid` (
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `bid` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `bid`
+-- Dumping data untuk tabel `bid`
 --
 
 INSERT INTO `bid` (`id`, `kd_gol`, `kd_bid`, `nm_bid`, `kd_bidbrg`) VALUES
@@ -46,7 +46,7 @@ INSERT INTO `bid` (`id`, `kd_gol`, `kd_bid`, `nm_bid`, `kd_bidbrg`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `gol`
+-- Struktur dari tabel `gol`
 --
 
 CREATE TABLE IF NOT EXISTS `gol` (
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `gol` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `gol`
+-- Dumping data untuk tabel `gol`
 --
 
 INSERT INTO `gol` (`kd_gol`, `nm_gol`) VALUES
@@ -64,7 +64,7 @@ INSERT INTO `gol` (`kd_gol`, `nm_gol`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jns_transaksi`
+-- Struktur dari tabel `jns_transaksi`
 --
 
 CREATE TABLE IF NOT EXISTS `jns_transaksi` (
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `jns_transaksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `jns_transaksi`
+-- Dumping data untuk tabel `jns_transaksi`
 --
 
 INSERT INTO `jns_transaksi` (`kd_trans`, `jns_trans`) VALUES
@@ -99,7 +99,7 @@ INSERT INTO `jns_transaksi` (`kd_trans`, `jns_trans`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kanwil`
+-- Struktur dari tabel `kanwil`
 --
 
 CREATE TABLE IF NOT EXISTS `kanwil` (
@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `kanwil` (
 ) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `kanwil`
+-- Dumping data untuk tabel `kanwil`
 --
 
 INSERT INTO `kanwil` (`id`, `kd_uapb`, `kd_uappbe1`, `kd_kanwil`, `nm_kanwil`) VALUES
@@ -214,7 +214,7 @@ INSERT INTO `kanwil` (`id`, `kd_uapb`, `kd_uappbe1`, `kd_kanwil`, `nm_kanwil`) V
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kel`
+-- Struktur dari tabel `kel`
 --
 
 CREATE TABLE IF NOT EXISTS `kel` (
@@ -227,7 +227,7 @@ CREATE TABLE IF NOT EXISTS `kel` (
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `kel`
+-- Dumping data untuk tabel `kel`
 --
 
 INSERT INTO `kel` (`id`, `kd_gol`, `kd_bid`, `kd_kel`, `nm_kel`, `kd_kelbrg`) VALUES
@@ -243,24 +243,28 @@ INSERT INTO `kel` (`id`, `kd_gol`, `kd_bid`, `kd_kel`, `nm_kel`, `kd_kelbrg`) VA
 -- --------------------------------------------------------
 
 --
--- Table structure for table `opname`
+-- Struktur dari tabel `opname`
 --
 
 CREATE TABLE IF NOT EXISTS `opname` (
   `id` int(11) NOT NULL,
+  `id_masuk` int(11) DEFAULT NULL,
   `kd_lokasi` varchar(20) NOT NULL,
   `kd_lok_msk` varchar(20) DEFAULT NULL,
   `nm_satker` varchar(40) DEFAULT NULL,
-  `thn_ang` varchar(4) NOT NULL,
+  `thn_ang` year(4) DEFAULT NULL,
   `no_dok` varchar(20) NOT NULL,
   `tgl_dok` date NOT NULL,
   `tgl_buku` date NOT NULL,
   `no_bukti` varchar(20) NOT NULL,
+  `kd_sskel` varchar(15) DEFAULT NULL,
+  `nm_sskel` varchar(30) DEFAULT NULL,
   `kd_brg` varchar(30) NOT NULL,
   `nm_brg` varchar(30) DEFAULT NULL,
+  `kd_perk` varchar(7) DEFAULT NULL,
+  `nm_perk` varchar(20) DEFAULT NULL,
   `satuan` varchar(10) DEFAULT NULL,
   `qty` mediumint(9) NOT NULL,
-  `qty_akhir` mediumint(9) DEFAULT NULL,
   `harga_sat` int(11) NOT NULL,
   `total_harga` int(11) DEFAULT NULL,
   `jns_trans` varchar(5) NOT NULL,
@@ -268,7 +272,6 @@ CREATE TABLE IF NOT EXISTS `opname` (
   `status` tinyint(1) DEFAULT NULL,
   `status_edit` tinyint(1) NOT NULL DEFAULT '0',
   `status_hapus` tinyint(1) NOT NULL DEFAULT '0',
-  `status_ambil` int(11) NOT NULL DEFAULT '0',
   `tgl_update` date DEFAULT NULL,
   `user_id` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -276,7 +279,7 @@ CREATE TABLE IF NOT EXISTS `opname` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `perk`
+-- Struktur dari tabel `perk`
 --
 
 CREATE TABLE IF NOT EXISTS `perk` (
@@ -285,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `perk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `perk`
+-- Dumping data untuk tabel `perk`
 --
 
 INSERT INTO `perk` (`kd_perk`, `nm_perk`) VALUES
@@ -368,7 +371,7 @@ INSERT INTO `perk` (`kd_perk`, `nm_perk`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `persediaan`
+-- Struktur dari tabel `persediaan`
 --
 
 CREATE TABLE IF NOT EXISTS `persediaan` (
@@ -384,10 +387,10 @@ CREATE TABLE IF NOT EXISTS `persediaan` (
   `kd_lokasi` varchar(30) DEFAULT NULL,
   `nm_satker` varchar(40) DEFAULT NULL,
   `user_id` varchar(12) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `persediaan`
+-- Dumping data untuk tabel `persediaan`
 --
 
 INSERT INTO `persediaan` (`id`, `kd_kbrg`, `nm_sskel`, `kd_jbrg`, `kd_brg`, `nm_brg`, `satuan`, `kd_perk`, `nm_perk`, `kd_lokasi`, `nm_satker`, `user_id`) VALUES
@@ -406,14 +409,17 @@ INSERT INTO `persediaan` (`id`, `kd_kbrg`, `nm_sskel`, `kd_jbrg`, `kd_brg`, `nm_
 (13, '1010306001', NULL, '004', '1010306001004', 'Kabel Listrik', 'meter', 'sementara', NULL, '018010100010111', NULL, 'fikri'),
 (14, '1010401001', NULL, '004', '1010401001004', 'Obat Merah Sedang', 'Botol', 'sementara', NULL, '018010100010111', NULL, 'fikri'),
 (15, '1010301001', NULL, '003', '1010301001003', 'Ballpoint', 'Buah', 'sementara', NULL, '018010100010111', NULL, 'fikri'),
-(16, '1010304006', NULL, '1371', '101030400601', 'SEAGATE', 'Buah', 'sementara', NULL, '0630101000101UB', NULL, 'pengguna'),
-(17, '1010101001', 'Aspal', '88', '101010100188', 'Aspal Cair', 'Drum', '115131', 'Bahan Baku', '0630101000101UB', 'URUSAN BERSAMA BPOM DKI', 'pengguna'),
-(20, '1010301010', 'Alat Perekat        ', '23', '101030101023', 'Lem Aibon', 'Kaleng', '115111', 'Barang Konsumsi     ', '0630101000101UB', 'URUSAN BERSAMA BPOM DKI', 'pengguna');
+(16, '1010304006', NULL, '1371', '101030400601', 'SEAGATE', 'Buah', 'sementara', NULL, '21.01.01.01', NULL, 'pengguna'),
+(17, '1010101001', 'Aspal', '88', '101010100188', 'Aspal Cair', 'Drum', '115131', 'Bahan Baku', '21.01.01.01', 'URUSAN BERSAMA BPOM DKI', 'pengguna'),
+(20, '1010301010', 'Alat Perekat        ', '23', '101030101023', 'Lem Aibon', 'Kaleng', '115111', 'Barang Konsumsi     ', '21.01.01.01', 'URUSAN BERSAMA BPOM DKI', 'pengguna'),
+(21, '1010301013', 'Isi Staples         ', '011', '1010301013011', 'Stapler Content', 'Pack', '115111', 'Barang Konsumsi     ', '010101', 'Sekretariat Dewan/DPRD', 'fikri.baru'),
+(22, '1010101001', 'Aspal               ', '231', '1010101001231', 'ASPAL TIGA RODA', 'Drum', '115131', 'Bahan Baku          ', '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 'pengguna'),
+(23, '1010301013', 'Isi Staples         ', '123', '1010301013123', 'ISI STAPLES', 'Box', '115111', 'Barang Konsumsi     ', '01.01.01.01', 'Sekretariat Dewan/DPRD', 'koreksi');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `satker`
+-- Struktur dari tabel `satker`
 --
 
 CREATE TABLE IF NOT EXISTS `satker` (
@@ -439,10 +445,10 @@ CREATE TABLE IF NOT EXISTS `satker` (
   `Tmp_KodeSatker` varchar(50) DEFAULT NULL,
   `KotaSatker` varchar(100) DEFAULT NULL,
   `BuatKIB` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9916 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9898 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `satker`
+-- Dumping data untuk tabel `satker`
 --
 
 INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUnit`, `Gudang`, `Kd_Ruang`, `kode`, `NamaSatker`, `AlamatSatker`, `NGO`, `RAND_ID`, `IndukSatker`, `NGO1_ID`, `NGO2_ID`, `NGO3_ID`, `NGO4_ID`, `CNOTE1`, `CNOTE2`, `Tmp_KodeSatker`, `KotaSatker`, `BuatKIB`) VALUES
@@ -10184,7 +10190,7 @@ INSERT INTO `satker` (`Satker_ID`, `Tahun`, `KodeSektor`, `KodeSatker`, `KodeUni
 -- --------------------------------------------------------
 
 --
--- Table structure for table `skel`
+-- Struktur dari tabel `skel`
 --
 
 CREATE TABLE IF NOT EXISTS `skel` (
@@ -10198,7 +10204,7 @@ CREATE TABLE IF NOT EXISTS `skel` (
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `skel`
+-- Dumping data untuk tabel `skel`
 --
 
 INSERT INTO `skel` (`id`, `kd_gol`, `kd_bid`, `kd_kel`, `kd_skel`, `nm_skel`, `kd_skelbrg`) VALUES
@@ -10215,7 +10221,7 @@ INSERT INTO `skel` (`id`, `kd_gol`, `kd_bid`, `kd_kel`, `kd_skel`, `nm_skel`, `k
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sskel`
+-- Struktur dari tabel `sskel`
 --
 
 CREATE TABLE IF NOT EXISTS `sskel` (
@@ -10231,7 +10237,7 @@ CREATE TABLE IF NOT EXISTS `sskel` (
 ) ENGINE=InnoDB AUTO_INCREMENT=345 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `sskel`
+-- Dumping data untuk tabel `sskel`
 --
 
 INSERT INTO `sskel` (`id`, `kd_gol`, `kd_bid`, `kd_kel`, `kd_skel`, `kd_sskel`, `nm_sskel`, `kd_brg`, `kd_perk`) VALUES
@@ -10584,7 +10590,7 @@ CREATE TABLE IF NOT EXISTS `transaksi` (
 `id` int(11)
 ,`kd_lokasi` varchar(20)
 ,`nm_satker` varchar(40)
-,`thn_ang` varchar(4)
+,`thn_ang` year(4)
 ,`no_dok` varchar(20)
 ,`tgl_dok` date
 ,`tgl_buku` date
@@ -10607,7 +10613,7 @@ CREATE TABLE IF NOT EXISTS `transaksi` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaksi_full`
+-- Struktur dari tabel `transaksi_full`
 --
 
 CREATE TABLE IF NOT EXISTS `transaksi_full` (
@@ -10616,7 +10622,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_full` (
   `kd_lokasi` varchar(20) NOT NULL,
   `kd_lok_msk` varchar(20) DEFAULT NULL,
   `nm_satker` varchar(40) NOT NULL,
-  `thn_ang` varchar(4) NOT NULL,
+  `thn_ang` year(4) DEFAULT NULL,
   `no_dok` varchar(20) NOT NULL,
   `tgl_dok` date NOT NULL,
   `tgl_buku` date NOT NULL,
@@ -10636,29 +10642,32 @@ CREATE TABLE IF NOT EXISTS `transaksi_full` (
   `status` tinyint(1) DEFAULT NULL,
   `tgl_update` date DEFAULT NULL,
   `user_id` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=601 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=659 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `transaksi_full`
+-- Dumping data untuk tabel `transaksi_full`
 --
 
 INSERT INTO `transaksi_full` (`id_history`, `id_trans`, `kd_lokasi`, `kd_lok_msk`, `nm_satker`, `thn_ang`, `no_dok`, `tgl_dok`, `tgl_buku`, `no_bukti`, `kd_brg`, `kd_sskel`, `nm_sskel`, `nm_brg`, `kd_perk`, `nm_perk`, `satuan`, `qty`, `harga_sat`, `total_harga`, `jns_trans`, `keterangan`, `status`, `tgl_update`, `user_id`) VALUES
-(588, 3, '0630101000101UB', '0630101000101UB', '', '2015', 'C-2015/01/01', '2015-01-01', '2015-01-01', 'C-2015/01/01', '101030101023', '1010301010', 'Alat Perekat        ', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', 25, 10000, 250000, 'M01', '', 1, '2015-08-27', 'pengguna'),
-(589, 4, '0630101000101UB', '0630101000101UB', '', '2015', 'C-2015/03/01', '2015-03-01', '2015-03-01', 'C-2015/03/01', '101030101023', '1010301010', 'Alat Perekat        ', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', 10, 4500, 45000, 'M02', 'Pembelian', 1, '2015-08-27', 'pengguna'),
-(590, 5, '0630101000101UB', '0630101000101UB', '', '2015', 'C-2015/05/01', '2015-05-01', '2015-05-01', 'C-2015/05/01', '101030101023', '1010301010', 'Alat Perekat        ', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', 20, 12000, 240000, 'M03', 'Distribusi Masuk', 1, '2015-08-27', 'pengguna'),
-(593, 3, '0630101000101UB', '0630101000101UB', '', '2015', 'C-2015/06/01', '2015-06-01', '2015-06-01', 'C-2015/06/01', '101030101023', '1010301010', 'Alat Perekat        ', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', -25, -10000, -250000, 'K01', 'Habis Pakai', 1, '2015-08-27', 'pengguna'),
-(594, 4, '0630101000101UB', '0630101000101UB', '', '2015', 'C-2015/06/01', '2015-06-01', '2015-06-01', 'C-2015/06/01', '101030101023', '1010301010', 'Alat Perekat        ', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', -1, -4500, -4500, 'K01', 'Habis Pakai', 1, '2015-08-27', 'pengguna'),
-(595, 8, '0630101000101UB', '0630101000101UB', '', '2015', 'S-2015/01/01', '2015-01-01', '2015-01-01', 'S-2015/01/01', '101010100188', '1010101001', 'Aspal', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', 20, 25000, 500000, 'M01', 'Saldo Awal', 1, '2015-08-27', 'pengguna'),
-(596, 9, '0630101000101UB', '0630101000101UB', '', '2015', 'P-2015/02/01', '2015-02-01', '2015-02-01', 'P-2015/02/01', '101010100188', '1010101001', 'Aspal', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', 100, 30000, 3000000, 'M02', 'Pembelian', 1, '2015-08-27', 'pengguna'),
-(597, 5, '0630101000101UB', '0630101000101UB', '', '2015', 'HP-2015/06/01', '2015-06-01', '2015-06-01', 'HP-2015/06/01', '101010100188', '1010101001', 'Aspal', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', -20, -25000, -500000, 'K01', 'Habis Pakai', 1, '2015-08-27', 'pengguna'),
-(598, 6, '0630101000101UB', '0630101000101UB', '', '2015', 'HP-2015/06/01', '2015-06-01', '2015-06-01', 'HP-2015/06/01', '101010100188', '1010101001', 'Aspal', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', -10, -30000, -300000, 'K01', 'Habis Pakai', 1, '2015-08-27', 'pengguna'),
-(599, 8, '0630101000101UB', '0630101000101UB', '', '2014', 'S-2014/01/01', '2014-01-01', '2014-01-01', 'S-2015/01/01', '101010100188', '1010101001', 'Aspal', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', 20, 25000, 500000, 'M01', 'Saldo Awal', 1, '2015-08-27', 'pengguna'),
-(600, 7, '0630101000101UB', '0630101000101UB', '', '2015', '0001-2015', '2015-07-01', '2015-07-01', '0001-2015', '101010100188', '1010101001', 'Aspal', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', -10, -30000, -300000, 'K01', 'Habis Pakai', 1, '2015-08-28', 'pengguna');
+(589, 4, '21.01.01.01', '0630101000101UB', '', 2015, 'C-2015/03/01', '2015-03-01', '2015-03-01', 'C-2015/03/01', '101030101023', '1010301010', 'Alat Perekat        ', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', 10, 4500, 45000, 'M02', 'Pembelian', 1, '2015-08-27', 'pengguna'),
+(590, 5, '21.01.01.01', '0630101000101UB', '', 2015, 'C-2015/05/01', '2015-05-01', '2015-05-01', 'C-2015/05/01', '101030101023', '1010301010', 'Alat Perekat        ', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', 20, 12000, 240000, 'M03', 'Distribusi Masuk', 1, '2015-08-27', 'pengguna'),
+(595, 8, '21.01.01.01', '0630101000101UB', '', 2015, 'S-2015/01/01', '2015-01-01', '2015-01-01', 'S-2015/01/01', '101010100188', '1010101001', 'Aspal', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', 20, 25000, 500000, 'M01', 'Saldo Awal', 1, '2015-08-27', 'pengguna'),
+(596, 9, '21.01.01.01', '0630101000101UB', '', 2015, 'P-2015/02/01', '2015-02-01', '2015-02-01', 'P-2015/02/01', '101010100188', '1010101001', 'Aspal', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', 100, 30000, 3000000, 'M02', 'Pembelian', 1, '2015-08-27', 'pengguna'),
+(605, 8, '21.01.01.01', '0630101000101UB', '', 2014, 'S-2015/01/01', '2014-01-01', '2014-01-01', 'S-2014/01/01', '101010100188', '1010101001', 'Aspal', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', 20, 25000, 500000, 'M01', 'Saldo Awal', 1, '2015-08-27', 'pengguna'),
+(606, 11, '010101', '010101', '', 2015, '', '2015-01-01', '2015-01-01', '', '1010301013011', '1010301013', 'Isi Staples         ', 'Stapler Content', '115111', 'Barang Konsumsi     ', 'Pack', 30, 5000, 150000, 'M01', 'Saldo awal', 1, '2015-09-01', 'fikri.baru'),
+(607, 12, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, '90sa', '2015-03-02', '2015-03-02', '90sa', '101010100188', '1010101001', 'Aspal', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', 20, 1300000, 26000000, 'M02', 'Pembelian', 1, '2015-09-02', 'pengguna'),
+(609, 13, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, 'PB-2015/05/12', '2015-05-12', '2015-05-12', 'PB-2015/05/12', '101010100188', '1010101001', 'Aspal', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', 4, 35000, 140000, 'M02', 'Pembelian', 1, '2015-09-02', 'pengguna'),
+(611, 14, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, 'PB-2015/05/01', '2015-05-01', '2015-05-01', 'PB-2015/05/01', '1010101001231', '1010101001', 'Aspal               ', 'ASPAL TIGA RODA', '115131', 'Bahan Baku          ', 'Drum', 5, 59999, 299995, 'M02', 'Pembelian', 1, '2015-09-02', 'pengguna'),
+(613, 15, '01.01.01.01', '01.01.01.01', 'Sekretariat Dewan/DPRD', 2015, '1234', '2015-01-01', '2015-01-01', '1234', '1010301013123', '1010301013', 'Isi Staples         ', 'ISI STAPLES', '115111', 'Barang Konsumsi     ', 'Box', 20, 2999, 59980, 'M01', 'Saldo Awal', 1, '2015-09-03', 'koreksi'),
+(653, 16, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, 'AAA', '2015-09-01', '2015-09-01', 'AAAA', '101010100188', '1010101001', 'Aspal', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', 5, 16000, 80000, 'M01', 'Saldo Awal', 1, '2015-09-03', 'pengguna'),
+(655, 18, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, '111', '2015-09-03', '2015-09-03', '111', '101030101023', '1010301010', 'Alat Perekat        ', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', 6, 10000, 60000, 'M01', 'AibonSaldo', 1, '2015-09-03', 'pengguna'),
+(657, 33, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, '', '2015-09-03', '2015-09-03', '', '101010100188', '1010101001', 'Aspal', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', -9, -25000, -225000, 'K03', 'Rusak', 1, '2015-09-03', 'pengguna'),
+(658, 19, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, 'Masuk', '2015-05-01', '2015-09-03', 'Masuk', '101030101023', '1010301010', 'Alat Perekat        ', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', 50, 1000, 50000, 'M03', 'Masuk', 1, '2015-09-03', 'pengguna');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaksi_keluar`
+-- Struktur dari tabel `transaksi_keluar`
 --
 
 CREATE TABLE IF NOT EXISTS `transaksi_keluar` (
@@ -10667,7 +10676,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_keluar` (
   `kd_lokasi` varchar(20) NOT NULL,
   `kd_lok_msk` varchar(20) DEFAULT NULL,
   `nm_satker` varchar(40) DEFAULT NULL,
-  `thn_ang` varchar(4) NOT NULL,
+  `thn_ang` year(4) DEFAULT NULL,
   `no_dok` varchar(20) NOT NULL,
   `tgl_dok` date NOT NULL,
   `tgl_buku` date NOT NULL,
@@ -10689,23 +10698,19 @@ CREATE TABLE IF NOT EXISTS `transaksi_keluar` (
   `status_hapus` tinyint(1) NOT NULL DEFAULT '0',
   `tgl_update` date DEFAULT NULL,
   `user_id` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `transaksi_keluar`
+-- Dumping data untuk tabel `transaksi_keluar`
 --
 
 INSERT INTO `transaksi_keluar` (`id`, `id_masuk`, `kd_lokasi`, `kd_lok_msk`, `nm_satker`, `thn_ang`, `no_dok`, `tgl_dok`, `tgl_buku`, `no_bukti`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `kd_perk`, `nm_perk`, `satuan`, `qty`, `harga_sat`, `total_harga`, `jns_trans`, `keterangan`, `status`, `status_edit`, `status_hapus`, `tgl_update`, `user_id`) VALUES
-(3, 3, '0630101000101UB', '0630101000101UB', NULL, '2015', 'C-2015/06/01', '2015-06-01', '2015-06-01', 'C-2015/06/01', '1010301010', 'Alat Perekat        ', '101030101023', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', 25, 10000, 250000, 'K01', 'Habis Pakai', 1, 0, 0, '2015-08-27', 'pengguna'),
-(4, 4, '0630101000101UB', '0630101000101UB', NULL, '2015', 'C-2015/06/01', '2015-06-01', '2015-06-01', 'C-2015/06/01', '1010301010', 'Alat Perekat        ', '101030101023', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', 1, 4500, 4500, 'K01', 'Habis Pakai', 1, 0, 0, '2015-08-27', 'pengguna'),
-(5, 8, '0630101000101UB', '0630101000101UB', NULL, '2015', 'HP-2015/06/01', '2015-06-01', '2015-06-01', 'HP-2015/06/01', '1010101001', 'Aspal', '101010100188', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', 20, 25000, 500000, 'K01', 'Habis Pakai', 1, 0, 0, '2015-08-27', 'pengguna'),
-(6, 9, '0630101000101UB', '0630101000101UB', NULL, '2015', 'HP-2015/06/01', '2015-06-01', '2015-06-01', 'HP-2015/06/01', '1010101001', 'Aspal', '101010100188', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', 10, 30000, 300000, 'K01', 'Habis Pakai', 1, 0, 0, '2015-08-27', 'pengguna'),
-(7, 9, '0630101000101UB', '0630101000101UB', NULL, '2015', '0001-2015', '2015-07-01', '2015-07-01', '0001-2015', '1010101001', 'Aspal', '101010100188', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', 10, 30000, 300000, 'K01', 'Habis Pakai', 1, 0, 0, '2015-08-28', 'pengguna');
+(33, 10, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, '', '2015-09-03', '2015-09-03', '', '1010101001', 'Aspal', '101010100188', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', -9, 25000, -225000, 'K03', 'Rusak', 1, 0, 0, '2015-09-03', 'pengguna');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaksi_masuk`
+-- Struktur dari tabel `transaksi_masuk`
 --
 
 CREATE TABLE IF NOT EXISTS `transaksi_masuk` (
@@ -10713,7 +10718,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_masuk` (
   `kd_lokasi` varchar(20) NOT NULL,
   `kd_lok_msk` varchar(20) DEFAULT NULL,
   `nm_satker` varchar(40) DEFAULT NULL,
-  `thn_ang` varchar(4) NOT NULL,
+  `thn_ang` year(4) DEFAULT NULL,
   `no_dok` varchar(20) NOT NULL,
   `tgl_dok` date NOT NULL,
   `tgl_buku` date NOT NULL,
@@ -10737,23 +10742,31 @@ CREATE TABLE IF NOT EXISTS `transaksi_masuk` (
   `status_ambil` int(11) NOT NULL DEFAULT '0',
   `tgl_update` date DEFAULT NULL,
   `user_id` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `transaksi_masuk`
+-- Dumping data untuk tabel `transaksi_masuk`
 --
 
 INSERT INTO `transaksi_masuk` (`id`, `kd_lokasi`, `kd_lok_msk`, `nm_satker`, `thn_ang`, `no_dok`, `tgl_dok`, `tgl_buku`, `no_bukti`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `kd_perk`, `nm_perk`, `satuan`, `qty`, `qty_akhir`, `harga_sat`, `total_harga`, `jns_trans`, `keterangan`, `status`, `status_edit`, `status_hapus`, `status_ambil`, `tgl_update`, `user_id`) VALUES
-(3, '0630101000101UB', '0630101000101UB', 'URUSAN BERSAMA BPOM DKI', '2015', 'C-2015/01/01', '2015-01-01', '2015-01-01', 'C-2015/01/01', '1010301010', 'Alat Perekat        ', '101030101023', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', 25, 0, 10000, 250000, 'M01', '', 1, 0, 0, 0, '2015-08-27', 'pengguna'),
-(4, '0630101000101UB', '0630101000101UB', 'URUSAN BERSAMA BPOM DKI', '2015', 'C-2015/03/01', '2015-03-01', '2015-03-01', 'C-2015/03/01', '1010301010', 'Alat Perekat        ', '101030101023', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', 10, 9, 4500, 45000, 'M02', 'Pembelian', 1, 0, 0, 0, '2015-08-27', 'pengguna'),
-(5, '0630101000101UB', '0630101000101UB', 'URUSAN BERSAMA BPOM DKI', '2015', 'C-2015/05/01', '2015-05-01', '2015-05-01', 'C-2015/05/01', '1010301010', 'Alat Perekat        ', '101030101023', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', 20, 20, 12000, 240000, 'M03', 'Distribusi Masuk', 1, 0, 0, 0, '2015-08-27', 'pengguna'),
-(8, '0630101000101UB', '0630101000101UB', 'URUSAN BERSAMA BPOM DKI', '2015', 'S-2015/01/01', '2015-01-01', '2015-01-01', 'S-2015/01/01', '1010101001', 'Aspal', '101010100188', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', 20, 0, 25000, 500000, 'M01', 'Saldo Awal', 1, 0, 0, 0, '2015-08-27', 'pengguna'),
-(9, '0630101000101UB', '0630101000101UB', 'URUSAN BERSAMA BPOM DKI', '2015', 'P-2015/02/01', '2015-02-01', '2015-02-01', 'P-2015/02/01', '1010101001', 'Aspal', '101010100188', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', 100, 80, 30000, 3000000, 'M02', 'Pembelian', 1, 0, 0, 0, '2015-08-27', 'pengguna');
+(4, '21.01.01.01', '0630101000101UB', 'URUSAN BERSAMA BPOM DKI', 2015, 'C-2015/03/01', '2015-03-01', '2015-03-01', 'C-2015/03/01', '1010301010', 'Alat Perekat        ', '101030101023', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', 10, 10, 4500, 45000, 'M02', 'Pembelian', 1, 0, 0, 0, '2015-08-27', 'pengguna'),
+(5, '21.01.01.01', '0630101000101UB', 'URUSAN BERSAMA BPOM DKI', 2015, 'C-2015/05/01', '2015-05-01', '2015-05-01', 'C-2015/05/01', '1010301010', 'Alat Perekat        ', '101030101023', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', 20, 20, 12000, 240000, 'M03', 'Distribusi Masuk', 1, 0, 0, 0, '2015-08-27', 'pengguna'),
+(8, '21.01.01.01', '0630101000101UB', 'URUSAN BERSAMA BPOM DKI', 2015, 'S-2015/01/01', '2015-01-01', '2015-01-01', 'S-2015/01/01', '1010101001', 'Aspal', '101010100188', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', 20, 20, 25000, 500000, 'M01', 'Saldo Awal', 1, 0, 0, 0, '2015-08-27', 'pengguna'),
+(9, '21.01.01.01', '0630101000101UB', 'URUSAN BERSAMA BPOM DKI', 2015, 'P-2015/02/01', '2015-02-01', '2015-02-01', 'P-2015/02/01', '1010101001', 'Aspal', '101010100188', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', 100, 100, 30000, 3000000, 'M02', 'Pembelian', 1, 0, 0, 0, '2015-08-27', 'pengguna'),
+(10, '21.01.01.01', '0630101000101UB', 'URUSAN BERSAMA BPOM DKI', 2014, 'S-2014/01/01', '2014-01-01', '2014-01-01', 'S-2014/01/01', '1010101001', 'Aspal', '101010100188', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', 20, 11, 25000, 500000, 'M01', 'Saldo Awal', 1, 0, 0, 0, '2015-08-27', 'pengguna'),
+(11, '010101', '010101', 'Sekretariat Dewan/DPRD', 2015, '', '2015-01-01', '2015-01-01', '', '1010301013', 'Isi Staples         ', '1010301013011', 'Stapler Content', '115111', 'Barang Konsumsi     ', 'Pack', 30, 30, 5000, 150000, 'M01', 'Saldo awal', 1, 0, 0, 0, '2015-09-01', 'fikri.baru'),
+(12, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, '90sa', '2015-03-02', '2015-03-02', '90sa', '1010101001', 'Aspal', '101010100188', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', 20, 20, 1300000, 26000000, 'M02', 'Pembelian', 1, 0, 0, 0, '2015-09-02', 'pengguna'),
+(13, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, 'PB-2015/05/12', '2015-05-12', '2015-05-12', 'PB-2015/05/12', '1010101001', 'Aspal', '101010100188', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', 4, 4, 35000, 140000, 'M02', 'Pembelian', 1, 0, 0, 0, '2015-09-02', 'pengguna'),
+(14, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, 'PB-2015/05/01', '2015-05-01', '2015-05-01', 'PB-2015/05/01', '1010101001', 'Aspal               ', '1010101001231', 'ASPAL TIGA RODA', '115131', 'Bahan Baku          ', 'Drum', 5, 5, 59999, 299995, 'M02', 'Pembelian', 1, 0, 1, 0, '2015-09-02', 'pengguna'),
+(15, '01.01.01.01', '01.01.01.01', 'Sekretariat Dewan/DPRD', 2015, '1234', '2015-01-01', '2015-01-01', '1234', '1010301013', 'Isi Staples         ', '1010301013123', 'ISI STAPLES', '115111', 'Barang Konsumsi     ', 'Box', 21, 21, 3501, 73521, 'M01', 'Saldo Awal', 1, 0, 0, 0, '2015-09-03', 'koreksi'),
+(16, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, 'AAA', '2015-09-01', '2015-09-01', 'AAAA', '1010101001', 'Aspal', '101010100188', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', 5, 5, 16000, 80000, 'M01', 'Saldo Awal', 1, 0, 0, 0, '2015-09-03', 'pengguna'),
+(18, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, '111', '2015-09-03', '2015-09-03', '111', '1010301010', 'Alat Perekat        ', '101030101023', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', 6, 6, 10000, 60000, 'M01', 'AibonSaldo', 1, 0, 1, 0, '2015-09-03', 'pengguna'),
+(19, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, 'Masuk', '2015-05-01', '2015-09-03', 'Masuk', '1010301010', 'Alat Perekat        ', '101030101023', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', 50, 50, 1000, 50000, 'M03', 'Masuk', 1, 0, 0, 0, '2015-09-03', 'pengguna');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ttd`
+-- Struktur dari tabel `ttd`
 --
 
 CREATE TABLE IF NOT EXISTS `ttd` (
@@ -10775,7 +10788,7 @@ CREATE TABLE IF NOT EXISTS `ttd` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Struktur dari tabel `user`
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
@@ -10787,17 +10800,18 @@ CREATE TABLE IF NOT EXISTS `user` (
   `kd_lokasi` varchar(20) DEFAULT NULL,
   `nm_satker` varchar(40) DEFAULT NULL,
   `tahun` year(4) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user`
+-- Dumping data untuk tabel `user`
 --
 
 INSERT INTO `user` (`user_id`, `user_name`, `user_pass`, `user_email`, `user_level`, `kd_lokasi`, `nm_satker`, `tahun`) VALUES
 (1, 'masteradmin', '0192023a7bbd73250516f069df18b500', 'yohanes.christomas@gmail.com', 1, NULL, NULL, NULL),
 (2, 'masteruser', '0192023a7bbd73250516f069df18b500', 'yohanes.christomas@gmail.com', 2, NULL, NULL, NULL),
 (6, 'fikri', 'e10adc3949ba59abbe56e057f20f883e', 'fikri.fadlillah@yahoo.com', 2, '0010101000101KP', 'KANTOR PUSAT SEKJEN MPR', NULL),
-(7, 'pengguna', 'e10adc3949ba59abbe56e057f20f883e', 'pengguna@yahoo.com', 2, '0630101000101UB', 'URUSAN BERSAMA BPOM DKI', NULL);
+(7, 'pengguna', 'e10adc3949ba59abbe56e057f20f883e', 'pengguna@yahoo.com', 2, '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', NULL),
+(8, 'koreksi', 'c4ca4238a0b923820dcc509a6f75849b', 'koreksi', 2, '01.01.01.01', 'Sekretariat Dewan/DPRD', NULL);
 
 -- --------------------------------------------------------
 
@@ -10820,7 +10834,7 @@ CREATE TABLE IF NOT EXISTS `view_brg` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wilayah`
+-- Struktur dari tabel `wilayah`
 --
 
 CREATE TABLE IF NOT EXISTS `wilayah` (
@@ -10830,7 +10844,7 @@ CREATE TABLE IF NOT EXISTS `wilayah` (
 ) ENGINE=InnoDB AUTO_INCREMENT=706 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `wilayah`
+-- Dumping data untuk tabel `wilayah`
 --
 
 INSERT INTO `wilayah` (`id`, `kd_wil`, `nm_wil`) VALUES
@@ -11542,7 +11556,7 @@ INSERT INTO `wilayah` (`id`, `kd_wil`, `nm_wil`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure for view `transaksi`
+-- Struktur untuk view `transaksi`
 --
 DROP TABLE IF EXISTS `transaksi`;
 
@@ -11551,7 +11565,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `view_brg`
+-- Struktur untuk view `view_brg`
 --
 DROP TABLE IF EXISTS `view_brg`;
 
@@ -11691,12 +11705,12 @@ ALTER TABLE `opname`
 -- AUTO_INCREMENT for table `persediaan`
 --
 ALTER TABLE `persediaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `satker`
 --
 ALTER TABLE `satker`
-  MODIFY `Satker_ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9916;
+  MODIFY `Satker_ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9898;
 --
 -- AUTO_INCREMENT for table `skel`
 --
@@ -11711,17 +11725,17 @@ ALTER TABLE `sskel`
 -- AUTO_INCREMENT for table `transaksi_full`
 --
 ALTER TABLE `transaksi_full`
-  MODIFY `id_history` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=601;
+  MODIFY `id_history` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=659;
 --
 -- AUTO_INCREMENT for table `transaksi_keluar`
 --
 ALTER TABLE `transaksi_keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT for table `transaksi_masuk`
 --
 ALTER TABLE `transaksi_masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `ttd`
 --
@@ -11731,7 +11745,7 @@ ALTER TABLE `ttd`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(32) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+  MODIFY `user_id` int(32) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `wilayah`
 --
