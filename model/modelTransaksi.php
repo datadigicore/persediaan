@@ -309,7 +309,7 @@ class modelTransaksi extends mysql_db
 
     public function ubah_transaksi_masuk($data)
     {
-        $id = $data['id'];
+        $kd_trans = $data['kd_trans'];
         $kd_lokasi = $data['kd_lokasi'];
         $kd_lok_msk = $data['kd_lokasi'];
         $nm_satker = $data['nm_satker'];
@@ -320,15 +320,19 @@ class modelTransaksi extends mysql_db
         $tgl_buku = $data['tgl_buku'];
         $no_bukti = $data['no_bukti'];
 
-        $kd_brg = $data['kd_brg'];
-        $nm_brg = $data['nm_brg'];
-        $satuan = $data['satuan'];
 
         $kuantitas = $data['kuantitas'];
-        $selisih_qty = $data['kuantitas'] - $data['qty_awal'];
+
+        $query_qty_awal ="SELECT qty,qty_akhir, harga_sat from transaksi_masuk where id='$kd_trans'";
+        $result_qty_awal = $this->query($query_qty_awal);
+        $row_qty = $this->fetch_array($result_qty_awal);
+        $qty = $row_qty['qty'];
+        $harga = $row_qty['harga_sat'];
+        
+        $selisih_qty = $data['kuantitas'] - $qty;
 
         $harga_sat = $data['harga_sat'];
-        $selisih_hrg = $data['harga_sat'] - $data['hrg_awal'];
+        $selisih_hrg = $data['harga_sat'] - $harga;
 
         $total_harga = $kuantitas*$harga_sat;
         $selisih_tot_hrga = $selisih_qty * $selisih_hrg;
@@ -340,9 +344,10 @@ class modelTransaksi extends mysql_db
         $query_ubah = "update transaksi_masuk 
                         set qty='$kuantitas', 
                         qty_akhir = qty_akhir + '$selisih_qty',
-                        harga_sat='$harga_sat', 
+                        harga_sat='$harga_sat',
+                        total_harga='$total_harga', 
                         tgl_update=CURDATE() 
-                        where id= '$id' ";
+                        where id= '$kd_trans' ";
         $query_full = "Insert into transaksi_full
                         set kd_lokasi='$kd_lokasi',
                         kd_lok_msk='$kd_lok_msk',
@@ -357,8 +362,8 @@ class modelTransaksi extends mysql_db
                         satuan='$satuan',
                         qty='$selisih_qty',
                         harga_sat='$selisih_hrg',
-                        total_harga='$total_harga',
-                        keterangan='$keterangan',
+                        total_harga='$selisih_tot_hrga',
+                        keterangan='Koreksi Transaksi Masuk',
                         status='$status',
                         tgl_update=CURDATE(),
                         user_id='$user_id'";

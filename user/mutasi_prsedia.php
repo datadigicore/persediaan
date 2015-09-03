@@ -75,7 +75,20 @@
 
 
       });
+      $('form').on('submit', function() {
+      var D1 = document.getElementById("tgl_awal").value;
+      var D2 = document.getElementById("tgl_akhir").value;
 
+      if( (new Date(D1).getTime() > new Date(D2).getTime()))
+      {
+        alert("Tanggal Awal Tidak Boleh Lebih Besar dari Tanggal Akhir");
+        return false;
+      }
+      else
+      {
+        return true;
+      }
+    });
     </script>
   </body>
 </html>

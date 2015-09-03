@@ -114,7 +114,7 @@
                         <th>Harga Satuan</th>
                         <th>Total</th>
                         <th>Keterangan</th>
-                        <th width="5%">Aksi</th>
+                        <th width="10%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -159,13 +159,30 @@
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
-                                  // '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                // '<a href="edit_trans_masuk?id=a" class="btn btn-success btn-sm daterange pull-left" role="button"><i class="fa fa-edit"></i></a>'+
+                                  '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
                                   '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
                                 '</div>',
              "targets": [8],"targets": 8 },
           ],
         });
       });
+
+      $(document).on('click', '#btnedt', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+        id_row = row.data()[0];
+        nd = row.data()[1];
+        // nb = row.data()[2];
+        // td = row.data()[3];
+        tb = row.data()[2];
+        nbrg = row.data()[3];
+        qty = row.data()[4];
+        hrg = row.data()[5];
+        ket = row.data()[7];
+        document.location.href = 'edit_trans_masuk?kd='+id_row+'&nd='+nd+'&tb='+tb+'&ket='+ket+'&nbrg='+nbrg+'&qty='+qty+'&hrg='+hrg;
+      });
+
       $(document).on('click', '#btnhps', function () {
       var tr = $(this).closest('tr');
       var row = table.row( tr );
