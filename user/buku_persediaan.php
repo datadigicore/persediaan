@@ -105,21 +105,7 @@
           }
        });
       $('#kd_brg').change(function(){
-        if ($(this).val()=='') {
-          $('#detil_transaksi').html('<option value="">-- Belum Dicetak --</option>');
-        }
-        else {
-          var kd_brg = $('#kd_brg').val(); 
-          var no_dok = $('#no_dok').val(); 
-          $.ajax({
-          type: "post",
-          url: '../core/transaksi/prosestransaksi',
-          data: {manage:'baca_detil_trans',kd_brg:kd_brg,no_dok:no_dok},
-          success: function (output) {     
-            $('#detil_transaksi').html(output);
-          }
-       });
-        }
+
       });
       $('#addtransmsk').submit(function(e){
         $('#myModal').modal({

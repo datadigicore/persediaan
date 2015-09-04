@@ -251,13 +251,13 @@ class modelReport extends mysql_db
                     echo '<tr>
                              <td  align="right">'.substr($data[kd_brg],10).'</td> 
                              <td  align="left">'.$data[nm_brg].'</td> 
-                             <td align="center">'.number_format($data[nilai]).'</td> 
+                             <td align="right">'.number_format($data[nilai],0,",",".").'</td> 
                         </tr>';
                     $saldo+=$data[nilai];
                 }
                 echo '<tr>
                         <td colspan="2">JUMLAH</td>
-                        <td>'.number_format($saldo).'</td>
+                        <td align="right">'.number_format($saldo,0,",",".").'</td>
                       </tr>';
                 
                 echo '</table>';
@@ -324,7 +324,8 @@ class modelReport extends mysql_db
                                     sum(case WHEN thn_ang='$thn_ang_lalu' THEN total_harga else 0 end) as hrg_thn_lalu,  
                                     sum(case WHEN qty>=0 and month(tgl_buku) >= '$bln_awal' and month(tgl_buku) <= '$bln_akhir' and thn_ang='$thn_ang' THEN qty else 0 end) as masuk, 
                                     sum(case WHEN qty<0 and month(tgl_buku) >= '$bln_awal' and month(tgl_buku) <= '$bln_akhir' and thn_ang='$thn_ang' THEN qty else 0 end) as keluar,
-                                    sum(case WHEN qty>=0 and month(tgl_buku) >= '$bln_awal' and month(tgl_buku) <= '$bln_akhir' and thn_ang='$thn_ang' THEN total_harga else 0 end) + sum(case WHEN qty<0 and month(tgl_buku) >= '$bln_awal' and month(tgl_buku) <= '$bln_akhir' THEN total_harga else 0 end) as nilai 
+                                    sum(case WHEN qty>=0 and month(tgl_buku) >= '$bln_awal' and month(tgl_buku) <= '$bln_akhir' and thn_ang='$thn_ang' THEN total_harga else 0 end) + 
+                                    sum(case WHEN qty<0 and month(tgl_buku) >= '$bln_awal' and month(tgl_buku) <= '$bln_akhir' and thn_ang='$thn_ang' THEN total_harga else 0 end) as nilai 
                                     FROM transaksi_full
                                     where  kd_lokasi='$kd_lokasi' and thn_ang>='$thn_ang_lalu'
                                     GROUP by kd_brg");
@@ -379,19 +380,19 @@ class modelReport extends mysql_db
                              <td  align="center">'.$data[kd_brg].'</td> 
                              <td  align="left">'.$data[nm_brg].'</td> 
                              <td  align="center">'.$data[brg_thn_lalu].'</td> 
-                             <td  align="right">'.number_format($data[hrg_thn_lalu]).'</td> 
+                             <td  align="right">'.number_format($data[hrg_thn_lalu],0,",",".").'</td> 
                              <td align="center">'.$data[masuk].'</td> 
                              <td align="center">'.abs($data[keluar]).'</td> 
                              <td align="center">'.$jumlah.'</td> 
                              <td align="center">'.$jml_selisih.'</td> 
-                             <td align="right">'.number_format($hrg_selisih).'</td> 
+                             <td align="right">'.number_format($hrg_selisih,0,",",".").'</td> 
                         </tr>';
                 }
                 echo '<tr>
                             <td colspan="2">JUMLAH</td>  
-                            <td colspan="2" align="right">'.number_format($total_thn_lalu).'</td> 
+                            <td colspan="2" align="right">'.number_format($total_thn_lalu,0,",",".").'</td> 
                             <td colspan="3"></td>  
-                            <td colspan="2" align="right">'.number_format($total_akumulasi).'</td>  
+                            <td colspan="2" align="right">'.number_format($total_akumulasi,0,",",".").'</td>  
                         </tr>';
                 echo '</table>';
                 $this->hitung_brg_rusak($kd_lokasi);
@@ -445,13 +446,13 @@ class modelReport extends mysql_db
                     echo '<tr>
                              <td  align="center">'.$data[kd_perk].'</td> 
                              <td  align="left">'.$data[nm_perk].'</td> 
-                             <td align="center">'.number_format($data[nilai]).'</td> </tr>';
+                             <td align="center">'.number_format($data[nilai],0,",",".").'</td> </tr>';
                     $total+=$data[nilai];
                 }
                     
                     echo '<tr>
                             <td colspan="2">JUMLAH</td>  
-                            <td>'.number_format($total).'</td>  
+                            <td>'.number_format($total,0,",",".").'</td>  
                         </tr>
                         </table>';
 
@@ -493,9 +494,9 @@ class modelReport extends mysql_db
                 <tr>
                     <td rowspan="2">KODE</td>
                     <td  width="30%" rowspan="2"  >URAIAN</td>
-                    <td  width="20%" rowspan="2"  >NILAI S/D 31 DESEMBER '.$thn_ang_lalu.'</td>
+                    <td  width="13%" rowspan="2"  >NILAI S/D 31 DESEMBER '.$thn_ang_lalu.'</td>
                     <td colspan="2">MUTASI</td>
-                    <td rowspan="2">NILAI S/D 31 DESEMBER '.$thn_ang.'</td>
+                    <td rowspan="2" width="13%">NILAI S/D 31 DESEMBER '.$thn_ang.'</td>
                     <tr>
                         <td>Tambah</td>
                         <td>Kurang</td>
@@ -516,19 +517,19 @@ class modelReport extends mysql_db
                     echo '<tr>
                              <td  align="center">'.$data[kd_perk].'</td> 
                              <td  align="left">'.$data[nm_perk].'</td> 
-                             <td align="center">'.$data[thn_lalu].'</td>
-                             <td align="center">'.$data[tambah].'</td> 
-                             <td align="center">'.abs($data[kurang]).'</td> 
-                             <td align="center">'.number_format($saldo_akhir).'</td> 
+                             <td align="right">'.number_format($data[thn_lalu],0,",",".").'</td>
+                             <td align="right">'.number_format($data[tambah],0,",",".").'</td> 
+                             <td align="right">'.number_format(abs($data[kurang]),0,",",".").'</td> 
+                             <td align="right">'.number_format($saldo_akhir,0,",",".").'</td> 
                            </tr>';
                     $total+=$data[nilai];
                 }
                     
                     echo '<tr>
                             <td colspan="2">JUMLAH</td>  
-                            <td>'.number_format($saldo_thn_lalu).'</td>
+                            <td align="right">'.number_format($saldo_thn_lalu,0,",",".").'</td>
                             <td colspan="2"></td>  
-                            <td>'.number_format($saldo_akumulasi).'</td>  
+                            <td align="right">'.number_format($saldo_akumulasi,0,",",".").'</td>  
                         </tr>
                         </table>';
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
@@ -744,19 +745,19 @@ class modelReport extends mysql_db
 
     public function hitung_brg_rusak($kd_lokasi)
     {
-        $query_rusak = "SELECT sum(total_harga) as saldo_rusak from transaksi_keluar where kd_lokasi='$kd_lokasi' and jns_trans='K03'";
+        $query_rusak = "SELECT sum(total_harga) as saldo_rusak from transaksi_keluar where kd_lokasi='$kd_lokasi' and jns_trans='K03' and status_hapus=0";
         $result_rusak = $this->query($query_rusak);
         $data_rusak = $this->fetch_array($result_rusak);
         $saldo_rusak = 0 +$data_rusak['saldo_rusak'];        
 
-        $query_usang = "SELECT sum(total_harga) as saldo_usang from transaksi_keluar where kd_lokasi='$kd_lokasi' and jns_trans='K02'";
+        $query_usang = "SELECT sum(total_harga) as saldo_usang from transaksi_keluar where kd_lokasi='$kd_lokasi' and jns_trans='K02' and status_hapus=0";
         $result_usang = $this->query($query_usang);
         $data_usang = $this->fetch_array($result_usang);
         $saldo_usang = 0+$data_usang['saldo_usang'];
         echo '
         <tr><b>Keterangan :</b></tr><br>        
                     <tr>1. Persediaan Senilai Rp. '.abs($saldo_rusak).',- dalam kondisi rusak</tr> <br>               
-                    <tr>2. Persediaan Senilai Rp. '.$saldo_usang.',- dalam kondisi usang</tr>                
+                    <tr>2. Persediaan Senilai Rp. '.abs($saldo_usang).',- dalam kondisi usang</tr>                
              
                     ';
 
