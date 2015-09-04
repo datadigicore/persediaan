@@ -8,26 +8,22 @@ class modelDashboard extends mysql_db
 					where kodesektor is not null and
 						kodesatker is null and
 						kodeunit is null and
-						gudang is null and
-						kd_ruang is null";
+						gudang is null";
 		$sql2="select kodesatker from satker
 					where kodesektor is not null and
 						kodesatker is not null and
 						kodeunit is null and
-						gudang is null and
-						kd_ruang is null";
+						gudang is null";
 		$sql3="select kodeunit from satker
 					where kodesektor is not null and
 						kodesatker is not null and
 						kodeunit is not null and
-						gudang is null and
-						kd_ruang is null";
+						gudang is null";
 		$sql4="select gudang from satker
 					where kodesektor is not null and
 						kodesatker is not null and
 						kodeunit is not null and
-						gudang is not null and
-						kd_ruang is null";
+						gudang is not null";
 		$result1 = $this->query($sql1);
 		$result2 = $this->query($sql2);
 		$result3 = $this->query($sql3);

@@ -12,63 +12,13 @@
         <section class="content-header">
           <h1>
             Dashboard
-            <small>Control Panel</small>
+            <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           <ol class="breadcrumb">
             <li class="active"><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
           </ol>
         </section>
         <section class="content">
-          <!-- <div class="row">
-            <div class="col-lg-3 col-xs-6">
-              <div class="small-box bg-aqua">
-                <div class="inner">
-                  <h3 id="totaluapb">0</h3>
-                  <p>Tabel UAPB</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-calendar"></i>
-                </div>
-                <a href="uapb" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-3 col-xs-6">
-              <div class="small-box bg-green">
-                <div class="inner">
-                  <h3 id="totaluappbe">0</h3>
-                  <p>Tabel UAPPB - E1</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-calendar"></i>
-                </div>
-                <a href="uappbe" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-3 col-xs-6">
-              <div class="small-box bg-yellow">
-                <div class="inner">
-                  <h3 id="totaluappbw">0</h3>
-                  <p>Tabel UAPPB - W</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-calendar"></i>
-                </div>
-                <a href="uappbw" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-3 col-xs-6">
-              <div class="small-box bg-red">
-                <div class="inner">
-                  <h3 id="totaluakpb">0</h3>
-                  <p>Tabel UAKPB</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-calendar"></i>
-                </div>
-                <a href="uakpb" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-          </div> -->
           <div class="row">
             <section class="col-lg-7 connectedSortable">
               <div class="box box-primary">

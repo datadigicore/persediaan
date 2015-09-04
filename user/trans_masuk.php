@@ -13,9 +13,10 @@
         <section class="content-header">
           <h1>
             Persediaan Masuk
+            <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-table"></i>Daftar Transaksi Masuk</a></li>
+            <li class="active"><a href="#"><i class="fa fa-compress"></i> Transaksi Masuk</a></li>
           </ol>
         </section>
         <section class="content">
@@ -29,7 +30,7 @@
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Jenis Transaksi</label>
-                      <div class="col-sm-8">
+                      <div class="col-sm-9">
                         <select name="jenis_trans" id="jenis_trans" class="form-control">
                           <option value="">Pilih Jenis Transaksi</option>
                           <option value="M01">Saldo Awal</option>
@@ -40,58 +41,57 @@
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>
-                      <div class="col-sm-8">
+                      <div class="col-sm-9">
                         <input type="text" name="no_dok" class="form-control"  id="no_dok" placeholder="Masukkan No. Dokumen">
                         <input type="hidden" name="manage" value="tbh_transaksi_msk">
                         <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>    
                       </div>
                     </div>
-
                     <div class="form-group">                     
                     <label class="col-sm-2 control-label">Nomor Bukti</label>
-                      <div class="col-sm-8">
+                      <div class="col-sm-9">
                         <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor Bukti">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Dokumen</label>
-                      <div class="col-sm-8">
+                      <div class="col-sm-9">
                         <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" readonly>
                       </div>
                     </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Buku</label>
-                      <div class="col-sm-8">
+                      <div class="col-sm-9">
                         <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" readonly>
                       </div> 
                     </div>                   
-                  <div class="form-group">
+                    <div class="form-group">
                       <label class="col-sm-2 control-label">Keterangan</label>
-                      <div class="col-sm-8">
+                      <div class="col-sm-9">
                         <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Uraian / Keterangan">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode Barang</label>
-                      <div class="col-sm-8">
+                      <div class="col-sm-9">
                         <select name="kd_brg" id="kd_brg" class="form-control">
                         </select>
                       </div>
                     </div>
-                  <div class="form-group">
+                    <div class="form-group">
                       <label class="col-sm-2 control-label">Jumlah Masuk</label>
-                      <div class="col-sm-8">
+                      <div class="col-sm-9">
                         <input type="number" min="1" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Masuk">
                       </div>
                     </div>                  
-                  <div class="form-group">
+                    <div class="form-group">
                       <label class="col-sm-2 control-label">Harga Beli Satuan</label>
-                      <div class="col-sm-8">
+                      <div class="col-sm-9">
                         <input type="number" min="1" name="rph_sat" class="form-control" id="rph_sat" placeholder="Masukkan Harga ">
                       </div>
                     </div>                  
-                  <div name="detil_transaksi" id="detil_transaksi">
-
+                    <div name="detil_transaksi" id="detil_transaksi">
+                    </div>
                   </div>
                   <div class="box-footer">
                     <button type="Reset" class="btn btn-default">Reset</button>
@@ -101,14 +101,14 @@
               </div>
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Daftar Saldo Masuk</h3>
+                  <h3 class="box-title">Daftar Transaksi Masuk</h3>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                         <th width="10%">ID</th>
-                        <th width="14%">Nomor Dokumen</th>
+                        <th width="14%">No Dokumen</th>
                         <th>Tanggal Buku</th>
                         <th>Nama Barang</th>
                         <th>Jumlah</th>
