@@ -76,7 +76,7 @@
                           </div> 
                         </div>
                       </div>
-                      <div class="tab-pane active" id="tab_2">     
+                      <div class="tab-pane" id="tab_2">     
                         <div class="form-group">
                           <label class="col-sm-2 control-label">Keterangan</label>
                           <div class="col-sm-9">
