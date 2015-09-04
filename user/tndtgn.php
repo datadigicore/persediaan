@@ -12,10 +12,10 @@
         <section class="content-header">
           <h1>
             Unit Pengguna Barang
-            <small>Control Panel</small>
+            <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-table"></i> Tabel UAPB</a></li>
+            <li class="active"><a href="#"><i class="fa fa-check-square-o"></i> Unit Pengguna Barang</a></li>
           </ol>
         </section>
         <section class="content">
@@ -30,68 +30,60 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nama</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nama" class="form-control" id="nama" placeholder="">
+                        <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama">
                         <input type="hidden" name="manage" value="addtndatgn">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Jabatan</label>
                       <div class="col-sm-9">
-                        <input type="text" name="jabatan" class="form-control" id="jabatan" placeholder="">
+                        <input type="text" name="jabatan" class="form-control" id="jabatan" placeholder="Masukkan Jabatan">
                       </div>
                     </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">NIP</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nip" class="form-control" id="nip" placeholder="">
+                        <input type="text" name="nip" class="form-control" id="nip" placeholder="Masukkan NIP">
                       </div>
                     </div>
-                    <h4>Pengelola Barang Persediaan</h4>
+                  </div>
+                  <div class="box-footer" style="padding:0;">
+                  </div>
+                <div class="box-header with-border">
+                  <h3 class="box-title">Pengelola Barang Persediaan</h3>
+                </div>  
+                  <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nama</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nama2" class="form-control" id="nama2" placeholder="">
+                        <input type="text" name="nama2" class="form-control" id="nama2" placeholder="Masukkan Nama">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Jabatan</label>
                       <div class="col-sm-9">
-                        <input type="text" name="jabatan2" class="form-control" id="jabatan2" placeholder="">
+                        <input type="text" name="jabatan2" class="form-control" id="jabatan2" placeholder="Masukkan Jabatan">
                       </div>
                     </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">NIP</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nip2" class="form-control" id="nip2" placeholder="">
+                        <input type="text" name="nip2" class="form-control" id="nip2" placeholder="Masukkan NIP">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kota</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kota" class="form-control" id="kota" placeholder="">
+                        <input type="text" name="kota" class="form-control" id="kota" placeholder="Masukkan Kota">
                       </div>
                     </div>
-<!--                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Tanggal Isi</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="tgl_isi" class="form-control" id="tgl_isi" placeholder="">
-                      </div>
-                    </div>                    
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Tanggal Setuju</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="tgl_setuju" class="form-control" id="tgl_setuju" placeholder="">
-                      </div>
-                    </div>
-                  </div> -->
+                  </div>
                   <div class="box-footer">
                     <button type="Reset" class="btn btn-default">Reset</button>
                     <button type="submit" class="btn btn-info pull-right">Submit</button>
                   </div>
                 </form>
               </div>
-
-              </div> 
             </section>
           </div>
         </section>
@@ -103,24 +95,23 @@
     <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
-    <script type="text/javascript">
-
-          $.ajax({
-            type: "post",
-            url: '../core/tandatgn/prosestndatgn',
-            data: {manage:'baca_data_pj'},
-            dataType: "json",
-            success: function (output) {
-            $('#nama').val(output.nama);
-            $('#nip').val(output.nip);
-            $('#jabatan').val(output.jabatan);            
-            $('#nama2').val(output.nama2);
-            $('#nip2').val(output.nip2);
-            $('#jabatan2').val(output.jabatan2);
-            $('#kota').val(output.kota);
-            }
-          });
-
+    <script type="text/javascript">    
+      $("li#tnda_tangan").addClass("active");
+      $.ajax({
+        type: "post",
+        url: '../core/tandatgn/prosestndatgn',
+        data: {manage:'baca_data_pj'},
+        dataType: "json",
+        success: function (output) {
+        $('#nama').val(output.nama);
+        $('#nip').val(output.nip);
+        $('#jabatan').val(output.jabatan);            
+        $('#nama2').val(output.nama2);
+        $('#nip2').val(output.nip2);
+        $('#jabatan2').val(output.jabatan2);
+        $('#kota').val(output.kota);
+        }
+      });
 
       $('#addtndatgn').submit(function(e){
         $('#myModal').modal({

@@ -262,7 +262,18 @@
             $('#ursatker').val(output.ursatker);
             $('#urunit').val(output.urunit);
             $('#urgudang').val(output.urgudang);
-            $('#urgudangh').val(output.urgudang);
+              if (kdunitgudang.length == 2) {
+                $('#urgudangh').val(output.ursektor);
+              }
+              else if (kdunitgudang.length == 5) {
+                $('#urgudangh').val(output.ursatker);
+              }
+              else if (kdunitgudang.length == 8) {
+                $('#urgudangh').val(output.urunit);
+              }
+              else {
+                $('#urgudangh').val(output.urgudang);
+              }
             }
           });
         }

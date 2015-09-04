@@ -11,12 +11,11 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Sub Kelompok Barang Persediaan
-            <small>Control Panel</small>
+            Kelompok Barang Persediaan
+            <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           <ol class="breadcrumb">
-            <li><i class="fa fa-link"></i> Lain - lain</li>
-            <li class="active"><a href="#"><i class="fa fa-table"></i> Sub Kelompok Barang</a></li>
+            <li class="active"><a href="#"><i class="fa fa-table"></i> Barang Persediaan</a></li>
           </ol>
         </section>
         <section class="content">
@@ -29,11 +28,12 @@
 				        <form action="../core/barang/prosesbarang" method="post" class="form-horizontal" id="addbarang">
                   <div class="box-body">
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode Sub-sub Kelompok Barang</label>
-                      <div class="col-sm-9">
-                        <select name="kdsskel" id="kdsskel" class="form-control">
+                      <label class="col-sm-2 control-label" style="padding-top:2px;">Kode Sub-sub Kelompok Barang</label>
+                      <div class="col-sm-9" style="padding-top:7px;">
+                        <select name="kdsskel" id="kdsskel" class="form-control select2">
+                          <option value="">-- Pilih Kode Sub-sub Kelompok Barang --</option>
                         </select>
-						              <input type="hidden" name="manage" value="addbarang">                   
+						            <input type="hidden" name="manage" value="addbarang">                   
                       </div>
                     </div>
                     <div class="form-group">
@@ -59,9 +59,11 @@
                     <button type="Reset" class="btn btn-default">Reset</button>
                     <button type="submit" class="btn btn-info pull-right">Submit</button>
                   </div>
-                </form>				
-                <div class="box-header">
-                  <h3 class="box-title">Tabel Barang Persediaan</h3>
+                </form>
+              </div>
+              <div class="box box-info">        
+                <div class="box-header with-border">
+                  <h3 class="box-title">Daftar Barang Persediaan</h3>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
@@ -69,9 +71,8 @@
                       <tr>
                         <th width="14%">SSKel. Barang</th>
                         <th width="14%">Kode Barang</th>
-						            <th>Nama Barang</th>
+                        <th>Nama Barang</th>
                         <th width="14%">Satuan</th>
-
                       </tr>
                     </thead>
                   </table>
@@ -90,6 +91,7 @@
     <script type="text/javascript">
       $(function () {
         $("li#barang").addClass("active");
+        $(".select2").select2();
         $.ajax({
           type: "post",
           url: '../core/barang/prosesbarang',

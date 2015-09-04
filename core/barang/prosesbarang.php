@@ -12,7 +12,7 @@ else
 	switch ($manage)
 	{
 		case 'readsskel':
-				$Barang->bacasskel();
+			$Barang->bacasskel();
 		break;
 
 		case 'addbarang':

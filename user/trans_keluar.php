@@ -14,9 +14,10 @@
         <section class="content-header">
           <h1>
             Persediaan Keluar
+            <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-table"></i>Daftar Transaksi Keluar</a></li>
+            <li class="active"><a href="#"><i class="fa fa-expand"></i> Transaksi Keluar</a></li>
           </ol>
         </section>
         <section class="content">
@@ -25,75 +26,86 @@
               <div class="box box-info">
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Transaksi Keluar </h3>
+                </div>
+                <div class="nav-tabs-custom">
+                  <ul class="nav nav-tabs nav-justified">
+                    <li class="active"><a href="#tab_1" data-toggle="tab">Jenis Transaksi</a></li>
+                    <li><a href="#tab_2" data-toggle="tab">Keterangan Transaksi</a></li>
+                  </ul>
                 </div>  
                 <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="addtransmsk">
                   <div class="box-body">
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Jenis Transaksi</label>
-                      <div class="col-sm-4">
-                        <select name="jenis_trans" id="jenis_trans" class="form-control">
-                          <option value="">Pilih Jenis Transaksi</option>
-                          <option value="K01">Habis Pakai</option>
-                          <option value="K02">Usang</option>
-                          <option value="K03">Rusak</option>
-                          <option value="K04">Transfer Keluar</option>
-                        </select>
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="tab_1">
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Jenis Transaksi</label>
+                          <div class="col-sm-9">
+                            <select name="jenis_trans" id="jenis_trans" class="form-control">
+                              <option value="">Pilih Jenis Transaksi</option>
+                              <option value="K01">Habis Pakai</option>
+                              <option value="K02">Usang</option>
+                              <option value="K03">Rusak</option>
+                              <option value="K04">Transfer Keluar</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Nomor Dokumen</label>
+                          <div class="col-sm-9">
+                            <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="Masukkan No. Dokumen">
+                            <input type="hidden" name="manage" value="tbh_transaksi_klr">  
+                            <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>  
+                          </div>
+                        </div>
+                        <div class="form-group">                     
+                        <label class="col-sm-2 control-label">Nomor Bukti</label>
+                          <div class="col-sm-9">
+                            <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor BUkti">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Tanggal Dokumen</label>
+                          <div class="col-sm-9">
+                            <input type="text" name="tgl_dok" max="10" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" readonly>
+                          </div>
+                        </div>                    
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Tanggal Buku</label>
+                          <div class="col-sm-9">
+                            <input type="text" name="tgl_buku" max="10" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" readonly>
+                          </div> 
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="tab_2">     
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Keterangan</label>
+                          <div class="col-sm-9">
+                            <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Keterangan">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Kode Barang</label>
+                          <div class="col-sm-9">
+                            <select name="kd_brg" id="kd_brg" class="form-control">
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Jumlah Dikeluarkan</label>
+                          <div class="col-sm-9">
+                            <input type="number" min="1" max name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Keluar">
+                          </div>
+                        </div>                  
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Saldo Barang</label>
+                          <div class="col-sm-9">
+                            <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="Saldo Barang" readonly>
+                          </div>
+                        </div>                  
+                        <div name="detil_transaksi" id="detil_transaksi">
+                        </div>
                       </div>
                     </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Nomor Dokumen</label>
-                      <div class="col-sm-4">
-                        <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="Masukkan No. Dokumen">
-                        <input type="hidden" name="manage" value="tbh_transaksi_klr">  
-                        <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>  
-                      </div>
-                    </div>
-
-                    <div class="form-group">                     
-                    <label class="col-sm-2 control-label">Nomor Bukti</label>
-                      <div class="col-sm-4">
-                        <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor BUkti">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Tanggal Dokumen</label>
-                      <div class="col-sm-4">
-                        <input type="text" name="tgl_dok" max="10" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" readonly>
-                      </div>
-                    </div>                    
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Tanggal Buku</label>
-                      <div class="col-sm-4">
-                        <input type="text" name="tgl_buku" max="10" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" readonly>
-                      </div> 
-                    </div>                   
-                  <div class="form-group">
-                      <label class="col-sm-2 control-label">Keterangan</label>
-                      <div class="col-sm-4">
-                        <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Keterangan">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode Barang</label>
-                      <div class="col-sm-4">
-                        <select name="kd_brg" id="kd_brg" class="form-control">
-                        </select>
-                      </div>
-                    </div>
-                  <div class="form-group">
-                      <label class="col-sm-2 control-label">Jumlah Dikeluarkan</label>
-                      <div class="col-sm-4">
-                        <input type="number" min="1" max name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Keluar">
-                      </div>
-                    </div>                  
-                  <div class="form-group">
-                      <label class="col-sm-2 control-label">Saldo Barang</label>
-                      <div class="col-sm-4">
-                        <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="" readonly>
-                      </div>
-                    </div>                  
-                  <div name="detil_transaksi" id="detil_transaksi">
-
                   </div>
                   <div class="box-footer">
                     <button type="Reset" class="btn btn-default">Reset</button>
@@ -103,7 +115,7 @@
               </div>
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Daftar Saldo Keluar</h3>
+                  <h3 class="box-title">Daftar Transaksi Keluar</h3>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
@@ -135,10 +147,6 @@
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">
-
-
-
-
     var table;
       $(function () {
         $("li#trans_keluar").addClass("active");

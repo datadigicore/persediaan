@@ -46,7 +46,7 @@ class modelBarang extends mysql_db
 	{
 		$query = "select * from sskel group by nm_sskel asc";
         $result = $this->query($query);
-        echo '<option value="">-- Pilih Kode Sub Kelompok Barang --</option>';
+        echo '<option value="">-- Pilih Kode Sub-sub Kelompok Barang --</option>';
 		while ($row = $this->fetch_array($result))
 		{
 			echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_sskel']."</option>";

@@ -12,10 +12,11 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Hasil Opname Fisik
+            Opname Fisik
+            <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-table"></i>Daftar  Hasil Opname Fisik</a></li>
+            <li class="active"><a href="#"><i class="fa fa-retweet"></i> Opname Fisik</a></li>
           </ol>
         </section>
         <section class="content">
@@ -27,61 +28,53 @@
                 </div>  
                 <form action="../core/opsik/prosesopsik" method="post" class="form-horizontal" id="addtransms">
                   <div class="box-body">
-
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>
-                      <div class="col-sm-4">
+                      <div class="col-sm-9">
                         <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="Masukkan No. Dokumen">
                         <input type="hidden" name="manage" value="tbh_opname">  
                         <input type="hidden" name="jenis_trans" value="P01">  
                       </div>
                     </div>
-
                     <div class="form-group">                     
                     <label class="col-sm-2 control-label">Nomor Bukti</label>
-                      <div class="col-sm-4">
+                      <div class="col-sm-9">
                         <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor BUkti">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Dokumen</label>
-                      <div class="col-sm-4">
+                      <div class="col-sm-9">
                         <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen">
                       </div>
                     </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Buku</label>
-                      <div class="col-sm-4">
+                      <div class="col-sm-9">
                         <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku">
                       </div> 
                     </div>                   
-                  <div class="form-group">
+                    <div class="form-group">
                       <label class="col-sm-2 control-label">Keterangan</label>
-                      <div class="col-sm-4">
+                      <div class="col-sm-9">
                         <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Keterangan">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode Persediaan</label>
-                      <div class="col-sm-4">
+                      <div class="col-sm-9">
                         <select name="kd_brg" id="kd_brg" class="form-control">
                         </select>
                       </div>
                     </div>
-                  <div class="form-group">
+                    <div class="form-group">
                       <label class="col-sm-2 control-label">Jumlah</label>
-                      <div class="col-sm-4">
+                      <div class="col-sm-9">
                         <input type="text" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Keluar">
                       </div>
-                    </div>                  
-<!--                   <div class="form-group">
-                      <label class="col-sm-2 control-label">Harga Satuan (Rp.)</label>
-                      <div class="col-sm-4">
-                        <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="" readonly>
-                      </div>
-                    </div>    -->               
-                  <div name="detil_transaksi" id="detil_transaksi">
-
+                    </div>
+                    <div name="detil_transaksi" id="detil_transaksi">
+                    </div>
                   </div>
                   <div class="box-footer">
                     <button type="Reset" class="btn btn-default">Reset</button>
@@ -91,14 +84,14 @@
               </div>
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Daftar Saldo Keluar</h3>
+                  <h3 class="box-title">Daftar Opname Fisik</h3>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                         <th width="10%">ID</th>
-                        <th width="14%">Nomor Dokumen</th>
+                        <th width="14%">No Dokumen</th>
                         <th>Tanggal Buku</th>
                         <th>Nama Barang</th>
                         <th>Jumlah</th>
@@ -125,7 +118,7 @@
     <script type="text/javascript">
     var table;
       $(function () {
-        $("li#opnamear").addClass("active");
+        $("li#opname").addClass("active");
         $('#tgl_dok').datepicker({
           format: "yyyy/mm/dd"
         });         
