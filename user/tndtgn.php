@@ -30,20 +30,20 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nama</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nama" class="form-control" id="nama" placeholder="">
+                        <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama">
                         <input type="hidden" name="manage" value="addtndatgn">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Jabatan</label>
                       <div class="col-sm-9">
-                        <input type="text" name="jabatan" class="form-control" id="jabatan" placeholder="">
+                        <input type="text" name="jabatan" class="form-control" id="jabatan" placeholder="Masukkan Jabatan">
                       </div>
                     </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">NIP</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nip" class="form-control" id="nip" placeholder="">
+                        <input type="text" name="nip" class="form-control" id="nip" placeholder="Masukkan NIP">
                       </div>
                     </div>
                   </div>
@@ -56,25 +56,25 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nama</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nama2" class="form-control" id="nama2" placeholder="">
+                        <input type="text" name="nama2" class="form-control" id="nama2" placeholder="Masukkan Nama">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Jabatan</label>
                       <div class="col-sm-9">
-                        <input type="text" name="jabatan2" class="form-control" id="jabatan2" placeholder="">
+                        <input type="text" name="jabatan2" class="form-control" id="jabatan2" placeholder="Masukkan Jabatan">
                       </div>
                     </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">NIP</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nip2" class="form-control" id="nip2" placeholder="">
+                        <input type="text" name="nip2" class="form-control" id="nip2" placeholder="Masukkan NIP">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kota</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kota" class="form-control" id="kota" placeholder="">
+                        <input type="text" name="kota" class="form-control" id="kota" placeholder="Masukkan Kota">
                       </div>
                     </div>
                   </div>

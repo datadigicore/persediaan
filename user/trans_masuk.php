@@ -25,72 +25,120 @@
               <div class="box box-info">
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Dokumen Transaksi </h3>
-                </div>  
+                </div>
+                <!-- <ul class="nav nav-tabs">
+                  <li class="active"><a href="#tab_1" data-toggle="tab">Jenis Transaksi</a></li>
+                  <li><a href="#tab_2" data-toggle="tab">Keterangan</a></li>
+                </ul>   -->
+                <div class="nav-tabs-custom">
+                  <ul class="nav nav-tabs nav-justified">
+                    <li class="active"><a href="#tab_1" data-toggle="tab">Jenis Transaksi</a></li>
+                    <li><a href="#tab_2" data-toggle="tab">Keterangan Transaksi</a></li>
+                  </ul>
+                </div>
+                <!-- <div class="tab-content">
+                  <div class="tab-pane active" id="tab_1">
+                    <b>How to use:</b>
+                    <p>Exactly like the original bootstrap tabs except you should use
+                      the custom wrapper <code>.nav-tabs-custom</code> to achieve this style.</p>
+                    A wonderful serenity has taken possession of my entire soul,
+                    like these sweet mornings of spring which I enjoy with my whole heart.
+                    I am alone, and feel the charm of existence in this spot,
+                    which was created for the bliss of souls like mine. I am so happy,
+                    my dear friend, so absorbed in the exquisite sense of mere tranquil existence,
+                    that I neglect my talents. I should be incapable of drawing a single stroke
+                    at the present moment; and yet I feel that I never was a greater artist than now.
+                  </div>
+                  <div class="tab-pane" id="tab_2">
+                    The European languages are members of the same family. Their separate existence is a myth.
+                    For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ
+                    in their grammar, their pronunciation and their most common words. Everyone realizes why a
+                    new common language would be desirable: one could refuse to pay expensive translators. To
+                    achieve this, it would be necessary to have uniform grammar, pronunciation and more common
+                    words. If several languages coalesce, the grammar of the resulting language is more simple
+                    and regular than that of the individual languages.
+                  </div>
+                  <div class="tab-pane" id="tab_3">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                    when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                    It has survived not only five centuries, but also the leap into electronic typesetting,
+                    remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                    sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
+                    like Aldus PageMaker including versions of Lorem Ipsum.
+                  </div>
+                </div> -->
                 <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="addtransmsk">
                   <div class="box-body">
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Jenis Transaksi</label>
-                      <div class="col-sm-9">
-                        <select name="jenis_trans" id="jenis_trans" class="form-control">
-                          <option value="">Pilih Jenis Transaksi</option>
-                          <option value="M01">Saldo Awal</option>
-                          <option value="M02">Pembelian</option>
-                          <option value="M03">Transfer Masuk</option>
-                        </select>
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="tab_1">
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Jenis Transaksi</label>
+                          <div class="col-sm-9">
+                            <select name="jenis_trans" id="jenis_trans" class="form-control">
+                              <option value="">Pilih Jenis Transaksi</option>
+                              <option value="M01">Saldo Awal</option>
+                              <option value="M02">Pembelian</option>
+                              <option value="M03">Transfer Masuk</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Nomor Dokumen</label>
+                          <div class="col-sm-9">
+                            <input type="text" name="no_dok" class="form-control"  id="no_dok" placeholder="Masukkan No. Dokumen">
+                            <input type="hidden" name="manage" value="tbh_transaksi_msk">
+                            <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>    
+                          </div>
+                        </div>
+                        <div class="form-group">                     
+                        <label class="col-sm-2 control-label">Nomor Bukti</label>
+                          <div class="col-sm-9">
+                            <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor Bukti">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Tanggal Dokumen</label>
+                          <div class="col-sm-9">
+                            <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" readonly>
+                          </div>
+                        </div>                    
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Tanggal Buku</label>
+                          <div class="col-sm-9">
+                            <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" readonly>
+                          </div> 
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Nomor Dokumen</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="no_dok" class="form-control"  id="no_dok" placeholder="Masukkan No. Dokumen">
-                        <input type="hidden" name="manage" value="tbh_transaksi_msk">
-                        <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>    
+                      <div class="tab-pane" id="tab_2">
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Keterangan</label>
+                          <div class="col-sm-9">
+                            <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Uraian / Keterangan">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Kode Barang</label>
+                          <div class="col-sm-9">
+                            <select name="kd_brg" id="kd_brg" class="form-control">
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Jumlah Masuk</label>
+                          <div class="col-sm-9">
+                            <input type="number" min="1" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Masuk">
+                          </div>
+                        </div>                  
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Harga Beli Satuan</label>
+                          <div class="col-sm-9">
+                            <input type="number" min="1" name="rph_sat" class="form-control" id="rph_sat" placeholder="Masukkan Harga ">
+                          </div>
+                        </div>                  
+                        <div name="detil_transaksi" id="detil_transaksi">
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group">                     
-                    <label class="col-sm-2 control-label">Nomor Bukti</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor Bukti">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Tanggal Dokumen</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" readonly>
-                      </div>
-                    </div>                    
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Tanggal Buku</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" readonly>
-                      </div> 
-                    </div>                   
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Keterangan</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Uraian / Keterangan">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode Barang</label>
-                      <div class="col-sm-9">
-                        <select name="kd_brg" id="kd_brg" class="form-control">
-                        </select>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Jumlah Masuk</label>
-                      <div class="col-sm-9">
-                        <input type="number" min="1" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Masuk">
-                      </div>
-                    </div>                  
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Harga Beli Satuan</label>
-                      <div class="col-sm-9">
-                        <input type="number" min="1" name="rph_sat" class="form-control" id="rph_sat" placeholder="Masukkan Harga ">
-                      </div>
-                    </div>                  
-                    <div name="detil_transaksi" id="detil_transaksi">
                     </div>
                   </div>
                   <div class="box-footer">
