@@ -136,18 +136,18 @@ class modelReport extends mysql_db
                     if($data[qty]>0) 
                     {
                         echo '<center><td  align="center">'.$data[qty].'</td></center> 
-                                <center><td  align="right">'.number_format($data[harga_sat]).'</td></center>
+                                <center><td  align="right">'.number_format($data[harga_sat],0,",",".").'</td></center>
                                 <center><td  align="center">'.'0'.'</td></center>';
                     }
                     else {
                     echo '<center><td  align="center">'.'0'.'</td></center>
-                                <center><td  align="right">'.number_format(abs($data[harga_sat])).'</td></center>
+                                <center><td  align="right">'.number_format(abs($data[harga_sat]),0,",",".").'</td></center>
                                 <center><td  align="center">'.abs($data[qty]).'</td></center>';
                     }
                     $saldo +=$data[qty]*abs($data[harga_sat]);
                     $jumlah+=$data[qty];
                     echo '<td>'.$jumlah.'</td>
-                    <center><td align="right">'.number_format($saldo).'</td></center>
+                    <center><td align="right">'.number_format($saldo,0,",",".").'</td></center>
                     </tr>';
                 }
                 echo '</table>';
@@ -213,7 +213,7 @@ class modelReport extends mysql_db
                 {
                     $sql=mysql_query("SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, sum(total_harga) as nilai from transaksi_full where tgl_buku <= '$tgl_akhir' and kd_lokasi='$kd_lokasi' AND thn_ang='$thn_ang' GROUP BY kd_brg");
                 }
-                elseif($jenis="semester")
+                elseif($jenis=="semester")
                 {
                     $sql=mysql_query("SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, sum(total_harga) as nilai from transaksi_full where month(tgl_buku) >= '$bln_awal' and month(tgl_buku) <= '$bln_akhir' and kd_lokasi='$kd_lokasi' AND thn_ang='$thn_ang' GROUP BY kd_brg");
                 }
@@ -409,6 +409,7 @@ class modelReport extends mysql_db
         ob_start(); 
         $kd_lokasi = $data['kd_lokasi'];
         $kd_brg = $data['kd_brg'];
+        $tgl_akhir = $data['tgl_akhir'];
         $thn_ang = $data['thn_ang'];
         $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg'";
         $result_detail = $this->query($detail_brg);
@@ -434,7 +435,7 @@ class modelReport extends mysql_db
                         <td>NILAI</td>
                 </tr>';
 
-                $sql=mysql_query("SELECT kd_perk, nm_perk, sum(total_harga) as nilai FROM transaksi where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' GROUP BY kd_perk");
+                $sql=mysql_query("SELECT kd_perk, nm_perk, sum(total_harga) as nilai FROM transaksi where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and status_hapus=0  and tgl_buku<='$tgl_akhir' GROUP BY kd_perk");
                 $no=0;
                 $total=0;
 
