@@ -17,8 +17,23 @@ else
 		break;		
 
 		case 'readbrgmsk':
-			$data = $_SESSION['kd_lok'];
+			$kd_lokasi = $_SESSION['kd_lok'];
+			$thn_ang = $_SESSION['thn_ang'];
+			$data = array(
+				"kd_lokasi" => $kd_lokasi,
+				"thn_ang" => $thn_ang
+				);
 			$Transaksi->baca_persediaan_masuk($data);
+		break;
+
+		case 'cek_hapus':
+			$kd_lokasi = $_SESSION['kd_lok'];
+			$id_masuk = $purifier->purify($_POST['id_row']);
+			$data = array(
+				"kd_lokasi" => $kd_lokasi,
+				"id_masuk" => $id_masuk
+				);
+			$Transaksi->cek_hapus($data);
 		break;		
 
 		case 'baca_detil_trans':
@@ -34,8 +49,10 @@ else
 		case 'sisabarang':
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			$kd_lokasi = $_SESSION['kd_lok'];
+			$thn_ang = $_SESSION['thn_ang'];
 			$data = array(
 				"kd_lokasi" => $kd_lokasi,
+				"thn_ang" => $thn_ang,
 				"kd_brg" => $kd_brg
 				);
 			$Transaksi->sisa_barang($data);

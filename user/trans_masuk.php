@@ -193,7 +193,20 @@
       redirectURL = "trans_masuk";
       id_row = row.data()[0];
       managedata = "hapusTransMasuk";
-      job=confirm("Anda yakin ingin menghapus data ini?");
+
+      $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'cek_hapus',id_row:id_row},
+          dataType: "json",
+          success: function (output) {
+            if(output.qty!=null) {
+          alert("Tidak dapat menghapus, barang sudah dikeluarkan pada tanggal "+output.tgl_buku+" sebanyak "+output.qty+" "+output.satuan);
+          return false;
+        }
+        else
+        {
+        job=confirm("Anda yakin ingin menghapus data ini?");
         if(job!=true){
           return false;
         }
@@ -218,6 +231,13 @@
           });
           return false;
         }
+        }
+
+        }
+      });
+
+
+
       });
 
 

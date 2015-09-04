@@ -602,7 +602,9 @@ class modelTransaksi extends mysql_db
 
     public function baca_persediaan_masuk($data)
     {
-        $query = "select kd_brg, nm_brg FROM transaksi_masuk where kd_lokasi = '$data' and status_hapus=0 GROUP BY kd_brg ORDER BY nm_brg ASC ";
+        $kd_lokasi = $data['kd_lokasi'];
+        $thn_ang = $data['thn_ang'];
+        $query = "select kd_brg, nm_brg FROM transaksi_masuk where kd_lokasi = '$kd_lokasi' and status_hapus=0  and thn_ang = '$thn_ang' GROUP BY kd_brg ORDER BY nm_brg ASC ";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         while ($row = $this->fetch_array($result))
@@ -655,7 +657,8 @@ class modelTransaksi extends mysql_db
     {
         $kd_lokasi = $data['kd_lokasi'];
         $kd_brg = $data['kd_brg'];
-        $query = "select sum(qty_akhir) as sisa,satuan from transaksi_masuk  where kd_brg = '$kd_brg' and kd_lokasi='$kd_lokasi' and status_hapus=0";  
+        $thn_ang = $data['thn_ang'];
+        $query = "select sum(qty_akhir) as sisa,satuan from transaksi_masuk  where kd_brg = '$kd_brg' and kd_lokasi='$kd_lokasi' and status_hapus=0 and thn_ang<='$thn_ang'";  
         $result = $this->query($query);
         $sisa_brg = $this->fetch_array($result);
 
@@ -668,16 +671,22 @@ class modelTransaksi extends mysql_db
         // else
         // {
         //     echo json_encode(array("sisa"=>"0", "satuan"=>$sisa_brg["satuan"]));
-        // }
-
-
-        
+        // }       
         
     }
 
+   public function cek_hapus($data) {
+
+   $kd_lokasi = $data['kd_lokasi'];
+   $id_masuk = $data['id_masuk'];
+
+
+   $query_cek = "SELECT tgl_buku,qty,satuan from transaksi_keluar where kd_lokasi='$kd_lokasi' and id_masuk='$id_masuk'";
+   $result = $this->query($query_cek);
+   $cek= $this->fetch_array($result);
    
-   
-          
+   echo json_encode(array("tgl_buku"=>$cek["tgl_buku"], "qty"=>$cek["qty"],"satuan"=>$cek["satuan"]));
+}
 
 }
 ?>

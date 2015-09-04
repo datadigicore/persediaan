@@ -110,6 +110,7 @@ class modelReport extends mysql_db
                                      and kd_lokasi='$kd_lokasi'  
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
+                                     
                                      union all 
                                      SELECT tgl_buku, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
                                      FROM transaksi_keluar 
@@ -119,7 +120,8 @@ class modelReport extends mysql_db
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
  
-                                     ORDER BY tgl_buku ASC;");
+                                     ORDER BY tgl_buku ASC
+                                     ;");
                 }
                 $no=0;
                 $jumlah=0;
