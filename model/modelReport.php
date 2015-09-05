@@ -168,34 +168,16 @@ class modelReport extends mysql_db
         $kd_brg = $data['kd_brg'];
         $thn_ang = $data['thn_ang'];
         $kd_lokasi = $data['kd_lokasi'];
+        $date = $this->cek_periode($data);
 
         $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi'";
         $result_detail = $this->query($detail_brg);
         $brg = $this->fetch_array($result_detail);
         $this->getsatker($kd_lokasi);
-        echo ' 
-                <table style="text-align: center; width: 90%; " align="center">
-                <tr>
-                    <td>LAPORAN PERSEDIAAN BARANG</td>
-                </tr>
-                <tr>
-                    
-                </tr>
-                <tr>
-                    <td>TAHUN ANGGARAN : '.$thn_ang.'</td>
-                </tr>
-                <tr>
-
-                </tr>                
-                <tr>
-
-                </tr>               
-                 <tr>
-                    <td width="60%" align="left"></td>
-                </tr>
-                <br></br>
-                <br></br>
-                </table>
+        echo '<p align="center" style="margin:0px; padding:0px; font-weight:bold;">LAPORAN PERSEDIAAN BARANG</p>
+              <p align="center" style="margin:0px; padding:0px; font-weight:bold;">UNTUK PERIODE YANG BERAKHIR PADA '.$date.'</p>
+              <p align="center" style="margin:0px; padding:0px; font-weight:bold;">TAHUN ANGGARAN '.$thn_ang.'</p>
+              <br></br>  
                 <table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border=1 align="center">
                 <tr>
                     
@@ -297,22 +279,15 @@ class modelReport extends mysql_db
         $kd_brg = $data['kd_brg'];
         $kd_lokasi = $data['kd_lokasi'];
         $this->getsatker($kd_lokasi);
+        $date = $this->cek_periode($data);
         $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi'";
         $result_detail = $this->query($detail_brg);
         $brg = $this->fetch_array($result_detail);
-        echo ' <p align="center">LAPORAN MUTASI BARANG PERSEDIAAN</p>
+        echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">LAPORAN MUTASI BARANG PERSEDIAAN</p>
+               <p align="center" style="margin:0px; padding:0px; font-weight:bold;">UNTUK PERIODE YANG BERAKHIR PADA '.$date.'</p>
+               <p align="center" style="margin:0px; padding:0px; font-weight:bold;">TAHUN ANGGARAN '.$thn_ang.'</p>
                 <br></br>
-                <table style="text-align: center; width: 90%; " align="center">
-                <tr>
 
-                </tr>                
-                <tr>
-
-                </tr>               
-                 <tr>
-                    <td width="60%" align="left"></td>
-                </tr>
-                </table>
                 <table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border=1 align="center">
                 <tr>
                     <td rowspan="2">KODE BARANG</td>
@@ -423,7 +398,7 @@ class modelReport extends mysql_db
                             <td colspan="2" align="right">'.number_format($total_akumulasi,0,",",".").'</td>  
                         </tr>';
                 echo '</table>';
-                $this->hitung_brg_rusak($kd_lokasi);
+                // $this->hitung_brg_rusak($kd_lokasi);
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
                 ob_end_clean();
                 //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
@@ -440,23 +415,16 @@ class modelReport extends mysql_db
         $kd_brg = $data['kd_brg'];
         $tgl_akhir = $data['tgl_akhir'];
         $thn_ang = $data['thn_ang'];
+        $date = $this->cek_periode($data);
+
         $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg'";
         $result_detail = $this->query($detail_brg);
         $brg = $this->fetch_array($result_detail);
         $this->getsatker($kd_lokasi);
-        echo ' <p align="center">LAPORAN POSISI PERSEDIAAN DI NERACA</p>
+        echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">LAPORAN POSISI PERSEDIAAN DI NERACA</p>
+                <p align="center" style="margin:0px; padding:0px; font-weight:bold;">UNTUK PERIODE YANG BERAKHIR PADA '.$date.'</p>
+                <p align="center" style="margin:0px; padding:0px; font-weight:bold;">TAHUN ANGGARAN '.$thn_ang.'</p>
                 <br></br>
-                <table style="text-align: center; width: 90%; " align="center">
-                <tr>
-                    <td width="60%" align="left">UAKPB :'.''.'</td>
-                </tr>                
-                <tr>
-                    <td width="60%" align="left">Kode UAKPB :'.''.'</td>
-                </tr>               
-                 <tr>
-                    <td width="60%" align="left"></td>
-                </tr>
-                </table>
                 <table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border=1 align="center">
                 <tr>
                         <td>KODE</td>
@@ -795,6 +763,97 @@ class modelReport extends mysql_db
                     <tr>2. Persediaan Senilai Rp. '.abs($saldo_usang).',- dalam kondisi usang</tr>                
              
                     ';
+
+
+    }
+
+    public function cek_periode($data)
+    {
+        $jenis = $data['jenis'];
+        $bulan = $data['bulan'];
+        $tgl_awal = $data['tgl_awal'];
+        $tgl_akhir = $data['tgl_akhir'];
+        $bln_awal = $data['bln_awal'];
+        $bln_akhir = $data['bln_akhir'];
+        $thn_ang = $data['thn_ang'];
+
+        if($jenis=="tanggal") 
+        {
+            $tanggal=$this->cetak_tanggal($tgl_akhir);
+            return $tanggal;
+        }
+        if($jenis=="semester" && $bln_akhir=="06")
+        {
+            return "31 JUNI ".$thn_ang;
+        }
+
+        if($jenis=="semester" && $bln_akhir=="12")
+        {
+            return "31 DESEMBER ".$thn_ang;
+        }
+        else        
+        {
+            return "31 DESEMBER ".$thn_ang;
+        }
+
+    }
+
+    public function cetak_tanggal($tgl_akhir)
+    {
+        $data_tgl = explode("/", $tgl_akhir);
+        if($data_tgl[1]=="01")
+        {
+            $bulan="JANUARI";
+        }        
+
+        if($data_tgl[1]=="02")
+        {
+            $bulan="FEBRUARI";
+        }
+
+        if($data_tgl[1]=="03")
+        {
+            $bulan="MARET";
+        }
+        if($data_tgl[1]=="04")
+        {
+            $bulan="APRIL";
+        }
+        if($data_tgl[1]=="05")
+        {
+            $bulan="MEI";
+        }
+        if($data_tgl[1]=="06")
+        {
+            $bulan="JUNI";
+        }
+        if($data_tgl[1]=="07")
+        {
+            $bulan="JULI";
+        }
+        if($data_tgl[1]=="08")
+        {
+            $bulan="AGUSTUS";
+        }
+        if($data_tgl[1]=="09")
+        {
+            $bulan="SEPTEMBER";
+        }
+        if($data_tgl[1]=="10")
+        {
+            $bulan="OKTOBER";
+        }
+        if($data_tgl[1]=="11")
+        {
+            $bulan="NOVEMBER";
+        }
+        if($data_tgl[1]=="12")
+        {
+            $bulan="DESEMBER";
+        }
+    $array = array($data_tgl[2],$bulan,$data_tgl[0]);
+    $tanggal = implode(" ",$array);
+    return $tanggal;
 
 
     }
