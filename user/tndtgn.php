@@ -121,7 +121,7 @@
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "2600";
-        redirectURL = "tndatgn";
+        redirectURL = "tndtgn";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({

@@ -30,7 +30,6 @@ else
 				"kd_lokasi" => $_SESSION['kd_lok'],
 				"user_id" => $user_id
 			   );
-			// print_r($data);
 			$Report->buku_persediaan($data);
 		break;
 
@@ -52,7 +51,6 @@ else
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $_SESSION['kd_lok'],
 			"user_id" => $user_id);
-			print_r($data);
 			$Report->laporan_persediaan($data);
 		break;
 
@@ -76,7 +74,6 @@ else
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $_SESSION['kd_lok'],
 			"user_id" => $user_id);
-			print_r($data);
 			$Report->rincian_persediaan($data);
 		break;		
 
@@ -109,7 +106,6 @@ else
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $_SESSION['kd_lok'],
 			"user_id" => $user_id);
-			print_r($data);
 			$Report->mutasi_prsedia($data);
 		break;
 
@@ -137,7 +133,6 @@ else
 				"kd_lokasi" => $_SESSION['kd_lok'],
 				"user_id" => $user_id
 			   );
-			print_r($data);
 			$Report->transaksi_persediaan($data);
 		break;
 

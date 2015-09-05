@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Aplikasi Persediaan</title>
+    <title>Persediaan</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="icon" href="dist/img/icon.png" type="image/x-icon">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -14,7 +14,7 @@
   <header>
   	<div class="headernya">
   		<div class="login-logo">
-        	<img src="dist/img/icon.png" width="70px;">&nbsp;&nbsp; Aplikasi Persediaan</a>
+        	<img src="dist/img/icon.png" width="70px;">&nbsp;&nbsp; Sistem Informasi Management Persediaan</a>
       	</div>
   	</div>
   </header>
@@ -67,6 +67,9 @@
                   required: true,
                   number: true
                 }
+              },
+              messages: {
+                  name: { required: "Custom Message" }
               },
               errorPlacement: function (error, element) {
                 $(element).css({border:"1px solid red"});

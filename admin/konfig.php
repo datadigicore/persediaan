@@ -144,7 +144,7 @@
     <script type="text/javascript">
       var table;
       $(function () {
-        $("li#user").addClass("active");
+        $("li#konfig").addClass("active");
         $(".select2").select2();
         table = $("#example1").DataTable({
           "oLanguage": {
