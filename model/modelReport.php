@@ -56,66 +56,66 @@ class modelReport extends mysql_db
 
                 if($jenis=="tanggal") 
                 {
-                    $sql="SELECT tgl_buku, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                    $sql="SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
                                     FROM transaksi_masuk 
-                                    where tgl_buku BETWEEN '$tgl_awal' AND '$tgl_akhir' 
+                                    where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
                                      AND kd_brg='$kd_brg' 
                                      and kd_lokasi='$kd_lokasi'  
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
                                      union all 
-                                     SELECT tgl_buku, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                                     SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
                                      FROM transaksi_keluar 
-                                     where tgl_buku BETWEEN '$tgl_awal' AND '$tgl_akhir' 
+                                     where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
                                      AND kd_brg='$kd_brg' 
                                      and kd_lokasi='$kd_lokasi'  
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
  
-                                     ORDER BY tgl_buku ASC;";
+                                     ORDER BY tgl_dok ASC;";
                     $result = $this->query($sql);
                 }
                 elseif($jenis=="bulan")
                 {
-                    $sql="SELECT tgl_buku, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                    $sql="SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
                                     FROM transaksi_masuk 
-                                    where month(tgl_buku)='$bulan' 
+                                    where month(tgl_dok)='$bulan' 
                                      AND kd_brg='$kd_brg' 
                                      and kd_lokasi='$kd_lokasi'  
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
                                      union all 
-                                     SELECT tgl_buku, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                                     SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
                                      FROM transaksi_keluar 
-                                     where month(tgl_buku)='$bulan'  
+                                     where month(tgl_dok)='$bulan'  
                                      AND kd_brg='$kd_brg' 
                                      and kd_lokasi='$kd_lokasi'  
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
  
-                                     ORDER BY tgl_buku ASC";
+                                     ORDER BY tgl_dok ASC";
                     $result = $this->query($sql);
                 }
                 else
                 {
-                    $sql="SELECT tgl_buku, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                    $sql="SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
                                     FROM transaksi_masuk 
-                                    where year(tgl_buku)='$thn_ang'  
+                                    where year(tgl_dok)='$thn_ang'  
                                      AND kd_brg='$kd_brg' 
                                      and kd_lokasi='$kd_lokasi'  
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
                                      
                                      union all 
-                                     SELECT tgl_buku, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                                     SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
                                      FROM transaksi_keluar 
-                                     where year(tgl_buku)='$thn_ang'  
+                                     where year(tgl_dok)='$thn_ang'  
                                      AND kd_brg='$kd_brg' 
                                      and kd_lokasi='$kd_lokasi'  
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
  
-                                     ORDER BY tgl_buku ASC";
+                                     ORDER BY tgl_dok ASC";
                     $result = $this->query($sql);
                 }
                 $no=0;
@@ -126,7 +126,7 @@ class modelReport extends mysql_db
                     $no+=1;
                     echo'<tr>
                     <center><td  align="center">'.$no.'</td></center>
-                    <center><td  align="center">'.$data[tgl_buku].'</td></center>
+                    <center><td  align="center">'.$data[tgl_dok].'</td></center>
                     <center><td  align="center">'.$data[keterangan].'</td></center>';
                     if($data[qty]>0) 
                     {
@@ -207,21 +207,21 @@ class modelReport extends mysql_db
                 if($jenis=="tanggal")
                 {
                     $sql="SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, sum(total_harga) as nilai from 
-                         (SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_buku from transaksi_masuk
+                         (SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_dok from transaksi_masuk
                           UNION ALL
-                          SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_buku from transaksi_keluar)
+                          SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_dok from transaksi_keluar)
                           transaksi 
-                            where tgl_buku <= '$tgl_akhir' and kd_lokasi='$kd_lokasi' AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
+                            where tgl_dok <= '$tgl_akhir' and kd_lokasi='$kd_lokasi' AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
                     $result = $this->query($sql);
                 }
                 elseif($jenis=="semester")
                 {
                     $sql="SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, sum(total_harga) as nilai from 
-                         (SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_buku from transaksi_masuk
+                         (SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_dok from transaksi_masuk
                           UNION ALL
-                          SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_buku from transaksi_keluar)
+                          SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_dok from transaksi_keluar)
                           transaksi 
-                            where month(tgl_buku) >= '$bln_awal' and month(tgl_buku) <= '$bln_akhir' and kd_lokasi='$kd_lokasi' AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
+                            where month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' and kd_lokasi='$kd_lokasi' AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
                     $result = $this->query($sql);
                 }
                 else
@@ -335,14 +335,14 @@ class modelReport extends mysql_db
                 $sql="SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, 
                                     sum(case WHEN thn_ang='$thn_ang_lalu' THEN qty else 0 end) as brg_thn_lalu,  
                                     sum(case WHEN thn_ang='$thn_ang_lalu' THEN total_harga else 0 end) as hrg_thn_lalu,  
-                                    sum(case WHEN qty>=0 and month(tgl_buku) >= '$bln_awal' and month(tgl_buku) <= '$bln_akhir' and thn_ang='$thn_ang' THEN qty else 0 end) as masuk, 
-                                    sum(case WHEN qty<0 and month(tgl_buku) >= '$bln_awal' and month(tgl_buku) <= '$bln_akhir' and thn_ang='$thn_ang' THEN qty else 0 end) as keluar,
-                                    sum(case WHEN qty>=0 and month(tgl_buku) >= '$bln_awal' and month(tgl_buku) <= '$bln_akhir' and thn_ang='$thn_ang' THEN total_harga else 0 end) + 
-                                    sum(case WHEN qty<0 and month(tgl_buku) >= '$bln_awal' and month(tgl_buku) <= '$bln_akhir' and thn_ang='$thn_ang' THEN total_harga else 0 end) as nilai 
+                                    sum(case WHEN qty>=0 and month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' and thn_ang='$thn_ang' THEN qty else 0 end) as masuk, 
+                                    sum(case WHEN qty<0 and month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' and thn_ang='$thn_ang' THEN qty else 0 end) as keluar,
+                                    sum(case WHEN qty>=0 and month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' and thn_ang='$thn_ang' THEN total_harga else 0 end) + 
+                                    sum(case WHEN qty<0 and month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' and thn_ang='$thn_ang' THEN total_harga else 0 end) as nilai 
                                     FROM (
-                                    SELECT thn_ang,tgl_buku, kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_masuk
+                                    SELECT thn_ang,tgl_dok, kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_masuk
                                     UNION ALL
-                                    SELECT thn_ang,tgl_buku, kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_keluar
+                                    SELECT thn_ang,tgl_dok, kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_keluar
                                     ) transaksi
                                     where  kd_lokasi='$kd_lokasi' and thn_ang>='$thn_ang_lalu' and status_hapus=0
                                     GROUP by kd_brg";
@@ -353,13 +353,13 @@ class modelReport extends mysql_db
                 $sql="SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, 
                                     sum(case WHEN thn_ang='$thn_ang_lalu' THEN qty else 0 end) as brg_thn_lalu,  
                                     sum(case WHEN thn_ang='$thn_ang_lalu' THEN total_harga else 0 end) as hrg_thn_lalu,  
-                                    sum(case WHEN qty>=0 and tgl_buku BETWEEN '$tgl_awal' AND '$tgl_akhir' THEN qty else 0 end) as masuk, 
-                                    sum(case WHEN qty<0 and tgl_buku BETWEEN '$tgl_awal' AND '$tgl_akhir' THEN qty else 0 end) as keluar,
-                                    sum(case WHEN qty>=0 and tgl_buku BETWEEN '$tgl_awal' AND '$tgl_akhir' THEN total_harga else 0 end) + sum(case WHEN qty<0 and tgl_buku BETWEEN '$tgl_awal' AND '$tgl_akhir' THEN total_harga else 0 end) as nilai 
+                                    sum(case WHEN qty>=0 and tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' THEN qty else 0 end) as masuk, 
+                                    sum(case WHEN qty<0 and tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' THEN qty else 0 end) as keluar,
+                                    sum(case WHEN qty>=0 and tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' THEN total_harga else 0 end) + sum(case WHEN qty<0 and tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' THEN total_harga else 0 end) as nilai 
                                     FROM (
-                                    SELECT thn_ang,tgl_buku, kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_masuk
+                                    SELECT thn_ang,tgl_dok, kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_masuk
                                     UNION ALL
-                                    SELECT thn_ang,tgl_buku, kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_keluar
+                                    SELECT thn_ang,tgl_dok, kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_keluar
                                     ) transaksi
                                     where  kd_lokasi='$kd_lokasi' and thn_ang>='$thn_ang_lalu' and status_hapus=0
                                     GROUP by kd_brg";
@@ -465,10 +465,10 @@ class modelReport extends mysql_db
                 </tr>';
 
                 $sql="SELECT kd_perk, nm_perk, sum(total_harga) as nilai FROM (
-                                    SELECT tgl_buku, thn_ang, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_masuk
+                                    SELECT tgl_dok, thn_ang, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_masuk
                                     UNION ALL
-                                    SELECT tgl_buku,thn_ang, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_keluar
-                                    ) transaksi where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and status_hapus=0  and tgl_buku<='$tgl_akhir' GROUP BY kd_perk";
+                                    SELECT tgl_dok,thn_ang, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_keluar
+                                    ) transaksi where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and status_hapus=0  and tgl_dok<='$tgl_akhir' GROUP BY kd_perk";
                 $result = $this->query($sql);
                 $no=0;
                 $total=0;
@@ -536,7 +536,7 @@ class modelReport extends mysql_db
                     </tr> 
                 </tr>';
 
-                $sql="SELECT kd_perk, nm_perk, sum(case when year(tgl_buku)='$thn_ang_lalu' THEN total_harga else 0 end) as thn_lalu, sum(case when total_harga>=0 and thn_ang='$thn_ang' then total_harga else 0 end) as tambah, sum(case when total_harga<0 and thn_ang='$thn_ang' then total_harga else 0 end) as kurang FROM transaksi where kd_lokasi='$kd_lokasi' and thn_ang>='$thn_ang_lalu' GROUP BY kd_perk";
+                $sql="SELECT kd_perk, nm_perk, sum(case when year(tgl_dok)='$thn_ang_lalu' THEN total_harga else 0 end) as thn_lalu, sum(case when total_harga>=0 and thn_ang='$thn_ang' then total_harga else 0 end) as tambah, sum(case when total_harga<0 and thn_ang='$thn_ang' then total_harga else 0 end) as kurang FROM transaksi where kd_lokasi='$kd_lokasi' and thn_ang>='$thn_ang_lalu' GROUP BY kd_perk";
                 $result = $this->query($sql);
                 $no=0;
                 $total=0;
@@ -632,8 +632,8 @@ class modelReport extends mysql_db
                                         sum(total_harga) as harga 
                                         from transaksi_full 
                                         where 
-                                            tgl_buku >= '$tgl_awal' and 
-                                            tgl_buku <= '$tgl_akhir' and 
+                                            tgl_dok >= '$tgl_awal' and 
+                                            tgl_dok <= '$tgl_akhir' and 
                                             kd_lokasi='$kd_lokasi' AND 
                                             thn_ang='$thn_ang' and
                                             jns_trans='$kd_trans' 
@@ -653,7 +653,7 @@ class modelReport extends mysql_db
                                         sum(total_harga) as harga 
                                         from transaksi_full 
                                         where 
-                                            month(tgl_buku)='$bulan' and 
+                                            month(tgl_dok)='$bulan' and 
                                             kd_lokasi='$kd_lokasi' AND 
                                             thn_ang='$thn_ang' AND
                                             jns_trans='$kd_trans' 
