@@ -324,8 +324,8 @@ class modelReport extends mysql_db
                                     sum(case WHEN qty<0 and month(tgl_buku) >= '$bln_awal' and month(tgl_buku) <= '$bln_akhir' and thn_ang='$thn_ang' THEN qty else 0 end) as keluar,
                                     sum(case WHEN qty>=0 and month(tgl_buku) >= '$bln_awal' and month(tgl_buku) <= '$bln_akhir' and thn_ang='$thn_ang' THEN total_harga else 0 end) + 
                                     sum(case WHEN qty<0 and month(tgl_buku) >= '$bln_awal' and month(tgl_buku) <= '$bln_akhir' and thn_ang='$thn_ang' THEN total_harga else 0 end) as nilai 
-                                    FROM transaksi_full
-                                    where  kd_lokasi='$kd_lokasi' and thn_ang>='$thn_ang_lalu'
+                                    FROM transaksi
+                                    where  kd_lokasi='$kd_lokasi' and thn_ang>='$thn_ang_lalu' and status_hapus=0
                                     GROUP by kd_brg";
                 $result = $this->query($sql);
                 }
@@ -337,8 +337,8 @@ class modelReport extends mysql_db
                                     sum(case WHEN qty>=0 and tgl_buku BETWEEN '$tgl_awal' AND '$tgl_akhir' THEN qty else 0 end) as masuk, 
                                     sum(case WHEN qty<0 and tgl_buku BETWEEN '$tgl_awal' AND '$tgl_akhir' THEN qty else 0 end) as keluar,
                                     sum(case WHEN qty>=0 and tgl_buku BETWEEN '$tgl_awal' AND '$tgl_akhir' THEN total_harga else 0 end) + sum(case WHEN qty<0 and tgl_buku BETWEEN '$tgl_awal' AND '$tgl_akhir' THEN total_harga else 0 end) as nilai 
-                                    FROM transaksi_full
-                                    where  kd_lokasi='$kd_lokasi' and thn_ang>='$thn_ang_lalu'
+                                    FROM transaksi
+                                    where  kd_lokasi='$kd_lokasi' and thn_ang>='$thn_ang_lalu' and status_hapus=0
                                     GROUP by kd_brg";
                 $result = $this->query($sql);
                 }
@@ -350,8 +350,8 @@ class modelReport extends mysql_db
                                     sum(case WHEN qty>=0 and thn_ang='$thn_ang' THEN qty else 0 end) as masuk, 
                                     sum(case WHEN qty<0 and thn_ang='$thn_ang' THEN qty else 0 end) as keluar,
                                     sum(case WHEN qty>=0 and thn_ang='$thn_ang' THEN total_harga else 0 end) + sum(case WHEN qty<0 and thn_ang='$thn_ang' THEN total_harga else 0 end) as nilai 
-                                    FROM transaksi_full
-                                    where  kd_lokasi='$kd_lokasi' and thn_ang>='$thn_ang_lalu'
+                                    FROM transaksi
+                                    where  kd_lokasi='$kd_lokasi' and thn_ang>='$thn_ang_lalu' and status_hapus=0
                                     GROUP by kd_brg";
                 $result = $this->query($sql);
                 }
