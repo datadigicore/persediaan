@@ -8,6 +8,7 @@ class modelReport extends mysql_db
     public function buku_persediaan($data)
     {
         $mpdf=new mPDF('utf-8', 'A4-L');
+        $mpdf->setFooter('{PAGENO}');
         ob_start(); 
         $jenis = $data['jenis'];
         $kd_brg = $data['kd_brg'];
@@ -158,6 +159,7 @@ class modelReport extends mysql_db
     public function laporan_persediaan($data)
     {
         $mpdf=new mPDF('utf-8', 'A4-L');
+        $mpdf->setFooter('{PAGENO}');
         ob_start(); 
 
         $jenis = $data['jenis'];
@@ -410,6 +412,7 @@ class modelReport extends mysql_db
     public function neraca($data)
     {
         $mpdf=new mPDF('utf-8', 'A4-L');
+        $mpdf->setFooter('{PAGENO}');
         ob_start(); 
         $kd_lokasi = $data['kd_lokasi'];
         $kd_brg = $data['kd_brg'];
