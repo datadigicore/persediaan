@@ -27,11 +27,12 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Tahun Aktif</h3>
                 </div>  
-                <form action="../core/konfig/proseskonfig" method="post" class="form-horizontal" id="addkonfig">
+                <form action="../core/konfig/proseskonfigurasi" method="post" class="form-horizontal" id="addkonfig">
                   <div class="box-body">
                     <div class="form-group" style="margin-top:15px;">
                       <label class="col-sm-3 control-label">Export SKPD</label>
                       <div class="col-sm-3">
+                        <input type="hidden" name="manage" value="exporttahun">
                         <select name="thnawal" id="thnawal" class="form-control select2">
                           <option selected="selected">-- Pilih Tahun Awal --</option>
                         </select>
@@ -67,6 +68,15 @@
         $("li.expkonfig").addClass("active2");
         $("li.expkonfig>a").append('<i class="fa fa-angle-down pull-right" style="margin-top:3px;"></i>');
         $(".select2").select2();
+        $.ajax({
+          type: "post",
+          url: '../core/konfig/proseskonfigurasi',
+          data: {manage:'readthn'},
+          success: function (output) {     
+            $('#thnawal').html(output);
+            $('#thntujuan').html(output);
+          }
+        });
       });
       $(document).on('click', '#btnedt', function () {
         var tr = $(this).closest('tr');

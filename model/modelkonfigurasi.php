@@ -2,6 +2,22 @@
 include('../../utility/mysql_db.php');
 class modelKonfigurasi extends mysql_db
 {
+    public function bacatahun()
+    {
+        $query = "select tahun, status from thn_aktif
+                        order by tahun asc";
+        $result = $this->query($query);
+        echo '<option value="">-- Pilih Tahun --</option>';
+        while ($row = $this->fetch_array($result))
+        {
+            if ($row['status'] != "Tidak Aktif") {
+                echo '<option value="'.$row['tahun'].'">'.$row['tahun'].'&nbsp;&nbsp;'.$row['status'].'</option>';
+            }
+            else{
+                echo '<option value="'.$row['tahun'].'">'.$row['tahun'].'</option>';
+            }
+        }   
+    }
 	public function tambahtahun($data)
 	{
 		$tahun = $data['thnaktif'];
@@ -38,29 +54,20 @@ class modelKonfigurasi extends mysql_db
         $result = $this->multi_query($query);
         return $result;
     }
-
-    public function ubahuserpass($data)
+    public function exportkonfig($data)
     {
-        $id = $data['id'];
-        $user_name = $data['user_name'];
-        $user_pass = $data['user_pass'];
-        $user_email = $data['user_email'];
-        $kd_lokasi = $data['kd_lokasi'];
-        $nm_lokasi = $data['nm_lokasi'];
-        $query = "update user
-                    set user_name='$user_name',
-                    user_pass='$user_pass',
-                    user_email='$user_email',
-                    kd_lokasi='$kd_lokasi',
-                    nm_satker='$nm_lokasi'
-                    where user_id='$id'";
-        $result = $this->query($query);
+        $thnawal = $data['thnawal'];
+        $thntujuan = $data['thntujuan'];
+        $query = "CREATE TEMPORARY TABLE temporary_table SELECT * FROM satker WHERE tahun = '$thnawal';";
+        $query.= "UPDATE temporary_table SET tahun = '$thntujuan';";
+        $query.= "INSERT INTO satker SELECT null, KodeSektor, KodeSatker, KodeUnit, Gudang, kode, NamaSatker, tahun FROM temporary_table;";
+        $query.= "DROP TEMPORARY TABLE IF EXISTS temporary_table;";
+        $result = $this->multi_query($query);
         return $result;
     }
 
     public function hapustahun($data)
     {
-
         $query = "delete from thn_aktif where id='$data'";
         $result = $this->query($query);
         return $result;

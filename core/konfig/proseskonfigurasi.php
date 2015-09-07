@@ -11,6 +11,9 @@ else
 	$manage = $_POST['manage'];
 	switch ($manage)
 	{
+		case 'readthn':
+			$Konfig->bacatahun();
+		break;
 		case 'addthnaktif':
 			$thnaktif = $purifier->purify($_POST['thnaktif']);
 			$keterangan = $purifier->purify($_POST['keterangan']);
@@ -34,6 +37,15 @@ else
 		case 'setaktif':
 			$id = $purifier->purify($_POST['id']);
 			$Konfig->aktifkantahun($id);
+		break;
+		case 'exporttahun':
+			$thnawal = $purifier->purify($_POST['thnawal']);
+			$thntujuan = $purifier->purify($_POST['thntujuan']);
+			$data = array(
+				"thnawal" => $thnawal,
+				"thntujuan" => $thntujuan
+	    	);
+			$Konfig->exportkonfig($data);
 		break;
 		case 'delkonfig':
 			$id = $purifier->purify($_POST['id']);
