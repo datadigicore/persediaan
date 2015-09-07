@@ -55,7 +55,7 @@ class modelTransaksi extends mysql_db
                     harga_sat='$harga_sat',
                     total_harga='$total_harga',
                     keterangan='$keterangan',
-                    status='$status',
+                    status=0,
                     tgl_update=CURDATE(),
                     user_id='$user_id'";   
         $result = $this->query($query);
@@ -89,7 +89,7 @@ class modelTransaksi extends mysql_db
                         harga_sat='$harga_sat',
                         total_harga='$total_harga',
                         keterangan='$keterangan',
-                        status='$status',
+                        status=0,
                         tgl_update=CURDATE(),
                         user_id='$user_id'";
                    
@@ -170,7 +170,7 @@ class modelTransaksi extends mysql_db
                                     harga_sat='$harga_sat',
                                     total_harga=-1*'$total_harga',
                                     keterangan='$keterangan',
-                                    status='$status',
+                                    status=0,
                                     tgl_update=CURDATE(),
                                     user_id='$user_id'";   
                 $result_keluar = $this->query($query_keluar);
@@ -210,7 +210,7 @@ class modelTransaksi extends mysql_db
                                 harga_sat='$minus_hrg',
                                 total_harga='$minus_total',
                                 keterangan='$keterangan',
-                                status='$status',
+                                status=0,
                                 tgl_update=CURDATE(),
                                 user_id='$user_id'"; 
                 $result_trans_full = $this->query($query_full);
@@ -252,7 +252,7 @@ class modelTransaksi extends mysql_db
                                 harga_sat='$harga_sat',
                                 total_harga=-1*'$total_harga',
                                 keterangan='$keterangan',
-                                status='$status',
+                                status=0,
                                 tgl_update=CURDATE(),
                                 user_id='$user_id'"; 
                 $result_keluar = $this->query($query_keluar);
@@ -292,7 +292,7 @@ class modelTransaksi extends mysql_db
                                 harga_sat='$minus_hrg',
                                 total_harga='$minus_total',
                                 keterangan='$keterangan',
-                                status='$status',
+                                status=0,
                                 tgl_update=CURDATE(),
                                 user_id='$user_id'"; 
                 $result_full = $this->query($query_full);
@@ -386,7 +386,7 @@ class modelTransaksi extends mysql_db
                         harga_sat='$selisih_hrg',
                         total_harga='$selisih_tot_hrga',
                         keterangan='Koreksi Transaksi Masuk',
-                        status='$status',
+                        status=0,
                         tgl_update=CURDATE(),
                         user_id='$user_id'";
             $result = $this->query($query_ubah);       
@@ -433,7 +433,7 @@ class modelTransaksi extends mysql_db
                     harga_sat='$harga_sat',
                     total_harga='$total_harga',
                     keterangan='$keterangan',
-                    status='$status',
+                    status=0,
                     tgl_update=CURDATE(),
                     user_id='$user_id'";
             $result = $this->query($query);       
@@ -498,7 +498,7 @@ class modelTransaksi extends mysql_db
                         harga_sat= -1 * '$harga_sat',
                         total_harga= -1 * '$total_harga',
                         keterangan='Hapus Transaksi Masuk',
-                        status='$status',
+                        status=0,
                         tgl_update=CURDATE(),
                         user_id='$user_id'";
             $result = $this->query($query_ubah);       
@@ -582,7 +582,7 @@ class modelTransaksi extends mysql_db
                         harga_sat= '$harga_sat',
                         total_harga= '$total_harga',
                         keterangan='Hapus Transaksi',
-                        status='$status',
+                        status=0,
                         tgl_update=CURDATE(),
                         user_id='$user_id'";
                   
@@ -627,7 +627,7 @@ class modelTransaksi extends mysql_db
                     harga_sat='$harga_sat',
                     total_harga='$total_harga',
                     keterangan='$keterangan',
-                    status='$status',
+                    status=0,
                     tgl_update=CURDATE(),
                     user_id='$user_id'";
             $result = $this->query($query);       

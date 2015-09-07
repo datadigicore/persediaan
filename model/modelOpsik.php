@@ -2,7 +2,21 @@
 include('../../utility/mysql_db.php');
 class modelOpsik extends mysql_db
 {
-            
+
+
+    public function baca_persediaan_masuk($data)
+    {
+        $kd_lokasi = $data['kd_lokasi'];
+        $thn_ang = $data['thn_ang'];
+        $query = "select kd_brg, nm_brg FROM transaksi_masuk where kd_lokasi = '$kd_lokasi' and status_hapus=0  and thn_ang = '$thn_ang' and status=0 GROUP BY kd_brg ORDER BY nm_brg ASC ";
+        $result = $this->query($query);
+        echo '<option value="">-- Pilih Kode Barang --</option>';
+        while ($row = $this->fetch_array($result))
+        {
+            echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg']."</option>";
+        }   
+    }
+
     public function tbh_opname($data)
     {
         $kd_lokasi = $data['kd_lokasi'];
@@ -24,13 +38,15 @@ class modelOpsik extends mysql_db
         $status = $data['status'];
         $user_id = $data['user_id'];
 
-        $query_perk = "SELECT kd_kbrg, nm_sskel, kd_perk, nm_perk from persediaan where kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' ";
+        $query_perk = "SELECT kd_sskel, nm_sskel, kd_perk, nm_perk, nm_brg, satuan from transaksi_masuk where kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' ";
         $result_perk = $this->query($query_perk);
         $data_perk = $this->fetch_array($result_perk);
-        $kd_sskel = $data_perk['kd_kbrg'];
+        $kd_sskel = $data_perk['kd_sskel'];
         $nm_sskel = $data_perk['nm_sskel'];
         $kd_perk = $data_perk['kd_perk'];
         $nm_perk = $data_perk['nm_perk'];
+        $nm_brg = $data_perk['nm_brg'];
+        $satuan = $data_perk['satuan'];
 
 // Memasukan Data Transaksi Masuk ke tabel Transaksi Masuk        
         $query = "Insert into opname
@@ -58,6 +74,9 @@ class modelOpsik extends mysql_db
                     tgl_update=CURDATE(),
                     user_id='$user_id'";   
         $result = $this->query($query);
+
+        $update_brg = "update transaksi_masuk set status=1 where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg'";
+        $result_upd = $this->query($update_brg);
         
 // Mendapatkan ID transaksi masuk dan disimpan ke variabel id_trans             
         // $query_id = "select id from opname WHERE kd_brg='$kd_brg' and qty='$kuantitas' and kd_lokasi='$kd_lokasi' and no_dok='$no_dok' order by ID DESC";

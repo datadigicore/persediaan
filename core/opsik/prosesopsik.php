@@ -17,7 +17,14 @@ else
 		break;		
 
 		case 'readbrg':
-			$Opsik->bacabrg();
+
+		$kd_lokasi = $_SESSION['kd_lok'];
+		$thn_ang = $_SESSION['thn_ang'];
+		$data = array(
+				"kd_lokasi" => $kd_lokasi,
+				"thn_ang" => $thn_ang
+		);
+			$Opsik->baca_persediaan_masuk($data);
 		break;
 
 		case 'tbh_opname':
@@ -26,7 +33,7 @@ else
 			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
 
-			$no_dok = $purifier->purify($_POST['no_dok']);
+			$no_dok = $kd_lokasi.$purifier->purify($_POST['no_dok']);
 			$no_bukti = $purifier->purify($_POST['no_bukti']);
 			$tgl_dok = $purifier->purify($_POST['tgl_dok']);
 			$tgl_buku = $purifier->purify($_POST['tgl_buku']);

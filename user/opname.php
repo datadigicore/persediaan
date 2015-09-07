@@ -92,13 +92,12 @@
                       <tr>
                         <th width="10%">ID</th>
                         <th width="14%">No Dokumen</th>
-                        <th>Tanggal Buku</th>
+                        <th>Tanggal</th>
                         <th>Nama Barang</th>
                         <th>Jumlah</th>
-                        <th>Harga Satuan</th>
                         <th>Total</th>
                         <th>Keterangan</th>
-                        <th width="10%">Aksi</th>
+                        <th width="6%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -139,14 +138,13 @@
             {"targets": 4 },
             {"targets": 5 },
             {"targets": 6 },
-            {"targets": 7 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                  
                                   '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
                                 '</div>',
-             "targets": [8],"targets": 8 }         
+             "targets": [7],"targets": 7 }         
 
           ],
         });
@@ -155,7 +153,7 @@
       var tr = $(this).closest('tr');
       var row = table.row( tr );
       redirectTime = "2600";
-      redirectURL = "opnamear";
+      redirectURL = "opname";
       id_row = row.data()[0];
       managedata = "hapusTransKeluar";
       job=confirm("Anda yakin ingin menghapus data ini?");
@@ -186,8 +184,8 @@
       });
        $.ajax({
           type: "post",
-          url: '../core/transaksi/prosestransaksi',
-          data: {manage:'readbrgmsk'},
+          url: '../core/opsik/prosesopsik',
+          data: {manage:'readbrg'},
           success: function (output) {     
             $('#kd_brg').html(output);
           }
