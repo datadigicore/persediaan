@@ -28,7 +28,7 @@
                 </div>  
                 <form action="../core/satker/prosessatker" method="post" class="form-horizontal" id="addsatker">
                   <div class="box-body">
-                    <div class="form-group">
+                    <div class="form-group" style="margin-top:15px;">
                       <label class="col-sm-2 control-label">Kode Sektor</label>
                       <div class="col-sm-9">
                         <select name="kdsektor" id="kdsektor" class="form-control select2">

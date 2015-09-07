@@ -18,8 +18,8 @@ class modelKonfigurasi extends mysql_db
         $keterangan = $data['keterangan'];
         $status = $data['status'];
         $query = "UPDATE thn_aktif
-                    set status='0'
-                    where status='1';";
+                    set status='Tidak Aktif'
+                    where status='Aktif';";
         $query.= "INSERT into thn_aktif
                     set tahun='$tahun',
                     keterangan='$keterangan',

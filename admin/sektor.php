@@ -28,7 +28,7 @@
                 </div>  
                 <form action="../core/sektor/prosessektor" method="post" class="form-horizontal" id="addsektor">
                   <div class="box-body">
-                    <div class="form-group">
+                    <div class="form-group" style="margin-top:15px;">
                       <label class="col-sm-2 control-label">Kode Sektor </label>
                       <div class="col-sm-9">
                         <input type="text" name="kdsektor" class="form-control" id="kdsektor" placeholder="Masukkan Kode Sektor">

@@ -28,7 +28,7 @@
                 </div>  
                 <form action="../core/unit/prosesunit" method="post" class="form-horizontal" id="addunit">
                   <div class="box-body">
-                    <div class="form-group">
+                    <div class="form-group" style="margin-top:15px;">
                       <label class="col-sm-2 control-label">Kode Satker</label>
                       <div class="col-sm-9">
                         <input type="hidden" name="manage" value="addunit">

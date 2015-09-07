@@ -28,7 +28,7 @@
                 </div>  
                 <form action="../core/user/prosesuser" method="post" class="form-horizontal" id="adduser">
                   <div class="box-body">
-                    <div class="form-group">
+                    <div class="form-group" style="margin-top:15px;">
                       <label class="col-sm-2 control-label">Username</label>
                       <div class="col-sm-9">
                         <input type="text" name="username" class="form-control" id="username" placeholder="Masukkan Username">
@@ -59,7 +59,7 @@
                   <h3 class="box-title">Unit Satker Pengelola</h3>
                 </div>  
                   <div class="box-body">
-                    <div class="form-group">
+                    <div class="form-group" style="margin-top:15px;">
                       <label class="col-sm-2 control-label">Kode Unit Satker</label>
                       <div class="col-sm-9">
                         <select name="kdunitgudang" id="kdunitgudang" class="form-control select2">

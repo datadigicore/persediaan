@@ -28,7 +28,7 @@
                 </div>
                 <form action="../core/gudang/prosesgudang" method="post" class="form-horizontal" id="addgudang">
                   <div class="box-body">
-                    <div class="form-group">
+                    <div class="form-group" style="margin-top:15px;">
                       <label class="col-sm-2 control-label">Kode Unit</label>
                       <div class="col-sm-9">
                         <input type="hidden" name="manage" value="addgudang">
