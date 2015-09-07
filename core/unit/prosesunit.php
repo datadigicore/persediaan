@@ -12,7 +12,8 @@ else
 	switch ($manage)
 	{
 		case 'readsatker':
-			$Unit->bacasatker();
+			$tahun = $_SESSION['thn_ang'];
+			$Unit->bacasatker($tahun);
 		break;
 		case 'addunit':
 			$kdsektor = $purifier->purify(substr($_POST['kdsatker'], 0, 2));

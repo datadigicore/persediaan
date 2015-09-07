@@ -12,7 +12,8 @@ else
 	switch ($manage)
 	{
 		case 'readsektor':
-			$Satker->bacasektor();
+			$tahun = $_SESSION['thn_ang'];
+			$Satker->bacasektor($tahun);
 		break;
 		case 'readtable':
 			$kdsektor = $purifier->purify($_POST['kdsektor']);

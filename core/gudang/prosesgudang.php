@@ -12,7 +12,8 @@ else
 	switch ($manage)
 	{
 		case 'readunit':
-			$Gudang->bacaunit();
+			$tahun = $_SESSION['thn_ang'];
+			$Gudang->bacaunit($tahun);
 		break;
 		case 'addgudang':
 			$kdsektor = $purifier->purify(substr($_POST['kdunit'], 0, 2));

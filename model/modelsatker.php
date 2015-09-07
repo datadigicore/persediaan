@@ -2,13 +2,16 @@
 include('../../utility/mysql_db.php');
 class modelSatker extends mysql_db
 {
-	public function bacasektor()
+	public function bacasektor($data)
 	{
 		$query = "select kodesektor, namasatker from satker
 						where kodesektor is not null and
 							  kodesatker is null and
 							  kodeunit is null and
-							  gudang is null 
+							  gudang is null and 
+							  tahun is null or
+							  tahun = '$data' and 
+							  CHAR_LENGTH(kode) = 2
 						order by kodesektor asc";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Sektor --</option>';
