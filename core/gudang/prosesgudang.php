@@ -20,12 +20,14 @@ else
 			$kdunit = $purifier->purify(substr($_POST['kdunit'], -2));
 			$kdgudang = $purifier->purify($_POST['kdgudang']);
 			$nmgudang = $purifier->purify($_POST['nmgudang']);
+			$tahun = $_SESSION['thn_ang'];
 			$data = array(
 				"kodesektor" => $kdsektor,
 				"kodesatker" => $kdsatker,
 				"kodeunit" => $kdunit,
 				"gudang" => $kdgudang,
-				"namagudang" => $nmgudang
+				"namagudang" => $nmgudang,
+				"tahun" => $tahun
 			);
 			$Gudang->tambahgudang($data);
 			print_r($data);

@@ -38,11 +38,13 @@ class modelUnit extends mysql_db
 		$kodesatker = $data['kd_satker'];
 		$kodeunit = $data['kd_unit'];
 		$namaunit = $data['nm_unit'];
+		$tahun = $data['tahun'];
 		$query = "insert into satker
         			set kodesektor='$kodesektor',
         				kodesatker='$kodesatker',
         				kodeunit='$kodeunit',
                     	namasatker='$namaunit',
+                    	tahun='$tahun',
                     	kode='$kodesektor.$kodesatker.$kodeunit'";
         $result = $this->query($query);
 		return $result;

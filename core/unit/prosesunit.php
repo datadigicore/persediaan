@@ -19,11 +19,13 @@ else
 			$kdsatker = $purifier->purify(substr($_POST['kdsatker'], -2));
 			$kdunit = $purifier->purify($_POST['kdunit']);
 			$nmunit = $purifier->purify($_POST['nmunit']);
+			$tahun = $_SESSION['thn_ang'];
 			$data = array(
 				"kd_sektor" => $kdsektor,
 				"kd_satker" => $kdsatker,
 				"kd_unit" => $kdunit,
-			  	"nm_unit" => $nmunit
+			  	"nm_unit" => $nmunit,
+			  	"tahun" => $tahun
 			);
 			$Unit->tambahunit($data);
 		break;

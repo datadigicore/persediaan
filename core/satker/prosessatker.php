@@ -22,10 +22,12 @@ else
 			$kdsektor = $purifier->purify($_POST['kdsektor']);
 			$kdsatker = $purifier->purify($_POST['kdsatker']);
 			$nmsatker = $purifier->purify($_POST['nmsatker']);
+			$tahun = $_SESSION['thn_ang'];
 			$data = array(
 				"kodesektor" => $kdsektor,
 				"kodesatker" => $kdsatker,
-			  	"namasatker" => $nmsatker
+			  	"namasatker" => $nmsatker,
+			  	"tahun" => $tahun
 			);
 			$Satker->tambahsatker($data);
 		break;

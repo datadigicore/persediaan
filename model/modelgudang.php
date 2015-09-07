@@ -52,13 +52,15 @@ class modelGudang extends mysql_db
 		$kodeunit = $data['kodeunit'];
 		$gudang = $data['gudang'];
 		$namagudang = $data['namagudang'];
+		$tahun = $data['tahun'];
 		$query = "insert into satker
         			set kodesektor='$kodesektor',
         				kodesatker='$kodesatker',
         				kodeunit='$kodeunit',
         				gudang='$gudang',
         				namasatker='$namagudang',
-                    	kode='$kodesektor.$kodesatker.$kodeunit.$kodegudang'";
+        				tahun='$tahun',
+                    	kode='$kodesektor.$kodesatker.$kodeunit.$gudang'";
         $result = $this->query($query);
 		return $result;
 	} 	

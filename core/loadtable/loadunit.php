@@ -1,5 +1,5 @@
 <?php
-
+include('../../config/admin.php');
 #This code provided by:
 #Yohanes Christomas Daimler(yohanes.christomas@gmail.com)
 #Gunadarma University
@@ -23,12 +23,16 @@ $columns = array(
 require('../../config/dbconf.php');
 $config = new config();
 $sql_details = $config->sql_details();
+$tahun = $_SESSION['thn_ang'];
 
 // Kondisi Where
-$where = '	kodesektor is not null and
+$where = "	kodesektor is not null and
 			kodesatker is not null and
 			kodeunit is not null and
-			gudang is null' ; 
+			gudang is null and 
+			tahun is null or
+			tahun = '$tahun' and 
+			CHAR_LENGTH(kode) = 8" ; 
 
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp.class.php' );

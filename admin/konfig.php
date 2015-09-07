@@ -116,7 +116,7 @@
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Aktifkan"><i class="fa fa-check-square-o"></i></button>'+
+                                  '<button id="btnakt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Aktifkan"><i class="fa fa-check-square-o"></i></button>'+
                                   '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
                                 '</div>',
              "targets": [4],"targets": 4 }
@@ -124,29 +124,31 @@
           "order": [[ 1, "asc" ]]
         });
       });
-      $(document).on('click', '#btnedt', function () {
+      $(document).on('click', '#btnakt', function () {
         var tr = $(this).closest('tr');
         var row = table.row( tr );
+        redirectTime = "2600";
+        redirectURL = "konfig";
         id_row = row.data()[0];
-        konfigname_row = row.data()[1];
-        email_row  = row.data()[2];
-        kdsatker_row  = row.data()[3];
-        nmsatker_row  = row.data()[4];
-        if ( row.child.isShown() ) {
-          $('div.slider', row.child()).slideUp( function () {
-            row.child.hide();
-            tr.removeClass('shown');
-          });
-        }
-        else {
-          row.child( format(row.data())).show();
-          tr.addClass('shown');
-          $('div.slider', row.child()).slideDown();
-          $("#konfigname"+id_row+"").val(konfigname_row);
-          $("#email"+id_row+"").val(email_row);
-          $("#kdsatker"+id_row+"").val(kdsatker_row);
-          $("#nmsatker"+id_row+"").val(nmsatker_row);
-        }
+        managedata = "setaktif";
+        $('#myModal').modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+        $('#myModal').modal('show');
+        $.ajax({
+          type: "post",
+          url : "../core/konfig/proseskonfigurasi",
+          data: {manage:managedata,id:id_row},
+          success: function(data)
+          {
+            $("#success-alert").alert();
+            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+            $("#success-alert").alert('close');
+            });
+            setTimeout("location.href = redirectURL;",redirectTime); 
+          }
+        });
       });
       $(document).on('click', '#btnhps', function () {
       var tr = $(this).closest('tr');

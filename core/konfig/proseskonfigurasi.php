@@ -31,6 +31,10 @@ else
 		    	$Konfig->tambahtahunaktif($data);
 			}
 		break;
+		case 'setaktif':
+			$id = $purifier->purify($_POST['id']);
+			$Konfig->aktifkantahun($id);
+		break;
 		case 'delkonfig':
 			$id = $purifier->purify($_POST['id']);
 			$Konfig->hapustahun($id);

@@ -38,10 +38,12 @@ class modelSatker extends mysql_db
 		$kodesektor = $data['kodesektor'];
 		$kodesatker = $data['kodesatker'];
 		$namasatker = $data['namasatker'];
+		$tahun = $data['tahun'];
 		$query = "insert into satker
         			set kodesektor='$kodesektor',
         				kodesatker='$kodesatker',
                     	namasatker='$namasatker',
+                    	tahun='$tahun',
                     	kode='$kodesektor.$kodesatker'";
         $result = $this->query($query);
 		return $result;

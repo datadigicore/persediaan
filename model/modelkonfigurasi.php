@@ -27,21 +27,15 @@ class modelKonfigurasi extends mysql_db
         $result = $this->multi_query($query);
         return $result;
     }
-    public function ubahuser($data)
+    public function aktifkantahun($data)
     {
-
-        $id = $data['id'];
-        $user_name = $data['user_name'];
-        $user_email = $data['user_email'];
-        $kd_lokasi = $data['kd_lokasi'];
-        $nm_lokasi = $data['nm_lokasi'];
-        $query = "update user
-                    set user_name='$user_name',
-                    user_email='$user_email',
-                    kd_lokasi='$kd_lokasi',
-                    nm_satker='$nm_lokasi'
-                    where user_id='$id'";
-        $result = $this->query($query);
+        $query = "UPDATE thn_aktif
+                    set status='Tidak Aktif'
+                    where status='Aktif';";
+        $query.= "UPDATE thn_aktif
+                    set status='Aktif'
+                    where id='$data';";
+        $result = $this->multi_query($query);
         return $result;
     }
 
