@@ -44,7 +44,12 @@ else
 		break;
 		case 'delunit':
 			$id = $purifier->purify($_POST['id']);
-			$Unit->hapusunit($id);
+			$idunit = $purifier->purify($_POST['idunit']);
+			$data = array(
+				"id" => $id,
+				"idunit" => $idunit
+		    );
+			$Unit->hapusunit($data);
 		break;
 		default:
 			echo "Error Data Tidak Tersedia";

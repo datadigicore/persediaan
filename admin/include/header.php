@@ -2,7 +2,7 @@
     <header class="main-header">
         <a href="index" class="logo">
           <span class="logo-mini"><b>A</b>LT</span>
-          <span class="logo-lg"><img src="../dist/img/icon.png" width="35px;" style="margin-top:-2px;"> <b>Persediaan</b></span>
+          <span class="logo-lg"><img src="../dist/img/icon2.png" width="35px;" style="margin-top:-2px;"> <b>SIMSEDIA</b></span>
         </a>
         <nav class="navbar navbar-static-top" role="navigation">
           <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
@@ -12,14 +12,14 @@
             <ul class="nav navbar-nav">
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="../dist/img/adminpic.png" class="user-image" alt="User Image" />
+                  <img src="../dist/img/adminpic2.png" class="user-image" alt="User Image" />
                   <span class="hidden-xs">Admin Persediaan</span>
                 </a>
                 <ul class="dropdown-menu">
                   <li class="user-header">
-                    <img src="../dist/img/adminpic.png" class="img-circle" alt="User Image" />
+                    <img src="../dist/img/adminpic2.png" class="img-circle" alt="User Image" />
                     <p>
-                      Administrator - Aplikasi Persediaan
+                      Administrator - SIMSEDIA
                       <small>Admin Pengolah Data</small>
                     </p>
                   </li>

@@ -156,8 +156,9 @@
       redirectTime = "2600";
       redirectURL = "unit";
       id_row = row.data()[0];
+      id_unit = row.data()[1]+'.'+row.data()[2]+'.'+row.data()[3];
       managedata = "delunit";
-      job=confirm("Anda yakin ingin menghapus data ini?");
+      job=confirm("Anda yakin ingin menghapus data ini?\nJika dihapus maka akan menghapus seluruh sub divisi terkait dengan Unit");
         if(job!=true){
           return false;
         }
@@ -170,7 +171,7 @@
           $.ajax({
             type: "post",
             url : "../core/unit/prosesunit",
-            data: {manage:managedata,id:id_row},
+            data: {manage:managedata,id:id_row,idunit:id_unit},
             success: function(data)
             {
               $("#success-alert").alert();

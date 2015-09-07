@@ -35,7 +35,12 @@ else
 		break;
 		case 'delsektor':
 			$id = $purifier->purify($_POST['id']);
-			$Sektor->hapussektor($id);
+			$idsektor = $purifier->purify($_POST['idsektor']);
+			$data = array(
+				"id" => $id,
+				"idsektor" => $idsektor
+		    );
+			$Sektor->hapussektor($data);
 		break;
 		default:
 			echo "Error Data Tidak Tersedia";

@@ -3,9 +3,9 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Persediaan</title>
+    <title>SIMSEDIA Pekalongan</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="icon" href="dist/img/icon.png" type="image/x-icon">
+    <link rel="icon" href="dist/img/icon2.png" type="image/x-icon">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="dist/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="dist/css/ionicons.min.css" rel="stylesheet" type="text/css" />
@@ -14,7 +14,7 @@
   <header>
   	<div class="headernya">
   		<div class="login-logo">
-        	<img src="dist/img/icon.png" width="70px;">&nbsp;&nbsp; Sistem Informasi Management Persediaan</a>
+        	<img src="dist/img/icon2.png" width="70px;">&nbsp;&nbsp; SIMSEDIA PEKALONGAN</a>
       	</div>
   	</div>
   </header>

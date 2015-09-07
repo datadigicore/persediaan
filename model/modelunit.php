@@ -67,8 +67,11 @@ class modelUnit extends mysql_db
 	}	
 	public function hapusunit($data)
 	{
-		$query = "delete from satker where satker_id='$data'";
-        $result = $this->query($query);
+		$id = $data['id'];
+		$idunit = $data['idunit'];
+		$query = "delete from satker where satker_id='$id';";
+		$query.= "delete from satker where kode like '$idunit.%';";
+		$result = $this->multi_query($query);
 		return $result;
 	}
 }

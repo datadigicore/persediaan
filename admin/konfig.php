@@ -11,12 +11,12 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Tambah Pengelola
+            Tambah Aktif
             <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-user"></i> Tambah Pengelola</a></li>
+            <li class="active"><a href="#"><i class="fa fa-gear"></i> Tambah Aktif</a></li>
           </ol>
         </section>
         <section class="content">
@@ -24,87 +24,22 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Identitas Pengelola</h3>
+                  <h3 class="box-title">Tambah Tahun Aktif</h3>
                 </div>  
                 <form action="../core/user/prosesuser" method="post" class="form-horizontal" id="adduser">
                   <div class="box-body">
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Username</label>
+                      <label class="col-sm-2 control-label">Tahun</label>
                       <div class="col-sm-9">
-                        <input type="text" name="username" class="form-control" id="username" placeholder="Masukkan Username">
+                        <input type="text" name="thnaktif" class="form-control" id="thnaktif" placeholder="Masukkan Tahun">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Password</label>
+                      <label class="col-sm-2 control-label">Keterangan</label>
                       <div class="col-sm-9">
-                        <input type="password" name="password" class="form-control" id="password" placeholder="Masukkan Password">
-                      </div>
-                    </div>                    
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Re-type Password</label>
-                      <div class="col-sm-9">
-                        <input type="password" name="konf_pass" class="form-control" id="konf_pass" placeholder="Konfirmasi Ulang Pasword">
-                      </div>
-                    </div>                    
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Email</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="email" class="form-control" id="email" placeholder="Masukkan Email">
+                        <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Keterangan">
                       </div>
                     </div>
-                  </div>
-                  <div class="box-footer" style="padding:0;">
-                  </div>
-                <div class="box-header with-border">
-                  <h3 class="box-title">Unit Satker Pengelola</h3>
-                </div>  
-                  <div class="box-body">
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode Unit Satker</label>
-                      <div class="col-sm-9">
-                        <select name="kdunitgudang" id="kdunitgudang" class="form-control select2">
-                          <option value="">-- Pilih Kode Satker--</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode Sektor</label>
-                      <div class="col-sm-2">
-                        <input type="text" name="kdsektor" class="form-control" id="kdsektor" placeholder="Kode Sektor" disabled>
-                        <input type="hidden" name="manage" value="adduser">
-                      </div>
-                      <div class="col-sm-7">
-                        <input type="text" name="ursektor" class="form-control" id="ursektor" placeholder="Uraian Kode Sektor" disabled>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode Satker</label>
-                      <div class="col-sm-2">
-                        <input type="text" name="kdsatker" class="form-control" id="kdsatker" placeholder="Kode Satker" disabled>
-                      </div>
-                      <div class="col-sm-7">
-                        <input type="text" name="ursatker" class="form-control" id="ursatker" placeholder="Uraian Kode Satker" disabled>
-                      </div>
-                    </div>                    
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode Unit</label>
-                      <div class="col-sm-2">
-                        <input type="text" name="kdunit" class="form-control" id="kdunit" placeholder="Kode Unit" disabled>
-                      </div>
-                      <div class="col-sm-7">
-                        <input type="text" name="urunit" class="form-control" id="urunit" placeholder="Uraian Kode Unit" disabled>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Gudang</label>
-                      <div class="col-sm-2">
-                        <input type="text" name="kdgudang" class="form-control" id="kdgudang" placeholder="Kode Gudang" disabled>
-                      </div>
-                      <div class="col-sm-7">
-                        <input type="text" name="urgudang" class="form-control" id="urgudang" placeholder="Uraian Kode Gudang" disabled>
-                        <input type="hidden" name="urgudangh" class="form-control" id="urgudangh">
-                      </div>
-                    </div>                    
                   </div>
                   <div class="box-footer">
                     <button type="Reset" class="btn btn-default">Reset</button>

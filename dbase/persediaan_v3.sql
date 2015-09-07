@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.12
+-- version 4.4.3
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: 05 Sep 2015 pada 09.37
--- Versi Server: 5.6.25
--- PHP Version: 5.6.11
+-- Host: localhost
+-- Generation Time: Sep 07, 2015 at 04:16 
+-- Server version: 5.6.24
+-- PHP Version: 5.5.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,16 +14,18 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `persediaan_v3`
 --
+CREATE DATABASE IF NOT EXISTS `persediaan_v3` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `persediaan_v3`;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `bid`
+-- Table structure for table `bid`
 --
 
 CREATE TABLE IF NOT EXISTS `bid` (
@@ -35,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `bid` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `bid`
+-- Dumping data for table `bid`
 --
 
 INSERT INTO `bid` (`id`, `kd_gol`, `kd_bid`, `nm_bid`, `kd_bidbrg`) VALUES
@@ -46,7 +48,7 @@ INSERT INTO `bid` (`id`, `kd_gol`, `kd_bid`, `nm_bid`, `kd_bidbrg`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `gol`
+-- Table structure for table `gol`
 --
 
 CREATE TABLE IF NOT EXISTS `gol` (
@@ -55,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `gol` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `gol`
+-- Dumping data for table `gol`
 --
 
 INSERT INTO `gol` (`kd_gol`, `nm_gol`) VALUES
@@ -64,7 +66,7 @@ INSERT INTO `gol` (`kd_gol`, `nm_gol`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jns_transaksi`
+-- Table structure for table `jns_transaksi`
 --
 
 CREATE TABLE IF NOT EXISTS `jns_transaksi` (
@@ -73,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `jns_transaksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `jns_transaksi`
+-- Dumping data for table `jns_transaksi`
 --
 
 INSERT INTO `jns_transaksi` (`kd_trans`, `jns_trans`) VALUES
@@ -99,7 +101,7 @@ INSERT INTO `jns_transaksi` (`kd_trans`, `jns_trans`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kanwil`
+-- Table structure for table `kanwil`
 --
 
 CREATE TABLE IF NOT EXISTS `kanwil` (
@@ -111,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `kanwil` (
 ) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `kanwil`
+-- Dumping data for table `kanwil`
 --
 
 INSERT INTO `kanwil` (`id`, `kd_uapb`, `kd_uappbe1`, `kd_kanwil`, `nm_kanwil`) VALUES
@@ -214,7 +216,7 @@ INSERT INTO `kanwil` (`id`, `kd_uapb`, `kd_uappbe1`, `kd_kanwil`, `nm_kanwil`) V
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kel`
+-- Table structure for table `kel`
 --
 
 CREATE TABLE IF NOT EXISTS `kel` (
@@ -227,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `kel` (
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `kel`
+-- Dumping data for table `kel`
 --
 
 INSERT INTO `kel` (`id`, `kd_gol`, `kd_bid`, `kd_kel`, `nm_kel`, `kd_kelbrg`) VALUES
@@ -243,7 +245,7 @@ INSERT INTO `kel` (`id`, `kd_gol`, `kd_bid`, `kd_kel`, `nm_kel`, `kd_kelbrg`) VA
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `opname`
+-- Table structure for table `opname`
 --
 
 CREATE TABLE IF NOT EXISTS `opname` (
@@ -280,7 +282,7 @@ CREATE TABLE IF NOT EXISTS `opname` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `perk`
+-- Table structure for table `perk`
 --
 
 CREATE TABLE IF NOT EXISTS `perk` (
@@ -289,7 +291,7 @@ CREATE TABLE IF NOT EXISTS `perk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `perk`
+-- Dumping data for table `perk`
 --
 
 INSERT INTO `perk` (`kd_perk`, `nm_perk`) VALUES
@@ -372,7 +374,7 @@ INSERT INTO `perk` (`kd_perk`, `nm_perk`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `persediaan`
+-- Table structure for table `persediaan`
 --
 
 CREATE TABLE IF NOT EXISTS `persediaan` (
@@ -391,7 +393,7 @@ CREATE TABLE IF NOT EXISTS `persediaan` (
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `persediaan`
+-- Dumping data for table `persediaan`
 --
 
 INSERT INTO `persediaan` (`id`, `kd_kbrg`, `nm_sskel`, `kd_jbrg`, `kd_brg`, `nm_brg`, `satuan`, `kd_perk`, `nm_perk`, `kd_lokasi`, `nm_satker`, `user_id`) VALUES
@@ -423,7 +425,7 @@ INSERT INTO `persediaan` (`id`, `kd_kbrg`, `nm_sskel`, `kd_jbrg`, `kd_brg`, `nm_
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `satker`
+-- Table structure for table `satker`
 --
 
 CREATE TABLE IF NOT EXISTS `satker` (
@@ -433,480 +435,480 @@ CREATE TABLE IF NOT EXISTS `satker` (
   `KodeUnit` varchar(30) DEFAULT NULL,
   `Gudang` varchar(255) DEFAULT NULL,
   `kode` varchar(50) DEFAULT NULL,
-  `NamaSatker` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9900 DEFAULT CHARSET=utf8;
+  `NamaSatker` varchar(255) DEFAULT NULL,
+  `tahun` int(6) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=475 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `satker`
+-- Dumping data for table `satker`
 --
 
-INSERT INTO `satker` (`Satker_ID`, `KodeSektor`, `KodeSatker`, `KodeUnit`, `Gudang`, `kode`, `NamaSatker`) VALUES
-(1, '01', NULL, NULL, NULL, '01', 'Sekwan/DPRD'),
-(2, '02', NULL, NULL, NULL, '02', 'Gubernur/Bupati/Walikota'),
-(3, '03', NULL, NULL, NULL, '03', 'Wakil Gubernur/Bupati/Walikota'),
-(4, '04', NULL, NULL, NULL, '04', 'Sekretariat Daerah'),
-(5, '05', NULL, NULL, NULL, '05', 'Bidang Kimpraswil/PU'),
-(6, '06', NULL, NULL, NULL, '06', 'Bidang Perhubungan'),
-(7, '07', NULL, NULL, NULL, '07', 'Bidang Kesehatan'),
-(8, '08', NULL, NULL, NULL, '08', 'Bidang Pendidikan dan Kebudayaan'),
-(9, '09', NULL, NULL, NULL, '09', 'Bidang Sosial'),
-(10, '10', NULL, NULL, NULL, '10', 'Bidang Kependudukan'),
-(11, '11', NULL, NULL, NULL, '11', 'Bidang Pertanian'),
-(12, '12', NULL, NULL, NULL, '12', 'Bidang Perindustrian'),
-(13, '13', NULL, NULL, NULL, '13', 'Bidang Pendapatan'),
-(14, '14', NULL, NULL, NULL, '14', 'Bidang Pengawasan'),
-(15, '15', NULL, NULL, NULL, '15', 'Bidang Perencanaan'),
-(16, '16', NULL, NULL, NULL, '16', 'Bidang Lingkungan Hidup'),
-(17, '17', NULL, NULL, NULL, '17', 'Bidang Pariwisata'),
-(18, '18', NULL, NULL, NULL, '18', 'Bidang Kesatuan Bangsa'),
-(19, '19', NULL, NULL, NULL, '19', 'Bidang Kepegawaian'),
-(20, '20', NULL, NULL, NULL, '20', 'Bidang Penghubung'),
-(21, '21', NULL, NULL, NULL, '21', 'Bidang Komunikasi, Informasi dan Dokumentasi'),
-(22, '22', NULL, NULL, NULL, '22', 'Bidang BUMD'),
-(23, '50', NULL, NULL, NULL, '50', 'Bidang Kecamatan'),
-(24, '01', '01', NULL, NULL, '01.01', 'Sekretariat Dewan/DPRD'),
-(25, '02', '01', NULL, NULL, '02.01', 'Walikota'),
-(26, '03', '01', NULL, NULL, '03.01', 'Wakil Walikota'),
-(27, '04', '01', NULL, NULL, '04.01', 'Sekretaris Daerah'),
-(28, '04', '02', NULL, NULL, '04.02', 'DINAS PENDAPATAN, PENGELOLAAN KEUANGAN DAN ASET DAERAH'),
-(29, '05', '01', NULL, NULL, '05.01', 'DINAS PEKERJAAN UMUM'),
-(30, '06', '01', NULL, NULL, '06.01', 'DINAS PERHUBUNGAN, PARIWISATA DAN KEBUDAYAAN'),
-(31, '07', '01', NULL, NULL, '07.01', 'DINAS KESEHATAN'),
-(32, '07', '02', NULL, NULL, '07.02', 'RSUD BENDAN'),
-(33, '08', '01', NULL, NULL, '08.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA'),
-(34, '09', '01', NULL, NULL, '09.01', 'BADAN PERMBERDAYAAN MASYARAKAT, PEREMPUAN, PERLINDUNGAN ANAK DAN KB'),
-(35, '10', '01', NULL, NULL, '10.01', 'DINAS SOSIAL, TENAGA KERJA DAN TRANSMIGRASI'),
-(36, '10', '02', NULL, NULL, '10.02', 'DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL'),
-(37, '11', '01', NULL, NULL, '11.01', 'DINAS PERTANIAN, PETERNAKAN, DAN KELAUTAN'),
-(38, '11', '02', NULL, NULL, '11.02', 'KANTOR KETAHANAN PANGAN'),
-(39, '12', '01', NULL, NULL, '12.01', 'DINAS PERINDUSTRIAN, PERDAGANGAN, KOPERASI, DAN USAHA KECIL DAN MENENGAH'),
-(40, '13', '01', NULL, NULL, '13.01', 'BPMP2T'),
-(41, '14', '01', NULL, NULL, '14.01', 'INSPEKTORAT'),
-(42, '15', '01', NULL, NULL, '15.01', 'BADAN PERENCANAAN PEMBANGUNAN DAERAH'),
-(43, '16', '01', NULL, NULL, '16.01', 'KANTOR LINGKUNGAN HIDUP'),
-(44, '18', '01', NULL, NULL, '18.01', 'KANTOR KESATUAN BANGSA DAN POLITIK  '),
-(45, '18', '02', NULL, NULL, '18.02', 'SATUAN POLISI PAMONG PRAJA'),
-(46, '19', '01', NULL, NULL, '19.01', 'BADAN  KEPEGAWAIAN DAERAH'),
-(47, '21', '01', NULL, NULL, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH'),
-(48, '21', '02', NULL, NULL, '21.02', 'DINAS KOMUNIKASI DAN INFORMATIKA'),
-(49, '22', '01', NULL, NULL, '22.01', 'PDAM'),
-(50, '22', '02', NULL, NULL, '22.02', 'BANK PASAR'),
-(51, '22', '03', NULL, NULL, '22.03', 'BKK KEC BARAT'),
-(52, '22', '04', NULL, NULL, '22.04', 'BKK KEC TIMUR'),
-(53, '22', '05', NULL, NULL, '22.05', 'BKK KEC UTARA'),
-(54, '22', '06', NULL, NULL, '22.06', 'BKK KEC SELATAN'),
-(55, '50', '01', NULL, NULL, '50.01', 'KECAMATAN PEKALONGAN BARAT'),
-(56, '50', '02', NULL, NULL, '50.02', 'KECAMATAN PEKALONGAN TIMUR'),
-(57, '50', '03', NULL, NULL, '50.03', 'KECAMATAN PEKALONGAN UTARA'),
-(58, '50', '04', NULL, NULL, '50.04', 'KECAMATAN PEKALONGAN SELATAN'),
-(59, '01', '01', '01', NULL, '01.01.01', 'Sekretariat Dewan/DPRD'),
-(60, '02', '01', '01', NULL, '02.01.01', 'Walikota'),
-(61, '03', '01', '01', NULL, '03.01.01', 'Wakil Walikota'),
-(62, '04', '01', '01', NULL, '04.01.01', 'Bagian Umum'),
-(63, '04', '01', '02', NULL, '04.01.02', 'Bagian Pemerintahan'),
-(64, '04', '01', '03', NULL, '04.01.03', 'Bagian Perekonomian'),
-(65, '04', '01', '04', NULL, '04.01.04', 'Bagian Administrasi Pembangunan'),
-(66, '04', '01', '05', NULL, '04.01.05', 'Bagian Hukum'),
-(67, '04', '01', '06', NULL, '04.01.06', ''),
-(68, '04', '01', '07', NULL, '04.01.07', 'Bagian Humas dan Protokol'),
-(69, '04', '01', '08', NULL, '04.01.08', 'Bagian Kesejahteraan Rakyat'),
-(70, '04', '01', '09', NULL, '04.01.09', 'Bagian Organisasi'),
-(71, '04', '01', '10', NULL, '04.01.10', ''),
-(72, '04', '02', '01', NULL, '04.02.01', 'DINAS PENDAPAAN, PENGELOLAAN KEUANGAN DAN ASET DAERAH'),
-(73, '05', '01', '01', NULL, '05.01.01', 'DINAS PEKERJAAN UMUM'),
-(74, '06', '01', '01', NULL, '06.01.01', 'DINAS PERHUBUNGAN, PARIWISATA DAN KEBUDAYAAN'),
-(75, '07', '01', '01', NULL, '07.01.01', 'DINAS KESEHATAN'),
-(76, '07', '01', '02', NULL, '07.01.02', 'Puskesmas Kota Pekalongan'),
-(77, '07', '02', '01', NULL, '07.02.01', 'RSUD BENDAN'),
-(78, '08', '01', '01', NULL, '08.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA'),
-(79, '08', '01', '02', NULL, '08.01.02', 'SMPN 01'),
-(80, '08', '01', '03', NULL, '08.01.03', 'SMPN 02'),
-(81, '08', '01', '04', NULL, '08.01.04', 'SMPN 03'),
-(82, '08', '01', '05', NULL, '08.01.05', 'SMPN 04'),
-(83, '08', '01', '06', NULL, '08.01.06', 'SMPN 05'),
-(84, '08', '01', '07', NULL, '08.01.07', 'SMPN 06'),
-(85, '08', '01', '08', NULL, '08.01.08', 'SMPN 07'),
-(86, '08', '01', '09', NULL, '08.01.09', 'SMPN 08'),
-(87, '08', '01', '10', NULL, '08.01.10', 'SMPN 09'),
-(88, '08', '01', '11', NULL, '08.01.11', 'SMPN 10'),
-(89, '08', '01', '12', NULL, '08.01.12', 'SMPN 11'),
-(90, '08', '01', '13', NULL, '08.01.13', 'SMPN 12'),
-(91, '08', '01', '14', NULL, '08.01.14', 'SMPN 13'),
-(92, '08', '01', '15', NULL, '08.01.15', 'SMPN 14'),
-(93, '08', '01', '16', NULL, '08.01.16', 'SMPN 15'),
-(94, '08', '01', '17', NULL, '08.01.17', 'SMPN 16'),
-(95, '08', '01', '18', NULL, '08.01.18', 'SMPN 17'),
-(96, '08', '01', '19', NULL, '08.01.19', 'SMA N 01'),
-(97, '08', '01', '20', NULL, '08.01.20', 'SMA N 02'),
-(98, '08', '01', '21', NULL, '08.01.21', 'SMA N 03'),
-(99, '08', '01', '22', NULL, '08.01.22', 'SMA N 04'),
-(100, '08', '01', '23', NULL, '08.01.23', 'SMK N 01'),
-(101, '08', '01', '24', NULL, '08.01.24', 'SMK N 02'),
-(102, '08', '01', '25', NULL, '08.01.25', 'SMK N 03'),
-(103, '08', '01', '26', NULL, '08.01.26', 'SMK N 04'),
-(104, '08', '01', '27', NULL, '08.01.27', '....'),
-(105, '09', '01', '01', NULL, '09.01.01', 'BADAN PERMBERDAYAAN MASYARAKAT, PEREMPUAN, PERLINDUNGAN ANAK DAN KB'),
-(106, '10', '01', '01', NULL, '10.01.01', 'DINAS SOSIAL, TENAGA KERJA DAN TRANSMIGRASI'),
-(107, '10', '02', '01', NULL, '10.02.01', 'DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL'),
-(108, '11', '01', '01', NULL, '11.01.01', 'DINAS PERTANIAN, PETERNAKAN, DAN KELAUTAN'),
-(109, '11', '02', '01', NULL, '11.02.01', 'KANTOR KETAHANAN PANGAN'),
-(110, '12', '01', '01', NULL, '12.01.01', 'DINAS PERINDUSTRIAN, PERDAGANGAN, KOPERASI, DAN USAHA KECIL DAN MENENGAH'),
-(111, '13', '01', '01', NULL, '13.01.01', 'BPMP2T'),
-(112, '14', '01', '01', NULL, '14.01.01', 'Inspektorat'),
-(113, '15', '01', '01', NULL, '15.01.01', 'BADAN PERENCANAAN PEMBANGUNAN DAERAH'),
-(114, '16', '01', '01', NULL, '16.01.01', 'KANTOR LINGKUNGAN HIDUP'),
-(115, '18', '01', '01', NULL, '18.01.01', 'KANTOR KESATUAN BANGSA DAN POLITIK '),
-(116, '18', '02', '01', NULL, '18.02.01', 'SATUAN POLISI PAMONG PRAJA'),
-(117, '19', '01', '01', NULL, '19.01.01', 'BADAN KEPEGAWAIAN DAERAH'),
-(118, '21', '01', '01', NULL, '21.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH'),
-(119, '21', '02', '01', NULL, '21.02.01', 'DINAS KOMUNIKASI DAN INFORMATIKA'),
-(120, '22', '01', '01', NULL, '22.01.01', 'PDAM'),
-(121, '22', '02', '01', NULL, '22.02.01', 'Bank Pasar'),
-(122, '22', '03', '01', NULL, '22.03.01', 'BKK Kec Barat'),
-(123, '22', '04', '01', NULL, '22.04.01', 'BKK Kec Timur'),
-(124, '22', '05', '01', NULL, '22.05.01', 'BKK Kec Utara'),
-(125, '22', '06', '01', NULL, '22.06.01', 'BKK Kec Selatan'),
-(126, '50', '01', '01', NULL, '50.01.01', 'Kecamatan Pekalongan Barat'),
-(127, '50', '01', '02', NULL, '50.01.02', 'Kelurahan Kraton Kidul'),
-(128, '50', '01', '03', NULL, '50.01.03', 'Kelurahan Kergon'),
-(129, '50', '01', '04', NULL, '50.01.04', 'Kelurahan Sapuro'),
-(130, '50', '01', '05', NULL, '50.01.05', 'Kelurahan Kebulen'),
-(131, '50', '01', '06', NULL, '50.01.06', 'Kelurahan Kramatsari'),
-(132, '50', '01', '07', NULL, '50.01.07', 'Kelurahan Bendan'),
-(133, '50', '01', '08', NULL, '50.01.08', 'Kelurahan Podosugih'),
-(134, '50', '01', '09', NULL, '50.01.09', 'Kelurahan Medono'),
-(135, '50', '01', '10', NULL, '50.01.10', 'Kelurahan Tirto'),
-(136, '50', '01', '11', NULL, '50.01.11', 'Kelurahan Tegal Rejo'),
-(137, '50', '01', '12', NULL, '50.01.12', 'Kelurahan Bumi Rejo'),
-(138, '50', '01', '13', NULL, '50.01.13', 'Kelurahan Pringlangu'),
-(139, '50', '01', '14', NULL, '50.01.14', 'Kelurahan Pasirsari'),
-(140, '50', '02', '01', NULL, '50.02.01', 'Kecamatan Pekalongan Timur'),
-(141, '50', '02', '02', NULL, '50.02.02', 'Kelurahan Poncol'),
-(142, '50', '02', '03', NULL, '50.02.03', 'Kelurahan Noyontaan'),
-(143, '50', '02', '04', NULL, '50.02.04', 'Kelurahan Sugihwaras'),
-(144, '50', '02', '05', NULL, '50.02.05', 'Kelurahan Sampangan'),
-(145, '50', '02', '06', NULL, '50.02.06', 'Kelurahan Kauman'),
-(146, '50', '02', '07', NULL, '50.02.07', 'Kelurahan Keputran'),
-(147, '50', '02', '08', NULL, '50.02.08', 'Kelurahan Landungsari'),
-(148, '50', '02', '09', NULL, '50.02.09', 'Kelurahan Klego'),
-(149, '50', '02', '10', NULL, '50.02.10', 'Kelurahan Gamer'),
-(150, '50', '02', '11', NULL, '50.02.11', 'Kelurahan Dekoro'),
-(151, '50', '02', '12', NULL, '50.02.12', 'Kelurahan Karang Malang'),
-(152, '50', '02', '13', NULL, '50.02.13', 'Kelurahan Baros'),
-(153, '50', '02', '14', NULL, '50.02.14', 'Kelurahan Sokorejo'),
-(154, '50', '03', '01', NULL, '50.03.01', 'Kecamatan Pekalongan Utara'),
-(155, '50', '03', '02', NULL, '50.03.02', 'Kelurahan Krapyak Kidul'),
-(156, '50', '03', '03', NULL, '50.03.03', 'Kelurahan Krapyak Lor'),
-(157, '50', '03', '04', NULL, '50.03.04', 'Kelurahan Kd. Panjang'),
-(158, '50', '03', '05', NULL, '50.03.05', 'Kelurahan Panjang Wetan'),
-(159, '50', '03', '06', NULL, '50.03.06', 'Kelurahan Kraton Lor'),
-(160, '50', '03', '07', NULL, '50.03.07', 'Kelurahan Dukuh'),
-(161, '50', '03', '08', NULL, '50.03.08', 'Kelurahan Degayu'),
-(162, '50', '03', '09', NULL, '50.03.09', 'Kelurahan Pabean'),
-(163, '50', '03', '10', NULL, '50.03.10', 'Kelurahan Bandengan'),
-(164, '50', '03', '11', NULL, '50.03.11', 'Kelurahan Panjang Baru'),
-(165, '50', '03', '12', NULL, '50.03.12', '-'),
-(166, '50', '04', '01', NULL, '50.04.01', 'Kecamatan Pekalongan Selatan'),
-(167, '50', '04', '02', NULL, '50.04.02', 'Kelurahan Kradenan'),
-(168, '50', '04', '03', NULL, '50.04.03', 'Kelurahan Banyurip Alit'),
-(169, '50', '04', '04', NULL, '50.04.04', 'Kelurahan Buaran'),
-(170, '50', '04', '05', NULL, '50.04.05', 'Kelurahan Jenggot'),
-(171, '50', '04', '06', NULL, '50.04.06', 'Kelurahan Kertoharjo'),
-(172, '50', '04', '07', NULL, '50.04.07', 'Kelurahan Kuripan Kidul'),
-(173, '50', '04', '08', NULL, '50.04.08', 'Kelurahan Kuripan Lor'),
-(174, '50', '04', '09', NULL, '50.04.09', 'Kelurahan Yosorejo'),
-(175, '50', '04', '10', NULL, '50.04.10', 'Kelurahan Duwet'),
-(176, '50', '04', '11', NULL, '50.04.11', 'Kelurahan Soko'),
-(177, '50', '04', '12', NULL, '50.04.12', 'Kelurahan Banyurip Ageng'),
-(178, '01', '01', '01', '01', '01.01.01.01', 'Sekretariat Dewan/DPRD'),
-(179, '02', '01', '01', '01', '02.01.01.01', 'Walikota'),
-(180, '03', '01', '01', '01', '03.01.01.01', 'Wakil Walikota'),
-(181, '04', '01', '01', '01', '04.01.01.01', 'Sekretaris Daerah'),
-(182, '04', '01', '01', '02', '04.01.01.02', 'Asisten I'),
-(183, '04', '01', '01', '03', '04.01.01.03', 'Asisten II'),
-(184, '04', '01', '01', '04', '04.01.01.04', 'Asisten III'),
-(185, '04', '01', '01', '05', '04.01.01.05', 'Bagian Umum'),
-(186, '04', '01', '02', '01', '04.01.02.01', 'Bagian Pemerintahan'),
-(187, '04', '01', '03', '01', '04.01.03.01', 'Bagian Perekonomian'),
-(188, '04', '01', '04', '01', '04.01.04.01', 'Bagian Adm. Pembangunan'),
-(189, '04', '01', '05', '01', '04.01.05.01', 'Bagian Hukum'),
-(190, '04', '01', '06', '01', '04.01.06.01', ''),
-(191, '04', '01', '07', '01', '04.01.07.01', 'Bagian Humas dan Protokol'),
-(192, '04', '01', '08', '01', '04.01.08.01', 'Bagian Kesra'),
-(193, '04', '01', '09', '01', '04.01.09.01', 'Bagian Organisasi'),
-(194, '04', '01', '10', '01', '04.01.10.01', ''),
-(195, '04', '02', '01', '01', '04.02.01.01', 'DINAS PENDAPATAN, PENGELOLAAN KEUANGAN DAN ASET DAERAH'),
-(196, '05', '01', '01', '01', '05.01.01.01', 'DINAS PEKERJAAN UMUM'),
-(197, '06', '01', '01', '01', '06.01.01.01', 'DINAS PERHUBUNGAN, KOMUNIKASI INFORMATIKA, PARIWISATA DAN KEBUDAYAAN'),
-(198, '07', '01', '01', '01', '07.01.01.01', 'DINAS KESEHATAN'),
-(199, '07', '01', '01', '02', '07.01.01.02', 'UPTD BP Paru-paru'),
-(200, '07', '01', '01', '03', '07.01.01.03', 'UPTD Farmasi'),
-(201, '07', '01', '01', '04', '07.01.01.04', 'Puskesmas Bendan'),
-(202, '07', '01', '01', '05', '07.01.01.05', 'Pukesmas Medono'),
-(203, '07', '01', '01', '06', '07.01.01.06', 'Pustu Medono Indah'),
-(204, '07', '01', '01', '07', '07.01.01.07', 'Pustu Kebulen'),
-(205, '07', '01', '01', '08', '07.01.01.08', 'Pustu Pemkot'),
-(206, '07', '01', '01', '09', '07.01.01.09', 'Puskesmas Kramatsari'),
-(207, '07', '01', '01', '10', '07.01.01.10', 'Pustu Pasirsari'),
-(208, '07', '01', '01', '11', '07.01.01.11', 'Puskesmas Tirto'),
-(209, '07', '01', '01', '12', '07.01.01.12', 'Pustu Bumirejo'),
-(210, '07', '01', '01', '13', '07.01.01.13', 'Puskesmas Noyontaan'),
-(211, '07', '01', '01', '14', '07.01.01.14', 'Pustu Kalisari'),
-(212, '07', '01', '01', '15', '07.01.01.15', 'Pustu Pragak'),
-(213, '07', '01', '01', '16', '07.01.01.16', 'Pustu Baros'),
-(214, '07', '01', '01', '17', '07.01.01.17', 'Puskesmas Tondano'),
-(215, '07', '01', '01', '18', '07.01.01.18', 'Pustu Dekoro'),
-(216, '07', '01', '01', '19', '07.01.01.19', 'Pustu Gamer'),
-(217, '07', '01', '01', '20', '07.01.01.20', 'Puskesmas Klego'),
-(218, '07', '01', '01', '21', '07.01.01.21', 'Puskesmas Kusuma Bangsa'),
-(219, '07', '01', '01', '22', '07.01.01.22', 'Pustu Panjang Wetan'),
-(220, '07', '01', '01', '23', '07.01.01.23', 'Pustu Bandengan'),
-(221, '07', '01', '01', '24', '07.01.01.24', 'Puskesmas Krapyak Kidul'),
-(222, '07', '01', '01', '25', '07.01.01.25', 'Pustu Degayu'),
-(223, '07', '01', '01', '26', '07.01.01.26', 'Pustu Slamaran'),
-(224, '07', '01', '01', '27', '07.01.01.27', 'Pukesmas Dukuh'),
-(225, '07', '01', '01', '28', '07.01.01.28', 'Puskesmas Kecamatan Pekalongan Selatan'),
-(226, '07', '01', '01', '29', '07.01.01.29', 'Pustu Soko'),
-(227, '07', '01', '01', '30', '07.01.01.30', 'Pustu Kuripan Lor 1'),
-(228, '07', '01', '01', '31', '07.01.01.31', 'Pustu Kuripan Lor 2'),
-(229, '07', '01', '01', '32', '07.01.01.32', 'Pustu Kertoharjo'),
-(230, '07', '01', '01', '33', '07.01.01.33', 'Puskesmas Jenggot'),
-(231, '07', '01', '01', '34', '07.01.01.34', 'Pustu Kradenan'),
-(232, '07', '01', '01', '35', '07.01.01.35', 'Pustu Banyurip Ageng'),
-(233, '07', '01', '01', '36', '07.01.01.36', 'Laboratorium Kesehatan Daerah'),
-(234, '07', '01', '01', '37', '07.01.01.37', 'Pustu Pabean'),
-(235, '07', '01', '01', '38', '07.01.01.38', 'Pustu Karang Malang'),
-(236, '07', '01', '01', '39', '07.01.01.39', 'Pustu Kergon'),
-(237, '07', '01', '01', '40', '07.01.01.40', 'Pustu Salam Manis'),
-(238, '07', '01', '01', '41', '07.01.01.41', 'Pustu Duwet'),
-(239, '07', '01', '01', '42', '07.01.01.42', 'Puskesmas Sokorejo'),
-(240, '07', '01', '01', '43', '07.01.01.43', 'Pustu Pringlangu'),
-(241, '07', '01', '01', '44', '07.01.01.44', 'Puskesmas Buaran'),
-(242, '07', '01', '01', '45', '07.01.01.45', 'Pustu Kelgo Bantaran'),
-(243, '07', '01', '01', '46', '07.01.01.46', 'P4TO'),
-(244, '07', '01', '01', '47', '07.01.01.47', '..'),
-(245, '07', '01', '02', '01', '07.01.02.01', 'Pukesmas Kota Pekalongan'),
-(246, '07', '02', '01', '01', '07.02.01.01', 'RSUD BENDAN'),
-(247, '08', '01', '01', '01', '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA'),
-(248, '08', '01', '01', '02', '08.01.01.02', 'UPTD Pendidikan Kec. Pekalongan Barat'),
-(249, '08', '01', '01', '03', '08.01.01.03', 'SDN Kraton Kidul'),
-(250, '08', '01', '01', '04', '08.01.01.04', 'SDN Kramatsari 01'),
-(251, '08', '01', '01', '05', '08.01.01.05', 'SDN Kramatsari 02'),
-(252, '08', '01', '01', '06', '08.01.01.06', 'SDN Bendan 01'),
-(253, '08', '01', '01', '07', '08.01.01.07', 'SDN Bendan 03'),
-(254, '08', '01', '01', '08', '08.01.01.08', 'SDN Bendan 04'),
-(255, '08', '01', '01', '09', '08.01.01.09', 'SDN Bendan 08'),
-(256, '08', '01', '01', '10', '08.01.01.10', 'SDN Sapuro 01'),
-(257, '08', '01', '01', '11', '08.01.01.11', 'SDN Sapuro 02'),
-(258, '08', '01', '01', '12', '08.01.01.12', 'SDN Sapuro 03'),
-(259, '08', '01', '01', '13', '08.01.01.13', 'SDN Sapuro 04'),
-(260, '08', '01', '01', '14', '08.01.01.14', 'SDN Sapuro 05'),
-(261, '08', '01', '01', '15', '08.01.01.15', 'SDN Podosugih 01'),
-(262, '08', '01', '01', '16', '08.01.01.16', 'SDN Podosugih 03'),
-(263, '08', '01', '01', '17', '08.01.01.17', 'SDN Medono 01'),
-(264, '08', '01', '01', '18', '08.01.01.18', 'SDN Medono 04'),
-(265, '08', '01', '01', '19', '08.01.01.19', 'SDN Medono 05'),
-(266, '08', '01', '01', '20', '08.01.01.20', 'SDN Medono 07'),
-(267, '08', '01', '01', '21', '08.01.01.21', 'SDN Medono 08'),
-(268, '08', '01', '01', '22', '08.01.01.22', 'SDN Kebulen'),
-(269, '08', '01', '01', '23', '08.01.01.23', 'SDN Tirto 01'),
-(270, '08', '01', '01', '24', '08.01.01.24', 'SDN Tirto 02'),
-(271, '08', '01', '01', '25', '08.01.01.25', 'SDN Tirto 03'),
-(272, '08', '01', '01', '26', '08.01.01.26', 'SDN Tirto 04'),
-(273, '08', '01', '01', '27', '08.01.01.27', 'SDN Pasirsari 01'),
-(274, '08', '01', '01', '28', '08.01.01.28', 'SDN Pasirsari 02'),
-(275, '08', '01', '01', '29', '08.01.01.29', 'SDN Tegal Rejo'),
-(276, '08', '01', '01', '30', '08.01.01.30', 'SDN Bumi Rejo'),
-(277, '08', '01', '01', '31', '08.01.01.31', 'SDN Pringlangu'),
-(278, '08', '01', '01', '32', '08.01.01.32', 'SDN Luar Biasa'),
-(279, '08', '01', '01', '33', '08.01.01.33', 'UPTD Pendidikan Kec. Pekalongan Timur'),
-(280, '08', '01', '01', '34', '08.01.01.34', 'SDN Keputran 01'),
-(281, '08', '01', '01', '35', '08.01.01.35', 'SDN Keputran 02'),
-(282, '08', '01', '01', '36', '08.01.01.36', 'SDN Keputran 04'),
-(283, '08', '01', '01', '37', '08.01.01.37', 'SDN Keputran 06'),
-(284, '08', '01', '01', '38', '08.01.01.38', 'SDN Keputran 08'),
-(285, '08', '01', '01', '39', '08.01.01.39', 'SDN Noyontaan 03'),
-(286, '08', '01', '01', '40', '08.01.01.40', 'SDN Landungsari 01'),
-(287, '08', '01', '01', '41', '08.01.01.41', 'SDN Landungsari 02'),
-(288, '08', '01', '01', '42', '08.01.01.42', 'SDN Landungsari 03'),
-(289, '08', '01', '01', '43', '08.01.01.43', 'SDN Landungsari 04'),
-(290, '08', '01', '01', '44', '08.01.01.44', 'SDN Landungsari 05'),
-(291, '08', '01', '01', '45', '08.01.01.45', 'SDN Poncol 01'),
-(292, '08', '01', '01', '46', '08.01.01.46', 'SDN Poncol 02'),
-(293, '08', '01', '01', '47', '08.01.01.47', 'SDN Poncol 03'),
-(294, '08', '01', '01', '48', '08.01.01.48', 'SDN Poncol 04'),
-(295, '08', '01', '01', '49', '08.01.01.49', 'SDN Poncol 06'),
-(296, '08', '01', '01', '50', '08.01.01.50', 'SDN Poncol 07'),
-(297, '08', '01', '01', '51', '08.01.01.51', 'SDN Sampangan 01'),
-(298, '08', '01', '01', '52', '08.01.01.52', 'SDN Sampangan 02'),
-(299, '08', '01', '01', '53', '08.01.01.53', 'SDN Klego 01'),
-(300, '08', '01', '01', '54', '08.01.01.54', 'SDN Klego 04'),
-(301, '08', '01', '01', '55', '08.01.01.55', 'SDN Gamer 01'),
-(302, '08', '01', '01', '56', '08.01.01.56', 'SDN Gamer 02'),
-(303, '08', '01', '01', '57', '08.01.01.57', 'SDN Sokorejo'),
-(304, '08', '01', '01', '58', '08.01.01.58', 'SDN Baros'),
-(305, '08', '01', '01', '59', '08.01.01.59', 'SDN Dekoro'),
-(306, '08', '01', '01', '60', '08.01.01.60', 'SDN Karang malang'),
-(307, '08', '01', '01', '61', '08.01.01.61', 'UPTD Pendidikan Kec. Pekalongan Utara'),
-(308, '08', '01', '01', '62', '08.01.01.62', 'SDN Panjang Wetan 01'),
-(309, '08', '01', '01', '63', '08.01.01.63', 'SDN Panjang Wetan 02'),
-(310, '08', '01', '01', '64', '08.01.01.64', 'SDN Panjang Wetan 03'),
-(311, '08', '01', '01', '65', '08.01.01.65', 'SDN Panjang Wetan 04'),
-(312, '08', '01', '01', '66', '08.01.01.66', 'SDN Panjang Wetan 05'),
-(313, '08', '01', '01', '67', '08.01.01.67', 'SDN Panjang Wetan 06'),
-(314, '08', '01', '01', '68', '08.01.01.68', 'SDN Kandang Panjang 01'),
-(315, '08', '01', '01', '69', '08.01.01.69', 'SDN Kandang Panjang 02'),
-(316, '08', '01', '01', '70', '08.01.01.70', 'SDN Kandang Panjang 03'),
-(317, '08', '01', '01', '71', '08.01.01.71', 'SDN Kandang Panjang 04'),
-(318, '08', '01', '01', '72', '08.01.01.72', 'SDN Kandang Panjang 05'),
-(319, '08', '01', '01', '73', '08.01.01.73', 'SDN Kandang Panjang 07'),
-(320, '08', '01', '01', '74', '08.01.01.74', 'SDN Kandang Panjang 08'),
-(321, '08', '01', '01', '75', '08.01.01.75', 'SDN Kandang Panjang 10'),
-(322, '08', '01', '01', '76', '08.01.01.76', 'SDN Kandang Panjang 11'),
-(323, '08', '01', '01', '77', '08.01.01.77', 'SDN Dukuh 01'),
-(324, '08', '01', '01', '78', '08.01.01.78', 'SDN Kraton'),
-(325, '08', '01', '01', '79', '08.01.01.79', 'SDN Krapyak Lor 01'),
-(326, '08', '01', '01', '80', '08.01.01.80', 'SDN Krapyak Lor 02'),
-(327, '08', '01', '01', '81', '08.01.01.81', 'SDN Krapyak Lor 04'),
-(328, '08', '01', '01', '82', '08.01.01.82', 'SDN Krapyak Lor 05'),
-(329, '08', '01', '01', '83', '08.01.01.83', 'SDN Pabean'),
-(330, '08', '01', '01', '84', '08.01.01.84', 'SDN Bandengan 01'),
-(331, '08', '01', '01', '85', '08.01.01.85', 'SDN Bandengan 02'),
-(332, '08', '01', '01', '86', '08.01.01.86', 'SDN Degayu 01'),
-(333, '08', '01', '01', '87', '08.01.01.87', 'SDN Degayu 02'),
-(334, '08', '01', '01', '88', '08.01.01.88', 'UPTD Pendidikan Kec. Pekalongan Selatan'),
-(335, '08', '01', '01', '89', '08.01.01.89', 'SDN Kradenan 01'),
-(336, '08', '01', '01', '90', '08.01.01.90', 'SDN Kradenan 02'),
-(337, '08', '01', '01', '91', '08.01.01.91', 'SDN Kradenan 04'),
-(338, '08', '01', '01', '92', '08.01.01.92', 'SDN Buaran'),
-(339, '08', '01', '01', '93', '08.01.01.93', 'SDN Banyurip Ageng'),
-(340, '08', '01', '01', '94', '08.01.01.94', 'SDN Jenggot'),
-(341, '08', '01', '01', '95', '08.01.01.95', 'SDN Kertoharjo 01'),
-(342, '08', '01', '01', '96', '08.01.01.96', 'SDN Kertoharjo 02'),
-(343, '08', '01', '01', '97', '08.01.01.97', 'SDN Kuripan Kidul 01'),
-(344, '08', '01', '01', '98', '08.01.01.98', 'SDN Kuripan Kidul 02'),
-(345, '08', '01', '01', '99', '08.01.01.99', 'SDN Kuripan Lor 01'),
-(346, '08', '01', '01', '100', '08.01.01.100', 'SDN Kuripan Lor 02'),
-(347, '08', '01', '01', '101', '08.01.01.101', 'SDN Yosorejo 01'),
-(348, '08', '01', '01', '102', '08.01.01.102', 'SDN Yosorejo 02'),
-(349, '08', '01', '01', '103', '08.01.01.103', 'SDN Duwet'),
-(350, '08', '01', '01', '104', '08.01.01.104', 'SDN Soko'),
-(351, '08', '01', '01', '105', '08.01.01.105', 'SDN Krapyak Kidul 02'),
-(352, '08', '01', '01', '106', '08.01.01.106', 'TK Cempaka Jaya'),
-(353, '08', '01', '01', '107', '08.01.01.107', 'TK Pembina Utara'),
-(354, '08', '01', '01', '108', '08.01.01.108', 'TK Pembina Barat'),
-(355, '08', '01', '01', '109', '08.01.01.109', '..'),
-(356, '08', '01', '02', '01', '08.01.02.01', 'SMPN 01'),
-(357, '08', '01', '03', '01', '08.01.03.01', 'SMPN 02'),
-(358, '08', '01', '04', '01', '08.01.04.01', 'SMPN 03'),
-(359, '08', '01', '05', '01', '08.01.05.01', 'SMPN 04'),
-(360, '08', '01', '06', '01', '08.01.06.01', 'SMPN 05'),
-(361, '08', '01', '07', '01', '08.01.07.01', 'SMPN 06'),
-(362, '08', '01', '08', '01', '08.01.08.01', 'SMPN 07'),
-(363, '08', '01', '09', '01', '08.01.09.01', 'SMPN 08'),
-(364, '08', '01', '10', '01', '08.01.10.01', 'SMPN 09'),
-(365, '08', '01', '11', '01', '08.01.11.01', 'SMPN 10'),
-(366, '08', '01', '12', '01', '08.01.12.01', 'SMPN 11'),
-(367, '08', '01', '13', '01', '08.01.13.01', 'SMPN 12'),
-(368, '08', '01', '14', '01', '08.01.14.01', 'SMPN 13'),
-(369, '08', '01', '15', '01', '08.01.15.01', 'SMPN 14'),
-(370, '08', '01', '16', '01', '08.01.16.01', 'SMPN 15'),
-(371, '08', '01', '17', '01', '08.01.17.01', 'SMPN 16'),
-(372, '08', '01', '18', '01', '08.01.18.01', 'SMPN 17'),
-(373, '08', '01', '19', '01', '08.01.19.01', 'SMA N 01'),
-(374, '08', '01', '20', '01', '08.01.20.01', 'SMA N 02'),
-(375, '08', '01', '21', '01', '08.01.21.01', 'SMA N 03'),
-(376, '08', '01', '22', '01', '08.01.22.01', 'SMA N 04'),
-(377, '08', '01', '23', '01', '08.01.23.01', 'SMK N 01'),
-(378, '08', '01', '24', '01', '08.01.24.01', 'SMK N 02'),
-(379, '08', '01', '25', '01', '08.01.25.01', 'SMK N 03'),
-(380, '08', '01', '26', '01', '08.01.26.01', 'SMK N 4'),
-(381, '08', '01', '27', '01', '08.01.27.01', '..'),
-(382, '09', '01', '01', '01', '09.01.01.01', 'BADAN PERMBERDAYAAN MASYARAKAT, PEREMPUAN, PERLINDUNGAN ANAK DAN KB'),
-(383, '10', '01', '01', '01', '10.01.01.01', 'DINAS SOSIAL, TENAGA KERJA DAN TRANSMIGRASI'),
-(384, '10', '02', '01', '01', '10.02.01.01', 'DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL'),
-(385, '11', '01', '01', '01', '11.01.01.01', 'DINAS PERTANIAN, PETERNAKAN, DAN KELAUTAN'),
-(386, '11', '02', '01', '01', '11.02.01.01', 'KANTOR KETAHANAN PANGAN'),
-(387, '12', '01', '01', '01', '12.01.01.01', 'DINAS PERINDUSTRIAN, PERDAGANGAN, KOPERASI, DAN USAHA KECIL DAN MENENGAH'),
-(388, '13', '01', '01', '01', '13.01.01.01', 'BPMP2T'),
-(389, '14', '01', '01', '01', '14.01.01.01', 'Inspektorat'),
-(390, '15', '01', '01', '01', '15.01.01.01', 'BADAN PERENCANAAN PEMBANGUNAN DAERAH'),
-(391, '16', '01', '01', '01', '16.01.01.01', 'KANTOR LINGKUNGAN HIDUP'),
-(392, '18', '01', '01', '01', '18.01.01.01', 'KANTOR KESATUAN BANGSA DAN POLITIK'),
-(393, '18', '02', '01', '01', '18.02.01.01', 'SATUAN POLISI PAMONG PRAJA'),
-(394, '19', '01', '01', '01', '19.01.01.01', 'BADAN KEPEGAWAIAN DAERAH'),
-(395, '21', '01', '01', '01', '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH'),
-(396, '21', '02', '01', '01', '21.02.01.01', 'DINAS KOMUNIKASI DAN INFORMATIKA'),
-(397, '22', '01', '01', '01', '22.01.01.01', 'PDAM'),
-(398, '22', '02', '01', '01', '22.02.01.01', 'Bank Pasar'),
-(399, '22', '03', '01', '01', '22.03.01.01', 'BKK Kec Barat'),
-(400, '22', '04', '01', '01', '22.04.01.01', 'BKK Kec Timur'),
-(401, '22', '05', '01', '01', '22.05.01.01', 'BKK Kec Utara'),
-(402, '22', '06', '01', '01', '22.06.01.01', 'BKK Kec Selatan'),
-(403, '50', '01', '01', '01', '50.01.01.01', 'Kecamatan Pekalongan Barat'),
-(404, '50', '01', '02', '01', '50.01.02.01', 'Kelurahan Kraton Kidul'),
-(405, '50', '01', '03', '01', '50.01.03.01', 'Kelurahan Kergon'),
-(406, '50', '01', '04', '01', '50.01.04.01', 'Kelurahan Sapuro'),
-(407, '50', '01', '05', '01', '50.01.05.01', 'Kelurahan Kebulen'),
-(408, '50', '01', '06', '01', '50.01.06.01', 'Kelurahan Kramatsari'),
-(409, '50', '01', '07', '01', '50.01.07.01', 'Kelurahan Bendan'),
-(410, '50', '01', '08', '01', '50.01.08.01', 'Kelurahan Podosugih'),
-(411, '50', '01', '09', '01', '50.01.09.01', 'Kelurahan Medono'),
-(412, '50', '01', '10', '01', '50.01.10.01', 'Kelurahan Tirto'),
-(413, '50', '01', '11', '01', '50.01.11.01', 'Kelurahan Tegal Rejo'),
-(414, '50', '01', '12', '01', '50.01.12.01', 'Kelurahan Bumi Rejo'),
-(415, '50', '01', '13', '01', '50.01.13.01', 'Kelurahan Pringlangu'),
-(416, '50', '01', '14', '01', '50.01.14.01', 'Kelurahan Pasirsari'),
-(417, '50', '02', '01', '01', '50.02.01.01', 'Kecamatan Pekalongan Timur'),
-(418, '50', '02', '02', '01', '50.02.02.01', 'Kelurahan Poncol'),
-(419, '50', '02', '03', '01', '50.02.03.01', 'Kelurahan Noyontaan'),
-(420, '50', '02', '04', '01', '50.02.04.01', 'Kelurahan Sugihwaras'),
-(421, '50', '02', '05', '01', '50.02.05.01', 'Kelurahan Sampangan'),
-(422, '50', '02', '06', '01', '50.02.06.01', 'Kelurahan Kauman'),
-(423, '50', '02', '07', '01', '50.02.07.01', 'Kelurahan Keputran'),
-(424, '50', '02', '08', '01', '50.02.08.01', 'Kelurahan Landungsari'),
-(425, '50', '02', '09', '01', '50.02.09.01', 'Kelurahan Klego'),
-(426, '50', '02', '10', '01', '50.02.10.01', 'Kelurahan Gamer'),
-(427, '50', '02', '11', '01', '50.02.11.01', 'Kelurahan Dekoro'),
-(428, '50', '02', '12', '01', '50.02.12.01', 'Kelurahan Karang Malang'),
-(429, '50', '02', '13', '01', '50.02.13.01', 'Kelurahan Baros'),
-(430, '50', '02', '14', '01', '50.02.14.01', 'Kelurahan Sokorejo'),
-(431, '50', '03', '01', '01', '50.03.01.01', 'Kecamatan Pekalongan Utara'),
-(432, '50', '03', '02', '01', '50.03.02.01', 'Kelurahan Krapyak Kidul'),
-(433, '50', '03', '03', '01', '50.03.03.01', 'Kelurahan Krapyak Lor'),
-(434, '50', '03', '04', '01', '50.03.04.01', 'Kelurahan Kd. Panjang'),
-(435, '50', '03', '05', '01', '50.03.05.01', 'Kelurahan Panjang Wetan'),
-(436, '50', '03', '06', '01', '50.03.06.01', 'Kelurahan Kraton Lor'),
-(437, '50', '03', '07', '01', '50.03.07.01', 'Kelurahan Dukuh'),
-(438, '50', '03', '08', '01', '50.03.08.01', 'Kelurahan Degayu'),
-(439, '50', '03', '09', '01', '50.03.09.01', 'Kelurahan Pabean'),
-(440, '50', '03', '10', '01', '50.03.10.01', 'Kelurahan Bandengan'),
-(441, '50', '03', '11', '01', '50.03.11.01', 'Kelurahan Panjang Baru'),
-(442, '50', '03', '12', '01', '50.03.12.01', '-'),
-(443, '50', '04', '01', '01', '50.04.01.01', 'Kecamatan Pekalongan Selatan'),
-(444, '50', '04', '02', '01', '50.04.02.01', 'Kelurahan Kradenan'),
-(445, '50', '04', '03', '01', '50.04.03.01', 'Kelurahan Banyurip Alit'),
-(446, '50', '04', '04', '01', '50.04.04.01', 'Kelurahan Buaran'),
-(447, '50', '04', '05', '01', '50.04.05.01', 'Kelurahan Jenggot'),
-(448, '50', '04', '06', '01', '50.04.06.01', 'Kelurahan Kertoharjo'),
-(449, '50', '04', '07', '01', '50.04.07.01', 'Kelurahan Kuripan Kidul'),
-(450, '50', '04', '08', '01', '50.04.08.01', 'Kelurahan Kuripan Lor'),
-(451, '50', '04', '09', '01', '50.04.09.01', 'Kelurahan Yosorejo'),
-(452, '50', '04', '10', '01', '50.04.10.01', 'Kelurahan Duwet'),
-(453, '50', '04', '11', '01', '50.04.11.01', 'Kelurahan Soko'),
-(454, '50', '04', '12', '01', '50.04.12.01', 'Kelurahan Banyurip Ageng'),
-(6767, '09', '02', NULL, NULL, NULL, 'BADAN PENANGGULANGAN BENCANA DAERAH'),
-(6768, '09', '02', '01', NULL, NULL, 'BADAN PENANGGULANGAN BENCANA DAERAH'),
-(6769, '09', '02', '01', '01', '09.09.02.01', 'BADAN PENANGGULANGAN BENCANA DAERAH'),
-(7034, '21', '03', NULL, NULL, '21.03', 'Kantor Riset Teknologi dan Inovasi'),
-(7037, '21', '03', '01', NULL, '21.03.01', 'Kantor Riset Teknologi dan Inovasi'),
-(7038, '21', '03', '01', '01', '21.03.01.01', 'Kantor Riset Teknologi dan Inovasi'),
-(9899, '05', '01', '01', '02', '05.01.01.02', 'TESTTI');
+INSERT INTO `satker` (`Satker_ID`, `KodeSektor`, `KodeSatker`, `KodeUnit`, `Gudang`, `kode`, `NamaSatker`, `tahun`) VALUES
+(1, '01', NULL, NULL, NULL, '01', 'Sekwan/DPRD', NULL),
+(2, '02', NULL, NULL, NULL, '02', 'Gubernur/Bupati/Walikota', NULL),
+(3, '03', NULL, NULL, NULL, '03', 'Wakil Gubernur/Bupati/Walikota', NULL),
+(4, '04', NULL, NULL, NULL, '04', 'Sekretariat Daerah', NULL),
+(5, '05', NULL, NULL, NULL, '05', 'Bidang Kimpraswil/PU', NULL),
+(6, '06', NULL, NULL, NULL, '06', 'Bidang Perhubungan', NULL),
+(7, '07', NULL, NULL, NULL, '07', 'Bidang Kesehatan', NULL),
+(8, '08', NULL, NULL, NULL, '08', 'Bidang Pendidikan dan Kebudayaan', NULL),
+(9, '09', NULL, NULL, NULL, '09', 'Bidang Sosial', NULL),
+(10, '10', NULL, NULL, NULL, '10', 'Bidang Kependudukan', NULL),
+(11, '11', NULL, NULL, NULL, '11', 'Bidang Pertanian', NULL),
+(12, '12', NULL, NULL, NULL, '12', 'Bidang Perindustrian', NULL),
+(13, '13', NULL, NULL, NULL, '13', 'Bidang Pendapatan', NULL),
+(14, '14', NULL, NULL, NULL, '14', 'Bidang Pengawasan', NULL),
+(15, '15', NULL, NULL, NULL, '15', 'Bidang Perencanaan', NULL),
+(16, '16', NULL, NULL, NULL, '16', 'Bidang Lingkungan Hidup', NULL),
+(17, '17', NULL, NULL, NULL, '17', 'Bidang Pariwisata', NULL),
+(18, '18', NULL, NULL, NULL, '18', 'Bidang Kesatuan Bangsa', NULL),
+(19, '19', NULL, NULL, NULL, '19', 'Bidang Kepegawaian', NULL),
+(20, '20', NULL, NULL, NULL, '20', 'Bidang Penghubung', NULL),
+(21, '21', NULL, NULL, NULL, '21', 'Bidang Komunikasi, Informasi dan Dokumentasi', NULL),
+(22, '22', NULL, NULL, NULL, '22', 'Bidang BUMD', NULL),
+(23, '50', NULL, NULL, NULL, '50', 'Bidang Kecamatan', NULL),
+(24, '01', '01', NULL, NULL, '01.01', 'Sekretariat Dewan/DPRD', NULL),
+(25, '02', '01', NULL, NULL, '02.01', 'Walikota', NULL),
+(26, '03', '01', NULL, NULL, '03.01', 'Wakil Walikota', NULL),
+(27, '04', '01', NULL, NULL, '04.01', 'Sekretaris Daerah', NULL),
+(28, '04', '02', NULL, NULL, '04.02', 'DINAS PENDAPATAN, PENGELOLAAN KEUANGAN DAN ASET DAERAH', NULL),
+(29, '05', '01', NULL, NULL, '05.01', 'DINAS PEKERJAAN UMUM', NULL),
+(30, '06', '01', NULL, NULL, '06.01', 'DINAS PERHUBUNGAN, PARIWISATA DAN KEBUDAYAAN', NULL),
+(31, '07', '01', NULL, NULL, '07.01', 'DINAS KESEHATAN', NULL),
+(32, '07', '02', NULL, NULL, '07.02', 'RSUD BENDAN', NULL),
+(33, '08', '01', NULL, NULL, '08.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', NULL),
+(34, '09', '01', NULL, NULL, '09.01', 'BADAN PERMBERDAYAAN MASYARAKAT, PEREMPUAN, PERLINDUNGAN ANAK DAN KB', NULL),
+(35, '10', '01', NULL, NULL, '10.01', 'DINAS SOSIAL, TENAGA KERJA DAN TRANSMIGRASI', NULL),
+(36, '10', '02', NULL, NULL, '10.02', 'DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL', NULL),
+(37, '11', '01', NULL, NULL, '11.01', 'DINAS PERTANIAN, PETERNAKAN, DAN KELAUTAN', NULL),
+(38, '11', '02', NULL, NULL, '11.02', 'KANTOR KETAHANAN PANGAN', NULL),
+(39, '12', '01', NULL, NULL, '12.01', 'DINAS PERINDUSTRIAN, PERDAGANGAN, KOPERASI, DAN USAHA KECIL DAN MENENGAH', NULL),
+(40, '13', '01', NULL, NULL, '13.01', 'BPMP2T', NULL),
+(41, '14', '01', NULL, NULL, '14.01', 'INSPEKTORAT', NULL),
+(42, '15', '01', NULL, NULL, '15.01', 'BADAN PERENCANAAN PEMBANGUNAN DAERAH', NULL),
+(43, '16', '01', NULL, NULL, '16.01', 'KANTOR LINGKUNGAN HIDUP', NULL),
+(44, '18', '01', NULL, NULL, '18.01', 'KANTOR KESATUAN BANGSA DAN POLITIK  ', NULL),
+(45, '18', '02', NULL, NULL, '18.02', 'SATUAN POLISI PAMONG PRAJA', NULL),
+(46, '19', '01', NULL, NULL, '19.01', 'BADAN  KEPEGAWAIAN DAERAH', NULL),
+(47, '21', '01', NULL, NULL, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', NULL),
+(48, '21', '02', NULL, NULL, '21.02', 'DINAS KOMUNIKASI DAN INFORMATIKA', NULL),
+(49, '22', '01', NULL, NULL, '22.01', 'PDAM', NULL),
+(50, '22', '02', NULL, NULL, '22.02', 'BANK PASAR', NULL),
+(51, '22', '03', NULL, NULL, '22.03', 'BKK KEC BARAT', NULL),
+(52, '22', '04', NULL, NULL, '22.04', 'BKK KEC TIMUR', NULL),
+(53, '22', '05', NULL, NULL, '22.05', 'BKK KEC UTARA', NULL),
+(54, '22', '06', NULL, NULL, '22.06', 'BKK KEC SELATAN', NULL),
+(55, '50', '01', NULL, NULL, '50.01', 'KECAMATAN PEKALONGAN BARAT', NULL),
+(56, '50', '02', NULL, NULL, '50.02', 'KECAMATAN PEKALONGAN TIMUR', NULL),
+(57, '50', '03', NULL, NULL, '50.03', 'KECAMATAN PEKALONGAN UTARA', NULL),
+(58, '50', '04', NULL, NULL, '50.04', 'KECAMATAN PEKALONGAN SELATAN', NULL),
+(59, '01', '01', '01', NULL, '01.01.01', 'Sekretariat Dewan/DPRD', NULL),
+(60, '02', '01', '01', NULL, '02.01.01', 'Walikota', NULL),
+(61, '03', '01', '01', NULL, '03.01.01', 'Wakil Walikota', NULL),
+(62, '04', '01', '01', NULL, '04.01.01', 'Bagian Umum', NULL),
+(63, '04', '01', '02', NULL, '04.01.02', 'Bagian Pemerintahan', NULL),
+(64, '04', '01', '03', NULL, '04.01.03', 'Bagian Perekonomian', NULL),
+(65, '04', '01', '04', NULL, '04.01.04', 'Bagian Administrasi Pembangunan', NULL),
+(66, '04', '01', '05', NULL, '04.01.05', 'Bagian Hukum', NULL),
+(67, '04', '01', '06', NULL, '04.01.06', '', NULL),
+(68, '04', '01', '07', NULL, '04.01.07', 'Bagian Humas dan Protokol', NULL),
+(69, '04', '01', '08', NULL, '04.01.08', 'Bagian Kesejahteraan Rakyat', NULL),
+(70, '04', '01', '09', NULL, '04.01.09', 'Bagian Organisasi', NULL),
+(71, '04', '01', '10', NULL, '04.01.10', '', NULL),
+(72, '04', '02', '01', NULL, '04.02.01', 'DINAS PENDAPAAN, PENGELOLAAN KEUANGAN DAN ASET DAERAH', NULL),
+(73, '05', '01', '01', NULL, '05.01.01', 'DINAS PEKERJAAN UMUM', NULL),
+(74, '06', '01', '01', NULL, '06.01.01', 'DINAS PERHUBUNGAN, PARIWISATA DAN KEBUDAYAAN', NULL),
+(75, '07', '01', '01', NULL, '07.01.01', 'DINAS KESEHATAN', NULL),
+(76, '07', '01', '02', NULL, '07.01.02', 'Puskesmas Kota Pekalongan', NULL),
+(77, '07', '02', '01', NULL, '07.02.01', 'RSUD BENDAN', NULL),
+(78, '08', '01', '01', NULL, '08.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', NULL),
+(79, '08', '01', '02', NULL, '08.01.02', 'SMPN 01', NULL),
+(80, '08', '01', '03', NULL, '08.01.03', 'SMPN 02', NULL),
+(81, '08', '01', '04', NULL, '08.01.04', 'SMPN 03', NULL),
+(82, '08', '01', '05', NULL, '08.01.05', 'SMPN 04', NULL),
+(83, '08', '01', '06', NULL, '08.01.06', 'SMPN 05', NULL),
+(84, '08', '01', '07', NULL, '08.01.07', 'SMPN 06', NULL),
+(85, '08', '01', '08', NULL, '08.01.08', 'SMPN 07', NULL),
+(86, '08', '01', '09', NULL, '08.01.09', 'SMPN 08', NULL),
+(87, '08', '01', '10', NULL, '08.01.10', 'SMPN 09', NULL),
+(88, '08', '01', '11', NULL, '08.01.11', 'SMPN 10', NULL),
+(89, '08', '01', '12', NULL, '08.01.12', 'SMPN 11', NULL),
+(90, '08', '01', '13', NULL, '08.01.13', 'SMPN 12', NULL),
+(91, '08', '01', '14', NULL, '08.01.14', 'SMPN 13', NULL),
+(92, '08', '01', '15', NULL, '08.01.15', 'SMPN 14', NULL),
+(93, '08', '01', '16', NULL, '08.01.16', 'SMPN 15', NULL),
+(94, '08', '01', '17', NULL, '08.01.17', 'SMPN 16', NULL),
+(95, '08', '01', '18', NULL, '08.01.18', 'SMPN 17', NULL),
+(96, '08', '01', '19', NULL, '08.01.19', 'SMA N 01', NULL),
+(97, '08', '01', '20', NULL, '08.01.20', 'SMA N 02', NULL),
+(98, '08', '01', '21', NULL, '08.01.21', 'SMA N 03', NULL),
+(99, '08', '01', '22', NULL, '08.01.22', 'SMA N 04', NULL),
+(100, '08', '01', '23', NULL, '08.01.23', 'SMK N 01', NULL),
+(101, '08', '01', '24', NULL, '08.01.24', 'SMK N 02', NULL),
+(102, '08', '01', '25', NULL, '08.01.25', 'SMK N 03', NULL),
+(103, '08', '01', '26', NULL, '08.01.26', 'SMK N 04', NULL),
+(104, '08', '01', '27', NULL, '08.01.27', '....', NULL),
+(105, '09', '01', '01', NULL, '09.01.01', 'BADAN PERMBERDAYAAN MASYARAKAT, PEREMPUAN, PERLINDUNGAN ANAK DAN KB', NULL),
+(106, '10', '01', '01', NULL, '10.01.01', 'DINAS SOSIAL, TENAGA KERJA DAN TRANSMIGRASI', NULL),
+(107, '10', '02', '01', NULL, '10.02.01', 'DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL', NULL),
+(108, '11', '01', '01', NULL, '11.01.01', 'DINAS PERTANIAN, PETERNAKAN, DAN KELAUTAN', NULL),
+(109, '11', '02', '01', NULL, '11.02.01', 'KANTOR KETAHANAN PANGAN', NULL),
+(110, '12', '01', '01', NULL, '12.01.01', 'DINAS PERINDUSTRIAN, PERDAGANGAN, KOPERASI, DAN USAHA KECIL DAN MENENGAH', NULL),
+(111, '13', '01', '01', NULL, '13.01.01', 'BPMP2T', NULL),
+(112, '14', '01', '01', NULL, '14.01.01', 'Inspektorat', NULL),
+(113, '15', '01', '01', NULL, '15.01.01', 'BADAN PERENCANAAN PEMBANGUNAN DAERAH', NULL),
+(114, '16', '01', '01', NULL, '16.01.01', 'KANTOR LINGKUNGAN HIDUP', NULL),
+(115, '18', '01', '01', NULL, '18.01.01', 'KANTOR KESATUAN BANGSA DAN POLITIK ', NULL),
+(116, '18', '02', '01', NULL, '18.02.01', 'SATUAN POLISI PAMONG PRAJA', NULL),
+(117, '19', '01', '01', NULL, '19.01.01', 'BADAN KEPEGAWAIAN DAERAH', NULL),
+(118, '21', '01', '01', NULL, '21.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', NULL),
+(119, '21', '02', '01', NULL, '21.02.01', 'DINAS KOMUNIKASI DAN INFORMATIKA', NULL),
+(120, '22', '01', '01', NULL, '22.01.01', 'PDAM', NULL),
+(121, '22', '02', '01', NULL, '22.02.01', 'Bank Pasar', NULL),
+(122, '22', '03', '01', NULL, '22.03.01', 'BKK Kec Barat', NULL),
+(123, '22', '04', '01', NULL, '22.04.01', 'BKK Kec Timur', NULL),
+(124, '22', '05', '01', NULL, '22.05.01', 'BKK Kec Utara', NULL),
+(125, '22', '06', '01', NULL, '22.06.01', 'BKK Kec Selatan', NULL),
+(126, '50', '01', '01', NULL, '50.01.01', 'Kecamatan Pekalongan Barat', NULL),
+(127, '50', '01', '02', NULL, '50.01.02', 'Kelurahan Kraton Kidul', NULL),
+(128, '50', '01', '03', NULL, '50.01.03', 'Kelurahan Kergon', NULL),
+(129, '50', '01', '04', NULL, '50.01.04', 'Kelurahan Sapuro', NULL),
+(130, '50', '01', '05', NULL, '50.01.05', 'Kelurahan Kebulen', NULL),
+(131, '50', '01', '06', NULL, '50.01.06', 'Kelurahan Kramatsari', NULL),
+(132, '50', '01', '07', NULL, '50.01.07', 'Kelurahan Bendan', NULL),
+(133, '50', '01', '08', NULL, '50.01.08', 'Kelurahan Podosugih', NULL),
+(134, '50', '01', '09', NULL, '50.01.09', 'Kelurahan Medono', NULL),
+(135, '50', '01', '10', NULL, '50.01.10', 'Kelurahan Tirto', NULL),
+(136, '50', '01', '11', NULL, '50.01.11', 'Kelurahan Tegal Rejo', NULL),
+(137, '50', '01', '12', NULL, '50.01.12', 'Kelurahan Bumi Rejo', NULL),
+(138, '50', '01', '13', NULL, '50.01.13', 'Kelurahan Pringlangu', NULL),
+(139, '50', '01', '14', NULL, '50.01.14', 'Kelurahan Pasirsari', NULL),
+(140, '50', '02', '01', NULL, '50.02.01', 'Kecamatan Pekalongan Timur', NULL),
+(141, '50', '02', '02', NULL, '50.02.02', 'Kelurahan Poncol', NULL),
+(142, '50', '02', '03', NULL, '50.02.03', 'Kelurahan Noyontaan', NULL),
+(143, '50', '02', '04', NULL, '50.02.04', 'Kelurahan Sugihwaras', NULL),
+(144, '50', '02', '05', NULL, '50.02.05', 'Kelurahan Sampangan', NULL),
+(145, '50', '02', '06', NULL, '50.02.06', 'Kelurahan Kauman', NULL),
+(146, '50', '02', '07', NULL, '50.02.07', 'Kelurahan Keputran', NULL),
+(147, '50', '02', '08', NULL, '50.02.08', 'Kelurahan Landungsari', NULL),
+(148, '50', '02', '09', NULL, '50.02.09', 'Kelurahan Klego', NULL),
+(149, '50', '02', '10', NULL, '50.02.10', 'Kelurahan Gamer', NULL),
+(150, '50', '02', '11', NULL, '50.02.11', 'Kelurahan Dekoro', NULL),
+(151, '50', '02', '12', NULL, '50.02.12', 'Kelurahan Karang Malang', NULL),
+(152, '50', '02', '13', NULL, '50.02.13', 'Kelurahan Baros', NULL),
+(153, '50', '02', '14', NULL, '50.02.14', 'Kelurahan Sokorejo', NULL),
+(154, '50', '03', '01', NULL, '50.03.01', 'Kecamatan Pekalongan Utara', NULL),
+(155, '50', '03', '02', NULL, '50.03.02', 'Kelurahan Krapyak Kidul', NULL),
+(156, '50', '03', '03', NULL, '50.03.03', 'Kelurahan Krapyak Lor', NULL),
+(157, '50', '03', '04', NULL, '50.03.04', 'Kelurahan Kd. Panjang', NULL),
+(158, '50', '03', '05', NULL, '50.03.05', 'Kelurahan Panjang Wetan', NULL),
+(159, '50', '03', '06', NULL, '50.03.06', 'Kelurahan Kraton Lor', NULL),
+(160, '50', '03', '07', NULL, '50.03.07', 'Kelurahan Dukuh', NULL),
+(161, '50', '03', '08', NULL, '50.03.08', 'Kelurahan Degayu', NULL),
+(162, '50', '03', '09', NULL, '50.03.09', 'Kelurahan Pabean', NULL),
+(163, '50', '03', '10', NULL, '50.03.10', 'Kelurahan Bandengan', NULL),
+(164, '50', '03', '11', NULL, '50.03.11', 'Kelurahan Panjang Baru', NULL),
+(165, '50', '03', '12', NULL, '50.03.12', '-', NULL),
+(166, '50', '04', '01', NULL, '50.04.01', 'Kecamatan Pekalongan Selatan', NULL),
+(167, '50', '04', '02', NULL, '50.04.02', 'Kelurahan Kradenan', NULL),
+(168, '50', '04', '03', NULL, '50.04.03', 'Kelurahan Banyurip Alit', NULL),
+(169, '50', '04', '04', NULL, '50.04.04', 'Kelurahan Buaran', NULL),
+(170, '50', '04', '05', NULL, '50.04.05', 'Kelurahan Jenggot', NULL),
+(171, '50', '04', '06', NULL, '50.04.06', 'Kelurahan Kertoharjo', NULL),
+(172, '50', '04', '07', NULL, '50.04.07', 'Kelurahan Kuripan Kidul', NULL),
+(173, '50', '04', '08', NULL, '50.04.08', 'Kelurahan Kuripan Lor', NULL),
+(174, '50', '04', '09', NULL, '50.04.09', 'Kelurahan Yosorejo', NULL),
+(175, '50', '04', '10', NULL, '50.04.10', 'Kelurahan Duwet', NULL),
+(176, '50', '04', '11', NULL, '50.04.11', 'Kelurahan Soko', NULL),
+(177, '50', '04', '12', NULL, '50.04.12', 'Kelurahan Banyurip Ageng', NULL),
+(178, '01', '01', '01', '01', '01.01.01.01', 'Sekretariat Dewan/DPRD', NULL),
+(179, '02', '01', '01', '01', '02.01.01.01', 'Walikota', NULL),
+(180, '03', '01', '01', '01', '03.01.01.01', 'Wakil Walikota', NULL),
+(181, '04', '01', '01', '01', '04.01.01.01', 'Sekretaris Daerah', NULL),
+(182, '04', '01', '01', '02', '04.01.01.02', 'Asisten I', NULL),
+(183, '04', '01', '01', '03', '04.01.01.03', 'Asisten II', NULL),
+(184, '04', '01', '01', '04', '04.01.01.04', 'Asisten III', NULL),
+(185, '04', '01', '01', '05', '04.01.01.05', 'Bagian Umum', NULL),
+(186, '04', '01', '02', '01', '04.01.02.01', 'Bagian Pemerintahan', NULL),
+(187, '04', '01', '03', '01', '04.01.03.01', 'Bagian Perekonomian', NULL),
+(188, '04', '01', '04', '01', '04.01.04.01', 'Bagian Adm. Pembangunan', NULL),
+(189, '04', '01', '05', '01', '04.01.05.01', 'Bagian Hukum', NULL),
+(190, '04', '01', '06', '01', '04.01.06.01', '', NULL),
+(191, '04', '01', '07', '01', '04.01.07.01', 'Bagian Humas dan Protokol', NULL),
+(192, '04', '01', '08', '01', '04.01.08.01', 'Bagian Kesra', NULL),
+(193, '04', '01', '09', '01', '04.01.09.01', 'Bagian Organisasi', NULL),
+(194, '04', '01', '10', '01', '04.01.10.01', '', NULL),
+(195, '04', '02', '01', '01', '04.02.01.01', 'DINAS PENDAPATAN, PENGELOLAAN KEUANGAN DAN ASET DAERAH', NULL),
+(196, '05', '01', '01', '01', '05.01.01.01', 'DINAS PEKERJAAN UMUM', NULL),
+(197, '06', '01', '01', '01', '06.01.01.01', 'DINAS PERHUBUNGAN, KOMUNIKASI INFORMATIKA, PARIWISATA DAN KEBUDAYAAN', NULL),
+(198, '07', '01', '01', '01', '07.01.01.01', 'DINAS KESEHATAN', NULL),
+(199, '07', '01', '01', '02', '07.01.01.02', 'UPTD BP Paru-paru', NULL),
+(200, '07', '01', '01', '03', '07.01.01.03', 'UPTD Farmasi', NULL),
+(201, '07', '01', '01', '04', '07.01.01.04', 'Puskesmas Bendan', NULL),
+(202, '07', '01', '01', '05', '07.01.01.05', 'Pukesmas Medono', NULL),
+(203, '07', '01', '01', '06', '07.01.01.06', 'Pustu Medono Indah', NULL),
+(204, '07', '01', '01', '07', '07.01.01.07', 'Pustu Kebulen', NULL),
+(205, '07', '01', '01', '08', '07.01.01.08', 'Pustu Pemkot', NULL),
+(206, '07', '01', '01', '09', '07.01.01.09', 'Puskesmas Kramatsari', NULL),
+(207, '07', '01', '01', '10', '07.01.01.10', 'Pustu Pasirsari', NULL),
+(208, '07', '01', '01', '11', '07.01.01.11', 'Puskesmas Tirto', NULL),
+(209, '07', '01', '01', '12', '07.01.01.12', 'Pustu Bumirejo', NULL),
+(210, '07', '01', '01', '13', '07.01.01.13', 'Puskesmas Noyontaan', NULL),
+(211, '07', '01', '01', '14', '07.01.01.14', 'Pustu Kalisari', NULL),
+(212, '07', '01', '01', '15', '07.01.01.15', 'Pustu Pragak', NULL),
+(213, '07', '01', '01', '16', '07.01.01.16', 'Pustu Baros', NULL),
+(214, '07', '01', '01', '17', '07.01.01.17', 'Puskesmas Tondano', NULL),
+(215, '07', '01', '01', '18', '07.01.01.18', 'Pustu Dekoro', NULL),
+(216, '07', '01', '01', '19', '07.01.01.19', 'Pustu Gamer', NULL),
+(217, '07', '01', '01', '20', '07.01.01.20', 'Puskesmas Klego', NULL),
+(218, '07', '01', '01', '21', '07.01.01.21', 'Puskesmas Kusuma Bangsa', NULL),
+(219, '07', '01', '01', '22', '07.01.01.22', 'Pustu Panjang Wetan', NULL),
+(220, '07', '01', '01', '23', '07.01.01.23', 'Pustu Bandengan', NULL),
+(221, '07', '01', '01', '24', '07.01.01.24', 'Puskesmas Krapyak Kidul', NULL),
+(222, '07', '01', '01', '25', '07.01.01.25', 'Pustu Degayu', NULL),
+(223, '07', '01', '01', '26', '07.01.01.26', 'Pustu Slamaran', NULL),
+(224, '07', '01', '01', '27', '07.01.01.27', 'Pukesmas Dukuh', NULL),
+(225, '07', '01', '01', '28', '07.01.01.28', 'Puskesmas Kecamatan Pekalongan Selatan', NULL),
+(226, '07', '01', '01', '29', '07.01.01.29', 'Pustu Soko', NULL),
+(227, '07', '01', '01', '30', '07.01.01.30', 'Pustu Kuripan Lor 1', NULL),
+(228, '07', '01', '01', '31', '07.01.01.31', 'Pustu Kuripan Lor 2', NULL),
+(229, '07', '01', '01', '32', '07.01.01.32', 'Pustu Kertoharjo', NULL),
+(230, '07', '01', '01', '33', '07.01.01.33', 'Puskesmas Jenggot', NULL),
+(231, '07', '01', '01', '34', '07.01.01.34', 'Pustu Kradenan', NULL),
+(232, '07', '01', '01', '35', '07.01.01.35', 'Pustu Banyurip Ageng', NULL),
+(233, '07', '01', '01', '36', '07.01.01.36', 'Laboratorium Kesehatan Daerah', NULL),
+(234, '07', '01', '01', '37', '07.01.01.37', 'Pustu Pabean', NULL),
+(235, '07', '01', '01', '38', '07.01.01.38', 'Pustu Karang Malang', NULL),
+(236, '07', '01', '01', '39', '07.01.01.39', 'Pustu Kergon', NULL),
+(237, '07', '01', '01', '40', '07.01.01.40', 'Pustu Salam Manis', NULL),
+(238, '07', '01', '01', '41', '07.01.01.41', 'Pustu Duwet', NULL),
+(239, '07', '01', '01', '42', '07.01.01.42', 'Puskesmas Sokorejo', NULL),
+(240, '07', '01', '01', '43', '07.01.01.43', 'Pustu Pringlangu', NULL),
+(241, '07', '01', '01', '44', '07.01.01.44', 'Puskesmas Buaran', NULL),
+(242, '07', '01', '01', '45', '07.01.01.45', 'Pustu Kelgo Bantaran', NULL),
+(243, '07', '01', '01', '46', '07.01.01.46', 'P4TO', NULL),
+(244, '07', '01', '01', '47', '07.01.01.47', '..', NULL),
+(245, '07', '01', '02', '01', '07.01.02.01', 'Pukesmas Kota Pekalongan', NULL),
+(246, '07', '02', '01', '01', '07.02.01.01', 'RSUD BENDAN', NULL),
+(247, '08', '01', '01', '01', '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', NULL),
+(248, '08', '01', '01', '02', '08.01.01.02', 'UPTD Pendidikan Kec. Pekalongan Barat', NULL),
+(249, '08', '01', '01', '03', '08.01.01.03', 'SDN Kraton Kidul', NULL),
+(250, '08', '01', '01', '04', '08.01.01.04', 'SDN Kramatsari 01', NULL),
+(251, '08', '01', '01', '05', '08.01.01.05', 'SDN Kramatsari 02', NULL),
+(252, '08', '01', '01', '06', '08.01.01.06', 'SDN Bendan 01', NULL),
+(253, '08', '01', '01', '07', '08.01.01.07', 'SDN Bendan 03', NULL),
+(254, '08', '01', '01', '08', '08.01.01.08', 'SDN Bendan 04', NULL),
+(255, '08', '01', '01', '09', '08.01.01.09', 'SDN Bendan 08', NULL),
+(256, '08', '01', '01', '10', '08.01.01.10', 'SDN Sapuro 01', NULL),
+(257, '08', '01', '01', '11', '08.01.01.11', 'SDN Sapuro 02', NULL),
+(258, '08', '01', '01', '12', '08.01.01.12', 'SDN Sapuro 03', NULL),
+(259, '08', '01', '01', '13', '08.01.01.13', 'SDN Sapuro 04', NULL),
+(260, '08', '01', '01', '14', '08.01.01.14', 'SDN Sapuro 05', NULL),
+(261, '08', '01', '01', '15', '08.01.01.15', 'SDN Podosugih 01', NULL),
+(262, '08', '01', '01', '16', '08.01.01.16', 'SDN Podosugih 03', NULL),
+(263, '08', '01', '01', '17', '08.01.01.17', 'SDN Medono 01', NULL),
+(264, '08', '01', '01', '18', '08.01.01.18', 'SDN Medono 04', NULL),
+(265, '08', '01', '01', '19', '08.01.01.19', 'SDN Medono 05', NULL),
+(266, '08', '01', '01', '20', '08.01.01.20', 'SDN Medono 07', NULL),
+(267, '08', '01', '01', '21', '08.01.01.21', 'SDN Medono 08', NULL),
+(268, '08', '01', '01', '22', '08.01.01.22', 'SDN Kebulen', NULL),
+(269, '08', '01', '01', '23', '08.01.01.23', 'SDN Tirto 01', NULL),
+(270, '08', '01', '01', '24', '08.01.01.24', 'SDN Tirto 02', NULL),
+(271, '08', '01', '01', '25', '08.01.01.25', 'SDN Tirto 03', NULL),
+(272, '08', '01', '01', '26', '08.01.01.26', 'SDN Tirto 04', NULL),
+(273, '08', '01', '01', '27', '08.01.01.27', 'SDN Pasirsari 01', NULL),
+(274, '08', '01', '01', '28', '08.01.01.28', 'SDN Pasirsari 02', NULL),
+(275, '08', '01', '01', '29', '08.01.01.29', 'SDN Tegal Rejo', NULL),
+(276, '08', '01', '01', '30', '08.01.01.30', 'SDN Bumi Rejo', NULL),
+(277, '08', '01', '01', '31', '08.01.01.31', 'SDN Pringlangu', NULL),
+(278, '08', '01', '01', '32', '08.01.01.32', 'SDN Luar Biasa', NULL),
+(279, '08', '01', '01', '33', '08.01.01.33', 'UPTD Pendidikan Kec. Pekalongan Timur', NULL),
+(280, '08', '01', '01', '34', '08.01.01.34', 'SDN Keputran 01', NULL),
+(281, '08', '01', '01', '35', '08.01.01.35', 'SDN Keputran 02', NULL),
+(282, '08', '01', '01', '36', '08.01.01.36', 'SDN Keputran 04', NULL),
+(283, '08', '01', '01', '37', '08.01.01.37', 'SDN Keputran 06', NULL),
+(284, '08', '01', '01', '38', '08.01.01.38', 'SDN Keputran 08', NULL),
+(285, '08', '01', '01', '39', '08.01.01.39', 'SDN Noyontaan 03', NULL),
+(286, '08', '01', '01', '40', '08.01.01.40', 'SDN Landungsari 01', NULL),
+(287, '08', '01', '01', '41', '08.01.01.41', 'SDN Landungsari 02', NULL),
+(288, '08', '01', '01', '42', '08.01.01.42', 'SDN Landungsari 03', NULL),
+(289, '08', '01', '01', '43', '08.01.01.43', 'SDN Landungsari 04', NULL),
+(290, '08', '01', '01', '44', '08.01.01.44', 'SDN Landungsari 05', NULL),
+(291, '08', '01', '01', '45', '08.01.01.45', 'SDN Poncol 01', NULL),
+(292, '08', '01', '01', '46', '08.01.01.46', 'SDN Poncol 02', NULL),
+(293, '08', '01', '01', '47', '08.01.01.47', 'SDN Poncol 03', NULL),
+(294, '08', '01', '01', '48', '08.01.01.48', 'SDN Poncol 04', NULL),
+(295, '08', '01', '01', '49', '08.01.01.49', 'SDN Poncol 06', NULL),
+(296, '08', '01', '01', '50', '08.01.01.50', 'SDN Poncol 07', NULL),
+(297, '08', '01', '01', '51', '08.01.01.51', 'SDN Sampangan 01', NULL),
+(298, '08', '01', '01', '52', '08.01.01.52', 'SDN Sampangan 02', NULL),
+(299, '08', '01', '01', '53', '08.01.01.53', 'SDN Klego 01', NULL),
+(300, '08', '01', '01', '54', '08.01.01.54', 'SDN Klego 04', NULL),
+(301, '08', '01', '01', '55', '08.01.01.55', 'SDN Gamer 01', NULL),
+(302, '08', '01', '01', '56', '08.01.01.56', 'SDN Gamer 02', NULL),
+(303, '08', '01', '01', '57', '08.01.01.57', 'SDN Sokorejo', NULL),
+(304, '08', '01', '01', '58', '08.01.01.58', 'SDN Baros', NULL),
+(305, '08', '01', '01', '59', '08.01.01.59', 'SDN Dekoro', NULL),
+(306, '08', '01', '01', '60', '08.01.01.60', 'SDN Karang malang', NULL),
+(307, '08', '01', '01', '61', '08.01.01.61', 'UPTD Pendidikan Kec. Pekalongan Utara', NULL),
+(308, '08', '01', '01', '62', '08.01.01.62', 'SDN Panjang Wetan 01', NULL),
+(309, '08', '01', '01', '63', '08.01.01.63', 'SDN Panjang Wetan 02', NULL),
+(310, '08', '01', '01', '64', '08.01.01.64', 'SDN Panjang Wetan 03', NULL),
+(311, '08', '01', '01', '65', '08.01.01.65', 'SDN Panjang Wetan 04', NULL),
+(312, '08', '01', '01', '66', '08.01.01.66', 'SDN Panjang Wetan 05', NULL),
+(313, '08', '01', '01', '67', '08.01.01.67', 'SDN Panjang Wetan 06', NULL),
+(314, '08', '01', '01', '68', '08.01.01.68', 'SDN Kandang Panjang 01', NULL),
+(315, '08', '01', '01', '69', '08.01.01.69', 'SDN Kandang Panjang 02', NULL),
+(316, '08', '01', '01', '70', '08.01.01.70', 'SDN Kandang Panjang 03', NULL),
+(317, '08', '01', '01', '71', '08.01.01.71', 'SDN Kandang Panjang 04', NULL),
+(318, '08', '01', '01', '72', '08.01.01.72', 'SDN Kandang Panjang 05', NULL),
+(319, '08', '01', '01', '73', '08.01.01.73', 'SDN Kandang Panjang 07', NULL),
+(320, '08', '01', '01', '74', '08.01.01.74', 'SDN Kandang Panjang 08', NULL),
+(321, '08', '01', '01', '75', '08.01.01.75', 'SDN Kandang Panjang 10', NULL),
+(322, '08', '01', '01', '76', '08.01.01.76', 'SDN Kandang Panjang 11', NULL),
+(323, '08', '01', '01', '77', '08.01.01.77', 'SDN Dukuh 01', NULL),
+(324, '08', '01', '01', '78', '08.01.01.78', 'SDN Kraton', NULL),
+(325, '08', '01', '01', '79', '08.01.01.79', 'SDN Krapyak Lor 01', NULL),
+(326, '08', '01', '01', '80', '08.01.01.80', 'SDN Krapyak Lor 02', NULL),
+(327, '08', '01', '01', '81', '08.01.01.81', 'SDN Krapyak Lor 04', NULL),
+(328, '08', '01', '01', '82', '08.01.01.82', 'SDN Krapyak Lor 05', NULL),
+(329, '08', '01', '01', '83', '08.01.01.83', 'SDN Pabean', NULL),
+(330, '08', '01', '01', '84', '08.01.01.84', 'SDN Bandengan 01', NULL),
+(331, '08', '01', '01', '85', '08.01.01.85', 'SDN Bandengan 02', NULL),
+(332, '08', '01', '01', '86', '08.01.01.86', 'SDN Degayu 01', NULL),
+(333, '08', '01', '01', '87', '08.01.01.87', 'SDN Degayu 02', NULL),
+(334, '08', '01', '01', '88', '08.01.01.88', 'UPTD Pendidikan Kec. Pekalongan Selatan', NULL),
+(335, '08', '01', '01', '89', '08.01.01.89', 'SDN Kradenan 01', NULL),
+(336, '08', '01', '01', '90', '08.01.01.90', 'SDN Kradenan 02', NULL),
+(337, '08', '01', '01', '91', '08.01.01.91', 'SDN Kradenan 04', NULL),
+(338, '08', '01', '01', '92', '08.01.01.92', 'SDN Buaran', NULL),
+(339, '08', '01', '01', '93', '08.01.01.93', 'SDN Banyurip Ageng', NULL),
+(340, '08', '01', '01', '94', '08.01.01.94', 'SDN Jenggot', NULL),
+(341, '08', '01', '01', '95', '08.01.01.95', 'SDN Kertoharjo 01', NULL),
+(342, '08', '01', '01', '96', '08.01.01.96', 'SDN Kertoharjo 02', NULL),
+(343, '08', '01', '01', '97', '08.01.01.97', 'SDN Kuripan Kidul 01', NULL),
+(344, '08', '01', '01', '98', '08.01.01.98', 'SDN Kuripan Kidul 02', NULL),
+(345, '08', '01', '01', '99', '08.01.01.99', 'SDN Kuripan Lor 01', NULL),
+(346, '08', '01', '01', '100', '08.01.01.100', 'SDN Kuripan Lor 02', NULL),
+(347, '08', '01', '01', '101', '08.01.01.101', 'SDN Yosorejo 01', NULL),
+(348, '08', '01', '01', '102', '08.01.01.102', 'SDN Yosorejo 02', NULL),
+(349, '08', '01', '01', '103', '08.01.01.103', 'SDN Duwet', NULL),
+(350, '08', '01', '01', '104', '08.01.01.104', 'SDN Soko', NULL),
+(351, '08', '01', '01', '105', '08.01.01.105', 'SDN Krapyak Kidul 02', NULL),
+(352, '08', '01', '01', '106', '08.01.01.106', 'TK Cempaka Jaya', NULL),
+(353, '08', '01', '01', '107', '08.01.01.107', 'TK Pembina Utara', NULL),
+(354, '08', '01', '01', '108', '08.01.01.108', 'TK Pembina Barat', NULL),
+(355, '08', '01', '01', '109', '08.01.01.109', '..', NULL),
+(356, '08', '01', '02', '01', '08.01.02.01', 'SMPN 01', NULL),
+(357, '08', '01', '03', '01', '08.01.03.01', 'SMPN 02', NULL),
+(358, '08', '01', '04', '01', '08.01.04.01', 'SMPN 03', NULL),
+(359, '08', '01', '05', '01', '08.01.05.01', 'SMPN 04', NULL),
+(360, '08', '01', '06', '01', '08.01.06.01', 'SMPN 05', NULL),
+(361, '08', '01', '07', '01', '08.01.07.01', 'SMPN 06', NULL),
+(362, '08', '01', '08', '01', '08.01.08.01', 'SMPN 07', NULL),
+(363, '08', '01', '09', '01', '08.01.09.01', 'SMPN 08', NULL),
+(364, '08', '01', '10', '01', '08.01.10.01', 'SMPN 09', NULL),
+(365, '08', '01', '11', '01', '08.01.11.01', 'SMPN 10', NULL),
+(366, '08', '01', '12', '01', '08.01.12.01', 'SMPN 11', NULL),
+(367, '08', '01', '13', '01', '08.01.13.01', 'SMPN 12', NULL),
+(368, '08', '01', '14', '01', '08.01.14.01', 'SMPN 13', NULL),
+(369, '08', '01', '15', '01', '08.01.15.01', 'SMPN 14', NULL),
+(370, '08', '01', '16', '01', '08.01.16.01', 'SMPN 15', NULL),
+(371, '08', '01', '17', '01', '08.01.17.01', 'SMPN 16', NULL),
+(372, '08', '01', '18', '01', '08.01.18.01', 'SMPN 17', NULL),
+(373, '08', '01', '19', '01', '08.01.19.01', 'SMA N 01', NULL),
+(374, '08', '01', '20', '01', '08.01.20.01', 'SMA N 02', NULL),
+(375, '08', '01', '21', '01', '08.01.21.01', 'SMA N 03', NULL),
+(376, '08', '01', '22', '01', '08.01.22.01', 'SMA N 04', NULL),
+(377, '08', '01', '23', '01', '08.01.23.01', 'SMK N 01', NULL),
+(378, '08', '01', '24', '01', '08.01.24.01', 'SMK N 02', NULL),
+(379, '08', '01', '25', '01', '08.01.25.01', 'SMK N 03', NULL),
+(380, '08', '01', '26', '01', '08.01.26.01', 'SMK N 4', NULL),
+(381, '08', '01', '27', '01', '08.01.27.01', '..', NULL),
+(382, '09', '01', '01', '01', '09.01.01.01', 'BADAN PERMBERDAYAAN MASYARAKAT, PEREMPUAN, PERLINDUNGAN ANAK DAN KB', NULL),
+(383, '10', '01', '01', '01', '10.01.01.01', 'DINAS SOSIAL, TENAGA KERJA DAN TRANSMIGRASI', NULL),
+(384, '10', '02', '01', '01', '10.02.01.01', 'DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL', NULL),
+(385, '11', '01', '01', '01', '11.01.01.01', 'DINAS PERTANIAN, PETERNAKAN, DAN KELAUTAN', NULL),
+(386, '11', '02', '01', '01', '11.02.01.01', 'KANTOR KETAHANAN PANGAN', NULL),
+(387, '12', '01', '01', '01', '12.01.01.01', 'DINAS PERINDUSTRIAN, PERDAGANGAN, KOPERASI, DAN USAHA KECIL DAN MENENGAH', NULL),
+(388, '13', '01', '01', '01', '13.01.01.01', 'BPMP2T', NULL),
+(389, '14', '01', '01', '01', '14.01.01.01', 'Inspektorat', NULL),
+(390, '15', '01', '01', '01', '15.01.01.01', 'BADAN PERENCANAAN PEMBANGUNAN DAERAH', NULL),
+(391, '16', '01', '01', '01', '16.01.01.01', 'KANTOR LINGKUNGAN HIDUP', NULL),
+(392, '18', '01', '01', '01', '18.01.01.01', 'KANTOR KESATUAN BANGSA DAN POLITIK', NULL),
+(393, '18', '02', '01', '01', '18.02.01.01', 'SATUAN POLISI PAMONG PRAJA', NULL),
+(394, '19', '01', '01', '01', '19.01.01.01', 'BADAN KEPEGAWAIAN DAERAH', NULL),
+(395, '21', '01', '01', '01', '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', NULL),
+(396, '21', '02', '01', '01', '21.02.01.01', 'DINAS KOMUNIKASI DAN INFORMATIKA', NULL),
+(397, '22', '01', '01', '01', '22.01.01.01', 'PDAM', NULL),
+(398, '22', '02', '01', '01', '22.02.01.01', 'Bank Pasar', NULL),
+(399, '22', '03', '01', '01', '22.03.01.01', 'BKK Kec Barat', NULL),
+(400, '22', '04', '01', '01', '22.04.01.01', 'BKK Kec Timur', NULL),
+(401, '22', '05', '01', '01', '22.05.01.01', 'BKK Kec Utara', NULL),
+(402, '22', '06', '01', '01', '22.06.01.01', 'BKK Kec Selatan', NULL),
+(403, '50', '01', '01', '01', '50.01.01.01', 'Kecamatan Pekalongan Barat', NULL),
+(404, '50', '01', '02', '01', '50.01.02.01', 'Kelurahan Kraton Kidul', NULL),
+(405, '50', '01', '03', '01', '50.01.03.01', 'Kelurahan Kergon', NULL),
+(406, '50', '01', '04', '01', '50.01.04.01', 'Kelurahan Sapuro', NULL),
+(407, '50', '01', '05', '01', '50.01.05.01', 'Kelurahan Kebulen', NULL),
+(408, '50', '01', '06', '01', '50.01.06.01', 'Kelurahan Kramatsari', NULL),
+(409, '50', '01', '07', '01', '50.01.07.01', 'Kelurahan Bendan', NULL),
+(410, '50', '01', '08', '01', '50.01.08.01', 'Kelurahan Podosugih', NULL),
+(411, '50', '01', '09', '01', '50.01.09.01', 'Kelurahan Medono', NULL),
+(412, '50', '01', '10', '01', '50.01.10.01', 'Kelurahan Tirto', NULL),
+(413, '50', '01', '11', '01', '50.01.11.01', 'Kelurahan Tegal Rejo', NULL),
+(414, '50', '01', '12', '01', '50.01.12.01', 'Kelurahan Bumi Rejo', NULL),
+(415, '50', '01', '13', '01', '50.01.13.01', 'Kelurahan Pringlangu', NULL),
+(416, '50', '01', '14', '01', '50.01.14.01', 'Kelurahan Pasirsari', NULL),
+(417, '50', '02', '01', '01', '50.02.01.01', 'Kecamatan Pekalongan Timur', NULL),
+(418, '50', '02', '02', '01', '50.02.02.01', 'Kelurahan Poncol', NULL),
+(419, '50', '02', '03', '01', '50.02.03.01', 'Kelurahan Noyontaan', NULL),
+(420, '50', '02', '04', '01', '50.02.04.01', 'Kelurahan Sugihwaras', NULL),
+(421, '50', '02', '05', '01', '50.02.05.01', 'Kelurahan Sampangan', NULL),
+(422, '50', '02', '06', '01', '50.02.06.01', 'Kelurahan Kauman', NULL),
+(423, '50', '02', '07', '01', '50.02.07.01', 'Kelurahan Keputran', NULL),
+(424, '50', '02', '08', '01', '50.02.08.01', 'Kelurahan Landungsari', NULL),
+(425, '50', '02', '09', '01', '50.02.09.01', 'Kelurahan Klego', NULL),
+(426, '50', '02', '10', '01', '50.02.10.01', 'Kelurahan Gamer', NULL),
+(427, '50', '02', '11', '01', '50.02.11.01', 'Kelurahan Dekoro', NULL),
+(428, '50', '02', '12', '01', '50.02.12.01', 'Kelurahan Karang Malang', NULL),
+(429, '50', '02', '13', '01', '50.02.13.01', 'Kelurahan Baros', NULL),
+(430, '50', '02', '14', '01', '50.02.14.01', 'Kelurahan Sokorejo', NULL),
+(431, '50', '03', '01', '01', '50.03.01.01', 'Kecamatan Pekalongan Utara', NULL),
+(432, '50', '03', '02', '01', '50.03.02.01', 'Kelurahan Krapyak Kidul', NULL),
+(433, '50', '03', '03', '01', '50.03.03.01', 'Kelurahan Krapyak Lor', NULL),
+(434, '50', '03', '04', '01', '50.03.04.01', 'Kelurahan Kd. Panjang', NULL),
+(435, '50', '03', '05', '01', '50.03.05.01', 'Kelurahan Panjang Wetan', NULL),
+(436, '50', '03', '06', '01', '50.03.06.01', 'Kelurahan Kraton Lor', NULL),
+(437, '50', '03', '07', '01', '50.03.07.01', 'Kelurahan Dukuh', NULL),
+(438, '50', '03', '08', '01', '50.03.08.01', 'Kelurahan Degayu', NULL),
+(439, '50', '03', '09', '01', '50.03.09.01', 'Kelurahan Pabean', NULL),
+(440, '50', '03', '10', '01', '50.03.10.01', 'Kelurahan Bandengan', NULL),
+(441, '50', '03', '11', '01', '50.03.11.01', 'Kelurahan Panjang Baru', NULL),
+(442, '50', '03', '12', '01', '50.03.12.01', '-', NULL),
+(443, '50', '04', '01', '01', '50.04.01.01', 'Kecamatan Pekalongan Selatan', NULL),
+(444, '50', '04', '02', '01', '50.04.02.01', 'Kelurahan Kradenan', NULL),
+(445, '50', '04', '03', '01', '50.04.03.01', 'Kelurahan Banyurip Alit', NULL),
+(446, '50', '04', '04', '01', '50.04.04.01', 'Kelurahan Buaran', NULL),
+(447, '50', '04', '05', '01', '50.04.05.01', 'Kelurahan Jenggot', NULL),
+(448, '50', '04', '06', '01', '50.04.06.01', 'Kelurahan Kertoharjo', NULL),
+(449, '50', '04', '07', '01', '50.04.07.01', 'Kelurahan Kuripan Kidul', NULL),
+(450, '50', '04', '08', '01', '50.04.08.01', 'Kelurahan Kuripan Lor', NULL),
+(451, '50', '04', '09', '01', '50.04.09.01', 'Kelurahan Yosorejo', NULL),
+(452, '50', '04', '10', '01', '50.04.10.01', 'Kelurahan Duwet', NULL),
+(453, '50', '04', '11', '01', '50.04.11.01', 'Kelurahan Soko', NULL),
+(454, '50', '04', '12', '01', '50.04.12.01', 'Kelurahan Banyurip Ageng', NULL),
+(455, '09', '02', NULL, NULL, NULL, 'BADAN PENANGGULANGAN BENCANA DAERAH', NULL),
+(456, '09', '02', '01', NULL, NULL, 'BADAN PENANGGULANGAN BENCANA DAERAH', NULL),
+(457, '09', '02', '01', '01', '09.09.02.01', 'BADAN PENANGGULANGAN BENCANA DAERAH', NULL),
+(458, '21', '03', NULL, NULL, '21.03', 'Kantor Riset Teknologi dan Inovasi', NULL),
+(459, '21', '03', '01', NULL, '21.03.01', 'Kantor Riset Teknologi dan Inovasi', NULL),
+(460, '21', '03', '01', '01', '21.03.01.01', 'Kantor Riset Teknologi dan Inovasi', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `skel`
+-- Table structure for table `skel`
 --
 
 CREATE TABLE IF NOT EXISTS `skel` (
@@ -920,7 +922,7 @@ CREATE TABLE IF NOT EXISTS `skel` (
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `skel`
+-- Dumping data for table `skel`
 --
 
 INSERT INTO `skel` (`id`, `kd_gol`, `kd_bid`, `kd_kel`, `kd_skel`, `nm_skel`, `kd_skelbrg`) VALUES
@@ -937,7 +939,7 @@ INSERT INTO `skel` (`id`, `kd_gol`, `kd_bid`, `kd_kel`, `kd_skel`, `nm_skel`, `k
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `sskel`
+-- Table structure for table `sskel`
 --
 
 CREATE TABLE IF NOT EXISTS `sskel` (
@@ -953,7 +955,7 @@ CREATE TABLE IF NOT EXISTS `sskel` (
 ) ENGINE=InnoDB AUTO_INCREMENT=345 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `sskel`
+-- Dumping data for table `sskel`
 --
 
 INSERT INTO `sskel` (`id`, `kd_gol`, `kd_bid`, `kd_kel`, `kd_skel`, `kd_sskel`, `nm_sskel`, `kd_brg`, `kd_perk`) VALUES
@@ -1300,7 +1302,20 @@ INSERT INTO `sskel` (`id`, `kd_gol`, `kd_bid`, `kd_kel`, `kd_skel`, `kd_sskel`, 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaksi_full`
+-- Table structure for table `thn_aktif`
+--
+
+CREATE TABLE IF NOT EXISTS `thn_aktif` (
+  `id` int(4) NOT NULL,
+  `thn_aktif` int(6) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `keterangan` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transaksi_full`
 --
 
 CREATE TABLE IF NOT EXISTS `transaksi_full` (
@@ -1337,7 +1352,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_full` (
 ) ENGINE=InnoDB AUTO_INCREMENT=680 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `transaksi_full`
+-- Dumping data for table `transaksi_full`
 --
 
 INSERT INTO `transaksi_full` (`id_history`, `id_trans`, `id_masuk`, `id_keluar`, `kd_lokasi`, `kd_lok_msk`, `nm_satker`, `thn_ang`, `no_dok`, `tgl_dok`, `tgl_buku`, `no_bukti`, `kd_brg`, `kd_sskel`, `nm_sskel`, `nm_brg`, `kd_perk`, `nm_perk`, `satuan`, `qty`, `harga_sat`, `total_harga`, `jns_trans`, `keterangan`, `status`, `status_edit`, `status_hapus`, `status_ambil`, `tgl_update`, `user_id`) VALUES
@@ -1379,7 +1394,7 @@ INSERT INTO `transaksi_full` (`id_history`, `id_trans`, `id_masuk`, `id_keluar`,
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaksi_keluar`
+-- Table structure for table `transaksi_keluar`
 --
 
 CREATE TABLE IF NOT EXISTS `transaksi_keluar` (
@@ -1414,7 +1429,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_keluar` (
 ) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `transaksi_keluar`
+-- Dumping data for table `transaksi_keluar`
 --
 
 INSERT INTO `transaksi_keluar` (`id`, `id_masuk`, `kd_lokasi`, `kd_lok_msk`, `nm_satker`, `thn_ang`, `no_dok`, `tgl_dok`, `tgl_buku`, `no_bukti`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `kd_perk`, `nm_perk`, `satuan`, `qty`, `harga_sat`, `total_harga`, `jns_trans`, `keterangan`, `status`, `status_edit`, `status_hapus`, `status_ambil`, `tgl_update`, `user_id`) VALUES
@@ -1433,7 +1448,7 @@ INSERT INTO `transaksi_keluar` (`id`, `id_masuk`, `kd_lokasi`, `kd_lok_msk`, `nm
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaksi_masuk`
+-- Table structure for table `transaksi_masuk`
 --
 
 CREATE TABLE IF NOT EXISTS `transaksi_masuk` (
@@ -1468,7 +1483,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_masuk` (
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `transaksi_masuk`
+-- Dumping data for table `transaksi_masuk`
 --
 
 INSERT INTO `transaksi_masuk` (`id`, `kd_lokasi`, `kd_lok_msk`, `nm_satker`, `thn_ang`, `no_dok`, `tgl_dok`, `tgl_buku`, `no_bukti`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `kd_perk`, `nm_perk`, `satuan`, `qty`, `qty_akhir`, `harga_sat`, `total_harga`, `jns_trans`, `keterangan`, `status`, `status_edit`, `status_hapus`, `status_ambil`, `tgl_update`, `user_id`) VALUES
@@ -1498,7 +1513,7 @@ INSERT INTO `transaksi_masuk` (`id`, `kd_lokasi`, `kd_lok_msk`, `nm_satker`, `th
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ttd`
+-- Table structure for table `ttd`
 --
 
 CREATE TABLE IF NOT EXISTS `ttd` (
@@ -1518,7 +1533,7 @@ CREATE TABLE IF NOT EXISTS `ttd` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `ttd`
+-- Dumping data for table `ttd`
 --
 
 INSERT INTO `ttd` (`id`, `kd_lokasi`, `kota`, `tanggal`, `nip`, `nama`, `jabatan`, `nip2`, `nama2`, `jabatan2`, `tgl_isi`, `tgl_setuju`, `unit`) VALUES
@@ -1527,7 +1542,7 @@ INSERT INTO `ttd` (`id`, `kd_lokasi`, `kota`, `tanggal`, `nip`, `nama`, `jabatan
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
@@ -1542,7 +1557,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`user_id`, `user_name`, `user_pass`, `user_email`, `user_level`, `kd_lokasi`, `nm_satker`, `tahun`) VALUES
@@ -1558,7 +1573,7 @@ INSERT INTO `user` (`user_id`, `user_name`, `user_pass`, `user_email`, `user_lev
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `wilayah`
+-- Table structure for table `wilayah`
 --
 
 CREATE TABLE IF NOT EXISTS `wilayah` (
@@ -1568,7 +1583,7 @@ CREATE TABLE IF NOT EXISTS `wilayah` (
 ) ENGINE=InnoDB AUTO_INCREMENT=706 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `wilayah`
+-- Dumping data for table `wilayah`
 --
 
 INSERT INTO `wilayah` (`id`, `kd_wil`, `nm_wil`) VALUES
@@ -2416,7 +2431,7 @@ ALTER TABLE `persediaan`
 -- AUTO_INCREMENT for table `satker`
 --
 ALTER TABLE `satker`
-  MODIFY `Satker_ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9900;
+  MODIFY `Satker_ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=475;
 --
 -- AUTO_INCREMENT for table `skel`
 --

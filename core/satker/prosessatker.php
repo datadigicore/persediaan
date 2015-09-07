@@ -44,7 +44,12 @@ else
 		break;
 		case 'delsatker':
 			$id = $purifier->purify($_POST['id']);
-			$Satker->hapussatker($id);
+			$idsatker = $purifier->purify($_POST['idsatker']);
+			$data = array(
+				"id" => $id,
+				"idsatker" => $idsatker
+		    );
+			$Satker->hapussatker($data);
 		break;
 		default:
 			echo "Error Data Tidak Tersedia";

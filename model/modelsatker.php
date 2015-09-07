@@ -63,10 +63,12 @@ class modelSatker extends mysql_db
 	}	
 	public function hapussatker($data)
 	{
-		$query = "delete from satker
-        			where satker_id=$data";
-        $result = $this->query($query);
-		return $result;
+		$id = $data['id'];
+		$idsatker = $data['idsatker'];
+        $query = "delete from satker where satker_id='$id';";
+        $query.= "delete from satker where kode like '$idsatker.%';";
+        $result = $this->multi_query($query);
+        return $result;
 	}
 }
 ?>

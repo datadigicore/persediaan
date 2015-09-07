@@ -19,7 +19,20 @@ class mysql_db extends config {
      public function query($data) {
          $this->query = mysqli_query($this->connect,$data) or $this->error();
           return $this->query;
-          print_r($this->query);
+     }
+
+     public function multi_query($data) {
+         if (mysqli_multi_query($this->connect,$data))
+          {
+            do
+              {
+              if ($result=mysqli_store_result($this->connect))
+                {
+                mysqli_free_result($this->connect);
+                }
+              }
+            while (mysqli_next_result($this->connect));
+          }
      }
 
      public function fetch_assoc($data) {

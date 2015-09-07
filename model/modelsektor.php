@@ -30,8 +30,11 @@ class modelSektor extends mysql_db
 	}	
 	public function hapussektor($data)
 	{
-		$query = "delete from satker where satker_id='$data'";
-        $result = $this->query($query);
+		$id = $data['id'];
+		$idsektor = $data['idsektor'];
+		$query = "delete from satker where satker_id='$id';";
+		$query.= "delete from satker where kode like '$idsektor.%';";
+        $result = $this->multi_query($query);
 		return $result;
 	}
 }

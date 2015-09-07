@@ -1,7 +1,7 @@
 	<meta charset="UTF-8">
-    <title>Aplikasi Persediaan</title>
+    <title>SIMSEDIA Pekalongan</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link href="../dist/img/icon.png" rel="icon" type="image/x-icon">
+    <link href="../dist/img/icon2.png" rel="icon" type="image/x-icon">
     <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="../dist/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="../dist/css/ionicons.min.css" rel="stylesheet" type="text/css" />
