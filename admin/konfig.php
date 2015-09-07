@@ -30,7 +30,7 @@
                 </div>  
                 <form action="../core/konfig/proseskonfigurasi" method="post" class="form-horizontal" id="addkonfig">
                   <div class="box-body">
-                    <div class="form-group">
+                    <div class="form-group" style="margin-top:15px;">
                       <label class="col-sm-2 control-label">Tahun</label>
                       <div class="col-sm-9">
                         <input type="text" name="thnaktif" class="form-control" id="thnaktif" placeholder="Masukkan Tahun">
@@ -47,7 +47,7 @@
                       <label class="col-sm-2 control-label"></label>
                       <div class="col-sm-9">
                         <label>
-                          <input type="checkbox" name="status" class="minimal" value="1"/>
+                          <input type="checkbox" name="status" class="minimal" value="Aktif"/>
                         </label>
                         &nbsp;&nbsp;Sebagai Tahun Aktif
                       </div>
@@ -116,7 +116,7 @@
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                  '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Aktifkan"><i class="fa fa-check-square-o"></i></button>'+
                                   '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
                                 '</div>',
              "targets": [4],"targets": 4 }
@@ -181,47 +181,6 @@
           return false;
         }
       });
-      $('#kdunitgudang').change(function(){
-        if ($(this).val()=='') {
-          $('#kdsektor').val('');
-          $('#kdsatker').val('');
-          $('#kdunit').val('');
-          $('#ursektor' ).val('');
-          $('#ursatker').val('');
-          $('#urunit').val('');
-        }
-        else {
-          var kdunitgudang = $(this).val();
-          $.ajax({
-            type: "post",
-            url: '../core/konfig/proseskonfig',
-            data: {manage:'readdata',kdunitgudang:kdunitgudang},
-            dataType: "json",
-            success: function (output) {
-            $('#kdsektor').val(output.kdsektor);
-            $('#kdsatker').val(output.kdsatker);
-            $('#kdunit').val(output.kdunit);
-            $('#kdgudang').val(output.kdgudang);
-            $('#ursektor' ).val(output.ursektor);
-            $('#ursatker').val(output.ursatker);
-            $('#urunit').val(output.urunit);
-            $('#urgudang').val(output.urgudang);
-              if (kdunitgudang.length == 2) {
-                $('#urgudangh').val(output.ursektor);
-              }
-              else if (kdunitgudang.length == 5) {
-                $('#urgudangh').val(output.ursatker);
-              }
-              else if (kdunitgudang.length == 8) {
-                $('#urgudangh').val(output.urunit);
-              }
-              else {
-                $('#urgudangh').val(output.urgudang);
-              }
-            }
-          });
-        }
-      });
       $(document).on('submit', '#updkonfig', function (e) {
         $('#myModal').modal({
           backdrop: 'static',
@@ -250,15 +209,6 @@
           }
         });
         return false;
-      });
-      $(document).on("change", "#checkpass", function(){
-        var passwordcheck = document.getElementById("#updpassword");
-        if(this.checked){
-          document.getElementById("updpassword").removeAttribute("disabled");
-        }
-        else {
-          document.getElementById("updpassword").setAttribute("disabled","disabled");
-        }
       });
       $('#addkonfig').submit(function(e){
         $('#myModal').modal({
