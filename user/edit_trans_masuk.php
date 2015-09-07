@@ -25,44 +25,33 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Edit Transaksi Masuk </h3>
                 </div>  
-                <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="edittransmsk">
+                <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="edittransms">
                   <div class="box-body">
-<!--                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Jenis Transaksi</label>
-                      <div class="col-sm-8">
-                        <select name="jenis_trans" id="jenis_trans" class="form-control">
-                          <option value="">Pilih Jenis Transaksi</option>
-                          <option value="M01">Saldo Awal</option>
-                          <option value="M02">Pembelian</option>
-                          <option value="M03">Transfer Masuk</option>
-                        </select>
-                      </div>
-                    </div> -->
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>
                       <div class="col-sm-8">
-                        <input type="text" name="no_dok" class="form-control"  id="no_dok" placeholder="Masukkan No. Dokumen" value = '<?php echo $_GET["nd"]; ?>' >
+                        <input type="text" name="no_dok" class="form-control"  id="no_dok" placeholder="Masukkan No. Dokumen" value = '<?php echo $_GET["nd"]; ?>' readonly>
                         <input type="hidden" name="manage" value="ubah_transaksi_msk">  
-                        <input type="hidden" name="kd_trans" value = '<?php echo $_GET["kd"]; ?>'>  
+                        <input type="hidden" name="kd_trans" value = '<?php echo $_GET["kd"]; ?>' >  
                       </div>
                     </div>
 
                     <div class="form-group">                     
                     <label class="col-sm-2 control-label">Nomor Bukti</label>
                       <div class="col-sm-8">
-                        <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor Bukti" >
+                        <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor Bukti" value = '<?php echo $_GET["nbukti"]; ?>' >
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Dokumen</label>
                       <div class="col-sm-8">
-                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" >
+                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" value = '<?php echo $_GET["td"]; ?>'>
                       </div>
                     </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Buku</label>
                       <div class="col-sm-8">
-                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" value = '<?php echo $_GET["tb"]; ?>'>
+                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" value = '<?php echo $_GET["tbuku"]; ?>'>
                       </div> 
                     </div>                   
                   <div class="form-group">

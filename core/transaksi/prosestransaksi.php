@@ -63,7 +63,7 @@ else
 			$kd_lok_msk = $_SESSION['kd_lok'];
 			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
-			$no_dok = $purifier->purify($_POST['no_dok']);
+			$no_dok = $kd_lokasi.$purifier->purify($_POST['no_dok']);
 			$no_bukti = $purifier->purify($_POST['no_bukti']);
 			$tgl_dok = $purifier->purify($_POST['tgl_dok']);
 			$tgl_buku = $purifier->purify($_POST['tgl_buku']);
@@ -106,7 +106,7 @@ else
 			$kd_lok_msk = $_SESSION['kd_lok'];
 			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
-			$no_dok = $purifier->purify($_POST['no_dok']);
+			$no_dok = $kd_lokasi.$purifier->purify($_POST['no_dok']);
 			$no_bukti = $purifier->purify($_POST['no_bukti']);
 			$tgl_dok = $purifier->purify($_POST['tgl_dok']);
 			$tgl_buku = $purifier->purify($_POST['tgl_buku']);
@@ -241,11 +241,13 @@ else
 			$user_id = $_SESSION['username'];
 			$kd_lokasi = $_SESSION['kd_lok'];
 			$nm_satker = $_SESSION['nama_satker'];
+			$thn_ang = $_SESSION['thn_ang'];
 
 			$data = array(
 				"id" => $id,
 				"kd_lokasi" => $kd_lokasi,
 				"nm_satker" => $nm_satker,
+				"thn_ang" => $thn_ang,
 				"user_id" => $user_id
 			);
 
@@ -257,11 +259,13 @@ else
 			$user_id = $_SESSION['username'];
 			$kd_lokasi = $_SESSION['kd_lok'];
 			$nm_satker = $_SESSION['nama_satker'];
+			$thn_ang = $_SESSION['thn_ang'];
 
 			$data = array(
 				"id" => $id,
 				"kd_lokasi" => $kd_lokasi,
 				"nm_satker" => $nm_satker,
+				"thn_ang" => $thn_ang,
 				"user_id" => $user_id
 			);
 

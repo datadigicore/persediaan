@@ -121,13 +121,15 @@
                       <tr>
                         <th width="10%">ID</th>
                         <th width="14%">No Dokumen</th>
+                        <th >No Bukti</th>
+                        <th>Tanggal Dokumen</th>
                         <th>Tanggal Buku</th>
                         <th>Nama Barang</th>
                         <th>Jumlah</th>
                         <th>Harga Satuan</th>
                         <th>Total</th>
                         <th>Keterangan</th>
-                        <th width="10%">Aksi</th>
+                        <th width="19%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -170,7 +172,8 @@
             {"targets": 4 },
             {"targets": 5 },
             {"targets": 6 },
-            {"targets": 7 },                      
+            {"targets": 7 },
+            {"targets": 8 },                      
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
@@ -178,7 +181,8 @@
                                   '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
                                   '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
                                 '</div>',
-             "targets": [8],"targets": 8 },
+             "targets": [9],"targets": 10 },
+
           ],
         });
       });
@@ -188,14 +192,33 @@
         var row = table.row( tr );
         id_row = row.data()[0];
         nd = row.data()[1];
-        // nb = row.data()[2];
-        // td = row.data()[3];
-        tb = row.data()[2];
-        nbrg = row.data()[3];
-        qty = row.data()[4];
-        hrg = row.data()[5];
-        ket = row.data()[7];
-        document.location.href = 'edit_trans_masuk?kd='+id_row+'&nd='+nd+'&tb='+tb+'&ket='+ket+'&nbrg='+nbrg+'&qty='+qty+'&hrg='+hrg;
+        nbukti = row.data()[2];
+        td = row.data()[3];
+        tbuku = row.data()[4];
+        nbrg = row.data()[5];
+        qty = row.data()[6];
+        hrg = row.data()[7];
+        ket = row.data()[9];
+      
+      $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'cek_hapus',id_row:id_row},
+          dataType: "json",
+          success: function (output)
+          {
+            if(output.qty!=null)
+            {
+              alert("Tidak dapat mengkoreksi transaksi, barang sudah dikeluarkan pada tanggal "+output.tgl_dok+" sebanyak "+output.qty+" "+output.satuan);
+              return false;
+            }
+          
+            else
+            {        
+              document.location.href = 'edit_trans_masuk?kd='+id_row+'&nd='+nd+'&td='+td+'&ket='+ket+'&nbrg='+nbrg+'&qty='+qty+'&hrg='+hrg+'&nbukti='+nbukti+'&tbuku='+tbuku;
+            }
+          }
+        });
       });
 
       $(document).on('click', '#btnhps', function () {
@@ -213,7 +236,7 @@
           dataType: "json",
           success: function (output) {
             if(output.qty!=null) {
-          alert("Tidak dapat menghapus, barang sudah dikeluarkan pada tanggal "+output.tgl_buku+" sebanyak "+output.qty+" "+output.satuan);
+          alert("Tidak dapat menghapus, barang sudah dikeluarkan pada tanggal "+output.tgl_dok+" sebanyak "+output.qty+" "+output.satuan);
           return false;
         }
         else
@@ -263,7 +286,7 @@
        });
       $('#kd_brg').change(function(){
         if ($(this).val()=='') {
-          $('#detil_transaksi').html('<option value="">-- Belum Dicetak --</option>');
+          
         }
         else {
           var kd_brg = $('#kd_brg').val(); 
@@ -289,7 +312,8 @@
         var jumlah_input = document.getElementById("jml_msk").value;
         var tgl_dok = document.getElementById("tgl_dok").value;
         var tgl_buku = document.getElementById("tgl_buku").value;
-        
+        var tgl_terakhir = "";
+
         if(jns_trans=="")
          {
           alert("Jenis Transaksi Belum Dipilih")
@@ -301,7 +325,7 @@
         }
 
         if(tgl_buku.substring(0,4)!=tahun_ang){
-          alert("Tahun BUkti Tidak Sesuai Dengan Tahun Anggaran");
+          alert("Tahun Bukti Tidak Sesuai Dengan Tahun Anggaran");
           return false;
         }
         

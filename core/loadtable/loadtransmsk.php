@@ -18,13 +18,18 @@ $primaryKey = 'id';
 $columns = array(
     array( 'db' => 'id', 'dt' => 0 ),
     array( 'db' => 'no_dok', 'dt' => 1 ),
-    array( 'db' => 'tgl_dok', 'dt' => 2 ),
-    array( 'db' => 'nm_brg', 'dt' => 3 ),
-    array( 'db' => 'qty', 'dt' => 4 ),
-    array( 'db' => 'harga_sat', 'dt' => 5 ),
-    array( 'db' => 'total_harga', 'dt' => 6 ),
-    array( 'db' => 'keterangan', 'dt' => 7 ),
-    array( 'db' => 'user_id', 'dt' => 9 ),
+    array( 'db' => 'no_bukti', 'dt' => 2 ),
+    array( 'db' => 'tgl_dok', 'dt' => 3 ),
+    array( 'db' => 'tgl_buku', 'dt' => 4 ),
+    array( 'db' => 'nm_brg', 'dt' => 5 ),
+    array( 'db' => 'qty', 'dt' => 6 ),
+    array( 'db' => 'harga_sat', 'dt' => 7 ),
+    array( 'db' => 'total_harga', 'dt' => 8 ),
+    array( 'db' => 'keterangan', 'dt' => 9 ),
+    array( 'db' => 'user_id', 'dt' => 10 ),
+    
+    
+    
 
 );
  

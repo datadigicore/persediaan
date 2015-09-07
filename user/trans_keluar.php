@@ -33,7 +33,7 @@
                     <li><a href="#tab_2" data-toggle="tab">Keterangan Transaksi</a></li>
                   </ul>
                 </div>  
-                <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="addtransmsk">
+                <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="addtransms">
                   <div class="box-body">
                     <div class="tab-content">
                       <div class="tab-pane active" id="tab_1">
