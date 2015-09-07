@@ -722,18 +722,26 @@ class modelTransaksi extends mysql_db
         
     }
 
-   public function cek_hapus($data) {
+   public function cek_hapus($data)
+   {
 
-   $kd_lokasi = $data['kd_lokasi'];
-   $id_masuk = $data['id_masuk'];
+       $kd_lokasi = $data['kd_lokasi'];
+       $id_masuk = $data['id_masuk'];
 
 
-   $query_cek = "SELECT tgl_dok,qty,satuan from transaksi_keluar where kd_lokasi='$kd_lokasi' and id_masuk='$id_masuk' and status_hapus=0";
-   $result = $this->query($query_cek);
-   $cek= $this->fetch_array($result);
+       $query_cek = "SELECT tgl_dok,qty,satuan from transaksi_keluar where kd_lokasi='$kd_lokasi' and id_masuk='$id_masuk' and status_hapus=0";
+       $result = $this->query($query_cek);
+       $cek= $this->fetch_array($result);
    
-   echo json_encode(array("tgl_dok"=>$cek["tgl_dok"], "qty"=>$cek["qty"],"satuan"=>$cek["satuan"]));
-}
-
+       echo json_encode(array("tgl_dok"=>$cek["tgl_dok"], "qty"=>$cek["qty"],"satuan"=>$cek["satuan"]));
+    }
+    
+    public function konversi_tanggal($tgl)
+    {
+        $data_tgl = explode("-",$tgl);
+        $array = array($data_tgl[2],$data_tgl[1],$data_tgl[0]);
+        $tanggal = implode("/", $array );
+        return $tanggal;
+    }
 }
 ?>

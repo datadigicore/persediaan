@@ -33,7 +33,7 @@
                     <li><a href="#tab_2" data-toggle="tab">Keterangan Transaksi</a></li>
                   </ul>
                 </div>  
-                <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="addtransms">
+                <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="addtransmsk">
                   <div class="box-body">
                     <div class="tab-content">
                       <div class="tab-pane active" id="tab_1">
@@ -154,10 +154,10 @@
         $('#tgl_buku').css('background-color' , '#FFFFFF');
         $('#rph_sat').css('background-color' , '#FFFFFF');
         $('#tgl_dok').datepicker({
-          format: "yyyy/mm/dd"
+          format: "dd-mm-yyyy"
         });         
         $('#tgl_buku').datepicker({
-          format: "yyyy/mm/dd"
+          format: "dd-mm-yyyy"
         });             
         $("li#saldo_awal").addClass("active");
         table = $("#example1").DataTable({
@@ -268,12 +268,12 @@
         var tgl_dok = document.getElementById("tgl_dok").value;
         var tgl_buku = document.getElementById("tgl_buku").value;
 
-      if(tgl_dok.substring(0,4)!=tahun_ang){
+      if(tgl_dok.substring(6,10)!=tahun_ang){
         alert("Tahun Dokumen Tidak Sesuai Dengan Tahun Anggaran");
         return false;
       }
 
-      if(tgl_buku.substring(0,4)!=tahun_ang){
+      if(tgl_buku.substring(6,10)!=tahun_ang){
         alert("Tahun BUkti Tidak Sesuai Dengan Tahun Anggaran");
         return false;
       }

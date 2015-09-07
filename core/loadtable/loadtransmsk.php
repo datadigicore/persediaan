@@ -26,7 +26,7 @@ $columns = array(
     array( 'db' => 'harga_sat', 'dt' => 7 ),
     array( 'db' => 'total_harga', 'dt' => 8 ),
     array( 'db' => 'keterangan', 'dt' => 9 ),
-    array( 'db' => 'user_id', 'dt' => 10 ),
+
     
     
     
