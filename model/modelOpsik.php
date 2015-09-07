@@ -17,6 +17,18 @@ class modelOpsik extends mysql_db
         }   
     }
 
+    public function hitung_harga($data)
+    {
+        $kd_lokasi = $data['kd_lokasi'];
+        $thn_ang = $data['thn_ang'];
+        $kd_brg = $kd_brg;
+
+        $query = "SELECT sum(qty_akhir*harga_sat)/sum(qty) as subtotal, 
+                         sum(qty_akhir*harga_sat)%sum(qty) as sisabagi 
+                         from transaksi_masuk
+                         where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and kd_brg='$kd_brg'";
+    }
+
     public function tbh_opname($data)
     {
         $kd_lokasi = $data['kd_lokasi'];
@@ -48,6 +60,20 @@ class modelOpsik extends mysql_db
         $nm_brg = $data_perk['nm_brg'];
         $satuan = $data_perk['satuan'];
 
+
+        $query_hrg = "SELECT sum(qty_akhir) as qty, sum(qty_akhir*harga_sat)/sum(qty) as harga, 
+                         sum(qty_akhir*harga_sat)%sum(qty) as sisabagi 
+                         from transaksi_masuk
+                         where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and kd_brg='$kd_brg'";
+        $result_hrg = $this->query($query_hrg);
+        $data_hrg = $this->fetch_array($result_hrg);
+        $hrg_sat = floor($data_hrg['harga']);
+        $sisabagi = $data_hrg['sisabagi'];
+
+        $total_harga = ($kuantitas*$hrg_sat)+$sisabagi;
+
+
+
 // Memasukan Data Transaksi Masuk ke tabel Transaksi Masuk        
         $query = "Insert into opname
                     set kd_lokasi='$kd_lokasi',
@@ -77,6 +103,9 @@ class modelOpsik extends mysql_db
 
         $update_brg = "update transaksi_masuk set status=1 where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg'";
         $result_upd = $this->query($update_brg);
+
+        $update_brg_klr = "update transaksi_keluar set status=1, status_hapus = 1, status_edit=1 where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg'";
+        $result_upd_klr = $this->query($update_brg_klr);
         
 // Mendapatkan ID transaksi masuk dan disimpan ke variabel id_trans             
         // $query_id = "select id from opname WHERE kd_brg='$kd_brg' and qty='$kuantitas' and kd_lokasi='$kd_lokasi' and no_dok='$no_dok' order by ID DESC";

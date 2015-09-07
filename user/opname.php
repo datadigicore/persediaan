@@ -70,7 +70,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Jumlah</label>
                       <div class="col-sm-9">
-                        <input type="text" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Keluar">
+                        <input type="number" min="1" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Keluar">
                       </div>
                     </div>
                     <div name="detil_transaksi" id="detil_transaksi">
@@ -119,10 +119,10 @@
       $(function () {
         $("li#opname").addClass("active");
         $('#tgl_dok').datepicker({
-          format: "yyyy/mm/dd"
+          format: "dd-mm-yyyy"
         });         
         $('#tgl_buku').datepicker({
-          format: "yyyy/mm/dd"
+          format: "dd-mm-yyyy"
         });             
         $("li#saldo_awal").addClass("active");
         table = $("#example1").DataTable({

@@ -3,9 +3,21 @@ include('../../model/modelOpsik.php');
 include('../../config/purifier.php');
 $Opsik = new modelOpsik();
 session_start();
+
+
+function konversi_tanggal($tgl)
+{
+	$data_tgl = explode("-",$tgl);
+	$array = array($data_tgl[2],$data_tgl[1],$data_tgl[0]);
+	$tanggal = implode("/", $array );
+	return $tanggal;
+}
+
 if (empty($_POST['manage'])) {
 	echo "Error Data Tidak Tersedia";
 }
+
+
 else
 {
 	$manage = $_POST['manage'];
@@ -35,8 +47,8 @@ else
 
 			$no_dok = $kd_lokasi.$purifier->purify($_POST['no_dok']);
 			$no_bukti = $purifier->purify($_POST['no_bukti']);
-			$tgl_dok = $purifier->purify($_POST['tgl_dok']);
-			$tgl_buku = $purifier->purify($_POST['tgl_buku']);
+			$tgl_dok = konversi_tanggal($purifier->purify($_POST['tgl_dok']));
+			$tgl_buku = konversi_tanggal($purifier->purify($_POST['tgl_buku']));
 
 			$jns_trans = $_POST['jenis_trans'];
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
@@ -64,6 +76,8 @@ else
 				"status" => $status,
 				"user_id" => $user_id
 			);
+
+			
 			$Opsik->tbh_opname($data);
 		break;		
 
@@ -116,5 +130,7 @@ else
 			echo "Error Data Tidak Tersedia";
 		break;
 	}
+
+
 }
 ?>
