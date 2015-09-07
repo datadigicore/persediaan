@@ -3,6 +3,7 @@
   <head>
     <?php include("include/loadcss.php"); ?>
     <link href="../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="../plugins/iCheck/all.css" rel="stylesheet" type="text/css" />
   </head>
   <body class="skin-blue layout-boxed">
     <div class="wrapper">
@@ -21,17 +22,19 @@
         </section>
         <section class="content">
           <div class="row">
+            <?php include("include/tabkonfig.php"); ?>
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Tahun Aktif</h3>
                 </div>  
-                <form action="../core/user/prosesuser" method="post" class="form-horizontal" id="adduser">
+                <form action="../core/konfig/proseskonfigurasi" method="post" class="form-horizontal" id="addkonfig">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tahun</label>
                       <div class="col-sm-9">
                         <input type="text" name="thnaktif" class="form-control" id="thnaktif" placeholder="Masukkan Tahun">
+                        <input type="hidden" name="manage" value="addthnaktif">
                       </div>
                     </div>
                     <div class="form-group">
@@ -40,6 +43,15 @@
                         <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Keterangan">
                       </div>
                     </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label"></label>
+                      <div class="col-sm-9">
+                        <label>
+                          <input type="checkbox" name="status" class="minimal" value="1"/>
+                        </label>
+                        &nbsp;&nbsp;Sebagai Tahun Aktif
+                      </div>
+                  </div>
                   </div>
                   <div class="box-footer">
                     <button type="Reset" class="btn btn-default">Reset</button>
@@ -56,10 +68,9 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th width="16%">Username</th>
-                        <th>Email</th>
-                        <th width="14%">Kode Satker</th>
-                        <th width="26%">Nama Satker</th>
+                        <th width="12%">Tahun</th>
+                        <th width="64%">Keterangan</th>
+                        <th>status</th>
                         <th width="9%">Aksi</th>
                       </tr>
                     </thead>
@@ -76,10 +87,17 @@
     <?php include("include/loadjs.php"); ?>
     <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="../plugins/iCheck/icheck.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       var table;
+      $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+        checkboxClass: 'icheckbox_minimal-blue',
+        radioClass: 'iradio_minimal-blue'
+      });
       $(function () {
         $("li#konfig").addClass("active");
+        $("li.konfig").addClass("active");
+        $("li.konfig>a").append('<i class="fa fa-angle-down pull-right" style="margin-top:3px;"></i>');
         $(".select2").select2();
         table = $("#example1").DataTable({
           "oLanguage": {
@@ -87,7 +105,7 @@
           },
           "processing": false,
           "serverSide": true,
-          "ajax": "../core/loadtable/loaduser",
+          "ajax": "../core/loadtable/tablethnaktif",
           "columnDefs":
           [
             {"targets": 0,
@@ -95,14 +113,13 @@
             {"targets": 1 },
             {"targets": 2 },
             {"targets": 3 },
-            {"targets": 4 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                   '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
                                   '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
                                 '</div>',
-             "targets": [5],"targets": 5 }
+             "targets": [4],"targets": 4 }
           ],
           "order": [[ 1, "asc" ]]
         });
@@ -111,7 +128,7 @@
         var tr = $(this).closest('tr');
         var row = table.row( tr );
         id_row = row.data()[0];
-        username_row = row.data()[1];
+        konfigname_row = row.data()[1];
         email_row  = row.data()[2];
         kdsatker_row  = row.data()[3];
         nmsatker_row  = row.data()[4];
@@ -125,7 +142,7 @@
           row.child( format(row.data())).show();
           tr.addClass('shown');
           $('div.slider', row.child()).slideDown();
-          $("#username"+id_row+"").val(username_row);
+          $("#konfigname"+id_row+"").val(konfigname_row);
           $("#email"+id_row+"").val(email_row);
           $("#kdsatker"+id_row+"").val(kdsatker_row);
           $("#nmsatker"+id_row+"").val(nmsatker_row);
@@ -135,9 +152,9 @@
       var tr = $(this).closest('tr');
       var row = table.row( tr );
       redirectTime = "2600";
-      redirectURL = "user";
+      redirectURL = "konfig";
       id_row = row.data()[0];
-      managedata = "deluser";
+      managedata = "delkonfig";
       job=confirm("Anda yakin ingin menghapus data ini?");
         if(job!=true){
           return false;
@@ -150,7 +167,7 @@
           $('#myModal').modal('show');
           $.ajax({
             type: "post",
-            url : "../core/user/prosesuser",
+            url : "../core/konfig/proseskonfigurasi",
             data: {manage:managedata,id:id_row},
             success: function(data)
             {
@@ -162,14 +179,6 @@
             }
           });
           return false;
-        }
-      });
-      $.ajax({
-        type: "post",
-        url: '../core/user/prosesuser',
-        data: {manage:'readsatker'},
-        success: function (output) {     
-          $('#kdunitgudang').html(output);
         }
       });
       $('#kdunitgudang').change(function(){
@@ -185,7 +194,7 @@
           var kdunitgudang = $(this).val();
           $.ajax({
             type: "post",
-            url: '../core/user/prosesuser',
+            url: '../core/konfig/proseskonfig',
             data: {manage:'readdata',kdunitgudang:kdunitgudang},
             dataType: "json",
             success: function (output) {
@@ -213,29 +222,7 @@
           });
         }
       });
-      function format ( d ) {
-        return '<div class="slider">'+
-        '<form action="../core/user/prosesuser" method="post" class="form-horizontal" id="upduser">'+
-        '<table width="100%">'+
-           '<tr>'+
-              '<input type="hidden" name="manage" value="upduser">'+
-              '<input type="hidden" name="id" value="'+d[0]+'">'+
-              '<td width="16.2%"><input style="width:90%" id="username'+d[0]+'" name="updusername" class="form-control" type="text" placeholder="Username"></td>'+
-              '<td width="18.2%"><input style="width:90%" id="email'+d[0]+'" name="updemail" class="form-control" type="text" placeholder="Email"></td>'+
-              '<td width="17.7%"><input type="checkbox" id="checkpass" style="margin-top:11px;margin-left:-5px;position:absolute;"><input style="width:90%" id="updpassword" name="updpassword" class="form-control" type="password" placeholder="Password" disabled></td>'+
-              '<td width="14.2%"><input style="width:90%" id="kdsatker'+d[0]+'" name="updkdsatker" class="form-control" type="text" placeholder="Kode Satker"></td>'+
-              '<td><input style="width:97%" id="nmsatker'+d[0]+'" name="updnmsatker" class="form-control" type="text" placeholder="Uraian Satker"></td>'+
-              '<td style="vertical-align:middle; width:15%;">'+
-                '<div class="box-tools">'+
-                  '<button id="btnrst" class="btn btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
-                  '<button id="btnupd" class="btn btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
-                '</div>'
-              '</td>'+
-           '</tr>'+
-        '</table>'+
-        '</form></div>';
-      }
-      $(document).on('submit', '#upduser', function (e) {
+      $(document).on('submit', '#updkonfig', function (e) {
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
@@ -243,7 +230,7 @@
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "2600";
-        redirectURL = "user";
+        redirectURL = "konfig";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({
@@ -273,7 +260,7 @@
           document.getElementById("updpassword").setAttribute("disabled","disabled");
         }
       });
-      $('#adduser').submit(function(e){
+      $('#addkonfig').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
@@ -281,7 +268,7 @@
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "2600";
-        redirectURL = "user";
+        redirectURL = "konfig";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({

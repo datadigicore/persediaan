@@ -27,6 +27,8 @@ html,body{min-height:100%}.layout-boxed html,.layout-boxed body{height:100%}body
 .nav-tabs-custom>.nav-tabs>li.satker:hover{border-top-color:#00a65a}
 .nav-tabs-custom>.nav-tabs>li.unit:hover{border-top-color:#f39c12}
 .nav-tabs-custom>.nav-tabs>li.gudang:hover{border-top-color:#dd4b39}
+.nav-tabs-custom>.nav-tabs>li.konfig:hover{border-top-color:#00c0ef}
+.nav-tabs-custom>.nav-tabs>li.expkonfig:hover{border-top-color:#00c0ef}
 
 .nav-tabs-custom>.nav-tabs>li.active1{border-top-color:#00c0ef}
 .nav-tabs-custom>.nav-tabs>li.active2{border-top-color:#00a65a}
