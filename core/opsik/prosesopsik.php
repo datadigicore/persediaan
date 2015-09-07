@@ -47,8 +47,8 @@ else
 
 			$no_dok = $kd_lokasi.$purifier->purify($_POST['no_dok']);
 			$no_bukti = $purifier->purify($_POST['no_bukti']);
-			$tgl_dok = konversi_tanggal($purifier->purify($_POST['tgl_dok']));
-			$tgl_buku = konversi_tanggal($purifier->purify($_POST['tgl_buku']));
+			$tgl_dok = $Opsik->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
+			$tgl_buku = $Opsik->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
 
 			$jns_trans = $_POST['jenis_trans'];
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
@@ -77,8 +77,8 @@ else
 				"user_id" => $user_id
 			);
 
-			
-			$Opsik->tbh_opname($data);
+			print_r($data);
+			// $Opsik->tbh_opname($data);
 		break;		
 
 		case 'ubahopsik':

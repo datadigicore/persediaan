@@ -119,13 +119,13 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th width="10%">ID</th>
+                        <th width="5%">ID</th>
                         <th width="14%">No Dokumen</th>
                         <th >No Bukti</th>
                         <th>Tanggal Dokumen</th>
                         <th>Tanggal Buku</th>
                         <th>Nama Barang</th>
-                        <th>Jumlah</th>
+                        <th width="3%">Jumlah</th>
                         <th>Harga Satuan</th>
                         <th>Total</th>
                         <th>Keterangan</th>
@@ -153,10 +153,10 @@
         $('#tgl_buku').css('background-color' , '#FFFFFF');
         $("li#trans_masuk").addClass("active");
         $('#tgl_dok').datepicker({
-          format: "yyyy/mm/dd"
+          format: "dd-mm-yyyy"
         });         
         $('#tgl_buku').datepicker({
-          format: "yyyy/mm/dd"
+          format: "dd-mm-yyyy"
         });             
         $("li#saldo_awal").addClass("active");
         table = $("#example1").DataTable({
@@ -174,6 +174,7 @@
             {"targets": 6 },
             {"targets": 7 },
             {"targets": 8 },                      
+            {"targets": 9 },                      
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
@@ -181,7 +182,7 @@
                                   '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
                                   '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
                                 '</div>',
-             "targets": [9],"targets": 10 },
+             "targets": [10],"targets": 10 },
 
           ],
         });
@@ -319,12 +320,12 @@
           alert("Jenis Transaksi Belum Dipilih")
           return false;
          }
-        if(tgl_dok.substring(0,4)!=tahun_ang){
+        if(tgl_dok.substring(6,10)!=tahun_ang){
           alert("Tahun Dokumen Tidak Sesuai Dengan Tahun Anggaran");
           return false;
         }
 
-        if(tgl_buku.substring(0,4)!=tahun_ang){
+        if(tgl_buku.substring(6,10)!=tahun_ang){
           alert("Tahun Bukti Tidak Sesuai Dengan Tahun Anggaran");
           return false;
         }

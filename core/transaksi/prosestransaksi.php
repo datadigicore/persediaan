@@ -65,8 +65,8 @@ else
 			$thn_ang = $_SESSION['thn_ang'];
 			$no_dok = $kd_lokasi.$purifier->purify($_POST['no_dok']);
 			$no_bukti = $purifier->purify($_POST['no_bukti']);
-			$tgl_dok = $purifier->purify($_POST['tgl_dok']);
-			$tgl_buku = $purifier->purify($_POST['tgl_buku']);
+			$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
+			$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
 			$satuan = $purifier->purify($_POST['satuan']);
 			$jns_trans = $_POST['jenis_trans'];
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
@@ -108,8 +108,8 @@ else
 			$thn_ang = $_SESSION['thn_ang'];
 			$no_dok = $kd_lokasi.$purifier->purify($_POST['no_dok']);
 			$no_bukti = $purifier->purify($_POST['no_bukti']);
-			$tgl_dok = $purifier->purify($_POST['tgl_dok']);
-			$tgl_buku = $purifier->purify($_POST['tgl_buku']);
+			$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
+			$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
 			$satuan = $purifier->purify($_POST['satuan']);
 			$jns_trans = $_POST['jenis_trans'];
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
@@ -119,13 +119,6 @@ else
 			$hrg_sat = $purifier->purify($_POST['rph_sat']);
 			$status = 1;
 			$user_id = $_SESSION['username'];
-
-			$_SESSION['jns_trans'] = $purifier->purify($_POST['jenis_trans']);
-			$_SESSION['no_dok'] = $purifier->purify($_POST['no_dok']);
-			$_SESSION['no_bukti'] = $purifier->purify($_POST['no_bukti']);
-			$_SESSION['tgl_dok'] = $purifier->purify($_POST['tgl_dok']);
-			$_SESSION['tgl_buku'] = $purifier->purify($_POST['tgl_buku']);
-			
 			
 			$data = array(
 				"kd_lokasi" => $kd_lokasi,
@@ -147,6 +140,7 @@ else
 				"status" => $status,
 				"user_id" => $user_id
 			);
+			print_r($data);
 			$Transaksi->transaksi_masuk($data);
 		break;		
 
@@ -158,8 +152,8 @@ else
 			$thn_ang = $_SESSION['thn_ang'];
 			$no_dok = $purifier->purify($_POST['no_dok']);
 			$no_bukti = $purifier->purify($_POST['no_bukti']);
-			$tgl_dok = $purifier->purify($_POST['tgl_dok']);
-			$tgl_buku = $purifier->purify($_POST['tgl_buku']);
+			$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
+			$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
 
 			// $jns_trans = $_POST['jenis_trans'];
 
@@ -190,7 +184,7 @@ else
 				"status" => $status,
 				"user_id" => $user_id
 			);
-			print_r($data);
+			
 			$Transaksi->ubah_transaksi_masuk($data);
 		break;		
 
@@ -201,8 +195,8 @@ else
 			$thn_ang = $_SESSION['thn_ang'];
 			$no_dok = $purifier->purify($_POST['no_dok']);
 			$no_bukti = $purifier->purify($_POST['no_bukti']);
-			$tgl_dok = $purifier->purify($_POST['tgl_dok']);
-			$tgl_buku = $purifier->purify($_POST['tgl_buku']);
+			$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
+			$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
 			$satuan = $purifier->purify($_POST['satuan']);
 			$jns_trans = $_POST['jenis_trans'];
 			$kd_brg = $purifier->purify($_POST['kd_brg']);

@@ -3,7 +3,13 @@ include('../../utility/mysql_db.php');
 class modelOpsik extends mysql_db
 {
 
-
+    function konversi_tanggal($tgl)
+    {
+        $data_tgl = explode("-",$tgl);
+        $array = array($data_tgl[2],$data_tgl[1],$data_tgl[0]);
+        $tanggal = implode("/", $array );
+        return $tanggal;
+    }
     public function baca_persediaan_masuk($data)
     {
         $kd_lokasi = $data['kd_lokasi'];
