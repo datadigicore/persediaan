@@ -17,9 +17,12 @@ class modelTndtgn extends mysql_db
 		$tgl_setuju = $data['tgl_setuju'];
 		$unit = $data['unit'];
 
-
-
-		$query = "Insert into ttd
+		$query_cek = "SELECT kd_lokasi from ttd where kd_lokasi='$kd_lokasi'";
+		$result_cek = $this->query($query_cek);
+		$cek= $this->fetch_array($result_cek);
+		if($cek=="")
+		{
+			$query = "Insert into ttd
         			set kd_lokasi='$kd_lokasi',
         			    kota='$kota',
         			    tanggal='$tanggal',
@@ -33,8 +36,27 @@ class modelTndtgn extends mysql_db
                     	unit='$unit'
 
                     	";
-        $result = $this->query($query);
-		return $result;
+        	$result = $this->query($query);
+			return $result;			
+		}
+		else 
+		{
+			$query_upd = "update ttd
+        				set kd_lokasi='$kd_lokasi',
+        			    kota='$kota',
+        			    tanggal='$tanggal',
+        			    nip='$nip',
+        				nama='$nama',
+                    	jabatan='$jabatan',
+                    	nip2='$nip2',
+                    	nama2='$nama2',
+                    	jabatan2='$jabatan2',
+                    	unit='$unit' where kd_lokasi='$kd_lokasi'
+                    	";
+        	$result_upd = $this->query($query_upd);
+			return $result_upd;	
+		}
+
 	}
 
 	public function baca_data_pj($data)

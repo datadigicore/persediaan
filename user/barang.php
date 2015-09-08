@@ -39,19 +39,19 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode Barang</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kodebarang" class="form-control" id="kodebarang" placeholder="Masukkan Kode Barang">
+                        <input type="text" name="kodebarang" class="form-control" id="kodebarang" placeholder="Masukkan Kode Barang" required>
                       </div>
                     </div>                    
 					         <div class="form-group">
                       <label class="col-sm-2 control-label">Nama Barang</label>
                       <div class="col-sm-9">
-                        <input type="text" name="namabarang" class="form-control" id="namabarang" placeholder="Masukkan Nama Barang">
+                        <input type="text" name="namabarang" class="form-control" id="namabarang" placeholder="Masukkan Nama Barang" required>
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Satuan</label>
                       <div class="col-sm-9">
-                        <input type="text" name="satuan" class="form-control" id="satuan" placeholder="Masukkan Satuan Barang">
+                        <input type="text" name="satuan" class="form-control" id="satuan" placeholder="Masukkan Satuan Barang" required>
                       </div>
                     </div>
                   </div>
@@ -114,6 +114,11 @@
         });
       });
       $('#addbarang').submit(function(e){
+        if(document.getElementById("kdsskel").value=="")
+        {
+          alert("Kode Sub Sub Kelompok Barang Belum Dipilih");
+          return false;
+        }
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
