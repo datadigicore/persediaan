@@ -24,7 +24,7 @@ class modelReport extends mysql_db
         echo '<img src="../../dist/img/pekalongan.jpg" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
         $this->getsatker($kd_lokasi);
         
-        echo ' <p align="center">BUKU PERSEDIAAN</p>
+        echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">BUKU PERSEDIAAN</p>
                 <br></br>
                 <table style="text-align: center; width: 100%; " align="left">
                 <tr>
@@ -40,18 +40,18 @@ class modelReport extends mysql_db
                     <td align="left">Satuan :'.$brg['satuan'].'</td>
                 </tr>
                 </table>
-                <table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border=1 align="center">
-                <tr>
-                    <td rowspan="2" >No</td>
-                    <td  rowspan="2">Tanggal</td>
-                    <td width="18%" rowspan="2">Uraian</td>
-                    <td rowspan="2" >Masuk</td>
-                    <td rowspan="2" >Harga Beli</td>
-                    <td  rowspan="2">Keluar</td>
-                    <td colspan="2">Saldo</td>
+                <table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border=1 align="center">
+                <tr >
+                    <td rowspan="2" style="font-weight:bold;" >NO</td>
+                    <td  rowspan="2" style="font-weight:bold;">TANGGAL</td>
+                    <td width="18%" rowspan="2" style="font-weight:bold;">URAIAN</td>
+                    <td rowspan="2" style="font-weight:bold;">MASUK</td>
+                    <td rowspan="2" style="font-weight:bold;">HARGA BELI</td>
+                    <td  rowspan="2" style="font-weight:bold;">KELUAR</td>
+                    <td colspan="2" style="font-weight:bold;">SALDO</td>
                     <tr>
-                        <td >Jumlah</td>
-                        <td>Nilai</td>
+                        <td style="font-weight:bold;">JUMLAH</td>
+                        <td style="font-weight:bold;">NILAI</td>
                     </tr>
                 </tr>';
 
@@ -127,7 +127,7 @@ class modelReport extends mysql_db
                     $no+=1;
                     echo'<tr>
                     <center><td  align="center">'.$no.'</td></center>
-                    <center><td  align="center">'.$data[tgl_dok].'</td></center>
+                    <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_dok]).'</td></center>
                     <center><td  align="center">'.$data[keterangan].'</td></center>';
                     if($data[qty]>0) 
                     {
@@ -929,6 +929,14 @@ class modelReport extends mysql_db
         $data_tgl = explode("-",$tgl);
         $array = array($data_tgl[2],$data_tgl[1],$data_tgl[0]);
         $tanggal = implode("/", $array );
+        return $tanggal;
+    }    
+
+    public function tgl_buku_sedia($tgl)
+    {
+        $data_tgl = explode("-",$tgl);
+        $array = array($data_tgl[2],$data_tgl[1],$data_tgl[0]);
+        $tanggal = implode("-", $array );
         return $tanggal;
     }
 
