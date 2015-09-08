@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 07, 2015 at 04:16 
+-- Generation Time: Sep 08, 2015 at 05:08 
 -- Server version: 5.6.24
 -- PHP Version: 5.5.24
 
@@ -245,6 +245,25 @@ INSERT INTO `kel` (`id`, `kd_gol`, `kd_bid`, `kd_kel`, `nm_kel`, `kd_kelbrg`) VA
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `log_history`
+--
+
+CREATE TABLE IF NOT EXISTS `log_history` (
+  `id` int(255) NOT NULL,
+  `kodesatker` varchar(24) DEFAULT NULL,
+  `namasatker` text,
+  `thnanggaran` int(6) NOT NULL,
+  `username` varchar(32) NOT NULL,
+  `aksi` varchar(16) NOT NULL,
+  `ket_kdsatker` varchar(16) NOT NULL,
+  `ket_nmsatker` text NOT NULL,
+  `keterangan` text NOT NULL,
+  `tanggal` datetime NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `opname`
 --
 
@@ -437,7 +456,7 @@ CREATE TABLE IF NOT EXISTS `satker` (
   `kode` varchar(50) DEFAULT NULL,
   `NamaSatker` varchar(255) DEFAULT NULL,
   `tahun` int(6) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=475 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=476 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `satker`
@@ -1306,11 +1325,22 @@ INSERT INTO `sskel` (`id`, `kd_gol`, `kd_bid`, `kd_kel`, `kd_skel`, `kd_sskel`, 
 --
 
 CREATE TABLE IF NOT EXISTS `thn_aktif` (
-  `id` int(4) NOT NULL,
-  `thn_aktif` int(6) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `id` int(6) NOT NULL,
+  `tahun` int(6) NOT NULL,
+  `status` varchar(16) NOT NULL DEFAULT 'Tidak Aktif',
   `keterangan` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `thn_aktif`
+--
+
+INSERT INTO `thn_aktif` (`id`, `tahun`, `status`, `keterangan`) VALUES
+(6, 2015, 'Tidak Aktif', 'Tahun 2015'),
+(7, 2016, 'Tidak Aktif', 'Tahun 2016'),
+(8, 2014, 'Aktif', 'Anggaran 2014'),
+(9, 2017, 'Tidak Aktif', 'Tahun Export'),
+(10, 2013, 'Tidak Aktif', 'Aktifkan');
 
 -- --------------------------------------------------------
 
@@ -2327,6 +2357,12 @@ ALTER TABLE `kel`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `log_history`
+--
+ALTER TABLE `log_history`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `opname`
 --
 ALTER TABLE `opname`
@@ -2360,6 +2396,12 @@ ALTER TABLE `skel`
 -- Indexes for table `sskel`
 --
 ALTER TABLE `sskel`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `thn_aktif`
+--
+ALTER TABLE `thn_aktif`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -2418,6 +2460,11 @@ ALTER TABLE `kanwil`
 ALTER TABLE `kel`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
+-- AUTO_INCREMENT for table `log_history`
+--
+ALTER TABLE `log_history`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+--
 -- AUTO_INCREMENT for table `opname`
 --
 ALTER TABLE `opname`
@@ -2431,7 +2478,7 @@ ALTER TABLE `persediaan`
 -- AUTO_INCREMENT for table `satker`
 --
 ALTER TABLE `satker`
-  MODIFY `Satker_ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=475;
+  MODIFY `Satker_ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=476;
 --
 -- AUTO_INCREMENT for table `skel`
 --
@@ -2442,6 +2489,11 @@ ALTER TABLE `skel`
 --
 ALTER TABLE `sskel`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=345;
+--
+-- AUTO_INCREMENT for table `thn_aktif`
+--
+ALTER TABLE `thn_aktif`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `transaksi_full`
 --
