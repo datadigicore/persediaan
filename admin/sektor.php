@@ -220,6 +220,7 @@
                 kdsektor: {required  : true,
                            number    : true,
                            maxlength : 2,
+                           minlength : 2,
                            remote    : { url  : "../core/sektor/prosessektor",
                                          type : "post",
                                          data : {manage:"checkkdsektor"}
@@ -231,6 +232,7 @@
                   kdsektor: { required  : "Masukkan Kode Sektor",
                               number    : "Masukkan Angka",
                               maxlength : "Maksimal 2 digit",
+                              minlength : "Minimal 2 digit",
                               remote    : "Kode Sektor telah terdaftar"},
                   nmsektor: { required  : "Masukkan Nama Sektor" }
               },
