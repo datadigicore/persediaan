@@ -126,7 +126,7 @@ class modelTransaksi extends mysql_db
         while($kuantitas > 0)
         {   
             echo " kuantitas tersisa : ".$kuantitas; 
-            $query_id = "select id, kd_sskel, nm_sskel, kd_brg, kd_perk, nm_perk, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and qty_akhir>0 order by tgl_dok asc limit 1";     
+            $query_id = "select id, kd_sskel, nm_sskel, kd_brg, kd_perk, nm_perk, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and qty_akhir>0 and status_hapus=0 and status_edit=0 order by tgl_dok asc limit 1";     
             $result_id = $this->query($query_id);
             $row_id = $this->fetch_array($result_id);
             $id_trans_m = $row_id['id'];   
@@ -219,7 +219,7 @@ class modelTransaksi extends mysql_db
             }
             // else
             // {
-                $query_id = "select id,kd_brg,qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and qty_akhir>0 order by tgl_dok asc limit 1"; 
+                $query_id = "select id,kd_brg,qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and qty_akhir>0 and status_hapus=0 and status_edit=0 order by tgl_dok asc limit 1"; 
                 $result_id = $this->query($query_id);
                 $row_id = $this->fetch_array($result_id);
                 $id_trans = $row_id['id'];   
@@ -688,7 +688,7 @@ class modelTransaksi extends mysql_db
     public function harga_terakhir($data)
     {
 
-        $query = "select  nm_brg, harga_sat FROM transaksi_masuk where kd_brg = '$data' and qty_akhir>0 GROUP by kd_brg, nm_brg, tgl_buku ASC LIMIT 1";
+        $query = "select  nm_brg, harga_sat FROM transaksi_masuk where kd_brg = '$data' and qty_akhir>0 and status_hapus=0 and status_edit=0 GROUP by kd_brg, nm_brg, tgl_buku ASC LIMIT 1";
         $query_saldo = "select suma.a - sumb.b as saldo from (SELECT sum(qty) as a FROM transaksi_masuk WHERE kd_brg = '$data') as suma, (SELECT sum(qty) as b FROM transaksi_keluar WHERE kd_brg = '$data') as sumb";
         
         $result = $this->query($query);

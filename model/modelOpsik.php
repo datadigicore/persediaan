@@ -103,77 +103,77 @@ class modelOpsik extends mysql_db
                     user_id='$user_id'";   
         $result = $this->query($query);
 
-        $update_brg = "update transaksi_masuk set  status=1, status_edit=1 where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 and status_edit=0";
-        $result_upd = $this->query($update_brg);
+        // $update_brg = "update transaksi_masuk set  status=1, status_edit=1 where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 and status_edit=0";
+        // $result_upd = $this->query($update_brg);
 
-        $update_brg_klr = "update transaksi_keluar set  status=1, status_edit=1 where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 and status_edit=0";
-        $result_upd_klr = $this->query($update_brg_klr);
+        // $update_brg_klr = "update transaksi_keluar set  status=1, status_edit=1 where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 and status_edit=0";
+        // $result_upd_klr = $this->query($update_brg_klr);
         
         // $jml_brg = $data_hrg['qty'];
         // $selisih = $kuantitas - $jml_brg;
         // if($kuantitas>=$jml_brg)
         // {
-            $query_masuk = "Insert into transaksi_masuk
-                    set 
-                    kd_lokasi='$kd_lokasi',
-                    kd_lok_msk='',
-                    nm_satker='$nm_satker',
-                    thn_ang='$thn_ang',
-                    no_dok='$no_dok',
-                    tgl_dok='$tgl_dok',
-                    tgl_buku='$tgl_buku',
-                    no_bukti='$no_bukti',
-                    jns_trans='P01',
-                    kd_sskel='$kd_sskel',
-                    nm_sskel='$nm_sskel',
-                    kd_brg='$kd_brg',
-                    nm_brg='$nm_brg',
-                    kd_perk='$kd_perk',
-                    nm_perk='$nm_perk',
-                    satuan='$satuan',
-                    qty='$kuantitas',
-                    qty_akhir='$kuantitas',
-                    harga_sat='$hrg_sat',
-                    total_harga='$total_harga',
-                    keterangan='$keterangan',
-                    status='1',
-                    tgl_update=CURDATE(),
-                    user_id='$user_id'";   
-            $result_masuk = $this->query($query_masuk);
+        //     $query_masuk = "Insert into transaksi_masuk
+        //             set 
+        //             kd_lokasi='$kd_lokasi',
+        //             kd_lok_msk='',
+        //             nm_satker='$nm_satker',
+        //             thn_ang='$thn_ang',
+        //             no_dok='$no_dok',
+        //             tgl_dok='$tgl_dok',
+        //             tgl_buku='$tgl_buku',
+        //             no_bukti='$no_bukti',
+        //             jns_trans='P01',
+        //             kd_sskel='$kd_sskel',
+        //             nm_sskel='$nm_sskel',
+        //             kd_brg='$kd_brg',
+        //             nm_brg='$nm_brg',
+        //             kd_perk='$kd_perk',
+        //             nm_perk='$nm_perk',
+        //             satuan='$satuan',
+        //             qty='$kuantitas',
+        //             qty_akhir='$kuantitas',
+        //             harga_sat='$hrg_sat',
+        //             total_harga='$total_harga',
+        //             keterangan='$keterangan',
+        //             status='1',
+        //             tgl_update=CURDATE(),
+        //             user_id='$user_id'";   
+        //     $result_masuk = $this->query($query_masuk);
         
-        $query_id = "select id from transaksi_masuk WHERE kd_brg='$kd_brg' and qty='$kuantitas' and kd_lokasi='$kd_lokasi' and no_dok='$no_dok' order by ID DESC LIMIT 1";
-        $result_id = $this->query($query_id);
-        $row_id = $this->fetch_array($result_id);
-        $id_trans = $row_id['id'];
+        // $query_id = "select id from transaksi_masuk WHERE kd_brg='$kd_brg' and qty='$kuantitas' and kd_lokasi='$kd_lokasi' and no_dok='$no_dok' order by ID DESC LIMIT 1";
+        // $result_id = $this->query($query_id);
+        // $row_id = $this->fetch_array($result_id);
+        // $id_trans = $row_id['id'];
         
-            $query_full = "Insert into transaksi_full
-                    set 
-                    kd_lokasi='$kd_lokasi',
-                    kd_lok_msk='',
-                    id_masuk='$id_trans',
-                    nm_satker='$nm_satker',
-                    thn_ang='$thn_ang',
-                    no_dok='$no_dok',
-                    tgl_dok='$tgl_dok',
-                    tgl_buku='$tgl_buku',
-                    no_bukti='$no_bukti',
-                    jns_trans='P01',
-                    kd_sskel='$kd_sskel',
-                    nm_sskel='$nm_sskel',
-                    kd_brg='$kd_brg',
-                    nm_brg='$nm_brg',
-                    kd_perk='$kd_perk',
-                    nm_perk='$nm_perk',
-                    satuan='$satuan',
-                    qty='$kuantitas',
+        //     $query_full = "Insert into transaksi_full
+        //             set 
+        //             kd_lokasi='$kd_lokasi',
+        //             kd_lok_msk='',
+        //             id_masuk='$id_trans',
+        //             nm_satker='$nm_satker',
+        //             thn_ang='$thn_ang',
+        //             no_dok='$no_dok',
+        //             tgl_dok='$tgl_dok',
+        //             tgl_buku='$tgl_buku',
+        //             no_bukti='$no_bukti',
+        //             jns_trans='P01',
+        //             kd_sskel='$kd_sskel',
+        //             nm_sskel='$nm_sskel',
+        //             kd_brg='$kd_brg',
+        //             nm_brg='$nm_brg',
+        //             kd_perk='$kd_perk',
+        //             nm_perk='$nm_perk',
+        //             satuan='$satuan',
+        //             qty='$kuantitas',
                     
-                    harga_sat='$hrg_sat',
-                    total_harga='$total_harga',
-                    keterangan='$keterangan',
-                    status='1',
-                    tgl_update=CURDATE(),
-                    user_id='$user_id'";   
-            $result_full = $this->query($query_full);
+        //             harga_sat='$hrg_sat',
+        //             total_harga='$total_harga',
+        //             keterangan='$keterangan',
+        //             status='1',
+        //             tgl_update=CURDATE(),
+        //             user_id='$user_id'";   
+        //     $result_full = $this->query($query_full);
         // }
 
         // else
