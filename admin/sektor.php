@@ -75,6 +75,8 @@
     <?php include("include/loadjs.php"); ?>
     <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="../dist/js/jquery.validate.min.js"></script>
+    <script src="../dist/js/jquery-validate.bootstrap-tooltip.min.js"></script>
     <script type="text/javascript">
       var table;
       $(function () {
@@ -208,35 +210,68 @@
         });
         return false;
       });
-      $('#addsektor').submit(function(e){
-        $('#myModal').modal({
-          backdrop: 'static',
-          keyboard: false
-        });
-        $('#myModal').modal('show');
-        e.preventDefault();
-        redirectTime = "2600";
-        redirectURL = "sektor";
-        var formURL = $(this).attr("action");
-        var addData = new FormData(this);
-        $.ajax({
-          type: "post",
-          data: addData,
-          url : formURL,
-          contentType: false,
-          cache: false,  
-          processData: false,
-          success: function(data)
+      (function($,W,D){
+        var JQUERY4U = {};
+        JQUERY4U.UTIL = {
+          setupFormValidation: function()
           {
-            $("#success-alert").alert();
-            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-            $("#success-alert").alert('close');
+            $("#addsektor").validate({
+              rules: {
+                kdsektor: {required  : true,
+                           number    : true,
+                           maxlength : 2,
+                           remote    : { url  : "../core/sektor/prosessektor",
+                                         type : "post",
+                                         data : {manage:"checkkdsektor"}
+                                       }
+                          },
+                nmsektor: "required"
+              },
+              messages: {
+                  kdsektor: { required  : "Masukkan Kode Sektor",
+                              number    : "Masukkan Angka",
+                              maxlength : "Maksimal 2 digit",
+                              remote    : "Kode Sektor telah terdaftar"},
+                  nmsektor: { required  : "Masukkan Nama Sektor" }
+              },
+              submitHandler: function(form) {
+                $('#addsektor').submit(function(e){
+                $('#myModal').modal({
+                  backdrop: 'static',
+                  keyboard: false
+                });
+                $('#myModal').modal('show');
+                e.preventDefault();
+                redirectTime = "2600";
+                redirectURL = "sektor";
+                var formURL = $(this).attr("action");
+                var addData = new FormData(this);
+                $.ajax({
+                  type: "post",
+                  data: addData,
+                  url : formURL,
+                  contentType: false,
+                  cache: false,  
+                  processData: false,
+                  success: function(data)
+                  {
+                    $("#success-alert").alert();
+                    $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+                    $("#success-alert").alert('close');
+                    });
+                    setTimeout("location.href = redirectURL;",redirectTime); 
+                  }
+                });
+                return false;
+              });
+              }
             });
-            setTimeout("location.href = redirectURL;",redirectTime); 
           }
+        }
+        $(D).ready(function($) {
+            JQUERY4U.UTIL.setupFormValidation();
         });
-        return false;
-      });
+      })(jQuery, window, document);
     </script>
   </body>
 </html>

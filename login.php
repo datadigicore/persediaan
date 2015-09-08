@@ -10,6 +10,7 @@
     <link href="dist/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="dist/css/ionicons.min.css" rel="stylesheet" type="text/css" />
     <link href="dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <link href="plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
   </head>
   <header>
   	<div class="headernya">
@@ -24,7 +25,7 @@
         <p class="login-box-msg">Silahkan isi Username dan Password</p>
         <form action="config/authenticate" method="post" id="login-form">
           <div class="form-group has-feedback">
-            <input type="text" name="username" class="form-control" placeholder="Username" />
+            <input type="text" name="username" class="form-control" placeholder="Username"/>
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
@@ -34,7 +35,9 @@
           <div class="row">
             <div class="col-xs-8"> 
               <div class="form-group has-feedback">
-                <input id="thn_ang" name="thn_ang" class="form-control"placeholder="Tahun Anggaran"/>
+                <select id="thn_ang" name="thn_ang" class="form-control select2">
+                  <option selected="selected">-- Pilih Tahun Anggaran --</option>
+                </select>
               </div>
             </div>
             <div class="col-xs-4" style="padding-left:0;">
@@ -50,10 +53,22 @@
 	  	</div>
     </footer>
     <script type="text/javascript" src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="dist/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="dist/js/jquery-validate.bootstrap-tooltip.min.js"></script>
+    <script src="plugins/select2/select2.full.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-      var thisyear = new Date().getFullYear();
-      document.getElementById("thn_ang").value = thisyear;
+      $(function () {
+        $(".select2").select2();
+      });
+      $.ajax({
+          type: "post",
+          url: 'core/login/proseslogin',
+          data: {manage:'readtahun'},
+          success: function (output) {     
+            $('#thn_ang').html(output);
+          }
+        });
       (function($,W,D){
         var JQUERY4U = {};
         JQUERY4U.UTIL = {
@@ -62,20 +77,11 @@
             $("#login-form").validate({
               rules: {
                 username: "required",
-                password: "required",
-                thn_ang: {
-                  required: true,
-                  number: true
-                }
+                password: "required"
               },
               messages: {
-                  name: { required: "Custom Message" }
-              },
-              errorPlacement: function (error, element) {
-                $(element).css({border:"1px solid red"});
-              },
-              success: function (label, element) {
-                $(element).css({border:"1px solid #ccc"});
+                  username: { required: "Masukkan Username" },
+                  password: { required: "Masukkan Password" }
               },
               submitHandler: function(form) {
                 form.submit();

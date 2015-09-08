@@ -2,6 +2,18 @@
 include('../../utility/mysql_db.php');
 class modelSektor extends mysql_db
 {
+	public function bacakdsektor($data)
+	{
+		$query = "SELECT kodesektor FROM satker WHERE kodesektor = '$data' LIMIT 1;";
+		$result = $this->query($query);
+	    $num = mysqli_num_rows($result);
+	    if($num == 0){
+	      $valid = "true";
+	    } else {
+	      $valid = "false";
+	    }
+	    echo $valid;
+	}	
 	public function tambahsektor($data)
 	{
 		$kodesektor = $data['kd_sektor'];

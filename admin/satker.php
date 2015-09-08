@@ -153,7 +153,7 @@
         id_row = row.data()[0];
         id_satker = row.data()[1]+'.'+row.data()[2];
         managedata = "delsatker";
-        job=confirm("Anda yakin ingin menghapus data ini?\nJika dihapus maka akan menghapus seluruh sub divisi terkait dengan Satker");
+        job=confirm("Anda yakin ingin menghapus data ini?\nJika dihapus maka akan menghapus seluruh Sub Divisi terkait dengan Satker");
           if(job!=true){
             return false;
           }

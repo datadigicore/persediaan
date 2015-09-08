@@ -34,5 +34,21 @@ class modelDashboard extends mysql_db
    		$totalgudang = mysqli_num_rows($result4);
   		echo json_encode(array("sektor"=>$totalsektor,"satker"=>$totalsatker,"unit"=>$totalunit,"gudang"=>$totalgudang));
 	}
+	public function bacatahun()
+	{
+		$query = "select tahun, status from thn_aktif
+						order by tahun asc";
+        $result = $this->query($query);
+        echo '<option selected="selected">-- Pilih Tahun Anggaran --</option>';
+        while ($row = $this->fetch_array($result))
+		{
+			if ($row['status'] == "Aktif") {
+				echo '<option value="'.$row['tahun'].'">'.$row['tahun'].'&nbsp;&nbsp;&nbsp;'.$row['status']."</option>";
+			}
+			else{
+				echo '<option value="'.$row['tahun'].'">'.$row['tahun']."</option>";
+			}
+		}	
+	}
 }
 ?>

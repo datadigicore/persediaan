@@ -11,6 +11,10 @@ else
 	$manage = $_POST['manage'];
 	switch ($manage)
 	{
+		case 'checkkdsektor':
+			$kdsektor = urldecode($_POST['kdsektor']);
+			$Sektor->bacakdsektor($kdsektor);
+		break;
 		case 'addsektor':
 			$kdsektor = $purifier->purify($_POST['kdsektor']);
 			$nmsektor = $purifier->purify($_POST['nmsektor']);
