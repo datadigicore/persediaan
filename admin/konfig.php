@@ -12,12 +12,12 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Tambah Aktif
+            Konfigurasi SKPD
             <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-gear"></i> Tambah Aktif</a></li>
+            <li class="active"><a href="#"><i class="fa fa-gear"></i> Konfigurasi SKPD</a></li>
           </ol>
         </section>
         <section class="content">

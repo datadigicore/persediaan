@@ -52,6 +52,14 @@
                         <input type="text" name="email" class="form-control" id="email" placeholder="Masukkan Email">
                       </div>
                     </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Tahun</label>
+                      <div class="col-sm-9">
+                        <select name="tahun" id="tahun" class="form-control select2">
+                          <option selected="selected">-- Pilih Tahun --</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
                   <div class="box-footer" style="padding:0;">
                   </div>
@@ -146,6 +154,14 @@
       $(function () {
         $("li#user").addClass("active");
         $(".select2").select2();
+        $.ajax({
+          type: "post",
+          url: '../core/konfig/proseskonfigurasi',
+          data: {manage:'readthn'},
+          success: function (output) {     
+            $('#tahun').html(output);
+          }
+        });
         table = $("#example1").DataTable({
           "oLanguage": {
             "sInfoFiltered": ""

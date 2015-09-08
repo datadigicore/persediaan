@@ -132,6 +132,7 @@
       redirectURL = "sektor";
       id_row = row.data()[0];
       id_sektor = row.data()[1];
+      nm_sektor = row.data()[2];
       managedata = "delsektor";
       job=confirm("Anda yakin ingin menghapus data ini?\nJika dihapus maka akan menghapus seluruh Sub Divisi terkait dengan Sektor");
         if(job!=true){
@@ -146,7 +147,7 @@
           $.ajax({
             type: "post",
             url : "../core/sektor/prosessektor",
-            data: {manage:managedata,id:id_row,idsektor:id_sektor},
+            data: {manage:managedata,id:id_row,idsektor:id_sektor,nmsektor:nm_sektor},
             success: function(data)
             {
               $("#success-alert").alert();

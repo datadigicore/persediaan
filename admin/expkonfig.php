@@ -11,12 +11,12 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Tambah Aktif
+            Konfigurasi SKPD
             <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-gear"></i> Tambah Aktif</a></li>
+            <li class="active"><a href="#"><i class="fa fa-gear"></i> Export SKPD</a></li>
           </ol>
         </section>
         <section class="content">
@@ -25,7 +25,7 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-success">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tambah Tahun Aktif</h3>
+                  <h3 class="box-title">Export Konfigurasi SKPD</h3>
                 </div>  
                 <form action="../core/konfig/proseskonfigurasi" method="post" class="form-horizontal" id="addkonfig">
                   <div class="box-body">
