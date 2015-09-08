@@ -77,8 +77,8 @@ else
 				"user_id" => $user_id
 			);
 
-			print_r($data);
-			// $Opsik->tbh_opname($data);
+			// print_r($data);
+			$Opsik->tbh_opname($data);
 		break;		
 
 		case 'ubahopsik':
