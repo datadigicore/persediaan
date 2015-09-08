@@ -31,7 +31,7 @@
                     <div class="box-body">
                       <label class="col-sm-2 control-label">Sampai Dengan Tanggal</label>
                       <div class="col-sm-4">
-                        <input type="text" name="tgl_akhir" class="form-control" id="tgl_akhir" placeholder="">
+                        <input type="text" name="tgl_akhir" class="form-control" id="tgl_akhir" placeholder="" required>
                         </select>
                       </div>
                     </div> 
@@ -59,10 +59,10 @@
       $(function () {
         $("li#buku_brg").addClass("active");
         $('#tgl_awal').datepicker({
-          format: "yyyy/mm/dd"
+          format: "dd-mm-yy"
         });         
         $('#tgl_akhir').datepicker({
-          format: "yyyy/mm/dd"
+          format: "dd-mm-yy"
         });             
         $("li#mutasi_sedia").addClass("active");
 

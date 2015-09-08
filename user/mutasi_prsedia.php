@@ -31,14 +31,14 @@
                     <div class="box-body" id="awal">
                       <label class="col-sm-2 control-label">Tanggal Awal</label>
                       <div class="col-sm-4">
-                        <input type="text" name="tgl_awal" class="form-control" id="tgl_awal" placeholder="">
+                        <input type="text" name="tgl_awal" class="form-control" id="tgl_awal" placeholder="" required>
                         </select>
                       </div>
                     </div>   
                     <div class="box-body" id="akhir">
                       <label class="col-sm-2 control-label">Tanggal Akhir</label>
                       <div class="col-sm-4">
-                        <input type="text" name="tgl_akhir" class="form-control" id="tgl_akhir" placeholder="">
+                        <input type="text" name="tgl_akhir" class="form-control" id="tgl_akhir" placeholder="" required>
                         </select>
                       </div>
                     </div> 
