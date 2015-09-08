@@ -78,10 +78,10 @@
         
         $("li#buku_brg").addClass("active");
         $('#tgl_awal').datepicker({
-          format: "yyyy/mm/dd"
+          format: "dd-mm-yyyy"
         });         
         $('#tgl_akhir').datepicker({
-          format: "yyyy/mm/dd"
+          format: "dd-mm-yyyy"
         });             
         $("li#saldo_awal").addClass("active");
 

@@ -486,8 +486,12 @@ class modelReport extends mysql_db
         $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg'";
         $result_detail = $this->query($detail_brg);
         echo '<img src="../../dist/img/pekalongan.jpg" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
+        $this->getsatker($kd_lokasi);
+        $date = $this->cek_periode($data);
         $brg = $this->fetch_array($result_detail);
-        echo ' <p align="center">LAPORAN MUTASI BARANG PERSEDIAAN</p>
+        echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">LAPORAN MUTASI BARANG PERSEDIAAN</p>
+               <p align="center" style="margin:0px; padding:0px; font-weight:bold;">UNTUK PERIODE YANG BERAKHIR PADA '.$date.'</p>
+               <p align="center" style="margin:0px; padding:0px; font-weight:bold;">TAHUN ANGGARAN '.$thn_ang.'</p>
                 <br></br>
                 <table style="text-align: center; width: 90%; " align="center">
                 <tr>
@@ -523,7 +527,9 @@ class modelReport extends mysql_db
                               SELECT tgl_dok, thn_ang, kd_perk, nm_perk, total_harga, status_hapus, kd_lokasi from transaksi_masuk
                               UNION ALL
                               SELECT tgl_dok, thn_ang, kd_perk, nm_perk, total_harga, status_hapus, kd_lokasi from transaksi_keluar
-                             ) transaksi  where kd_lokasi='$kd_lokasi' and thn_ang>='$thn_ang_lalu' and status_hapus=0  GROUP BY kd_perk";
+                             ) transaksi  
+                              where kd_lokasi='$kd_lokasi' and thn_ang>='$thn_ang_lalu' and status_hapus=0 and tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'
+                              GROUP BY kd_perk";
                 $result = $this->query($sql);
                 $no=0;
                 $total=0;
@@ -557,7 +563,7 @@ class modelReport extends mysql_db
                 ob_end_clean();
                 //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
                 $mpdf->WriteHTML(utf8_encode($html));
-                $mpdf->Output($nama_dokumen.".pdf" ,'I');
+                $mpdf->Output("mutasi_persediaan.pdf" ,'I');
                 exit;
          }
 
@@ -916,6 +922,14 @@ class modelReport extends mysql_db
     return $tanggal;
 
 
+    }
+
+    public function konversi_tanggal($tgl)
+    {
+        $data_tgl = explode("-",$tgl);
+        $array = array($data_tgl[2],$data_tgl[1],$data_tgl[0]);
+        $tanggal = implode("/", $array );
+        return $tanggal;
     }
 
 }

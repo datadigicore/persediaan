@@ -17,8 +17,8 @@ else
 			$thn_ang = $purifier->purify($_SESSION['thn_ang']);
 			$bulan = $purifier->purify($_POST['bulan']);
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
-			$tgl_awal = $purifier->purify($_POST['tgl_awal']);
-			$tgl_akhir = $purifier->purify($_POST['tgl_akhir']);
+			$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
+			$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
 			$user_id= $_SESSION['username'];
 			$data = array(
 				"jenis"=>$jenis,
@@ -30,6 +30,7 @@ else
 				"kd_lokasi" => $_SESSION['kd_lok'],
 				"user_id" => $user_id
 			   );
+			// print_r($data);
 			$Report->buku_persediaan($data);
 		break;
 
@@ -38,7 +39,7 @@ else
 			$semester = explode("-",$purifier->purify($_POST['smt']));
 			$bln_awal = $semester[0];
 			$bln_akhir = $semester[1];
-			$tgl_akhir = $purifier->purify($_POST['tgl_akhir']);
+			$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
 			$thn_ang = $purifier->purify($_SESSION['thn_ang']);
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			$user_id= $_SESSION['username'];
@@ -59,8 +60,8 @@ else
 			$semester = explode("-",$purifier->purify($_POST['smt']));
 			$bln_awal = $semester[0];
 			$bln_akhir = $semester[1];
-			$tgl_awal = $purifier->purify($_POST['tgl_awal']);
-			$tgl_akhir = $purifier->purify($_POST['tgl_akhir']);
+			$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
+			$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
 			$thn_ang = $purifier->purify($_SESSION['thn_ang']);
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			$user_id= $_SESSION['username'];
@@ -80,8 +81,8 @@ else
 		case 'neraca':
 			$thn_ang = $purifier->purify($_SESSION['thn_ang']);
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
-			$tgl_awal = $purifier->purify($_POST['tgl_awal']);
-			$tgl_akhir = $purifier->purify($_POST['tgl_akhir']);
+			$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
+			$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
 			$user_id= $_SESSION['username'];
 			$data = array(
 			"jenis"=>"tanggal",
@@ -96,18 +97,20 @@ else
 		break;
 
 		case 'mutasi':
-			$tgl_awal = $purifier->purify($_POST['tgl_awal']);
-			$tgl_akhir = $purifier->purify($_POST['tgl_akhir']);
+			$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
+			$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
 			$thn_ang = $purifier->purify($_SESSION['thn_ang']);
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			$user_id= $_SESSION['username'];
 			$data = array(
+			"jenis" => "tanggal",
 			"thn_ang" => $thn_ang,
 			"kd_brg" => $kd_brg,
 			"tgl_awal" => $tgl_awal,
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $_SESSION['kd_lok'],
 			"user_id" => $user_id);
+			// print_r($data);
 			$Report->mutasi_prsedia($data);
 		break;
 
@@ -121,7 +124,7 @@ else
 
 			$thn_ang = $purifier->purify($_SESSION['thn_ang']);
 			$bulan = $purifier->purify($_POST['bulan']);
-			$tgl_awal = $purifier->purify($_POST['tgl_awal']);
+			$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
 			$tgl_akhir = $purifier->purify($_POST['tgl_akhir']);
 			$user_id= $_SESSION['username'];
 			$data = array(
