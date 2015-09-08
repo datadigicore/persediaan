@@ -580,7 +580,7 @@ class modelReport extends mysql_db
         $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi'";
         $result_detail = $this->query($detail_brg);
         $brg = $this->fetch_array($result_detail);
-
+        echo '<img src="../../dist/img/pekalongan.jpg" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
         echo ' 
                 <table style="text-align: center; width: 90%; " align="center">
                 <tr>
