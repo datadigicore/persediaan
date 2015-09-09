@@ -30,7 +30,7 @@
                   <div class="box-body">
                     <div class="form-group" style="margin-top:15px;">
                       <label class="col-sm-2 control-label">Kode Sektor</label>
-                      <div class="col-sm-9">
+                      <div class="col-sm-9" id="col-kodesektor">
                         <select name="kdsektor" id="kdsektor" class="form-control select2">
                           <option selected="selected">-- Pilih Kode Sektor --</option>
                         </select>
@@ -283,35 +283,72 @@
           }
         });
       });
-      $('#addsatker').submit(function(e){
-        $('#myModal').modal({
-          backdrop: 'static',
-          keyboard: false
-        });
-        $('#myModal').modal('show');
-        e.preventDefault();
-        redirectTime = "2600";
-        redirectURL = "satker";
-        var formURL = $(this).attr("action");
-        var addData = new FormData(this);
-        $.ajax({
-          type: "post",
-          data: addData,
-          url : formURL,
-          contentType: false,
-          cache: false,  
-          processData: false,
-          success: function(data)
+      (function($,W,D){
+        var JQUERY4U = {};
+        JQUERY4U.UTIL = {
+          setupFormValidation: function()
           {
-            $("#success-alert").alert();
-            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-            $("#success-alert").alert('close');
+            $("#addsatker").validate({
+              rules: {
+                kdsektor: "required",
+                kdsatker: {required  : true,
+                           number    : true,
+                           maxlength : 2,
+                           minlength : 2,
+                           remote    : { url  : "../core/satker/prosessatker",
+                                         type : "post",
+                                         data : {manage:"checkkdsatker"}
+                                       }
+                          },
+                nmsatker: "required"
+              },
+              messages: {
+                  kdsektor: { required  : "Masukkan Kode Sektor" },
+                  kdsatker: { required  : "Masukkan Kode Satker",
+                              number    : "Masukkan Angka",
+                              maxlength : "Maksimal 2 digit",
+                              minlength : "Minimal 2 digit",
+                              remote    : "Kode Satker telah terdaftar"},
+                  nmsatker: { required  : "Masukkan Nama Satker" }
+              },
+              submitHandler: function(form) {
+                $('#addsatker').submit(function(e){
+                  $('#myModal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                  });
+                  $('#myModal').modal('show');
+                  e.preventDefault();
+                  redirectTime = "2600";
+                  redirectURL = "satker";
+                  var formURL = $(this).attr("action");
+                  var addData = new FormData(this);
+                  $.ajax({
+                    type: "post",
+                    data: addData,
+                    url : formURL,
+                    contentType: false,
+                    cache: false,  
+                    processData: false,
+                    success: function(data)
+                    {
+                      $("#success-alert").alert();
+                      $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+                      $("#success-alert").alert('close');
+                      });
+                      setTimeout("location.href = redirectURL;",redirectTime); 
+                    }
+                  });
+                  return false;
+                });
+              }
             });
-            setTimeout("location.href = redirectURL;",redirectTime); 
           }
+        }
+        $(D).ready(function($) {
+            JQUERY4U.UTIL.setupFormValidation();
         });
-        return false;
-      });
+      })(jQuery, window, document);
     </script>
   </body>
 </html>

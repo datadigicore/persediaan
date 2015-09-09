@@ -11,6 +11,15 @@ else
 	$manage = $_POST['manage'];
 	switch ($manage)
 	{
+		case 'checkkdsatker':
+			$kdsektor = urldecode($_POST['kdsektor']);
+			$kdsatker = urldecode($_POST['kdsatker']);
+			$data = array(
+				"kodesektor" => $kdsektor,
+				"kodesatker" => $kdsatker
+			);
+			$Satker->bacakdsatker($data);
+		break;
 		case 'readsektor':
 			$tahun = $_SESSION['thn_ang'];
 			$Satker->bacasektor($tahun);

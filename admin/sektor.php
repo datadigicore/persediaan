@@ -75,8 +75,6 @@
     <?php include("include/loadjs.php"); ?>
     <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
-    <script src="../dist/js/jquery.validate.min.js"></script>
-    <script src="../dist/js/jquery-validate.bootstrap-tooltip.min.js"></script>
     <script type="text/javascript">
       var table;
       $(function () {

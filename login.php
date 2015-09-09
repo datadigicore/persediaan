@@ -35,7 +35,7 @@
           <div class="row">
             <div class="col-xs-8"> 
               <div class="form-group has-feedback">
-                <select id="thn_ang" name="thn_ang" class="form-control select2">
+                <select id="thn_ang" name="thn_anggi" class="form-control select2">
                   <option selected="selected">-- Pilih Tahun Anggaran --</option>
                 </select>
               </div>
@@ -77,11 +77,13 @@
             $("#login-form").validate({
               rules: {
                 username: "required",
-                password: "required"
+                password: "required",
+                thn_anggi: "required"
               },
               messages: {
                   username: { required: "Masukkan Username" },
-                  password: { required: "Masukkan Password" }
+                  password: { required: "Masukkan Password" },
+                  thn_anggi : { required: "Masukkan Tahun Anggaran" }
               },
               submitHandler: function(form) {
                 form.submit();

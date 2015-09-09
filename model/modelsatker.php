@@ -2,6 +2,21 @@
 include('../../utility/mysql_db.php');
 class modelSatker extends mysql_db
 {
+	public function bacakdsatker($data)
+	{
+		$kodesektor = $data['kodesektor'];
+		$kodesatker = $data['kodesatker'];
+		$query = "SELECT kodesatker FROM satker WHERE kode = '$kodesektor.$kodesatker' LIMIT 1;";
+		$result = $this->query($query);
+		print_r($query);
+	    $num = mysqli_num_rows($result);
+	    if($num == 0){
+	      $valid = "true";
+	    } else {
+	      $valid = "false";
+	    }
+	    echo $valid;
+	}	
 	public function bacasektor($data)
 	{
 		$query = "select kodesektor, namasatker from satker

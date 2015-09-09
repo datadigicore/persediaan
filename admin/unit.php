@@ -254,35 +254,72 @@
           });
         }
       });
-      $('#addunit').submit(function(e){
-        $('#myModal').modal({
-          backdrop: 'static',
-          keyboard: false
-        });
-        $('#myModal').modal('show');
-        e.preventDefault();
-        redirectTime = "2600";
-        redirectURL = "unit";
-        var formURL = $(this).attr("action");
-        var addData = new FormData(this);
-        $.ajax({
-          type: "post",
-          data: addData,
-          url : formURL,
-          contentType: false,
-          cache: false,  
-          processData: false,
-          success: function(data)
+      (function($,W,D){
+        var JQUERY4U = {};
+        JQUERY4U.UTIL = {
+          setupFormValidation: function()
           {
-            $("#success-alert").alert();
-            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-            $("#success-alert").alert('close');
+            $("#addunit").validate({
+              rules: {
+                kdsatker : "required",
+                kdunit   : {required  : true,
+                            number    : true,
+                            maxlength : 2,
+                            minlength : 2,
+                            remote    : { url  : "../core/unit/prosesunit",
+                                         type : "post",
+                                         data : {manage:"checkkdunit"}
+                                       }
+                           },
+                nmunit   : "required"
+              },
+              messages: {
+                  kdsatker: { required  : "Masukkan Kode Satker" },
+                  kdunit  : { required  : "Masukkan Kode Unit",
+                              number    : "Masukkan Angka",
+                              maxlength : "Maksimal 2 digit",
+                              minlength : "Minimal 2 digit",
+                              remote    : "Kode Unit telah terdaftar"},
+                  nmunit  : { required  : "Masukkan Nama Unit" }
+              },
+              submitHandler: function(form) {
+                $('#addunit').submit(function(e){
+                  $('#myModal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                  });
+                  $('#myModal').modal('show');
+                  e.preventDefault();
+                  redirectTime = "2600";
+                  redirectURL = "unit";
+                  var formURL = $(this).attr("action");
+                  var addData = new FormData(this);
+                  $.ajax({
+                    type: "post",
+                    data: addData,
+                    url : formURL,
+                    contentType: false,
+                    cache: false,  
+                    processData: false,
+                    success: function(data)
+                    {
+                      $("#success-alert").alert();
+                      $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+                      $("#success-alert").alert('close');
+                      });
+                      setTimeout("location.href = redirectURL;",redirectTime); 
+                    }
+                  });
+                  return false;
+                });
+              }
             });
-            setTimeout("location.href = redirectURL;",redirectTime); 
           }
+        }
+        $(D).ready(function($) {
+            JQUERY4U.UTIL.setupFormValidation();
         });
-        return false;
-      });
+      })(jQuery, window, document);
     </script>
   </body>
 </html>
