@@ -25,7 +25,7 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Edit Transaksi Masuk </h3>
                 </div>  
-                <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="edittransms">
+                <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="edittransmsk">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>
@@ -39,25 +39,25 @@
                     <div class="form-group">                     
                     <label class="col-sm-2 control-label">Nomor Bukti</label>
                       <div class="col-sm-8">
-                        <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor Bukti" value = '<?php echo $_GET["nbukti"]; ?>' >
+                        <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor Bukti" value = '<?php echo $_GET["nbukti"]; ?>' required >
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Dokumen</label>
                       <div class="col-sm-8">
-                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" value = '<?php echo $_GET["td"]; ?>'>
+                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" value = '<?php echo $_GET["td"]; ?>' required>
                       </div>
                     </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Buku</label>
                       <div class="col-sm-8">
-                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" value = '<?php echo $_GET["tbuku"]; ?>'>
+                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" value = '<?php echo $_GET["tbuku"]; ?>' required>
                       </div> 
                     </div>                   
                   <div class="form-group">
                       <label class="col-sm-2 control-label">Keterangan</label>
                       <div class="col-sm-8">
-                        <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Uraian / Keterangan" value = '<?php echo $_GET["ket"]; ?>'>
+                        <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Uraian / Keterangan" value = '<?php echo $_GET["ket"]; ?>' required>
                       </div>
                     </div>
                   <div class="form-group">
@@ -82,7 +82,7 @@
 
                   </div>
                   <div class="box-footer">
-                    <button type="Reset" class="btn btn-default">Reset</button>
+                    <!-- <button type="Reset" class="btn btn-default">Reset</button> -->
                     <button type="submit" class="btn btn-info pull-right">Submit</button>
                   </div>
                 </form>
@@ -103,10 +103,10 @@
       $(function () {
         $("li#trans_masuk").addClass("active");
         $('#tgl_dok').datepicker({
-          format: "yyyy/mm/dd"
+          format: "dd-mm-yyyy"
         });         
         $('#tgl_buku').datepicker({
-          format: "yyyy/mm/dd"
+          format: "dd-mm-yyyy"
         });             
         
 
@@ -114,7 +114,7 @@
 
 
 
-      $('#dittransmsk').submit(function(e){
+      $('#edittransmsk').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false

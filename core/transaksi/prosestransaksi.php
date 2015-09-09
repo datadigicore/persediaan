@@ -74,7 +74,7 @@ else
 			$kuantitas = $purifier->purify($_POST['jml_msk']);
 			$keterangan = $purifier->purify($_POST['keterangan']);
 			$hrg_sat = $purifier->purify($_POST['rph_sat']);
-			$status = 1;
+			$status = 0;
 			$user_id = $_SESSION['username'];
 			
 			
@@ -117,7 +117,7 @@ else
 			$kuantitas = $purifier->purify($_POST['jml_msk']);
 			$keterangan = $purifier->purify($_POST['keterangan']);
 			$hrg_sat = $purifier->purify($_POST['rph_sat']);
-			$status = 1;
+			$status = 0;
 			$user_id = $_SESSION['username'];
 			
 			$data = array(
@@ -161,7 +161,7 @@ else
 			$keterangan = $purifier->purify($_POST['keterangan']);
 			$hrg_sat = $purifier->purify($_POST['rph_sat']);
 
-			$status = 1;
+			$status = 0;
 			$user_id = $_SESSION['username'];
 			
 			
@@ -204,7 +204,7 @@ else
 			$kuantitas = $purifier->purify($_POST['jml_msk']);
 			$keterangan = $purifier->purify($_POST['keterangan']);
 			$hrg_sat = $purifier->purify($_POST['rph_sat']);
-			$status = 1;
+			$status = 0;
 			$user_id = $_SESSION['username'];
 			
 			
