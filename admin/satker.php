@@ -152,6 +152,8 @@
         redirectURL = "satker";
         id_row = row.data()[0];
         id_satker = row.data()[1]+'.'+row.data()[2];
+        nm_satker = row.data()[3];
+        alert(nm_satker);
         managedata = "delsatker";
         job=confirm("Anda yakin ingin menghapus data ini?\nJika dihapus maka akan menghapus seluruh Sub Divisi terkait dengan Satker");
           if(job!=true){
@@ -166,7 +168,7 @@
             $.ajax({
               type: "post",
               url : "../core/satker/prosessatker",
-              data: {manage:managedata,id:id_row,idsatker:id_satker},
+              data: {manage:managedata,id:id_row,idsatker:id_satker,nmsatker:nm_satker},
               success: function(data)
               {
                 $("#success-alert").alert();

@@ -92,5 +92,24 @@ class modelGudang extends mysql_db
         $result = $this->query($query);
 		return $result;
 	}
+	public function loghistory($data)
+	{
+		$kodesektor = $data['kd_sektor'];
+		$namasektor = $data['nm_sektor'];
+		$username = $data['username'];
+		$tanggal = $data['tanggal'];
+		$aksi = $data['aksi'];
+		$tahun = $data['tahun'];
+		$query = "INSERT into log_history
+        			set username='$username',
+                    	aksi='$aksi',
+                    	ket_kdsatker='$kodesektor',
+                    	ket_nmsatker='$namasektor',
+                    	keterangan='Tahun Anggaran $tahun',
+                    	thnanggaran='$tahun',
+                    	tanggal='$tanggal'";
+        $result = $this->query($query);
+		return $result;
+	}
 }
 ?>

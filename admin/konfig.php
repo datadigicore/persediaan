@@ -116,7 +116,7 @@
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btnakt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Aktifkan"><i class="fa fa-check-square-o"></i></button>'+
+                                  '<button id="btnakt" class="btn btn-info btn-sm daterange pull-left" data-toggle="tooltip" title="Aktifkan"><i class="fa fa-check-square-o"></i></button>'+
                                   '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
                                 '</div>',
              "targets": [4],"targets": 4 }
