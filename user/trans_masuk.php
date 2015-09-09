@@ -28,8 +28,8 @@
                 </div>
                 <div class="nav-tabs-custom">
                   <ul class="nav nav-tabs nav-justified">
-                    <li class="active"><a href="#tab_1" data-toggle="tab">Jenis Transaksi</a></li>
-                    <li><a href="#tab_2" data-toggle="tab">Keterangan Transaksi</a></li>
+                    <li class="active"><a href="#tab_1" data-toggle="tab">Identitas Transaksi</a></li>
+                    <li><a href="#tab_2" data-toggle="tab">Item Transaksi</a></li>
                   </ul>
                 </div>
                 <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="addtransmsk">
