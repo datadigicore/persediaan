@@ -160,6 +160,8 @@
       redirectTime = "2600";
       redirectURL = "gudang";
       id_row = row.data()[0];
+      id_gudang = row.data()[1]+'.'+row.data()[2]+'.'+row.data()[3]+'.'+row.data()[4];
+      nm_gudang = row.data()[5];
       managedata = "delgudang";
       job=confirm("Anda yakin ingin menghapus data ini?");
         if(job!=true){
@@ -174,7 +176,7 @@
           $.ajax({
             type: "post",
             url : "../core/gudang/prosesgudang",
-            data: {manage:managedata,id:id_row},
+            data: {manage:managedata,id:id_row,idgudang:id_gudang,nmgudang:nm_gudang},
             success: function(data)
             {
               $("#success-alert").alert();
