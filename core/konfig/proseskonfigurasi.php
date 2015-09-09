@@ -11,6 +11,10 @@ else
 	$manage = $_POST['manage'];
 	switch ($manage)
 	{
+		case 'checkthnaktif':
+			$thnaktif = urldecode($_POST['thnaktif']);
+			$Konfig->bacathnaktif($thnaktif);
+		break;
 		case 'readthn':
 			$Konfig->bacatahun();
 		break;

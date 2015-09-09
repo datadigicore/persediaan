@@ -2,6 +2,18 @@
 include('../../utility/mysql_db.php');
 class modelKonfigurasi extends mysql_db
 {
+    public function bacathnaktif($data)
+    {
+        $query = "SELECT tahun FROM thn_aktif WHERE tahun = '$data' LIMIT 1;";
+        $result = $this->query($query);
+        $num = mysqli_num_rows($result);
+        if($num == 0){
+          $valid = "true";
+        } else {
+          $valid = "false";
+        }
+        echo $valid;
+    }   
     public function bacatahun()
     {
         $query = "select tahun, status from thn_aktif

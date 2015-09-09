@@ -212,35 +212,68 @@
         });
         return false;
       });
-      $('#addkonfig').submit(function(e){
-        $('#myModal').modal({
-          backdrop: 'static',
-          keyboard: false
-        });
-        $('#myModal').modal('show');
-        e.preventDefault();
-        redirectTime = "2600";
-        redirectURL = "konfig";
-        var formURL = $(this).attr("action");
-        var addData = new FormData(this);
-        $.ajax({
-          type: "post",
-          data: addData,
-          url : formURL,
-          contentType: false,
-          cache: false,  
-          processData: false,
-          success: function(data)
+      (function($,W,D){
+        var JQUERY4U = {};
+        JQUERY4U.UTIL = {
+          setupFormValidation: function()
           {
-            $("#success-alert").alert();
-            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-            $("#success-alert").alert('close');
+            $("#addkonfig").validate({
+              rules: {
+                thnaktif: {required  : true,
+                           number    : true,
+                           maxlength : 4,
+                           minlength : 4,
+                           remote    : { url  : "../core/konfig/proseskonfigurasi",
+                                         type : "post",
+                                         data : {manage:"checkthnaktif"}
+                                       }
+                          }
+              },
+              messages: {
+                  thnaktif: { required  : "Masukkan Tahun Anggaran",
+                              number    : "Masukkan Angka",
+                              maxlength : "Maksimal 4 digit",
+                              minlength : "Minimal 4 digit",
+                              remote    : "Tahun Anggaran telah terdaftar"}
+              },
+              submitHandler: function(form) {
+                $('#addkonfig').submit(function(e){
+                  $('#myModal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                  });
+                  $('#myModal').modal('show');
+                  e.preventDefault();
+                  redirectTime = "2600";
+                  redirectURL = "konfig";
+                  var formURL = $(this).attr("action");
+                  var addData = new FormData(this);
+                  $.ajax({
+                    type: "post",
+                    data: addData,
+                    url : formURL,
+                    contentType: false,
+                    cache: false,  
+                    processData: false,
+                    success: function(data)
+                    {
+                      $("#success-alert").alert();
+                      $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+                      $("#success-alert").alert('close');
+                      });
+                      setTimeout("location.href = redirectURL;",redirectTime); 
+                    }
+                  });
+                  return false;
+                });
+              }
             });
-            setTimeout("location.href = redirectURL;",redirectTime); 
           }
+        }
+        $(D).ready(function($) {
+            JQUERY4U.UTIL.setupFormValidation();
         });
-        return false;
-      });
+      })(jQuery, window, document);
     </script>
   </body>
 </html>
