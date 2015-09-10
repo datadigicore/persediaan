@@ -18,7 +18,7 @@ class modelReport extends mysql_db
         $kd_lokasi = $data['kd_lokasi'];
         $thn_ang = $data['thn_ang'];
 
-        $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi'";
+        $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg' and kd_lokasi like '{$kd_lokasi}%' ";
         $result_detail = $this->query($detail_brg);
         $brg = $this->fetch_array($result_detail);
         echo '<img src="../../dist/img/pekalongan.jpg" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
@@ -61,7 +61,7 @@ class modelReport extends mysql_db
                                     FROM transaksi_masuk 
                                     where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
                                      AND kd_brg='$kd_brg' 
-                                     and kd_lokasi='$kd_lokasi'  
+                                     and kd_lokasi like '{$kd_lokasi}%'   
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
                                      union all 
@@ -69,7 +69,7 @@ class modelReport extends mysql_db
                                      FROM transaksi_keluar 
                                      where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
                                      AND kd_brg='$kd_brg' 
-                                     and kd_lokasi='$kd_lokasi'  
+                                     and kd_lokasi like '{$kd_lokasi}%'   
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
  
@@ -82,7 +82,7 @@ class modelReport extends mysql_db
                                     FROM transaksi_masuk 
                                     where month(tgl_dok)='$bulan' 
                                      AND kd_brg='$kd_brg' 
-                                     and kd_lokasi='$kd_lokasi'  
+                                     and kd_lokasi like '{$kd_lokasi}%'   
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
                                      union all 
@@ -90,7 +90,7 @@ class modelReport extends mysql_db
                                      FROM transaksi_keluar 
                                      where month(tgl_dok)='$bulan'  
                                      AND kd_brg='$kd_brg' 
-                                     and kd_lokasi='$kd_lokasi'  
+                                     and kd_lokasi like '{$kd_lokasi}%'   
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
  
@@ -103,7 +103,7 @@ class modelReport extends mysql_db
                                     FROM transaksi_masuk 
                                     where year(tgl_dok)='$thn_ang'  
                                      AND kd_brg='$kd_brg' 
-                                     and kd_lokasi='$kd_lokasi'  
+                                     and kd_lokasi like '{$kd_lokasi}%'   
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
                                      
@@ -112,7 +112,7 @@ class modelReport extends mysql_db
                                      FROM transaksi_keluar 
                                      where year(tgl_dok)='$thn_ang'  
                                      AND kd_brg='$kd_brg' 
-                                     and kd_lokasi='$kd_lokasi'  
+                                     and kd_lokasi like '{$kd_lokasi}%'  
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
  
@@ -172,7 +172,7 @@ class modelReport extends mysql_db
         $kd_lokasi = $data['kd_lokasi'];
         $date = $this->cek_periode($data);
 
-        $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi'";
+        $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg' and kd_lokasi like '{$kd_lokasi}%' ";
         $result_detail = $this->query($detail_brg);
         $brg = $this->fetch_array($result_detail);
         echo '<img src="../../dist/img/pekalongan.jpg" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
@@ -196,7 +196,7 @@ class modelReport extends mysql_db
                           UNION ALL
                           SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_dok from transaksi_keluar)
                           transaksi 
-                            where tgl_dok <= '$tgl_akhir' and kd_lokasi='$kd_lokasi' AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
+                            where tgl_dok <= '$tgl_akhir' and kd_lokasi like '{$kd_lokasi}%'  AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
                     $result = $this->query($sql);
                 }
                 elseif($jenis=="semester")
@@ -206,7 +206,7 @@ class modelReport extends mysql_db
                           UNION ALL
                           SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_dok from transaksi_keluar)
                           transaksi 
-                            where month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' and kd_lokasi='$kd_lokasi' AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
+                            where month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' and kd_lokasi like '{$kd_lokasi}%'  AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
                     $result = $this->query($sql);
                 }
                 else
@@ -216,7 +216,7 @@ class modelReport extends mysql_db
                           UNION ALL
                           SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang from transaksi_keluar)
                           transaksi  
-                          where kd_lokasi='$kd_lokasi' AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
+                          where kd_lokasi like '{$kd_lokasi}%'  AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
                     $result = $this->query($sql);
                 }
                 $no=0;
@@ -285,7 +285,7 @@ class modelReport extends mysql_db
         echo '<img src="../../dist/img/pekalongan.jpg" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
         $this->getsatker($kd_lokasi);
         $date = $this->cek_periode($data);
-        $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi'";
+        $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg' and kd_lokasi like '{$kd_lokasi}%' ";
         $result_detail = $this->query($detail_brg);
         $brg = $this->fetch_array($result_detail);
         echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">LAPORAN MUTASI BARANG PERSEDIAAN</p>
@@ -324,7 +324,7 @@ class modelReport extends mysql_db
                                     UNION ALL
                                     SELECT thn_ang,tgl_dok, kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_keluar
                                     ) transaksi
-                                    where  kd_lokasi='$kd_lokasi' and thn_ang>='$thn_ang_lalu' and status_hapus=0
+                                    where  kd_lokasi like '{$kd_lokasi}%'  and thn_ang>='$thn_ang_lalu' and status_hapus=0
                                     GROUP by kd_brg";
                 $result = $this->query($sql);
                 }
@@ -341,7 +341,7 @@ class modelReport extends mysql_db
                                     UNION ALL
                                     SELECT thn_ang,tgl_dok, kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_keluar
                                     ) transaksi
-                                    where  kd_lokasi='$kd_lokasi' and thn_ang>='$thn_ang_lalu' and status_hapus=0
+                                    where  kd_lokasi like '{$kd_lokasi}%'  and thn_ang>='$thn_ang_lalu' and status_hapus=0
                                     GROUP by kd_brg";
                 $result = $this->query($sql);
                 }
@@ -358,7 +358,7 @@ class modelReport extends mysql_db
                                     UNION ALL
                                     SELECT thn_ang,kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_keluar
                                     ) transaksi
-                                    where  kd_lokasi='$kd_lokasi' and thn_ang>='$thn_ang_lalu' and status_hapus=0
+                                    where  kd_lokasi like '{$kd_lokasi}%'  and thn_ang>='$thn_ang_lalu' and status_hapus=0
                                     GROUP by kd_brg";
                 $result = $this->query($sql);
                 }
@@ -444,7 +444,7 @@ class modelReport extends mysql_db
                                     SELECT tgl_dok, thn_ang, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_masuk
                                     UNION ALL
                                     SELECT tgl_dok,thn_ang, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_keluar
-                                    ) transaksi where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and status_hapus=0  and tgl_dok<='$tgl_akhir' GROUP BY kd_perk";
+                                    ) transaksi where kd_lokasi like '{$kd_lokasi}%'  and thn_ang='$thn_ang' and status_hapus=0  and tgl_dok<='$tgl_akhir' GROUP BY kd_perk";
                 $result = $this->query($sql);
                 $no=0;
                 $total=0;
@@ -528,7 +528,7 @@ class modelReport extends mysql_db
                               UNION ALL
                               SELECT tgl_dok, thn_ang, kd_perk, nm_perk, total_harga, status_hapus, kd_lokasi from transaksi_keluar
                              ) transaksi  
-                              where kd_lokasi='$kd_lokasi' and thn_ang>='$thn_ang_lalu' and status_hapus=0 and tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'
+                              where kd_lokasi like '{$kd_lokasi}%'  and thn_ang>='$thn_ang_lalu' and status_hapus=0 and tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'
                               GROUP BY kd_perk";
                 $result = $this->query($sql);
                 $no=0;
@@ -583,7 +583,7 @@ class modelReport extends mysql_db
         $thn_ang = $data['thn_ang'];
         $kd_lokasi = $data['kd_lokasi'];
 
-        $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi'";
+        $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg' and kd_lokasi like '{$kd_lokasi}%' ";
         $result_detail = $this->query($detail_brg);
         $brg = $this->fetch_array($result_detail);
         echo '<img src="../../dist/img/pekalongan.jpg" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
@@ -631,7 +631,7 @@ class modelReport extends mysql_db
                                         where 
                                             tgl_dok >= '$tgl_awal' and 
                                             tgl_dok <= '$tgl_akhir' and 
-                                            kd_lokasi='$kd_lokasi' AND 
+                                            kd_lokasi like '{$kd_lokasi}%'  AND 
                                             thn_ang='$thn_ang' and
                                             status_hapus = 0 and
                                             jns_trans='$kd_trans' 
@@ -656,7 +656,7 @@ class modelReport extends mysql_db
                                         ) transaksi
                                         where 
                                             month(tgl_dok)='$bulan' and 
-                                            kd_lokasi='$kd_lokasi' AND 
+                                            kd_lokasi like '{$kd_lokasi}%'  AND 
                                             thn_ang='$thn_ang' AND
                                             status_hapus = 0 and
                                             jns_trans='$kd_trans' 
@@ -682,7 +682,7 @@ class modelReport extends mysql_db
                                         ) transaksi 
                                         where 
                                             thn_ang='$thn_ang' and
-                                            kd_lokasi='$kd_lokasi' and
+                                            kd_lokasi like '{$kd_lokasi}%'  and
                                             status_hapus = 0 and
                                             jns_trans='$kd_trans'
                                         GROUP BY kd_brg
@@ -814,12 +814,12 @@ class modelReport extends mysql_db
         }
 
 
-        $query_rusak = "SELECT sum(total_harga) as saldo_rusak from transaksi_keluar where kd_lokasi='$kd_lokasi' and jns_trans='K03' and status_hapus=0";
+        $query_rusak = "SELECT sum(total_harga) as saldo_rusak from transaksi_keluar where kd_lokasi like '{$kd_lokasi}%'  and jns_trans='K03' and status_hapus=0";
         $result_rusak = $this->query($query_rusak);
         $data_rusak = $this->fetch_array($result_rusak);
         $saldo_rusak = 0 +$data_rusak['saldo_rusak'];        
 
-        $query_usang = "SELECT sum(total_harga) as saldo_usang from transaksi_keluar where kd_lokasi='$kd_lokasi' and jns_trans='K02' and status_hapus=0";
+        $query_usang = "SELECT sum(total_harga) as saldo_usang from transaksi_keluar where kd_lokasi like '{$kd_lokasi}%'  and jns_trans='K02' and status_hapus=0";
         $result_usang = $this->query($query_usang);
         $data_usang = $this->fetch_array($result_usang);
         $saldo_usang = 0+$data_usang['saldo_usang'];

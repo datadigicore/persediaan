@@ -9,6 +9,10 @@ class modelOpsik extends mysql_db
         $query_hapus = "update opname set status_hapus=1  
                         where id= '$id_masuk' ";
         $result_hapus = $this->query($query_hapus);
+
+        $update_status = "update transaksi_masuk set status=0  
+                        where id= '$id_masuk' ";
+        $result_hapus = $this->query($query_hapus);
     }
 
     function konversi_tanggal($tgl)
@@ -103,15 +107,17 @@ class modelOpsik extends mysql_db
                     nm_perk='$nm_perk',
                     satuan='$satuan',
                     qty='$kuantitas',
-                    harga_sat='$harga_sat',
+                    harga_sat='$hrg_sat',
                     total_harga='$total_harga',
                     keterangan='$keterangan',
                     status=0,
                     tgl_update=CURDATE(),
                     user_id='$user_id'";   
-        $result = $this->query($query);     
-        return $result;
+        $result = $this->query($query);  
 
+$jml_brg = $data_hrg['qty'];     
+$selisih = $kuantitas - $jml_brg;
+$selisih_total_harga = ($selisih*$hrg_sat)+$sisabagi;
 if($selisih>0)
         {
             $query_masuk = "Insert into transaksi_masuk
@@ -178,6 +184,10 @@ if($selisih>0)
         }
      
 
+        $update_brg = "update transaksi_masuk set  status=1 where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 ";
+        $result_upd = $this->query($update_brg);
+        $update_brg_klr = "update transaksi_keluar set  status=1 where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 ";
+        $result_upd_klr = $this->query($update_brg_klr);
 
 
 
