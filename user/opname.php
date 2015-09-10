@@ -155,7 +155,7 @@
       redirectTime = "2600";
       redirectURL = "opname";
       id_row = row.data()[0];
-      managedata = "hapusTransKeluar";
+      managedata = "hapusOpname";
       job=confirm("Anda yakin ingin menghapus data ini?");
         if(job!=true){
           return false;
@@ -168,7 +168,7 @@
           $('#myModal').modal('show');
           $.ajax({
             type: "post",
-            url : "../core/transaksi/prosestransaksi",
+            url : "../core/opsik/prosesopsik",
             data: {manage:managedata,id:id_row},
             success: function(data)
             {
@@ -225,7 +225,7 @@
           });
         }
       });
-      $('#addtransmsk').submit(function(e){
+      $('#addtransm').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false

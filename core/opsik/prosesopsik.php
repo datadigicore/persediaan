@@ -104,28 +104,23 @@ else
 			$Opsik->ubahopsik($data);
 		break;
 
-		case 'hapusopsik':
-			$thnang = $purifier->purify($_POST['thnang']);
-			$kdlokasi = $purifier->purify($_POST['kdlokasi']);
-			$kdbrg = $purifier->purify($_POST['kdbrg']);
-			$tglbuku = $purifier->purify($_POST['tgldok']);
-			$nodok = $purifier->purify($_POST['nodok']);
-			$nobukti = $purifier->purify($_POST['nobukti']);
-			$kuantitas = $purifier->purify($_POST['kuantitas']);
-			$rphsat = $purifier->purify($_POST['srphsat']);
+		case 'hapusOpname':
+			$id = $purifier->purify($_POST['id']);
+			$user_id = $_SESSION['username'];
+			$kd_lokasi = $_SESSION['kd_lok'];
+			$nm_satker = $_SESSION['nama_satker'];
+			$thn_ang = $_SESSION['thn_ang'];
 
 			$data = array(
-				"thn_ang" => $thang,
-				"kd_lokasi" => $kdlokasi,
-				"kd_brg" => $kdbrg,
-				"tglbuku" => $tglbuku,
-				"nodok" => $nodok,
-				"no_bukti" => $nobukti,
-		    	"kuantitas" => $kuantitas,
-		    	"rph_sat" => $rphsat
-		    );
-			$Opsik->hapusopsik($data);
-		break;
+				"id" => $id,
+				"kd_lokasi" => $kd_lokasi,
+				"nm_satker" => $nm_satker,
+				"thn_ang" => $thn_ang,
+				"user_id" => $user_id
+			);
+
+			$Opsik->hapus_opname($data);
+		break;	
 		default:
 			echo "Error Data Tidak Tersedia";
 		break;
