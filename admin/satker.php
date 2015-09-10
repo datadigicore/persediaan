@@ -153,7 +153,6 @@
         id_row = row.data()[0];
         id_satker = row.data()[1]+'.'+row.data()[2];
         nm_satker = row.data()[3];
-        alert(nm_satker);
         managedata = "delsatker";
         job=confirm("Anda yakin ingin menghapus data ini?\nJika dihapus maka akan menghapus seluruh Sub Divisi terkait dengan Satker");
           if(job!=true){
@@ -294,11 +293,7 @@
                 kdsatker: {required  : true,
                            number    : true,
                            maxlength : 2,
-                           minlength : 2,
-                           remote    : { url  : "../core/satker/prosessatker",
-                                         type : "post",
-                                         data : {manage:"checkkdsatker"}
-                                       }
+                           minlength : 2
                           },
                 nmsatker: "required"
               },
@@ -307,8 +302,7 @@
                   kdsatker: { required  : "Masukkan Kode Satker",
                               number    : "Masukkan Angka",
                               maxlength : "Maksimal 2 digit",
-                              minlength : "Minimal 2 digit",
-                              remote    : "Kode Satker telah terdaftar"},
+                              minlength : "Minimal 2 digit"},
                   nmsatker: { required  : "Masukkan Nama Satker" }
               },
               submitHandler: function(form) {

@@ -16,12 +16,6 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
---
--- Database: `persediaan_v3`
---
-CREATE DATABASE IF NOT EXISTS `persediaan_v3` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `persediaan_v3`;
-
 -- --------------------------------------------------------
 
 --

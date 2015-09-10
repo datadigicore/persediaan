@@ -251,11 +251,7 @@
                 kdgudang   : {required  : true,
                             number    : true,
                             maxlength : 2,
-                            minlength : 2,
-                            remote    : { url  : "../core/gudang/prosesgudang",
-                                         type : "post",
-                                         data : {manage:"checkkdgudang"}
-                                       }
+                            minlength : 2
                            },
                 nmgudang   : "required"
               },
@@ -264,8 +260,7 @@
                   kdgudang  : { required  : "Masukkan Kode Gudang",
                               number    : "Masukkan Angka",
                               maxlength : "Maksimal 2 digit",
-                              minlength : "Minimal 2 digit",
-                              remote    : "Kode Gudang telah terdaftar"},
+                              minlength : "Minimal 2 digit"},
                   nmgudang  : { required  : "Masukkan Nama Gudang" }
               },
               submitHandler: function(form) {

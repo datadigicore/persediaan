@@ -265,11 +265,7 @@
                 kdunit   : {required  : true,
                             number    : true,
                             maxlength : 2,
-                            minlength : 2,
-                            remote    : { url  : "../core/unit/prosesunit",
-                                         type : "post",
-                                         data : {manage:"checkkdunit"}
-                                       }
+                            minlength : 2
                            },
                 nmunit   : "required"
               },
@@ -278,8 +274,7 @@
                   kdunit  : { required  : "Masukkan Kode Unit",
                               number    : "Masukkan Angka",
                               maxlength : "Maksimal 2 digit",
-                              minlength : "Minimal 2 digit",
-                              remote    : "Kode Unit telah terdaftar"},
+                              minlength : "Minimal 2 digit"},
                   nmunit  : { required  : "Masukkan Nama Unit" }
               },
               submitHandler: function(form) {
