@@ -24,12 +24,14 @@ else
 			$email = $purifier->purify($_POST['email']);
 			$kdgudang = $purifier->purify($_POST['kdunitgudang']);
 			$urgudang = $purifier->purify($_POST['urgudangh']);
+			$tahun = $purifier->purify($_POST['tahun']);
 			$data = array(
 				"user_name" => $user_name,
 				"user_pass" => $user_pass,
 				"user_email" => $email,
 		    	"kd_satker" => $kdgudang,
-		    	"nm_satker" => $urgudang
+		    	"nm_satker" => $urgudang,
+		    	"tahun" => $tahun
 		    );
 			$User->tambahuser($data);
 		break;

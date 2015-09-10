@@ -174,13 +174,15 @@ class modelUser extends mysql_db
         $user_email = $data['user_email'];
         $kd_satker= $data['kd_satker'];
         $nm_satker= $data['nm_satker'];
+        $tahun= $data['tahun'];
 		$user_level = 2;
 		$query = "Insert into user
         			set user_name='$user_name',
                     user_pass='$user_pass',
                     user_email='$user_email',
                     kd_lokasi='$kd_satker',
-        			nm_satker='$nm_satker',
+                    nm_satker='$nm_satker',
+        			tahun='$tahun',
                     user_level='$user_level'";
         $result = $this->query($query);
 		return $result;
