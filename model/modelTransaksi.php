@@ -638,7 +638,7 @@ class modelTransaksi extends mysql_db
   
     public function bacabrg($data)
     {
-        $query = "select kd_brg, nm_brg from persediaan where kd_lokasi='$data'";
+        $query = "select kd_brg, nm_brg from persediaan where kd_lokasi like '{$data}%'";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         while ($row = $this->fetch_array($result))
@@ -651,7 +651,7 @@ class modelTransaksi extends mysql_db
     {
         $kd_lokasi = $data['kd_lokasi'];
         $thn_ang = $data['thn_ang'];
-        $query = "select kd_brg, nm_brg FROM transaksi_masuk where kd_lokasi = '$kd_lokasi' and status_hapus=0  and thn_ang = '$thn_ang' and status=0 GROUP BY kd_brg ORDER BY nm_brg ASC ";
+        $query = "select kd_brg, nm_brg FROM transaksi_masuk where kd_lokasi = '$kd_lokasi' and status_hapus=0  and thn_ang = '$thn_ang' GROUP BY kd_brg ORDER BY nm_brg ASC ";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         while ($row = $this->fetch_array($result))
@@ -722,18 +722,37 @@ class modelTransaksi extends mysql_db
         
     }
 
-   public function cek_hapus($data)
+   public function cek_brg_keluar($data)
    {
+
+       $kd_lokasi = $data['kd_lokasi'];
+       $id_masuk = $data['id_masuk'];
+       $query_cek = "SELECT status from transaksi_keluar where id='$id_masuk'";
+       $result = $this->query($query_cek);
+       $cek= $this->fetch_array($result);
+       $status = $cek["status"];
+   
+       echo json_encode(array("st_op"=>$status));
+    }   
+
+    public function cek_brg_masuk($data)
+    {
 
        $kd_lokasi = $data['kd_lokasi'];
        $id_masuk = $data['id_masuk'];
 
 
-       $query_cek = "SELECT tgl_dok,qty,satuan from transaksi_keluar where kd_lokasi='$kd_lokasi' and id_masuk='$id_masuk' and status_hapus=0";
+       $query_cek = "SELECT tgl_dok,qty,satuan,status from transaksi_keluar where kd_lokasi='$kd_lokasi' and id_masuk='$id_masuk'";
        $result = $this->query($query_cek);
        $cek= $this->fetch_array($result);
+       $jumlah = abs($cek["qty"]);
+
+       $query_cek_opname = "SELECT status from transaksi_masuk where kd_lokasi='$kd_lokasi' and id='$id_masuk'";
+       $result_cek_opname = $this->query($query_cek_opname);
+       $cek_opname= $this->fetch_array($result_cek_opname);
+       $status = $cek_opname["status"];
    
-       echo json_encode(array("tgl_dok"=>$cek["tgl_dok"], "qty"=>$cek["qty"],"satuan"=>$cek["satuan"]));
+       echo json_encode(array("tgl_dok"=>$cek["tgl_dok"], "qty"=>$jumlah,"satuan"=>$cek["satuan"],"st_op"=>$status));
     }
     
     public function konversi_tanggal($tgl)

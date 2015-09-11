@@ -5,6 +5,17 @@ require(_MPDF_PATH."mpdf.php");
 
 class modelReport extends mysql_db
 {
+    public function baca_satker($kd_lokasi)
+    {
+      $query = "select kode, NamaSatker from satker where kode like '{$kd_lokasi}%'";
+        $result = $this->query($query);
+        echo '<option value="">-- Pilih Kode Satker --</option>';
+      while ($row = $this->fetch_array($result))
+      {
+        echo '<option value="'.$row['kode'].'">'.$row['kode'].'        '.$row['NamaSatker']."</option>";
+      } 
+    }
+
     public function buku_persediaan($data)
     {
         $mpdf=new mPDF('utf-8', 'A4-L');

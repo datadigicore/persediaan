@@ -26,14 +26,24 @@ else
 			$Transaksi->baca_persediaan_masuk($data);
 		break;
 
-		case 'cek_hapus':
+		case 'cek_brg_masuk':
 			$kd_lokasi = $_SESSION['kd_lok'];
 			$id_masuk = $purifier->purify($_POST['id_row']);
 			$data = array(
 				"kd_lokasi" => $kd_lokasi,
 				"id_masuk" => $id_masuk
 				);
-			$Transaksi->cek_hapus($data);
+			$Transaksi->cek_brg_masuk($data);
+		break;			
+
+		case 'cek_brg_keluar':
+			$kd_lokasi = $_SESSION['kd_lok'];
+			$id_masuk = $purifier->purify($_POST['id_row']);
+			$data = array(
+				"kd_lokasi" => $kd_lokasi,
+				"id_masuk" => $id_masuk
+				);
+			$Transaksi->cek_brg_keluar($data);
 		break;		
 
 		case 'baca_detil_trans':

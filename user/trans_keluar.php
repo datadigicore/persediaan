@@ -99,7 +99,7 @@
                         <div class="form-group">
                           <label class="col-sm-2 control-label">Saldo Barang</label>
                           <div class="col-sm-9">
-                            <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="Saldo Barang" readonly>
+                            <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="Saldo Barang" readonly required>
                           </div>
                         </div>                  
                         <div name="detil_transaksi" id="detil_transaksi">
@@ -190,31 +190,50 @@
       redirectURL = "trans_keluar";
       id_row = row.data()[0];
       managedata = "hapusTransKeluar";
-      job=confirm("Anda yakin ingin menghapus data ini?");
-        if(job!=true){
-          return false;
-        }
-        else{
-          $('#myModal').modal({
-            backdrop: 'static',
-            keyboard: false
-          });
-          $('#myModal').modal('show');
-          $.ajax({
-            type: "post",
-            url : "../core/transaksi/prosestransaksi",
-            data: {manage:managedata,id:id_row},
-            success: function(data)
+
+      $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'cek_brg_keluar',id_row:id_row},
+          dataType: "json",
+          success: function (output)
+          {
+            if(output.st_op==1)
             {
-              $("#success-alert").alert();
-              $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-              $("#success-alert").alert('close');
-              });
-              setTimeout("location.href = redirectURL;",redirectTime); 
+              alert("Tidak Dapat Menghapus Barang yang sudah diopname !");
+              return false;
             }
-          });
-          return false;
-        }
+            else
+            {
+
+              job=confirm("Anda yakin ingin menghapus data ini?");
+                if(job!=true){
+                  return false;
+                }
+                else{
+                  $('#myModal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                  });
+                  $('#myModal').modal('show');
+                  $.ajax({
+                    type: "post",
+                    url : "../core/transaksi/prosestransaksi",
+                    data: {manage:managedata,id:id_row},
+                    success: function(data)
+                    {
+                      $("#success-alert").alert();
+                      $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+                      $("#success-alert").alert('close');
+                      });
+                      setTimeout("location.href = redirectURL;",redirectTime); 
+                    }
+                  });
+                  return false;
+                }
+              }
+          }
+        });
       });
        $.ajax({
           type: "post",

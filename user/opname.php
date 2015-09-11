@@ -26,12 +26,12 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah  Hasil Opname Fisik </h3>
                 </div>  
-                <form action="../core/opsik/prosesopsik" method="post" class="form-horizontal" id="addtransms">
+                <form action="../core/opsik/prosesopsik" method="post" class="form-horizontal" id="addtransmsk">
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>
                       <div class="col-sm-9">
-                        <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="Masukkan No. Dokumen">
+                        <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="Masukkan No. Dokumen" required>
                         <input type="hidden" name="manage" value="tbh_opname">  
                         <input type="hidden" name="jenis_trans" value="P01">  
                       </div>
@@ -39,25 +39,25 @@
                     <div class="form-group">                     
                     <label class="col-sm-2 control-label">Nomor Bukti</label>
                       <div class="col-sm-9">
-                        <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor BUkti">
+                        <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor BUkti" required>
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Dokumen</label>
                       <div class="col-sm-9">
-                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen">
+                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" required>
                       </div>
                     </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Buku</label>
                       <div class="col-sm-9">
-                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku">
+                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" required>
                       </div> 
                     </div>                   
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Keterangan</label>
                       <div class="col-sm-9">
-                        <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Keterangan">
+                        <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Keterangan" required>
                       </div>
                     </div>
                     <div class="form-group">
@@ -70,7 +70,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Jumlah</label>
                       <div class="col-sm-9">
-                        <input type="number" min="1" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Keluar">
+                        <input type="number" min="0" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Hasil Opname">
                       </div>
                     </div>
                     <div name="detil_transaksi" id="detil_transaksi">
@@ -97,7 +97,7 @@
                         <th>Jumlah</th>
                         <th>Total</th>
                         <th>Keterangan</th>
-                        <th width="6%">Aksi</th>
+                        <!-- <th width="6%">Aksi</th> -->
                       </tr>
                     </thead>
                   </table>
@@ -137,14 +137,14 @@
             {"targets": 3 },
             {"targets": 4 },
             {"targets": 5 },
-            {"targets": 6 },
-            {"orderable": false,
-             "data": null,
-             "defaultContent":  '<div class="box-tools">'+
+            {"targets": 6 }
+            // {"orderable": false,
+            //  "data": null,
+            //  "defaultContent":  '<div class="box-tools">'+
                                   
-                                  '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
-                                '</div>',
-             "targets": [7],"targets": 7 }         
+            //                       '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+            //                     '</div>',
+            //  "targets": [7],"targets": 7 }         
 
           ],
         });
@@ -225,7 +225,17 @@
           });
         }
       });
-      $('#addtransm').submit(function(e){
+
+      $('#addtransmsk').submit(function(e){
+        var brg = document.getElementById("kd_brg").value;
+        var jml = document.getElementById("jml_msk").value;
+
+        job=confirm("Setelah memasukan opname, penghapusan transaksi masuk dan keluar tidak dapat dilakukan kembali.\n Data Opname tidak dapat diubah atau dihapus kembali.\n\nAnda Yakin Menambah Opname berikut ini?\nKode Persediaan : "+brg+"\nJumlah : "+jml);
+        if(job!=true){
+          return false;
+        }
+        else
+        {
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
@@ -253,6 +263,7 @@
           }
         });
         return false;
+      }
       });
     </script>
   </body>

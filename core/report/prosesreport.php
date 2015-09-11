@@ -12,7 +12,13 @@ else
 	$manage = $_POST['manage'];
 	switch ($manage)
 	{
+		case 'baca_satker':
+		$kd_lokasi= $_SESSION['kd_lok'];
+		$Report->baca_satker($kd_lokasi);
+		break;
+		
 		case 'buku_persediaan':
+			$kd_lokasi = $purifier->purify($_POST['satker']);
 			$jenis = $purifier->purify($_POST['jenis']);
 			$thn_ang = $purifier->purify($_SESSION['thn_ang']);
 			$bulan = $purifier->purify($_POST['bulan']);
@@ -27,7 +33,7 @@ else
 				"thn_ang" => $thn_ang,
 				"tgl_awal" => $tgl_awal,
 				"tgl_akhir" => $tgl_akhir,
-				"kd_lokasi" => $_SESSION['kd_lok'],
+				"kd_lokasi" => $kd_lokasi,
 				"user_id" => $user_id
 			   );
 			// print_r($data);

@@ -204,22 +204,55 @@
       $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
-          data: {manage:'cek_hapus',id_row:id_row},
+          data: {manage:'cek_brg_masuk',id_row:id_row},
           dataType: "json",
-          success: function (output)
-          {
-            if(output.qty!=null)
+          success: function (output) {
+            if(output.st_op==1)
             {
-              alert("Tidak dapat mengkoreksi transaksi, barang sudah dikeluarkan pada tanggal "+output.tgl_dok+" sebanyak "+output.qty+" "+output.satuan);
+              alert("Tidak Dapat Menghapus Barang yang sudah diopname !");
               return false;
             }
-          
-            else
-            {        
-              document.location.href = 'edit_trans_masuk?kd='+id_row+'&nd='+nd+'&td='+td+'&ket='+ket+'&nbrg='+nbrg+'&qty='+qty+'&hrg='+hrg+'&nbukti='+nbukti+'&tbuku='+tbuku;
+            if(output.qty!=null)
+            {
+              alert("Tidak dapat menghapus, barang sudah dikeluarkan pada tanggal "+output.tgl_dok+" sebanyak "+output.qty+" "+output.satuan);
+              return false;
             }
-          }
-        });
+            else
+            {
+            job=confirm("Anda yakin ingin menghapus data ini?");
+            if(job!=true)
+            {
+              return false;
+            }
+            else
+            {
+              $('#myModal').modal({
+                backdrop: 'static',
+                keyboard: false
+              });
+              $('#myModal').modal('show');
+              $.ajax({
+                type: "post",
+                url : "../core/transaksi/prosestransaksi",
+                data: {manage:managedata,id:id_row},
+                success: function(data)
+                {
+                  $("#success-alert").alert();
+                  $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+                  $("#success-alert").alert('close');
+                  });
+                  setTimeout("location.href = redirectURL;",redirectTime); 
+                }
+              });
+              return false;
+            }
+            }
+
+        }
+      });
+
+
+      
       });
 
       $(document).on('click', '#btnhps', function () {
@@ -233,41 +266,49 @@
       $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
-          data: {manage:'cek_hapus',id_row:id_row},
+          data: {manage:'cek_brg_masuk',id_row:id_row},
           dataType: "json",
           success: function (output) {
-            if(output.qty!=null) {
-          alert("Tidak dapat menghapus, barang sudah dikeluarkan pada tanggal "+output.tgl_dok+" sebanyak "+output.qty+" "+output.satuan);
-          return false;
-        }
-        else
-        {
-        job=confirm("Anda yakin ingin menghapus data ini?");
-        if(job!=true){
-          return false;
-        }
-        else{
-          $('#myModal').modal({
-            backdrop: 'static',
-            keyboard: false
-          });
-          $('#myModal').modal('show');
-          $.ajax({
-            type: "post",
-            url : "../core/transaksi/prosestransaksi",
-            data: {manage:managedata,id:id_row},
-            success: function(data)
+            if(output.st_op==1)
             {
-              $("#success-alert").alert();
-              $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-              $("#success-alert").alert('close');
-              });
-              setTimeout("location.href = redirectURL;",redirectTime); 
+              alert("Tidak Dapat Menghapus Barang yang sudah diopname !");
+              return false;
             }
-          });
-          return false;
-        }
-        }
+            if(output.qty!=null)
+            {
+              alert("Tidak dapat menghapus, barang sudah dikeluarkan pada tanggal "+output.tgl_dok+" sebanyak "+output.qty+" "+output.satuan);
+              return false;
+            }
+            else
+            {
+            job=confirm("Anda yakin ingin menghapus data ini?");
+            if(job!=true)
+            {
+              return false;
+            }
+            else
+            {
+              $('#myModal').modal({
+                backdrop: 'static',
+                keyboard: false
+              });
+              $('#myModal').modal('show');
+              $.ajax({
+                type: "post",
+                url : "../core/transaksi/prosestransaksi",
+                data: {manage:managedata,id:id_row},
+                success: function(data)
+                {
+                  $("#success-alert").alert();
+                  $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+                  $("#success-alert").alert('close');
+                  });
+                  setTimeout("location.href = redirectURL;",redirectTime); 
+                }
+              });
+              return false;
+            }
+            }
 
         }
       });
