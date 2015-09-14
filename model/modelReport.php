@@ -212,12 +212,15 @@ class modelReport extends mysql_db
                 }
                 elseif($jenis=="semester")
                 {
-                    $sql="SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, sum(total_harga) as nilai from 
+                    $sql="SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, 
+                          sum(case when month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' then total_harga else 0 end) as nilai,
+                          sum(case when month(tgl_dok) < '$bln_awal' then total_harga else 0 end) as nilai0
+                         from 
                          (SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_dok from transaksi_masuk
                           UNION ALL
                           SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_dok from transaksi_keluar)
                           transaksi 
-                            where month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' and kd_lokasi like '{$kd_lokasi}%'  AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
+                            where kd_lokasi like '{$kd_lokasi}%'  AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
                     $result = $this->query($sql);
                 }
                 else
@@ -260,9 +263,10 @@ class modelReport extends mysql_db
                     echo '<tr>
                              <td  align="right">'.substr($data[kd_brg],10).'</td> 
                              <td  align="left">'.$data[nm_brg].'</td> 
-                             <td align="right">'.number_format($data[nilai],0,",",".").'</td> 
+                             <td align="right">'.number_format($data[nilai]+$data[nilai0],0,",",".").'</td> 
                         </tr>';
-                    $saldo+=$data[nilai];
+
+                    $saldo+=$data[nilai]+$data[nilai0];
                 }
                 echo '<tr>
                         <td colspan="2">JUMLAH</td>
@@ -327,9 +331,13 @@ class modelReport extends mysql_db
                                     sum(case WHEN thn_ang='$thn_ang_lalu' THEN qty else 0 end) as brg_thn_lalu,  
                                     sum(case WHEN thn_ang='$thn_ang_lalu' THEN total_harga else 0 end) as hrg_thn_lalu,  
                                     sum(case WHEN qty>=0 and month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' and thn_ang='$thn_ang' THEN qty else 0 end) as masuk, 
+                                    sum(case WHEN qty>=0 and month(tgl_dok) < '$bln_awal' and thn_ang='$thn_ang' THEN qty else 0 end) as masuk0, 
                                     sum(case WHEN qty<0 and month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' and thn_ang='$thn_ang' THEN qty else 0 end) as keluar,
+                                    sum(case WHEN qty<0 and month(tgl_dok) < '$bln_awal'  and thn_ang='$thn_ang' THEN qty else 0 end) as keluar0,
                                     sum(case WHEN qty>=0 and month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' and thn_ang='$thn_ang' THEN total_harga else 0 end) + 
-                                    sum(case WHEN qty<0 and month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' and thn_ang='$thn_ang' THEN total_harga else 0 end) as nilai 
+                                    sum(case WHEN qty<0 and month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' and thn_ang='$thn_ang' THEN total_harga else 0 end) as nilai, 
+                                    sum(case WHEN qty>=0 and month(tgl_dok) < '$bln_awal' and thn_ang='$thn_ang' THEN total_harga else 0 end) + 
+                                    sum(case WHEN qty<0 and month(tgl_dok) < '$bln_awal'  and thn_ang='$thn_ang' THEN total_harga else 0 end) as nilai0 
                                     FROM (
                                     SELECT thn_ang,tgl_dok, kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_masuk
                                     UNION ALL
@@ -380,11 +388,13 @@ class modelReport extends mysql_db
                 while($data=$this->fetch_assoc($result))
                 {
                     $no+=1;
-                    $jumlah = $data[masuk]+$data[keluar];
-                    $jml_selisih = $data[brg_thn_lalu]+$data[masuk]+$data[keluar];
-                    $hrg_selisih = $data[hrg_thn_lalu]+$data[nilai];
+                    $jumlah = $data[masuk]+$data[keluar]+$data[masuk0]+$data[keluar0];
+                    $jml_selisih = $data[brg_thn_lalu]+$data[masuk]+$data[keluar]+$data[masuk0]+$data[keluar0];
+                    $hrg_selisih = $data[hrg_thn_lalu]+$data[nilai]+$data[nilai0];
                     $total_thn_lalu+=$data[hrg_thn_lalu];
                     $total_akumulasi+=$hrg_selisih;
+                    $jml_msk = $data[masuk]+$data[masuk0];
+                    $jml_klr = $data[keluar]+$data[keluar0];
                     
                     if($prev_sskel!=$data[kd_sskel])
                     {
@@ -400,8 +410,8 @@ class modelReport extends mysql_db
                              <td  align="left">'.$data[nm_brg].'</td> 
                              <td  align="center">'.$data[brg_thn_lalu].'</td> 
                              <td  align="right">'.number_format($data[hrg_thn_lalu],0,",",".").'</td> 
-                             <td align="center">'.$data[masuk].'</td> 
-                             <td align="center">'.abs($data[keluar]).'</td> 
+                             <td align="center">'.$jml_msk.'</td> 
+                             <td align="center">'.abs($jml_klr).'</td> 
                              <td align="center">'.$jumlah.'</td> 
                              <td align="center">'.$jml_selisih.'</td> 
                              <td align="right">'.number_format($hrg_selisih,0,",",".").'</td> 
