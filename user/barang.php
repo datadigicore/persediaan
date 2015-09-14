@@ -69,10 +69,12 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th width="14%">SSKel. Barang</th>
+                        <th width="14%">ID</th>
+                        <th width="14%">Kode Sub-Sub Kel.</th>
                         <th width="14%">Kode Barang</th>
                         <th>Nama Barang</th>
                         <th width="14%">Satuan</th>
+                        <th width="9%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -100,19 +102,184 @@
             $('#kdsskel').html(output);
           }
         });
-        $("#example1").DataTable({
+        table = $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
           "ajax": "../core/loadtable/loadbarang",
           "columnDefs":
           [
-            {"targets": 0 },
+            {"targets": 0,
+             "visible": false },
             {"targets": 1 },
-			      {"targets": 2 },
-            {"targets": 3 }
+            {"targets": 2 },
+			      {"targets": 3 },
+            {"targets": 4 },
+            {"orderable": false,
+             "data": null,
+             "defaultContent":  '<div class="box-tools">'+
+                                // '<a href="edit_trans_masuk?id=a" class="btn btn-success btn-sm daterange pull-left" role="button"><i class="fa fa-edit"></i></a>'+
+                                  '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                  '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                '</div>',
+             "targets": [5],"targets": 5 }
           ],
         });
       });
+      $(document).on('click', '#btnedt', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+        id_row = row.data()[0];
+        sskel_row = row.data()[1];
+        kdbrg_row = row.data()[2];
+        nmbrg_row  = row.data()[3];
+        satuan_row  = row.data()[4];
+
+        $.ajax({
+          type: "post",
+          url: '../core/barang/prosesbarang',
+          data: {manage:'cekbarang',sskel_row:sskel_row,kdbrg_row:kdbrg_row},
+          dataType: "json",
+          success: function (output)
+          {
+            if(output.kdbrg!=null)
+            {
+              alert("Tidak Dapat Mengedit Barang. Barang Sudah Digunakan di Data Transaksi Masuk !");
+              return false;
+            }
+            else
+            {
+              if ( row.child.isShown() ) {
+                $('div.slider', row.child()).slideUp( function () {
+                  row.child.hide();
+                  tr.removeClass('shown');
+                });
+              }
+              else
+              {
+                row.child( format(row.data())).show();
+                tr.addClass('shown');
+                $('div.slider', row.child()).slideDown();
+                $("#kode_sskel"+id_row +"").val(sskel_row);
+                $("#kode_brg"+id_row +"").val(kdbrg_row);
+                $("#nama_brg"+id_row +"").val(nmbrg_row);
+                $("#satuan_brg"+id_row +"").val(satuan_row);
+              }
+            }
+           }
+          });
+      });
+      function format ( d ) {
+        return '<div class="slider">'+
+        '<form action="../core/barang/prosesbarang" method="post" class="form-horizontal" id="updbarang">'+
+        '<table width="100%">'+
+           '<tr>'+
+              '<input type="hidden" name="manage" value="updbarang">'+
+              '<input type="hidden" name="id" value="'+d[0]+'">'+
+              '<td width="16%"><input style="width:90%" id="kode_sskel'+d[0]+'" name="updkdsskel" class="form-control" type="text" placeholder="Kode SSkel" readonly></td>'+
+              '<td width="13%"><input style="width:90%" id="kode_brg'+d[0]+'" name="updkdbrg" class="form-control" type="text" placeholder="Kode Barang" required></td>'+ 
+              '<td width="49%"><input style="width:98%" id="nama_brg'+d[0]+'" name="updnmbrg" class="form-control" type="text" placeholder="Nama Barang" required></td>'+
+              '<td width="17%"><input style="width:90%" id="satuan_brg'+d[0]+'" name="updsatbrg" class="form-control" type="text" placeholder="Satuan Barang" required></td>'+
+              '<td style="vertical-align:middle; width:15%;">'+
+                '<div class="box-tools">'+
+                  // '<button id="btnrst" class="btn btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
+                  '<button id="btnupd" class="btn btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
+                '</div>'
+              '</td>'+
+           '</tr>'+
+        '</table>'+
+        '</form></div>';
+      }
+
+      $(document).on('click', '#btnhps', function () {
+      var tr = $(this).closest('tr');
+      var row = table.row( tr );
+      redirectTime = "2600";
+      redirectURL = "barang";
+      id_row = row.data()[0];
+      sskel_row = row.data()[1];
+      kdbrg_row = row.data()[2];
+      nmbrg_row  = row.data()[3];
+      satuan_row  = row.data()[4];
+      managedata = "hapusbarang";
+      
+      $.ajax({
+          type: "post",
+          url: '../core/barang/prosesbarang',
+          data: {manage:'cekbarang',sskel_row:sskel_row,kdbrg_row:kdbrg_row},
+          dataType: "json",
+          success: function (output)
+          {
+            if(output.kdbrg!=null)
+            {
+              alert("Tidak Dapat Mengedit Barang. Barang Sudah Digunakan di Data Transaksi Masuk !");
+              return false;
+            }
+            else
+            {
+            job=confirm("Anda yakin ingin menghapus data ini?");
+            if(job!=true)
+            {
+              return false;
+            }
+            else
+            {
+              $('#myModal').modal({
+                backdrop: 'static',
+                keyboard: false
+              });
+              $('#myModal').modal('show');
+              $.ajax({
+                type: "post",
+                url : "../core/barang/prosesbarang",
+                data: {manage:managedata,id:id_row},
+                success: function(data)
+                {
+                  $("#success-alert").alert();
+                  $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+                  $("#success-alert").alert('close');
+                  });
+                  setTimeout("location.href = redirectURL;",redirectTime); 
+                }
+              });
+              return false;
+            }
+            }
+
+        }
+      });
+
+      });
+
+      $(document).on('submit', '#updbarang', function (e) {
+        $('#myModal').modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+        $('#myModal').modal('show');
+        e.preventDefault();
+        redirectTime = "2600";
+        redirectURL = "barang";
+        var formURL = $(this).attr("action");
+        var addData = new FormData(this);
+        $.ajax({
+          type: "post",
+          data: addData,
+          url : formURL,
+          contentType: false,
+          cache: false,  
+          processData: false,
+          success: function(data)
+          {
+            $("#success-alert").alert();
+            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+            $("#success-alert").alert('close');
+            });
+            setTimeout("location.href = redirectURL;",redirectTime); 
+          }
+        });
+        return false;
+      });
+
       $('#addbarang').submit(function(e){
         if(document.getElementById("kdsskel").value=="")
         {

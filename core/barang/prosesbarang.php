@@ -15,6 +15,19 @@ else
 			$Barang->bacasskel();
 		break;
 
+		case 'cekbarang':
+
+			$kdbarang = $purifier->purify($_POST['sskel_row']);
+			$kd_jbrg = $purifier->purify($_POST['kdbrg_row']);
+			$kd_brg = $kdbarang.''.$kd_jbrg;
+			$kd_lokasi = $_SESSION['kd_lok'];
+			$data = array(
+				"kd_brg" => $kd_brg,
+		    	"kd_lokasi" => $kd_lokasi
+		    );
+			$Barang->cek_barang($data);
+		break;
+
 		case 'addbarang':
 			$kdbarang = $purifier->purify($_POST['kdsskel']);
 			$kd_jbrg = $purifier->purify($_POST['kodebarang']);
@@ -41,40 +54,38 @@ else
 		break;
 
 
-		case 'ubahbarang':
-			$kdbarang = $purifier->purify($_POST['kdbarang']);
-			$kd_jbrg = $purifier->purify($_POST['kd_jbrg']);
+		case 'updbarang':
+			$id = $purifier->purify($_POST['id']);
+			$kdbarang = $purifier->purify($_POST['updkdsskel']);
+			$kd_jbrg = $purifier->purify($_POST['updkdbrg']);
 			$kd_brg = $kdbarang.''.$kd_jbrg;
-			$nm_brg = $purifier->purify($_POST['nmbarang']);
-			$satuan = $purifier->purify($_POST['satuan']);
+			$nm_brg = $purifier->purify($_POST['updnmbrg']);
+			$satuan = $purifier->purify($_POST['updsatbrg']);
+			$kd_lokasi = $_SESSION['kd_lok'];
+			$nm_satker = $_SESSION['nama_satker'];
+			$user_id = $_SESSION['username'];
 
 			$data = array(
+				"id" => $id,
 				"kd_kbrg" => $kdbarang,
 				"kd_jbrg" => $kd_jbrg,
 				"kd_brg" => $kd_brg,
-				"nm_brg" => $nmbarang,
+				"nm_brg" => $nm_brg,
 				"satuan" => $satuan,
-				"kd_perk" => "sementara",
-		    	"kd_lokasi" => "sementara"
+				"kd_perk" => "0",
+				"nm_satker" => $nm_satker,
+				"user_id" => $user_id,
+		    	"kd_lokasi" => $kd_lokasi
 		    );
-			$Barang->ubahbarang($data);
+		    // print_r($data);
+			$Barang->ubah_barang($data);
 		break;
 
 		case 'hapusbarang':
-			$kdbarang = $purifier->purify($_POST['kdbarang']);
-			$kd_jbrg = $purifier->purify($_POST['kd_jbrg']);
-			$kd_brg = $kdbarang+$kd_jbrg;
-			$nm_brg = $purifier->purify($_POST['nmbarang']);
-			$satuan = $purifier->purify($_POST['satuan']);
+			$id = $purifier->purify($_POST['id']);
 
 			$data = array(
-				"kd_kbrg" => $kdbarang,
-				"kd_jbrg" => $kd_jbrg,
-				"kd_brg" => $kd_brg,
-				"nm_brg" => $nmbarang,
-				"satuan" => $satuan,
-				"kd_perk" => "sementara",
-		    	"kd_lokasi" => "sementara"
+				"id" => $id,
 		    );
 			$Barang->hapusbarang($data);
 		default:

@@ -24,7 +24,7 @@ class modelTransaksi extends mysql_db
         $status = $data['status'];
         $user_id = $data['user_id'];
 
-        $query_perk = "SELECT kd_kbrg, nm_sskel, kd_perk, nm_perk from persediaan where kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' ";
+        $query_perk = "SELECT kd_kbrg, nm_sskel, kd_perk, nm_perk from persediaan where kd_brg='$kd_brg' and kd_lokasi like '{$kd_lokasi}%' ";
         $result_perk = $this->query($query_perk);
         $data_perk = $this->fetch_array($result_perk);
         $kd_sskel = $data_perk['kd_kbrg'];
@@ -745,7 +745,7 @@ class modelTransaksi extends mysql_db
        $query_cek = "SELECT tgl_dok,qty,satuan,status from transaksi_keluar where kd_lokasi='$kd_lokasi' and id_masuk='$id_masuk'";
        $result = $this->query($query_cek);
        $cek= $this->fetch_array($result);
-       $jumlah = abs($cek["qty"]);
+       $jumlah = $cek["qty"];
 
        $query_cek_opname = "SELECT status from transaksi_masuk where kd_lokasi='$kd_lokasi' and id='$id_masuk'";
        $result_cek_opname = $this->query($query_cek_opname);

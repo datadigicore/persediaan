@@ -54,39 +54,52 @@ class modelBarang extends mysql_db
 	}
 
 
-	public function ubahbrg($data)
+	public function ubah_barang($data)
 	{
+		$id = $data['id'];
 		$kd_kbrg = $data['kd_kbrg'];
 		$kd_jbrg = $data['kd_jbrg'];
+		$kd_brg = $data['kd_brg'];
 		$nm_brg = $data['nm_brg'];
 		$satuan = $data['satuan'];
 		$kd_perk = $data['kd_perk'];
 		$kd_lokasi = $data['kd_lokasi'];
-		$query = "update brg
-					set kd_kbrg='$kd_kbrg',
+		$query = "update persediaan
+					set 
         			kd_jbrg='$kd_jbrg',
+        			kd_brg='$kd_brg',
         			nm_brg='$nm_brg',
                     satuan='$satuan',
                     kd_perk='$kd_perk',
                     kd_lokasi='$kd_lokasi' 
-						where kd_kbrg='$kd_kbrg'";
+						where id='$id'";
 		$result = $this->query($query);
 		return $result;
 	}
 	
-public function hapusbrg($data)
+public function hapusbarang($data)
 	{
-		$kd_kbrg = $data['kd_kbrg'];
-		$kd_jbrg = $data['kd_jbrg'];
-		$nm_brg = $data['nm_brg'];
-		$satuan = $data['satuan'];
-		$kd_perk = $data['kd_perk'];
-		$kd_lokasi = $data['kd_lokasi'];
-		$query = "delete from brg
-					 where kd_kbrg='$kd_kbrg'";
+		$id = $data['id'];
+	
+		$query = "delete from persediaan
+					 where id='$id'";
 		$result = $this->query($query);
 		return $result;
 	}
+
+public function cek_barang($data)
+{
+
+	$kd_lokasi = $data['kd_lokasi'];
+	$kd_brg = $data['kd_brg'];
+	$query = "select kd_brg from transaksi_masuk where kd_brg='$kd_brg' and kd_lokasi ='$kd_lokasi' ";
+	$result = $this->query($query);
+	$data = $this->fetch_array($result);
+	$kdbrg = $data['kd_brg'];
+
+	echo json_encode(array("kdbrg"=>$data));
+
+}
 
 }
 ?>
