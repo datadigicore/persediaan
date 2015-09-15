@@ -7,13 +7,14 @@ class modelReport extends mysql_db
 {
     public function baca_satker($kd_lokasi)
     {
-      $query = "select kode, NamaSatker from satker where kode like '{$kd_lokasi}%'";
+        $query = "select kode, NamaSatker from satker where kode like '{$kd_lokasi}%'";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Satker --</option>';
-      while ($row = $this->fetch_array($result))
-      {
-        echo '<option value="'.$row['kode'].'">'.$row['kode'].'        '.$row['NamaSatker']."</option>";
-      } 
+
+        while ($row = $this->fetch_array($result))
+        {
+          echo '<option value="'.$row['kode'].'">'.$row['kode'].'        '.$row['NamaSatker']."</option>";
+        } 
     }
 
     public function buku_persediaan($data)
@@ -28,6 +29,7 @@ class modelReport extends mysql_db
         $bulan = $data['bulan'];
         $kd_lokasi = $data['kd_lokasi'];
         $thn_ang = $data['thn_ang'];
+        $satker_asal = $data['satker_asal'];
 
         $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg' and kd_lokasi like '{$kd_lokasi}%' ";
         $result_detail = $this->query($detail_brg);
@@ -37,21 +39,21 @@ class modelReport extends mysql_db
         
         echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">BUKU PERSEDIAAN</p>
                 <br></br>
-                <table style="text-align: center; width: 100%; " align="left">
+                <table style="text-align: center; width: 100%; font-size:90%;" align="left" >
                 <tr>
-                    <td width="60%" align="left"></td>
+                    <td width="75%" align="left"></td>
                     <td align="left">Kode Barang :'.$kd_brg.'</td>
                 </tr>                
                 <tr>
-                    <td width="60%" align="left"></td>
+                    <td width="75%" align="left"></td>
                     <td align="left">Nama Barang :'.$brg['nm_brg'].'</td>
                 </tr>                
                 <tr>
-                    <td width="60%" align="left"></td>
+                    <td width="75%" align="left"></td>
                     <td align="left">Satuan :'.$brg['satuan'].'</td>
                 </tr>
                 </table>
-                <table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border=1 align="center">
+                <table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% " border=1 align="center">
                 <tr >
                     <td rowspan="2" style="font-weight:bold;" >NO</td>
                     <td  rowspan="2" style="font-weight:bold;">TANGGAL</td>
@@ -130,9 +132,11 @@ class modelReport extends mysql_db
                                      ORDER BY tgl_dok ASC";
                     $result = $this->query($sql);
                 }
+
                 $no=0;
                 $jumlah=0;
                 $saldo=0;
+
                 while($data=$this->fetch_assoc($result))
                 {
                     $no+=1;
@@ -146,18 +150,24 @@ class modelReport extends mysql_db
                                 <center><td  align="right">'.number_format($data[harga_sat],0,",",".").'</td></center>
                                 <center><td  align="center">'.'0'.'</td></center>';
                     }
-                    else {
+                    else 
+                    {
+                    
                     echo '<center><td  align="center">'.'0'.'</td></center>
                                 <center><td  align="right">'.number_format(abs($data[harga_sat]),0,",",".").'</td></center>
                                 <center><td  align="center">'.abs($data[qty]).'</td></center>';
                     }
+
                     $saldo +=$data[qty]*abs($data[harga_sat]);
                     $jumlah+=$data[qty];
                     echo '<td>'.$jumlah.'</td>
                     <center><td align="right">'.number_format($saldo,0,",",".").'</td></center>
                     </tr>';
                 }
+
                 echo '</table>';
+
+                $this->cetak_nama_pj($satker_asal);
 
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
                 ob_end_clean();
@@ -182,6 +192,7 @@ class modelReport extends mysql_db
         $thn_ang = $data['thn_ang'];
         $kd_lokasi = $data['kd_lokasi'];
         $date = $this->cek_periode($data);
+        $satker_asal = $data['satker_asal'];
 
         $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg' and kd_lokasi like '{$kd_lokasi}%' ";
         $result_detail = $this->query($detail_brg);
@@ -274,6 +285,9 @@ class modelReport extends mysql_db
                       </tr>';
                 
                 echo '</table>';
+
+                $this->cetak_nama_pj($satker_asal);
+
                 // $this->hitung_brg_rusak($kd_lokasi);
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
                 ob_end_clean();
@@ -296,6 +310,7 @@ class modelReport extends mysql_db
         $thn_ang_lalu = intval($thn_ang)-1;
         $kd_brg = $data['kd_brg'];
         $kd_lokasi = $data['kd_lokasi'];
+        $satker_asal = $data['satker_asal'];
 
         echo '<img src="../../dist/img/pekalongan.jpg" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
         $this->getsatker($kd_lokasi);
@@ -424,6 +439,9 @@ class modelReport extends mysql_db
                             <td colspan="2" align="right">'.number_format($total_akumulasi,0,",",".").'</td>  
                         </tr>';
                 echo '</table>';
+
+                $this->cetak_nama_pj($satker_asal);
+
                 // $this->hitung_brg_rusak($kd_lokasi);
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
                 ob_end_clean();
@@ -443,6 +461,7 @@ class modelReport extends mysql_db
         $tgl_akhir = $data['tgl_akhir'];
         $thn_ang = $data['thn_ang'];
         $date = $this->cek_periode($data);
+        $satker_asal = $data['satker_asal'];
 
         $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg'";
         $result_detail = $this->query($detail_brg);
@@ -485,7 +504,7 @@ class modelReport extends mysql_db
                             <td>'.number_format($total,0,",",".").'</td>  
                         </tr>
                         </table>';
-
+                $this->cetak_nama_pj($satker_asal);
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
                 ob_end_clean();
                 //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
@@ -504,6 +523,8 @@ class modelReport extends mysql_db
         $tgl_akhir=$data['tgl_akhir'];
         $thn_ang = $data['thn_ang'];
         $thn_ang_lalu = intval($thn_ang)-1;
+        $satker_asal = $data['satker_asal'];
+
         $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg'";
         $result_detail = $this->query($detail_brg);
         echo '<img src="../../dist/img/pekalongan.jpg" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
@@ -580,6 +601,8 @@ class modelReport extends mysql_db
                             <td align="right">'.number_format($saldo_akumulasi,0,",",".").'</td>  
                         </tr>
                         </table>';
+                $this->cetak_nama_pj($satker_asal);
+
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
                 ob_end_clean();
                 //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
@@ -603,6 +626,7 @@ class modelReport extends mysql_db
         $kd_brg = $data['kd_brg'];
         $thn_ang = $data['thn_ang'];
         $kd_lokasi = $data['kd_lokasi'];
+
 
         $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg' and kd_lokasi like '{$kd_lokasi}%' ";
         $result_detail = $this->query($detail_brg);
@@ -959,6 +983,43 @@ class modelReport extends mysql_db
         $array = array($data_tgl[2],$data_tgl[1],$data_tgl[0]);
         $tanggal = implode("-", $array );
         return $tanggal;
+    }
+
+    public function cetak_nama_pj($satker_asal)
+    {
+        $query = "SELECT * from ttd where kd_lokasi='$satker_asal' ";
+        $result = $this->query($query);
+        $pj = $this->fetch_array($result);
+
+
+        echo '
+              <br></br>
+              <table style="text-align: center; width: 100%; font-size:80% "  >
+              <tr>
+                <td> Kuasa Pengguna Barang, </td>
+                <td> Petugas Pengelola Persediaan, </td>
+              </tr>
+
+              <tr>
+                <td>'.$pj['jabatan'].'</td>
+                <td>'.$pj['jabatan2'].'</td>
+              </tr>
+              <br></br>
+              <br></br>
+              <br></br>
+              <tr>
+                <td>'.$pj['nama'].'</td>
+                <td>'.$pj['nama'].'</td>
+              </tr>              
+
+              <tr>
+                <td>'.$pj['nip'].'</td>
+                <td>'.$pj['nip'].'</td>
+              </tr>
+              
+              </table>';
+
+
     }
 
 }
