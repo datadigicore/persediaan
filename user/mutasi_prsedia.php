@@ -27,7 +27,14 @@
                   <h3 class="box-title">Mutasi Persediaan </h3>
                 </div>  
                 <form action="../core/report/prosesreport" method="post" class="form-horizontal" id="addtransmsk">
-                   <input type="hidden" name="manage" value="mutasi">                    
+                   <input type="hidden" name="manage" value="mutasi">
+                    <div class="box-body">
+                      <label class="col-sm-2 control-label">Kode Satker</label>
+                      <div class="col-sm-4">
+                        <select name="satker" id="satker" class="form-control">
+                        </select>
+                      </div>
+                    </div>                    
                     <div class="box-body" id="awal">
                       <label class="col-sm-2 control-label">Tanggal Awal</label>
                       <div class="col-sm-4">
@@ -71,10 +78,17 @@
         $('#tgl_akhir').datepicker({
           format: "dd-mm-yyyy"
         });             
-
-
-
       });
+
+      $.ajax({
+          type: "post",
+          url: '../core/report/prosesreport',
+          data: {manage:'baca_satker'},
+          success: function (output) {     
+            $('#satker').html(output);
+          }
+       });
+
       $('form').on('submit', function() {
         var D1a = document.getElementById("tgl_awal").value;
         var D2a = document.getElementById("tgl_akhir").value;
@@ -87,6 +101,12 @@
 
         var D1 = D1b.join("/");
         var D2 = D2b.join("/");
+
+        if(document.getElementById("satker").value=="")
+        {
+            alert("Kode Satker Belum Dipilih");
+            return false;
+        }
 
       if( (new Date(D1).getTime() > new Date(D2).getTime()))
       {

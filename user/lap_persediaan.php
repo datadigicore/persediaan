@@ -28,12 +28,18 @@
                 </div>  
                 <form action="../core/report/prosesreport" method="post" class="form-horizontal" id="addtransmsk">
                    <input type="hidden" name="manage" value="lap_persediaan">  
+                    <div class="box-body">
+                      <label class="col-sm-2 control-label">Kode Satker</label>
+                      <div class="col-sm-4">
+                        <select name="satker" id="satker" class="form-control">
+                        </select>
+                      </div>
+                    </div>                    
                     <div class="box-body radio">
                         <label class="col-sm-2 control-label"><input type="radio" name="jenis" id="tanggal" value="tanggal">S/d Tanggal</label>
                         <label class="col-sm-2 control-label"><input type="radio" name="jenis" id="semester" value="semester">Semester</label>
                         <label class="col-sm-2 control-label"><input type="radio" name="jenis" id="tahun" value="tahun" checked>Tahun <?php echo $_SESSION['thn_ang'];?></label>
-                    </div>                   
-                    
+                    </div>                                       
                     <div class="box-body" id="akhir">
                       <label class="col-sm-2 control-label">S/d Tanggal</label>
                       <div class="col-sm-4">
@@ -91,20 +97,42 @@
             $("#bln").hide();
             // $("#awal").show();
             $("#akhir").show();
+            $('#tgl_akhir').prop('required',true);
         });
         $("input[id=semester]").click(function()
         {
             $("#bln").show();
             // $("#awal").hide();
             $("#akhir").hide();
+            $('#tgl_akhir').removeAttr('required');
         });
         $("input[id=tahun]").click(function()
         {
             $("#bln").hide();
             // $("#awal").hide();
             $("#akhir").hide();
+            $('#tgl_akhir').removeAttr('required');
         });
         });
+       $.ajax({
+          type: "post",
+          url: '../core/report/prosesreport',
+          data: {manage:'baca_satker'},
+          success: function (output) {     
+            $('#satker').html(output);
+          }
+       });
+      $('form').on('submit', function() {
+        if(document.getElementById("satker").value=="")
+        {
+          alert("Kode Satker Belum Dipilih");
+          return false;
+        }
+        else
+        {
+          return true;
+        }
+    });
 
     </script>
   </body>

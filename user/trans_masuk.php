@@ -32,7 +32,7 @@
                     <li><a href="#tab_2" data-toggle="tab">Item Transaksi</a></li>
                   </ul>
                 </div>
-                <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="addtransmsk">
+                <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal"  id="addtransmsk" >
                   <div class="box-body">
                     <div class="tab-content">
                       <div class="tab-pane active" id="tab_1">
@@ -64,13 +64,13 @@
                         <div class="form-group">
                           <label class="col-sm-2 control-label">Tanggal Dokumen</label>
                           <div class="col-sm-9">
-                            <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" readonly>
+                            <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" >
                           </div>
                         </div>                    
                         <div class="form-group">
                           <label class="col-sm-2 control-label">Tanggal Buku</label>
                           <div class="col-sm-9">
-                            <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" readonly>
+                            <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" >
                           </div> 
                         </div>
                       </div>

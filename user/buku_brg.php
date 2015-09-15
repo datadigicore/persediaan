@@ -57,7 +57,7 @@
                     <div class="box-body" id="akhir">
                       <label class="col-sm-2 control-label">Tanggal Akhir</label>
                       <div class="col-sm-4">
-                        <input type="text" name="tgl_akhir" class="form-control" id="tgl_akhir" placeholder="">
+                        <input type="text" name="tgl_akhir" class="form-control" id="tgl_akhir" placeholder="" >
                         </select>
                       </div>
                     </div>
@@ -124,6 +124,8 @@
           $("#bln").hide();
           $("#awal").show();
           $("#akhir").show();
+          $('#tgl_awal').prop('required',true);
+          $('#tgl_akhir').prop('required',true);
 
       });
       $("input[id=bulan]").click(function()
@@ -132,7 +134,9 @@
           $("#awal").hide();
           $("#akhir").hide();
           $("#tgl_awal").val('');
+          $('#tgl_awal').removeAttr('required');
           $("#tgl_akhir").val('');
+          $('#tgl_akhir').removeAttr('required');
       });
       $("input[id=tahun]").click(function()
       {
@@ -141,6 +145,8 @@
           $("#akhir").hide();
           $("#tgl_awal").val('');
           $("#tgl_akhir").val('');
+          $('#tgl_awal').removeAttr('required');
+          $('#tgl_akhir').removeAttr('required');
       });
 
        $.ajax({
@@ -168,6 +174,12 @@
       if(document.getElementById("kd_brg").value=="")
       {
         alert("Barang Persediaan Belum Dipilih");
+        return false;
+      }      
+
+      if(document.getElementById("satker").value=="")
+      {
+        alert("Kode Satker Belum Dipilih");
         return false;
       }
 

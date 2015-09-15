@@ -27,7 +27,14 @@
                   <h3 class="box-title">Laporan Daftar Transaksi Persediaan </h3>
                 </div>  
                 <form action="../core/report/prosesreport" method="post" class="form-horizontal" id="addtransmsk">
-                   <input type="hidden" name="manage" value="transaksi">  
+                   <input type="hidden" name="manage" value="transaksi">
+                    <div class="box-body">
+                      <label class="col-sm-2 control-label">Kode Satker</label>
+                      <div class="col-sm-4">
+                        <select name="satker" id="satker" class="form-control">
+                        </select>
+                      </div>
+                    </div>  
                   <div class="box-body">
                       <label class="col-sm-2 control-label">Jenis Transaksi</label>
                       <div class="col-sm-4">
@@ -124,22 +131,48 @@
           $("#bln").hide();
           $("#awal").show();
           $("#akhir").show();
+          $('#tgl_awal').prop('required',true);
+          $('#tgl_akhir').prop('required',true);
+
       });
       $("input[id=bulan]").click(function()
       {
           $("#bln").show();
           $("#awal").hide();
           $("#akhir").hide();
+          $("#tgl_awal").val('');
+          $('#tgl_awal').removeAttr('required');
+          $("#tgl_akhir").val('');
+          $('#tgl_akhir').removeAttr('required');
       });
       $("input[id=tahun]").click(function()
       {
           $("#bln").hide();
           $("#awal").hide();
           $("#akhir").hide();
+          $("#tgl_awal").val('');
+          $("#tgl_akhir").val('');
+          $('#tgl_awal').removeAttr('required');
+          $('#tgl_akhir').removeAttr('required');
       });
+      
+      $.ajax({
+          type: "post",
+          url: '../core/report/prosesreport',
+          data: {manage:'baca_satker'},
+          success: function (output) {     
+            $('#satker').html(output);
+          }
+       });
     $('form').on('submit', function() {
       var D1 = document.getElementById("tgl_awal").value;
       var D2 = document.getElementById("tgl_akhir").value;
+
+      if(document.getElementById("satker").value=="")
+      {
+        alert("Kode Satker Belum Dipilih");
+        return false;
+      }
 
       if(document.getElementById("jenis_trans").value=="")
       {
