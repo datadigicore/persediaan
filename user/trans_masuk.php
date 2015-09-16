@@ -58,11 +58,7 @@
                         <div class="form-group">                     
                         <label class="col-sm-2 control-label">Nomor Transaksi</label>
                           <div class="col-sm-9">
-<<<<<<< HEAD
                             <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor Transaksi">
-=======
-                            <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor Bukti" required>
->>>>>>> 213d8a8c18e568b05bea27b2bed15cf6b1a2df15
                           </div>
                         </div>
                         <div class="form-group">
@@ -116,7 +112,6 @@
                             </div>
                           </div>
                         </div>
-<<<<<<< HEAD
                         <div class="col-sm-7">
                           <div class="form-group">
                             <label class="col-sm-3 control-label">No. Dokumen</label>
@@ -155,18 +150,6 @@
                             </div>
                           </div>                  
                           <div name="detil_transaksi" id="detil_transaksi">
-=======
-                        <div class="form-group">
-                          <label class="col-sm-2 control-label">Jumlah Masuk</label>
-                          <div class="col-sm-9">
-                            <input type="number" min="1" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Masuk" required>
-                          </div>
-                        </div>                  
-                        <div class="form-group">
-                          <label class="col-sm-2 control-label">Harga Beli Satuan</label>
-                          <div class="col-sm-9">
-                            <input type="number" min="1" name="rph_sat" class="form-control" id="rph_sat" placeholder="Masukkan Harga " required>
->>>>>>> 213d8a8c18e568b05bea27b2bed15cf6b1a2df15
                           </div>
                         </div>
                         </div>
