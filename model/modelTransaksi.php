@@ -649,7 +649,7 @@ class modelTransaksi extends mysql_db
 
     public function bacanodok($data)
     {
-        $query = "select no_dok from transaksi_masuk where no_dok like '$data%'";
+        $query = "select no_dok from transaksi_masuk where no_dok like '$data%' group by no_dok";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         while ($row = $this->fetch_array($result))
@@ -659,7 +659,7 @@ class modelTransaksi extends mysql_db
     }
     public function bacaidenttrans($data)
     {
-        $query = "select * from transaksi_masuk where no_dok = '$data'";
+        $query = "select tgl_dok, tgl_buku, jns_trans, nm_satker, sum(total_harga) as total_harga from transaksi_masuk where no_dok = '$data' group by no_dok";
         $result = $this->query($query);
         if ($row = $this->fetch_assoc($result))
         {

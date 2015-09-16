@@ -80,7 +80,7 @@ else
 			$kd_lok_msk = $_SESSION['kd_lok'];
 			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
-			$no_dok = $kd_lokasi.$purifier->purify($_POST['no_dok']);
+			$no_dok = $kd_lokasi.'.'.$purifier->purify($_POST['no_dok']);
 			$no_bukti = $purifier->purify($_POST['no_bukti']);
 			$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
 			$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
@@ -166,7 +166,7 @@ else
 			$kd_lok_msk = $_SESSION['kd_lok'];
 			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
-			$no_dok = $kd_lokasi.$purifier->purify($_POST['no_dok']);
+			$no_dok = $kd_lokasi.'.'.$purifier->purify($_POST['no_dok']);
 			$no_bukti = $purifier->purify($_POST['no_bukti']);
 			$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
 			$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
@@ -208,7 +208,7 @@ else
 			
 			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
-			$no_dok = $kd_lokasi.$purifier->purify($_POST['no_dok']);
+			
 			$no_bukti = $purifier->purify($_POST['no_bukti']);
 			$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
 			$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_buku']));

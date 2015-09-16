@@ -445,6 +445,11 @@
           alert("Tahun Bukti Tidak Sesuai Dengan Tahun Anggaran");
           return false;
         }
+        if(kd_brg=="")
+         {
+          alert("Kode Persediaan Belum Dipilih")
+          return false;
+         }
         
         $('#myModal').modal({
           backdrop: 'static',
@@ -469,7 +474,7 @@
             $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
             $("#success-alert").alert('close');
             });
-            // setTimeout("location.href = redirectURL;",redirectTime); 
+            setTimeout("location.href = redirectURL;",redirectTime); 
           }
         });
         return false;
