@@ -656,6 +656,22 @@ class modelTransaksi extends mysql_db
         {
             echo '<option value="'.$row['no_dok'].'">'.$row['no_dok']."</option>";
         }   
+    }
+    public function bacaidenttrans($data)
+    {
+        $query = "select * from transaksi_masuk where no_dok = '$data'";
+        $result = $this->query($query);
+        if ($row = $this->fetch_assoc($result))
+        {
+            $datedok = date_create($row["tgl_dok"]);
+            $datebuku = date_create($row["tgl_buku"]);
+            $hsljenistrans = $row["jns_trans"];
+            $hsltgldok = date_format($datedok,"d-m-Y");
+            $hsltglbuku = date_format($datebuku,"d-m-Y");
+            $hslsatker = $row["nm_satker"];
+            $hsltottrans = $row["total_harga"];
+            echo json_encode(array("jenistrans"=>$hsljenistrans,"tgldok"=>$hsltgldok,"tglbuku"=>$hsltglbuku,"satker"=>$hslsatker,"total"=>$hsltottrans));
+        }   
     }    
 
     public function baca_persediaan_masuk($data)

@@ -84,31 +84,31 @@
                           <div class="form-group">
                             <label class="col-sm-5 control-label">Jenis Transaksi</label>
                             <div class="col-sm-7">
-                              <input type="text" class="form-control" disabled>
+                              <input type="text" id="disjenistrans" class="form-control" disabled>
                             </div>
                           </div>
                           <div class="form-group">
                             <label class="col-sm-5 control-label">Tgl. Dokumen</label>
                             <div class="col-sm-7">
-                              <input type="text" class="form-control" disabled>
+                              <input type="text" id="distgldok" class="form-control" disabled>
                             </div>
                           </div>                  
                           <div class="form-group">
                             <label class="col-sm-5 control-label">Tgl. Buku</label>
                             <div class="col-sm-7">
-                              <input type="text" class="form-control" disabled>
+                              <input type="text" id="distglbuku" class="form-control" disabled>
                             </div>
                           </div>
                           <div class="form-group">
                             <label class="col-sm-5 control-label">Satker</label>
                             <div class="col-sm-7">
-                              <input type="text" class="form-control" disabled>
+                              <input type="text" id="dissatker" class="form-control" disabled>
                             </div>
                           </div>                  
                           <div class="form-group">
                             <label class="col-sm-5 control-label">Total Transaksi</label>
                             <div class="col-sm-7">
-                              <input type="text" class="form-control" disabled>
+                              <input type="text" id="distottrans" class="form-control" disabled>
                             </div>
                           </div>
                         </div>
@@ -226,17 +226,37 @@
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                 // '<a href="edit_trans_masuk?id=a" class="btn btn-success btn-sm daterange pull-left" role="button"><i class="fa fa-edit"></i></a>'+
-                                  '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                  // '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
                                   '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
                                 '</div>',
              "targets": [6],"targets": 6 },
 
           ],
         });
-        $('#example1 tbody').on('click', 'tr', function () {
-            var data = table.row( this ).data();
-            alert( 'You clicked on '+data[0]+'\'s row' );
-        } );
+        // $('#example1 tbody').on('click', 'tr', function () {
+        //     var data = table.row( this ).data();
+        //     alert( 'You clicked on '+data[0]+'\'s row' );
+        // } );
+        $('#no_dok_item').change(function(){
+        var identtrans = $(this).val();
+        $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'readidenttrans',idtrans:identtrans},
+          dataType: "json",
+          success: function (output) {
+            // alert(output.jenistrans);
+            // alert(output.tgldok);
+            // alert(output.tglbuku);
+            // alert(output.satker);
+            $('#disjenistrans').val(output.jenistrans);
+            $('#distgldok').val(output.tgldok);
+            $('#distglbuku').val(output.tglbuku);
+            $('#dissatker').val(output.satker);
+            $('#distottrans').val(output.total);
+          }
+        });
+      });
       });
 
       $(document).on('click', '#btnedt', function () {
@@ -363,8 +383,6 @@
 
         }
       });
-
-
 
       });
         $.ajax({
