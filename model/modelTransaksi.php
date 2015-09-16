@@ -766,6 +766,105 @@ class modelTransaksi extends mysql_db
        echo json_encode(array("tgl_dok"=>$cek["tgl_dok"], "qty"=>$jumlah,"satuan"=>$cek["satuan"],"st_op"=>$status));
     }
     
+    public function loghistory_masuk($datalog)
+    {
+        $kd_lokasi = $datalog['kd_lokasi'];
+        $nm_satker = $datalog['nm_satker'];
+        $thn_ang = $datalog['thn_ang'];
+        $user_id = $datalog['user_id'];
+        $aksi = $datalog['aksi'];
+        $no_dok = $datalog['no_dok'];
+        $tgl_dok = $datalog['tgl_dok'];
+        $tgl_buku = $datalog['tgl_buku'];
+        $no_bukti = $datalog['no_bukti'];
+        $kd_brg = $datalog['kd_brg'];
+        $nm_brg = $datalog['nm_brg'];
+        $qty = $datalog['kuantitas'];
+        $kuantitas = $datalog['kuantitas'];
+        $harga_sat = $datalog['harga_sat'];
+        $total_harga = $kuantitas*$harga_sat;
+        $jns_trans = $datalog['jns_trans'];
+        $keterangan = $datalog['keterangan'];
+        $tanggal = $datalog['tanggal'];
+       
+        $query_log = "Insert into log_trans_masuk
+                        set 
+                        kd_lokasi='$kd_lokasi',
+                        nm_satker='$nm_satker',
+                        thn_ang='$thn_ang',
+                        no_dok='$no_dok',
+                        tgl_dok='$tgl_dok',
+                        tgl_buku='$tgl_buku',
+                        no_bukti='$no_bukti',
+                        jns_trans='$jns_trans',
+                        aksi='$aksi',
+                        kd_brg='$kd_brg',
+                        nm_brg='$nm_brg',
+                        
+                        
+                        qty='$kuantitas',
+                        
+                        harga_sat='$harga_sat',
+                        total_harga='$total_harga',
+                        keterangan='$keterangan',
+                        tgl_update='$tanggal',
+                        user_id='$user_id'";   
+        $result_log = $this->query($query_log);
+        // print_r($query_log);
+        // $var = mysql_insert_id();
+        // print_r($var);
+        // return $result_log;
+    }
+    public function loghistory_keluar($datalog)
+    {
+        $kd_lokasi = $datalog['kd_lokasi'];
+        $nm_satker = $datalog['nm_satker'];
+        $thn_ang = $datalog['thn_ang'];
+        $user_id = $datalog['user_id'];
+        $aksi = $datalog['aksi'];
+        $no_dok = $datalog['no_dok'];
+        $tgl_dok = $datalog['tgl_dok'];
+        $tgl_buku = $datalog['tgl_buku'];
+        $no_bukti = $datalog['no_bukti'];
+        $kd_brg = $datalog['kd_brg'];
+        $nm_brg = $datalog['nm_brg'];
+        $qty = $datalog['kuantitas'];
+        $kuantitas = $datalog['kuantitas'];
+        $harga_sat = $datalog['harga_sat'];
+        $total_harga = $kuantitas*$harga_sat;
+        $jns_trans = $datalog['jns_trans'];
+        $keterangan = $datalog['keterangan'];
+        $tanggal = $datalog['tanggal'];
+       
+        $query_log = "Insert into log_trans_keluar
+                        set 
+                        kd_lokasi='$kd_lokasi',
+                        nm_satker='$nm_satker',
+                        thn_ang='$thn_ang',
+                        no_dok='$no_dok',
+                        tgl_dok='$tgl_dok',
+                        tgl_buku='$tgl_buku',
+                        no_bukti='$no_bukti',
+                        jns_trans='$jns_trans',
+                        aksi='$aksi',
+                        kd_brg='$kd_brg',
+                        nm_brg='$nm_brg',
+                        
+                        
+                        qty='$kuantitas',
+                        
+                        harga_sat='$harga_sat',
+                        total_harga='$total_harga',
+                        keterangan='$keterangan',
+                        tgl_update='$tanggal',
+                        user_id='$user_id'";   
+        $result_log = $this->query($query_log);
+        // print_r($query_log);
+        // $var = mysql_insert_id();
+        // print_r($var);
+        // return $result_log;
+    }
+
     public function konversi_tanggal($tgl)
     {
         $data_tgl = explode("-",$tgl);
