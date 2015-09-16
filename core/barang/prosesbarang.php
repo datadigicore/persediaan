@@ -72,7 +72,6 @@ else
 				"kd_brg" => $kd_brg,
 				"nm_brg" => $nm_brg,
 				"satuan" => $satuan,
-				"kd_perk" => "0",
 				"nm_satker" => $nm_satker,
 				"user_id" => $user_id,
 		    	"kd_lokasi" => $kd_lokasi

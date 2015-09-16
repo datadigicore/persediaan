@@ -62,7 +62,6 @@ class modelBarang extends mysql_db
 		$kd_brg = $data['kd_brg'];
 		$nm_brg = $data['nm_brg'];
 		$satuan = $data['satuan'];
-		$kd_perk = $data['kd_perk'];
 		$kd_lokasi = $data['kd_lokasi'];
 		$query = "update persediaan
 					set 
@@ -70,7 +69,6 @@ class modelBarang extends mysql_db
         			kd_brg='$kd_brg',
         			nm_brg='$nm_brg',
                     satuan='$satuan',
-                    kd_perk='$kd_perk',
                     kd_lokasi='$kd_lokasi' 
 						where id='$id'";
 		$result = $this->query($query);

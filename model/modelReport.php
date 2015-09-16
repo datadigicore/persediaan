@@ -9,7 +9,7 @@ class modelReport extends mysql_db
     {
         $query = "select kode, NamaSatker from satker where kode like '{$kd_lokasi}%'";
         $result = $this->query($query);
-        echo '<option value="">-- Pilih Kode Satker --</option>';
+        // echo '<option value="">-- Pilih Kode Satker --</option>';
 
         while ($row = $this->fetch_array($result))
         {
@@ -811,27 +811,40 @@ class modelReport extends mysql_db
         $result_gudang = $this->query($query_gudang);
         $data_gudang = $this->fetch_array($result_gudang);
         $nama_gudang = $data_unit['NamaSatker'];
-
-        echo '<table style="text-align: left; width: 50%; ">
+        echo '<table style="text-align: left; width: 50%; font-size:85% ">';
+        if($detil[0]!="")
+        {
+        echo '
                     <tr>
                         <td>Sektor</td>
                         <td>'.':  '.$nama_sektor.'</td>
-                    </tr>                
+                    </tr>';
+        }
+        if($detil[1]!="")
+        {
+        echo  ' 
                     <tr>
                         <td>Satker </td>
                         <td>'.':  '.$nama_satker.'</td>
-                    </tr>                
-                    <tr>
+                    </tr>'; 
+        }
+        if($detil[2]!="")
+        {               
+        echo  '<tr>
                         <td>Unit </td>
                         <td>'.':  '.$nama_unit.'</td>
-                    </tr> 
-                    <tr>
+                    </tr>';
+        }
+        if($detil[3]!="")
+        { 
+        echo            '<tr>
                         <td>Gudang </td>
                         <td>'.':  '.$nama_gudang.'</td>
                     </tr>
-                    <p></p>              
-                    </table>';
-
+                    <p></p>';
+        }
+        echo '</table>';
+        echo '<br></br>';
 
 
     }
