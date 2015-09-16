@@ -15,7 +15,10 @@ else
 			$data = $_SESSION['kd_lok'];
 			$Transaksi->bacabrg($data);
 		break;		
-
+		case 'readnodok':
+			$no_dok = $purifier->purify($_POST['no_dok']);
+			$Transaksi->bacanodok($no_dok);
+		break;
 		case 'readbrgmsk':
 			$kd_lokasi = $_SESSION['kd_lok'];
 			$thn_ang = $_SESSION['thn_ang'];

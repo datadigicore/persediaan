@@ -47,21 +47,21 @@
                         <label class="col-sm-2 control-label"><input type="radio" name="jenis" id="bulan" value="bulan">Bulan</label>
                         <label class="col-sm-2 control-label"><input type="radio" name="jenis" id="tahun" value="tahun" checked>Tahun <?php echo $_SESSION['thn_ang'];?></label>
                     </div>                 
-                    <div class="box-body" id="awal">
+                    <div class="box-body" id="awal" style="display: none;">
                       <label class="col-sm-2 control-label">Tanggal Awal</label>
                       <div class="col-sm-4">
                         <input type="text" name="tgl_awal" class="form-control" id="tgl_awal" placeholder="">
                         </select>
                       </div>
                     </div>                     
-                    <div class="box-body" id="akhir">
+                    <div class="box-body" id="akhir" style="display: none;">
                       <label class="col-sm-2 control-label">Tanggal Akhir</label>
                       <div class="col-sm-4">
                         <input type="text" name="tgl_akhir" class="form-control" id="tgl_akhir" placeholder="" >
                         </select>
                       </div>
                     </div>
-                    <div class="box-body" id="bln">
+                    <div class="box-body" id="bln" style="display: none;">
                       <label class="col-sm-2 control-label">Bulan</label>
                       <div class="col-sm-2">
                         <select name="bulan" id="bulan" class="form-control">
@@ -102,9 +102,9 @@
       $("li#buku_brg").addClass("active");
       var table;
       $(function () {
-      $("#bln").hide();
-      $("#awal").hide();
-      $("#akhir").hide();
+      // $("#bln").hide();
+      // $("#awal").hide();
+      // $("#akhir").hide();
       $("li#buku_brg").addClass("active");
       $('#tgl_awal').datepicker({
           format: "dd-mm-yyyy"

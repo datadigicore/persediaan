@@ -116,11 +116,8 @@
                           <div class="form-group">
                             <label class="col-sm-3 control-label">No. Dokumen</label>
                             <div class="col-sm-8">
-                              <select name="no_dok_item" id="no_dok_item" class="form-control">
-                                <option value="">-- Pilih Nomor Dokumen --</option>
-                                <option value="M01">Saldo Awal</option>
-                                <option value="M02">Pembelian</option>
-                                <option value="M03">Transfer Masuk</option>
+                              <select name="no_dok_item" id="no_dok_item" class="form-control select2" style="width:100%;">
+                                <option selected="selected">-- Pilih Tahun --</option>
                               </select>
                             </div>
                           </div>
@@ -201,6 +198,7 @@
     <script type="text/javascript">
     var table;
       $(function () {
+        $(".select2").select2();
         $('#tgl_dok').css('background-color' , '#FFFFFF');
         $('#tgl_buku').css('background-color' , '#FFFFFF');
         $("li#trans_masuk").addClass("active");
@@ -369,8 +367,14 @@
 
 
       });
-
-
+        $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'readnodok',no_dok:"<?php echo($_SESSION['kd_lok']);?>"},
+          success: function (output) {     
+            $('#no_dok_item').html(output);
+          }
+       });
        $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',

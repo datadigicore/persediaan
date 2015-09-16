@@ -647,6 +647,17 @@ class modelTransaksi extends mysql_db
         }   
     }    
 
+    public function bacanodok($data)
+    {
+        $query = "select no_dok from transaksi_masuk where no_dok like '$data%'";
+        $result = $this->query($query);
+        echo '<option value="">-- Pilih Kode Barang --</option>';
+        while ($row = $this->fetch_array($result))
+        {
+            echo '<option value="'.$row['no_dok'].'">'.$row['no_dok']."</option>";
+        }   
+    }    
+
     public function baca_persediaan_masuk($data)
     {
         $kd_lokasi = $data['kd_lokasi'];
