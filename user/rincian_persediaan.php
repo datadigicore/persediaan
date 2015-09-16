@@ -64,12 +64,9 @@
                       </div>
                     </div>
                   <div class="box-footer">
-                    <!-- <button type="Reset" class="btn btn-default">Reset</button> -->
                     <button type="submit" class="btn btn-info pull-right">Submit</button>
                   </div> 
                 </form>
-              </div>
-              <div class="box box-info">
               </div>
             </section>
           </div>
@@ -89,7 +86,8 @@
         $("#bln").hide();
         // $("#awal").hide();
         $("#akhir").hide();
-        $("li#buku_brg").addClass("active");
+        $(".treeview").addClass("active");
+        $("li#rincian_persediaan").addClass("active");
         $('#tgl_awal').datepicker({
           format: "dd-mm-yyyy"
         });         

@@ -40,14 +40,14 @@
                         <label class="col-sm-2 control-label"><input type="radio" name="jenis" id="semester" value="semester">Semester</label>
                         <label class="col-sm-2 control-label"><input type="radio" name="jenis" id="tahun" value="tahun" checked>Tahun <?php echo $_SESSION['thn_ang'];?></label>
                     </div>                                       
-                    <div class="box-body" id="akhir">
+                    <div class="box-body" id="akhir"  style="display: none;">
                       <label class="col-sm-2 control-label">S/d Tanggal</label>
                       <div class="col-sm-4">
                         <input type="text" name="tgl_akhir" class="form-control" id="tgl_akhir" placeholder="">
                         </select>
                       </div>
                     </div> 
-                    <div class="box-body" id="bln">
+                    <div class="box-body" id="bln"  style="display: none;">
                       <label class="col-sm-2 control-label">Semester</label>
                       <div class="col-sm-2">
                         <select name="smt" id="smt" class="form-control">
@@ -61,8 +61,6 @@
                     <button type="submit" class="btn btn-info pull-right">Submit</button>
                   </div>
                 </form>
-              </div>
-              <div class="box box-info">
               </div>
             </section>
           </div>
@@ -78,11 +76,8 @@
     <script type="text/javascript">
     var table;
       $(function () {
-        $("#bln").hide();
-        // $("#awal").hide();
-        $("#akhir").hide();
-        
-        $("li#buku_brg").addClass("active");
+        $(".treeview").addClass("active");
+        $("li#lap_sedia").addClass("active");
         $('#tgl_awal').datepicker({
           format: "dd-mm-yyyy"
         });         

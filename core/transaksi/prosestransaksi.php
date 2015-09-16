@@ -151,7 +151,7 @@ else
 				"user_id" => $user_id
 			);
 			print_r($data);
-			$Transaksi->transaksi_masuk($data);
+			// $Transaksi->transaksi_masuk($data);
 		break;		
 
 		case 'ubah_transaksi_msk':

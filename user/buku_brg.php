@@ -80,15 +80,12 @@
                         </select>
                       </div>
                     </div> 
-                  </div>
-                  <div class="box-footer">
-                    <!-- <button type="Reset" class="btn btn-default">Reset</button> -->
-                    <button type="submit" class="btn btn-info pull-right">Submit</button>
+                    <div class="box-footer">
+                      <!-- <button type="Reset" class="btn btn-default">Reset</button> -->
+                      <button type="submit" class="btn btn-info pull-right">Submit</button>
+                    </div>
                   </div>
                 </form>
-              </div>
-              <div class="box box-info">
-              </div>
             </section>
           </div>
         </section>
@@ -101,7 +98,8 @@
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">
-
+      $(".treeview").addClass("active");
+      $("li#buku_brg").addClass("active");
       var table;
       $(function () {
       $("#bln").hide();

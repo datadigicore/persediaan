@@ -33,7 +33,7 @@
                   </ul>
                 </div>
                 <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal"  id="addtransmsk" >
-                  <div class="box-body">
+                  <div class="box-body" style="padding:0;">
                     <div class="tab-content">
                       <div class="tab-pane active" id="tab_1">
                         <div class="form-group">
@@ -56,9 +56,9 @@
                           </div>
                         </div>
                         <div class="form-group">                     
-                        <label class="col-sm-2 control-label">Nomor Bukti</label>
+                        <label class="col-sm-2 control-label">Nomor Transaksi</label>
                           <div class="col-sm-9">
-                            <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor Bukti">
+                            <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor Transaksi">
                           </div>
                         </div>
                         <div class="form-group">
@@ -73,42 +73,93 @@
                             <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" >
                           </div> 
                         </div>
+                        <div class="box-footer">
+                          <button type="Reset" class="btn btn-default">Reset</button>
+                          <button type="submit" class="btn btn-info pull-right">Submit</button>
+                        </div>
                       </div>
                       <div class="tab-pane" id="tab_2">
-                        <div class="form-group">
-                          <label class="col-sm-2 control-label">Keterangan</label>
-                          <div class="col-sm-9">
-                            <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Uraian / Keterangan">
+                        <div class="row">
+                        <div class="col-sm-5">
+                          <div class="form-group">
+                            <label class="col-sm-5 control-label">Jenis Transaksi</label>
+                            <div class="col-sm-7">
+                              <input type="text" class="form-control" disabled>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-sm-5 control-label">Tgl. Dokumen</label>
+                            <div class="col-sm-7">
+                              <input type="text" class="form-control" disabled>
+                            </div>
+                          </div>                  
+                          <div class="form-group">
+                            <label class="col-sm-5 control-label">Tgl. Buku</label>
+                            <div class="col-sm-7">
+                              <input type="text" class="form-control" disabled>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-sm-5 control-label">Satker</label>
+                            <div class="col-sm-7">
+                              <input type="text" class="form-control" disabled>
+                            </div>
+                          </div>                  
+                          <div class="form-group">
+                            <label class="col-sm-5 control-label">Total Transaksi</label>
+                            <div class="col-sm-7">
+                              <input type="text" class="form-control" disabled>
+                            </div>
                           </div>
                         </div>
-                        <div class="form-group">
-                          <label class="col-sm-2 control-label">Kode Barang</label>
-                          <div class="col-sm-9">
-                            <select name="kd_brg" id="kd_brg" class="form-control">
-                            </select>
+                        <div class="col-sm-7">
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">No. Dokumen</label>
+                            <div class="col-sm-8">
+                              <select name="no_dok_item" id="no_dok_item" class="form-control">
+                                <option value="">-- Pilih Nomor Dokumen --</option>
+                                <option value="M01">Saldo Awal</option>
+                                <option value="M02">Pembelian</option>
+                                <option value="M03">Transfer Masuk</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">Keterangan</label>
+                            <div class="col-sm-8">
+                              <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Uraian / Keterangan">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">Kode Barang</label>
+                            <div class="col-sm-8">
+                              <select name="kd_brg" id="kd_brg" class="form-control">
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">Jumlah Masuk</label>
+                            <div class="col-sm-8">
+                              <input type="number" min="1" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Masuk">
+                            </div>
+                          </div>                  
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">Harga Beli Satuan</label>
+                            <div class="col-sm-8">
+                              <input type="number" min="1" name="rph_sat" class="form-control" id="rph_sat" placeholder="Masukkan Harga ">
+                            </div>
+                          </div>                  
+                          <div name="detil_transaksi" id="detil_transaksi">
                           </div>
                         </div>
-                        <div class="form-group">
-                          <label class="col-sm-2 control-label">Jumlah Masuk</label>
-                          <div class="col-sm-9">
-                            <input type="number" min="1" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Masuk">
-                          </div>
-                        </div>                  
-                        <div class="form-group">
-                          <label class="col-sm-2 control-label">Harga Beli Satuan</label>
-                          <div class="col-sm-9">
-                            <input type="number" min="1" name="rph_sat" class="form-control" id="rph_sat" placeholder="Masukkan Harga ">
-                          </div>
-                        </div>                  
-                        <div name="detil_transaksi" id="detil_transaksi">
+                        </div>
+                        <div class="box-footer">
+                          <button type="Reset" class="btn btn-default">Reset</button>
+                          <button type="submit" class="btn btn-info pull-right">Submit</button>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="box-footer">
-                    <button type="Reset" class="btn btn-default">Reset</button>
-                    <button type="submit" class="btn btn-info pull-right">Submit</button>
-                  </div>
+                    </div> <!-- <div class="tab-content"> -->
+                  </div> <!-- </div class="box-body">  -->
                 </form>
               </div>
               <div class="box box-info">
@@ -120,16 +171,17 @@
                     <thead>
                       <tr>
                         <th width="5%">ID</th>
-                        <th width="14%">No Dokumen</th>
-                        <th >No Bukti</th>
+                        <th width="14%">Jenis Transaksi</th>
+                        <th width="18%">No Dokumen</th>
+                        <th width="18%">No Bukti</th>
                         <th>Tanggal Dokumen</th>
                         <th>Tanggal Buku</th>
-                        <th>Nama Barang</th>
+                        <!-- <th>Nama Barang</th>
                         <th width="3%">Jumlah</th>
                         <th>Harga Satuan</th>
                         <th>Total</th>
-                        <th>Keterangan</th>
-                        <th width="19%">Aksi</th>
+                        <th>Keterangan</th> -->
+                        <th width="9%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -165,16 +217,13 @@
           "ajax": "../core/loadtable/loadtransmsk",
           "columnDefs":
           [
-            {"targets": 0 },
+            {"targets": 0,
+             "visible": false },
             {"targets": 1 },
             {"targets": 2 },
             {"targets": 3 },
             {"targets": 4 },
             {"targets": 5 },
-            {"targets": 6 },
-            {"targets": 7 },
-            {"targets": 8 },                      
-            {"targets": 9 },                      
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
@@ -182,10 +231,14 @@
                                   '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
                                   '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
                                 '</div>',
-             "targets": [10],"targets": 10 },
+             "targets": [6],"targets": 6 },
 
           ],
         });
+        $('#example1 tbody').on('click', 'tr', function () {
+            var data = table.row( this ).data();
+            alert( 'You clicked on '+data[0]+'\'s row' );
+        } );
       });
 
       $(document).on('click', '#btnedt', function () {
@@ -371,14 +424,6 @@
           return false;
         }
         
-
-
-         if(kd_brg=="")
-         {
-          alert("Kode Barang Belum Dipilih")
-          return false;
-         } 
-
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
@@ -402,7 +447,7 @@
             $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
             $("#success-alert").alert('close');
             });
-            setTimeout("location.href = redirectURL;",redirectTime); 
+            // setTimeout("location.href = redirectURL;",redirectTime); 
           }
         });
         return false;

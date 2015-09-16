@@ -35,7 +35,7 @@
                         </select>
                       </div>
                     </div>  
-                  <div class="box-body">
+                    <div class="box-body">
                       <label class="col-sm-2 control-label">Jenis Transaksi</label>
                       <div class="col-sm-4">
                         <select name="jenis_trans" id="jenis_trans" class="form-control">
@@ -88,15 +88,12 @@
                         </select>
                       </div>
                     </div> 
-                  </div>
-                  <div class="box-footer">
-                    <!-- <button type="Reset" class="btn btn-default">Reset</button> -->
-                    <button type="submit" class="btn btn-info pull-right">Submit</button>
+                    <div class="box-footer">
+                      <!-- <button type="Reset" class="btn btn-default">Reset</button> -->
+                      <button type="submit" class="btn btn-info pull-right">Submit</button>
+                    </div>
                   </div>
                 </form>
-              </div>
-              <div class="box box-info">
-              </div>
             </section>
           </div>
         </section>
@@ -114,7 +111,8 @@
           $("#bln").hide();
           $("#awal").hide();
           $("#akhir").hide();
-        $("li#buku_brg").addClass("active");
+        $(".treeview").addClass("active");
+        $("li#transaksi_persediaan").addClass("active");
         $('#tgl_awal').datepicker({
           format: "yyyy/mm/dd"
         });         

@@ -49,14 +49,11 @@
                         </select>
                       </div>
                     </div> 
-
                   <div class="box-footer">
                     <!-- <button type="Reset" class="btn btn-default">Reset</button> -->
                     <button type="submit" class="btn btn-info pull-right">Submit</button>
                   </div> 
                 </form>
-              </div>
-              <div class="box box-info">
               </div>
             </section>
           </div>
@@ -72,6 +69,8 @@
     <script type="text/javascript">
     var table;
       $(function () {
+        $(".treeview").addClass("active");
+        $("li#mutasi_prsedia").addClass("active");
         $('#tgl_awal').datepicker({
           format: "dd-mm-yyyy"
         });         

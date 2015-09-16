@@ -48,8 +48,6 @@
                   </div>
                 </form>
               </div>
-              <div class="box box-info">
-              </div>
             </section>
           </div>
         </section>
@@ -64,7 +62,8 @@
     <script type="text/javascript">
     var table;
       $(function () {
-        $("li#buku_brg").addClass("active");
+        $(".treeview").addClass("active");
+        $("li#neraca").addClass("active");
         $('#tgl_awal').datepicker({
           format: "dd-mm-yy"
         });         
