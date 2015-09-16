@@ -41,6 +41,39 @@ class modelBarang extends mysql_db
 		return $result;
 	}
 
+	public function loghistory($data)
+	{		
+		$kd_lokasi = $data['kd_lokasi'];
+		$nm_satker = $data['nm_satker'];
+		$user_id = $data['user_id'];
+		$aksi = $data['aksi'];
+		$kd_kbrg = $data['kd_kbrg'];
+		$kd_jbrg = $data['kd_jbrg'];
+		$kd_brg = $data['kd_brg'];
+		$nm_brg = $data['nm_brg'];
+		$satuan = $data['satuan'];
+		$tanggal = $data['tanggal'];
+
+
+		$query = "Insert into log_persediaan
+        			set
+        			kd_lokasi='$kd_lokasi',
+        			nm_satker='$nm_satker',
+        			user_id='$user_id', 
+        			aksi='$aksi',
+        			kd_kbrg='$kd_kbrg',
+        			nm_sskel='$nm_sskel',
+        			kd_jbrg='$kd_jbrg',
+        			kd_brg='$kd_brg',
+        			nm_brg='$nm_brg',
+                    satuan='$satuan',
+                    tgl_update='$tanggal'
+                   
+                     ";
+        $result = $this->query($query);
+		return $result;
+	}
+
 
 	public function bacasskel()
 	{

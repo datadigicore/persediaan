@@ -37,6 +37,7 @@ else
 			$kd_lokasi = $_SESSION['kd_lok'];
 			$nm_satker = $_SESSION['nama_satker'];
 			$user_id = $_SESSION['username'];
+			$tanggal = date("Y-m-d h:i:sa");
 
 			$data = array(
 				"kd_kbrg" => $kdbarang,
@@ -51,6 +52,23 @@ else
 		    	"kd_lokasi" => $kd_lokasi
 		    );
 			$Barang->tambahbrg($data);
+			$datalog = array(
+				"kd_lokasi" => $kd_lokasi,
+				"nm_satker" => $nm_satker,
+				"user_id" => $user_id,
+				"aksi" => "T-Persediaan",
+				"kd_kbrg" => $kdbarang,
+				"kd_jbrg" => $kd_jbrg,
+				"kd_brg" => $kd_brg,
+				"kd_brg" => $kd_brg,
+				"nm_brg" => $nm_brg,
+				"satuan" => $satuan,	
+				"tanggal" => $tanggal
+		    	
+		    );
+        	
+			$Barang->loghistory($datalog);
+			
 		break;
 
 
@@ -64,6 +82,7 @@ else
 			$kd_lokasi = $_SESSION['kd_lok'];
 			$nm_satker = $_SESSION['nama_satker'];
 			$user_id = $_SESSION['username'];
+			$tanggal = date("Y-m-d h:i:sa");
 
 			$data = array(
 				"id" => $id,
@@ -78,6 +97,25 @@ else
 		    );
 		    // print_r($data);
 			$Barang->ubah_barang($data);
+
+			$datalog = array(
+				"kd_lokasi" => $kd_lokasi,
+				"nm_satker" => $nm_satker,
+				"user_id" => $user_id,
+				"aksi" => "U-Persediaan",
+				"kd_kbrg" => $kdbarang,
+				"kd_jbrg" => $kd_jbrg,
+				"kd_brg" => $kd_brg,
+				"kd_brg" => $kd_brg,
+				"nm_brg" => $nm_brg,
+				"satuan" => $satuan,	
+				"tanggal" => $tanggal
+		    	
+		    );
+        	
+			$Barang->loghistory($datalog);
+
+
 		break;
 
 		case 'hapusbarang':

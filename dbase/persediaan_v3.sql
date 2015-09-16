@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 16 Sep 2015 pada 08.36
+-- Generation Time: 16 Sep 2015 pada 18.08
 -- Versi Server: 5.6.25
 -- PHP Version: 5.6.11
 
@@ -311,7 +311,8 @@ CREATE TABLE IF NOT EXISTS `log_persediaan` (
   `kd_jbrg` varchar(10) NOT NULL,
   `kd_brg` varchar(30) NOT NULL,
   `nm_brg` varchar(30) NOT NULL,
-  `satuan` varchar(10) NOT NULL
+  `satuan` varchar(10) NOT NULL,
+  `tgl_update` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -339,7 +340,15 @@ CREATE TABLE IF NOT EXISTS `log_trans_keluar` (
   `jns_trans` varchar(5) NOT NULL,
   `keterangan` varchar(100) NOT NULL,
   `tgl_update` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `log_trans_keluar`
+--
+
+INSERT INTO `log_trans_keluar` (`id`, `kd_lokasi`, `nm_satker`, `thn_ang`, `user_id`, `aksi`, `no_dok`, `tgl_dok`, `tgl_buku`, `no_bukti`, `kd_brg`, `nm_brg`, `qty`, `harga_sat`, `total_harga`, `jns_trans`, `keterangan`, `tgl_update`) VALUES
+(1, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, 'ffd', 'T-transaksi keluar', '21.01bc', '2015-09-16', '2015-09-16', 'bc', '1010304007000001', 'Sandisk MicroSD 32 GB', 5, 21, 105, 'K04', 'bc', '2015-09-16 03:15:01'),
+(2, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, 'ffd', 'T-transaksi keluar', '21.014', '2015-09-16', '2015-09-16', '4', '1010401002000001', 'Obat Kesehatan', 8, 9, 72, 'K01', 'Habis Pakai', '2015-09-16 10:43:00');
 
 -- --------------------------------------------------------
 
@@ -366,7 +375,17 @@ CREATE TABLE IF NOT EXISTS `log_trans_masuk` (
   `jns_trans` varchar(5) NOT NULL,
   `keterangan` varchar(100) NOT NULL,
   `tgl_update` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `log_trans_masuk`
+--
+
+INSERT INTO `log_trans_masuk` (`id`, `kd_lokasi`, `nm_satker`, `thn_ang`, `user_id`, `aksi`, `no_dok`, `tgl_dok`, `tgl_buku`, `no_bukti`, `kd_brg`, `nm_brg`, `qty`, `harga_sat`, `total_harga`, `jns_trans`, `keterangan`, `tgl_update`) VALUES
+(15, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, 'ffd', 'T-transaksi masuk', '21.011', '2015-01-01', '2015-01-01', '1', '101030401000001', 'Logitech Wireless Mouse', 10, 110000, 1100000, 'M02', 'Pembelian', '2015-09-16 10:21:33'),
+(16, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, 'ffd', 'T-transaksi masuk', '21.011', '2015-01-01', '2015-01-01', '1', '1010304007000001', 'Sandisk MicroSD 32 GB', 6, 50000, 300000, 'M02', 'buy', '2015-09-16 10:25:34'),
+(17, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, 'ffd', 'T-transaksi masuk', '21.01.1', '2015-01-01', '2015-01-01', '1', '1010401002000001', 'Obat Kesehatan', 3, 100000, 300000, 'M02', 'pembelian kedua', '2015-09-16 10:28:33'),
+(18, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, 'ffd', 'T-transaksi masuk', '21.01.1', '2015-01-01', '2015-01-01', '1', '1010401002000001', 'Obat Kesehatan', 6, 30000, 180000, 'M02', 'beli', '2015-09-16 10:40:06');
 
 -- --------------------------------------------------------
 
@@ -404,13 +423,6 @@ CREATE TABLE IF NOT EXISTS `opname` (
   `tgl_update` date DEFAULT NULL,
   `user_id` varchar(20) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `opname`
---
-
-INSERT INTO `opname` (`id`, `id_masuk`, `kd_lokasi`, `kd_lok_msk`, `nm_satker`, `thn_ang`, `no_dok`, `tgl_dok`, `tgl_buku`, `no_bukti`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `kd_perk`, `nm_perk`, `satuan`, `qty`, `harga_sat`, `total_harga`, `jns_trans`, `keterangan`, `status`, `status_edit`, `status_hapus`, `status_ambil`, `tgl_update`, `user_id`) VALUES
-(15, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01op', '2015-09-11', '2015-09-11', 'op', '1010304007', 'kartu Memori        ', '1010304007000001', 'Sandisk MicroSD 8GB', '115111', 'Barang Konsumsi     ', 'Buah', 1, 120000, 120000, 'P01', 'Opname', 0, 0, 0, 0, '2015-09-11', 'ffd');
 
 -- --------------------------------------------------------
 
@@ -1502,7 +1514,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_full` (
   `status_ambil` tinyint(1) NOT NULL DEFAULT '0',
   `tgl_update` date DEFAULT NULL,
   `user_id` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=749 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=774 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `transaksi_full`
@@ -1528,42 +1540,13 @@ INSERT INTO `transaksi_full` (`id_history`, `id_trans`, `id_masuk`, `id_keluar`,
 (702, NULL, 36, NULL, NULL, '21.01.01.01', '', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, '21.01.01.01AA', '2015-09-10', '2015-09-10', 'a', '101030400601', '1010304006', '', 'SEAGATE', 'sementa', '', 'Buah', 20, 11142, 0, 'P01', '', 1, 0, 0, 0, '2015-09-10', 'pengguna'),
 (703, NULL, 37, NULL, NULL, '21.01.01.01', '', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, '21.01.01.01AA', '2015-09-10', '2015-09-10', 'a', '101030400601', '1010304006', '', 'SEAGATE', 'sementa', '', 'Buah', 6, 11142, 66864, 'P01', '', 1, 0, 0, 0, '2015-09-10', 'pengguna'),
 (704, NULL, 38, NULL, NULL, '21.01.01.01', '', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, '21.01.01.01as', '2015-09-10', '2015-09-10', 'As', '101030400601', '1010304006', '', 'SEAGATE', 'sementa', '', 'Buah', 6, 11142, 66864, 'P01', 'Opname', 1, 0, 0, 0, '2015-09-10', 'pengguna'),
-(705, NULL, 39, NULL, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01SDD', '2015-08-01', '2015-08-01', 'SDD', '1010304007000001', '1010304007', 'kartu Memori        ', 'Sandisk MicroSD 8GB', '115111', 'Barang Konsumsi     ', 'Buah', 5, 100000, 500000, 'M02', 'Pembelian', 0, 0, 0, 0, '2015-09-10', 'ffd'),
-(706, NULL, 40, NULL, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01SDD', '2015-08-22', '2015-08-23', 'SDD', '1010304007000001', '1010304007', 'kartu Memori        ', 'Sandisk MicroSD 8GB', '115111', 'Barang Konsumsi     ', 'Buah', 10, 120000, 1200000, 'M01', 'Pembellian', 0, 0, 0, 0, '2015-09-10', 'ffd'),
-(707, 48, NULL, 48, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01KL', '2015-09-01', '2015-09-01', 'KL', '1010304007000001', '1010304007', 'kartu Memori        ', 'Sandisk MicroSD 8GB', '115111', 'Barang Konsumsi     ', 'Buah', -5, -100000, -500000, 'K02', 'Usang', 0, 0, 0, 0, '2015-09-10', 'ffd'),
-(708, NULL, NULL, 49, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01KL', '2015-09-01', '2015-09-01', 'KL', '1010304007000001', '1010304007', 'kartu Memori        ', 'Sandisk MicroSD 8GB', '115111', 'Barang Konsumsi     ', 'Buah', -7, -120000, -840000, 'K02', 'Usang', 0, 0, 0, 0, '2015-09-10', 'ffd'),
-(709, 48, NULL, 48, NULL, '21.01', '', '', 2015, '', '2015-09-01', '2015-09-01', 'KL', '1010304007000001', '1010304007', 'kartu Memori        ', 'Sandisk MicroSD 8GB', '115111', 'Barang Konsumsi     ', 'Buah', 5, 100000, 500000, 'H01', 'Hapus Transaksi', 0, 0, 0, 0, '2015-09-11', 'ffd'),
-(710, 49, NULL, 49, NULL, '21.01', '', '', 2015, '', '2015-09-01', '2015-09-01', 'KL', '1010304007000001', '1010304007', 'kartu Memori        ', 'Sandisk MicroSD 8GB', '115111', 'Barang Konsumsi     ', 'Buah', 7, 120000, 840000, 'H01', 'Hapus Transaksi', 0, 0, 0, 0, '2015-09-11', 'ffd'),
-(719, 56, NULL, 56, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01US', '2015-09-02', '2015-09-02', 'US', '1010304007000001', '1010304007', 'kartu Memori        ', 'Sandisk MicroSD 8GB', '115111', 'Barang Konsumsi     ', 'Buah', -5, -100000, -500000, 'K02', 'Usang', 0, 0, 0, 0, '2015-09-11', 'ffd'),
-(720, NULL, NULL, 57, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01US', '2015-09-02', '2015-09-02', 'US', '1010304007000001', '1010304007', 'kartu Memori        ', 'Sandisk MicroSD 8GB', '115111', 'Barang Konsumsi     ', 'Buah', -7, -120000, -840000, 'K02', 'Usang', 0, 0, 0, 0, '2015-09-11', 'ffd'),
-(721, NULL, NULL, 58, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01op', '2015-09-11', '2015-09-11', 'op', '1010304007000001', '1010304007', 'kartu Memori        ', 'Sandisk MicroSD 8GB', '115111', 'Barang Konsumsi     ', 'Buah', -2, -120000, -240000, 'P01', 'Opname', 0, 0, 0, 0, '2015-09-11', 'ffd'),
-(722, NULL, 41, NULL, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.0100836563', '2015-07-01', '2015-07-01', '947683', '101030101023', '', '', 'Lem Aibon', '', '', 'Kaleng', 10, 10000, 100000, 'M03', 'Transfer Masuk', 0, 0, 0, 0, '2015-09-13', 'ffd'),
-(723, NULL, 42, NULL, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.0123', '2015-07-02', '2015-07-02', '34', '101030101023', '1010301010', 'Alat Perekat        ', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', 10, 20000, 200000, 'M02', 'Beli', 0, 0, 0, 0, '2015-09-13', 'ffd'),
-(724, NULL, 41, NULL, NULL, '21.01', '', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.0100836563', '2015-07-01', '2015-07-01', '947683', '101030101023', '1010301010', 'Alat Perekat', 'Lem Aibon', '115111', '	 Barang Konsumsi', 'Kaleng', -10, -10000, -100000, '', 'Hapus Transaksi Masuk', 0, 0, 0, 0, '2015-09-13', 'ffd'),
-(725, NULL, 44, NULL, NULL, '21.01', '', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.0123', '2015-07-02', '2015-07-02', '34', '101030101023', '1010301010', 'Alat Perekat        ', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', -10, -20000, -200000, '', 'Hapus Transaksi Masuk', 0, 0, 0, 0, '2015-09-13', 'ffd'),
-(726, 59, NULL, 59, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.0111', '2015-08-01', '2015-08-01', '11', '101030101023', '1010301010', 'Alat Perekat', 'Lem Aibon', '115111', '	 Barang Konsumsi', 'Kaleng', -10, -10000, -100000, 'K01', 'Habis Pakai', 0, 0, 0, 0, '2015-09-13', 'ffd'),
-(727, NULL, NULL, 60, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.0111', '2015-08-01', '2015-08-01', '11', '101030101023', '1010301010', 'Alat Perekat        ', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', -5, -20000, -100000, 'K01', 'Habis Pakai', 0, 0, 0, 0, '2015-09-13', 'ffd'),
-(728, NULL, 45, NULL, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01Aa', '2015-05-15', '2015-05-12', 'AAA', '101030101023', '1010301010', 'Alat Perekat        ', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', 4, 3000, 12000, 'M01', 'aA', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(729, NULL, 46, NULL, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01asd', '2015-04-01', '2015-01-04', 'Asd', '1010101001231', '1010101001', 'Aspal               ', 'ASPAL TIGA RODA', '115131', 'Bahan Baku          ', 'Drum', 4, 5000, 20000, 'M02', 'Pembelian', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(730, NULL, 47, NULL, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01asd', '2015-05-01', '2015-05-01', 'Asd', '1010101001231', '1010101001', 'Aspal               ', 'ASPAL TIGA RODA', '115131', 'Bahan Baku          ', 'Drum', 6, 7000, 42000, 'M02', 'beli', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(731, NULL, 48, NULL, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01asd', '2015-02-01', '2015-02-01', 'Asd', '1010101001213', '1010101001', 'Aspal               ', 'Aspal Kristal', '115131', 'Bahan Baku          ', 'Drum', 5, 6000, 30000, 'M02', 'd', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(732, NULL, 49, NULL, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.011', '2015-03-15', '2015-03-15', '1', '1010401002000001', '1010401002', 'Obat Padat          ', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', 100, 100000, 10000000, 'M03', 'Pembelian dari Dinas', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(733, NULL, 50, NULL, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.012', '2015-04-20', '2015-04-20', '2', '1010401002000001', '1010401002', 'Obat Padat          ', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', 200, 150000, 30000000, 'M02', 'Pembelian', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(734, 61, NULL, 61, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.013', '2015-06-17', '2015-06-17', '3', '1010401002000001', '1010401002', 'Obat Padat          ', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', -100, -100000, -10000000, 'K01', 'Habis Pakai', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(735, NULL, NULL, 62, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.013', '2015-06-17', '2015-06-17', '3', '1010401002000001', '1010401002', 'Obat Padat          ', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', -49, -150000, -7350000, 'K01', 'Habis Pakai', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(736, 62, NULL, 62, NULL, '21.01', '', '', 2015, '', '2015-06-17', '2015-06-17', '3', '1010401002000001', '1010401002', 'Obat Padat          ', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', 49, 150000, 7350000, 'H01', 'Hapus Transaksi', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(737, 61, NULL, 61, NULL, '21.01', '', '', 2015, '', '2015-06-17', '2015-06-17', '3', '1010401002000001', '1010401002', 'Obat Padat          ', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', 100, 100000, 10000000, 'H01', 'Hapus Transaksi', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(738, 63, NULL, 63, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.012', '2015-06-17', '2015-06-17', '2', '1010401002000001', '1010401002', 'Obat Padat          ', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', -100, -100000, -10000000, 'K01', 'Habis Pakai', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(739, NULL, NULL, 64, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.012', '2015-06-17', '2015-06-17', '2', '1010401002000001', '1010401002', 'Obat Padat          ', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', -50, -150000, -7500000, 'K01', 'Habis Pakai', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(740, NULL, 51, NULL, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.014', '2015-08-08', '2015-08-08', '4', '1010401002000001', '1010401002', 'Obat Padat          ', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', 300, 200000, 60000000, 'M02', 'Pembelian', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(741, NULL, NULL, 65, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.015', '2015-09-13', '2015-09-13', '5', '1010401002000001', '1010401002', 'Obat Padat          ', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', -100, -150000, -15000000, 'K01', 'Habis Pakai', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(742, NULL, 52, NULL, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01', '2015-09-15', '2015-09-15', '', '1010304007000001', '1010304007', 'kartu Memori        ', 'Sandisk MicroSD 32 GB', '0', 'Barang Konsumsi     ', 'Buah', 0, 0, 0, 'M02', '', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(743, NULL, 52, NULL, NULL, '21.01', '', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01', '2015-09-15', '2015-09-15', '', '1010304007000001', '1010304007', 'kartu Memori        ', 'Sandisk MicroSD 32 GB', '0', 'Barang Konsumsi     ', 'Buah', 0, 0, 0, '', 'Hapus Transaksi Masuk', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(744, NULL, 53, NULL, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.016', '2015-02-15', '2015-02-15', '6', '1010304007000001', '1010304007', 'kartu Memori        ', 'Sandisk MicroSD 32 GB', '0', 'Barang Konsumsi     ', 'Buah', 5, 30000, 150000, 'M01', '', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(745, NULL, NULL, 66, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.018', '2015-09-01', '2015-09-01', '8', '1010304007000001', '1010304007', 'kartu Memori        ', 'Sandisk MicroSD 32 GB', '0', 'Barang Konsumsi     ', 'Buah', -3, -30000, -90000, 'K02', '', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(746, NULL, 54, NULL, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.019', '2015-05-01', '2015-05-01', '9', '101030401000001', '1010304010', 'Mouse               ', 'Logitech Wireless Mouse', '115111', 'Barang Konsumsi     ', 'Buah', 6, 100000, 600000, 'M01', '', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(747, NULL, NULL, 67, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.018', '2015-09-15', '2015-09-15', '8', '101030401000001', '1010304010', 'Mouse               ', 'Logitech Wireless Mouse', '115111', 'Barang Konsumsi     ', 'Buah', -4, -100000, -400000, 'K03', 'Kabel Error', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(748, NULL, 55, NULL, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.0122', '2015-04-14', '2015-04-14', '22', '1010302002000001', '1010302002', 'Berbagai Kertas     ', 'Kertas Manila Warna Biru', '115111', 'Barang Konsumsi     ', 'rim', 60, 500, 30000, 'M02', '', 0, 0, 0, 0, '2015-09-15', 'ffd');
+(767, NULL, 70, NULL, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.1', '2015-01-01', '2015-01-01', '1', '', '', '', '', '', '', '', 0, 0, 0, 'M01', '', 0, 0, 0, 0, '2015-09-16', 'ffd'),
+(768, NULL, 71, NULL, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.1', '2015-01-01', '2015-01-01', '1', '101030401000001', '1010304010', 'Mouse               ', 'Logitech Wireless Mouse', '115111', 'Barang Konsumsi     ', 'Buah', 10, 110000, 1100000, 'M02', 'Pembelian', 0, 0, 0, 0, '2015-09-16', 'ffd'),
+(769, NULL, 72, NULL, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.1', '2015-01-01', '2015-01-01', '1', '1010304007000001', '1010304007', 'kartu Memori        ', 'Sandisk MicroSD 32 GB', '0', 'Barang Konsumsi     ', 'Buah', 6, 50000, 300000, 'M02', 'buy', 0, 0, 0, 0, '2015-09-16', 'ffd'),
+(770, NULL, 73, NULL, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.1', '2015-01-01', '2015-01-01', '1', '1010401002000001', '1010401002', 'Obat Padat          ', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', 3, 100000, 300000, 'M02', 'pembelian kedua', 0, 0, 0, 0, '2015-09-16', 'ffd'),
+(771, NULL, 74, NULL, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.1', '2015-01-01', '2015-01-01', '1', '1010401002000001', '1010401002', 'Obat Padat          ', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', 6, 30000, 180000, 'M02', 'beli', 0, 0, 0, 0, '2015-09-16', 'ffd'),
+(772, 71, NULL, 71, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.4', '2015-09-16', '2015-09-16', '4', '1010401002000001', '1010401002', 'Obat Padat          ', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', -6, -30000, -180000, 'K01', 'Habis Pakai', 0, 0, 0, 0, '2015-09-16', 'ffd'),
+(773, NULL, NULL, 72, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.4', '2015-09-16', '2015-09-16', '4', '1010401002000001', '1010401002', 'Obat Padat          ', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', -2, -100000, -200000, 'K01', 'Habis Pakai', 0, 0, 0, 0, '2015-09-16', 'ffd');
 
 -- --------------------------------------------------------
 
@@ -1601,7 +1584,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_keluar` (
   `status_ambil` tinyint(1) NOT NULL DEFAULT '0',
   `tgl_update` date DEFAULT NULL,
   `user_id` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `transaksi_keluar`
@@ -1612,18 +1595,8 @@ INSERT INTO `transaksi_keluar` (`id`, `id_masuk`, `id_opname`, `kd_lokasi`, `kd_
 (45, 31, NULL, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, '21.01.01.01HP', '2015-09-01', '2015-09-01', '13', '1010101001', 'Aspal', '101010100188', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', -5, 13000, -65000, 'K01', 'Habis Pakai', 0, 0, 1, 0, '2015-09-08', 'pengguna'),
 (46, 31, NULL, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, '21.01.01.01US', '2015-09-08', '2015-09-08', 'US', '1010101001', 'Aspal', '101010100188', 'Aspal Cair', '115131', 'Bahan Baku', 'Drum', -6, 13000, -78000, 'K02', 'Usang', 0, 0, 0, 0, '2015-09-09', 'pengguna'),
 (47, 32, NULL, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, '21.01.01.01US028', '2015-09-08', '2015-09-08', 'US028', '1010101001', 'Aspal               ', '1010101001213', 'Aspal Kristal', '115131', 'Bahan Baku          ', 'Drum', -3, 12000, -36000, 'K03', 'Rusak', 0, 0, 0, 0, '2015-09-09', 'pengguna'),
-(56, 39, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01US', '2015-09-02', '2015-09-02', 'US', '1010304007', 'kartu Memori        ', '1010304007000001', 'Sandisk MicroSD 8GB', '115111', 'Barang Konsumsi     ', 'Buah', -5, 100000, -500000, 'K02', 'Usang', 1, 0, 0, 0, '2015-09-11', 'ffd'),
-(57, 40, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01US', '2015-09-02', '2015-09-02', 'US', '1010304007', 'kartu Memori        ', '1010304007000001', 'Sandisk MicroSD 8GB', '115111', 'Barang Konsumsi     ', 'Buah', -7, 120000, -840000, 'K02', 'Usang', 1, 0, 0, 0, '2015-09-11', 'ffd'),
-(58, 40, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01op', '2015-09-11', '2015-09-11', 'op', '1010304007', 'kartu Memori        ', '1010304007000001', 'Sandisk MicroSD 8GB', '115111', 'Barang Konsumsi     ', 'Buah', -2, 120000, -240000, 'P01', 'Opname', 1, 0, 0, 0, '2015-09-11', 'ffd'),
-(59, 43, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.0111', '2015-08-01', '2015-08-01', '11', '1010301010', 'Alat Perekat', '101030101023', 'Lem Aibon', '115111', '	 Barang Konsumsi', 'Kaleng', -10, 10000, -100000, 'K01', 'Habis Pakai', 0, 0, 0, 0, '2015-09-13', 'ffd'),
-(60, 42, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.0111', '2015-08-01', '2015-08-01', '11', '1010301010', 'Alat Perekat        ', '101030101023', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', -5, 20000, -100000, 'K01', 'Habis Pakai', 0, 0, 0, 0, '2015-09-13', 'ffd'),
-(61, 49, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.013', '2015-06-17', '2015-06-17', '3', '1010401002', 'Obat Padat          ', '1010401002000001', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', -100, 100000, -10000000, 'K01', 'Habis Pakai', 0, 0, 1, 0, '2015-09-15', 'ffd'),
-(62, 50, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.013', '2015-06-17', '2015-06-17', '3', '1010401002', 'Obat Padat          ', '1010401002000001', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', -49, 150000, -7350000, 'K01', 'Habis Pakai', 0, 0, 1, 0, '2015-09-15', 'ffd'),
-(63, 49, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.012', '2015-06-17', '2015-06-17', '2', '1010401002', 'Obat Padat          ', '1010401002000001', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', -100, 100000, -10000000, 'K01', 'Habis Pakai', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(64, 50, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.012', '2015-06-17', '2015-06-17', '2', '1010401002', 'Obat Padat          ', '1010401002000001', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', -50, 150000, -7500000, 'K01', 'Habis Pakai', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(65, 50, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.015', '2015-09-13', '2015-09-13', '5', '1010401002', 'Obat Padat          ', '1010401002000001', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', -100, 150000, -15000000, 'K01', 'Habis Pakai', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(66, 53, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.018', '2015-09-01', '2015-09-01', '8', '1010304007', 'kartu Memori        ', '1010304007000001', 'Sandisk MicroSD 32 GB', '0', 'Barang Konsumsi     ', 'Buah', -3, 30000, -90000, 'K02', '', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(67, 54, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.018', '2015-09-15', '2015-09-15', '8', '1010304010', 'Mouse               ', '101030401000001', 'Logitech Wireless Mouse', '115111', 'Barang Konsumsi     ', 'Buah', -4, 100000, -400000, 'K03', 'Kabel Error', 0, 0, 0, 0, '2015-09-15', 'ffd');
+(71, 74, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.4', '2015-09-16', '2015-09-16', '4', '1010401002', 'Obat Padat          ', '1010401002000001', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', -6, 30000, -180000, 'K01', 'Habis Pakai', 0, 0, 0, 0, '2015-09-16', 'ffd'),
+(72, 73, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.4', '2015-09-16', '2015-09-16', '4', '1010401002', 'Obat Padat          ', '1010401002000001', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', -2, 100000, -200000, 'K01', 'Habis Pakai', 0, 0, 0, 0, '2015-09-16', 'ffd');
 
 -- --------------------------------------------------------
 
@@ -1661,7 +1634,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_masuk` (
   `status_ambil` tinyint(1) NOT NULL DEFAULT '0',
   `tgl_update` date DEFAULT NULL,
   `user_id` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `transaksi_masuk`
@@ -1676,23 +1649,10 @@ INSERT INTO `transaksi_masuk` (`id`, `id_opname`, `kd_lokasi`, `kd_lok_msk`, `nm
 (34, NULL, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, '21.01.01.010288', '2015-08-01', '2015-08-01', '0288', '1010304006', '', '101030400601', 'SEAGATE', 'sementa', '', 'Buah', 6, 6, 10000, 60000, 'M01', 'Pembelian', 0, 0, 0, 0, '2015-09-10', 'pengguna'),
 (35, NULL, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, '21.01.01.010288', '2015-08-01', '2015-08-01', '0288', '1010304006', '', '101030400601', 'SEAGATE', 'sementa', '', 'Buah', 8, 8, 12000, 96000, 'M02', 'Pembelian', 0, 0, 0, 0, '2015-09-10', 'pengguna'),
 (38, NULL, '21.01.01.01', '', 'KANTOR PERPUSTAKAAN DAN ARSIP DAERAH', 2015, '21.01.01.01as', '2015-09-10', '2015-09-10', 'As', '1010304006', '', '101030400601', 'SEAGATE', 'sementa', '', 'Buah', 6, 6, 11142, 66864, 'P01', 'Opname', 1, 0, 0, 0, '2015-09-10', 'pengguna'),
-(39, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01SDD', '2015-08-01', '2015-08-01', 'SDD', '1010304007', 'kartu Memori        ', '1010304007000001', 'Sandisk MicroSD 8GB', '115111', 'Barang Konsumsi     ', 'Buah', 5, 0, 100000, 500000, 'M02', 'Pembelian', 1, 0, 0, 0, '2015-09-10', 'ffd'),
-(40, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01SDD', '2015-08-22', '2015-08-23', 'SDD', '1010304007', 'kartu Memori        ', '1010304007000001', 'Sandisk MicroSD 8GB', '115111', 'Barang Konsumsi     ', 'Buah', 10, 1, 120000, 1200000, 'M01', 'Pembellian', 1, 0, 0, 0, '2015-09-10', 'ffd'),
-(41, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.0100836563', '2015-07-01', '2015-07-01', '947683', '1010301010', 'Alat Perekat', '101030101023', 'Lem Aibon', '115111', '	 Barang Konsumsi', 'Kaleng', 10, 10, 10000, 100000, 'M03', 'Transfer Masuk', 0, 0, 1, 0, '2015-09-13', 'ffd'),
-(42, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.0123', '2015-06-02', '2015-07-02', '34', '1010301010', 'Alat Perekat        ', '101030101023', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', 10, 5, 20000, 200000, 'M02', 'Beli', 0, 0, 0, 0, '2015-09-13', 'ffd'),
-(43, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.0100836563', '2015-06-01', '2015-07-01', '947683', '1010301010', 'Alat Perekat', '101030101023', 'Lem Aibon', '115111', '	 Barang Konsumsi', 'Kaleng', 10, 0, 10000, 100000, 'M03', 'Transfer Masuk', 0, 0, 0, 0, '2015-09-13', 'ffd'),
-(44, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.0123', '2015-07-02', '2015-07-02', '34', '1010301010', 'Alat Perekat        ', '101030101023', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', 10, 10, 20000, 200000, 'M02', 'Beli', 0, 0, 1, 0, '2015-09-13', 'ffd'),
-(45, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01Aa', '2015-05-15', '2015-05-12', 'AAA', '1010301010', 'Alat Perekat        ', '101030101023', 'Lem Aibon', '115111', 'Barang Konsumsi     ', 'Kaleng', 4, 4, 3000, 12000, 'M01', 'aA', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(46, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01asd', '2015-04-01', '2015-01-04', 'Asd', '1010101001', 'Aspal               ', '1010101001231', 'ASPAL TIGA RODA', '115131', 'Bahan Baku          ', 'Drum', 4, 4, 5000, 20000, 'M02', 'Pembelian', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(47, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01asd', '2015-05-01', '2015-05-01', 'Asd', '1010101001', 'Aspal               ', '1010101001231', 'ASPAL TIGA RODA', '115131', 'Bahan Baku          ', 'Drum', 6, 6, 7000, 42000, 'M02', 'beli', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(48, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01asd', '2015-02-01', '2015-02-01', 'Asd', '1010101001', 'Aspal               ', '1010101001213', 'Aspal Kristal', '115131', 'Bahan Baku          ', 'Drum', 5, 5, 6000, 30000, 'M02', 'd', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(49, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.011', '2015-03-15', '2015-03-15', '1', '1010401002', 'Obat Padat          ', '1010401002000001', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', 100, 0, 100000, 10000000, 'M03', 'Pembelian dari Dinas', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(50, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.012', '2015-04-20', '2015-04-20', '2', '1010401002', 'Obat Padat          ', '1010401002000001', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', 200, 50, 150000, 30000000, 'M02', 'Pembelian', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(51, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.014', '2015-08-08', '2015-08-08', '4', '1010401002', 'Obat Padat          ', '1010401002000001', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', 300, 300, 200000, 60000000, 'M02', 'Pembelian', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(52, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01', '2015-09-15', '2015-09-15', '', '1010304007', 'kartu Memori        ', '1010304007000001', 'Sandisk MicroSD 32 GB', '0', 'Barang Konsumsi     ', 'Buah', 0, 0, 0, 0, 'M02', '', 0, 0, 1, 0, '2015-09-15', 'ffd'),
-(53, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.016', '2015-02-15', '2015-02-15', '6', '1010304007', 'kartu Memori        ', '1010304007000001', 'Sandisk MicroSD 32 GB', '0', 'Barang Konsumsi     ', 'Buah', 5, 2, 30000, 150000, 'M01', '', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(54, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.019', '2015-05-01', '2015-05-01', '9', '1010304010', 'Mouse               ', '101030401000001', 'Logitech Wireless Mouse', '115111', 'Barang Konsumsi     ', 'Buah', 6, 2, 100000, 600000, 'M01', '', 0, 0, 0, 0, '2015-09-15', 'ffd'),
-(55, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.0122', '2015-04-14', '2015-04-14', '22', '1010302002', 'Berbagai Kertas     ', '1010302002000001', 'Kertas Manila Warna Biru', '115111', 'Barang Konsumsi     ', 'rim', 60, 60, 500, 30000, 'M02', '', 0, 0, 0, 0, '2015-09-15', 'ffd');
+(71, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.1', '2015-01-01', '2015-01-01', '1', '1010304010', 'Mouse               ', '101030401000001', 'Logitech Wireless Mouse', '115111', 'Barang Konsumsi     ', 'Buah', 10, 10, 110000, 1100000, 'M02', 'Pembelian', 0, 0, 0, 0, '2015-09-16', 'ffd'),
+(72, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.1', '2015-01-01', '2015-01-01', '1', '1010304007', 'kartu Memori        ', '1010304007000001', 'Sandisk MicroSD 32 GB', '0', 'Barang Konsumsi     ', 'Buah', 6, 6, 50000, 300000, 'M02', 'buy', 0, 0, 0, 0, '2015-09-16', 'ffd'),
+(73, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.2', '2015-06-01', '2015-06-01', '2', '1010401002', 'Obat Padat          ', '1010401002000001', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', 3, 1, 100000, 300000, 'M02', 'pembelian kedua', 0, 0, 0, 0, '2015-09-16', 'ffd'),
+(74, NULL, '21.01', '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.1', '2015-01-01', '2015-01-01', '1', '1010401002', 'Obat Padat          ', '1010401002000001', 'Obat Kesehatan', '115199', 'Persediaan Lainnya  ', 'strip', 6, 0, 30000, 180000, 'M02', 'beli', 0, 0, 0, 0, '2015-09-16', 'ffd');
 
 -- --------------------------------------------------------
 
@@ -2659,12 +2619,12 @@ ALTER TABLE `log_persediaan`
 -- AUTO_INCREMENT for table `log_trans_keluar`
 --
 ALTER TABLE `log_trans_keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `log_trans_masuk`
 --
 ALTER TABLE `log_trans_masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `opname`
 --
@@ -2699,17 +2659,17 @@ ALTER TABLE `thn_aktif`
 -- AUTO_INCREMENT for table `transaksi_full`
 --
 ALTER TABLE `transaksi_full`
-  MODIFY `id_history` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=749;
+  MODIFY `id_history` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=774;
 --
 -- AUTO_INCREMENT for table `transaksi_keluar`
 --
 ALTER TABLE `transaksi_keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=68;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=73;
 --
 -- AUTO_INCREMENT for table `transaksi_masuk`
 --
 ALTER TABLE `transaksi_masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=56;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=75;
 --
 -- AUTO_INCREMENT for table `ttd`
 --
