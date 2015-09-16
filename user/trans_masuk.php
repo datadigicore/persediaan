@@ -28,8 +28,8 @@
                 </div>
                 <div class="nav-tabs-custom">
                   <ul class="nav nav-tabs nav-justified">
-                    <li class="active"><a href="#tab_1" data-toggle="tab">Identitas Transaksi</a></li>
-                    <li><a href="#tab_2" data-toggle="tab">Item Transaksi</a></li>
+                    <li class="active" id="li_tab_1"><a href="#tab_1" data-toggle="tab">Identitas Transaksi</a></li>
+                    <li id="li_tab_2"><a href="#tab_2" data-toggle="tab">Item Transaksi</a></li>
                   </ul>
                 </div>
                 <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal"  id="addtransmsk" >
@@ -50,7 +50,7 @@
                         <div class="form-group">
                           <label class="col-sm-2 control-label">Nomor Dokumen</label>
                           <div class="col-sm-9">
-                            <input type="text" name="no_dok" class="form-control"  id="no_dok" placeholder="Masukkan No. Dokumen" required>
+                            <input type="text" name="no_dok" class="form-control"  id="no_dok" placeholder="Masukkan No. Dokumen">
                             <input type="hidden" name="manage" value="tbh_transaksi_msk">
                             <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>    
                           </div>
@@ -64,13 +64,13 @@
                         <div class="form-group">
                           <label class="col-sm-2 control-label">Tanggal Dokumen</label>
                           <div class="col-sm-9">
-                            <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" required>
+                            <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen">
                           </div>
                         </div>                    
                         <div class="form-group">
                           <label class="col-sm-2 control-label">Tanggal Buku</label>
                           <div class="col-sm-9">
-                            <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" required>
+                            <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku">
                           </div> 
                         </div>
                         <div class="box-footer">
@@ -84,31 +84,31 @@
                           <div class="form-group">
                             <label class="col-sm-5 control-label">Jenis Transaksi</label>
                             <div class="col-sm-7">
-                              <input type="text" id="disjenistrans" class="form-control" disabled>
+                              <input type="text" id="disjenistrans" name="disjenistrans" class="form-control" disabled>
                             </div>
                           </div>
                           <div class="form-group">
                             <label class="col-sm-5 control-label">Tgl. Dokumen</label>
                             <div class="col-sm-7">
-                              <input type="text" id="distgldok" class="form-control" disabled>
+                              <input type="text" id="distgldok" name="distgldok" class="form-control" disabled>
                             </div>
                           </div>                  
                           <div class="form-group">
                             <label class="col-sm-5 control-label">Tgl. Buku</label>
                             <div class="col-sm-7">
-                              <input type="text" id="distglbuku" class="form-control" disabled>
+                              <input type="text" id="distglbuku" name="distglbuku" class="form-control" disabled>
                             </div>
                           </div>
                           <div class="form-group">
                             <label class="col-sm-5 control-label">Satker</label>
                             <div class="col-sm-7">
-                              <input type="text" id="dissatker" class="form-control" disabled>
+                              <input type="text" id="dissatker" name="dissatker" class="form-control" disabled>
                             </div>
                           </div>                  
                           <div class="form-group">
                             <label class="col-sm-5 control-label">Total Transaksi</label>
                             <div class="col-sm-7">
-                              <input type="text" id="distottrans" class="form-control" disabled>
+                              <input type="text" id="distottrans" name="distottrans" class="form-control" disabled>
                             </div>
                           </div>
                         </div>
@@ -117,7 +117,7 @@
                             <label class="col-sm-3 control-label">No. Dokumen</label>
                             <div class="col-sm-8">
                               <select name="no_dok_item" id="no_dok_item" class="form-control select2" style="width:100%;">
-                                <option selected="selected">-- Pilih Tahun --</option>
+                                <option selected="selected">-- Pilih Nomor Dokumen --</option>
                               </select>
                             </div>
                           </div>
@@ -422,62 +422,100 @@
 
 
       $('#addtransmsk').submit(function(e){
-        var jns_trans = document.getElementById("jenis_trans").value;
-        var kd_brg = document.getElementById("kd_brg").value;
-        var tahun_ang = document.getElementById("tahun_ang").value;
-        var sisa = document.getElementById("rph_sat").value;
-        var jumlah_input = document.getElementById("jml_msk").value;
-        var tgl_dok = document.getElementById("tgl_dok").value;
-        var tgl_buku = document.getElementById("tgl_buku").value;
+        var jns_trans = $("#jenis_trans").val();
+        var kd_brg = $("#kd_brg").val();
+        var tahun_ang = $("#tahun_ang").val();
+        var sisa = $("#rph_sat").val();
+        var jumlah_input = $("#jml_msk").val();
+        var tgl_dok = $("#tgl_dok").val();
+        var tgl_buku = $("#tgl_buku").val();
         var tgl_terakhir = "";
+        var disjenistrans = $("#distottrans").val();
+        var distgldok = $("#distgldok").val();
+        var distglbuku = $("#distglbuku").val();
+        var dissatker = $("#dissatker").val();
+        var distottrans = $("#distottrans").val();
+        var no_dok_item = $("#no_dok_item").val();
 
-        if(jns_trans=="")
-         {
-          alert("Jenis Transaksi Belum Dipilih")
-          return false;
-         }
-        if(tgl_dok.substring(6,10)!=tahun_ang){
-          alert("Tahun Dokumen Tidak Sesuai Dengan Tahun Anggaran");
-          return false;
-        }
+        if(jns_trans!=""){
+          // alert("Jenis Transaksi Dipilih");
 
-        if(tgl_buku.substring(6,10)!=tahun_ang){
-          alert("Tahun Bukti Tidak Sesuai Dengan Tahun Anggaran");
-          return false;
-        }
-        if(kd_brg=="")
-         {
-          alert("Kode Persediaan Belum Dipilih")
-          return false;
-         }
-        
-        $('#myModal').modal({
-          backdrop: 'static',
-          keyboard: false
-        });
-        $('#myModal').modal('show');
-        e.preventDefault();
-        redirectTime = "2600";
-        redirectURL = "trans_masuk";
-        var formURL = $(this).attr("action");
-        var addData = new FormData(this);
-        $.ajax({
-          type: "post",
-          data: addData,
-          url : formURL,
-          contentType: false,
-          cache: false,  
-          processData: false,
-          success: function(data)
-          {
-            $("#success-alert").alert();
-            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-            $("#success-alert").alert('close');
-            });
-            setTimeout("location.href = redirectURL;",redirectTime); 
+          if(tgl_dok.substring(6,10)!=tahun_ang){
+            alert("Tahun Dokumen Tidak Sesuai Dengan Tahun Anggaran");
+            return false;
           }
-        });
-        return false;
+          if(tgl_buku.substring(6,10)!=tahun_ang){
+            alert("Tahun Bukti Tidak Sesuai Dengan Tahun Anggaran");
+            return false;
+          }
+
+          $('#myModal').modal({
+            backdrop: 'static',
+            keyboard: false
+          });
+          $('#myModal').modal('show');
+          e.preventDefault();
+          redirectTime = "2600";
+          redirectURL = "trans_masuk";
+          var formURL = $(this).attr("action");
+          var addData = new FormData(this);
+          $.ajax({
+            type: "post",
+            data: addData,
+            url : formURL,
+            contentType: false,
+            cache: false,  
+            processData: false,
+            success: function(data)
+            {
+              $("#success-alert").alert();
+              $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+              $("#success-alert").alert('close');
+              });
+              setTimeout("$('#myModal').modal('hide');$('#tab_1').removeClass('active');$('#li_tab_1').removeClass('active');$('#tab_2').addClass('active');$('#li_tab_2').addClass('active');",redirectTime);
+            }
+          });
+          return false;
+        }
+        else if (no_dok_item!="") {
+          
+          if(kd_brg==""){
+            alert("Kode Persediaan Belum Dipilih")
+            return false;
+          }
+
+          $('#myModal').modal({
+            backdrop: 'static',
+            keyboard: false
+          });
+          $('#myModal').modal('show');
+          e.preventDefault();
+          redirectTime = "2600";
+          redirectURL = "trans_masuk";
+          var formURL = $(this).attr("action");
+          var addData = new FormData(this);
+          $.ajax({
+            type: "post",
+            data: addData,
+            url : formURL,
+            contentType: false,
+            cache: false,  
+            processData: false,
+            success: function(data)
+            {
+              $("#success-alert").alert();
+              $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+              $("#success-alert").alert('close');
+              });
+              setTimeout("location.href = redirectURL;",redirectTime); 
+            }
+          });
+          return false;
+        }
+        else{
+          alert("Harap Masukkan Data Terlebih Dahulu");
+          return false;
+        }       
       });
     </script>
   </body>
