@@ -392,7 +392,7 @@
           success: function (output) {     
             $('#no_dok_item').html(output);
           }
-       });
+        });
        $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
@@ -473,6 +473,40 @@
               $("#success-alert").alert('close');
               });
               setTimeout("$('#myModal').modal('hide');$('#tab_1').removeClass('active');$('#li_tab_1').removeClass('active');$('#tab_2').addClass('active');$('#li_tab_2').addClass('active');",redirectTime);
+              $.ajax({
+                type: "post",
+                url: '../core/transaksi/prosestransaksi',
+                data: {manage:'readnodok',no_dok:"<?php echo($_SESSION['kd_lok']);?>"},
+                success: function (output) {     
+                  $('#no_dok_item').html(output);
+                }
+              });
+              $("#example1").DataTable().destroy();
+              $("#example1 tbody").empty();
+              table = $("#example1").DataTable({
+                "processing": false,
+                "serverSide": true,
+                "ajax": "../core/loadtable/loadtransmsk",
+                "columnDefs":
+                [
+                  {"targets": 0,
+                   "visible": false },
+                  {"targets": 1 },
+                  {"targets": 2 },
+                  {"targets": 3 },
+                  {"targets": 4 },
+                  {"targets": 5 },
+                  {"orderable": false,
+                   "data": null,
+                   "defaultContent":  '<div class="box-tools">'+
+                                      // '<a href="edit_trans_masuk?id=a" class="btn btn-success btn-sm daterange pull-left" role="button"><i class="fa fa-edit"></i></a>'+
+                                        // '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                        '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                      '</div>',
+                   "targets": [6],"targets": 6 },
+                ],
+                "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
+              });
             }
           });
           return false;
