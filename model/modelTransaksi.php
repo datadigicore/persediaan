@@ -884,7 +884,7 @@ class modelTransaksi extends mysql_db
 
        $kd_lokasi = $data['kd_lokasi'];
        $id_masuk = $data['id_masuk'];
-       $query_cek = "SELECT status from transaksi_keluar where id='$id_masuk'";
+       $query_cek = "SELECT status from transaksi_keluar where id='$id_masuk' and status_hapus=0";
        $result = $this->query($query_cek);
        $cek= $this->fetch_array($result);
        $status = $cek["status"];
@@ -899,7 +899,7 @@ class modelTransaksi extends mysql_db
        $id_masuk = $data['id_masuk'];
 
 
-       $query_cek = "SELECT tgl_dok,qty,satuan,status from transaksi_keluar where kd_lokasi='$kd_lokasi' and id_masuk='$id_masuk'";
+       $query_cek = "SELECT tgl_dok,qty,satuan,status from transaksi_keluar where kd_lokasi='$kd_lokasi' and id_masuk='$id_masuk' and status_hapus=0";
        $result = $this->query($query_cek);
        $cek= $this->fetch_array($result);
        $jumlah = $cek["qty"];
