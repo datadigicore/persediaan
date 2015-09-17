@@ -834,6 +834,17 @@ class modelTransaksi extends mysql_db
         {
             echo '<option value="'.$row['no_dok'].'">'.$row['no_dok']."</option>";
         }   
+    }    
+
+    public function bacanodok_klr($data)
+    {
+        $query = "select no_dok from transaksi_keluar where no_dok like '$data%' group by no_dok";
+        $result = $this->query($query);
+        echo '<option value="">-- Pilih Nomor Dokumen --</option>';
+        while ($row = $this->fetch_array($result))
+        {
+            echo '<option value="'.$row['no_dok'].'">'.$row['no_dok']."</option>";
+        }   
     }
     public function bacaidenttrans($data)
     {
