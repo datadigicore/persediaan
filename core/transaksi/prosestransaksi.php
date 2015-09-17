@@ -369,15 +369,19 @@ else
 			$kd_lokasi = $_SESSION['kd_lok'];
 			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
+			$tanggal = date("Y-m-d h:i:sa");
+
 
 			$data = array(
 				"id" => $id,
 				"kd_lokasi" => $kd_lokasi,
 				"nm_satker" => $nm_satker,
 				"thn_ang" => $thn_ang,
+				"aksi" => "H-transaksi masuk",
+				"tanggal" => $tanggal,
 				"user_id" => $user_id
 			);
-
+			$Transaksi->loghistory_masuk_uh($data);
 			$Transaksi->hapus_transaksi_masuk($data);
 		break;		
 
@@ -387,15 +391,18 @@ else
 			$kd_lokasi = $_SESSION['kd_lok'];
 			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
+			$tanggal = date("Y-m-d h:i:sa");
 
 			$data = array(
 				"id" => $id,
 				"kd_lokasi" => $kd_lokasi,
 				"nm_satker" => $nm_satker,
 				"thn_ang" => $thn_ang,
+				"aksi" => "H-transaksi keluar",
+				"tanggal" => $tanggal,
 				"user_id" => $user_id
 			);
-
+			$Transaksi->loghistory_keluar_uh($data);
 			$Transaksi->hapus_transaksi_keluar($data);
 		break;
 
