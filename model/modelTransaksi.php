@@ -284,16 +284,24 @@ class modelTransaksi extends mysql_db
 
         $thn_ang = $data['thn_ang'];
         $no_dok = $data['no_dok'];
-        $tgl_dok = $data['tgl_dok'];
-        $tgl_buku = $data['tgl_buku'];
-        $no_bukti = $data['no_bukti'];
+
+        $query_dok = "select tgl_dok, tgl_buku, no_bukti, jns_trans from transaksi_masuk where no_dok='$no_dok'";
+        $result_dok = $this->query($query_dok);
+        $dok = $this->fetch_array($result_dok);
+
+        $tgl_dok = $dok['tgl_dok'];
+        $tgl_buku = $dok['tgl_buku'];
+        $no_bukti = $dok['no_bukti'];
+        $jns_trans = $dok['jns_trans'];
+        
         $kd_brg = $data['kd_brg'];
+
         
         $satuan = $data['satuan'];
         $kuantitas = $data['kuantitas'];
         $harga_sat = $data['harga_sat'];
         
-        $jns_trans = $data['jns_trans'];
+       
         $keterangan = $data['keterangan'];
         $status = $data['status'];
         $user_id = $data['user_id'];
@@ -827,7 +835,7 @@ class modelTransaksi extends mysql_db
 
     public function bacanodok($data)
     {
-        $query = "select no_dok from transaksi_masuk where no_dok like '$data%' group by no_dok";
+        $query = "select no_dok from transaksi_masuk where no_dok like '$data%' and status_hapus=0 group by no_dok";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Nomor Dokumen --</option>';
         while ($row = $this->fetch_array($result))
@@ -838,7 +846,7 @@ class modelTransaksi extends mysql_db
 
     public function bacanodok_klr($data)
     {
-        $query = "select no_dok from transaksi_keluar where no_dok like '$data%' group by no_dok";
+        $query = "select no_dok from transaksi_keluar where no_dok like '$data%' and status_hapus=0 group by no_dok";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Nomor Dokumen --</option>';
         while ($row = $this->fetch_array($result))
