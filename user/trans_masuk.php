@@ -475,13 +475,6 @@
               });
               setTimeout("$('#myModal').modal('hide');$('#tab_1').removeClass('active');$('#li_tab_1').removeClass('active');$('#tab_2').addClass('active');$('#li_tab_2').addClass('active');",redirectTime);
               $('#addtransmsk').trigger('reset');
-
-              // $("#disjenistrans").val(jns_trans);
-              // $("#distgldok").val(tgl_dok);
-              // $("#distglbuku").val(tgl_buku);
-              // $("#dissatker").val("<?php echo($_SESSION['nama_satker']); ?>");
-              // $("#distottrans").val();
-              // $("#no_dok_item").val();
               var identtran = "<?php echo($_SESSION['kd_lok']).'.'?>"+no_dok;
               alert(identtran);
               $.ajax({
