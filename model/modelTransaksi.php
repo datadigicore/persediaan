@@ -10,16 +10,24 @@ class modelTransaksi extends mysql_db
         $nm_satker = $data['nm_satker'];
         $thn_ang = $data['thn_ang'];
         $no_dok = $data['no_dok'];
-        $tgl_dok = $data['tgl_dok'];
-        $tgl_buku = $data['tgl_buku'];
-        $no_bukti = $data['no_bukti'];
+
+        $query_dok = "select tgl_dok, tgl_buku, no_bukti, jns_trans, nm_brg from transaksi_masuk where no_dok='$no_dok'";
+        $result_dok = $this->query($query_dok);
+        $dok = $this->fetch_array($result_dok);
+
+        $tgl_dok = $dok['tgl_dok'];
+        $tgl_buku = $dok['tgl_buku'];
+        $no_bukti = $dok['no_bukti'];
+        $jns_trans = $dok['jns_trans'];
+        $nm_brg = $dok['nm_brg'];
+
         $kd_brg = $data['kd_brg'];
-        $nm_brg = $data['nm_brg'];
+        
         $satuan = $data['satuan'];
         $kuantitas = $data['kuantitas'];
         $harga_sat = $data['harga_sat'];
         $total_harga = $kuantitas*$harga_sat;
-        $jns_trans = $data['jns_trans'];
+        
         $keterangan = $data['keterangan'];
         $status = $data['status'];
         $user_id = $data['user_id'];
