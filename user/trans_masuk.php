@@ -151,7 +151,7 @@
                         </div>
                         </div>
                         <div class="box-footer">
-                          <button type="Reset" class="btn btn-default">Reset</button>
+                          <button type="reset" id="btn_resets" class="btn btn-default">Reset</button>
                           <button type="submit" class="btn btn-info pull-right">Submit</button>
                         </div>
                       </div>
@@ -436,6 +436,7 @@
         var dissatker = $("#dissatker").val();
         var distottrans = $("#distottrans").val();
         var no_dok_item = $("#no_dok_item").val();
+        var no_dok = $("#no_dok").val();
 
         if(jns_trans!=""){
           // alert("Jenis Transaksi Dipilih");
@@ -473,6 +474,29 @@
               $("#success-alert").alert('close');
               });
               setTimeout("$('#myModal').modal('hide');$('#tab_1').removeClass('active');$('#li_tab_1').removeClass('active');$('#tab_2').addClass('active');$('#li_tab_2').addClass('active');",redirectTime);
+              $('#addtransmsk').trigger('reset');
+
+              // $("#disjenistrans").val(jns_trans);
+              // $("#distgldok").val(tgl_dok);
+              // $("#distglbuku").val(tgl_buku);
+              // $("#dissatker").val("<?php echo($_SESSION['nama_satker']); ?>");
+              // $("#distottrans").val();
+              // $("#no_dok_item").val();
+              var identtran = "<?php echo($_SESSION['kd_lok']).'.'?>"+no_dok;
+              alert(identtran);
+              $.ajax({
+                type: "post",
+                url: '../core/transaksi/prosestransaksi',
+                data: {manage:'readidenttrans',idtrans:identtran},
+                dataType: "json",
+                success: function (output) {
+                  $('#disjenistrans').val(output.jenistrans);
+                  $('#distgldok').val(output.tgldok);
+                  $('#distglbuku').val(output.tglbuku);
+                  $('#dissatker').val(output.satker);
+                  $('#distottrans').val(output.total);
+                }
+              });
               $.ajax({
                 type: "post",
                 url: '../core/transaksi/prosestransaksi',
