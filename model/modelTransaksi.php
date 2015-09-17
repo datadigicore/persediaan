@@ -855,6 +855,28 @@ class modelTransaksi extends mysql_db
             }
             echo json_encode(array("nobukti"=>$hslnobukti,"jenistrans"=>$hsljenistrans,"tgldok"=>$hsltgldok,"tglbuku"=>$hsltglbuku,"satker"=>$hslsatker,"total"=>$hsltottrans));
         }   
+    }       
+
+    public function bacaidenttrans_klr($data)
+    {
+        $query = "select no_bukti, tgl_dok, tgl_buku, jns_trans, nm_satker, sum(total_harga) as total_harga from transaksi_keluar where no_dok = '$data' and status_hapus=0 group by no_dok";
+        $result = $this->query($query);
+        if ($row = $this->fetch_assoc($result))
+        {
+            $datedok = date_create($row["tgl_dok"]);
+            $datebuku = date_create($row["tgl_buku"]);
+            $hslnobukti = $row["no_bukti"];
+            $hsljenistrans = $row["jns_trans"];
+            $hsltgldok = date_format($datedok,"d-m-Y");
+            $hsltglbuku = date_format($datebuku,"d-m-Y");
+            $hslsatker = $row["nm_satker"];
+            $hsltottrans = $row["total_harga"];
+            if($hsltottrans=="")
+            {
+                $hsltottrans=0;
+            }
+            echo json_encode(array("nobukti"=>$hslnobukti,"jenistrans"=>$hsljenistrans,"tgldok"=>$hsltgldok,"tglbuku"=>$hsltglbuku,"satker"=>$hslsatker,"total"=>$hsltottrans));
+        }   
     }    
 
     public function baca_persediaan_masuk($data)
