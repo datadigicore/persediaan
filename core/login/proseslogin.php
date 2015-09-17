@@ -15,7 +15,12 @@ else
 
 		case 'check_tahun':
 			$username = $purifier->purify($_POST['keyword']);
-			$Dashboard->check_tahun($username);
+			if ($username == "masteradmin") {
+				$Dashboard->bacatahun();
+			}
+			else{
+				$Dashboard->check_tahun($username);
+			}			
 		break;
 
 		default:

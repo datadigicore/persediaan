@@ -25,7 +25,7 @@
         <p class="login-box-msg">Silahkan isi Username dan Password</p>
         <form action="config/authenticate" method="post" id="login-form">
           <div class="form-group has-feedback">
-            <input type="text" name="username" id="username" class="form-control" placeholder="Username" onkeyup="searchuser()"/>
+            <input type="text" name="username" id="username" class="form-control" placeholder="Username" onkeyup="searchuser()" onchange="searchuser()"/>
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
