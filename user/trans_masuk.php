@@ -224,6 +224,7 @@
             {"targets": 4 },
             {"targets": 5 },
             {"orderable": false,
+             "visible" : false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                 // '<a href="edit_trans_masuk?id=a" class="btn btn-success btn-sm daterange pull-left" role="button"><i class="fa fa-edit"></i></a>'+

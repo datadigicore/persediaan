@@ -9,7 +9,6 @@
     <div class="wrapper">
       <?php include("include/header.php"); ?>
       <?php include("include/sidebar.php"); ?>
-
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
@@ -60,7 +59,7 @@
                         <div class="form-group">                     
                         <label class="col-sm-2 control-label">Nomor Bukti</label>
                           <div class="col-sm-9">
-                            <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor BUkti">
+                            <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor Bukti">
                           </div>
                         </div>
                         <div class="form-group">
@@ -79,6 +78,12 @@
                       <div class="tab-pane" id="tab_2"> 
                         <div class="row">
                         <div class="col-sm-5">    
+                          <div class="form-group">
+                            <label class="col-sm-5 control-label">No. Bukti</label>
+                            <div class="col-sm-7">
+                              <input type="text" id="disnobukti" name="disnobukti" class="form-control" disabled>
+                            </div>
+                          </div>
                           <div class="form-group">
                             <label class="col-sm-5 control-label">Jenis Transaksi</label>
                             <div class="col-sm-7">
@@ -110,7 +115,15 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-sm-7">    
+                        <div class="col-sm-7">  
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">No. Dokumen</label>
+                            <div class="col-sm-8">
+                              <select name="no_dok_item" id="no_dok_item" class="form-control select2" style="width:100%;">
+                                <option selected="selected">-- Pilih Nomor Dokumen --</option>
+                              </select>
+                            </div>
+                          </div>  
                           <div class="form-group">
                             <label class="col-sm-3 control-label">Keterangan</label>
                             <div class="col-sm-8">
@@ -155,14 +168,12 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th width="10%">ID</th>
-                        <th width="14%">Nomor Dokumen</th>
+                        <th width="5%">ID</th>
+                        <th width="14%">Jenis Transaksi</th>
+                        <th width="18%">No Dokumen</th>
+                        <th width="18%">No Bukti</th>
+                        <th>Tanggal Dokumen</th>
                         <th>Tanggal Buku</th>
-                        <th>Nama Barang</th>
-                        <th>Jumlah</th>
-                        <th>Harga Satuan</th>
-                        <th>Total</th>
-                        <th>Keterangan</th>
                         <th width="5%">Aksi</th>
                       </tr>
                     </thead>
@@ -200,21 +211,40 @@
           "ajax": "../core/loadtable/loadtransklr",
           "columnDefs":
           [
-            {"targets": 0 },
+            {"targets": 0,
+             "visible": false },
             {"targets": 1 },
             {"targets": 2 },
             {"targets": 3 },
             {"targets": 4 },
             {"targets": 5 },
             {"orderable": false,
+             "visible": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                   // '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
                                   '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
                                 '</div>',
-             "targets": [8],"targets": 8 }         
+             "targets": [6],"targets": 6 }         
 
           ],
+        });
+        $('#no_dok_item').change(function(){
+          var identtrans = $(this).val();
+          $.ajax({
+            type: "post",
+            url: '../core/transaksi/prosestransaksi',
+            data: {manage:'readidenttransklr',idtrans:identtrans},
+            dataType: "json",
+            success: function (output) {
+              $('#disnobukti').val(output.nobukti);
+              $('#disjenistrans').val(output.jenistrans);
+              $('#distgldok').val(output.tgldok);
+              $('#distglbuku').val(output.tglbuku);
+              $('#dissatker').val(output.satker);
+              $('#distottrans').val(output.total);
+            }
+          });
         });
       });
       $(document).on('click', '#btnhps', function () {
@@ -269,6 +299,14 @@
           }
         });
       });
+        $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'readnodokklr',no_dok:"<?php echo($_SESSION['kd_lok']);?>"},
+          success: function (output) {     
+            $('#no_dok_item').html(output);
+          }
+        });
        $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',

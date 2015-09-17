@@ -17,13 +17,11 @@ $primaryKey = 'id';
 // Load Data berdasarkan nama table nya
 $columns = array(
     array( 'db' => 'id', 'dt' => 0 ),
-    array( 'db' => 'no_dok', 'dt' => 1 ),
-    array( 'db' => 'tgl_dok', 'dt' => 2 ),
-    array( 'db' => 'nm_brg', 'dt' => 3 ),
-    array( 'db' => 'qty', 'dt' => 4, 'formatter' => function($d,$row){return abs($d);}),
-    array( 'db' => 'harga_sat', 'dt' => 5 ),
-    array( 'db' => 'total_harga', 'dt' => 6, 'formatter' => function($d,$row){return abs($d);}),
-    array( 'db' => 'Keterangan', 'dt' => 7 ),
+    array( 'db' => 'jns_trans', 'dt' => 1 ),
+    array( 'db' => 'no_dok', 'dt' => 2 ),
+    array( 'db' => 'no_bukti', 'dt' => 3 ),
+    array( 'db' => 'tgl_dok', 'dt' => 4, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
+    array( 'db' => 'tgl_buku', 'dt' => 5, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
 );
  
 // Settingan Koneksi Datatable
