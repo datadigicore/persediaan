@@ -28,7 +28,7 @@ $columns = array(
 require('../../config/dbconf.php');
 $config = new config();
 $sql_details = $config->sql_details();
-$where = "kd_lokasi='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang'"; 
+$where = "kd_lokasi='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang' and kd_brg is null group by no_dok"; 
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp.class.php' );
 echo json_encode(

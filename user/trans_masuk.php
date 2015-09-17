@@ -450,6 +450,7 @@
                   {"targets": 4 },
                   {"targets": 5 },
                   {"orderable": false,
+                   "visible": false,
                    "data": null,
                    "defaultContent":  '<div class="box-tools">'+
                                       // '<a href="edit_trans_masuk?id=a" class="btn btn-success btn-sm daterange pull-left" role="button"><i class="fa fa-edit"></i></a>'+
@@ -539,7 +540,7 @@
           });
           $('#myModal').modal('show');
           e.preventDefault();
-          redirectTime = "2600";
+          redirectTime = "1600";
           redirectURL = "trans_masuk";
           var formURL = $(this).attr("action");
           var addData = new FormData(this);
@@ -559,7 +560,7 @@
               setTimeout("$('#myModal').modal('hide');$('#tab_1').removeClass('active');$('#li_tab_1').removeClass('active');$('#tab_2').addClass('active');$('#li_tab_2').addClass('active');",redirectTime);
               $('#addtransmsk').trigger('reset');
               var identtran = "<?php echo($_SESSION['kd_lok']).'.'?>"+no_dok;
-              alert(identtran);
+              // alert(identtran);
               $.ajax({
                 type: "post",
                 url: '../core/transaksi/prosestransaksi',

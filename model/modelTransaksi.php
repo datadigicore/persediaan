@@ -838,7 +838,10 @@ class modelTransaksi extends mysql_db
 
     public function bacanodok($data)
     {
-        $query = "select no_dok from transaksi_masuk where no_dok like '$data%' and status_hapus=0 group by no_dok";
+        $nodok = $data['no_dok'];
+        $kdlokasi = $data['kd_lokasi'];
+        $thnang = $data['thn_ang'];
+        $query = "select no_dok from transaksi_masuk where no_dok like '$nodok%' and status_hapus=0 and thn_ang='$thnang' and kd_lokasi='$kdlokasi' and kd_brg is null group by no_dok";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Nomor Dokumen --</option>';
         while ($row = $this->fetch_array($result))
