@@ -785,7 +785,7 @@ class modelTransaksi extends mysql_db
     }
     public function bacaidenttrans($data)
     {
-        $query = "select tgl_dok, tgl_buku, jns_trans, nm_satker, sum(total_harga) as total_harga from transaksi_masuk where no_dok = '$data' group by no_dok";
+        $query = "select tgl_dok, tgl_buku, jns_trans, nm_satker, sum(total_harga) as total_harga from transaksi_masuk where no_dok = '$data' and status_hapus=0 group by no_dok";
         $result = $this->query($query);
         if ($row = $this->fetch_assoc($result))
         {
@@ -1029,6 +1029,110 @@ class modelTransaksi extends mysql_db
         // $var = mysql_insert_id();
         // print_r($var);
         // return $result_log;
+    }
+
+    public function loghistory_masuk_uh($data)
+    {
+        $id = $data['id'];
+        $query = "select * from transaksi_masuk where id='$id'";
+        $result = $this->query($query);
+        $detail = $this->fetch_array($result);
+
+        $kd_lokasi = $detail['kd_lokasi'];
+        $nm_satker = $detail['nm_satker'];
+        $thn_ang = $detail['thn_ang'];
+        $no_dok = $detail['no_dok'];
+        $tgl_dok = $detail['tgl_dok'];        
+        $no_bukti = $detail['no_bukti'];
+        $tgl_buku = $detail['tgl_buku'];
+        $jns_trans = $detail['jns_trans'];
+        $aksi = $data['aksi'];
+        $kd_brg = $detail['kd_brg'];
+        $nm_brg = $detail['nm_brg'];
+        $qty = $detail['qty'];
+        $harga_sat = $detail['harga_sat'];
+        $total_harga = $detail['total_harga'];
+        $keterangan = $detail['keterangan'];
+        $tanggal = $data['tanggal'];
+        $user_id = $data['user_id'];
+
+                $query_log = "Insert into log_trans_masuk
+                        set 
+                        kd_lokasi='$kd_lokasi',
+                        nm_satker='$nm_satker',
+                        thn_ang='$thn_ang',
+                        no_dok='$no_dok',
+                        tgl_dok='$tgl_dok',
+                        tgl_buku='$tgl_buku',
+                        no_bukti='$no_bukti',
+                        jns_trans='$jns_trans',
+                        aksi='$aksi',
+                        kd_brg='$kd_brg',
+                        nm_brg='$nm_brg',
+                        
+                        
+                        qty='$qty',
+                        
+                        harga_sat='$harga_sat',
+                        total_harga='$total_harga',
+                        keterangan='$keterangan',
+                        tgl_update='$tanggal',
+                        user_id='$user_id'";   
+        $result_log = $this->query($query_log);
+
+
+    }
+
+    public function loghistory_keluar_uh($data)
+    {
+        $id = $data['id'];
+        $query = "select * from transaksi_keluar where id='$id'";
+        $result = $this->query($query);
+        $detail = $this->fetch_array($result);
+
+        $kd_lokasi = $detail['kd_lokasi'];
+        $nm_satker = $detail['nm_satker'];
+        $thn_ang = $detail['thn_ang'];
+        $no_dok = $detail['no_dok'];
+        $tgl_dok = $detail['tgl_dok'];        
+        $no_bukti = $detail['no_bukti'];
+        $tgl_buku = $detail['tgl_buku'];
+        $jns_trans = $detail['jns_trans'];
+        $aksi = $data['aksi'];
+        $kd_brg = $detail['kd_brg'];
+        $nm_brg = $detail['nm_brg'];
+        $qty = $detail['qty'];
+        $harga_sat = $detail['harga_sat'];
+        $total_harga = $detail['total_harga'];
+        $keterangan = $detail['keterangan'];
+        $tanggal = $data['tanggal'];
+        $user_id = $data['user_id'];
+
+                $query_log = "Insert into log_trans_keluar
+                        set 
+                        kd_lokasi='$kd_lokasi',
+                        nm_satker='$nm_satker',
+                        thn_ang='$thn_ang',
+                        no_dok='$no_dok',
+                        tgl_dok='$tgl_dok',
+                        tgl_buku='$tgl_buku',
+                        no_bukti='$no_bukti',
+                        jns_trans='$jns_trans',
+                        aksi='$aksi',
+                        kd_brg='$kd_brg',
+                        nm_brg='$nm_brg',
+                        
+                        
+                        qty='$qty',
+                        
+                        harga_sat='$harga_sat',
+                        total_harga='$total_harga',
+                        keterangan='$keterangan',
+                        tgl_update='$tanggal',
+                        user_id='$user_id'";   
+        $result_log = $this->query($query_log);
+
+
     }
 
     public function konversi_tanggal($tgl)
