@@ -29,12 +29,12 @@
                 </div>
                 <div class="nav-tabs-custom">
                   <ul class="nav nav-tabs nav-justified">
-                    <li class="active"><a href="#tab_1" data-toggle="tab">Identitas Transaksi</a></li>
-                    <li><a href="#tab_2" data-toggle="tab">Item Transaksi</a></li>
+                    <li class="active" id="li_tab_1"><a href="#tab_1" data-toggle="tab">Identitas Transaksi</a></li>
+                    <li id="li_tab_2"><a href="#tab_2" data-toggle="tab">Item Transaksi</a></li>
                   </ul>
                 </div>  
                 <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="addtransmsk">
-                  <div class="box-body">
+                  <div class="box-body" style="padding:0;">
                     <div class="tab-content">
                       <div class="tab-pane active" id="tab_1">
                         <div class="form-group">
@@ -76,33 +76,67 @@
                           </div> 
                         </div>
                       </div>
-                      <div class="tab-pane" id="tab_2">     
-                        <div class="form-group">
-                          <label class="col-sm-2 control-label">Keterangan</label>
-                          <div class="col-sm-9">
-                            <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Keterangan">
+                      <div class="tab-pane" id="tab_2"> 
+                        <div class="row">
+                        <div class="col-sm-5">    
+                          <div class="form-group">
+                            <label class="col-sm-5 control-label">Jenis Transaksi</label>
+                            <div class="col-sm-7">
+                              <input type="text" id="disjenistrans" name="disjenistrans" class="form-control" disabled>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-sm-5 control-label">Tgl. Dokumen</label>
+                            <div class="col-sm-7">
+                              <input type="text" id="distgldok" name="distgldok" class="form-control" disabled>
+                            </div>
+                          </div>                  
+                          <div class="form-group">
+                            <label class="col-sm-5 control-label">Tgl. Buku</label>
+                            <div class="col-sm-7">
+                              <input type="text" id="distglbuku" name="distglbuku" class="form-control" disabled>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-sm-5 control-label">Satker</label>
+                            <div class="col-sm-7">
+                              <input type="text" id="dissatker" name="dissatker" class="form-control" disabled>
+                            </div>
+                          </div>                  
+                          <div class="form-group">
+                            <label class="col-sm-5 control-label">Total Transaksi</label>
+                            <div class="col-sm-7">
+                              <input type="text" id="distottrans" name="distottrans" class="form-control" disabled>
+                            </div>
                           </div>
                         </div>
-                        <div class="form-group">
-                          <label class="col-sm-2 control-label">Kode Barang</label>
-                          <div class="col-sm-9">
-                            <select name="kd_brg" id="kd_brg" class="form-control">
-                            </select>
+                        <div class="col-sm-7">    
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">Keterangan</label>
+                            <div class="col-sm-8">
+                              <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Keterangan">
+                            </div>
                           </div>
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">Kode Barang</label>
+                            <div class="col-sm-8">
+                              <select name="kd_brg" id="kd_brg" class="form-control">
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">Jml dikeluarkan</label>
+                            <div class="col-sm-8">
+                              <input type="number" min="1" max name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Keluar">
+                            </div>
+                          </div>                  
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">Saldo Barang</label>
+                            <div class="col-sm-8">
+                              <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="Saldo Barang" readonly required>
+                            </div>
+                          </div>                  
                         </div>
-                        <div class="form-group">
-                          <label class="col-sm-2 control-label">Jumlah Dikeluarkan</label>
-                          <div class="col-sm-9">
-                            <input type="number" min="1" max name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Keluar">
-                          </div>
-                        </div>                  
-                        <div class="form-group">
-                          <label class="col-sm-2 control-label">Saldo Barang</label>
-                          <div class="col-sm-9">
-                            <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="Saldo Barang" readonly required>
-                          </div>
-                        </div>                  
-                        <div name="detil_transaksi" id="detil_transaksi">
                         </div>
                       </div>
                     </div>
@@ -243,23 +277,23 @@
             $('#kd_brg').html(output);
           }
        });
-      $('#kd_brg').change(function(){
-        if ($(this).val()=='') {
-          $('#detil_transaksi').html('<option value="">-- Belum Dicetak --</option>');
-        }
-        else {
-          var kd_brg = $('#kd_brg').val(); 
-          var no_dok = $('#no_dok').val(); 
-          $.ajax({
-          type: "post",
-          url: '../core/transaksi/prosestransaksi',
-          data: {manage:'baca_detil_trans',kd_brg:kd_brg,no_dok:no_dok},
-          success: function (output) {     
-            $('#detil_transaksi').html(output);
-          }
-       });
-        }
-      });
+      // $('#kd_brg').change(function(){
+      //   if ($(this).val()=='') {
+      //     $('#detil_transaksi').html('<option value="">-- Belum Dicetak --</option>');
+      //   }
+      //   else {
+      //     var kd_brg = $('#kd_brg').val(); 
+      //     var no_dok = $('#no_dok').val(); 
+      //     $.ajax({
+      //     type: "post",
+      //     url: '../core/transaksi/prosestransaksi',
+      //     data: {manage:'baca_detil_trans',kd_brg:kd_brg,no_dok:no_dok},
+      //     success: function (output) {     
+      //       $('#detil_transaksi').html(output);
+      //     }
+      //  });
+      //   }
+      // });
       $('#kd_brg').change(function(){
         if ($(this).val()=='') {
           $('#rph_sat').val('');
