@@ -56,9 +56,9 @@
                           </div>
                         </div>
                         <div class="form-group">                     
-                        <label class="col-sm-2 control-label">Nomor Transaksi</label>
+                        <label class="col-sm-2 control-label">Nomor Bukti</label>
                           <div class="col-sm-9">
-                            <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor Transaksi">
+                            <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor Bukti">
                           </div>
                         </div>
                         <div class="form-group">
@@ -81,6 +81,12 @@
                       <div class="tab-pane" id="tab_2">
                         <div class="row">
                         <div class="col-sm-5">
+                          <div class="form-group">
+                            <label class="col-sm-5 control-label">No. Bukti</label>
+                            <div class="col-sm-7">
+                              <input type="text" id="disnobukti" name="disnobukti" class="form-control" disabled>
+                            </div>
+                          </div>
                           <div class="form-group">
                             <label class="col-sm-5 control-label">Jenis Transaksi</label>
                             <div class="col-sm-7">
@@ -173,11 +179,6 @@
                         <th width="18%">No Bukti</th>
                         <th>Tanggal Dokumen</th>
                         <th>Tanggal Buku</th>
-                        <!-- <th>Nama Barang</th>
-                        <th width="3%">Jumlah</th>
-                        <th>Harga Satuan</th>
-                        <th>Total</th>
-                        <th>Keterangan</th> -->
                         <th width="9%">Aksi</th>
                       </tr>
                     </thead>
@@ -249,6 +250,7 @@
             // alert(output.tgldok);
             // alert(output.tglbuku);
             // alert(output.satker);
+            $('#disnobukti').val(output.nobukti);
             $('#disjenistrans').val(output.jenistrans);
             $('#distgldok').val(output.tgldok);
             $('#distglbuku').val(output.tglbuku);
@@ -419,7 +421,87 @@
         }
       });
 
-
+      $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var target = $(e.target).attr("href") // activated tab
+        if (target== "#tab_1") {
+          $("#example1").DataTable().destroy();
+          $("#example1").empty();
+          $("#example1").append('<thead><tr>'
+                        +'<th width="5%">ID</th>'
+                        +'<th width="14%">Jenis Transaksi</th>'
+                        +'<th width="18%">No Dokumen</th>'
+                        +'<th width="18%">No Bukti</th>'
+                        +'<th>Tanggal Dokumen</th>'
+                        +'<th>Tanggal Buku</th>'
+                        +'<th width="9%">Aksi</th>'
+                        +'</tr></thead>');
+          table = $("#example1").DataTable({
+                "processing": false,
+                "serverSide": true,
+                "ajax": "../core/loadtable/loadtransmsk",
+                "columnDefs":
+                [
+                  {"targets": 0,
+                   "visible": false },
+                  {"targets": 1 },
+                  {"targets": 2 },
+                  {"targets": 3 },
+                  {"targets": 4 },
+                  {"targets": 5 },
+                  {"orderable": false,
+                   "data": null,
+                   "defaultContent":  '<div class="box-tools">'+
+                                      // '<a href="edit_trans_masuk?id=a" class="btn btn-success btn-sm daterange pull-left" role="button"><i class="fa fa-edit"></i></a>'+
+                                        // '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                        '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                      '</div>',
+                   "targets": [6],"targets": 6 },
+                ],
+                "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
+              });
+        };
+        if (target== "#tab_2") {
+          $("#example1").DataTable().destroy();
+          $("#example1").empty();
+          $("#example1").append('<thead><tr>'
+                        +'<th>ID</th>'
+                        +'<th>Nama Sub-sub Kel</th>'
+                        +'<th>Nama Barang</th>'
+                        +'<th>Jumlah</th>'
+                        +'<th>Harga Satuan</th>'
+                        +'<th>Total Harga</th>'
+                        +'<th>No Dok</th>'
+                        +'<th>No Bukti</th>'
+                        +'<th width="9%">Aksi</th>'
+                        +'</tr></thead>');
+          table = $("#example1").DataTable({
+                "processing": false,
+                "serverSide": true,
+                "ajax": "../core/loadtable/loadtransmskitm",
+                "columnDefs":
+                [
+                  {"targets": 0,
+                   "visible": false },
+                  {"targets": 1 },
+                  {"targets": 2 },
+                  {"targets": 3 },
+                  {"targets": 4 },
+                  {"targets": 5 },
+                  {"targets": 6 },
+                  {"targets": 7 },
+                  {"orderable": false,
+                   "data": null,
+                   "defaultContent":  '<div class="box-tools">'+
+                                      // '<a href="edit_trans_masuk?id=a" class="btn btn-success btn-sm daterange pull-left" role="button"><i class="fa fa-edit"></i></a>'+
+                                        // '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                        '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                      '</div>',
+                   "targets": [8],"targets": 8 },
+                ],
+                "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
+              });
+        };
+      });
 
       $('#addtransmsk').submit(function(e){
         var jns_trans = $("#jenis_trans").val();
@@ -483,6 +565,7 @@
                 data: {manage:'readidenttrans',idtrans:identtran},
                 dataType: "json",
                 success: function (output) {
+                  $('#disnobukti').val(output.nobukti);
                   $('#disjenistrans').val(output.jenistrans);
                   $('#distgldok').val(output.tgldok);
                   $('#distglbuku').val(output.tglbuku);

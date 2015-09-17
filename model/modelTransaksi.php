@@ -785,7 +785,7 @@ class modelTransaksi extends mysql_db
     }
     public function bacaidenttrans($data)
     {
-        $query = "select tgl_dok, tgl_buku, jns_trans, nm_satker, sum(total_harga) as total_harga from transaksi_masuk where no_dok = '$data' group by no_dok";
+        $query = "select tgl_dok, tgl_buku, jns_trans, no_bukti, nm_satker, sum(total_harga) as total_harga from transaksi_masuk where no_dok = '$data' group by no_dok";
         $result = $this->query($query);
         if ($row = $this->fetch_assoc($result))
         {
@@ -795,12 +795,13 @@ class modelTransaksi extends mysql_db
             $hsltgldok = date_format($datedok,"d-m-Y");
             $hsltglbuku = date_format($datebuku,"d-m-Y");
             $hslsatker = $row["nm_satker"];
+            $hslnobukti = $row["no_bukti"];
             $hsltottrans = $row["total_harga"];
             if($hsltottrans=="")
             {
                 $hsltottrans=0;
             }
-            echo json_encode(array("jenistrans"=>$hsljenistrans,"tgldok"=>$hsltgldok,"tglbuku"=>$hsltglbuku,"satker"=>$hslsatker,"total"=>$hsltottrans));
+            echo json_encode(array("nobukti"=>$hslnobukti,"jenistrans"=>$hsljenistrans,"tgldok"=>$hsltgldok,"tglbuku"=>$hsltglbuku,"satker"=>$hslsatker,"total"=>$hsltottrans));
         }   
     }    
 
