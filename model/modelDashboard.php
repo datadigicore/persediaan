@@ -2,6 +2,22 @@
 include('../../utility/mysql_db.php');
 class modelDashboard extends mysql_db
 {
+	public function check_tahun($data)
+	{
+		$query = "SELECT a.tahun, b.status FROM user as a, thn_aktif as b where a.tahun = b.tahun AND a.user_name='$data' order by a.tahun asc ";
+		$result =  $this->query($query);
+		echo '<option selected="selected">-- Pilih Tahun Anggaran --</option>'; 
+		while ($row = $this->fetch_array($result))
+		{
+			if ($row['status'] == "Aktif") {
+				echo '<option value="'.$row['tahun'].'">'.$row['tahun'].'&nbsp;&nbsp;&nbsp;'.$row['status']."</option>";
+			}
+			else{
+				echo '<option value="'.$row['tahun'].'">'.$row['tahun']."</option>";
+			}
+		}
+
+	}
 	public function countdata()
 	{
 		$sql1="select kodesektor from satker

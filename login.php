@@ -25,7 +25,7 @@
         <p class="login-box-msg">Silahkan isi Username dan Password</p>
         <form action="config/authenticate" method="post" id="login-form">
           <div class="form-group has-feedback">
-            <input type="text" name="username" class="form-control" placeholder="Username"/>
+            <input type="text" name="username" id="username" class="form-control" placeholder="Username" onkeyup="searchuser()"/>
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
@@ -58,6 +58,20 @@
     <script type="text/javascript" src="dist/js/jquery-validate.bootstrap-tooltip.min.js"></script>
     <script src="plugins/select2/select2.full.min.js" type="text/javascript"></script>
     <script type="text/javascript">
+      function searchuser() {
+      
+        var keyword = $('#username').val();
+    
+          $.ajax({
+            url: 'core/login/proseslogin',
+            type: 'POST',
+            data: {keyword:keyword,manage:'check_tahun'},
+            success:function(data){
+               $('#thn_ang').html(data);
+            }
+          });
+         
+      }
       $(function () {
         $(".select2").select2();
       });
