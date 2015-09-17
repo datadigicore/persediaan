@@ -103,13 +103,14 @@ class modelTransaksi extends mysql_db
                         tgl_update=CURDATE(),
                         user_id='$user_id'";
                    
-            $result2 = $this->query($query_full);       
+            $result2 = $this->query($query_full);
+            $query_hps = "delete from transaksi_masuk where qty=0 ";
+            $result_hps = $this->query($query_hps);       
             return $result;
             return $result2;
 
-            $query_hps = "delete from transaksi_masuk where qty=0 ";
-            $result_hps = $this->query($query_hps);
-            return $result_hps;
+            
+            
     }       
 
     public function transaksi_masuk_ident($data)
@@ -285,7 +286,7 @@ class modelTransaksi extends mysql_db
         $thn_ang = $data['thn_ang'];
         $no_dok = $data['no_dok'];
 
-        $query_dok = "select tgl_dok, tgl_buku, no_bukti, jns_trans from transaksi_masuk where no_dok='$no_dok'";
+        $query_dok = "select tgl_dok, tgl_buku, no_bukti, jns_trans from transaksi_keluar where no_dok='$no_dok'";
         $result_dok = $this->query($query_dok);
         $dok = $this->fetch_array($result_dok);
 
@@ -488,6 +489,8 @@ class modelTransaksi extends mysql_db
             
 
         }               
+        $query_hps = "delete from transaksi_keluar where qty=0 ";
+            $result_hps = $this->query($query_hps);  
 
     }
 
