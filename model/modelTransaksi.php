@@ -11,7 +11,7 @@ class modelTransaksi extends mysql_db
         $thn_ang = $data['thn_ang'];
         $no_dok = $data['no_dok'];
 
-        $query_dok = "select tgl_dok, tgl_buku, no_bukti, jns_trans, nm_brg from transaksi_masuk where no_dok='$no_dok'";
+        $query_dok = "select tgl_dok, tgl_buku, no_bukti, jns_trans from transaksi_masuk where no_dok='$no_dok'";
         $result_dok = $this->query($query_dok);
         $dok = $this->fetch_array($result_dok);
 
@@ -19,11 +19,11 @@ class modelTransaksi extends mysql_db
         $tgl_buku = $dok['tgl_buku'];
         $no_bukti = $dok['no_bukti'];
         $jns_trans = $dok['jns_trans'];
-        $nm_brg = $dok['nm_brg'];
+        
 
         $kd_brg = $data['kd_brg'];
         
-        $satuan = $data['satuan'];
+        
         $kuantitas = $data['kuantitas'];
         $harga_sat = $data['harga_sat'];
         $total_harga = $kuantitas*$harga_sat;
@@ -32,13 +32,15 @@ class modelTransaksi extends mysql_db
         $status = $data['status'];
         $user_id = $data['user_id'];
 
-        $query_perk = "SELECT kd_kbrg, nm_sskel, kd_perk, nm_perk from persediaan where kd_brg='$kd_brg' and kd_lokasi like '{$kd_lokasi}%' ";
+        $query_perk = "SELECT kd_kbrg, nm_sskel, kd_perk, nm_perk, nm_brg,satuan from persediaan where kd_brg='$kd_brg' and kd_lokasi like '{$kd_lokasi}%' ";
         $result_perk = $this->query($query_perk);
         $data_perk = $this->fetch_array($result_perk);
         $kd_sskel = $data_perk['kd_kbrg'];
         $nm_sskel = $data_perk['nm_sskel'];
         $kd_perk = $data_perk['kd_perk'];
         $nm_perk = $data_perk['nm_perk'];
+        $nm_brg = $data_perk['nm_brg'];
+        $satuan = $data['satuan'];
 
 // Memasukan Data Transaksi Masuk ke tabel Transaksi Masuk        
         $query = "Insert into transaksi_masuk
@@ -104,7 +106,11 @@ class modelTransaksi extends mysql_db
             $result2 = $this->query($query_full);       
             return $result;
             return $result2;
-    }      
+
+            $query_hps = "delete from transaksi_masuk where qty=0 ";
+            $result_hps = $this->query($query_hps);
+            return $result_hps;
+    }       
 
     public function transaksi_masuk_ident($data)
     {
@@ -790,6 +796,10 @@ class modelTransaksi extends mysql_db
             $hsltglbuku = date_format($datebuku,"d-m-Y");
             $hslsatker = $row["nm_satker"];
             $hsltottrans = $row["total_harga"];
+            if($hsltottrans=="")
+            {
+                $hsltottrans=0;
+            }
             echo json_encode(array("jenistrans"=>$hsljenistrans,"tgldok"=>$hsltgldok,"tglbuku"=>$hsltglbuku,"satker"=>$hslsatker,"total"=>$hsltottrans));
         }   
     }    
@@ -910,18 +920,34 @@ class modelTransaksi extends mysql_db
         $user_id = $datalog['user_id'];
         $aksi = $datalog['aksi'];
         $no_dok = $datalog['no_dok'];
-        $tgl_dok = $datalog['tgl_dok'];
-        $tgl_buku = $datalog['tgl_buku'];
-        $no_bukti = $datalog['no_bukti'];
+
         $kd_brg = $datalog['kd_brg'];
         $nm_brg = $datalog['nm_brg'];
         $qty = $datalog['kuantitas'];
         $kuantitas = $datalog['kuantitas'];
         $harga_sat = $datalog['harga_sat'];
         $total_harga = $kuantitas*$harga_sat;
-        $jns_trans = $datalog['jns_trans'];
+       
         $keterangan = $datalog['keterangan'];
         $tanggal = $datalog['tanggal'];
+
+        $query_dok = "select tgl_dok, tgl_buku, no_bukti, jns_trans from transaksi_masuk where no_dok='$no_dok'";
+        $result_dok = $this->query($query_dok);
+        $dok = $this->fetch_array($result_dok);
+
+        $tgl_dok = $dok['tgl_dok'];
+        $tgl_buku = $dok['tgl_buku'];
+        $no_bukti = $dok['no_bukti'];
+        $jns_trans = $dok['jns_trans'];
+        
+        $query_perk = "SELECT kd_kbrg, nm_sskel, kd_perk, nm_perk, nm_brg from persediaan where kd_brg='$kd_brg' and kd_lokasi like '{$kd_lokasi}%' ";
+        $result_perk = $this->query($query_perk);
+        $data_perk = $this->fetch_array($result_perk);
+        $kd_sskel = $data_perk['kd_kbrg'];
+        $nm_sskel = $data_perk['nm_sskel'];
+        $kd_perk = $data_perk['kd_perk'];
+        $nm_perk = $data_perk['nm_perk'];
+        $nm_brg = $data_perk['nm_brg'];
        
         $query_log = "Insert into log_trans_masuk
                         set 
@@ -946,6 +972,10 @@ class modelTransaksi extends mysql_db
                         tgl_update='$tanggal',
                         user_id='$user_id'";   
         $result_log = $this->query($query_log);
+
+        $query_hps = "delete from log_trans_masuk where kd_brg='' ";
+        $result_hps = $this->query($query_hps);
+        return $result_hps;
         // print_r($query_log);
         // $var = mysql_insert_id();
         // print_r($var);
