@@ -225,7 +225,7 @@ else
 					"keterangan" => $keterangan
 				);
 				print_r($data);
-				// $Transaksi->transaksi_masuk($data);
+				$Transaksi->transaksi_masuk($data);
 			}
 
 			//========= Log History =========//
