@@ -17,11 +17,11 @@ $primaryKey = 'id';
 // Load Data berdasarkan nama table nya
 $columns = array(
     array( 'db' => 'id', 'dt' => 0 ),
-    array( 'db' => 'nm_sskel', 'dt' => 1 ),
+    array( 'db' => 'tgl_dok', 'dt' => 1, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
     array( 'db' => 'nm_brg', 'dt' => 2 ),
     array( 'db' => 'qty', 'dt' => 3 ),
-    array( 'db' => 'harga_sat', 'dt' => 4, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
-    array( 'db' => 'total_harga', 'dt' => 5, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
+    array( 'db' => 'harga_sat', 'dt' => 4 ),
+    array( 'db' => 'total_harga', 'dt' => 5),
     array( 'db' => 'no_dok', 'dt' => 6 ),
     array( 'db' => 'no_bukti', 'dt' => 7 ),
     // array( 'db' => 'harga_sat', 'dt' => 7 ),

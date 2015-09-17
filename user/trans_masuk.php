@@ -465,7 +465,7 @@
           $("#example1").empty();
           $("#example1").append('<thead><tr>'
                         +'<th>ID</th>'
-                        +'<th>Nama Sub-sub Kel</th>'
+                        +'<th>Tgl Dokumen</th>'
                         +'<th>Nama Barang</th>'
                         +'<th>Jumlah</th>'
                         +'<th>Harga Satuan</th>'
