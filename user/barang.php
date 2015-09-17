@@ -205,10 +205,11 @@
       $.ajax({
           type: "post",
           url: '../core/barang/prosesbarang',
-          data: {manage:'cekbarang',sskel_row:sskel_row,kdbrg_row:kdbrg_row},
+          data: {manage:'cekbarang',sskel_row:sskel_row,kdbrg_row:kdbrg_row,nmbrg_row:nmbrg_row, satuan_row:satuan_row},
           dataType: "json",
           success: function (output)
           {
+            alert(sskel_row+kdbrg_row+nmbrg_row);
             if(output.kdbrg!=null)
             {
               alert("Tidak Dapat Mengedit Barang. Barang Sudah Digunakan di Data Transaksi Masuk !");
@@ -231,7 +232,7 @@
               $.ajax({
                 type: "post",
                 url : "../core/barang/prosesbarang",
-                data: {manage:managedata,id:id_row},
+                data: {manage:managedata,id:id_row,sskel_row:sskel_row,kdbrg_row:kdbrg_row,nmbrg_row:nmbrg_row, satuan_row:satuan_row},
                 success: function(data)
                 {
                   $("#success-alert").alert();

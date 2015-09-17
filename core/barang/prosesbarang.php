@@ -120,11 +120,46 @@ else
 
 		case 'hapusbarang':
 			$id = $purifier->purify($_POST['id']);
+			$kdbarang = $purifier->purify($_POST['sskel_row']);
+			$kd_jbrg = $purifier->purify($_POST['kdbrg_row']);
+			$kd_brg = $kdbarang.''.$kd_jbrg;
+			$nm_brg = $purifier->purify($_POST['nmbrg_row']);
+			$satuan = $purifier->purify($_POST['satuan_row']);
+			$kd_lokasi = $_SESSION['kd_lok'];
+			$nm_satker = $_SESSION['nama_satker'];
+			$user_id = $_SESSION['username'];
+			$tanggal = date("Y-m-d h:i:sa");
 
 			$data = array(
 				"id" => $id,
+				"kd_kbrg" => $kdbarang,
+				"kd_jbrg" => $kd_jbrg,
+				"kd_brg" => $kd_brg,
+				"nm_brg" => $nm_brg,
+				"satuan" => $satuan,
+				"nm_satker" => $nm_satker,
+				"user_id" => $user_id,
+		    	"kd_lokasi" => $kd_lokasi
 		    );
 			$Barang->hapusbarang($data);
+
+						$datalog = array(
+				"kd_lokasi" => $kd_lokasi,
+				"nm_satker" => $nm_satker,
+				"user_id" => $user_id,
+				"aksi" => "H-Persediaan",
+				"kd_kbrg" => $kdbarang,
+				"kd_jbrg" => $kd_jbrg,
+				"kd_brg" => $kd_brg,
+				"kd_brg" => $kd_brg,
+				"nm_brg" => $nm_brg,
+				"satuan" => $satuan,	
+				"tanggal" => $tanggal
+		    	
+		    );
+        	
+			$Barang->loghistory($datalog);
+
 		default:
 			echo "Error Data Tidak Tersedia";
 		break;
