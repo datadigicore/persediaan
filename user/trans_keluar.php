@@ -352,60 +352,234 @@
           });
         }
       });
+
+      $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var target = $(e.target).attr("href") // activated tab
+        if (target== "#tab_1") {
+          $("#example1").DataTable().destroy();
+          $("#example1").empty();
+          $("#example1").append('<thead><tr>'
+                        +'<th width="5%">ID</th>'
+                        +'<th width="14%">Jenis Transaksi</th>'
+                        +'<th width="18%">No Dokumen</th>'
+                        +'<th width="18%">No Bukti</th>'
+                        +'<th>Tanggal Dokumen</th>'
+                        +'<th>Tanggal Buku</th>'
+                        +'<th width="9%">Aksi</th>'
+                        +'</tr></thead>');
+          table = $("#example1").DataTable({
+                "processing": false,
+                "serverSide": true,
+                "ajax": "../core/loadtable/loadtransklr",
+                "columnDefs":
+                [
+                  {"targets": 0,
+                   "visible": false },
+                  {"targets": 1 },
+                  {"targets": 2 },
+                  {"targets": 3 },
+                  {"targets": 4 },
+                  {"targets": 5 },
+                  {"orderable": false,
+                   "visible": false,
+                   "data": null,
+                   "defaultContent":  '<div class="box-tools">'+
+                                      // '<a href="edit_trans_masuk?id=a" class="btn btn-success btn-sm daterange pull-left" role="button"><i class="fa fa-edit"></i></a>'+
+                                        // '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                        '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                      '</div>',
+                   "targets": [6],"targets": 6 },
+                ],
+                "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
+              });
+        };
+        if (target== "#tab_2") {
+          $("#example1").DataTable().destroy();
+          $("#example1").empty();
+          $("#example1").append('<thead><tr>'
+                        +'<th>ID</th>'
+                        +'<th>Tgl Dokumen</th>'
+                        +'<th>Nama Barang</th>'
+                        +'<th>Jumlah</th>'
+                        +'<th>Harga Satuan</th>'
+                        +'<th>Total Harga</th>'
+                        +'<th>No Dok</th>'
+                        +'<th>No Bukti</th>'
+                        +'<th width="9%">Aksi</th>'
+                        +'</tr></thead>');
+          table = $("#example1").DataTable({
+                "processing": false,
+                "serverSide": true,
+                "ajax": "../core/loadtable/loadtransklritm",
+                "columnDefs":
+                [
+                  {"targets": 0,
+                   "visible": false },
+                  {"targets": 1 },
+                  {"targets": 2 },
+                  {"targets": 3 },
+                  {"targets": 4 },
+                  {"targets": 5 },
+                  {"targets": 6 },
+                  {"targets": 7 },
+                  {"orderable": false,
+                   "data": null,
+                   "defaultContent":  '<div class="box-tools">'+
+                                      // '<a href="edit_trans_masuk?id=a" class="btn btn-success btn-sm daterange pull-left" role="button"><i class="fa fa-edit"></i></a>'+
+                                        // '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                        '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                      '</div>',
+                   "targets": [8],"targets": 8 },
+                ],
+                "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
+              });
+        };
+      });
+
       $('#addtransmsk').submit(function(e){
-        var tahun_ang = document.getElementById("tahun_ang").value;
-        var sisa = document.getElementById("rph_sat").value;
-        var jumlah_input = document.getElementById("jml_msk").value;
-        var tgl_dok = document.getElementById("tgl_dok").value;
-        var tgl_buku = document.getElementById("tgl_buku").value;
+        var jns_trans = $("#jenis_trans").val();
+        var tahun_ang = $("#tahun_ang").val();
+        var sisa = $("#rph_sat").val();
+        var jumlah_input = $("#jml_msk").val();
+        var tgl_dok = $("#tgl_dok").val();
+        var tgl_buku = $("#tgl_buku").val();
 
-      if(tgl_dok.substring(6,10)!=tahun_ang){
-        alert("Tahun Dokumen Tidak Sesuai Dengan Tahun Anggaran");
-        return false;
-      }
+        var disjenistrans = $("#distottrans").val();
+        var distgldok = $("#distgldok").val();
+        var distglbuku = $("#distglbuku").val();
+        var dissatker = $("#dissatker").val();
+        var distottrans = $("#distottrans").val();
+        var no_dok_item = $("#no_dok_item").val();
+        var no_dok = $("#no_dok").val();
 
-      if(tgl_buku.substring(6,10)!=tahun_ang){
-        alert("Tahun BUkti Tidak Sesuai Dengan Tahun Anggaran");
-        return false;
-      }
-      
-      if(parseInt(jumlah_input)>parseInt(sisa))
-      {
-        alert("Jumlah Keluar tidak boleh melebihi saldo barang "+jumlah_input+" "+sisa);
-        
-        return false;
-      }
-
-
-
-
-        $('#myModal').modal({
-          backdrop: 'static',
-          keyboard: false
-        });
-        $('#myModal').modal('show');
-        e.preventDefault();
-        redirectTime = "2600";
-        redirectURL = "trans_keluar";
-        var formURL = $(this).attr("action");
-        var addData = new FormData(this);
-        $.ajax({
-          type: "post",
-          data: addData,
-          url : formURL,
-          contentType: false,
-          cache: false,  
-          processData: false,
-          success: function(data)
-          {
-            $("#success-alert").alert();
-            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-            $("#success-alert").alert('close');
-            });
-            setTimeout("location.href = redirectURL;",redirectTime); 
+        if (jns_trans != "") {
+          if(tgl_dok.substring(6,10)!=tahun_ang){
+            alert("Tahun Dokumen Tidak Sesuai Dengan Tahun Anggaran");
+            return false;
           }
-        });
-        return false;
+
+          if(tgl_buku.substring(6,10)!=tahun_ang){
+            alert("Tahun BUkti Tidak Sesuai Dengan Tahun Anggaran");
+            return false;
+          }
+          $('#myModal').modal({
+            backdrop: 'static',
+            keyboard: false
+          });
+          $('#myModal').modal('show');
+          e.preventDefault();
+          redirectTime = "1600";
+          // redirectURL = "trans_keluar";
+          var formURL = $(this).attr("action");
+          var addData = new FormData(this);
+          $.ajax({
+            type: "post",
+            data: addData,
+            url : formURL,
+            contentType: false,
+            cache: false,  
+            processData: false,
+            success: function(data)
+            {
+              $("#success-alert").alert();
+              $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+              $("#success-alert").alert('close');
+              });
+              setTimeout("$('#myModal').modal('hide');$('#tab_1').removeClass('active');$('#li_tab_1').removeClass('active');$('#tab_2').addClass('active');$('#li_tab_2').addClass('active');",redirectTime);
+              $('#addtransmsk').trigger('reset');
+              var identtran = "<?php echo($_SESSION['kd_lok']).'.'?>"+no_dok;
+              // alert(identtran);
+              $.ajax({
+                type: "post",
+                url: '../core/transaksi/prosestransaksi',
+                data: {manage:'readidenttransklr',idtrans:identtran},
+                dataType: "json",
+                success: function (output) {
+                  $('#disnobukti').val(output.nobukti);
+                  $('#disjenistrans').val(output.jenistrans);
+                  $('#distgldok').val(output.tgldok);
+                  $('#distglbuku').val(output.tglbuku);
+                  $('#dissatker').val(output.satker);
+                  $('#distottrans').val(output.total);
+                }
+              });
+              $.ajax({
+                type: "post",
+                url: '../core/transaksi/prosestransaksi',
+                data: {manage:'readnodokklr',no_dok:"<?php echo($_SESSION['kd_lok']);?>"},
+                success: function (output) {     
+                  $('#no_dok_item').html(output);
+                }
+              });
+              $("#example1").DataTable().destroy();
+              $("#example1 tbody").empty();
+              table = $("#example1").DataTable({
+                "processing": false,
+                "serverSide": true,
+                "ajax": "../core/loadtable/loadtransmsk",
+                "columnDefs":
+                [
+                  {"targets": 0,
+                   "visible": false },
+                  {"targets": 1 },
+                  {"targets": 2 },
+                  {"targets": 3 },
+                  {"targets": 4 },
+                  {"targets": 5 },
+                  {"orderable": false,
+                   "data": null,
+                   "defaultContent":  '<div class="box-tools">'+
+                                      // '<a href="edit_trans_masuk?id=a" class="btn btn-success btn-sm daterange pull-left" role="button"><i class="fa fa-edit"></i></a>'+
+                                        // '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                        '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                      '</div>',
+                   "targets": [6],"targets": 6 },
+                ],
+                "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
+              });
+            }
+          });
+          return false;
+        }
+        else if (no_dok_item != "") {
+          if(parseInt(jumlah_input)>parseInt(sisa))
+          {
+            alert("Jumlah Keluar tidak boleh melebihi saldo barang "+jumlah_input+" "+sisa);
+            
+            return false;
+          }
+          $('#myModal').modal({
+            backdrop: 'static',
+            keyboard: false
+          });
+          $('#myModal').modal('show');
+          e.preventDefault();
+          redirectTime = "2600";
+          redirectURL = "trans_keluar";
+          var formURL = $(this).attr("action");
+          var addData = new FormData(this);
+          $.ajax({
+            type: "post",
+            data: addData,
+            url : formURL,
+            contentType: false,
+            cache: false,  
+            processData: false,
+            success: function(data)
+            {
+              $("#success-alert").alert();
+              $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+              $("#success-alert").alert('close');
+              });
+              setTimeout("location.href = redirectURL;",redirectTime); 
+            }
+          });
+          return false;
+        }
+        else{
+          alert("Harap Masukkan Data Terlebih Dahulu");
+          return false;
+        }  
       });
     </script>
   </body>
