@@ -136,7 +136,8 @@
             {"targets": 2 },
             {"targets": 3 },
             {"targets": 4 },
-            {"targets": 5 },
+            {"targets": 5,
+             "visible":false },
             {"targets": 6 }
             // {"orderable": false,
             //  "data": null,
