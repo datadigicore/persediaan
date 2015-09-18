@@ -28,7 +28,14 @@ else
 		break;
 		case 'readnodokklr':
 			$no_dok = $purifier->purify($_POST['no_dok']);
-			$Transaksi->bacanodok_klr($no_dok);
+			$kd_lokasi = $_SESSION['kd_lok'];
+			$thn_ang = $_SESSION['thn_ang'];
+			$data = array(
+				"no_dok" => $no_dok,
+				"kd_lokasi" => $kd_lokasi,
+				"thn_ang" => $thn_ang
+				);
+			$Transaksi->bacanodok_klr($data);
 		break;
 		case 'readidenttrans':
 			$idtrans = $purifier->purify($_POST['idtrans']);
