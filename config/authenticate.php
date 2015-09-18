@@ -20,9 +20,12 @@ $password = $purifier->purify(md5($_POST['password']));
 $thn_ang = $purifier->purify($_POST['thn_ang']);
 $username = mysql_real_escape_string($username);
 $password = mysql_real_escape_string($password);
-
-$sql = "select * from user where user_name='$username' and user_pass='$password' and tahun='$thn_ang'";
-
+if ($username == "masteradmin" or $username == "adminsimsedia") {
+	$sql = "select * from user where user_name='$username' and user_pass='$password'";
+}
+else{
+	$sql = "select * from user where user_name='$username' and user_pass='$password' and tahun='$thn_ang'";
+}
 $query = mysqli_query($connect,$sql);
 $data = mysqli_fetch_assoc($query);
 if (mysqli_num_rows($query) == 1) {
