@@ -194,6 +194,7 @@
     <script type="text/javascript">
     var table;
       $(function () {
+        $(".select2").select2();
         $("li#trans_keluar").addClass("active");
         $('#tgl_dok').css('background-color' , '#FFFFFF');
         $('#tgl_buku').css('background-color' , '#FFFFFF');

@@ -104,8 +104,12 @@ class modelTransaksi extends mysql_db
                         user_id='$user_id'";
                    
             $result2 = $this->query($query_full);
+            
             $query_hps = "delete from transaksi_masuk where qty=0 ";
-            $result_hps = $this->query($query_hps);       
+            $result_hps = $this->query($query_hps); 
+
+            $query_hps_full = "delete from transaksi_full where kd_brg like '' ";
+            $result_hps_full = $this->query($query_hps_full);       
             return $result;
             return $result2;
 
@@ -489,8 +493,11 @@ class modelTransaksi extends mysql_db
             
 
         }               
-        $query_hps = "delete from transaksi_keluar where qty=0 ";
+            $query_hps = "delete from transaksi_keluar where qty=0 ";
             $result_hps = $this->query($query_hps);  
+
+            $query_hps_full = "delete from transaksi_full where kd_brg like '' ";
+            $result_hps_full = $this->query($query_hps_full);   
 
     }
 
@@ -903,6 +910,10 @@ class modelTransaksi extends mysql_db
             {
                 $hsltottrans=0;
             }
+            else
+            {
+                $hsltottrans = abs($row["total_harga"]);
+            }
             echo json_encode(array("nobukti"=>$hslnobukti,"jenistrans"=>$hsljenistrans,"tgldok"=>$hsltgldok,"tglbuku"=>$hsltglbuku,"satker"=>$hslsatker,"total"=>$hsltottrans));
         }   
     }    
@@ -1092,19 +1103,17 @@ class modelTransaksi extends mysql_db
         $user_id = $datalog['user_id'];
         $aksi = $datalog['aksi'];
         $no_dok = $datalog['no_dok'];
+        $tgl_dok = $datalog['tgl_dok'];
+        $tgl_buku = $datalog['tgl_buku'];
+        $no_bukti = $datalog['no_bukti'];
+        $jns_trans = $datalog['jns_trans'];
 
-
-        $query_dok = "select tgl_dok, tgl_buku, no_bukti, jns_trans from transaksi_masuk where no_dok='$no_dok'";
+        $kd_brg = $datalog['kd_brg'];
+        $query_dok = "select nm_brg from persediaan where kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' ";
         $result_dok = $this->query($query_dok);
         $dok = $this->fetch_array($result_dok);
 
-        $tgl_dok = $dok['tgl_dok'];
-        $tgl_buku = $dok['tgl_buku'];
-        $no_bukti = $dok['no_bukti'];
-        $jns_trans = $dok['jns_trans'];
-
-        $kd_brg = $datalog['kd_brg'];
-        $nm_brg = $datalog['nm_brg'];
+        $nm_brg = $dok['nm_brg'];
         $qty = $datalog['kuantitas'];
         $kuantitas = $datalog['kuantitas'];
         $harga_sat = $datalog['harga_sat'];

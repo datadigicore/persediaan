@@ -163,50 +163,53 @@ else
 				print_r($data);
 				
 				$Transaksi->trnsaksi_keluar($data);
+
+
+			//========= Log History =========//
+				$kd_lokasi = $_SESSION['kd_lok'];
+				
+				$nm_satker = $_SESSION['nama_satker'];
+				$thn_ang = $_SESSION['thn_ang'];
+				$no_dok = $kd_lokasi.$purifier->purify($_POST['disnodok']);
+				$no_bukti = $purifier->purify($_POST['disnobukti']);
+				$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['distgldok']));
+				$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['distglbuku']));
+				
+				$jns_trans = $_POST['disjenistrans'];
+				$kd_brg = $purifier->purify($_POST['kd_brg']);
+				
+				$kuantitas = $purifier->purify($_POST['jml_msk']);
+				$keterangan = $purifier->purify($_POST['keterangan']);
+				$hrg_sat = $purifier->purify($_POST['rph_sat']);
+				
+				$user_id = $_SESSION['username'];
+				$tanggal = date("Y-m-d h:i:sa");
+				$datalog = array(
+					"kd_lokasi" => $kd_lokasi,
+				
+					"nm_satker" => $nm_satker,
+					"thn_ang" => $thn_ang,
+					"no_dok" => $no_dok,
+					"tgl_dok" => $tgl_dok,
+					"tgl_buku" => $tgl_buku,
+					"no_bukti" => $no_bukti,
+					"kd_brg" => $kd_brg,
+					"kuantitas" => $kuantitas,
+					"keterangan" => $keterangan,
+					"aksi" => "T-transaksi keluar",
+			    	"harga_sat" => $hrg_sat,
+			    	"jns_trans" => $jns_trans,
+					"keterangan" => $keterangan,
+					
+					"user_id" => $user_id,
+			    	"tanggal" => $tanggal
+			    );
+				$Transaksi->loghistory_keluar($datalog);
+				//========= Log History =========//
+
 			}
 
 
-			//========= Log History =========//
-			$kd_lokasi = $_SESSION['kd_lok'];
-			
-			$nm_satker = $_SESSION['nama_satker'];
-			$thn_ang = $_SESSION['thn_ang'];
-			$no_dok = $kd_lokasi.$purifier->purify($_POST['no_dok']);
-			$no_bukti = $purifier->purify($_POST['no_bukti']);
-			$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
-			$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
-			
-			$jns_trans = $_POST['jenis_trans'];
-			$kd_brg = $purifier->purify($_POST['kd_brg']);
-			
-			$kuantitas = $purifier->purify($_POST['jml_msk']);
-			$keterangan = $purifier->purify($_POST['keterangan']);
-			$hrg_sat = $purifier->purify($_POST['rph_sat']);
-			
-			$user_id = $_SESSION['username'];
-			$tanggal = date("Y-m-d h:i:sa");
-			$datalog = array(
-				"kd_lokasi" => $kd_lokasi,
-			
-				"nm_satker" => $nm_satker,
-				"thn_ang" => $thn_ang,
-				"no_dok" => $no_dok,
-				"tgl_dok" => $tgl_dok,
-				"tgl_buku" => $tgl_buku,
-				"no_bukti" => $no_bukti,
-				"kd_brg" => $kd_brg,
-				"kuantitas" => $kuantitas,
-				"keterangan" => $keterangan,
-				"aksi" => "T-transaksi keluar",
-		    	"harga_sat" => $hrg_sat,
-		    	"jns_trans" => $jns_trans,
-				"keterangan" => $keterangan,
-				
-				"user_id" => $user_id,
-		    	"tanggal" => $tanggal
-		    );
-			$Transaksi->loghistory_keluar($datalog);
-			//========= Log History =========//
 		break;
 
 		case 'tbh_transaksi_msk':

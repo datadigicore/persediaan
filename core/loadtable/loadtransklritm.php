@@ -39,7 +39,7 @@ require('../../config/dbconf.php');
 $config = new config();
 $sql_details = $config->sql_details();
 
-$where = "kd_lokasi='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang'";
+$where = "kd_lokasi='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang' and qty<0";
  
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp.class.php' );
