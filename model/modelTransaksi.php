@@ -1086,16 +1086,24 @@ class modelTransaksi extends mysql_db
         $user_id = $datalog['user_id'];
         $aksi = $datalog['aksi'];
         $no_dok = $datalog['no_dok'];
-        $tgl_dok = $datalog['tgl_dok'];
-        $tgl_buku = $datalog['tgl_buku'];
-        $no_bukti = $datalog['no_bukti'];
+
+
+        $query_dok = "select tgl_dok, tgl_buku, no_bukti, jns_trans from transaksi_masuk where no_dok='$no_dok'";
+        $result_dok = $this->query($query_dok);
+        $dok = $this->fetch_array($result_dok);
+
+        $tgl_dok = $dok['tgl_dok'];
+        $tgl_buku = $dok['tgl_buku'];
+        $no_bukti = $dok['no_bukti'];
+        $jns_trans = $dok['jns_trans'];
+
         $kd_brg = $datalog['kd_brg'];
         $nm_brg = $datalog['nm_brg'];
         $qty = $datalog['kuantitas'];
         $kuantitas = $datalog['kuantitas'];
         $harga_sat = $datalog['harga_sat'];
         $total_harga = $kuantitas*$harga_sat;
-        $jns_trans = $datalog['jns_trans'];
+        
         $keterangan = $datalog['keterangan'];
         $tanggal = $datalog['tanggal'];
        
