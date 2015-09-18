@@ -84,37 +84,37 @@
                           <div class="form-group">
                             <label class="col-sm-5 control-label">No. Bukti</label>
                             <div class="col-sm-7">
-                              <input type="text" id="disnobukti" name="disnobukti" class="form-control" disabled>
+                              <input type="text" id="disnobukti" name="disnobukti" class="form-control" readonly>
                             </div>
                           </div>
                           <div class="form-group">
                             <label class="col-sm-5 control-label">Jenis Transaksi</label>
                             <div class="col-sm-7">
-                              <input type="text" id="disjenistrans" name="disjenistrans" class="form-control" disabled>
+                              <input type="text" id="disjenistrans" name="disjenistrans" class="form-control" readonly>
                             </div>
                           </div>
                           <div class="form-group">
                             <label class="col-sm-5 control-label">Tgl. Dokumen</label>
                             <div class="col-sm-7">
-                              <input type="text" id="distgldok" name="distgldok" class="form-control" disabled>
+                              <input type="text" id="distgldok" name="distgldok" class="form-control" readonly>
                             </div>
                           </div>                  
                           <div class="form-group">
                             <label class="col-sm-5 control-label">Tgl. Buku</label>
                             <div class="col-sm-7">
-                              <input type="text" id="distglbuku" name="distglbuku" class="form-control" disabled>
+                              <input type="text" id="distglbuku" name="distglbuku" class="form-control" readonly>
                             </div>
                           </div>
                           <div class="form-group">
                             <label class="col-sm-5 control-label">Satker</label>
                             <div class="col-sm-7">
-                              <input type="text" id="dissatker" name="dissatker" class="form-control" disabled>
+                              <input type="text" id="dissatker" name="dissatker" class="form-control" readonly>
                             </div>
                           </div>                  
                           <div class="form-group">
                             <label class="col-sm-5 control-label">Total Transaksi</label>
                             <div class="col-sm-7">
-                              <input type="text" id="distottrans" name="distottrans" class="form-control" disabled>
+                              <input type="text" id="distottrans" name="distottrans" class="form-control" readonly>
                             </div>
                           </div>
                         </div>
