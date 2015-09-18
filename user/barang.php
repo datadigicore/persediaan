@@ -209,7 +209,7 @@
           dataType: "json",
           success: function (output)
           {
-            alert(sskel_row+kdbrg_row+nmbrg_row);
+            
             if(output.kdbrg!=null)
             {
               alert("Tidak Dapat Mengedit Barang. Barang Sudah Digunakan di Data Transaksi Masuk !");
