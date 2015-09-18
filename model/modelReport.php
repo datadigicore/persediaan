@@ -20,7 +20,7 @@ class modelReport extends mysql_db
     public function buku_persediaan($data)
     {
         $mpdf=new mPDF('utf-8', 'A4-L');
-        $mpdf->setFooter('{PAGENO}');
+        // $mpdf->setFooter('{PAGENO}');
         ob_start(); 
         $jenis = $data['jenis'];
         $kd_brg = $data['kd_brg'];
@@ -285,7 +285,10 @@ class modelReport extends mysql_db
                       </tr>';
                 
                 echo '</table>';
-
+                if($no>=6)
+                {
+                echo '<pagebreak />';
+                }
                 $this->cetak_nama_pj($satker_asal);
 
                 // $this->hitung_brg_rusak($kd_lokasi);
@@ -439,7 +442,10 @@ class modelReport extends mysql_db
                             <td colspan="2" align="right">'.number_format($total_akumulasi,0,",",".").'</td>  
                         </tr>';
                 echo '</table>';
-
+                if($no>=6)
+                {
+                echo '<pagebreak />';
+                }
                 $this->cetak_nama_pj($satker_asal);
 
                 // $this->hitung_brg_rusak($kd_lokasi);
@@ -504,6 +510,10 @@ class modelReport extends mysql_db
                             <td>'.number_format($total,0,",",".").'</td>  
                         </tr>
                         </table>';
+                if($no>=6)
+                {
+                echo '<pagebreak />';
+                }
                 $this->cetak_nama_pj($satker_asal);
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
                 ob_end_clean();
@@ -601,6 +611,10 @@ class modelReport extends mysql_db
                             <td align="right">'.number_format($saldo_akumulasi,0,",",".").'</td>  
                         </tr>
                         </table>';
+                if($no>=6)
+                {
+                echo '<pagebreak />';
+                }
                 $this->cetak_nama_pj($satker_asal);
 
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
@@ -1017,9 +1031,10 @@ class modelReport extends mysql_db
                 <td>'.$pj['jabatan'].'</td>
                 <td>'.$pj['jabatan2'].'</td>
               </tr>
-              <br></br>
-              <br></br>
-              <br></br>
+              <tr>
+                <td><br></br> <br></br> <br></br></td>
+                <td><br></br> <br></br> <br></br></td>
+              </tr>
               <tr>
                 <td>'.$pj['nama'].'</td>
                 <td>'.$pj['nama2'].'</td>
