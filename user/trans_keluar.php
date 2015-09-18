@@ -238,6 +238,7 @@
             data: {manage:'readidenttransklr',idtrans:identtrans},
             dataType: "json",
             success: function (output) {
+              document.getElementById("jenis_trans").value = "";
               $('#disnobukti').val(output.nobukti);
               $('#disjenistrans').val(output.jenistrans);
               $('#distgldok').val(output.tgldok);
@@ -247,6 +248,16 @@
             }
           });
         });
+        $('#jenis_trans').change(function(){
+          $("#no_dok_item").select2().select2('val','');
+          $('#disnobukti').val('');
+          $('#disjenistrans').val('');
+          $('#distgldok').val('');
+          $('#distglbuku').val('');
+          $('#dissatker').val('');
+          $('#distottrans').val('');
+
+      });
       });
       $(document).on('click', '#btnhps', function () {
       var tr = $(this).closest('tr');
