@@ -1022,12 +1022,12 @@ class modelReport extends mysql_db
               <br></br>
               <tr>
                 <td>'.$pj['nama'].'</td>
-                <td>'.$pj['nama'].'</td>
+                <td>'.$pj['nama2'].'</td>
               </tr>              
 
               <tr>
                 <td>'.$pj['nip'].'</td>
-                <td>'.$pj['nip'].'</td>
+                <td>'.$pj['nip2'].'</td>
               </tr>
               
               </table>';
