@@ -105,10 +105,10 @@ class modelTransaksi extends mysql_db
                    
             $result2 = $this->query($query_full);
             
-            $query_hps = "delete from transaksi_masuk where qty=0 ";
+            $query_hps = "delete from transaksi_masuk where kd_brg like '' and kd_lokasi='$kd_lokasi' ";
             $result_hps = $this->query($query_hps); 
 
-            $query_hps_full = "delete from transaksi_full where kd_brg like '' ";
+            $query_hps_full = "delete from transaksi_full where kd_brg like '' and kd_lokasi='$kd_lokasi' ";
             $result_hps_full = $this->query($query_hps_full);       
             return $result;
             return $result2;
@@ -493,10 +493,10 @@ class modelTransaksi extends mysql_db
             
 
         }               
-            $query_hps = "delete from transaksi_keluar where qty=0 ";
+            $query_hps = "delete from transaksi_keluar where kd_brg like '' and kd_lokasi='$kd_lokasi' ";
             $result_hps = $this->query($query_hps);  
 
-            $query_hps_full = "delete from transaksi_full where kd_brg like '' ";
+            $query_hps_full = "delete from transaksi_full where kd_brg like '' and kd_lokasi='$kd_lokasi' ";
             $result_hps_full = $this->query($query_hps_full);   
 
     }

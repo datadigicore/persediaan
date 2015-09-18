@@ -31,25 +31,25 @@
                     <div class="form-group" style="margin-top:15px;">
                       <label class="col-sm-2 control-label">Username</label>
                       <div class="col-sm-9">
-                        <input type="text" name="username" class="form-control" id="username" placeholder="Masukkan Username">
+                        <input type="text" name="username" class="form-control" id="username" placeholder="Masukkan Username" requiired>
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Password</label>
                       <div class="col-sm-9">
-                        <input type="password" name="password" class="form-control" id="password" placeholder="Masukkan Password">
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Masukkan Password" required>
                       </div>
                     </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Re-type Password</label>
                       <div class="col-sm-9">
-                        <input type="password" name="konf_pass" class="form-control" id="konf_pass" placeholder="Konfirmasi Ulang Password">
+                        <input type="password" name="konf_pass" class="form-control" id="konf_pass" placeholder="Konfirmasi Ulang Password" required>
                       </div>
                     </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Email</label>
                       <div class="col-sm-9">
-                        <input type="text" name="email" class="form-control" id="email" placeholder="Masukkan Email">
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Masukkan Email" required>
                       </div>
                     </div>
                     <div class="form-group">

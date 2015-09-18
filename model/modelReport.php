@@ -31,7 +31,7 @@ class modelReport extends mysql_db
         $thn_ang = $data['thn_ang'];
         $satker_asal = $data['satker_asal'];
 
-        $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg' and kd_lokasi like '{$kd_lokasi}%' ";
+        $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where  kd_brg='$kd_brg' and kd_lokasi like '{$kd_lokasi}%' ";
         $result_detail = $this->query($detail_brg);
         $brg = $this->fetch_array($result_detail);
         echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
@@ -218,7 +218,7 @@ class modelReport extends mysql_db
                           UNION ALL
                           SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_dok from transaksi_keluar)
                           transaksi 
-                            where tgl_dok <= '$tgl_akhir' and kd_lokasi like '{$kd_lokasi}%'  AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
+                            where kd_sskel not like '' and tgl_dok <= '$tgl_akhir' and kd_lokasi like '{$kd_lokasi}%'  AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
                     $result = $this->query($sql);
                 }
                 elseif($jenis=="semester")
@@ -231,7 +231,7 @@ class modelReport extends mysql_db
                           UNION ALL
                           SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_dok from transaksi_keluar)
                           transaksi 
-                            where kd_lokasi like '{$kd_lokasi}%'  AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
+                            where kd_sskel not like '' and kd_lokasi like '{$kd_lokasi}%'  AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
                     $result = $this->query($sql);
                 }
                 else
@@ -241,7 +241,7 @@ class modelReport extends mysql_db
                           UNION ALL
                           SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang from transaksi_keluar)
                           transaksi  
-                          where kd_lokasi like '{$kd_lokasi}%'  AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
+                          where kd_sskel not like '' and kd_lokasi like '{$kd_lokasi}%'  AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
                     $result = $this->query($sql);
                 }
                 $no=0;
@@ -358,7 +358,7 @@ class modelReport extends mysql_db
                                     UNION ALL
                                     SELECT thn_ang,tgl_dok, kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_keluar
                                     ) transaksi
-                                    where  kd_lokasi like '{$kd_lokasi}%'  and thn_ang>='$thn_ang_lalu' and status_hapus=0
+                                    where kd_sskel not like '' and  kd_lokasi like '{$kd_lokasi}%'  and thn_ang>='$thn_ang_lalu' and status_hapus=0
                                     GROUP by kd_brg";
                 $result = $this->query($sql);
                 }
@@ -375,7 +375,7 @@ class modelReport extends mysql_db
                                     UNION ALL
                                     SELECT thn_ang,tgl_dok, kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_keluar
                                     ) transaksi
-                                    where  kd_lokasi like '{$kd_lokasi}%'  and thn_ang>='$thn_ang_lalu' and status_hapus=0
+                                    where kd_sskel not like '' and  kd_lokasi like '{$kd_lokasi}%'  and thn_ang>='$thn_ang_lalu' and status_hapus=0
                                     GROUP by kd_brg";
                 $result = $this->query($sql);
                 }
@@ -392,7 +392,7 @@ class modelReport extends mysql_db
                                     UNION ALL
                                     SELECT thn_ang,kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_keluar
                                     ) transaksi
-                                    where  kd_lokasi like '{$kd_lokasi}%'  and thn_ang>='$thn_ang_lalu' and status_hapus=0
+                                    where kd_sskel not like '' and  kd_lokasi like '{$kd_lokasi}%'  and thn_ang>='$thn_ang_lalu' and status_hapus=0
                                     GROUP by kd_brg";
                 $result = $this->query($sql);
                 }
@@ -484,7 +484,7 @@ class modelReport extends mysql_db
                                     SELECT tgl_dok, thn_ang, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_masuk
                                     UNION ALL
                                     SELECT tgl_dok,thn_ang, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_keluar
-                                    ) transaksi where kd_lokasi like '{$kd_lokasi}%'  and thn_ang='$thn_ang' and status_hapus=0  and tgl_dok<='$tgl_akhir' GROUP BY kd_perk";
+                                    ) transaksi where nm_perk not like '' and kd_lokasi like '{$kd_lokasi}%'  and thn_ang='$thn_ang' and status_hapus=0  and tgl_dok<='$tgl_akhir' GROUP BY kd_perk";
                 $result = $this->query($sql);
                 $no=0;
                 $total=0;
@@ -570,7 +570,7 @@ class modelReport extends mysql_db
                               UNION ALL
                               SELECT tgl_dok, thn_ang, kd_perk, nm_perk, total_harga, status_hapus, kd_lokasi from transaksi_keluar
                              ) transaksi  
-                              where kd_lokasi like '{$kd_lokasi}%'  and thn_ang>='$thn_ang_lalu' and status_hapus=0 and tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'
+                              where kd_perk not like '' and kd_lokasi like '{$kd_lokasi}%'  and thn_ang>='$thn_ang_lalu' and status_hapus=0 and tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'
                               GROUP BY kd_perk";
                 $result = $this->query($sql);
                 $no=0;

@@ -65,10 +65,10 @@
         $(".treeview").addClass("active");
         $("li#neraca").addClass("active");
         $('#tgl_awal').datepicker({
-          format: "dd-mm-yy"
+          format: "dd-mm-yyyy"
         });         
         $('#tgl_akhir').datepicker({
-          format: "dd-mm-yy"
+          format: "dd-mm-yyyy"
         });             
         $("li#mutasi_sedia").addClass("active");
 
