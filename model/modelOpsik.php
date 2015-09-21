@@ -11,7 +11,7 @@ class modelOpsik extends mysql_db
         $result_msk = $this->query($query_msk);
         if (mysqli_num_rows($result_msk) != 0)
         {
-
+            
         }        
 
         $query_klr = "select * from transaksi_masuk WHERE id_opname order by ID DESC LIMIT 1";
@@ -93,7 +93,7 @@ class modelOpsik extends mysql_db
         $query_hrg = "SELECT sum(qty_akhir) as qty, sum(qty_akhir*harga_sat)/sum(qty_akhir) as harga, 
                          sum(qty_akhir*harga_sat)%sum(qty_akhir) as sisabagi
                          from transaksi_masuk
-                         where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and kd_brg='$kd_brg' and status=0 and status_hapus=0";
+                         where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and kd_brg='$kd_brg' and status_hapus=0";
         $result_hrg = $this->query($query_hrg);
         $data_hrg = $this->fetch_array($result_hrg);
         $hrg_sat = floor($data_hrg['harga']);
@@ -391,9 +391,9 @@ class modelOpsik extends mysql_db
         }
      
 
-        $update_brg = "update transaksi_masuk set  status=1, id_opname='$id_opname' where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 ";
+        $update_brg = "update transaksi_masuk set  status=1, id_opname='$id_opname' where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0  and status=0 ";
         $result_upd = $this->query($update_brg);
-        $update_brg_klr = "update transaksi_keluar set  status=1, id_opname='$id_opname' where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 ";
+        $update_brg_klr = "update transaksi_keluar set  status=1, id_opname='$id_opname' where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 and status=0 ";
         $result_upd_klr = $this->query($update_brg_klr);
 
 

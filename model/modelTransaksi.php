@@ -853,7 +853,7 @@ class modelTransaksi extends mysql_db
         $nodok = $data['no_dok'];
         $kdlokasi = $data['kd_lokasi'];
         $thnang = $data['thn_ang'];
-        $query = "select no_dok from transaksi_masuk where no_dok like '$nodok%' and status_hapus=0 and thn_ang='$thnang' and kd_lokasi='$kdlokasi' group by no_dok";
+        $query = "select no_dok from transaksi_masuk where no_dok like '$nodok%' and status_hapus=0 and thn_ang='$thnang' and kd_lokasi='$kdlokasi' and jns_trans not like 'P01' group by no_dok";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Nomor Dokumen --</option>';
         while ($row = $this->fetch_array($result))
@@ -867,7 +867,7 @@ class modelTransaksi extends mysql_db
         $nodok = $data['no_dok'];
         $kdlokasi = $data['kd_lokasi'];
         $thnang = $data['thn_ang'];
-        $query = "select no_dok from transaksi_keluar where no_dok like '$nodok%' and status_hapus=0 and thn_ang='$thnang'  and kd_lokasi='$kdlokasi' group by no_dok";
+        $query = "select no_dok from transaksi_keluar where no_dok like '$nodok%' and status_hapus=0 and thn_ang='$thnang'  and kd_lokasi='$kdlokasi' and jns_trans not like 'P01'  group by no_dok";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Nomor Dokumen --</option>';
         while ($row = $this->fetch_array($result))
