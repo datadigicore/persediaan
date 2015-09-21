@@ -24,7 +24,7 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Mutasi Persediaan </h3>
+                  <h3 class="box-title">Rincian Persediaan </h3>
                 </div>  
                 <form action="../core/report/prosesreport" method="post" class="form-horizontal" id="addtransmsk">
                    <input type="hidden" name="manage" value="rincian">
