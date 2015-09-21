@@ -77,10 +77,10 @@ else
 
 		case 'baca_detil_trans':
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
-			$no_dok = $purifier->purify($_POST['no_dok']);
+			$kd_lokasi = $_SESSION['kd_lok'];
 			$data = array(
-				"no_dok" => $no_dok,
-				"kd_brg" => $kd_brg
+				"kd_brg" => $kd_brg,
+				"kd_lokasi" => $kd_lokasi
 				);
 			$Transaksi->baca_detil_trans($data);
 		break;		
@@ -111,6 +111,7 @@ else
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			
 			$kuantitas = $purifier->purify($_POST['jml_msk']);
+			$satuan = $purifier->purify($_POST['satuan']);
 			$keterangan = $purifier->purify($_POST['keterangan']);
 			$hrg_sat = $purifier->purify($_POST['rph_sat']);
 			$status = 0;
@@ -226,6 +227,7 @@ else
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			
 			$kuantitas = $purifier->purify($_POST['jml_msk']);
+			$satuan = $purifier->purify($_POST['satuan']);
 			$keterangan = $purifier->purify($_POST['keterangan']);
 			$hrg_sat = $purifier->purify($_POST['rph_sat']);
 			$status = 0;

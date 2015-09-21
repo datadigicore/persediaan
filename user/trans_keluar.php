@@ -139,9 +139,12 @@
                           </div>
                           <div class="form-group">
                             <label class="col-sm-3 control-label">Jml dikeluarkan</label>
-                            <div class="col-sm-8">
-                              <input type="number" min="1" max name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Keluar">
+                            <div class="col-sm-4">
+                              <input type="number" min="1" max name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah">
                             </div>
+                            <div class="col-sm-4">
+                              <input type="text" name="satuan" id="satuan" class="form-control"  readonly>
+                            </div> 
                           </div>                  
                           <div class="form-group">
                             <label class="col-sm-3 control-label">Saldo Barang</label>
@@ -346,7 +349,8 @@
       // });
       $('#kd_brg').change(function(){
         if ($(this).val()=='') {
-          $('#rph_sat').val('');
+          $('#rph_sat').val(''); 
+          $('#satuan').val('');
         }
         else {
           var kd_brg = $('#kd_brg').val(); 
@@ -357,6 +361,7 @@
             dataType: "json",
             success: function (output) {
             $('#rph_sat').val(output.sisa);
+            $('#satuan').val(output.satuan);
 
             document.getElementById("jml_msk").setAttribute("max",output.sisa)
 

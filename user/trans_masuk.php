@@ -142,9 +142,13 @@
                           </div>
                           <div class="form-group">
                             <label class="col-sm-3 control-label">Jumlah Masuk</label>
-                            <div class="col-sm-8">
-                              <input type="number" min="1" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Masuk">
-                            </div>
+                            <div class="col-sm-4">
+                              <input type="number" min="1" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah">
+                            </div>                             
+                            <div class="col-sm-4">
+                              <input type="text" name="satuan" id="satuan" class="form-control"  readonly>
+                            </div>                            
+
                           </div>                  
                           <div class="form-group">
                             <label class="col-sm-3 control-label">Harga Beli Satuan</label>
@@ -417,6 +421,7 @@
        });
       $('#kd_brg').change(function(){
         if ($(this).val()=='') {
+          $('#satuan').val('');
           
         }
         else {
@@ -426,8 +431,9 @@
           type: "post",
           url: '../core/transaksi/prosestransaksi',
           data: {manage:'baca_detil_trans',kd_brg:kd_brg,no_dok:no_dok},
+          dataType: "json",
           success: function (output) {     
-            $('#detil_transaksi').html(output);
+            $('#satuan').val(output.satuan);
           }
        });
         }

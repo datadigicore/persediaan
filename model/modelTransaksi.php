@@ -329,7 +329,7 @@ class modelTransaksi extends mysql_db
             $kd_perk = $row_id['kd_perk'];
             $nm_perk = $row_id['nm_perk'];
             $nm_brg = $row_id['nm_brg'];
-            $satuan = $row_id['satuan'];
+            // $satuan = $row_id['satuan'];
 
             echo "ID transaksi masuk : ".$id_trans_m.' '.$qty_akhir.' '.$harga_sat;
             echo '<br>';
@@ -951,14 +951,14 @@ class modelTransaksi extends mysql_db
     public function baca_detil_trans($data)
     {
         $kd_brg = $data['kd_brg'];
-        $no_dok = $data['no_dok'];
-        $query_brg = "select * from persediaan where kd_brg = '$kd_brg'";
+        $kd_lokasi = $data['kd_lokasi'];
+        $query_brg = "select * from persediaan where kd_brg = '$kd_brg' and kd_lokasi='$kd_lokasi' ";
         $result_brg = $this->query($query_brg);
         $row_brg = $this->fetch_array($result_brg);
-        echo '<input type="hidden" name="nm_brg" value="'.$row_brg['nm_brg'].'">';
-        echo '<input type="hidden" name="satuan" value="'.$row_brg['satuan'].'">';      
+        // echo '<input type="hidden" name="nm_brg" value="'.$row_brg['nm_brg'].'">';
+        // echo '<input type="hidden" name="satuan" value="'.$row_brg['satuan'].'">';      
         // echo $row_brg['nm_brg'].'  '.$row_brg['satuan'];
-        // echo json_encode(array("harga_sat"=>$row_brg["harga_sat"]));
+        echo json_encode(array("satuan"=>$row_brg["satuan"]));
     }
 
     public function harga_terakhir($data)
@@ -985,7 +985,11 @@ class modelTransaksi extends mysql_db
         $result = $this->query($query);
         $sisa_brg = $this->fetch_array($result);
 
-        echo json_encode(array("sisa"=>$sisa_brg["sisa"], "satuan"=>$sisa_brg["satuan"]));
+       $query_brg = "select satuan from persediaan where kd_brg = '$kd_brg' and kd_lokasi='$kd_lokasi' ";
+        $result_brg = $this->query($query_brg);
+        $row_brg = $this->fetch_array($result_brg);
+
+        echo json_encode(array("sisa"=>$sisa_brg["sisa"], "satuan"=>$row_brg["satuan"]));
 
         // if(!empty($sisa_brg["sisa"]))
         // {
