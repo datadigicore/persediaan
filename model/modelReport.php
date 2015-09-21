@@ -167,7 +167,7 @@ class modelReport extends mysql_db
 
                 echo '</table>';
 
-                $this->cetak_nama_pj($satker_asal);
+                // $this->cetak_nama_pj($satker_asal);
 
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
                 ob_end_clean();
