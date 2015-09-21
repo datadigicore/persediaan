@@ -315,10 +315,11 @@ class modelTransaksi extends mysql_db
         while($kuantitas > 0)
         {   
             echo " kuantitas tersisa : ".$kuantitas; 
-            $query_id = "select id, kd_sskel, nm_sskel, kd_brg, nm_brg, satuan, kd_perk, nm_perk, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and qty_akhir>0 and status_hapus=0 and status_edit=0 order by tgl_dok asc limit 1";     
+            $query_id = "select id, id_opname, kd_sskel, nm_sskel, kd_brg, nm_brg, satuan, kd_perk, nm_perk, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and qty_akhir>0 and status_hapus=0 and status_edit=0 order by tgl_dok asc limit 1";     
             $result_id = $this->query($query_id);
             $row_id = $this->fetch_array($result_id);
             $id_trans_m = $row_id['id'];   
+            $id_opname = $row_id['id_opname'];   
             $qty_akhir = $row_id['qty_akhir'];      
             $harga_sat = $row_id['harga_sat']; 
             $total_harga = $kuantitas*$harga_sat;  
@@ -342,6 +343,7 @@ class modelTransaksi extends mysql_db
                 $query_keluar = "Insert into transaksi_keluar
                                     set kd_lokasi='$kd_lokasi',
                                     id_masuk = '$id_trans_m',
+                                    id_opname = '$id_opname',
                                     kd_lok_msk='$kd_lok_msk',
                                     nm_satker='$nm_satker',
                                     thn_ang='$thn_ang',
@@ -382,6 +384,7 @@ class modelTransaksi extends mysql_db
                 $query_full = "Insert into transaksi_full
                                 set kd_lokasi='$kd_lokasi',
                                 id_keluar='$id_transk',
+                                id_opname='$id_opname',
                                 kd_lok_msk='$kd_lok_msk',
                                 nm_satker='$nm_satker',
                                 thn_ang='$thn_ang',
@@ -410,7 +413,7 @@ class modelTransaksi extends mysql_db
             }
             // else
             // {
-                $query_id = "select id,kd_brg,qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and qty_akhir>0 and status_hapus=0 and status_edit=0 order by tgl_dok asc limit 1"; 
+                $query_id = "select id, id_opname, kd_brg, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and qty_akhir>0 and status_hapus=0 and status_edit=0 order by tgl_dok asc limit 1"; 
                 $result_id = $this->query($query_id);
                 $row_id = $this->fetch_array($result_id);
                 $id_trans = $row_id['id'];   
@@ -424,6 +427,7 @@ class modelTransaksi extends mysql_db
                                 set 
                                 kd_lokasi='$kd_lokasi',
                                 id_masuk = '$id_trans',
+                                id_opname = '$id_opname',
                                 kd_lok_msk='$kd_lok_msk',
                                 nm_satker='$nm_satker',
                                 thn_ang='$thn_ang',
@@ -463,6 +467,7 @@ class modelTransaksi extends mysql_db
                 $query_full = "Insert into transaksi_full
                                 set kd_lokasi='$kd_lokasi',
                                 id_trans='$id_transk',
+                                id_opname='$id_opname',
                                 id_keluar='$id_transk',
                                 kd_lok_msk='$kd_lok_msk',
                                 nm_satker='$nm_satker',

@@ -4,15 +4,30 @@ class modelOpsik extends mysql_db
 {
         public function hapus_opname($data)
     {
-        $id_masuk = $data['id'];
+        $id_opname = $data['id'];
         $user_id = $data['user_id'];
-        $query_hapus = "update opname set status_hapus=1  
-                        where id= '$id_masuk' ";
+
+        $query_msk = "select * from transaksi_masuk WHERE id_opname order by ID DESC LIMIT 1";
+        $result_msk = $this->query($query_msk);
+        if (mysqli_num_rows($result_msk) != 0)
+        {
+
+        }        
+
+        $query_klr = "select * from transaksi_masuk WHERE id_opname order by ID DESC LIMIT 1";
+        $result_klr = $this->query($query_klr);
+        if (mysqli_num_rows($result_klr) != 0)
+        {
+
+        }
+
+
+        $query_hapus = "delete from opname where id= '$id_opname' ";
         $result_hapus = $this->query($query_hapus);
 
         $update_status = "update transaksi_masuk set status=0  
                         where id= '$id_masuk' ";
-        $result_hapus = $this->query($query_hapus);
+        $result_status = $this->query($update_status);
     }
 
     function konversi_tanggal($tgl)
@@ -99,7 +114,7 @@ class modelOpsik extends mysql_db
                     tgl_dok='$tgl_dok',
                     tgl_buku='$tgl_buku',
                     no_bukti='$no_bukti',
-                    jns_trans='$jns_trans',
+                    jns_trans='P01',
                     kd_sskel='$kd_sskel',
                     nm_sskel='$nm_sskel',
                     kd_brg='$kd_brg',
@@ -115,8 +130,13 @@ class modelOpsik extends mysql_db
                     tgl_update=CURDATE(),
                     user_id='$user_id'";   
         $result = $this->query($query);  
-
-        $jml_brg = $data_hrg['qty'];     
+        
+        $query_id = "select id from opname WHERE kd_brg='$kd_brg'  and kd_lokasi='$kd_lokasi' and no_dok='$no_dok' and user_id='$user_id' order by ID DESC LIMIT 1";
+        $result_id = $this->query($query_id);
+        $row_id = $this->fetch_array($result_id);
+        $id_opname = $row_id['id'];
+          
+        $jml_brg = $data_hrg['qty'];
         $selisih = $kuantitas - $jml_brg;
         $selisih_total_harga = ($selisih*$hrg_sat)+$sisabagi;
         if($selisih>0)
@@ -125,6 +145,7 @@ class modelOpsik extends mysql_db
                     set 
                     kd_lokasi='$kd_lokasi',
                     kd_lok_msk='',
+                    id_opname='$id_opname',
                     nm_satker='$nm_satker',
                     thn_ang='$thn_ang',
                     no_dok='$no_dok',
@@ -158,6 +179,7 @@ class modelOpsik extends mysql_db
                     set 
                     kd_lokasi='$kd_lokasi',
                     kd_lok_msk='',
+                    id_opname='$id_opname',
                     id_masuk='$id_trans',
                     nm_satker='$nm_satker',
                     thn_ang='$thn_ang',
@@ -215,13 +237,14 @@ class modelOpsik extends mysql_db
                                         set kd_lokasi='$kd_lokasi',
                                         id_masuk = '$id_trans_m',
                                         kd_lok_msk='$kd_lok_msk',
+                                        id_opname='$id_opname',
                                         nm_satker='$nm_satker',
                                         thn_ang='$thn_ang',
                                         no_dok='$no_dok',
                                         tgl_dok='$tgl_dok',
                                         tgl_buku='$tgl_buku',
                                         no_bukti='$no_bukti',
-                                        jns_trans='$jns_trans',
+                                        jns_trans='P01',
                                         kd_sskel='$kd_sskel',
                                         nm_sskel='$nm_sskel',
                                         kd_perk='$kd_perk',
@@ -255,13 +278,14 @@ class modelOpsik extends mysql_db
                                     set kd_lokasi='$kd_lokasi',
                                     id_keluar='$id_transk',
                                     kd_lok_msk='$kd_lok_msk',
+                                    id_opname='$id_opname',
                                     nm_satker='$nm_satker',
                                     thn_ang='$thn_ang',
                                     no_dok='$no_dok',
                                     tgl_dok='$tgl_dok',
                                     tgl_buku='$tgl_buku',
                                     no_bukti='$no_bukti',
-                                    jns_trans='$jns_trans',
+                                    jns_trans='P01',
                                     kd_sskel='$kd_sskel',
                                     nm_sskel='$nm_sskel',
                                     kd_perk='$kd_perk',
@@ -294,6 +318,7 @@ class modelOpsik extends mysql_db
                                     set 
                                     kd_lokasi='$kd_lokasi',
                                     id_masuk = '$id_trans',
+                                    id_opname='$id_opname',
                                     kd_lok_msk='$kd_lok_msk',
                                     nm_satker='$nm_satker',
                                     thn_ang='$thn_ang',
@@ -301,7 +326,7 @@ class modelOpsik extends mysql_db
                                     tgl_dok='$tgl_dok',
                                     tgl_buku='$tgl_buku',
                                     no_bukti='$no_bukti',
-                                    jns_trans='$jns_trans',
+                                    jns_trans='P01',
                                     kd_sskel='$kd_sskel',
                                     nm_sskel='$nm_sskel',
                                     kd_perk='$kd_perk',
@@ -334,6 +359,7 @@ class modelOpsik extends mysql_db
                                     set kd_lokasi='$kd_lokasi',
                                     id_trans='$id_transk',
                                     id_keluar='$id_transk',
+                                    id_opname='$id_opname',
                                     kd_lok_msk='$kd_lok_msk',
                                     nm_satker='$nm_satker',
                                     thn_ang='$thn_ang',
@@ -341,7 +367,7 @@ class modelOpsik extends mysql_db
                                     tgl_dok='$tgl_dok',
                                     tgl_buku='$tgl_buku',
                                     no_bukti='$no_bukti',
-                                    jns_trans='$jns_trans',
+                                    jns_trans='P01',
                                     kd_sskel='$kd_sskel',
                                     nm_sskel='$nm_sskel',
                                     kd_perk='$kd_perk',
@@ -365,9 +391,9 @@ class modelOpsik extends mysql_db
         }
      
 
-        $update_brg = "update transaksi_masuk set  status=1 where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 ";
+        $update_brg = "update transaksi_masuk set  status=1, id_opname='$id_opname' where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 ";
         $result_upd = $this->query($update_brg);
-        $update_brg_klr = "update transaksi_keluar set  status=1 where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 ";
+        $update_brg_klr = "update transaksi_keluar set  status=1, id_opname='$id_opname' where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 ";
         $result_upd_klr = $this->query($update_brg_klr);
 
 
