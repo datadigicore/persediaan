@@ -355,6 +355,18 @@
         }
       });
       $('#adduser').submit(function(e){
+        var kode_satker = $("#kdunitgudang").val();
+        var tahun = $("#tahun").val();
+        if(kode_satker=="")
+        {
+          alert("Kode Satker Belum Dipilh");
+          return false;
+        }
+        if(tahun=="")
+        {
+          alert("Tahun Belum Dipilh");
+          return false;
+        }
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
