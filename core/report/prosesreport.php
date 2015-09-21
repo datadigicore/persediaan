@@ -12,6 +12,11 @@ else
 	$manage = $_POST['manage'];
 	switch ($manage)
 	{
+		case 'readbrg':
+			$data = $_SESSION['kd_lok'];
+			$Report->bacabrg($data);
+		break;
+		
 		case 'baca_satker':
 		$kd_lokasi= $_SESSION['kd_lok'];
 		$Report->baca_satker($kd_lokasi);
@@ -39,7 +44,14 @@ else
 				"user_id" => $user_id
 			   );
 			// print_r($data);
-			$Report->buku_persediaan($data);
+			if($kd_brg=="all")
+			{
+				$Report->buku_persediaan_all($data);
+			}
+			else
+			{
+				$Report->buku_persediaan($data);
+			}
 		break;
 
 		case 'lap_persediaan':

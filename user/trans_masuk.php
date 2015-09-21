@@ -44,6 +44,7 @@
                               <option value="M01">Saldo Awal</option>
                               <option value="M02">Pembelian</option>
                               <option value="M03">Transfer Masuk</option>
+                              <option value="M04">Hibah Masuk</option>
                             </select>
                           </div>
                         </div>

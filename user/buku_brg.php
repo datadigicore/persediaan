@@ -149,8 +149,8 @@
 
        $.ajax({
           type: "post",
-          url: '../core/transaksi/prosestransaksi',
-          data: {manage:'readbrgmsk'},
+          url: '../core/report/prosesreport',
+          data: {manage:'readbrg'},
           success: function (output) {     
             $('#kd_brg').html(output);
           }
