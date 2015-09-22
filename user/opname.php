@@ -196,7 +196,7 @@
        });
       $('#kd_brg').change(function(){
         if ($(this).val()=='') {
-          $('#detil_transaksi').html('<option value="">-- Belum Dicetak --</option>');
+          $('#satuan').val('');
         }
         else {
           var kd_brg = $('#kd_brg').val(); 
@@ -212,24 +212,7 @@
        });
         }
       });
-      $('#kd_brg').change(function(){
-        if ($(this).val()=='') {
-          $('#rph_sat').val('');
-        }
-        else {
-          var kd_brg = $('#kd_brg').val(); 
-          $.ajax({
-            type: "post",
-            url: '../core/transaksi/prosestransaksi',
-            data: {manage:'bacaharga',kd_brg:kd_brg},
-            dataType: "json",
-            success: function (output) {
-            $('#rph_sat').val(output.harga_sat);
 
-            }
-          });
-        }
-      });
 
       $('#addtransmsk').submit(function(e){
         var brg = document.getElementById("kd_brg").value;
