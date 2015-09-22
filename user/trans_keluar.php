@@ -141,7 +141,7 @@
                           <div class="form-group">
                             <label class="col-sm-3 control-label">Jml dikeluarkan</label>
                             <div class="col-sm-4">
-                              <input type="number" min="1" max name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah" required>
+                              <input type="number" min="1" max name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah">
                             </div>
                             <div class="col-sm-4">
                               <input type="text" name="satuan" id="satuan" class="form-control"  readonly>
@@ -150,7 +150,7 @@
                           <div class="form-group">
                             <label class="col-sm-3 control-label">Saldo Barang</label>
                             <div class="col-sm-8">
-                              <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="Saldo Barang" readonly required>
+                              <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="Saldo Barang" readonly >
                             </div>
                           </div>                  
                         </div>
@@ -249,6 +249,7 @@
               $('#distglbuku').val(output.tglbuku);
               $('#dissatker').val(output.satker);
               $('#distottrans').val(output.total);
+              $('#jml_msk').prop('required', true);
             }
           });
         });
@@ -260,6 +261,7 @@
           $('#distglbuku').val('');
           $('#dissatker').val('');
           $('#distottrans').val('');
+          $('#jml_msk').prop('required', false);
 
       });
       });
