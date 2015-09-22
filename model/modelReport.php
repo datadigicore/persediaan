@@ -209,7 +209,11 @@ class modelReport extends mysql_db
         $result_list = $this->query($list_brg);
         while($data=$this->fetch_assoc($result_list)) 
         {
+
         $kd_brg=$data['kd_brg'];
+        if($kd_brg==""){
+            continue;
+        }
         $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where  kd_brg='$kd_brg' and kd_lokasi like '{$kd_lokasi}%' ";
         $result_detail = $this->query($detail_brg);
         $brg = $this->fetch_array($result_detail);

@@ -69,8 +69,11 @@
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Jumlah</label>
-                      <div class="col-sm-9">
-                        <input type="number" min="0" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Hasil Opname">
+                      <div class="col-sm-5">
+                        <input type="number" min="0" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah Hasil Opname" required>
+                      </div>                      
+                      <div class="col-sm-4">
+                        <input type="text"  name="satuan" class="form-control" id="satuan" readonly>
                       </div>
                     </div>
                     <div name="detil_transaksi" id="detil_transaksi">
@@ -202,8 +205,9 @@
           type: "post",
           url: '../core/transaksi/prosestransaksi',
           data: {manage:'baca_detil_trans',kd_brg:kd_brg,no_dok:no_dok},
+          dataType:"json",
           success: function (output) {     
-            $('#detil_transaksi').html(output);
+            $('#satuan').val(output.satuan);
           }
        });
         }
@@ -230,7 +234,11 @@
       $('#addtransmsk').submit(function(e){
         var brg = document.getElementById("kd_brg").value;
         var jml = document.getElementById("jml_msk").value;
-
+        if(brg=="")
+        {
+          alert("Kode Persediaan Belum Dipilih");
+          return false;
+        }
         job=confirm("Setelah memasukan opname, penghapusan transaksi masuk dan keluar tidak dapat dilakukan kembali.\n Data Opname tidak dapat diubah atau dihapus kembali.\n\nAnda Yakin Menambah Opname berikut ini?\nKode Persediaan : "+brg+"\nJumlah : "+jml);
         if(job!=true){
           return false;
