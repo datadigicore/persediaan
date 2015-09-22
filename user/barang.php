@@ -105,7 +105,7 @@
             success:function(data){
               if(data.kd_brg!=null)
               {
-                alert("Kode Barang "+kdsskel+" sudah digunakan oleh barang "+data.nm_brg);
+                alert("Kode Barang "+kodebarang+" sudah digunakan oleh barang "+data.nm_brg);
                 $('#kodebarang').val('');
                 return false;
               }

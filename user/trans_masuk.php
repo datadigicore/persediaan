@@ -263,6 +263,8 @@
             $('#distglbuku').val(output.tglbuku);
             $('#dissatker').val(output.satker);
             $('#distottrans').val(output.total);
+            $('#jml_msk').prop('required', true);
+            $('#rph_sat').prop('required', true);
           }
         });
       });
@@ -274,6 +276,8 @@
            $('#distglbuku').val('');
            $('#dissatker').val('');
            $('#distottrans').val('');
+            $('#jml_msk').prop('required', false);
+            $('#rph_sat').prop('required', false);
 
       });  
       });
