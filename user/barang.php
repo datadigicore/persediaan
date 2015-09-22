@@ -39,7 +39,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode Barang</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kodebarang" class="form-control" id="kodebarang" placeholder="Masukkan Kode Barang" required>
+                        <input type="text" name="kodebarang" class="form-control" id="kodebarang" placeholder="Pilih Kode Sub-sub Kelompok Barang terlebih dahulu" onkeyup="cek_kode()" onchange="cek_kode()" required readonly>
                       </div>
                     </div>                    
 					         <div class="form-group">
@@ -91,6 +91,42 @@
     <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
+
+      function cek_kode() {
+      
+        var kdsskel = $('#kdsskel').val();
+        var kodebarang = $('#kodebarang').val();
+    
+          $.ajax({
+            url: '../core/barang/prosesbarang',
+            type: 'POST',
+            data: {kdsskel:kdsskel, kodebarang:kodebarang, manage:'cekkode'},
+            dataType: "json",
+            success:function(data){
+              if(data.kd_brg!=null)
+              {
+                alert("Kode Barang "+kdsskel+" sudah digunakan oleh barang "+data.nm_brg);
+                $('#kodebarang').val('');
+                return false;
+              }
+            }
+          });
+         
+      }
+
+      $('#kdsskel').change(function(){
+        if ($(this).val()=='') 
+        {
+          $('#kodebarang').prop('readonly', true);
+          $('#kodebarang').prop('placeholder', 'Pilih Kode Sub-sub Kelompok Barang Terlebih Dahulu');
+
+        }
+        else 
+        {
+          $('#kodebarang').prop('readonly', false);
+          $('#kodebarang').prop('placeholder', 'Masukan Kode Barang');
+        }
+      });
       $(function () {
         $("li#barang").addClass("active");
         $(".select2").select2();

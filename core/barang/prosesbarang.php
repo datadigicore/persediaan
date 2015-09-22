@@ -11,9 +11,23 @@ else
 	$manage = $_POST['manage'];
 	switch ($manage)
 	{
+
+		case 'cekkode':
+			$kdbarang = $purifier->purify($_POST['kdsskel']);
+			$kd_jbrg = $purifier->purify($_POST['kodebarang']);
+			$kd_brg = $kdbarang.''.$kd_jbrg;
+			$kd_lokasi = $_SESSION['kd_lok'];
+			$data = array(
+				"kd_brg" => $kd_brg,
+		    	"kd_lokasi" => $kd_lokasi
+		    );
+			$Barang->cek_kd_barang($data);
+		break;
+
 		case 'readsskel':
 			$Barang->bacasskel();
 		break;
+
 
 		case 'cekbarang':
 
@@ -67,8 +81,7 @@ else
 		    	
 		    );
         	
-			$Barang->loghistory($datalog);
-			
+			$Barang->loghistory($datalog);			
 		break;
 
 
@@ -114,8 +127,6 @@ else
 		    );
         	
 			$Barang->loghistory($datalog);
-
-
 		break;
 
 		case 'hapusbarang':
@@ -159,6 +170,7 @@ else
 		    );
         	
 			$Barang->loghistory($datalog);
+		break;
 
 		default:
 			echo "Error Data Tidak Tersedia";
