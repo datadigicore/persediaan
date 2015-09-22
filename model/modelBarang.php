@@ -2,6 +2,22 @@
 include('../../utility/mysql_db.php');
 class modelBarang extends mysql_db
 {
+
+	public function cek_kd_barang($data)
+	{
+		$kd_lokasi = $data['kd_lokasi'];
+		$kd_brg = $data['kd_brg'];
+
+		$query = "select kd_brg, nm_brg from persediaan where kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi'";
+		$result = $this->query($query);
+        $data = $this->fetch_array($result);
+        $kd_brg = $data['kd_brg'];
+        $nm_brg = $data['nm_brg'];
+
+        echo json_encode(array("kd_brg"=>$kd_brg,"nm_brg"=>$nm_brg));
+
+
+	}
 	public function tambahbrg($data)
 	{
 		$kd_kbrg = $data['kd_kbrg'];
