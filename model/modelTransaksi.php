@@ -673,8 +673,7 @@ class modelTransaksi extends mysql_db
         $total_harga = $row_id['total_harga'];
 
         $user_id = $data['user_id'];
-        $query_ubah = "update transaksi_masuk set status_hapus=1  
-                        where id= '$id_masuk' ";
+        $query_ubah = "delete from transaksi_masuk where id= '$id_masuk' ";
 
         $query_full = "Insert into transaksi_full
                         set 
@@ -702,8 +701,8 @@ class modelTransaksi extends mysql_db
                         status=0,
                         tgl_update=CURDATE(),
                         user_id='$user_id'";
-            $result = $this->query($query_ubah);       
-            $result2 = $this->query($query_full);       
+            $result2 = $this->query($query_full);  
+            $result = $this->query($query_ubah);     
             return $result;
             return $result2;
     }
@@ -748,15 +747,10 @@ class modelTransaksi extends mysql_db
         $total_harga = abs($row_id['total_harga']);
         $id_masuk = $row_id['id_masuk'];
 
-        
-        $query_ubah_keluar = "update transaksi_keluar set status_hapus=1  
-                        where id= '$id' ";
-        $result = $this->query($query_ubah_keluar); 
 
         $query_upd_masuk = "update transaksi_masuk 
                                 set qty_akhir = qty_akhir + '$qty'
                                  where  id='$id_masuk'";
-
         $result_upd_masuk = $this->query($query_upd_masuk);
 
         $query_full = "Insert into transaksi_full
@@ -782,12 +776,16 @@ class modelTransaksi extends mysql_db
                         qty= '$qty',
                         harga_sat= '$harga_sat',
                         total_harga= '$total_harga',
-                        keterangan='Hapus Transaksi',
+                        keterangan='Hapus Transaksi Keluar',
                         status=0,
                         tgl_update=CURDATE(),
                         user_id='$user_id'";
                   
-            $result2 = $this->query($query_full);       
+            $result2 = $this->query($query_full);    
+
+            $query_ubah_keluar = "delete from transaksi_keluar where id= '$id' ";
+            $result = $this->query($query_ubah_keluar); 
+   
             return $result;
             return $result2;
     }
