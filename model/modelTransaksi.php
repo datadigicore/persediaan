@@ -105,7 +105,7 @@ class modelTransaksi extends mysql_db
                    
             $result2 = $this->query($query_full);
             
-            $query_hps = "delete from transaksi_masuk where kd_brg like '' and kd_lokasi='$kd_lokasi' ";
+            $query_hps = "delete from transaksi_masuk where total_harga=0 and kd_lokasi='$kd_lokasi' ";
             $result_hps = $this->query($query_hps); 
 
             $query_hps_full = "delete from transaksi_full where kd_brg like '' and kd_lokasi='$kd_lokasi' ";
