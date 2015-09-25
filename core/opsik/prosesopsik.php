@@ -118,7 +118,7 @@ else
 				"thn_ang" => $thn_ang,
 				"user_id" => $user_id
 			);
-
+			// print_r($data);
 			$Opsik->hapus_opname($data);
 		break;	
 		default:

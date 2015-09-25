@@ -100,7 +100,7 @@
                         <th>Jumlah</th>
                         <th>Total</th>
                         <th>Keterangan</th>
-                        <!-- <th width="6%">Aksi</th> -->
+                        <th width="6%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -134,58 +134,27 @@
           "ajax": "../core/loadtable/loadopsik",
           "columnDefs":
           [
-            {"targets": 0 },
+            {"targets": 0,
+             "visible":false  },
             {"targets": 1 },
             {"targets": 2 },
             {"targets": 3 },
             {"targets": 4 },
             {"targets": 5,
              "visible":false },
-            {"targets": 6 }
-            // {"orderable": false,
-            //  "data": null,
-            //  "defaultContent":  '<div class="box-tools">'+
+            {"targets": 6 },
+            {"orderable": false,
+             "data": null,
+             "defaultContent":  '<div class="box-tools">'+
                                   
-            //                       '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
-            //                     '</div>',
-            //  "targets": [7],"targets": 7 }         
+                                  '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                '</div>',
+             "targets": [7],"targets": 7 }         
 
           ],
         });
       });
-      $(document).on('click', '#btnhps', function () {
-      var tr = $(this).closest('tr');
-      var row = table.row( tr );
-      redirectTime = "2600";
-      redirectURL = "opname";
-      id_row = row.data()[0];
-      managedata = "hapusOpname";
-      job=confirm("Anda yakin ingin menghapus data ini?");
-        if(job!=true){
-          return false;
-        }
-        else{
-          $('#myModal').modal({
-            backdrop: 'static',
-            keyboard: false
-          });
-          $('#myModal').modal('show');
-          $.ajax({
-            type: "post",
-            url : "../core/opsik/prosesopsik",
-            data: {manage:managedata,id:id_row},
-            success: function(data)
-            {
-              $("#success-alert").alert();
-              $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-              $("#success-alert").alert('close');
-              });
-              setTimeout("location.href = redirectURL;",redirectTime); 
-            }
-          });
-          return false;
-        }
-      });
+
        $.ajax({
           type: "post",
           url: '../core/opsik/prosesopsik',
@@ -212,6 +181,44 @@
        });
         }
       });
+
+    $(document).on('click', '#btnhps', function () {
+          var tr = $(this).closest('tr');
+          var row = table.row( tr );
+          redirectTime = "2600";
+          redirectURL = "opname";
+          id = row.data()[0];
+          managedata = "hapusOpname";
+          
+                
+                job=confirm("Anda yakin ingin menghapus data ini?");
+                if(job!=true)
+                {
+                  return false;
+                }
+                else
+                {
+                  // $('#myModal').modal({
+                  //   backdrop: 'static',
+                  //   keyboard: false
+                  // });
+                  // $('#myModal').modal('show');
+                  $.ajax({
+                    type: "post",
+                    url : "../core/opsik/prosesopsik",
+                    data: {manage:managedata,id:id},
+                    success: function(data)
+                    {
+                      // $("#success-alert").alert();
+                      // $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+                      // $("#success-alert").alert('close');
+                      // });
+                      // setTimeout("location.href = redirectURL;",redirectTime); 
+                    }
+                  });
+                  return false;
+                }            
+          });
 
 
       $('#addtransmsk').submit(function(e){

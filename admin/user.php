@@ -357,14 +357,24 @@
       $('#adduser').submit(function(e){
         var kode_satker = $("#kdunitgudang").val();
         var tahun = $("#tahun").val();
+        var pass1 = $("#password").val();
+        var pass2 = $("#konf_pass").val();
+
+
+
         if(kode_satker=="")
         {
-          alert("Kode Satker Belum Dipilh");
+          alert("Kode Unit Satker Pengelola Belum Dipilh");
           return false;
         }
         if(tahun=="")
         {
           alert("Tahun Belum Dipilh");
+          return false;
+        }
+        if(pass1!==pass2)
+        {
+          alert("Konfirmasi Password tidak sama dengan Password");
           return false;
         }
         $('#myModal').modal({

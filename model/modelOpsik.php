@@ -2,32 +2,147 @@
 include('../../utility/mysql_db.php');
 class modelOpsik extends mysql_db
 {
-        public function hapus_opname($data)
+    public function hapus_opname($data)
     {
         $id_opname = $data['id'];
         $user_id = $data['user_id'];
 
-        $query_msk = "select * from transaksi_masuk WHERE id_opname order by ID DESC LIMIT 1";
+        //mnghapus hasil opname di transaksi masuk
+        $query_msk = "select * from transaksi_masuk WHERE id_opname='$id_opname' and jns_trans='P01' ";
         $result_msk = $this->query($query_msk);
+        $row_id = $this->fetch_array($result_msk);
         if (mysqli_num_rows($result_msk) != 0)
         {
+           
+            $kd_lokasi=$row_id['kd_lokasi'];
+            $nm_satker = $row_id['nm_satker'];
             
-        }        
+            $no_dok = $row_id['no_dok'];
+            $tgl_dok = $row_id['tgl_dok'];
+            $tgl_buku = $row_id['tgl_buku'];
+            $no_bukti = $row_id['no_bukti'];
 
-        $query_klr = "select * from transaksi_masuk WHERE id_opname order by ID DESC LIMIT 1";
+            $kd_sskel = $row_id['kd_sskel'];
+            $nm_sskel = $row_id['nm_sskel'];
+            $kd_perk = $row_id['kd_perk'];
+            $nm_perk = $row_id['nm_perk'];
+            $satuan = $row_id['satuan'];
+
+            $kd_brg = $row_id['kd_brg'];
+            $nm_brg = $row_id['nm_brg'];
+            $keterangan = $row_id['keterangan'];
+            $id_trans = $row_id['id'];
+            $qty_awal = $row_id['qty'];
+            $harga_sat = $row_id['harga_sat'];
+            $total_harga = $row_id['total_harga'];
+
+            echo "Masuk kesini";
+            $query_hps_msk = "delete from transaksi_masuk where id_opname='$id_opname' and jns_trans='P01' ";
+            $result_hps_msk = $this->query($query_hps_msk);
+
+            $query_ubah_msk = "update transaksi_masuk set status=0, id_opname=null where  id_opname='$id_opname' and status=1 ";
+            $result_ubah = $this->query($query_ubah_msk);
+
+            $query_ubah_klr = "update transaksi_keluar set status=0, id_opname=0 where  id_opname='$id_opname' and status=1 ";
+            $result_ubah_klr = $this->query($query_ubah_klr);
+
+
+
+            // $query_hps_klr = "delete from transaksi_keluar where id_opname='$id_opname' and jns_trans='P01' ";
+            // $result_hps = $this->query($query_hps_klr);
+
+            //Memasukkan Data Ke Transaksi Full
+        }        
+        else
+        {
+        $query_klr = "select * from transaksi_keluar WHERE id_opname='$id_opname' and jns_trans='P01' ";
         $result_klr = $this->query($query_klr);
         if (mysqli_num_rows($result_klr) != 0)
         {
 
-        }
+            while ($row = $this->fetch_array($result_klr))
+            { 
+                $id_masuk = $row['id_masuk'];
+                $qty = abs($row['qty']);
 
+                $kd_lokasi = $row['kd_lokasi'];
+                $nm_satker = $row['nm_satker'];
+                $thn_ang = $row['thn_ang'];
+                $no_dok = $row['no_dok'];
+                $tgl_dok = $row['tgl_dok'];
+                $tgl_buku = $row['tgl_buku'];
+                $no_bukti = $row['no_bukti'];
+
+                $kd_sskel = $row['kd_sskel'];
+                $nm_sskel = $row['nm_sskel'];
+                $kd_perk = $row['kd_perk'];
+                $nm_perk = $row['nm_perk'];
+                $satuan = $row['satuan'];
+
+                $kd_brg = $row['kd_brg'];
+                $nm_brg = $row['nm_brg'];
+                $keterangan = 'Hapus Opname : '.$row['keterangan'];
+                $id_trans = $row['id'];
+                $harga_sat = $row['harga_sat'];
+                $total_harga = abs($row['total_harga']);
+
+                echo 'Id Masuk : '.$id_masuk;
+                echo 'qtyk : '.$qty;
+
+
+                $query_upd_masuk = "update transaksi_masuk  set qty_akhir = qty_akhir + '$qty'  where  id='$id_masuk'";
+                $result_upd_masuk = $this->query($query_upd_masuk);
+
+                $query_full = "Insert into transaksi_full
+                    set 
+                    kd_lokasi='$kd_lokasi',
+                    kd_lok_msk='',
+                    id_opname='$id_opname',
+                    id_masuk='$id_trans',
+                    nm_satker='$nm_satker',
+                    thn_ang='$thn_ang',
+                    no_dok='$no_dok',
+                    tgl_dok='$tgl_dok',
+                    tgl_buku='$tgl_buku',
+                    no_bukti='$no_bukti',
+                    jns_trans='H03',
+                    kd_sskel='$kd_sskel',
+                    nm_sskel='$nm_sskel',
+                    kd_brg='$kd_brg',
+                    nm_brg='$nm_brg',
+                    kd_perk='$kd_perk',
+                    nm_perk='$nm_perk',
+                    satuan='$satuan',
+                    qty='$qty',
+                    
+                    harga_sat='$harga_sat',
+                    total_harga='$total_harga',
+                    keterangan='$keterangan',
+                    status='0',
+                    tgl_update=CURDATE(),
+                    user_id='$user_id'";   
+                $result_full = $this->query($query_full);
+
+                //Memasukkan Data Hapus Opname ke Tabel Transaksi Full   
+            }
+            $query_hps_msk = "delete from transaksi_keluar where id_opname='$id_opname' and jns_trans='P01' ";
+            $result_hps_klr = $this->query($query_hps_msk);
+
+
+            $query_ubah_msk = "update transaksi_masuk set status=0, id_opname=null where  id_opname='$id_opname' and status=1 ";
+            $result_msk = $this->query($query_ubah_msk);
+            
+            $query_ubah_klr = "update transaksi_keluar set status=0, id_opname=0 where  id_opname='$id_opname' and status=1 ";
+            $result_klr = $this->query($query_ubah_klr);
+
+
+
+        }
+     }
 
         $query_hapus = "delete from opname where id= '$id_opname' ";
         $result_hapus = $this->query($query_hapus);
 
-        $update_status = "update transaksi_masuk set status=0  
-                        where id= '$id_masuk' ";
-        $result_status = $this->query($update_status);
     }
 
     function konversi_tanggal($tgl)
