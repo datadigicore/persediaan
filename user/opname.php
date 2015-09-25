@@ -198,22 +198,22 @@
                 }
                 else
                 {
-                  // $('#myModal').modal({
-                  //   backdrop: 'static',
-                  //   keyboard: false
-                  // });
-                  // $('#myModal').modal('show');
+                  $('#myModal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                  });
+                  $('#myModal').modal('show');
                   $.ajax({
                     type: "post",
                     url : "../core/opsik/prosesopsik",
                     data: {manage:managedata,id:id},
                     success: function(data)
                     {
-                      // $("#success-alert").alert();
-                      // $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-                      // $("#success-alert").alert('close');
-                      // });
-                      // setTimeout("location.href = redirectURL;",redirectTime); 
+                      $("#success-alert").alert();
+                      $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+                      $("#success-alert").alert('close');
+                      });
+                      setTimeout("location.href = redirectURL;",redirectTime); 
                     }
                   });
                   return false;
