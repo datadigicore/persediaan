@@ -34,11 +34,21 @@
                           <select name="satker" id="satker" class="form-control">
                           </select>
                         </div>
-                    </div>                      
+                    </div>  
+
                     <div class="box-body">
                       <label class="col-sm-2 control-label">Sampai Dengan Tanggal</label>
                       <div class="col-sm-4">
                         <input type="text" name="tgl_akhir" class="form-control" id="tgl_akhir" placeholder="" required>
+                        </select>
+                      </div>
+                    </div> 
+                    <div class="box-body">
+                      <label class="col-sm-2 control-label">Format laporan</label>
+                      <div class="col-sm-4">
+                        <select name="format" id="format" class="form-control">
+                          <option value="pdf">PDF</option>
+                          <option value="excel">Excel</option>
                         </select>
                       </div>
                     </div> 

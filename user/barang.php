@@ -212,7 +212,7 @@
               '<input type="hidden" name="manage" value="updbarang">'+
               '<input type="hidden" name="id" value="'+d[0]+'">'+
               '<td width="16%"><input style="width:90%" id="kode_sskel'+d[0]+'" name="updkdsskel" class="form-control" type="text" placeholder="Kode SSkel" readonly></td>'+
-              '<td width="13%"><input style="width:90%" id="kode_brg'+d[0]+'" name="updkdbrg" class="form-control" type="text" placeholder="Kode Barang" required></td>'+ 
+              '<td width="13%"><input style="width:90%" id="kode_brg'+d[0]+'" name="updkdbrg" class="form-control" type="text" placeholder="Kode Barang" readonly></td>'+ 
               '<td width="49%"><input style="width:98%" id="nama_brg'+d[0]+'" name="updnmbrg" class="form-control" type="text" placeholder="Nama Barang" required></td>'+
               '<td width="17%"><input style="width:90%" id="satuan_brg'+d[0]+'" name="updsatbrg" class="form-control" type="text" placeholder="Satuan Barang" required></td>'+
               '<td style="vertical-align:middle; width:15%;">'+

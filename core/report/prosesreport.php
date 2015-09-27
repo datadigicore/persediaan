@@ -29,6 +29,7 @@ else
 			$thn_ang = $purifier->purify($_SESSION['thn_ang']);
 			$bulan = $purifier->purify($_POST['bulan']);
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
+			$format = $purifier->purify($_POST['format']);
 			$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
 			$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
 			$user_id= $_SESSION['username'];
@@ -44,13 +45,21 @@ else
 				"user_id" => $user_id
 			   );
 			// print_r($data);
-			if($kd_brg=="all")
+			if($kd_brg=="all" && $format=="pdf")
 			{
 				$Report->buku_persediaan_all($data);
 			}
-			else
+			elseif($kd_brg=="all" && $format=="excel")
+			{
+				$Report->buku_persediaan_all_excel($data);
+			}
+			elseif($format== "pdf")
 			{
 				$Report->buku_persediaan($data);
+			}
+			else
+			{
+				$Report->buku_persediaan_excel($data);
 			}
 		break;
 
@@ -62,6 +71,7 @@ else
 			$bln_awal = $semester[0];
 			$bln_akhir = $semester[1];
 			$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
+			$format = $purifier->purify($_POST['format']);
 			$thn_ang = $purifier->purify($_SESSION['thn_ang']);
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			$user_id= $_SESSION['username'];
@@ -75,7 +85,12 @@ else
 			"kd_lokasi" => $kd_lokasi,
 			"satker_asal" => $satker_asal,
 			"user_id" => $user_id);
-			$Report->laporan_persediaan($data);
+			if($format=="pdf"){
+				$Report->laporan_persediaan($data);
+			}
+			else {
+				$Report->laporan_persediaan_excel($data);
+			}
 		break;
 
 		case 'rincian':
@@ -87,6 +102,7 @@ else
 			$bln_akhir = $semester[1];
 			$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
 			$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
+			$format = $purifier->purify($_POST['format']);
 			$thn_ang = $purifier->purify($_SESSION['thn_ang']);
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			$user_id= $_SESSION['username'];
@@ -101,7 +117,14 @@ else
 			"kd_lokasi" => $kd_lokasi,
 			"satker_asal" => $satker_asal,
 			"user_id" => $user_id);
-			$Report->rincian_persediaan($data);
+			if($format=="pdf"){
+				$Report->rincian_persediaan($data);
+			}
+			else {
+				$Report->rincian_persediaan_excel($data);
+			}
+
+			
 		break;		
 
 		case 'neraca':
@@ -111,6 +134,7 @@ else
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
 			$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
+			$format = $purifier->purify($_POST['format']);
 			$user_id= $_SESSION['username'];
 			$data = array(
 			"jenis"=>"tanggal",
@@ -122,7 +146,13 @@ else
 			"satker_asal" => $satker_asal,
 			"user_id" => $user_id);
 			// print_r($data);
-			$Report->neraca($data);
+			if($format=="pdf"){
+				$Report->neraca($data);
+			}
+			else {
+				$Report->neraca_excel($data);
+			}
+			
 		break;
 
 		case 'mutasi':
@@ -130,6 +160,7 @@ else
 			$satker_asal = $_SESSION['kd_lok'];
 			$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
 			$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
+			$format = $purifier->purify($_POST['format']);
 			$thn_ang = $purifier->purify($_SESSION['thn_ang']);
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			$user_id= $_SESSION['username'];
@@ -143,7 +174,13 @@ else
 			"satker_asal" => $satker_asal,
 			"user_id" => $user_id);
 			// print_r($data);
-			$Report->mutasi_prsedia($data);
+			if($format=="pdf"){
+				$Report->mutasi_prsedia($data);
+			}
+			else {
+				$Report->mutasi_prsedia_excel($data);
+			}
+			
 		break;
 
 		case 'transaksi':
@@ -160,6 +197,7 @@ else
 			$bulan = $purifier->purify($_POST['bulan']);
 			$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
 			$tgl_akhir = $purifier->purify($_POST['tgl_akhir']);
+			$format = $purifier->purify($_POST['format']);
 			$user_id= $_SESSION['username'];
 			$data = array(
 				"jenis"=>$jenis,
@@ -173,7 +211,13 @@ else
 				"satker_asal" => $satker_asal,
 				"user_id" => $user_id
 			   );
-			$Report->transaksi_persediaan($data);
+			if($format=="pdf"){
+				$Report->transaksi_persediaan($data);
+			}
+			else {
+				$Report->transaksi_persediaan_excel($data);
+			}
+			
 		break;
 
 		default:
