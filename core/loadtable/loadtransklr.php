@@ -28,7 +28,18 @@ $columns = array(
 require('../../config/dbconf.php');
 $config = new config();
 $sql_details = $config->sql_details();
-$where = "kd_lokasi='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang' group by no_dok"; 
+
+$str = $kd_satker;
+if (substr_count($str,".") == 1) {
+    $where = "kd_lokasi like '$kd_satker.%.%' and status_hapus=0 and thn_ang='$thn_ang' group by no_dok";   
+}
+else if (substr_count($str,".") == 2) {
+    $where = "kd_lokasi like '$kd_satker.%' and status_hapus=0 and thn_ang='$thn_ang' group by no_dok";
+}
+else{
+    $where = "kd_lokasi='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang' group by no_dok"; 
+}
+
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp.class.php' );
 echo json_encode(

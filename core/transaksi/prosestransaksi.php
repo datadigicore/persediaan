@@ -109,12 +109,12 @@ else
 		break;
 
 		case 'tbh_transaksi_klr':
-			$kd_lokasi = $_SESSION['kd_lok'];
-			
+			$kd_lokasi = $purifier->purify($_POST['read_no_dok']);
+			$satkernodok = $purifier->purify($_POST['read_no_dok']);
 			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
 			
-			$no_bukti = $purifier->purify($_POST['no_bukti']);
+			$no_bukti = null;
 			$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
 			$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
 			$jns_trans = $_POST['jenis_trans'];

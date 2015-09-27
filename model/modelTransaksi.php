@@ -890,7 +890,7 @@ class modelTransaksi extends mysql_db
         $nodok = $data['no_dok'];
         $kdlokasi = $data['kd_lokasi'];
         $thnang = $data['thn_ang'];
-        $query = "select no_dok from transaksi_keluar where no_dok like '$nodok%' and status_hapus=0 and thn_ang='$thnang'  and kd_lokasi='$kdlokasi' and jns_trans not like 'P01'  group by no_dok";
+        $query = "select no_dok from transaksi_keluar where no_dok like '$nodok%' and status_hapus=0 and thn_ang='$thnang'  and kd_lokasi like '$kdlokasi%' and jns_trans not like 'P01'  group by no_dok";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Nomor Dokumen --</option>';
         while ($row = $this->fetch_array($result))
@@ -950,7 +950,16 @@ class modelTransaksi extends mysql_db
     {
         $kd_lokasi = $data['kd_lokasi'];
         $thn_ang = $data['thn_ang'];
-        $query = "select kd_brg, nm_brg FROM transaksi_masuk where kd_lokasi = '$kd_lokasi' and status_hapus=0  and thn_ang <= '$thn_ang' and kd_brg not like '' GROUP BY kd_brg ORDER BY nm_brg ASC ";
+        $str = $kd_lokasi;
+        if (substr_count($str,".") == 1) {
+            $query = "select kd_brg, nm_brg FROM transaksi_masuk where kd_lokasi like '$kd_lokasi.%.%' and status_hapus=0  and thn_ang <= '$thn_ang' and kd_brg not like '' GROUP BY kd_brg ORDER BY nm_brg ASC ";
+        }
+        else if (substr_count($str,".") == 2) {
+            $query = "select kd_brg, nm_brg FROM transaksi_masuk where kd_lokasi like '$kd_lokasi.%' and status_hapus=0  and thn_ang <= '$thn_ang' and kd_brg not like '' GROUP BY kd_brg ORDER BY nm_brg ASC ";
+        }
+        else{
+            $query = "select kd_brg, nm_brg FROM transaksi_masuk where kd_lokasi = '$kd_lokasi' and status_hapus=0  and thn_ang <= '$thn_ang' and kd_brg not like '' GROUP BY kd_brg ORDER BY nm_brg ASC ";
+        }
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         while ($row = $this->fetch_array($result))
