@@ -28,6 +28,13 @@
 				        <form action="../core/barang/prosesbarang" method="post" class="form-horizontal" id="addbarang">
                   <div class="box-body">
                     <div class="form-group">
+                      <label class="col-sm-2 control-label">Kode Unit Satker</label>
+                      <div class="col-sm-9">
+                        <select name="readsatker" id="readsatker" class="form-control">
+                        </select>                
+                      </div>
+                    </div>
+                    <div class="form-group">
                       <label class="col-sm-2 control-label" style="padding-top:2px;">Kode Sub-sub Kelompok Barang</label>
                       <div class="col-sm-9" style="padding-top:7px;">
                         <select name="kdsskel" id="kdsskel" class="form-control select2">
@@ -111,9 +118,15 @@
               }
             }
           });
-         
       }
-
+      $.ajax({
+        type: "post",
+        url: '../core/transaksi/prosestransaksi',
+        data: {manage:'readsatkerdok',no_dok:"<?php echo($_SESSION['kd_lok']);?>"},
+        success: function (output) {     
+          $('#readsatker').html(output);
+        }
+      });
       $('#kdsskel').change(function(){
         if ($(this).val()=='') 
         {

@@ -28,8 +28,18 @@ $columns = array(
 require('../../config/dbconf.php');
 $config = new config();
 $sql_details = $config->sql_details();
- 
-$where = "kd_lokasi='$kd_satker'";
+
+$str = $kd_satker;
+if (substr_count($str,".") == 1) {
+    $where = "kd_lokasi like '$kd_satker.%.%'";
+}
+else if (substr_count($str,".") == 2) {
+    $where = "kd_lokasi like '$kd_satker.%'";
+}
+else{
+    $where = "kd_lokasi='$kd_satker'";
+} 
+
 
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp.class.php' );

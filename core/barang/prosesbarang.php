@@ -49,6 +49,7 @@ else
 			$nm_brg = $purifier->purify($_POST['namabarang']);
 			$satuan = $purifier->purify($_POST['satuan']);
 			$kd_lokasi = $_SESSION['kd_lok'];
+			$kd_satker = $purifier->purify($_POST['readsatker']);
 			$nm_satker = $_SESSION['nama_satker'];
 			$user_id = $_SESSION['username'];
 			$tanggal = date("Y-m-d h:i:sa");
@@ -63,7 +64,7 @@ else
 				"kd_perk" => "0",
 				"nm_satker" => $nm_satker,
 				"user_id" => $user_id,
-		    	"kd_lokasi" => $kd_lokasi
+		    	"kd_lokasi" => $kd_satker
 		    );
 			$Barang->tambahbrg($data);
 			$datalog = array(
