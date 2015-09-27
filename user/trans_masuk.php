@@ -50,18 +50,23 @@
                         </div>
                         <div class="form-group">
                           <label class="col-sm-2 control-label">Nomor Dokumen</label>
-                          <div class="col-sm-9">
+                          <div class="col-sm-2">
+                            <select name="read_no_dok" id="read_no_dok" class="form-control">
+                            </select>
+                          </div>
+                          <div class="col-sm-7">
                             <input type="text" name="no_dok" class="form-control"  id="no_dok" placeholder="Masukkan No. Dokumen">
                             <input type="hidden" name="manage" value="tbh_transaksi_msk">
+                            <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>
                             <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>    
                           </div>
                         </div>
-                        <div class="form-group">                     
+                        <!-- <div class="form-group">                     
                         <label class="col-sm-2 control-label">Nomor Bukti</label>
                           <div class="col-sm-9">
                             <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor Bukti">
                           </div>
-                        </div>
+                        </div> -->
                         <div class="form-group">
                           <label class="col-sm-2 control-label">Tanggal Dokumen</label>
                           <div class="col-sm-9">
@@ -82,12 +87,12 @@
                       <div class="tab-pane" id="tab_2">
                         <div class="row">
                         <div class="col-sm-5">
-                          <div class="form-group">
+                          <!-- <div class="form-group">
                             <label class="col-sm-5 control-label">No. Bukti</label>
                             <div class="col-sm-7">
                               <input type="text" id="disnobukti" name="disnobukti" class="form-control" readonly>
                             </div>
-                          </div>
+                          </div> -->
                           <div class="form-group">
                             <label class="col-sm-5 control-label">Jenis Transaksi</label>
                             <div class="col-sm-7">
@@ -414,6 +419,14 @@
           data: {manage:'readnodok',no_dok:"<?php echo($_SESSION['kd_lok']);?>"},
           success: function (output) {     
             $('#no_dok_item').html(output);
+          }
+        });
+        $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'readsatkerdok',no_dok:"<?php echo($_SESSION['kd_lok']);?>"},
+          success: function (output) {     
+            $('#read_no_dok').html(output);
           }
         });
        $.ajax({

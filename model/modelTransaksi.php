@@ -851,12 +851,31 @@ class modelTransaksi extends mysql_db
         $nodok = $data['no_dok'];
         $kdlokasi = $data['kd_lokasi'];
         $thnang = $data['thn_ang'];
-        $query = "select no_dok from transaksi_masuk where no_dok like '$nodok%' and status_hapus=0 and thn_ang='$thnang' and kd_lokasi='$kdlokasi' and jns_trans not like 'P01' group by no_dok";
+        $query = "select no_dok from transaksi_masuk where no_dok like '$nodok%' and status_hapus=0 and thn_ang='$thnang' and kd_lokasi like '$kdlokasi%' and jns_trans not like 'P01' group by no_dok";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Nomor Dokumen --</option>';
         while ($row = $this->fetch_array($result))
         {
-            echo '<option value="'.$row['no_dok'].'">'.$row['no_dok']."</option>";
+            $str = $row['no_dok'];
+            if (substr_count($str,".") == 3) {
+                echo '<option value="'.$row['no_dok'].'">'.$row['no_dok']."</option>";
+            }
+        }   
+    }    
+
+    public function bacasatkerdok($data)
+    {
+        $nodok = $data['no_dok'];
+        $kdlokasi = $data['kd_lokasi'];
+        $thnang = $data['thn_ang'];
+        $query = "select kode from satker where kode like '$kdlokasi%'";
+        $result = $this->query($query);
+        while ($row = $this->fetch_array($result))
+        {
+            $str = $row['kode'];
+            if (substr_count($str,".") == 3) {
+                echo '<option value="'.$row['kode'].'">'.$row['kode']."</option>";
+            }
         }   
     }    
 
