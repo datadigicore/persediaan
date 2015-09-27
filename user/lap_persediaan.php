@@ -34,6 +34,15 @@
                         <select name="satker" id="satker" class="form-control">
                         </select>
                       </div>
+                    </div> 
+                    <div class="box-body">
+                      <label class="col-sm-2 control-label">Format laporan</label>
+                      <div class="col-sm-4">
+                        <select name="format" id="format" class="form-control">
+                          <option value="pdf">PDF</option>
+                          <option value="excel">Excel</option>
+                        </select>
+                      </div>
                     </div>                    
                     <div class="box-body radio">
                         <label class="col-sm-2 control-label"><input type="radio" name="jenis" id="tanggal" value="tanggal">S/d Tanggal</label>
