@@ -837,7 +837,16 @@ class modelTransaksi extends mysql_db
   
     public function bacabrg($data)
     {
-        $query = "select kd_brg, nm_brg from persediaan where kd_lokasi = '$data'";
+        $str = $data;
+        if (substr_count($str,".") == 1) {
+            $query = "select kd_brg, nm_brg from persediaan where kd_lokasi like '$data.%.%'";
+        }
+        else if (substr_count($str,".") == 2) {
+            $query = "select kd_brg, nm_brg from persediaan where kd_lokasi like '$data.%'";
+        }
+        else{
+            $query = "select kd_brg, nm_brg from persediaan where kd_lokasi = '$data'";
+        }
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         while ($row = $this->fetch_array($result))

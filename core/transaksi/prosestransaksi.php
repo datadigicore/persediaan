@@ -245,7 +245,7 @@ else
 			$user_id = $_SESSION['username'];
 			if ($jns_trans!="") 
 			{
-				$no_dok = $satkernodok.$purifier->purify($_POST['no_dok']);
+				$no_dok = $satkernodok.'.'.$purifier->purify($_POST['no_dok']);
 				$data = array(
 					"kd_lokasi" => $kd_lokasi,
 					// "kd_lok_msk" => $kd_lok_msk,
