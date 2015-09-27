@@ -856,10 +856,7 @@ class modelTransaksi extends mysql_db
         echo '<option value="">-- Pilih Nomor Dokumen --</option>';
         while ($row = $this->fetch_array($result))
         {
-            $str = $row['no_dok'];
-            if (substr_count($str,".") == 3) {
-                echo '<option value="'.$row['no_dok'].'">'.$row['no_dok']."</option>";
-            }
+            echo '<option value="'.$row['no_dok'].'">'.$row['no_dok']."</option>";
         }   
     }    
 
