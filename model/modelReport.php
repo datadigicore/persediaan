@@ -991,7 +991,32 @@ class modelReport extends mysql_db
         
         // $mpdf->setFooter('{PAGENO}');
         header("Content-type: application/vnd-ms-excel");
-        header("Content-Disposition: attachment; filename=buku-persediaan.xls");        
+        header("Content-Disposition: attachment; filename=buku-persediaan.xls");
+        echo ' <html xmlns:o="urn:schemas-microsoft-com:office:office"
+                    xmlns:x="urn:schemas-microsoft-com:office:excel"
+                    xmlns="http://www.w3.org/TR/REC-html40">
+                    <head>
+                    <title>JIRA Issue Navigator for Excel (All)</title>
+                    <META HTTP-EQUIV="Content-Type" Content="application/vnd.ms-excel; charset=utf-8">
+                    <style>
+                    @page
+                    { mso-page-orientation:landscape; margin:.25in .25in .5in .20in; mso-header-margin:.5in; mso-footer-margin:.25in; mso-footer-data:"&R&P of &N"; mso-horizontal-page-align:center;}
+                    </style>
+                    <!--[if gte mso 9]><xml>
+                    <x:ExcelWorkbook>
+                    <x:ExcelWorksheets>
+                    <x:ExcelWorksheet>
+                    <x:Name>Buku Persediaan</x:Name>
+                    <x:WorksheetOptions>
+                    <x:Print>
+                    <x:ValidPrinterInfo/>
+                    </x:Print>
+                    </x:WorksheetOptions>
+                    </x:ExcelWorksheet>
+                    </x:ExcelWorksheets>
+                    </x:ExcelWorkbook>
+                    </xml><![endif]-->'; 
+
         $jenis = $data['jenis'];
         $kd_brg = $data['kd_brg'];
         $tgl_awal = $data['tgl_awal'];
@@ -1007,9 +1032,9 @@ class modelReport extends mysql_db
         
         $this->getsatker($kd_lokasi);
         
-        echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">BUKU PERSEDIAAN</p>
+        echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold; font-size:130%">BUKU PERSEDIAAN</p>
                 <br></br>
-                <table style="text-align: center; width: 100%; font-size:100%;" align="right" >
+                <table style="text-align: center; width: 100%; font-size:110%;" align="right" >
                 <tr>
                     <td width="75%" align="right"></td>
                     <td width="75%" align="right"></td>
@@ -1017,7 +1042,7 @@ class modelReport extends mysql_db
                     <td width="75%" align="right"></td>
                     <td width="75%" align="right"></td>
                     <td width="75%" align="right"></td>
-                    <td align="left">Kode Barang :'.$kd_brg.'</td>
+                    <td align="left" colspan="2"><b>Kode Barang</b>:'.$kd_brg.'</td>
                 </tr>                
                 <tr>
                     <td width="75%" align="right"></td>
@@ -1026,7 +1051,7 @@ class modelReport extends mysql_db
                     <td width="75%" align="right"></td>
                     <td width="75%" align="right"></td>
                     <td align="right"></td>
-                    <td align="left">Nama Barang :'.$brg['nm_brg'].'</td>
+                    <td align="left" colspan="2"><b>Nama Barang</b>:'.$brg['nm_brg'].'</td>
                 </tr>                
                 <tr>
                     <td width="75%" align="right"></td>
@@ -1035,21 +1060,21 @@ class modelReport extends mysql_db
                     <td width="75%" align="right"></td>
                     <td width="75%" align="right"></td>
                     <td  align="right"></td>
-                    <td align="left">Satuan :'.$brg['satuan'].'</td>
+                    <td align="left" colspan="2"><b>Satuan</b>:'.$brg['satuan'].'</td>
                 </tr>
                 </table>
                 <table style="text-align:center; table-layout: fixed; white-space: nowrap; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:100%;" border=1 align="center">
                 <tr >
-                    <td rowspan="2" style="font-weight:bold; text-align:center;" >NO</td>
-                    <td  rowspan="2" style="font-weight:bold; text-align:center;">TANGGAL</td>
-                    <td width="18%" rowspan="2" style="font-weight:bold; text-align:center;">URAIAN</td>
-                    <td rowspan="2" style="font-weight:bold; text-align:center;">MASUK</td>
-                    <td rowspan="2" style="font-weight:bold; text-align:center;">HARGA BELI</td>
-                    <td  rowspan="2" style="font-weight:bold; text-align:center;">KELUAR</td>
-                    <td colspan="2" style="font-weight:bold; text-align:center;">SALDO</td>
+                    <td rowspan="2" style="font-weight:bold; text-align:center; font-size:110%" >NO</td>
+                    <td  rowspan="2" style="font-weight:bold; text-align:center; font-size:110%">TANGGAL</td>
+                    <td width="18%" rowspan="2" style="font-weight:bold; text-align:center; font-size:110%">URAIAN</td>
+                    <td rowspan="2" style="font-weight:bold; text-align:center; font-size:110%">MASUK</td>
+                    <td rowspan="2" style="font-weight:bold; text-align:center; font-size:110%">HARGA BELI</td>
+                    <td  rowspan="2" style="font-weight:bold; text-align:center; font-size:110%">KELUAR</td>
+                    <td colspan="2" style="font-weight:bold; text-align:center; font-size:110%">SALDO</td>
                     <tr>
-                        <td style="font-weight:bold; width:10px; text-align:center;">JUMLAH</td>
-                        <td style="font-weight:bold;">NILAI</td>
+                        <td style="font-weight:bold; width:10px; text-align:center; font-size:110%">JUMLAH</td>
+                        <td style="font-weight:bold; font-size:110%">NILAI</td>
                     </tr>
                 </tr>';
 
@@ -1165,6 +1190,30 @@ public function buku_persediaan_all_excel($data)
         // $mpdf->setFooter('{PAGENO}');
         header("Content-type: application/vnd-ms-excel");
         header("Content-Disposition: attachment; filename=tutorialweb-export.xls");
+        echo ' <html xmlns:o="urn:schemas-microsoft-com:office:office"
+                    xmlns:x="urn:schemas-microsoft-com:office:excel"
+                    xmlns="http://www.w3.org/TR/REC-html40">
+                    <head>
+                    <title>JIRA Issue Navigator for Excel (All)</title>
+                    <META HTTP-EQUIV="Content-Type" Content="application/vnd.ms-excel; charset=utf-8">
+                    <style>
+                    @page
+                    { mso-page-orientation:landscape; margin:.25in .25in .5in .20in; mso-header-margin:.5in; mso-footer-margin:.25in; mso-footer-data:"&R&P of &N"; mso-horizontal-page-align:center;}
+                    </style>
+                    <!--[if gte mso 9]><xml>
+                    <x:ExcelWorkbook>
+                    <x:ExcelWorksheets>
+                    <x:ExcelWorksheet>
+                    <x:Name>general_report</x:Name>
+                    <x:WorksheetOptions>
+                    <x:Print>
+                    <x:ValidPrinterInfo/>
+                    </x:Print>
+                    </x:WorksheetOptions>
+                    </x:ExcelWorksheet>
+                    </x:ExcelWorksheets>
+                    </x:ExcelWorkbook>
+                    </xml><![endif]-->'; 
         $jenis = $data['jenis'];
         $kd_brg = $data['kd_brg'];
         $tgl_awal = $data['tgl_awal'];
@@ -1330,6 +1379,30 @@ public function laporan_persediaan_excel($data)
         
         header("Content-type: application/vnd-ms-excel");
         header("Content-Disposition: attachment; filename=laporan_persediaan.xls");
+        echo ' <html xmlns:o="urn:schemas-microsoft-com:office:office"
+                    xmlns:x="urn:schemas-microsoft-com:office:excel"
+                    xmlns="http://www.w3.org/TR/REC-html40">
+                    <head>
+                    <title>JIRA Issue Navigator for Excel (All)</title>
+                    <META HTTP-EQUIV="Content-Type" Content="application/vnd.ms-excel; charset=utf-8">
+                    <style>
+                    @page
+                    { mso-page-orientation:landscape; margin:.25in .25in .5in .20in; mso-header-margin:.5in; mso-footer-margin:.25in; mso-footer-data:"&R&P of &N"; mso-horizontal-page-align:center;}
+                    </style>
+                    <!--[if gte mso 9]><xml>
+                    <x:ExcelWorkbook>
+                    <x:ExcelWorksheets>
+                    <x:ExcelWorksheet>
+                    <x:Name>general_report</x:Name>
+                    <x:WorksheetOptions>
+                    <x:Print>
+                    <x:ValidPrinterInfo/>
+                    </x:Print>
+                    </x:WorksheetOptions>
+                    </x:ExcelWorksheet>
+                    </x:ExcelWorksheets>
+                    </x:ExcelWorkbook>
+                    </xml><![endif]-->'; 
         
 
         $jenis = $data['jenis'];
@@ -1357,7 +1430,7 @@ public function laporan_persediaan_excel($data)
                     
                     <td width="18%"><b>KODE</b></td>
                     <td width="50%"><b>URAIAN</b></td>
-                    <td><b>NILAI</b></td>
+                    <td  width="50%"><b>NILAI</b></td>
                 </tr>';
 
                 if($jenis=="tanggal")
@@ -1447,6 +1520,30 @@ public function rincian_persediaan_excel($data)
         
         header("Content-type: application/vnd-ms-excel");
         header("Content-Disposition: attachment; filename=rincian_persediaan.xls");
+        echo ' <html xmlns:o="urn:schemas-microsoft-com:office:office"
+                    xmlns:x="urn:schemas-microsoft-com:office:excel"
+                    xmlns="http://www.w3.org/TR/REC-html40">
+                    <head>
+                    <title>JIRA Issue Navigator for Excel (All)</title>
+                    <META HTTP-EQUIV="Content-Type" Content="application/vnd.ms-excel; charset=utf-8">
+                    <style>
+                    @page
+                    { mso-page-orientation:landscape; margin:.25in .25in .5in .20in; mso-header-margin:.5in; mso-footer-margin:.25in; mso-footer-data:"&R&P of &N"; mso-horizontal-page-align:center;}
+                    </style>
+                    <!--[if gte mso 9]><xml>
+                    <x:ExcelWorkbook>
+                    <x:ExcelWorksheets>
+                    <x:ExcelWorksheet>
+                    <x:Name>general_report</x:Name>
+                    <x:WorksheetOptions>
+                    <x:Print>
+                    <x:ValidPrinterInfo/>
+                    </x:Print>
+                    </x:WorksheetOptions>
+                    </x:ExcelWorksheet>
+                    </x:ExcelWorksheets>
+                    </x:ExcelWorkbook>
+                    </xml><![endif]-->'; 
         $thn_ang = $data['thn_ang'];
         $jenis = $data['jenis'];
         $bln_awal = $data['bln_awal'];
@@ -1597,7 +1694,31 @@ public function rincian_persediaan_excel($data)
    public function neraca_excel($data)
     {
         header("Content-type: application/vnd-ms-excel");
-        header("Content-Disposition: attachment; filename=neraca.xls");    
+        header("Content-Disposition: attachment; filename=neraca.xls");
+        echo ' <html xmlns:o="urn:schemas-microsoft-com:office:office"
+                    xmlns:x="urn:schemas-microsoft-com:office:excel"
+                    xmlns="http://www.w3.org/TR/REC-html40">
+                    <head>
+                    <title>JIRA Issue Navigator for Excel (All)</title>
+                    <META HTTP-EQUIV="Content-Type" Content="application/vnd.ms-excel; charset=utf-8">
+                    <style>
+                    @page
+                    { mso-page-orientation:landscape; margin:.25in .25in .5in .20in; mso-header-margin:.5in; mso-footer-margin:.25in; mso-footer-data:"&R&P of &N"; mso-horizontal-page-align:center;}
+                    </style>
+                    <!--[if gte mso 9]><xml>
+                    <x:ExcelWorkbook>
+                    <x:ExcelWorksheets>
+                    <x:ExcelWorksheet>
+                    <x:Name>general_report</x:Name>
+                    <x:WorksheetOptions>
+                    <x:Print>
+                    <x:ValidPrinterInfo/>
+                    </x:Print>
+                    </x:WorksheetOptions>
+                    </x:ExcelWorksheet>
+                    </x:ExcelWorksheets>
+                    </x:ExcelWorkbook>
+                    </xml><![endif]-->';     
         
         $kd_lokasi = $data['kd_lokasi'];
         $kd_brg = $data['kd_brg'];
@@ -1618,9 +1739,9 @@ public function rincian_persediaan_excel($data)
                 <br></br>
                 <table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border=1 align="center">
                 <tr>
-                        <td style="font-weight:bold;">KODE</td>
-                        <td style="font-weight:bold;">URAIAN</td>
-                        <td style="font-weight:bold;">NILAI</td>
+                        <td style="font-weight:bold; font-size:110%; text-align:center;">KODE</td>
+                        <td style="font-weight:bold; font-size:110%; text-align:center;">URAIAN</td>
+                        <td style="font-weight:bold; font-size:110%; text-align:center;">NILAI</td>
                 </tr>';
 
                 $sql="SELECT kd_perk, nm_perk, sum(total_harga) as nilai FROM (
@@ -1643,7 +1764,7 @@ public function rincian_persediaan_excel($data)
                 }
                     
                     echo '<tr>
-                            <td colspan="2">JUMLAH</td>  
+                            <td colspan="2" style="font-weight:bold; text-align:center;">JUMLAH</td>  
                             <td align="right">'.$total.'</td>  
                         </tr>
                         </table>';
@@ -1660,6 +1781,30 @@ public function mutasi_prsedia_excel($data)
         
         header("Content-type: application/vnd-ms-excel");
         header("Content-Disposition: attachment; filename=mutasi.xls");
+        echo ' <html xmlns:o="urn:schemas-microsoft-com:office:office"
+                    xmlns:x="urn:schemas-microsoft-com:office:excel"
+                    xmlns="http://www.w3.org/TR/REC-html40">
+                    <head>
+                    <title>JIRA Issue Navigator for Excel (All)</title>
+                    <META HTTP-EQUIV="Content-Type" Content="application/vnd.ms-excel; charset=utf-8">
+                    <style>
+                    @page
+                    { mso-page-orientation:landscape; margin:.25in .25in .5in .20in; mso-header-margin:.5in; mso-footer-margin:.25in; mso-footer-data:"&R&P of &N"; mso-horizontal-page-align:center;}
+                    </style>
+                    <!--[if gte mso 9]><xml>
+                    <x:ExcelWorkbook>
+                    <x:ExcelWorksheets>
+                    <x:ExcelWorksheet>
+                    <x:Name>general_report</x:Name>
+                    <x:WorksheetOptions>
+                    <x:Print>
+                    <x:ValidPrinterInfo/>
+                    </x:Print>
+                    </x:WorksheetOptions>
+                    </x:ExcelWorksheet>
+                    </x:ExcelWorksheets>
+                    </x:ExcelWorkbook>
+                    </xml><![endif]-->'; 
         $kd_lokasi = $data['kd_lokasi'];
         $kd_brg = $data['kd_brg'];
         $tgl_awal=$data['tgl_awal'];
@@ -1758,7 +1903,31 @@ public function transaksi_persediaan_excel($data)
     {
         
         header("Content-type: application/vnd-ms-excel");
-        header("Content-Disposition: attachment; filename=daftar-transaksi.xls");        
+        header("Content-Disposition: attachment; filename=daftar-transaksi.xls");
+        echo ' <html xmlns:o="urn:schemas-microsoft-com:office:office"
+                    xmlns:x="urn:schemas-microsoft-com:office:excel"
+                    xmlns="http://www.w3.org/TR/REC-html40">
+                    <head>
+                    <title>JIRA Issue Navigator for Excel (All)</title>
+                    <META HTTP-EQUIV="Content-Type" Content="application/vnd.ms-excel; charset=utf-8">
+                    <style>
+                    @page
+                    { mso-page-orientation:landscape; margin:.25in .25in .5in .20in; mso-header-margin:.5in; mso-footer-margin:.25in; mso-footer-data:"&R&P of &N"; mso-horizontal-page-align:center;}
+                    </style>
+                    <!--[if gte mso 9]><xml>
+                    <x:ExcelWorkbook>
+                    <x:ExcelWorksheets>
+                    <x:ExcelWorksheet>
+                    <x:Name>general_report</x:Name>
+                    <x:WorksheetOptions>
+                    <x:Print>
+                    <x:ValidPrinterInfo/>
+                    </x:Print>
+                    </x:WorksheetOptions>
+                    </x:ExcelWorksheet>
+                    </x:ExcelWorksheets>
+                    </x:ExcelWorkbook>
+                    </xml><![endif]-->';         
 
         $jenis = $data['jenis'];
         $kd_trans = $data['kd_trans'];
@@ -1957,7 +2126,7 @@ public function transaksi_persediaan_excel($data)
         echo '
                     <tr>
                         <td>Sektor</td>
-                        <td>'.':  '.$nama_sektor.'</td>
+                        <td colspan="2">'.':  '.$nama_sektor.'</td>
                     </tr>';
         }
         if($detil[1]!="")
@@ -1965,21 +2134,21 @@ public function transaksi_persediaan_excel($data)
         echo  ' 
                     <tr>
                         <td>Satker </td>
-                        <td>'.':  '.$nama_satker.'</td>
+                        <td colspan="2">'.':  '.$nama_satker.'</td>
                     </tr>'; 
         }
         if($detil[2]!="")
         {               
         echo  '<tr>
                         <td>Unit </td>
-                        <td>'.':  '.$nama_unit.'</td>
+                        <td colspan="2">'.':  '.$nama_unit.'</td>
                     </tr>';
         }
         if($detil[3]!="")
         { 
         echo            '<tr>
                         <td>Gudang </td>
-                        <td>'.':  '.$nama_gudang.'</td>
+                        <td colspan="2">'.':  '.$nama_gudang.'</td>
                     </tr>
                     <p></p>';
         }
@@ -2134,7 +2303,7 @@ public function transaksi_persediaan_excel($data)
     {
         $data_tgl = explode("-",$tgl);
         $array = array($data_tgl[2],$data_tgl[1],$data_tgl[0]);
-        $tanggal = implode("-", $array );
+        $tanggal = implode(" / ", $array );
         return $tanggal;
     }
 
