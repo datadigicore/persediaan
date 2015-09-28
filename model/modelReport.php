@@ -1348,21 +1348,21 @@ public function buku_persediaan_all_excel($data)
                     if($data[qty]>0) 
                     {
                         echo '<center><td  align="center">'.$data[qty].'</td></center> 
-                                <center><td  align="right">'.number_format($data[harga_sat],0,",",".").'</td></center>
+                                <center><td  align="right">'.$data[harga_sat].'</td></center>
                                 <center><td  align="center">'.'0'.'</td></center>';
                     }
                     else 
                     {
                     
                     echo '<center><td  align="center">'.'0'.'</td></center>
-                                <center><td  align="right">'.number_format(abs($data[harga_sat]),0,",",".").'</td></center>
+                                <center><td  align="right">'.abs($data[harga_sat]).'</td></center>
                                 <center><td  align="center">'.abs($data[qty]).'</td></center>';
                     }
 
                     $saldo +=$data[qty]*abs($data[harga_sat]);
                     $jumlah+=$data[qty];
                     echo '<td>'.$jumlah.'</td>
-                    <center><td align="right">'.number_format($saldo,0,",",".").'</td></center>
+                    <center><td align="right">'.$saldo.'</td></center>
                     </tr>';
                 }
 
@@ -1416,9 +1416,9 @@ public function laporan_persediaan_excel($data)
         $date = $this->cek_periode($data);
         $satker_asal = $data['satker_asal'];
 
-        $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg' and kd_lokasi like '{$kd_lokasi}%' ";
-        $result_detail = $this->query($detail_brg);
-        $brg = $this->fetch_array($result_detail);
+        // $detail_brg = "SELECT nm_brg, satuan,kd_lokasi from persediaan where kd_brg='$kd_brg' and kd_lokasi like '{$kd_lokasi}%' ";
+        // $result_detail = $this->query($detail_brg);
+        // $brg = $this->fetch_array($result_detail);
         
         $this->getsatker($kd_lokasi);
         echo '<p align="center" style="margin:0px; padding:0px; font-weight:bold;">LAPORAN PERSEDIAAN BARANG</p>
@@ -1428,9 +1428,9 @@ public function laporan_persediaan_excel($data)
                 <table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border=1 align="center">
                 <tr>
                     
-                    <td width="18%"><b>KODE</b></td>
-                    <td width="50%"><b>URAIAN</b></td>
-                    <td  width="50%"><b>NILAI</b></td>
+                    <td  style="text-align: center;"><b>KODE</b></td>
+                    <td  style="text-align: center;"><b>URAIAN</b></td>
+                    <td  style="text-align: center;"><b>NILAI</b></td>
                 </tr>';
 
                 if($jenis=="tanggal")
@@ -1492,11 +1492,11 @@ public function laporan_persediaan_excel($data)
                               </tr> ';
                         $prev_sskel=$data[kd_sskel];
                     }
-
+                    $tot = $data[nilai]+$data[nilai0];
                     echo '<tr>
                              <td  align="right" style="font-size:90%;">'.substr($data[kd_brg],10).'</td> 
                              <td  align="left" style="font-size:90%;">'.' -'.$data[nm_brg].'</td> 
-                             <td align="right" style="font-size:90%;">'.$data[nilai]+$data[nilai0].'</td> 
+                             <td align="right" style="font-size:90%;">'.$tot.'</td> 
                         </tr>';
 
                     $saldo+=$data[nilai]+$data[nilai0];
@@ -1528,7 +1528,7 @@ public function rincian_persediaan_excel($data)
                     <META HTTP-EQUIV="Content-Type" Content="application/vnd.ms-excel; charset=utf-8">
                     <style>
                     @page
-                    { mso-page-orientation:landscape; margin:.25in .25in .5in .20in; mso-header-margin:.5in; mso-footer-margin:.25in; mso-footer-data:"&R&P of &N"; mso-horizontal-page-align:center;}
+                    { mso-page-orientation:landscape;  margin:.25in .25in .5in .20in; mso-header-margin:.5in; mso-footer-margin:.25in; mso-footer-data:"&R&P of &N"; mso-horizontal-page-align:center;}
                     </style>
                     <!--[if gte mso 9]><xml>
                     <x:ExcelWorkbook>
@@ -1568,11 +1568,11 @@ public function rincian_persediaan_excel($data)
 
                 <table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border=1 align="center">
                 <tr>
-                    <td rowspan="2" style="font-weight:bold;">KODE BARANG</td>
-                    <td  width="30%" rowspan="2" style="font-weight:bold;" >URAIAN</td>
-                    <td  width="20%" colspan="2" style="font-weight:bold;"  >NILAI S/D 31 DESEMBER '.$thn_ang_lalu.'</td>
-                    <td colspan="3" style="font-weight:bold;">MUTASI</td>
-                    <td colspan="2" style="font-weight:bold;">NILAI</td>
+                    <td rowspan="2" style="font-weight:bold; font-size:110%; text-align: center;">KODE BARANG</td>
+                    <td  width="30%" rowspan="2" style="font-weight:bold; font-size:95%; text-align: center;" >URAIAN</td>
+                    <td  width="20%" colspan="2" style="font-weight:bold; font-size:95%; text-align: center;"  >NILAI S/D 31 DESEMBER '.$thn_ang_lalu.'</td>
+                    <td colspan="3" style="font-weight:bold; font-size:95%; text-align: center;">MUTASI</td>
+                    <td colspan="2" style="font-weight:bold; font-size:95%; text-align: center;">NILAI</td>
                     <tr>
                         <td>JUMLAH</td>
                         <td>RUPIAH</td>
@@ -1664,7 +1664,7 @@ public function rincian_persediaan_excel($data)
                     }
 
                     echo '<tr>
-                             <td  align="center" style="font-size:90%;">'.$data[kd_brg].'</td> 
+                             <td  align="center" style="font-size:90%;">'.substr($data[kd_brg],10).'</td> 
                              <td  align="left" style="font-size:90%;">'.$data[nm_brg].'</td> 
                              <td  align="center" style="font-size:90%;">'.$data[brg_thn_lalu].'</td> 
                              <td  align="right" style="font-size:90%;">'.$data[hrg_thn_lalu].'</td> 
