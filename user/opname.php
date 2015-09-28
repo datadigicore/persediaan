@@ -30,18 +30,22 @@
                   <div class="box-body">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>
-                      <div class="col-sm-9">
+                      <div class="col-sm-2">
+                        <select name="read_no_dok" id="read_no_dok" class="form-control">
+                        </select>
+                      </div>
+                      <div class="col-sm-7"> 
                         <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="Masukkan No. Dokumen" required>
                         <input type="hidden" name="manage" value="tbh_opname">  
                         <input type="hidden" name="jenis_trans" value="P01">  
                       </div>
                     </div>
-                    <div class="form-group">                     
+<!--                     <div class="form-group">                     
                     <label class="col-sm-2 control-label">Nomor Bukti</label>
                       <div class="col-sm-9">
                         <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor BUkti" required>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Dokumen</label>
                       <div class="col-sm-9">
@@ -154,7 +158,14 @@
           ],
         });
       });
-
+        $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'readsatkerdok',no_dok:"<?php echo($_SESSION['kd_lok']);?>"},
+          success: function (output) {     
+            $('#read_no_dok').html(output);
+          }
+        });
        $.ajax({
           type: "post",
           url: '../core/opsik/prosesopsik',

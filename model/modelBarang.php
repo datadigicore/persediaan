@@ -8,7 +8,7 @@ class modelBarang extends mysql_db
 		$kd_lokasi = $data['kd_lokasi'];
 		$kd_brg = $data['kd_brg'];
 
-		$query = "select kd_brg, nm_brg from persediaan where kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi'";
+		$query = "select kd_brg, nm_brg from persediaan where kd_brg='$kd_brg' and kd_lokasi like '$kd_lokasi%'";
 		$result = $this->query($query);
         $data = $this->fetch_array($result);
         $kd_brg = $data['kd_brg'];
@@ -139,7 +139,7 @@ public function cek_barang($data)
 
 	$kd_lokasi = $data['kd_lokasi'];
 	$kd_brg = $data['kd_brg'];
-	$query = "select kd_brg from transaksi_masuk where kd_brg='$kd_brg' and kd_lokasi ='$kd_lokasi' ";
+	$query = "select kd_brg from transaksi_masuk where kd_brg='$kd_brg' and kd_lokasi like '$kd_lokasi%' ";
 	$result = $this->query($query);
 	$data = $this->fetch_array($result);
 	$kdbrg = $data['kd_brg'];

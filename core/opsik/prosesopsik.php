@@ -40,13 +40,13 @@ else
 		break;
 
 		case 'tbh_opname':
-			$kd_lokasi = $_SESSION['kd_lok'];
+			$kd_lokasi = $purifier->purify($_POST['read_no_dok']);;
 			$kd_lok_msk = $_SESSION['kd_lok'];
 			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
 
-			$no_dok = $kd_lokasi.$purifier->purify($_POST['no_dok']);
-			$no_bukti = $purifier->purify($_POST['no_bukti']);
+			$no_dok = $kd_lokasi.'.'.$purifier->purify($_POST['no_dok']);
+			$no_bukti = $purifier->purify($_POST['no_dok']);
 			$tgl_dok = $Opsik->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
 			$tgl_buku = $Opsik->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
 

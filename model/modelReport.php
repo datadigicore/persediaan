@@ -9,7 +9,7 @@ class modelReport extends mysql_db
     {
         $kd_lokasi = $data['kd_lokasi'];
         $thn_ang = $data['thn_ang'];
-        $query = "select kd_brg, nm_brg FROM transaksi_masuk where kd_lokasi = '$data' and status_hapus=0  and kd_brg not like '' GROUP BY kd_brg ORDER BY nm_brg ASC ";
+        $query = "select kd_brg, nm_brg FROM transaksi_masuk where kd_lokasi like '$data%' and status_hapus=0  and kd_brg not like '' GROUP BY kd_brg ORDER BY nm_brg ASC ";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         echo '<option value="all">Semua Barang</option>';
@@ -27,7 +27,10 @@ class modelReport extends mysql_db
 
         while ($row = $this->fetch_array($result))
         {
-          echo '<option value="'.$row['kode'].'">'.$row['kode'].'        '.$row['NamaSatker']."</option>";
+            $str = $row['kode'];
+            if (substr_count($str,".") == 3) {
+            echo '<option value="'.$row['kode'].'">'.$row['kode'].'        '.$row['NamaSatker']."</option>";
+             }
         } 
     }
 
@@ -1006,31 +1009,46 @@ class modelReport extends mysql_db
         
         echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">BUKU PERSEDIAAN</p>
                 <br></br>
-                <table style="text-align: center; width: 100%; font-size:90%;" align="left" >
+                <table style="text-align: center; width: 100%; font-size:100%;" align="right" >
                 <tr>
-                    <td width="75%" align="left"></td>
+                    <td width="75%" align="right"></td>
+                    <td width="75%" align="right"></td>
+                    <td width="75%" align="right"></td>
+                    <td width="75%" align="right"></td>
+                    <td width="75%" align="right"></td>
+                    <td width="75%" align="right"></td>
                     <td align="left">Kode Barang :'.$kd_brg.'</td>
                 </tr>                
                 <tr>
-                    <td width="75%" align="left"></td>
+                    <td width="75%" align="right"></td>
+                    <td width="75%" align="right"></td>
+                    <td width="75%" align="right"></td>
+                    <td width="75%" align="right"></td>
+                    <td width="75%" align="right"></td>
+                    <td align="right"></td>
                     <td align="left">Nama Barang :'.$brg['nm_brg'].'</td>
                 </tr>                
                 <tr>
-                    <td width="75%" align="left"></td>
+                    <td width="75%" align="right"></td>
+                    <td width="75%" align="right"></td>
+                    <td width="75%" align="right"></td>
+                    <td width="75%" align="right"></td>
+                    <td width="75%" align="right"></td>
+                    <td  align="right"></td>
                     <td align="left">Satuan :'.$brg['satuan'].'</td>
                 </tr>
                 </table>
-                <table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% " border=1 align="center">
+                <table style="text-align:center; table-layout: fixed; white-space: nowrap; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:100%;" border=1 align="center">
                 <tr >
-                    <td rowspan="2" style="font-weight:bold;" >NO</td>
-                    <td  rowspan="2" style="font-weight:bold;">TANGGAL</td>
-                    <td width="18%" rowspan="2" style="font-weight:bold;">URAIAN</td>
-                    <td rowspan="2" style="font-weight:bold;">MASUK</td>
-                    <td rowspan="2" style="font-weight:bold;">HARGA BELI</td>
-                    <td  rowspan="2" style="font-weight:bold;">KELUAR</td>
-                    <td colspan="2" style="font-weight:bold;">SALDO</td>
+                    <td rowspan="2" style="font-weight:bold; text-align:center;" >NO</td>
+                    <td  rowspan="2" style="font-weight:bold; text-align:center;">TANGGAL</td>
+                    <td width="18%" rowspan="2" style="font-weight:bold; text-align:center;">URAIAN</td>
+                    <td rowspan="2" style="font-weight:bold; text-align:center;">MASUK</td>
+                    <td rowspan="2" style="font-weight:bold; text-align:center;">HARGA BELI</td>
+                    <td  rowspan="2" style="font-weight:bold; text-align:center;">KELUAR</td>
+                    <td colspan="2" style="font-weight:bold; text-align:center;">SALDO</td>
                     <tr>
-                        <td style="font-weight:bold;">JUMLAH</td>
+                        <td style="font-weight:bold; width:10px; text-align:center;">JUMLAH</td>
                         <td style="font-weight:bold;">NILAI</td>
                     </tr>
                 </tr>';
@@ -1114,21 +1132,21 @@ class modelReport extends mysql_db
                     if($data[qty]>0) 
                     {
                         echo '<center><td  align="center">'.$data[qty].'</td></center> 
-                                <center><td  align="right">'.number_format($data[harga_sat],0,",",".").'</td></center>
+                                <center><td  align="right">'.$data[harga_sat].'</td></center>
                                 <center><td  align="center">'.'0'.'</td></center>';
                     }
                     else 
                     {
                     
                     echo '<center><td  align="center">'.'0'.'</td></center>
-                                <center><td  align="right">'.number_format(abs($data[harga_sat]),0,",",".").'</td></center>
+                                <center><td  align="right">'.abs($data[harga_sat]).'</td></center>
                                 <center><td  align="center">'.abs($data[qty]).'</td></center>';
                     }
 
                     $saldo +=$data[qty]*abs($data[harga_sat]);
                     $jumlah+=$data[qty];
                     echo '<td>'.$jumlah.'</td>
-                    <center><td align="right">'.number_format($saldo,0,",",".").'</td></center>
+                    <center><td align="right">'.$saldo.'</td></center>
                     </tr>';
                 }
 
