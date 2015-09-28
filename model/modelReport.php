@@ -1423,14 +1423,14 @@ public function laporan_persediaan_excel($data)
                     echo '<tr>
                              <td  align="right" style="font-size:90%;">'.substr($data[kd_brg],10).'</td> 
                              <td  align="left" style="font-size:90%;">'.' -'.$data[nm_brg].'</td> 
-                             <td align="right" style="font-size:90%;">'.number_format($data[nilai]+$data[nilai0],0,",",".").'</td> 
+                             <td align="right" style="font-size:90%;">'.$data[nilai]+$data[nilai0].'</td> 
                         </tr>';
 
                     $saldo+=$data[nilai]+$data[nilai0];
                 }
                 echo '<tr>
                         <td colspan="2" style="font-size:90%;">JUMLAH</td>
-                        <td align="right" style="font-size:90%;">'.number_format($saldo,0,",",".").'</td>
+                        <td align="right" style="font-size:90%;">'.$saldo.'</td>
                       </tr>';
                 
                 echo '</table>';
@@ -1570,19 +1570,19 @@ public function rincian_persediaan_excel($data)
                              <td  align="center" style="font-size:90%;">'.$data[kd_brg].'</td> 
                              <td  align="left" style="font-size:90%;">'.$data[nm_brg].'</td> 
                              <td  align="center" style="font-size:90%;">'.$data[brg_thn_lalu].'</td> 
-                             <td  align="right" style="font-size:90%;">'.number_format($data[hrg_thn_lalu],0,",",".").'</td> 
+                             <td  align="right" style="font-size:90%;">'.$data[hrg_thn_lalu].'</td> 
                              <td align="center" style="font-size:90%;">'.$jml_msk.'</td> 
                              <td align="center" style="font-size:90%;">'.abs($jml_klr).'</td> 
                              <td align="center" style="font-size:90%;">'.$jumlah.'</td> 
                              <td align="center" style="font-size:90%;">'.$jml_selisih.'</td> 
-                             <td align="right" style="font-size:90%;">'.number_format($hrg_selisih,0,",",".").'</td> 
+                             <td align="right" style="font-size:90%;">'.$hrg_selisih.'</td> 
                         </tr>';
                 }
                 echo '<tr>
                             <td colspan="2">JUMLAH</td>  
-                            <td colspan="2" align="right">'.number_format($total_thn_lalu,0,",",".").'</td> 
+                            <td colspan="2" align="right">'.$total_thn_lalu.'</td> 
                             <td colspan="3"></td>  
-                            <td colspan="2" align="right">'.number_format($total_akumulasi,0,",",".").'</td>  
+                            <td colspan="2" align="right">'.$total_akumulasi.'</td>  
                         </tr>';
                 echo '</table>';
                 if($no>=6)
@@ -1638,13 +1638,13 @@ public function rincian_persediaan_excel($data)
                     echo '<tr>
                              <td  align="center">'.$data[kd_perk].'</td> 
                              <td  align="left">'.$data[nm_perk].'</td> 
-                             <td align="right">'.number_format($data[nilai],0,",",".").'</td> </tr>';
+                             <td align="right">'.$data[nilai].'</td> </tr>';
                     $total+=$data[nilai];
                 }
                     
                     echo '<tr>
                             <td colspan="2">JUMLAH</td>  
-                            <td align="right">'.number_format($total,0,",",".").'</td>  
+                            <td align="right">'.$total.'</td>  
                         </tr>
                         </table>';
                 if($no>=6)
@@ -1729,19 +1729,19 @@ public function mutasi_prsedia_excel($data)
                     echo '<tr>
                              <td  align="center">'.$data[kd_perk].'</td> 
                              <td  align="left">'.$data[nm_perk].'</td> 
-                             <td align="right">'.number_format($data[thn_lalu],0,",",".").'</td>
-                             <td align="right">'.number_format($data[tambah],0,",",".").'</td> 
-                             <td align="right">'.number_format(abs($data[kurang]),0,",",".").'</td> 
-                             <td align="right">'.number_format($saldo_akhir,0,",",".").'</td> 
+                             <td align="right">'.$data[thn_lalu].'</td>
+                             <td align="right">'.$data[tambah].'</td> 
+                             <td align="right">'.abs($data[kurang]).'</td> 
+                             <td align="right">'.$saldo_akhir.'</td> 
                            </tr>';
                     $total+=$data[nilai];
                 }
                     
                     echo '<tr>
                             <td colspan="2">JUMLAH</td>  
-                            <td align="right">'.number_format($saldo_thn_lalu,0,",",".").'</td>
+                            <td align="right">'.$saldo_thn_lalu.'</td>
                             <td colspan="2"></td>  
-                            <td align="right">'.number_format($saldo_akumulasi,0,",",".").'</td>  
+                            <td align="right">'.$saldo_akumulasi.'</td>  
                         </tr>
                         </table>';
                 if($no>=6)
@@ -1909,14 +1909,14 @@ public function transaksi_persediaan_excel($data)
                     echo '<tr>
                              <td  align="right">'.substr($data[kd_brg],10).'</td> 
                              <td  align="left">'.$data[nm_brg].'</td> 
-                             <td align="center">'.number_format($data[qty]).'</td> 
-                             <td align="center">'.number_format($data[harga]).'</td> 
+                             <td align="center">'.$data[qty].'</td> 
+                             <td align="center">'.$data[harga].'</td> 
                         </tr>';
                     $saldo+=$data[harga];
                 }
                 echo '<tr>
                         <td colspan="3">JUMLAH</td>
-                        <td>'.number_format($saldo).'</td>
+                        <td>'.$saldo.'</td>
                       </tr>';
                 echo '</table>';
 
@@ -2149,26 +2149,26 @@ public function transaksi_persediaan_excel($data)
               <br></br>
               <table style="text-align: center; width: 100%; font-size:80% "  >
               <tr>
-                <td> Kuasa Pengguna Barang, </td>
-                <td> Petugas Pengelola Persediaan, </td>
+                <td style="text-align: center;"> Kuasa Pengguna Barang, </td>
+                <td style="text-align: center;"> Petugas Pengelola Persediaan, </td>
               </tr>
 
               <tr>
-                <td>'.$pj['jabatan'].'</td>
-                <td>'.$pj['jabatan2'].'</td>
+                <td style="text-align: center;">'.$pj['jabatan'].'</td>
+                <td style="text-align: center;">'.$pj['jabatan2'].'</td>
               </tr>
               <tr>
                 <td><br></br> <br></br> <br></br></td>
                 <td><br></br> <br></br> <br></br></td>
               </tr>
               <tr>
-                <td>'.$pj['nama'].'</td>
-                <td>'.$pj['nama2'].'</td>
+                <td style="text-align: center;">'.$pj['nama'].'</td>
+                <td style="text-align: center;">'.$pj['nama2'].'</td>
               </tr>              
 
               <tr>
-                <td>'.$pj['nip'].'</td>
-                <td>'.$pj['nip2'].'</td>
+                <td style="text-align: center;">'.$pj['nip'].'</td>
+                <td style="text-align: center;">'.$pj['nip2'].'</td>
               </tr>
               
               </table>';
