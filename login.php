@@ -75,14 +75,14 @@
       $(function () {
         $(".select2").select2();
       });
-      $.ajax({
-          type: "post",
-          url: 'core/login/proseslogin',
-          data: {manage:'readtahun'},
-          success: function (output) {     
-            $('#thn_ang').html(output);
-          }
-        });
+      // $.ajax({
+      //     type: "post",
+      //     url: 'core/login/proseslogin',
+      //     data: {manage:'readtahun'},
+      //     success: function (output) {     
+      //       $('#thn_ang').html(output);
+      //     }
+      //   });
       (function($,W,D){
         var JQUERY4U = {};
         JQUERY4U.UTIL = {
