@@ -87,7 +87,7 @@
                         <th>Tanggal Dokumen</th>
                         <th>Tanggal Buku</th>
                         <th>Total Transaksi</th>
-                        <th width="14.5%">Aksi</th>
+                        <th width="8.5%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -138,7 +138,7 @@
              "defaultContent":  '<div class="box-tools">'+
                                 // '<a href="edit_trans_masuk?id=a" class="btn btn-success btn-sm daterange pull-left" role="button"><i class="fa fa-edit"></i></a>'+
                                   // '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
-                                  '<button id="btntmbh" class="btn btn-success btn-flat btn-xs pull-left"><i class="fa fa-eye"></i> Lihat</button>'+
+                                  // '<button id="btntmbh" class="btn btn-success btn-flat btn-xs pull-left"><i class="fa fa-eye"></i> Lihat</button>'+
                                   '<button id="btntmbh" class="btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
                                 '</div>',
              "targets": [7],"targets": 7 },
