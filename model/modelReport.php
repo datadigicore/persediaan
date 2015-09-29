@@ -103,7 +103,7 @@ class modelReport extends mysql_db
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
  
-                                     ORDER BY tgl_dok ASC;";
+                                     ORDER BY tgl_dok ASC,qty asc;";
                     $result = $this->query($sql);
                 }
                 elseif($jenis=="bulan")
@@ -124,7 +124,7 @@ class modelReport extends mysql_db
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
  
-                                     ORDER BY tgl_dok ASC";
+                                     ORDER BY tgl_dok ASC,qty asc";
                     $result = $this->query($sql);
                 }
                 else
@@ -146,7 +146,7 @@ class modelReport extends mysql_db
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
  
-                                     ORDER BY tgl_dok ASC";
+                                     ORDER BY tgl_dok ASC,qty asc";
                     $result = $this->query($sql);
                 }
 
@@ -272,7 +272,7 @@ class modelReport extends mysql_db
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
  
-                                     ORDER BY tgl_dok ASC;";
+                                     ORDER BY tgl_dok ASC,qty asc;";
                     $result = $this->query($sql);
                 }
                 elseif($jenis=="bulan")
@@ -293,7 +293,7 @@ class modelReport extends mysql_db
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
  
-                                     ORDER BY tgl_dok ASC";
+                                     ORDER BY tgl_dok ASC,qty asc";
                     $result = $this->query($sql);
                 }
                 else
@@ -315,7 +315,7 @@ class modelReport extends mysql_db
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
  
-                                     ORDER BY tgl_dok ASC";
+                                     ORDER BY tgl_dok ASC,qty asc";
                     $result = $this->query($sql);
                 }
 
@@ -1096,7 +1096,7 @@ class modelReport extends mysql_db
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
  
-                                     ORDER BY tgl_dok ASC;";
+                                     ORDER BY tgl_dok ASC,qty asc;";
                     $result = $this->query($sql);
                 }
                 elseif($jenis=="bulan")
@@ -1117,7 +1117,7 @@ class modelReport extends mysql_db
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
  
-                                     ORDER BY tgl_dok ASC";
+                                     ORDER BY tgl_dok ASC,qty asc";
                     $result = $this->query($sql);
                 }
                 else
@@ -1139,7 +1139,7 @@ class modelReport extends mysql_db
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
  
-                                     ORDER BY tgl_dok ASC";
+                                     ORDER BY tgl_dok ASC,qty asc";
                     $result = $this->query($sql);
                 }
 
@@ -1287,7 +1287,7 @@ public function buku_persediaan_all_excel($data)
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
  
-                                     ORDER BY tgl_dok ASC;";
+                                     ORDER BY tgl_dok ASC,qty asc;";
                     $result = $this->query($sql);
                 }
                 elseif($jenis=="bulan")
@@ -1308,7 +1308,7 @@ public function buku_persediaan_all_excel($data)
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
  
-                                     ORDER BY tgl_dok ASC";
+                                     ORDER BY tgl_dok ASC,qty asc";
                     $result = $this->query($sql);
                 }
                 else
@@ -1330,7 +1330,7 @@ public function buku_persediaan_all_excel($data)
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
  
-                                     ORDER BY tgl_dok ASC";
+                                     ORDER BY tgl_dok ASC,qty asc";
                     $result = $this->query($sql);
                 }
 
