@@ -77,11 +77,11 @@
                     <thead>
                       <tr>
                         <th width="14%">ID</th>
-                        <th width="14%">Kode Sub-Sub Kel.</th>
+                        <th width="18%">Kode Sub-Sub Kel.</th>
                         <th width="14%">Kode Barang</th>
                         <th>Nama Barang</th>
                         <th width="14%">Satuan</th>
-                        <th width="9%">Aksi</th>
+                        <th width="12.5%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -167,8 +167,8 @@
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                 // '<a href="edit_trans_masuk?id=a" class="btn btn-success btn-sm daterange pull-left" role="button"><i class="fa fa-edit"></i></a>'+
-                                  '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
-                                  '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                  '<button id="btnedt" class="btn btn-success btn-flat btn-xs daterange pull-left"><i class="fa fa-edit"></i> Edit</button>'+
+                                  '<button id="btnhps" class="btn btn-danger btn-flat btn-xs pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
              "targets": [5],"targets": 5 }
           ],

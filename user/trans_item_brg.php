@@ -1,3 +1,9 @@
+<?php
+if (empty($_POST['id'])) {
+  header('location:../login');
+}
+else {
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -28,48 +34,84 @@
                 </div>
                 <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal"  id="addtransmsk" >
                   <div class="box-body" style="padding-top:15px;">
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Jenis Transaksi</label>
-                      <div class="col-sm-9">
-                        <select name="jenis_trans" id="jenis_trans" class="form-control">
-                          <option value="">Pilih Jenis Transaksi</option>
-                          <option value="M01">Saldo Awal</option>
-                          <option value="M02">Pembelian</option>
-                          <option value="M03">Transfer Masuk</option>
-                          <option value="M04">Hibah Masuk</option>
-                        </select>
+                    <!-- <div class="row" style="padding-bottom:15px;">
+                      <div class="col-sm-4">
+                        <button id="btnviw" class="btn btn-flat btn-success btn-xs"><i class="fa fa-eye"></i> Lihat Item</button>
+                        <button id="btnadd" class="btn btn-flat btn-info btn-xs"><i class="fa fa-plus"></i> Tambah Item</button>
                       </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Nomor Dokumen</label>
-                      <div class="col-sm-2">
-                        <select name="read_no_dok" id="read_no_dok" class="form-control">
-                        </select>
+                    </div> -->
+                    <div class="row">
+                      <div class="col-sm-5">
+                        <div class="form-group">
+
+                          <label class="col-sm-5 control-label">Jenis Transaksi</label>
+                          <div class="col-sm-7">
+                            <input type="text" id="disjenistrans" name="disjenistrans" class="form-control" readonly>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-5 control-label">Tgl. Dokumen</label>
+                          <div class="col-sm-7">
+                            <input type="text" id="distgldok" name="distgldok" class="form-control" readonly>
+                          </div>
+                        </div>                  
+                        <div class="form-group">
+                          <label class="col-sm-5 control-label">Tgl. Buku</label>
+                          <div class="col-sm-7">
+                            <input type="text" id="distglbuku" name="distglbuku" class="form-control" readonly>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-5 control-label">Satker</label>
+                          <div class="col-sm-7">
+                            <input type="text" id="dissatker" name="dissatker" class="form-control" readonly>
+                          </div>
+                        </div>                  
+                        <div class="form-group">
+                          <label class="col-sm-5 control-label">Total Transaksi</label>
+                          <div class="col-sm-7">
+                            <input type="text" id="distottrans" name="distottrans" class="form-control" readonly>
+                          </div>
+                        </div>
                       </div>
                       <div class="col-sm-7">
-                        <input type="text" name="no_dok" class="form-control"  id="no_dok" placeholder="Masukkan No. Dokumen">
-                        <input type="hidden" name="manage" value="tbh_transaksi_msk">
-                        <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>
-                        <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>    
+                        <div class="form-group">
+                          <label class="col-sm-3 control-label">Kode Barang</label>
+                          <div class="col-sm-8">
+                            <select name="kd_brg" id="kd_brg" class="form-control">
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-3 control-label">Keterangan</label>
+                          <div class="col-sm-8">
+                            <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Uraian / Keterangan">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-3 control-label">Jumlah Masuk</label>
+                          <div class="col-sm-4">
+                            <input type="number" min="1" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah">
+                          </div>                             
+                          <div class="col-sm-4">
+                            <input type="text" name="satuan" id="satuan" class="form-control"  readonly>
+                          </div>                            
+                        </div>                  
+                        <div class="form-group">
+                          <label class="col-sm-3 control-label">Harga Beli Satuan</label>
+                          <div class="col-sm-8">
+                            <input type="number" min="1" name="rph_sat" class="form-control" id="rph_sat" placeholder="Masukkan Harga ">
+                          </div>
+                        </div>                  
+                        <div name="detil_transaksi" id="detil_transaksi">
+                        </div>
                       </div>
                     </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Tanggal Dokumen</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen">
-                      </div>
-                    </div>                    
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Tanggal Buku</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku">
-                      </div> 
-                    </div>
-                  </div>
+                  </div> <!-- </div class="box-body">  -->
                   <div class="box-footer">
-                    <button type="Reset" class="btn btn-default">Reset</button>
-                    <button type="submit" class="btn btn-info pull-right">Submit</button>
-                  </div>
+                      <button type="reset" id="btn_resets" class="btn btn-default">Reset</button>
+                      <button type="submit" class="btn btn-info pull-right">Submit</button>
+                    </div>
                 </form>
               </div>
               <div class="box box-info">
@@ -86,8 +128,7 @@
                         <th width="18%">No Bukti</th>
                         <th>Tanggal Dokumen</th>
                         <th>Tanggal Buku</th>
-                        <th>Total Transaksi</th>
-                        <th width="14.5%">Aksi</th>
+                        <th width="9%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -132,16 +173,15 @@
              "visible": false },
             {"targets": 4 },
             {"targets": 5 },
-            {"targets": 6 },
             {"orderable": false,
+             "visible" : false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                 // '<a href="edit_trans_masuk?id=a" class="btn btn-success btn-sm daterange pull-left" role="button"><i class="fa fa-edit"></i></a>'+
                                   // '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
-                                  '<button id="btntmbh" class="btn btn-success btn-flat btn-xs pull-left"><i class="fa fa-eye"></i> Lihat</button>'+
-                                  '<button id="btntmbh" class="btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
+                                  '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
                                 '</div>',
-             "targets": [7],"targets": 7 },
+             "targets": [6],"targets": 6 },
 
           ],
         });
@@ -149,19 +189,12 @@
         //     var data = table.row( this ).data();
         //     alert( 'You clicked on '+data[0]+'\'s row' );
         // } );
-        $('#no_dok_item').change(function(){
-        var identtrans = $(this).val();
         $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
-          data: {manage:'readidenttrans',idtrans:identtrans},
+          data: {manage:'readidenttrans',idtrans:"<?php echo $_POST['satker']?>"},
           dataType: "json",
           success: function (output) {
-            // alert(output.jenistrans);
-            // alert(output.tgldok);
-            // alert(output.tglbuku);
-            // alert(output.satker);
-            document.getElementById("jenis_trans").value = "";
             $('#disnobukti').val(output.nobukti);
             $('#disjenistrans').val(output.jenistrans);
             $('#distgldok').val(output.tgldok);
@@ -172,7 +205,6 @@
             $('#rph_sat').prop('required', true);
           }
         });
-      });
       $('#jenis_trans').change(function(){
          $("#no_dok_item").select2().select2('val','');
           $('#disnobukti').val('');
@@ -254,25 +286,65 @@
       
       });
 
-      $(document).on('click', '#btntmbh', function () {
-        var tr = $(this).closest('tr');
-        var row = table.row( tr );
-        id_row = row.data()[0];
-        jns_trans = row.data()[1];
-        satker = row.data()[2];
-        tgl_dok = row.data()[4];
-        tgl_buku = row.data()[5];
-        var $form=$(document.createElement('form')).css({display:'none'}).attr("method","POST").attr("action","trans_item_brg");
-        var $input=$(document.createElement('input')).css({display:'none'}).attr('name','id').val(id_row);
-        var $input2=$(document.createElement('input')).css({display:'none'}).attr('name','jenistrans').val(jns_trans);
-        var $input3=$(document.createElement('input')).css({display:'none'}).attr('name','tanggaldok').val(tgl_dok);
-        var $input4=$(document.createElement('input')).css({display:'none'}).attr('name','tanggalbuku').val(tgl_buku);
-        var $input5=$(document.createElement('input')).css({display:'none'}).attr('name','satker').val(satker);
-        $form.append($input).append($input2).append($input3).append($input4).append($input5);
-        $("body").append($form);
-        $form.submit();
+      $(document).on('click', '#btnhps', function () {
+      var tr = $(this).closest('tr');
+      var row = table.row( tr );
+      redirectTime = "2600";
+      redirectURL = "trans_masuk";
+      id_row = row.data()[0];
+      managedata = "hapusTransMasuk";
+
+      $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'cek_brg_masuk',id_row:id_row},
+          dataType: "json",
+          success: function (output) {
+            if(output.st_op==1)
+            {
+              alert("Tidak Dapat Menghapus Barang yang sudah diopname !");
+              return false;
+            }
+            if(output.qty!=null)
+            {
+              alert("Tidak dapat menghapus, barang sudah dikeluarkan pada tanggal "+output.tgl_dok+" sebanyak "+output.qty+" "+output.satuan);
+              return false;
+            }
+            else
+            {
+            job=confirm("Anda yakin ingin menghapus data ini?");
+            if(job!=true)
+            {
+              return false;
+            }
+            else
+            {
+              $('#myModal').modal({
+                backdrop: 'static',
+                keyboard: false
+              });
+              $('#myModal').modal('show');
+              $.ajax({
+                type: "post",
+                url : "../core/transaksi/prosestransaksi",
+                data: {manage:managedata,id:id_row},
+                success: function(data)
+                {
+                  $("#success-alert").alert();
+                  $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+                  $("#success-alert").alert('close');
+                  });
+                  setTimeout("location.href = redirectURL;",redirectTime); 
+                }
+              });
+              return false;
+            }
+            }
+
+        }
       });
 
+      });
         $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
@@ -317,6 +389,90 @@
         }
       });
 
+      $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var target = $(e.target).attr("href") // activated tab
+        if (target== "#tab_1") {
+          $("#example1").DataTable().destroy();
+          $("#example1").empty();
+          $("#example1").append('<thead><tr>'
+                        +'<th width="5%">ID</th>'
+                        +'<th width="14%">Jenis Transaksi</th>'
+                        +'<th width="18%">No Dokumen</th>'
+                        +'<th width="18%">No Bukti</th>'
+                        +'<th>Tanggal Dokumen</th>'
+                        +'<th>Tanggal Buku</th>'
+                        +'<th width="9%">Aksi</th>'
+                        +'</tr></thead>');
+          table = $("#example1").DataTable({
+                "processing": false,
+                "serverSide": true,
+                "ajax": "../core/loadtable/loadtransmsk",
+                "columnDefs":
+                [
+                  {"targets": 0,
+                   "visible": false },
+                  {"targets": 1 },
+                  {"targets": 2 },
+                  {"targets": 3,
+                   "visible": false },
+                  {"targets": 4 },
+                  {"targets": 5 },
+                  {"orderable": false,
+                   "visible": false,
+                   "data": null,
+                   "defaultContent":  '<div class="box-tools">'+
+                                      // '<a href="edit_trans_masuk?id=a" class="btn btn-success btn-sm daterange pull-left" role="button"><i class="fa fa-edit"></i></a>'+
+                                        // '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                        '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                      '</div>',
+                   "targets": [6],"targets": 6 },
+                ],
+                "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
+              });
+        };
+        if (target== "#tab_2") {
+          $("#example1").DataTable().destroy();
+          $("#example1").empty();
+          $("#example1").append('<thead><tr>'
+                        +'<th>ID</th>'
+                        +'<th>Tgl Dokumen</th>'
+                        +'<th>Nama Barang</th>'
+                        +'<th>Jumlah</th>'
+                        +'<th>Harga Satuan</th>'
+                        +'<th>Total Harga</th>'
+                        +'<th>No Dok</th>'
+                        +'<th>No Bukti</th>'
+                        +'<th width="9%">Aksi</th>'
+                        +'</tr></thead>');
+          table = $("#example1").DataTable({
+                "processing": false,
+                "serverSide": true,
+                "ajax": "../core/loadtable/loadtransmskitm",
+                "columnDefs":
+                [
+                  {"targets": 0,
+                   "visible": false },
+                  {"targets": 1 },
+                  {"targets": 2 },
+                  {"targets": 3 },
+                  {"targets": 4 },
+                  {"targets": 5 },
+                  {"targets": 6 },
+                  {"targets": 7,
+                   "visible": false },
+                  {"orderable": false,
+                   "data": null,
+                   "defaultContent":  '<div class="box-tools">'+
+                                      // '<a href="edit_trans_masuk?id=a" class="btn btn-success btn-sm daterange pull-left" role="button"><i class="fa fa-edit"></i></a>'+
+                                        // '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
+                                        '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                      '</div>',
+                   "targets": [8],"targets": 8 },
+                ],
+                "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
+              });
+        };
+      });
 
       $('#addtransmsk').submit(function(e){
         var jns_trans = $("#jenis_trans").val();
@@ -501,3 +657,4 @@
     </script>
   </body>
 </html>
+<?php }?>

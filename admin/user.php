@@ -133,7 +133,7 @@
                         <th>Email</th>
                         <th width="14%">Kode Satker</th>
                         <th width="26%">Nama Satker</th>
-                        <th width="9%">Aksi</th>
+                        <th width="12.5%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -180,8 +180,8 @@
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
-                                  '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                  '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
+                                  '<button id="btnhps" class="btn btn-danger btn-xs btn-flat pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
              "targets": [5],"targets": 5 }
           ],
