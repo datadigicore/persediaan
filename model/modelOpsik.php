@@ -119,7 +119,7 @@ class modelOpsik extends mysql_db
                     total_harga='$total_harga',
                     keterangan='$keterangan',
                     status='0',
-                    tgl_update=CURDATE(),
+                    tgl_update=NOW(),
                     user_id='$user_id'";   
                 $result_full = $this->query($query_full);
 
@@ -316,7 +316,7 @@ class modelOpsik extends mysql_db
                     total_harga='$selisih_total_harga',
                     keterangan='$keterangan',
                     status='1',
-                    tgl_update=CURDATE(),
+                    tgl_update=NOW(),
                     user_id='$user_id'";   
             $result_full = $this->query($query_full);
         }
@@ -376,7 +376,7 @@ class modelOpsik extends mysql_db
                                         user_id='$user_id'";   
                     $result_keluar = $this->query($query_keluar);
 
-                    $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $selisih where user_id='$user_id' and id='$id_trans_m'";
+                    $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $selisih where kd_lokasi='$kd_lokasi' and id='$id_trans_m'";
                     $result_upd_masuk = $this->query($query_upd_masuk);
 
                     $query_idk = "select id from transaksi_keluar WHERE kd_brg='$kd_brg' and user_id='$user_id' order by id DESC";
@@ -413,7 +413,7 @@ class modelOpsik extends mysql_db
                                     total_harga='$minus_total',
                                     keterangan='$keterangan',
                                     status=0,
-                                    tgl_update=CURDATE(),
+                                    tgl_update=NOW(),
                                     user_id='$user_id'"; 
                     $result_trans_full = $this->query($query_full);
                     $selisih = 0;
@@ -495,7 +495,7 @@ class modelOpsik extends mysql_db
                                     total_harga='$minus_total',
                                     keterangan='$keterangan',
                                     status=0,
-                                    tgl_update=CURDATE(),
+                                    tgl_update=NOW(),
                                     user_id='$user_id'"; 
                     $result_full = $this->query($query_full);
                     $selisih = $selisih - $qty_akhir;
