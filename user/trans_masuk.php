@@ -142,10 +142,6 @@
              "targets": [7],"targets": 7 },
           ],
         });
-        // $('#example1 tbody').on('click', 'tr', function () {
-        //     var data = table.row( this ).data();
-        //     alert( 'You clicked on '+data[0]+'\'s row' );
-        // } );
       });
 
       $(document).on('click', '#btntmbh', function () {

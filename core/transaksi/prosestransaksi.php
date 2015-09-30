@@ -138,7 +138,7 @@ else
 			$hrg_sat = $purifier->purify($_POST['rph_sat']);
 			$status = 0;
 			$user_id = $_SESSION['username'];
-			if ($jns_trans!="") 
+			if ($kd_brg=="") 
 			{
 				$no_dok = $kd_lokasi.'.'.$purifier->purify($_POST['no_dok']);
 
@@ -182,11 +182,10 @@ else
 					"harga_sat" => $hrg_sat,
 					"keterangan" => $keterangan
 				);
-				echo "kosong terpilih";
 				print_r($data);
 				
 				$Transaksi->trnsaksi_keluar($data);
-
+			}
 
 			//========= Log History =========//
 				$kd_lokasi = $_SESSION['kd_lok'];
@@ -229,9 +228,6 @@ else
 			    );
 				$Transaksi->loghistory_keluar($datalog);
 				//========= Log History =========//
-
-			}
-
 
 		break;
 
