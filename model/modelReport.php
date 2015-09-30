@@ -54,7 +54,7 @@ class modelReport extends mysql_db
         echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
         $this->getsatker($kd_lokasi);
         
-        echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">BUKU PERSEDIAAN</p>
+        echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">KARTU PERSEDIAAN</p>
                 <br></br>
                 <table style="text-align: center; width: 100%; font-size:90%;" align="left" >
                 <tr>
@@ -87,7 +87,7 @@ class modelReport extends mysql_db
 
                 if($jenis=="tanggal") 
                 {
-                    $sql="SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                    $sql="SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
                                     FROM transaksi_masuk 
                                     where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
                                      AND kd_brg='$kd_brg' 
@@ -95,7 +95,7 @@ class modelReport extends mysql_db
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
                                      union all 
-                                     SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                                     SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
                                      FROM transaksi_keluar 
                                      where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
                                      AND kd_brg='$kd_brg' 
@@ -103,12 +103,12 @@ class modelReport extends mysql_db
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
  
-                                     ORDER BY tgl_dok ASC,qty asc;";
+                                     ORDER BY tgl_dok ASC,id asc;";
                     $result = $this->query($sql);
                 }
                 elseif($jenis=="bulan")
                 {
-                    $sql="SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                    $sql="SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
                                     FROM transaksi_masuk 
                                     where month(tgl_dok)='$bulan' 
                                      AND kd_brg='$kd_brg' 
@@ -116,7 +116,7 @@ class modelReport extends mysql_db
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
                                      union all 
-                                     SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                                     SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
                                      FROM transaksi_keluar 
                                      where month(tgl_dok)='$bulan'  
                                      AND kd_brg='$kd_brg' 
@@ -124,12 +124,12 @@ class modelReport extends mysql_db
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
  
-                                     ORDER BY tgl_dok ASC,qty asc";
+                                     ORDER BY tgl_dok ASC,id asc";
                     $result = $this->query($sql);
                 }
                 else
                 {
-                    $sql="SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                    $sql="SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
                                     FROM transaksi_masuk 
                                     where year(tgl_dok)='$thn_ang'  
                                      AND kd_brg='$kd_brg' 
@@ -138,7 +138,7 @@ class modelReport extends mysql_db
                                      AND thn_ang='$thn_ang'
                                      
                                      union all 
-                                     SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                                     SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
                                      FROM transaksi_keluar 
                                      where year(tgl_dok)='$thn_ang'  
                                      AND kd_brg='$kd_brg' 
@@ -146,7 +146,7 @@ class modelReport extends mysql_db
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
  
-                                     ORDER BY tgl_dok ASC,qty asc";
+                                     ORDER BY tgl_dok ASC,id asc";
                     $result = $this->query($sql);
                 }
 
@@ -223,7 +223,7 @@ class modelReport extends mysql_db
         echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
         $this->getsatker($kd_lokasi);
         
-        echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">BUKU PERSEDIAAN</p>
+        echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">KARTU PERSEDIAAN</p>
                 <br></br>
                 <table style="text-align: center; width: 100%; font-size:90%;" align="left" >
                 <tr>
@@ -984,6 +984,779 @@ class modelReport extends mysql_db
                 exit;
     }
 
+    public function l_terima_brg($data)
+    {
+        $mpdf=new mPDF('utf-8', 'A4-L');
+        // $mpdf->setFooter('{PAGENO}');
+        ob_start(); 
+        $jenis = $data['jenis'];
+        $kd_brg = $data['kd_brg'];
+        $tgl_awal = $data['tgl_awal'];
+        $tgl_akhir = $data['tgl_akhir'];
+        $bulan = $data['bulan'];
+        $kd_lokasi = $data['kd_lokasi'];
+        $thn_ang = $data['thn_ang'];
+        $satker_asal = $data['satker_asal'];
+
+
+        // $this->getsatker($kd_lokasi);
+        echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
+        echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">BUKU PENERIMAAN BARANG</p>
+                <br></br>
+                
+                <table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% " border=1 align="center">
+                <tr >
+                    <td >No</td>
+                    <td >Tanggal</td>
+                    <td >Dari</td>
+                    <td >Nomor</td>
+                    <td >Tanggal</td>
+                    <td >Nama Barang</td>
+                    <td >Banyaknya</td>
+                    <td >Harga Satuan</td>
+                    <td >Jumlah Harga</td>
+                    <td >Nomor</td>
+                    <td >Tanggal</td>
+                    <td >Ket</td>
+                </tr>';
+
+
+                // if($jenis=="tanggal") 
+                // {
+                    $sql="SELECT tgl_buku, no_dok, tgl_dok, nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
+                                    FROM transaksi_masuk 
+                                    where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'  
+                                     and kd_lokasi like '{$kd_lokasi}%'   
+                                     AND status_hapus=0
+                                     AND thn_ang='$thn_ang'
+                                     ORDER BY tgl_dok ASC,qty asc;";
+                    $result = $this->query($sql);
+                // }
+                // elseif($jenis=="bulan")
+                // {
+                //     $sql="SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                //                     FROM transaksi_masuk 
+                //                     where month(tgl_dok)='$bulan' 
+                //                      AND kd_brg='$kd_brg' 
+                //                      and kd_lokasi like '{$kd_lokasi}%'   
+                //                      AND status_hapus=0
+                //                      AND thn_ang='$thn_ang'
+                //                      union all 
+                //                      SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                //                      FROM transaksi_keluar 
+                //                      where month(tgl_dok)='$bulan'  
+                //                      AND kd_brg='$kd_brg' 
+                //                      and kd_lokasi like '{$kd_lokasi}%'   
+                //                      AND status_hapus=0
+                //                      AND thn_ang='$thn_ang'
+ 
+                //                      ORDER BY tgl_dok ASC,qty asc";
+                //     $result = $this->query($sql);
+                // }
+                // else
+                // {
+                //     $sql="SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                //                     FROM transaksi_masuk 
+                //                     where year(tgl_dok)='$thn_ang'  
+                //                      AND kd_brg='$kd_brg' 
+                //                      and kd_lokasi like '{$kd_lokasi}%'   
+                //                      AND status_hapus=0
+                //                      AND thn_ang='$thn_ang'
+                                     
+                //                      union all 
+                //                      SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                //                      FROM transaksi_keluar 
+                //                      where year(tgl_dok)='$thn_ang'  
+                //                      AND kd_brg='$kd_brg' 
+                //                      and kd_lokasi like '{$kd_lokasi}%'  
+                //                      AND status_hapus=0
+                //                      AND thn_ang='$thn_ang'
+ 
+                //                      ORDER BY tgl_dok ASC,qty asc";
+                //     $result = $this->query($sql);
+                // }
+
+                $no=0;
+                $jumlah=0;
+                $saldo=0;
+
+                while($data=$this->fetch_assoc($result))
+                {
+                    $no+=1;
+                    echo'<tr>
+                    <center><td  align="center">'.$no.'</td></center>
+                    <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_buku]).'</td></center>
+                    <center><td  align="center">'.'-'.'</td></center>
+                    <center><td  align="center">'.$data[no_dok].'</td></center>
+                    <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_dok]).'</td></center>
+                    <center><td  align="center">'.$data[nm_brg].'</td></center>
+                    <center><td  align="center">'.$data[qty].'</td></center>
+                    <center><td  align="center">'.$data[harga_sat].'</td></center>
+                    <center><td  align="center">'.$data[total_harga].'</td></center>
+                    
+                    <center><td  align="center">'.$data[no_dok].'</td></center>
+                    <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_buku]).'</td></center>
+                    <center><td  align="center">'.$data[keterangan].'</td></center>';
+
+                 
+                }
+                echo '</tr>';
+                echo '</table>';
+
+                // $this->cetak_nama_pj($satker_asal);
+
+                $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
+                ob_end_clean();
+                //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
+                $mpdf->WriteHTML(utf8_encode($html));
+                $mpdf->Output("bu_pbrg.pdf" ,'I');
+                exit;
+         }
+
+    public function l_keluar_brg($data)
+    {
+        $mpdf=new mPDF('utf-8', 'A4-L');
+        // $mpdf->setFooter('{PAGENO}');
+        ob_start(); 
+        $jenis = $data['jenis'];
+        $kd_brg = $data['kd_brg'];
+        $tgl_awal = $data['tgl_awal'];
+        $tgl_akhir = $data['tgl_akhir'];
+        $bulan = $data['bulan'];
+        $kd_lokasi = $data['kd_lokasi'];
+        $thn_ang = $data['thn_ang'];
+        $satker_asal = $data['satker_asal'];
+
+
+        // $this->getsatker($kd_lokasi);
+        echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
+        echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">BUKU PENGELUARAN BARANG</p>
+                <br></br>
+                
+                <table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% " border=1 align="center">
+                <tr >
+                    <td >No</td>
+                    <td >Tanggal</td>
+
+                    <td >Nomor Urut</td>
+                    <td >Nama Barang</td>
+                    <td >Banyaknya</td>
+                    <td >Harga Satuan</td>
+                    <td >Jumlah Harga</td>
+                    <td >Untuk</td>
+                    <td >Tanggal Penyerahan</td>
+                    <td >Ket</td>
+                </tr>';
+
+
+                // if($jenis=="tanggal") 
+                // {
+                    $sql="SELECT tgl_buku, nm_brg, abs(qty) as qty, harga_sat,abs(total_harga) as total_harga, jns_trans, keterangan, tgl_buku 
+                                    FROM transaksi_keluar 
+                                    where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'  
+                                     and kd_lokasi like '{$kd_lokasi}%'   
+                                     AND status_hapus=0
+                                     AND thn_ang='$thn_ang'
+                                     ORDER BY tgl_dok ASC,qty asc;";
+                    $result = $this->query($sql);
+                // }
+                // elseif($jenis=="bulan")
+                // {
+                //     $sql="SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                //                     FROM transaksi_masuk 
+                //                     where month(tgl_dok)='$bulan' 
+                //                      AND kd_brg='$kd_brg' 
+                //                      and kd_lokasi like '{$kd_lokasi}%'   
+                //                      AND status_hapus=0
+                //                      AND thn_ang='$thn_ang'
+                //                      union all 
+                //                      SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                //                      FROM transaksi_keluar 
+                //                      where month(tgl_dok)='$bulan'  
+                //                      AND kd_brg='$kd_brg' 
+                //                      and kd_lokasi like '{$kd_lokasi}%'   
+                //                      AND status_hapus=0
+                //                      AND thn_ang='$thn_ang'
+ 
+                //                      ORDER BY tgl_dok ASC,qty asc";
+                //     $result = $this->query($sql);
+                // }
+                // else
+                // {
+                //     $sql="SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                //                     FROM transaksi_masuk 
+                //                     where year(tgl_dok)='$thn_ang'  
+                //                      AND kd_brg='$kd_brg' 
+                //                      and kd_lokasi like '{$kd_lokasi}%'   
+                //                      AND status_hapus=0
+                //                      AND thn_ang='$thn_ang'
+                                     
+                //                      union all 
+                //                      SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                //                      FROM transaksi_keluar 
+                //                      where year(tgl_dok)='$thn_ang'  
+                //                      AND kd_brg='$kd_brg' 
+                //                      and kd_lokasi like '{$kd_lokasi}%'  
+                //                      AND status_hapus=0
+                //                      AND thn_ang='$thn_ang'
+ 
+                //                      ORDER BY tgl_dok ASC,qty asc";
+                //     $result = $this->query($sql);
+                // }
+
+                $no=0;
+                $jumlah=0;
+                $saldo=0;
+
+                while($data=$this->fetch_assoc($result))
+                {
+                    $no+=1;
+                    echo'<tr>
+                    <center><td  align="center">'.$no.'</td></center>
+                    <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_buku]).'</td></center>
+                    <center><td  align="center">'.$no.'</td></center>
+                    <center><td  align="center">'.$data[nm_brg].'</td></center>
+                    <center><td  align="center">'.$data[qty].'</td></center>
+                    <center><td  align="center">'.$data[harga_sat].'</td></center>
+                    <center><td  align="center">'.$data[total_harga].'</td></center>
+                    <center><td  align="center">'.$data[keterangan].'</td></center>
+                    
+                    <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_buku]).'</td></center>
+                    <center><td  align="center">'.$data[keterangan].'</td></center>';
+
+                 
+                }
+                echo '</tr>';
+                echo '</table>';
+
+                // $this->cetak_nama_pj($satker_asal);
+
+                $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
+                ob_end_clean();
+                //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
+                $mpdf->WriteHTML(utf8_encode($html));
+                $mpdf->Output("bu_pbrg.pdf" ,'I');
+                exit;
+         }
+
+
+    public function buku_bph($data)
+    {
+        $mpdf=new mPDF('utf-8', 'A4-L');
+        // $mpdf->setFooter('{PAGENO}');
+        ob_start(); 
+        $jenis = $data['jenis'];
+        $kd_brg = $data['kd_brg'];
+        $tgl_awal = $data['tgl_awal'];
+        $tgl_akhir = $data['tgl_akhir'];
+        $bulan = $data['bulan'];
+        $kd_lokasi = $data['kd_lokasi'];
+        $thn_ang = $data['thn_ang'];
+        $satker_asal = $data['satker_asal'];
+
+
+        echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
+        // $this->getsatker($kd_lokasi);
+        
+        echo ' 
+              <p align="center" style="margin:0px; padding:0px; font-weight:bold;">BUKU BARANG PAKAI HABIS</p>
+                <br></br>
+                
+                <table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% " border=1 align="center">
+               <tr>
+                    <td rowspan="2" colspan="9">PENERIMAAN</td>
+                    <td rowspan="2" colspan="5">PENGELUARAN</td>
+                     <tr>
+                    
+                </tr>
+                    </tr>
+
+
+                    <tr>
+                    <tr >
+                        <td rowspan="2"  >No</td>
+                        <td  rowspan="2" >Tanggal Diterima</td>
+                        <td rowspan="2" >Jenis/Nama Barang</td>
+                        <td rowspan="2" >Merk/Ukuran</td>
+                        <td rowspan="2" >Tahun Pembuatan</td>
+                        <td  rowspan="2" >Jumlah Satuan / Barang</td>
+                        <td  rowspan="2" >Harga Satuan</td>
+                        <td colspan="2"  >Berita Acara Pemeriksaan</td>
+                        <td rowspan="2">Tanggal Dikeluarkan</td>
+                        <td rowspan="2">Diserahkan Kepada</td>
+                        <td rowspan="2">Jumlah Satuan/Barang</td>
+                        <td rowspan="2">Tgl/No. Surat Penyerahan</td>
+                        <td rowspan="2">Ket.</td>
+                        <tr>
+                            <td >Tanggal</td>
+                            <td >Nomor</td>
+                        </tr>';
+
+                // if($jenis=="tanggal") 
+                // {
+                    $sql="SELECT id, tgl_buku, no_dok, tgl_dok, nm_sskel, nm_brg,  qty, satuan, harga_sat,total_harga, keterangan 
+                                    FROM transaksi_masuk 
+                                    where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
+                                     and kd_lokasi like '{$kd_lokasi}%'   
+                                     AND status_hapus=0
+                                     AND thn_ang='$thn_ang'
+                                union all
+                          SELECT id, tgl_buku, no_dok, tgl_dok, nm_sskel, nm_brg,  qty, satuan, harga_sat,total_harga, keterangan 
+                                    FROM transaksi_keluar 
+                                    where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
+                                     and kd_lokasi like '{$kd_lokasi}%'   
+                                     AND status_hapus=0
+                                     AND thn_ang='$thn_ang'
+
+                                     ORDER BY tgl_dok ASC,id asc, nm_brg asc;";
+                    $result = $this->query($sql);
+                // }
+                // elseif($jenis=="bulan")
+                // {
+                //     $sql="SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                //                     FROM transaksi_masuk 
+                //                     where month(tgl_dok)='$bulan' 
+                //                      AND kd_brg='$kd_brg' 
+                //                      and kd_lokasi like '{$kd_lokasi}%'   
+                //                      AND status_hapus=0
+                //                      AND thn_ang='$thn_ang'
+                //                      union all 
+                //                      SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                //                      FROM transaksi_keluar 
+                //                      where month(tgl_dok)='$bulan'  
+                //                      AND kd_brg='$kd_brg' 
+                //                      and kd_lokasi like '{$kd_lokasi}%'   
+                //                      AND status_hapus=0
+                //                      AND thn_ang='$thn_ang'
+ 
+                //                      ORDER BY tgl_dok ASC,qty asc";
+                //     $result = $this->query($sql);
+                // }
+                // else
+                // {
+                //     $sql="SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                //                     FROM transaksi_masuk 
+                //                     where year(tgl_dok)='$thn_ang'  
+                //                      AND kd_brg='$kd_brg' 
+                //                      and kd_lokasi like '{$kd_lokasi}%'   
+                //                      AND status_hapus=0
+                //                      AND thn_ang='$thn_ang'
+                                     
+                //                      union all 
+                //                      SELECT tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                //                      FROM transaksi_keluar 
+                //                      where year(tgl_dok)='$thn_ang'  
+                //                      AND kd_brg='$kd_brg' 
+                //                      and kd_lokasi like '{$kd_lokasi}%'  
+                //                      AND status_hapus=0
+                //                      AND thn_ang='$thn_ang'
+ 
+                //                      ORDER BY tgl_dok ASC,qty asc";
+                //     $result = $this->query($sql);
+                // }
+
+                $no=0;
+                $jumlah=0;
+                $saldo=0;
+
+                while($data=$this->fetch_assoc($result))
+                {
+                    $no+=1;
+                    $qty = $data[qty];
+                    if($qty>0)
+                    {
+                        echo'<tr>
+                            <center><td  align="center">'.$no.'</td></center>
+                            <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
+                            <center><td  align="center">'.$data[nm_sskel].'</td></center>
+                            <center><td  align="center">'.$data[nm_brg].'</td></center>
+                            <center><td  align="center">'.'-'.'</td></center>
+                            <center><td  align="center">'.$data[qty].' '.$data[satuan].'</td></center>
+                            <center><td  align="center">'.$data[harga_sat].'</td></center>
+                            <center><td  align="center">'.$this->konversi_tanggal($data[tgl_dok]).'</td></center>
+                            <center><td  align="center">'.$data[no_dok].'</td></center>
+                            <td>'.'-'.'</td>
+                            <td>'.'-'.'</td>
+                            <td>'.'-'.'</td>
+                            <td>'.'-'.'</td>
+                            <td>'.'-'.'</td>
+                            </tr>';
+                    }
+                    else
+                    {
+                        echo '<tr>
+                                <center><td  align="center">'.$no.'</td></center>
+                                <center><td  align="center">'.'-'.'</td></center>
+                                <center><td  align="center">'.$data[nm_sskel].'</td></center>
+                                <center><td  align="center">'.$data[nm_brg].'</td></center>
+                                <td>'.'-'.'</td>
+                                <td>'.'-'.'</td>
+                                <td>'.'-'.'</td>
+                                <td>'.'-'.'</td>
+                                <td>'.'-'.'</td>
+                                <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
+                                <center><td  align="center">'.'-'.'</td></center>
+                                <center><td  align="center">'.abs($data[qty]).' '.$data[satuan].'</td></center>
+                                <center><td  align="center">'.$data[no_dok].'</td></center>
+                                <center><td  align="center">'.$data[keterangan].'</td></center>
+                             </tr>
+                        ';
+
+                    }
+
+                    
+                 
+                }
+
+                echo '</table>';
+
+                // $this->cetak_nama_pj($satker_asal);
+
+                $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
+                ob_end_clean();
+                //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
+                $mpdf->WriteHTML(utf8_encode($html));
+                $mpdf->Output("buku_bph.pdf" ,'I');
+                exit;
+         }
+
+
+   
+    public function kartu_barang($data)
+    {
+        $mpdf=new mPDF('utf-8', 'A4');
+        // $mpdf->setFooter('{PAGENO}');
+        ob_start(); 
+        $jenis = $data['jenis'];
+        $kd_brg = $data['kd_brg'];
+        $tgl_awal = $data['tgl_awal'];
+        $tgl_akhir = $data['tgl_akhir'];
+        $bulan = $data['bulan'];
+        $kd_lokasi = $data['kd_lokasi'];
+        $thn_ang = $data['thn_ang'];
+        $satker_asal = $data['satker_asal'];
+
+        $detail_brg = "SELECT nm_sskel, nm_brg, satuan,kd_lokasi from persediaan where  kd_brg='$kd_brg' and kd_lokasi like '{$kd_lokasi}%' ";
+        $result_detail = $this->query($detail_brg);
+        $brg = $this->fetch_array($result_detail);
+        echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
+    
+        // $this->getsatker($kd_lokasi);
+        
+        echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">KARTU BARANG</p>
+                <br></br>
+                <table style=" width: 100%; font-size:90%;"  >               
+                <tr>
+                    <td align="left">Nama Barang :'.$brg['nm_sskel'].'</td>
+                </tr>                
+                <tr>
+                   
+                    <td align="left">Satuan :'.$brg['satuan'].'</td>
+                    <td align="right">Spesifikasi :'.$brg['nm_brg'].'</td>
+                </tr>
+                </table>
+                <table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% " border=1 align="center">
+                <tr >
+                    <td>NO</td>
+                    <td>TANGGAL</td>
+                    <td>MASUK</td>
+                    <td>KELUAR</td>
+                    <td>SISA</td>
+                    <td>KETERANGAN</td>
+                </tr>';
+
+                // if($jenis=="tanggal") 
+                // {
+                    $sql="SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                                    FROM transaksi_masuk 
+                                    where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
+                                     AND kd_brg='$kd_brg' 
+                                     and kd_lokasi like '{$kd_lokasi}%'   
+                                     AND status_hapus=0
+                                     AND thn_ang='$thn_ang'
+                                     union all 
+                                     SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                                     FROM transaksi_keluar 
+                                     where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
+                                     AND kd_brg='$kd_brg' 
+                                     and kd_lokasi like '{$kd_lokasi}%'   
+                                     AND status_hapus=0
+                                     AND thn_ang='$thn_ang'
+ 
+                                     ORDER BY tgl_dok ASC,id asc;";
+                    $result = $this->query($sql);
+                // }
+                // elseif($jenis=="bulan")
+                // {
+                //     $sql="SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                //                     FROM transaksi_masuk 
+                //                     where month(tgl_dok)='$bulan' 
+                //                      AND kd_brg='$kd_brg' 
+                //                      and kd_lokasi like '{$kd_lokasi}%'   
+                //                      AND status_hapus=0
+                //                      AND thn_ang='$thn_ang'
+                //                      union all 
+                //                      SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                //                      FROM transaksi_keluar 
+                //                      where month(tgl_dok)='$bulan'  
+                //                      AND kd_brg='$kd_brg' 
+                //                      and kd_lokasi like '{$kd_lokasi}%'   
+                //                      AND status_hapus=0
+                //                      AND thn_ang='$thn_ang'
+ 
+                //                      ORDER BY tgl_dok ASC,id asc";
+                //     $result = $this->query($sql);
+                // }
+                // else
+                // {
+                //     $sql="SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                //                     FROM transaksi_masuk 
+                //                     where year(tgl_dok)='$thn_ang'  
+                //                      AND kd_brg='$kd_brg' 
+                //                      and kd_lokasi like '{$kd_lokasi}%'   
+                //                      AND status_hapus=0
+                //                      AND thn_ang='$thn_ang'
+                                     
+                //                      union all 
+                //                      SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                //                      FROM transaksi_keluar 
+                //                      where year(tgl_dok)='$thn_ang'  
+                //                      AND kd_brg='$kd_brg' 
+                //                      and kd_lokasi like '{$kd_lokasi}%'  
+                //                      AND status_hapus=0
+                //                      AND thn_ang='$thn_ang'
+ 
+                //                      ORDER BY tgl_dok ASC,id asc";
+                //     $result = $this->query($sql);
+                // }
+
+                $no=0;
+                $jumlah=0;
+                $sisa=0;
+
+                while($data=$this->fetch_assoc($result))
+                {
+                    $no+=1;
+                    $sisa+=$data[qty];
+                    echo'<tr>
+                    <center><td  align="center">'.$no.'</td></center>
+                    <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_dok]).'</td></center>
+                    ';
+                    if($data[qty]>0) 
+                    {
+                        echo '<center><td  align="center">'.$data[qty].'</td></center> 
+                                <center><td  align="center">'.'-'.'</td></center>
+                                <center><td  align="center">'.$sisa.'</td></center>
+                                <center><td  align="center">'.$data[keterangan].'</td></center>';
+                    }
+                    else 
+                    {
+                    
+                    echo '<center><td  align="center">'.'-'.'</td></center>
+                            <center><td  align="center">'.abs($data[qty]).'</td></center>
+                            <center><td  align="center">'.$sisa.'</td></center>
+                            <center><td  align="center">'.$data[keterangan].'</td></center>';
+                                
+                                
+                    }
+
+                    
+
+                echo  '</tr>';
+                }
+
+                echo '</table>';
+
+                // $this->cetak_nama_pj($satker_asal);
+
+                $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
+                ob_end_clean();
+                //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
+                $mpdf->WriteHTML(utf8_encode($html));
+                $mpdf->Output("buku_persediaan.pdf" ,'I');
+                exit;
+         }
+
+    public function kartu_p_barang($data)
+    {
+        $mpdf=new mPDF('utf-8', 'A4-L');
+        // $mpdf->setFooter('{PAGENO}');
+        ob_start(); 
+        $jenis = $data['jenis'];
+        $kd_brg = $data['kd_brg'];
+        $tgl_awal = $data['tgl_awal'];
+        $tgl_akhir = $data['tgl_akhir'];
+        $bulan = $data['bulan'];
+        $kd_lokasi = $data['kd_lokasi'];
+        $thn_ang = $data['thn_ang'];
+        $satker_asal = $data['satker_asal'];
+
+        $detail_brg = "SELECT nm_sskel, nm_brg, satuan,kd_lokasi from persediaan where  kd_brg='$kd_brg' and kd_lokasi like '{$kd_lokasi}%' ";
+        $result_detail = $this->query($detail_brg);
+        $brg = $this->fetch_array($result_detail);
+        echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
+    
+        // $this->getsatker($kd_lokasi);
+        
+        echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">KARTU PERSEDIAAN BARANG</p>
+                <br></br>
+                <table style=" width: 100%; font-size:90%;"  >               
+                <tr>
+                    <td align="left">Gudang :'.'............'.'</td>
+                </tr>                   
+                <tr>
+                    <td align="left">Nama Barang :'.$brg['nm_sskel'].'</td>
+                    <td align="right">Kartu No: '.'............'.'</td>
+                </tr>                
+                <tr>
+                   
+                    <td align="left">Satuan :'.$brg['satuan'].'</td>
+                    <td align="right">Spesifikasi :'.$brg['nm_brg'].'</td>
+                </tr>
+                </table>';
+            echo    '<table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% " border=1 align="center">
+                    <tr>
+                        <td rowspan="2">Tanggal</td>
+                        <td rowspan="2" width="10%">No./Tgl Surat Dasar Penerimaan / Pengeluaran</td>
+                        <td rowspan="2" >Uraian</td>
+                        <td colspan="3" >Barang-barang</td>
+                        <td <td rowspan="2" >Uraian</td>>Harga Satuan</td>
+                        <td colspan="3" >Jumlah Harga Barang yg Diterima/Yang Dikeluarkan/Sisa</td>
+                        <td rowspan="2">Ket</td>
+                    </tr>
+                    <tr>
+                        <td>Masuk</td>
+                        <td>Keluar</td>
+                        <td>Sisa</td>
+                        <td>Bertambah</td>
+                        <td>Berkurang</td>
+                        <td>Sisa</td>
+                    </tr>
+                ';
+
+                // if($jenis=="tanggal") 
+                // {
+                    $sql="SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                                    FROM transaksi_masuk 
+                                    where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
+                                     AND kd_brg='$kd_brg' 
+                                     and kd_lokasi like '{$kd_lokasi}%'   
+                                     AND status_hapus=0
+                                     AND thn_ang='$thn_ang'
+                                     union all 
+                                     SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                                     FROM transaksi_keluar 
+                                     where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
+                                     AND kd_brg='$kd_brg' 
+                                     and kd_lokasi like '{$kd_lokasi}%'   
+                                     AND status_hapus=0
+                                     AND thn_ang='$thn_ang'
+ 
+                                     ORDER BY tgl_dok ASC,id asc;";
+                    $result = $this->query($sql);
+                // }
+                // elseif($jenis=="bulan")
+                // {
+                //     $sql="SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                //                     FROM transaksi_masuk 
+                //                     where month(tgl_dok)='$bulan' 
+                //                      AND kd_brg='$kd_brg' 
+                //                      and kd_lokasi like '{$kd_lokasi}%'   
+                //                      AND status_hapus=0
+                //                      AND thn_ang='$thn_ang'
+                //                      union all 
+                //                      SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                //                      FROM transaksi_keluar 
+                //                      where month(tgl_dok)='$bulan'  
+                //                      AND kd_brg='$kd_brg' 
+                //                      and kd_lokasi like '{$kd_lokasi}%'   
+                //                      AND status_hapus=0
+                //                      AND thn_ang='$thn_ang'
+ 
+                //                      ORDER BY tgl_dok ASC,id asc";
+                //     $result = $this->query($sql);
+                // }
+                // else
+                // {
+                //     $sql="SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                //                     FROM transaksi_masuk 
+                //                     where year(tgl_dok)='$thn_ang'  
+                //                      AND kd_brg='$kd_brg' 
+                //                      and kd_lokasi like '{$kd_lokasi}%'   
+                //                      AND status_hapus=0
+                //                      AND thn_ang='$thn_ang'
+                                     
+                //                      union all 
+                //                      SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                //                      FROM transaksi_keluar 
+                //                      where year(tgl_dok)='$thn_ang'  
+                //                      AND kd_brg='$kd_brg' 
+                //                      and kd_lokasi like '{$kd_lokasi}%'  
+                //                      AND status_hapus=0
+                //                      AND thn_ang='$thn_ang'
+ 
+                //                      ORDER BY tgl_dok ASC,id asc";
+                //     $result = $this->query($sql);
+                // }
+
+                $no=0;
+                $jumlah=0;
+                $sisa=0;
+                $subtotal=0;
+
+                while($data=$this->fetch_assoc($result))
+                {
+                    $no+=1;
+                    $sisa+=$data[qty];
+                    $subtotal =  abs($data[qty])*$data[harga_sat];
+                    $saldo +=  ($data[qty]*$data[harga_sat]);
+                    echo'<tr>
+                    <center><td  align="center">'.$no.'</td></center>
+                    <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_dok]).'</td></center>
+                    <center><td  align="center">'.$data[keterangan].'</td></center>
+
+                    ';
+                    if($data[qty]>0) 
+                    {
+                        echo '<center><td  align="center">'.$data[qty].'</td></center> 
+                                <center><td  align="center">'.'-'.'</td></center>
+                                <center><td  align="center">'.$sisa.'</td></center>
+                                <center><td  align="center">'.$data[harga_sat].'</td></center>
+                                <center><td  align="center">'.$subtotal.'</td></center>
+                                <center><td  align="center">'.'-'.'</td></center>
+                                <center><td  align="center">'.$saldo.'</td></center>
+                                <center><td  align="center">'.''.'</td></center>';
+                    }
+                    else 
+                    {
+                    
+                        echo '  <center><td  align="center">'.'-'.'</td></center>
+                                <center><td  align="center">'.abs($data[qty]).'</td></center>
+                                <center><td  align="center">'.$sisa.'</td></center>
+                                <center><td  align="center">'.$data[harga_sat].'</td></center>
+                                <center><td  align="center">'.'-'.'</td></center>
+                                <center><td  align="center">'.$subtotal.'</td></center>
+                                <center><td  align="center">'.$saldo.'</td></center>
+                                <center><td  align="center">'.''.'</td></center>';
+                                
+                    }
+
+                    
+
+                echo  '</tr>';
+                }
+
+                echo '</table>';
+
+                // $this->cetak_nama_pj($satker_asal);
+
+                $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
+                ob_end_clean();
+                //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
+                $mpdf->WriteHTML(utf8_encode($html));
+                $mpdf->Output("buku_persediaan.pdf" ,'I');
+                exit;
+         }
 
 
     public function buku_persediaan_excel($data)

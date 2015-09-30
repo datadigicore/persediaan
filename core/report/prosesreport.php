@@ -220,6 +220,146 @@ else
 			
 		break;
 
+		case 'l_terima_brg':
+			$kd_lokasi = $purifier->purify($_POST['satker']);
+			// $satker_asal = $_SESSION['kd_lok'];
+			// $jenis = $purifier->purify($_POST['jenis']);
+			// $semester = explode("-",$purifier->purify($_POST['smt']));
+			// $bln_awal = $semester[0];
+			// $bln_akhir = $semester[1];
+			$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
+			$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
+			$format = $purifier->purify($_POST['format']);
+			$thn_ang = $purifier->purify($_SESSION['thn_ang']);
+			$kd_brg = $purifier->purify($_POST['kd_brg']);
+			$user_id= $_SESSION['username'];
+			$data = array(
+				"jenis"=>$jenis,
+				"bln_awal"=>$bln_awal,
+				"bln_akhir"=>$bln_akhir,
+				"thn_ang" => $thn_ang,
+				"kd_brg" => $kd_brg,
+				"tgl_awal" => $tgl_awal,
+				"tgl_akhir" => $tgl_akhir,
+				"kd_lokasi" => $kd_lokasi,
+				"satker_asal" => $satker_asal,
+				"user_id" => $user_id);
+
+			$Report->l_terima_brg($data);
+		break;
+		
+		case 'l_keluar_brg':
+			$kd_lokasi = $purifier->purify($_POST['satker']);
+			// $satker_asal = $_SESSION['kd_lok'];
+			// $jenis = $purifier->purify($_POST['jenis']);
+			// $semester = explode("-",$purifier->purify($_POST['smt']));
+			// $bln_awal = $semester[0];
+			// $bln_akhir = $semester[1];
+			$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
+			$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
+			$format = $purifier->purify($_POST['format']);
+			$thn_ang = $purifier->purify($_SESSION['thn_ang']);
+			$kd_brg = $purifier->purify($_POST['kd_brg']);
+			$user_id= $_SESSION['username'];
+			$data = array(
+				"jenis"=>$jenis,
+				"bln_awal"=>$bln_awal,
+				"bln_akhir"=>$bln_akhir,
+				"thn_ang" => $thn_ang,
+				"kd_brg" => $kd_brg,
+				"tgl_awal" => $tgl_awal,
+				"tgl_akhir" => $tgl_akhir,
+				"kd_lokasi" => $kd_lokasi,
+				"satker_asal" => $satker_asal,
+				"user_id" => $user_id);
+
+			$Report->l_keluar_brg($data);
+		break;
+
+		case 'l_buku_bph':
+			$kd_lokasi = $purifier->purify($_POST['satker']);
+			// $satker_asal = $_SESSION['kd_lok'];
+			// $jenis = $purifier->purify($_POST['jenis']);
+			// $semester = explode("-",$purifier->purify($_POST['smt']));
+			// $bln_awal = $semester[0];
+			// $bln_akhir = $semester[1];
+			$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
+			$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
+			$format = $purifier->purify($_POST['format']);
+			$thn_ang = $purifier->purify($_SESSION['thn_ang']);
+			$kd_brg = $purifier->purify($_POST['kd_brg']);
+			$user_id= $_SESSION['username'];
+			$data = array(
+				"jenis"=>$jenis,
+				"bln_awal"=>$bln_awal,
+				"bln_akhir"=>$bln_akhir,
+				"thn_ang" => $thn_ang,
+				"kd_brg" => $kd_brg,
+				"tgl_awal" => $tgl_awal,
+				"tgl_akhir" => $tgl_akhir,
+				"kd_lokasi" => $kd_lokasi,
+				"satker_asal" => $satker_asal,
+				"user_id" => $user_id);
+
+			$Report->buku_bph($data);
+		break;		
+
+		case 'l_kartu_brg':
+			$kd_lokasi = $purifier->purify($_POST['satker']);
+			// $satker_asal = $_SESSION['kd_lok'];
+			// $jenis = $purifier->purify($_POST['jenis']);
+			// $semester = explode("-",$purifier->purify($_POST['smt']));
+			// $bln_awal = $semester[0];
+			// $bln_akhir = $semester[1];
+			$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
+			$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
+			$format = $purifier->purify($_POST['format']);
+			$thn_ang = $purifier->purify($_SESSION['thn_ang']);
+			$kd_brg = $purifier->purify($_POST['kd_brg']);
+			$user_id= $_SESSION['username'];
+			$data = array(
+				"jenis"=>$jenis,
+				"bln_awal"=>$bln_awal,
+				"bln_akhir"=>$bln_akhir,
+				"thn_ang" => $thn_ang,
+				"kd_brg" => $kd_brg,
+				"tgl_awal" => $tgl_awal,
+				"tgl_akhir" => $tgl_akhir,
+				"kd_lokasi" => $kd_lokasi,
+				"satker_asal" => $satker_asal,
+				"user_id" => $user_id);
+
+			$Report->kartu_barang($data);
+		break;		
+
+		case 'l_kartu_p_brg':
+			$kd_lokasi = $purifier->purify($_POST['satker']);
+			// $satker_asal = $_SESSION['kd_lok'];
+			// $jenis = $purifier->purify($_POST['jenis']);
+			// $semester = explode("-",$purifier->purify($_POST['smt']));
+			// $bln_awal = $semester[0];
+			// $bln_akhir = $semester[1];
+			$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
+			$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
+			$format = $purifier->purify($_POST['format']);
+			$thn_ang = $purifier->purify($_SESSION['thn_ang']);
+			$kd_brg = $purifier->purify($_POST['kd_brg']);
+			$user_id= $_SESSION['username'];
+			$data = array(
+				"jenis"=>$jenis,
+				"bln_awal"=>$bln_awal,
+				"bln_akhir"=>$bln_akhir,
+				"thn_ang" => $thn_ang,
+				"kd_brg" => $kd_brg,
+				"tgl_awal" => $tgl_awal,
+				"tgl_akhir" => $tgl_akhir,
+				"kd_lokasi" => $kd_lokasi,
+				"satker_asal" => $satker_asal,
+				"user_id" => $user_id);
+
+			$Report->kartu_p_barang($data);
+		break;
+
 		default:
 			echo "Error Data Tidak Tersedia";
 		break;
