@@ -514,12 +514,12 @@ else {
       redirectTime = "2600";
       redirectURL = "trans_masuk";
       id_row = row.data()[0];
-      managedata = "hapusTransMasuk";
+      managedata = "hapusTransKeluar";
 
       $.ajax({
         type: "post",
         url: '../core/transaksi/prosestransaksi',
-        data: {manage:'cek_brg_masuk',id_row:id_row},
+        data: {manage:'cek_brg_keluar',id_row:id_row},
         dataType: "json",
         success: function (output) {
           if(output.st_op==1)
@@ -527,11 +527,11 @@ else {
             alert("Tidak Dapat Menghapus Barang yang sudah diopname !");
             return false;
           }
-          if(output.qty!=null)
-          {
-            alert("Tidak dapat menghapus, barang sudah dikeluarkan pada tanggal "+output.tgl_dok+" sebanyak "+output.qty+" "+output.satuan);
-            return false;
-          }
+          // if(output.qty!=null)
+          // {
+          //   alert("Tidak dapat menghapus, barang sudah dikeluarkan pada tanggal "+output.tgl_dok+" sebanyak "+output.qty+" "+output.satuan);
+          //   return false;
+          // }
           else
           {
             job=confirm("Anda yakin ingin menghapus data ini?");
