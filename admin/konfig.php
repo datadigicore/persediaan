@@ -71,7 +71,7 @@
                         <th width="12%">Tahun</th>
                         <th width="64%">Keterangan</th>
                         <th>status</th>
-                        <th width="9%">Aksi</th>
+                        <th width="12.8%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -116,8 +116,8 @@
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btnakt" class="btn btn-info btn-sm daterange pull-left" data-toggle="tooltip" title="Aktifkan"><i class="fa fa-check-square-o"></i></button>'+
-                                  '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                  '<button id="btnakt" class="btn btn-flat btn-info btn-xs pull-left"><i class="fa fa-check-square-o"></i> Aktif</button>'+
+                                  '<button id="btnhps" class="btn btn-flat btn-danger btn-xs pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
              "targets": [4],"targets": 4 }
           ],
