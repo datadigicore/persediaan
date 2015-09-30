@@ -26,16 +26,8 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Transaksi Keluar </h3>
                 </div>
-                <div class="nav-tabs-custom">
-                  <ul class="nav nav-tabs nav-justified">
-                    <li class="active" id="li_tab_1"><a href="#tab_1" data-toggle="tab">Identitas Transaksi</a></li>
-                    <li id="li_tab_2"><a href="#tab_2" data-toggle="tab">Item Transaksi</a></li>
-                  </ul>
-                </div>  
                 <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="addtransmsk">
-                  <div class="box-body" style="padding:0;">
-                    <div class="tab-content">
-                      <div class="tab-pane active" id="tab_1">
+                  <div class="box-body" style="padding-top:15px;">
                         <div class="form-group">
                           <label class="col-sm-2 control-label">Jenis Transaksi</label>
                           <div class="col-sm-9">
@@ -79,88 +71,6 @@
                             <input type="text" name="tgl_buku" max="10" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" readonly>
                           </div> 
                         </div>
-                      </div>
-                      <div class="tab-pane" id="tab_2"> 
-                        <div class="row">
-                        <div class="col-sm-5">    
-                          <!-- <div class="form-group">
-                            <label class="col-sm-5 control-label">No. Bukti</label>
-                            <div class="col-sm-7">
-                              <input type="text" id="disnobukti" name="disnobukti" class="form-control" readonly>
-                            </div>
-                          </div> -->
-                          <div class="form-group">
-                            <label class="col-sm-5 control-label">Jenis Transaksi</label>
-                            <div class="col-sm-7">
-                              <input type="text" id="disjenistrans" name="disjenistrans" class="form-control" readonly>
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label class="col-sm-5 control-label">Tgl. Dokumen</label>
-                            <div class="col-sm-7">
-                              <input type="text" id="distgldok" name="distgldok" class="form-control" readonly>
-                            </div>
-                          </div>                  
-                          <div class="form-group">
-                            <label class="col-sm-5 control-label">Tgl. Buku</label>
-                            <div class="col-sm-7">
-                              <input type="text" id="distglbuku" name="distglbuku" class="form-control" readonly>
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label class="col-sm-5 control-label">Satker</label>
-                            <div class="col-sm-7">
-                              <input type="text" id="dissatker" name="dissatker" class="form-control" readonly>
-                            </div>
-                          </div>                  
-                          <div class="form-group">
-                            <label class="col-sm-5 control-label">Total Transaksi</label>
-                            <div class="col-sm-7">
-                              <input type="text" id="distottrans" name="distottrans" class="form-control" readonly>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-sm-7">  
-                          <div class="form-group">
-                            <label class="col-sm-3 control-label">No. Dokumen</label>
-                            <div class="col-sm-8">
-                              <select name="no_dok_item" id="no_dok_item" class="form-control select2" style="width:100%;">
-                                <option selected="selected">-- Pilih Nomor Dokumen --</option>
-                              </select>
-                            </div>
-                          </div>  
-                          <div class="form-group">
-                            <label class="col-sm-3 control-label">Keterangan</label>
-                            <div class="col-sm-8">
-                              <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Keterangan">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label class="col-sm-3 control-label">Kode Barang</label>
-                            <div class="col-sm-8">
-                              <select name="kd_brg" id="kd_brg" class="form-control">
-                              </select>
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label class="col-sm-3 control-label">Jml dikeluarkan</label>
-                            <div class="col-sm-4">
-                              <input type="number" min="1" max name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah">
-                            </div>
-                            <div class="col-sm-4">
-                              <input type="text" name="satuan" id="satuan" class="form-control"  readonly>
-                            </div> 
-                          </div>                  
-                          <div class="form-group">
-                            <label class="col-sm-3 control-label">Saldo Barang</label>
-                            <div class="col-sm-8">
-                              <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="Saldo Barang" readonly >
-                            </div>
-                          </div>                  
-                        </div>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                   <div class="box-footer">
                     <button type="Reset" class="btn btn-default">Reset</button>
@@ -229,15 +139,33 @@
             {"targets": 4 },
             {"targets": 5 },
             {"orderable": false,
-             "visible": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
-                                  // '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
-                                  '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                  '<button id="btntmbh" class="btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
                                 '</div>',
              "targets": [6],"targets": 6 }         
 
           ],
+        });
+        $(document).on('click', '#btntmbh', function () {
+          var tr = $(this).closest('tr');
+          var row = table.row( tr );
+          manage = "trans_keluar";
+          id_row = row.data()[0];
+          jns_trans = row.data()[1];
+          satker = row.data()[2];
+          tgl_dok = row.data()[4];
+          tgl_buku = row.data()[5];
+          var $form=$(document.createElement('form')).css({display:'none'}).attr("method","POST").attr("action","trans_item_brg");
+          var $input=$(document.createElement('input')).css({display:'none'}).attr('name','id').val(id_row);
+          var $input2=$(document.createElement('input')).css({display:'none'}).attr('name','jenistrans').val(jns_trans);
+          var $input3=$(document.createElement('input')).css({display:'none'}).attr('name','tanggaldok').val(tgl_dok);
+          var $input4=$(document.createElement('input')).css({display:'none'}).attr('name','tanggalbuku').val(tgl_buku);
+          var $input5=$(document.createElement('input')).css({display:'none'}).attr('name','satker').val(satker);
+          var $input6=$(document.createElement('input')).css({display:'none'}).attr('name','manage').val(manage);
+          $form.append($input).append($input2).append($input3).append($input4).append($input5).append($input6);
+          $("body").append($form);
+          $form.submit();
         });
         $('#no_dok_item').change(function(){
           var identtrans = $(this).val();

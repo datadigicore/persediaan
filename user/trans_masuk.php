@@ -114,12 +114,6 @@
         $('#tgl_dok').datepicker({
           format: "dd-mm-yyyy"
         });
-        // $('#tgl_dok').datepicker().change(function() {
-        //   alert("haha");
-        // });
-        $( ".target" ).change(function() {
-          alert( "Handler for .change() called." );
-        });
         $('#tgl_buku').datepicker({
           format: "dd-mm-yyyy"
         });             
@@ -138,7 +132,8 @@
              "visible": false },
             {"targets": 4 },
             {"targets": 5 },
-            {"targets": 6 },
+            {"targets": 6,
+             "visible": false  },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
@@ -156,6 +151,7 @@
       $(document).on('click', '#btntmbh', function () {
         var tr = $(this).closest('tr');
         var row = table.row( tr );
+        manage = "trans_masuk";
         id_row = row.data()[0];
         jns_trans = row.data()[1];
         satker = row.data()[2];
@@ -167,7 +163,8 @@
         var $input3=$(document.createElement('input')).css({display:'none'}).attr('name','tanggaldok').val(tgl_dok);
         var $input4=$(document.createElement('input')).css({display:'none'}).attr('name','tanggalbuku').val(tgl_buku);
         var $input5=$(document.createElement('input')).css({display:'none'}).attr('name','satker').val(satker);
-        $form.append($input).append($input2).append($input3).append($input4).append($input5);
+        var $input6=$(document.createElement('input')).css({display:'none'}).attr('name','manage').val(manage);
+        $form.append($input).append($input2).append($input3).append($input4).append($input5).append($input6);
         $("body").append($form);
         $form.submit();
       });
@@ -183,20 +180,9 @@
 
       $('#addtransmsk').submit(function(e){
         var jns_trans = $("#jenis_trans").val();
-        var kd_brg = $("#kd_brg").val();
         var tahun_ang = $("#tahun_ang").val();
-        var sisa = $("#rph_sat").val();
-        var jumlah_input = $("#jml_msk").val();
         var tgl_dok = $("#tgl_dok").val();
         var tgl_buku = $("#tgl_buku").val();
-        var tgl_terakhir = "";
-        // var satkernodok = $("#read_no_dok").val();
-        // var disjenistrans = $("#distottrans").val();
-        // var distgldok = $("#distgldok").val();
-        // var distglbuku = $("#distglbuku").val();
-        // var dissatker = $("#dissatker").val();
-        // var distottrans = $("#distottrans").val();
-        // var no_dok_item = $("#no_dok_item").val();
         var no_dok = $("#no_dok").val();
 
         if(jns_trans!=""){
@@ -240,7 +226,8 @@
                    "visible": false },
                   {"targets": 4 },
                   {"targets": 5 },
-                  {"targets": 6 },
+                  {"targets": 6,
+                   "visible": false  },
                   {"orderable": false,
                    "data": null,
                    "defaultContent":  '<div class="box-tools">'+

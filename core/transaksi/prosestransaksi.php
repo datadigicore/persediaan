@@ -37,6 +37,17 @@ else
 				);
 			$Transaksi->bacasatkerdok($data);
 		break;
+		case 'readsatkerdoks':
+			$no_dok = $purifier->purify($_POST['no_dok']);
+			$kd_lokasi = $_SESSION['kd_lok'];
+			$thn_ang = $_SESSION['thn_ang'];
+			$data = array(
+				"no_dok" => $no_dok,
+				"kd_lokasi" => $kd_lokasi,
+				"thn_ang" => $thn_ang
+				);
+			$Transaksi->bacasatkerdoks($data);
+		break;
 		case 'readnodokklr':
 			$no_dok = $purifier->purify($_POST['no_dok']);
 			$kd_lokasi = $_SESSION['kd_lok'];
@@ -243,9 +254,8 @@ else
 			$hrg_sat = $purifier->purify($_POST['rph_sat']);
 			$status = 0;
 			$user_id = $_SESSION['username'];
-			if ($jns_trans!="") 
-			{
-				$no_dok = $satkernodok.'.'.$purifier->purify($_POST['no_dok']);
+			if ($kd_brg == "") {
+			$no_dok	= $satkernodok.'.'.$purifier->purify($_POST['no_dok']);
 				$data = array(
 					"kd_lokasi" => $kd_lokasi,
 					// "kd_lok_msk" => $kd_lok_msk,
@@ -266,7 +276,7 @@ else
 					// "harga_sat" => $hrg_sat,
 					// "keterangan" => $keterangan,
 				);
-				// print_r($data);
+				print_r($data);
 				$Transaksi->transaksi_masuk_ident($data);
 			}
 			else{
@@ -294,7 +304,6 @@ else
 				print_r($data);
 				$Transaksi->transaksi_masuk($data);
 			}
-
 			//========= Log History =========//
 			$kd_lokasi = $_SESSION['kd_lok'];
 			

@@ -883,7 +883,23 @@ class modelTransaksi extends mysql_db
                 echo '<option value="'.$row['kode'].'">'.$row['kode']."</option>";
             }
         }   
-    }    
+    }
+
+    public function bacasatkerdoks($data)
+    {
+        $nodok = $data['no_dok'];
+        $kdlokasi = $data['kd_lokasi'];
+        $thnang = $data['thn_ang'];
+        $query = "select kode from satker where kode like '$kdlokasi%'";
+        $result = $this->query($query);
+        while ($row = $this->fetch_array($result))
+        {
+            $str = $row['kode'];
+            if (substr_count($str,".") == 3) {
+                echo $row['kode'];
+            }
+        }   
+    }        
 
     public function bacanodok_klr($data)
     {
