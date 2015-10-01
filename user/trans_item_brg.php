@@ -99,7 +99,7 @@ else {
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Kode Barang</label>
                           <div class="col-sm-8">
-                            <select name="itembarang" id="itembarang" class="form-control select2">
+                            <select name="kd_brg" id="kd_brg" class="form-control select2">
                             </select>
                           </div>
                         </div>
@@ -215,7 +215,7 @@ else {
     var table;
       $(function () {
         $(".select2").select2();
-        $("#itembarang").select2({
+        $("#kd_brg").select2({
           placeholder: "-- Pilih Kode Item Barang --",
           ajax: {
             url: '../core/transaksi/prosestransaksi',
