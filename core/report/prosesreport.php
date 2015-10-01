@@ -118,7 +118,7 @@ else
 			"satker_asal" => $satker_asal,
 			"user_id" => $user_id);
 			if($format=="pdf"){
-				$Report->rincian_persediaan($data);
+				$Report->rincian_persediaan2($data);
 			}
 			else {
 				$Report->rincian_persediaan_excel($data);
