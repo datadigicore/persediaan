@@ -28,6 +28,13 @@ else
 			$Barang->bacasskel();
 		break;
 
+		case 'readbarang':
+			$Barang->bacabarang();
+		break;
+
+		case 'readsatuan':
+			$Barang->bacassatuan();
+		break;
 
 		case 'cekbarang':
 

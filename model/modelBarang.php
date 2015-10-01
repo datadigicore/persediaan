@@ -102,6 +102,33 @@ class modelBarang extends mysql_db
 		}	
 	}
 
+	public function bacabarang()
+	{
+		$query = "select kd_brg, nm_brg from persediaan order by kd_brg asc";
+        $result = $this->query($query);
+        echo '<option value="">-- Pilih Kode Barang --</option>';
+		while ($row = $this->fetch_array($result))
+		{
+			
+			echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg']."</option>";
+		}	
+	}
+
+	public function bacassatuan()
+	{
+		$query = "select satuan from persediaan group by satuan asc";
+        $result = $this->query($query);
+        echo '<option value="">-- Pilih Satuan Barang --</option>';
+		while ($row = $this->fetch_array($result))
+		{
+			if ($row['satuan'] == " " or $row['satuan'] == "" or $row['satuan'] == ";") {
+				
+			}
+			else{
+				echo '<option value="'.$row['satuan'].'">'.$row['satuan']."</option>";
+			}
+		}	
+	}
 
 	public function ubah_barang($data)
 	{

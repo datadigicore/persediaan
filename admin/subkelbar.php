@@ -30,7 +30,12 @@
                   <div class="box-body">
                     <div class="form-group" style="margin-top:15px;">
                       <label class="col-sm-2 control-label">Kode Barang </label>
-                      <div class="col-sm-9">
+                      <div class="col-sm-4">
+                        <select name="kdbarang_item" id="kdbarang_item" class="form-control select2">
+                          <option selected="selected">-- Pilih Kode Barang --</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-5">
                         <input type="text" name="kdbarang" class="form-control" id="kdbarang" placeholder="Masukkan Kode Barang">
                         <input type="hidden" name="manage" value="addbarang">
                       </div>
@@ -41,10 +46,25 @@
                         <input type="text" name="nmbarang" class="form-control" id="nmbarang" placeholder="Masukkan Uraian Barang">
                       </div>
                     </div>
+                    <div class="form-group" style="margin-top:15px;">
+                      <label class="col-sm-2 control-label">Spesifikasi </label>
+                      <div class="col-sm-9">
+                        <input type="text" name="kdbarang" class="form-control" id="kdbarang" placeholder="Masukkan Kode Barang">
+                        <input type="hidden" name="manage" value="addbarang">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Satuan</label>
+                      <div class="col-sm-9">
+                        <select name="satuan" id="satuan" class="form-control select2">
+                          <option selected="selected">-- Pilih Satuan Barang --</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
                   <div class="box-footer">
                     <button type="Reset" class="btn btn-default">Reset</button>
-                    <button type="submit" class="btn btn-info pull-right">Submit</button>
+                    <button type="submit" class="btn btn-primary pull-right">Submit</button>
                   </div>
                 </form>
               </div>
@@ -56,8 +76,12 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
+                        <th>ID</th>
                         <th width="16%">Kode Barang</th>
-                        <th>Uraian Sub-Sub Kelompok Barang</th>
+                        <th>Uraian Barang</th>
+                        <th>Spesifikasi</th>
+                        <th width="16%">Satuan</th>
+                        <th width="12.5%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -74,6 +98,7 @@
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
+        $(".select2").select2();
         $(".treeview").addClass("active");
         $("li#subkelbar").addClass("active");
         $("#example1").DataTable({
@@ -82,10 +107,37 @@
           "ajax": "../core/loadtable/loadsubkelbar",
           "columnDefs":
           [
-            {"targets": 0 },
-            {"targets": 1 }
+            {"targets": 0,
+             "visible": false },
+            {"targets": 1 },
+            {"targets": 2 },
+            {"targets": 3 },
+            {"targets": 4 },
+            {"orderable": false,
+             "data": null,
+             "defaultContent":  '<div class="box-tools">'+
+                                  '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
+                                  '<button id="btnhps" class="btn btn-danger btn-xs btn-flat pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
+                                '</div>',
+             "targets": [5],"targets": 5 }
           ],
         });
+      });
+      $.ajax({
+        type: "post",
+        url: '../core/barang/prosesbarang',
+        data: {manage:'readsatuan'},
+        success: function (output) {     
+          $('#satuan').html(output);
+        }
+      });
+      $.ajax({
+        type: "post",
+        url: '../core/barang/prosesbarang',
+        data: {manage:'readbarang'},
+        success: function (output) {     
+          $('#kdbarang_item').html(output);
+        }
       });
     </script>
   </body>

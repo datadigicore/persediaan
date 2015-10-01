@@ -5,15 +5,18 @@
 #Gunadarma University
 
 // Table yang di load
-$table = 'sskel';
+$table = 'persediaan';
  
 // Primary Key table
-$primaryKey = 'kd_sskel';
+$primaryKey = 'id';
  
 // Load Data berdasarkan nama table nya
 $columns = array(
-    array( 'db' => 'kd_brg', 'dt' => 0 ),
-    array( 'db' => 'nm_sskel', 'dt' => 1 )
+    array( 'db' => 'id', 'dt' => 0 ),
+    array( 'db' => 'kd_brg', 'dt' => 1 ),
+    array( 'db' => 'nm_brg', 'dt' => 2 ),
+    array( 'db' => 'spesifikasi', 'dt' => 3 ),
+    array( 'db' => 'satuan', 'dt' => 4 )
 );
  
 // Settingan Koneksi Datatable
