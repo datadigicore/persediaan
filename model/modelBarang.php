@@ -33,6 +33,22 @@ class modelBarang extends mysql_db
         $result = $this->query($query);
 		return $result;
 	}
+	public function ubahsubbrg($data)
+	{
+		$id = $data['id'];
+		$kd_brg = $data['kdbrg'];
+		$nm_brg = $data['nmbrg'];
+		$spesifikasi = $data['spesifikasi'];
+		$satuan = $data['satuan'];
+		$query = "UPDATE persediaan
+        			set kd_brg='$kd_brg',
+        			nm_brg='$nm_brg',
+                    spesifikasi='$spesifikasi',
+                    satuan='$satuan'
+                    where id = '$id'";
+        $result = $this->query($query);
+		return $result;
+	}
 
 	public function tambahbrg($data)
 	{
@@ -93,9 +109,7 @@ class modelBarang extends mysql_db
         			nm_satker='$nm_satker',
         			user_id='$user_id', 
         			aksi='$aksi',
-        			kd_kbrg='$kd_kbrg',
         			nm_sskel='$nm_sskel',
-        			kd_jbrg='$kd_jbrg',
         			kd_brg='$kd_brg',
         			nm_brg='$nm_brg',
                     satuan='$satuan',

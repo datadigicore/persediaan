@@ -64,8 +64,8 @@ else
 		    print_r($data);
 			$Barang->tambahsubbrg($data);
 			$datalog = array(
-				"kdbrg" => $kdbarang,
-				"nmbrg" => $nmbarang,
+				"kd_brg" => $kdbarang,
+				"nm_brg" => $nmbarang,
 				"spesifikasi" => $spesifikasi,
 				"satuan" => $satuan,
 				"aksi" => "T-Persediaan"
@@ -158,6 +158,31 @@ else
 		    	
 		    );
         	
+			$Barang->loghistory($datalog);
+		break;
+
+		case 'updsubbarang':
+			$id = $purifier->purify($_POST['id']);
+			$kdbarang = $purifier->purify($_POST['updkdbarang']);
+			$nmbarang = $purifier->purify($_POST['updurbarang']);
+			$spesifikasi = $purifier->purify($_POST['updspesifikasi']);
+			$satuan = $purifier->purify($_POST['updsatuan']);
+			$data = array(
+				"id" => $id,
+				"kdbrg" => $kdbarang,
+				"nmbrg" => $nmbarang,
+				"spesifikasi" => $spesifikasi,
+				"satuan" => $satuan,
+		    );
+		    // print_r($data);
+			$Barang->ubahsubbrg($data);
+			$datalog = array(
+				"kdbrg" => $kdbarang,
+				"nmbrg" => $nmbarang,
+				"spesifikasi" => $spesifikasi,
+				"satuan" => $satuan,
+				"aksi" => "U-Persediaan"
+		    );
 			$Barang->loghistory($datalog);
 		break;
 

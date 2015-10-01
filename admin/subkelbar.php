@@ -195,7 +195,7 @@
         '<form action="../core/barang/prosesbarang" method="post" class="form-horizontal" id="updbarang">'+
         '<table width="100%">'+
            '<tr>'+
-              '<input type="hidden" name="manage" value="updbarang">'+
+              '<input type="hidden" name="manage" value="updsubbarang">'+
               '<input type="hidden" name="id" value="'+d[0]+'">'+
               '<td width="15.8%"><input style="width:95%" id="kdbarang'+d[0]+'" name="updkdbarang" class="form-control" type="text" placeholder="Kode Barang"></td>'+
               '<td width="44.2%"><input style="width:98.2%" id="urbarang'+d[0]+'" name="updurbarang" class="form-control" type="text" placeholder="Uraian Barang"></td>'+
@@ -218,7 +218,7 @@
         });
         $('#myModal').modal('show');
         e.preventDefault();
-        redirectTime = "2600";
+        redirectTime = "1000";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({
@@ -231,10 +231,13 @@
           success: function(data)
           {
             $("#success-alert").alert();
-            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+            $("#success-alert").fadeTo(500, 500).slideUp(500, function(){
             $("#success-alert").alert('close');
             });
-            setTimeout("location.href = redirectURL;",redirectTime); 
+            setTimeout("$('#myModal').modal('hide');",redirectTime);
+            $("#example1").DataTable().destroy();
+            $("#example1 tbody").empty();
+            myTable();
           }
         });
         return false;
