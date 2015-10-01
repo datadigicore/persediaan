@@ -12,8 +12,8 @@ else
 	switch ($manage)
 	{
 		case 'readbrg':
-			$data = $_SESSION['kd_lok'];
-			$Transaksi->bacabrg($data);
+			$search = $_POST['q'];
+			$Transaksi->bacabrg($search);
 		break;		
 		case 'readnodok':
 			$no_dok = $purifier->purify($_POST['no_dok']);

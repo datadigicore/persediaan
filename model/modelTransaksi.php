@@ -840,23 +840,18 @@ class modelTransaksi extends mysql_db
   
     public function bacabrg($data)
     {
-        $str = $data;
-        // if (substr_count($str,".") == 1) {
-        //     $query = "select kd_brg, nm_brg from persediaan where kd_lokasi like '$data.%.%'";
-        // }
-        // else if (substr_count($str,".") == 2) {
-        //     $query = "select kd_brg, nm_brg from persediaan where kd_lokasi like '$data.%'";
-        // }
-        // else{
-        //     $query = "select kd_brg, nm_brg from persediaan where kd_lokasi = '$data'";
-        // }
-        $query = "select kd_brg, nm_brg, spesifikasi from persediaan";
+        $query = "select kd_brg, nm_brg, spesifikasi from persediaan where CONCAT(kd_brg,' ',nm_brg,' ',spesifikasi) like '%$data%'";
         $result = $this->query($query);
-        echo '<option value="">-- Pilih Kode Barang --</option>';
+        $json = array();
         while ($row = $this->fetch_array($result))
         {
-            echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg'].' '.$row['spesifikasi']."</option>";
+            $dynamic = array(
+                'id' => $row['kd_brg'],
+                'text' => $row['kd_brg']." ".$row['nm_brg']." ".$row['spesifikasi']
+            );
+            array_push($json, $dynamic);
         }   
+        echo json_encode($json);
     }    
 
     public function bacanodok($data)
