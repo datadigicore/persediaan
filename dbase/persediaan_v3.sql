@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 01 Okt 2015 pada 02.19
+-- Generation Time: 01 Okt 2015 pada 11.18
 -- Versi Server: 5.6.25
 -- PHP Version: 5.6.11
 
@@ -276,34 +276,6 @@ CREATE TABLE IF NOT EXISTS `log_persediaan` (
   `tgl_update` datetime DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `log_persediaan`
---
-
-INSERT INTO `log_persediaan` (`id`, `kd_lokasi`, `nm_satker`, `user_id`, `aksi`, `kd_kbrg`, `nm_sskel`, `kd_jbrg`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `tgl_update`) VALUES
-(40, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 'ffd', 'T-Persediaan', '1010304008', '', '000001', '1010304008000001', 'Samsung DVD RW 24x', NULL, 'Buah', '2015-09-25 03:37:16'),
-(41, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 'ffd', 'H-Persediaan', '1010304006', '', '1371', '10103040061371', 'SEAGATE', NULL, 'Buah', '2015-09-28 07:36:51'),
-(42, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 'ffd', 'H-Persediaan', '1010101001', '', '88', '101010100188', 'Aspal Cair', NULL, 'Drum', '2015-09-28 07:36:57'),
-(43, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 'ffd', 'H-Persediaan', '1010101001', '', '072', '1010101001072', 'Aspal Biasa', NULL, 'Drum', '2015-09-28 07:37:02'),
-(44, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 'ffd', 'H-Persediaan', '1010101001', '', '231', '1010101001231', 'ASPAL TIGA RODA', NULL, 'Drum', '2015-09-28 07:37:07'),
-(45, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 'ffd', 'H-Persediaan', '1010101001', '', '213', '1010101001213', 'Aspal Kristal', NULL, 'Drum', '2015-09-28 07:37:12'),
-(46, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 'ffd', 'H-Persediaan', '1010301010', '', '23', '101030101023', 'Lem Aibon', NULL, 'Kaleng', '2015-09-28 07:37:17'),
-(47, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 'ffd', 'T-Persediaan', '1010101020', '', '000001', '1010101020000001', 'Karung Goni', NULL, 'Buah', '2015-09-28 07:38:01'),
-(48, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 'ffd', 'T-Persediaan', '1010101020', '', '000001', '1010101020000001', 'Karung Goni', NULL, 'Buah', '2015-09-28 07:38:45'),
-(49, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 'ffd', 'T-Persediaan', '1010301001', '', '000001', '1010301001000001', 'Pulpen Faster Hitam', NULL, 'Lusin', '2015-09-28 11:16:15'),
-(50, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 'ffd', 'T-Persediaan', '1010306009', '', '1', '10103060091', 'a', NULL, 'a', '2015-09-29 09:57:46'),
-(51, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 'ffd', 'H-Persediaan', '1010306009', '', '1', '10103060091', 'a', NULL, 'a', '2015-09-29 10:00:14'),
-(52, '50.04.12.01', 'Kelurahan Banyurip Ageng', 'ffst', 'T-Persediaan', '1010306009', '', '000001', '1010306009000001', 'a', NULL, 'a', '2015-09-29 10:07:33'),
-(53, '50.04.12.01', 'Kelurahan Banyurip Ageng', 'ffst', 'H-Persediaan', '1010306009', '', '000001', '1010306009000001', 'a', NULL, 'a', '2015-09-29 10:10:16'),
-(54, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 'adit', 'T-Persediaan', '1010301005', '', '000001', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, 'Buah', '2015-09-29 10:28:37'),
-(55, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 'adit', 'T-Persediaan', '1010302001', '', '000001', '1010302001000001', 'Sinar Dunia A4 80gr', NULL, 'Rim', '2015-09-29 10:30:03'),
-(56, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 'adit', 'T-Persediaan', '1010306009', '', '000004', '1010306009000004', 'accu', NULL, 'pack', '2015-09-30 10:27:17'),
-(57, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 'ffd', 'T-Persediaan', '1010305006', '', '000001', '1010305006000001', 'Lem', NULL, 'Buah', '2015-09-30 10:53:48'),
-(58, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 'adit', 'H-Persediaan', '1010306009', '', '000004', '1010306009000004', 'accu', NULL, 'pack', '2015-09-30 03:42:59'),
-(59, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 'adit', 'H-Persediaan', '1010301005', '', '000001', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, 'Buah', '2015-09-30 03:43:03'),
-(60, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 'adit', 'H-Persediaan', '1010302001', '', '000001', '1010302001000001', 'Sinar Dunia A4 80gr', NULL, 'Rim', '2015-09-30 03:43:08'),
-(61, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 'adit', 'T-Persediaan', '1010306010', '', '000001', '1010306010000001', 'Baterai ABC 1000 mAH', NULL, 'Buah', '2015-09-30 03:46:28');
-
 -- --------------------------------------------------------
 
 --
@@ -330,48 +302,7 @@ CREATE TABLE IF NOT EXISTS `log_trans_keluar` (
   `jns_trans` varchar(5) NOT NULL,
   `keterangan` varchar(100) NOT NULL,
   `tgl_update` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `log_trans_keluar`
---
-
-INSERT INTO `log_trans_keluar` (`id`, `kd_lokasi`, `nm_satker`, `thn_ang`, `user_id`, `aksi`, `no_dok`, `tgl_dok`, `tgl_buku`, `no_bukti`, `kd_brg`, `nm_brg`, `spesifikasi`, `qty`, `harga_sat`, `total_harga`, `jns_trans`, `keterangan`, `tgl_update`) VALUES
-(1, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, 'ffd', 'T-transaksi keluar', '21.01', '2015-09-02', '2015-09-02', '', '10103060091', '', NULL, 80, 91, 7280, 'K01', '', '2015-09-29 09:59:27'),
-(2, '21.01.01.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, 'ffd', 'H-transaksi keluar', '21.01.01.01.klr', '2015-09-02', '2015-09-02', '', '10103060091', 'a', NULL, -61, 10000, -610000, 'K01', '', '2015-09-29 09:59:41'),
-(3, '21.01.01.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, 'ffd', 'H-transaksi keluar', '21.01.01.01.klr', '2015-09-02', '2015-09-02', '', '10103060091', 'a', NULL, -19, 20000, -380000, 'K01', '', '2015-09-29 09:59:49'),
-(4, '50.04.12.01', 'Kelurahan Banyurip Ageng', 2015, 'ffst', 'T-transaksi keluar', '50.04.12.01', '2015-05-01', '2015-05-01', '', '1010306009000001', 'a', NULL, 90, 98, 8820, 'K03', '', '2015-09-29 10:09:06'),
-(5, '50.04.12.01', 'Kelurahan Banyurip Ageng', 2015, 'ffst', 'H-transaksi keluar', '50.04.12.01.klr', '2015-05-01', '2015-05-01', '', '1010306009000001', 'a', NULL, -82, 12000, -984000, 'K03', '', '2015-09-29 10:09:21'),
-(6, '50.04.12.01', 'Kelurahan Banyurip Ageng', 2015, 'ffst', 'H-transaksi keluar', '50.04.12.01.klr', '2015-05-01', '2015-05-01', '', '1010306009000001', 'a', NULL, -8, 30000, -240000, 'K03', '', '2015-09-29 10:09:28'),
-(7, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi keluar', '08.01.01.01', '2015-04-01', '2015-04-04', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, 7, 20, 140, 'K01', '', '2015-09-29 11:13:38'),
-(8, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi keluar', '08.01.01.01', '2015-04-01', '2015-04-04', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, 4, 13, 52, 'K01', '', '2015-09-29 11:15:30'),
-(9, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'H-transaksi keluar', '08.01.01.01.KLR', '2015-04-01', '2015-04-04', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, -7, 50000, -350000, 'K01', '', '2015-09-29 01:32:44'),
-(10, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'H-transaksi keluar', '08.01.01.01.KLR', '2015-04-01', '2015-04-04', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, -1, 60000, -60000, 'K01', '', '2015-09-29 01:32:56'),
-(11, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'H-transaksi keluar', '08.01.01.01.KLR', '2015-04-01', '2015-04-04', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, -3, 50000, -150000, 'K01', '', '2015-09-29 01:33:04'),
-(12, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi keluar', '08.01.01.01', '2015-02-19', '2015-02-19', '', '1010302001000001', 'Sinar Dunia A4 80gr', NULL, 17, 30, 510, 'K01', '', '2015-09-29 01:40:54'),
-(13, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi keluar', '08.01.01.01', '2015-02-19', '2015-02-19', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, 8, 10, 80, 'K01', '', '2015-09-29 01:41:06'),
-(14, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi keluar', '08.01.01.01', '2015-04-13', '2015-04-13', '', '1010302001000001', 'Sinar Dunia A4 80gr', NULL, 10, 23, 230, 'K02', '', '2015-09-29 10:59:50'),
-(15, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi keluar', '08.01.01.01', '2015-04-13', '2015-04-13', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, 5, 12, 60, 'K02', '', '2015-09-29 11:00:13'),
-(16, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'H-transaksi keluar', '08.01.01.01.HP01', '2015-02-19', '2015-02-19', '', '1010302001000001', 'Sinar Dunia A4 80gr', NULL, -17, 15000, -255000, 'K01', '', '2015-09-30 09:19:34'),
-(17, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'H-transaksi keluar', '08.01.01.01.HP01', '2015-02-19', '2015-02-19', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, -8, 10000, -80000, 'K01', '', '2015-09-30 09:19:42'),
-(18, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'H-transaksi keluar', '08.01.01.01.klr', '2015-04-13', '2015-04-13', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, -3, 15000, -45000, 'K02', '', '2015-09-30 09:19:54'),
-(19, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'H-transaksi keluar', '08.01.01.01.klr', '2015-04-13', '2015-04-13', '', '1010302001000001', 'Sinar Dunia A4 80gr', NULL, -10, 15000, -150000, 'K02', '', '2015-09-30 09:20:04'),
-(20, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'H-transaksi keluar', '08.01.01.01.klr', '2015-04-13', '2015-04-13', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, -2, 10000, -20000, 'K02', '', '2015-09-30 09:20:12'),
-(21, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi keluar', '08.01.01.01', '0000-00-00', '0000-00-00', '', '', '', NULL, 0, 0, 0, '', '', '2015-09-30 09:20:52'),
-(22, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi keluar', '08.01.01.01', '0000-00-00', '0000-00-00', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, 16, 20, 320, 'K01', '', '2015-09-30 09:21:01'),
-(23, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi keluar', '08.01.01.01', '0000-00-00', '0000-00-00', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, 4, 4, 16, 'K01', '', '2015-09-30 09:25:04'),
-(24, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi keluar', '08.01.01.01', '0000-00-00', '0000-00-00', '', '1010306009000004', 'accu', NULL, 7, 9, 63, 'K01', '', '2015-09-30 10:27:59'),
-(25, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'H-transaksi keluar', '08.01.01.01.HPA', '2015-07-01', '2015-07-01', '', '1010306009000004', 'accu', NULL, -7, 12000, -84000, 'K01', '', '2015-09-30 10:28:17'),
-(26, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'H-transaksi keluar', '08.01.01.01.HPA', '2015-07-01', '2015-07-01', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, -10, 15000, -150000, 'K01', '', '2015-09-30 10:28:30'),
-(27, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi keluar', '08.01.01.01', '0000-00-00', '0000-00-00', '', '', '', NULL, 0, 0, 0, '', '', '2015-09-30 11:20:48'),
-(28, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi keluar', '08.01.01.01', '0000-00-00', '0000-00-00', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, 8, 10, 80, 'K01', '', '2015-09-30 11:21:12'),
-(29, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, 'ffd', 'T-transaksi keluar', '21.01', '0000-00-00', '0000-00-00', '', '', '', NULL, 0, 0, 0, '', '', '2015-09-30 12:39:57'),
-(30, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, 'ffd', 'T-transaksi keluar', '21.01', '0000-00-00', '0000-00-00', '', '1010305006000001', '', NULL, 7, 10, 70, 'K02', '', '2015-09-30 12:40:06'),
-(31, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi keluar', '08.01.01.01', '0000-00-00', '0000-00-00', '', '1010302001000001', 'Sinar Dunia A4 80gr', NULL, 200, 300, 60000, 'K01', '', '2015-09-30 02:05:37'),
-(32, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'H-transaksi keluar', '08.01.01.01.KLR', '2015-02-01', '2015-02-01', '', '1010302001000001', 'Sinar Dunia A4 80gr', NULL, -200, 1000, -200000, 'K01', '', '2015-09-30 03:42:26'),
-(33, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'H-transaksi keluar', '08.01.01.01.KLR', '2015-02-01', '2015-02-01', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, -8, 10000, -80000, 'K01', '', '2015-09-30 03:42:34'),
-(34, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi keluar', '08.01.01.01', '0000-00-00', '0000-00-00', '', '', '', NULL, 0, 0, 0, '', '', '2015-09-30 03:48:51'),
-(35, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi keluar', '08.01.01.01', '0000-00-00', '0000-00-00', '', '1010306010000001', 'Baterai ABC 1000 mAH', NULL, 24, 30, 720, 'K01', '', '2015-09-30 03:49:04');
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -399,51 +330,7 @@ CREATE TABLE IF NOT EXISTS `log_trans_masuk` (
   `jns_trans` varchar(5) NOT NULL,
   `keterangan` varchar(100) NOT NULL,
   `tgl_update` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `log_trans_masuk`
---
-
-INSERT INTO `log_trans_masuk` (`id`, `kd_lokasi`, `nm_satker`, `thn_ang`, `user_id`, `aksi`, `no_dok`, `tgl_dok`, `tgl_buku`, `no_bukti`, `kd_brg`, `nm_brg`, `spesifikasi`, `qty`, `harga_sat`, `total_harga`, `jns_trans`, `keterangan`, `tgl_update`) VALUES
-(2, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, 'ffd', 'T-transaksi masuk', '21.01.01.01.m', '2015-01-01', '2015-01-01', '', '10103060091', 'a', NULL, 61, 10000, 610000, 'M02', 'b', '2015-09-29 09:58:23'),
-(3, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, 'ffd', 'T-transaksi masuk', '21.01.01.01.m', '2015-01-01', '2015-01-01', '', '10103060091', 'a', NULL, 30, 20000, 600000, 'M02', '', '2015-09-29 09:59:08'),
-(4, '21.01.01.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, 'ffd', 'H-transaksi masuk', '21.01.01.01.m', '2015-01-01', '2015-01-01', '', '10103060091', 'a', NULL, 61, 10000, 610000, 'M02', 'b', '2015-09-29 09:59:58'),
-(5, '21.01.01.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, 'ffd', 'H-transaksi masuk', '21.01.01.01.m', '2015-01-01', '2015-01-01', '', '10103060091', 'a', NULL, 30, 20000, 600000, 'M02', '', '2015-09-29 10:00:05'),
-(7, '50.04.12.01', 'Kelurahan Banyurip Ageng', 2015, 'ffst', 'T-transaksi masuk', '50.04.12.01.msk', '2015-01-01', '2015-01-01', '', '1010306009000001', 'a', NULL, 8, 30000, 240000, 'M02', '', '2015-09-29 10:08:04'),
-(8, '50.04.12.01', 'Kelurahan Banyurip Ageng', 2015, 'ffst', 'T-transaksi masuk', '50.04.12.01.msk', '2015-01-01', '2015-01-01', '', '1010306009000001', 'a', NULL, 90, 12000, 1080000, 'M02', '', '2015-09-29 10:08:28'),
-(9, '50.04.12.01', 'Kelurahan Banyurip Ageng', 2015, 'ffst', 'H-transaksi masuk', '50.04.12.01.msk', '2015-01-01', '2015-01-01', '', '1010306009000001', 'a', NULL, 8, 30000, 240000, 'M02', '', '2015-09-29 10:09:37'),
-(10, '50.04.12.01', 'Kelurahan Banyurip Ageng', 2015, 'ffst', 'H-transaksi masuk', '50.04.12.01.msk', '2015-01-01', '2015-01-01', '', '1010306009000001', 'a', NULL, 90, 12000, 1080000, 'M02', '', '2015-09-29 10:09:44'),
-(12, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi masuk', '08.01.01.01.P001', '2015-01-01', '2015-01-01', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, 10, 50000, 500000, 'M02', '', '2015-09-29 10:47:51'),
-(13, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi masuk', '08.01.01.01.P002', '2015-03-01', '2015-03-01', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, 10, 50000, 500000, 'M02', '', '2015-09-29 10:51:38'),
-(14, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi masuk', '08.01.01.01.P002', '2015-03-01', '2015-03-01', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, 10, 60000, 600000, 'M02', '', '2015-09-29 10:58:44'),
-(15, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'H-transaksi masuk', '08.01.01.01.P002', '2015-03-01', '2015-03-01', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, 10, 60000, 600000, 'M02', '', '2015-09-29 01:33:13'),
-(16, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'H-transaksi masuk', '08.01.01.01.P001', '2015-01-01', '2015-01-01', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, 10, 50000, 500000, 'M02', '', '2015-09-29 01:33:20'),
-(18, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi masuk', '08.01.01.01.SA01', '2015-01-01', '2015-01-01', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, 10, 10000, 100000, 'M01', '', '2015-09-29 01:36:19'),
-(19, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi masuk', '08.01.01.01.SA01', '2015-01-01', '2015-01-01', '', '1010302001000001', 'Sinar Dunia A4 80gr', NULL, 30, 15000, 450000, 'M01', '', '2015-09-29 01:36:41'),
-(21, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi masuk', '08.01.01.01.SSD', '2015-02-01', '2015-02-01', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, 10, 15000, 150000, 'M02', '', '2015-09-29 10:52:56'),
-(22, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi masuk', '08.01.01.01.SSD', '2015-02-01', '2015-02-01', '', '1010302001000001', 'Sinar Dunia A4 80gr', NULL, 10, 20000, 200000, 'M02', '', '2015-09-29 10:53:15'),
-(24, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi masuk', '08.01.01.01.msk', '2015-05-12', '2015-05-12', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, 10, 5000, 50000, 'M02', '', '2015-09-30 05:59:25'),
-(25, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi masuk', '08.01.01.01.msk', '2015-05-12', '2015-05-12', '', '1010302001000001', 'Sinar Dunia A4 80gr', NULL, 44, 30000, 1320000, 'M02', '', '2015-09-30 05:59:46'),
-(27, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'H-transaksi masuk', '08.01.01.01.SSD', '2015-02-01', '2015-02-01', '', '1010302001000001', 'Sinar Dunia A4 80gr', NULL, 10, 20000, 200000, 'M02', '', '2015-09-30 09:11:58'),
-(28, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'H-transaksi masuk', '08.01.01.01.SA01', '2015-01-01', '2015-01-01', '', '1010302001000001', 'Sinar Dunia A4 80gr', NULL, 30, 15000, 450000, 'M01', '', '2015-09-30 09:13:47'),
-(30, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'H-transaksi masuk', '08.01.01.01.SA01', '2015-01-01', '2015-01-01', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, 10, 10000, 100000, 'M01', '', '2015-09-30 09:14:43'),
-(34, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi masuk', '08.01.01.01.SSD', '2015-02-01', '2015-02-01', '', '1010302001000001', 'Sinar Dunia A4 80gr', NULL, 10, 3000, 30000, 'M02', '', '2015-09-30 09:15:54'),
-(35, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'H-transaksi masuk', '08.01.01.01.SSD', '2015-02-01', '2015-02-01', '', '1010302001000001', 'Sinar Dunia A4 80gr', NULL, 10, 3000, 30000, 'M02', '', '2015-09-30 09:15:57'),
-(37, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi masuk', '08.01.01.01.ssh', '2015-09-02', '2015-09-02', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, 7, 10000, 70000, 'M03', '', '2015-09-30 10:24:32'),
-(38, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi masuk', '08.01.01.01.SSD', '2015-02-01', '2015-02-01', '', '1010306009000004', 'accu', NULL, 9, 12000, 108000, 'M02', '', '2015-09-30 10:27:45'),
-(40, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi masuk', '08.01.01.01.MSK', '2015-01-01', '2015-01-01', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, 10, 10000, 100000, 'M02', '', '2015-09-30 11:20:27'),
-(42, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, 'ffd', 'T-transaksi masuk', '21.01.01.01.002', '2015-02-01', '2015-02-02', '', '1010305006000001', 'Lem', NULL, 5, 3000, 15000, 'M02', '', '2015-09-30 12:17:11'),
-(43, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, 'ffd', 'T-transaksi masuk', '21.01.01.01.002', '2015-02-01', '2015-02-02', '', '1010305006000001', 'Lem', NULL, 5, 3000, 15000, 'M02', '', '2015-09-30 12:17:11'),
-(44, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi masuk', '08.01.01.01.MSK', '2015-01-01', '2015-01-01', '', '1010302001000001', 'Sinar Dunia A4 80gr', NULL, 300, 1000, 300000, 'M02', '300', '2015-09-30 02:03:09'),
-(45, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi masuk', '08.01.01.01.MSK', '2015-01-01', '2015-01-01', '', '1010302001000001', 'Sinar Dunia A4 80gr', NULL, 9, 9, 81, 'M02', '', '2015-09-30 02:23:48'),
-(46, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'H-transaksi masuk', '08.01.01.01.MSK', '2015-01-01', '2015-01-01', '', '1010301005000001', 'Tisera Buku kecil Tbl 50', NULL, 10, 10000, 100000, 'M02', '', '2015-09-30 03:42:41'),
-(47, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'H-transaksi masuk', '08.01.01.01.MSK', '2015-01-01', '2015-01-01', '', '1010302001000001', 'Sinar Dunia A4 80gr', NULL, 300, 1000, 300000, 'M02', '300', '2015-09-30 03:42:47'),
-(48, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'H-transaksi masuk', '08.01.01.01.MSK', '2015-01-01', '2015-01-01', '', '1010302001000001', 'Sinar Dunia A4 80gr', NULL, 9, 9, 81, 'M02', '', '2015-09-30 03:42:54'),
-(50, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi masuk', '08.01.01.01.abc', '2015-01-01', '2015-01-01', '', '1010306010000001', 'Baterai ABC 1000 mAH', NULL, 10, 2000, 20000, 'M02', '', '2015-09-30 03:47:12'),
-(52, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi masuk', '08.01.01.01.bca', '2015-02-01', '2015-02-01', '', '1010306010000001', 'Baterai ABC 1000 mAH', NULL, 20, 2000, 40000, 'M02', '20', '2015-09-30 03:48:21'),
-(53, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi masuk', '08.01.01.01.abc', '2015-01-01', '2015-01-01', '', '01.01.07.01.01.01.03', 'Ballpoint', NULL, 10, 1000, 10000, 'M02', '', '2015-10-01 06:59:14'),
-(54, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'adit', 'T-transaksi masuk', '08.01.01.01.abc', '2015-01-01', '2015-01-01', '', '01.01.07.01.01.01.54', 'Penggaris', NULL, 10, 1000, 10000, 'M02', '', '2015-10-01 07:00:15');
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -465,10 +352,10 @@ CREATE TABLE IF NOT EXISTS `opname` (
   `kd_sskel` varchar(15) DEFAULT NULL,
   `nm_sskel` varchar(30) DEFAULT NULL,
   `kd_brg` varchar(30) NOT NULL,
-  `nm_brg` varchar(30) DEFAULT NULL,
+  `nm_brg` varchar(70) DEFAULT NULL,
   `spesifikasi` varchar(70) DEFAULT NULL,
   `kd_perk` varchar(7) DEFAULT NULL,
-  `nm_perk` varchar(20) DEFAULT NULL,
+  `nm_perk` varchar(70) DEFAULT NULL,
   `satuan` varchar(10) DEFAULT NULL,
   `qty` mediumint(9) NOT NULL,
   `harga_sat` int(11) NOT NULL,
@@ -481,7 +368,7 @@ CREATE TABLE IF NOT EXISTS `opname` (
   `status_ambil` tinyint(1) NOT NULL DEFAULT '0',
   `tgl_update` date DEFAULT NULL,
   `user_id` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -598,15 +485,15 @@ CREATE TABLE IF NOT EXISTS `persediaan` (
   `satuan` varchar(19) DEFAULT NULL,
   `kd_perk` varchar(15) DEFAULT NULL,
   `nm_perk` varchar(70) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5894 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5892 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `persediaan`
 --
 
 INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`) VALUES
-(5, '01', '01', '07', '01', '', '', '', NULL, NULL, '01.01.07.01', 'Persediaan Bahan Pakai Habis', '', '', NULL, NULL),
-(6, '01', '01', '07', '01', '01', '', '', NULL, NULL, '01.01.07.01.01', 'Persediaan Perlengkapan dan Alat Tulis Kantor', '', '', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor'),
+(5, '01', '01', '07', '01', '', '', '', NULL, NULL, '01.01.07.01', 'Persediaan Bahan Pakai Habis', '', '', '11701', 'Persediaan Bahan Pakai Habis'),
+(6, '01', '01', '07', '01', '01', '', '', NULL, NULL, '01.01.07.01.01', 'Persediaan Perlengkapan dan Alat Tulis Kantor', '', '', '1170101', 'Persediaan Perlenkapan dan Alat Tulis Kantor'),
 (7, '01', '01', '07', '01', '01', '01', '', NULL, NULL, '01.01.07.01.01.01', 'Alat dan Tulis Kantor', '', '', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor'),
 (8, '01', '01', '07', '01', '01', '01', '01', NULL, NULL, '01.01.07.01.01.01.01', 'Atom Clip', 'No. 3 ( isi 10 pak )', 'dos', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor'),
 (9, '01', '01', '07', '01', '01', '01', '02', NULL, NULL, '01.01.07.01.01.01.02', 'Ballpoint', '0.2', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor'),
@@ -6485,7 +6372,7 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (5860, '01', '01', '07', '01', '12', '03', '306', NULL, NULL, '01.01.07.01.12.03.306', 'Soldering Suction', '', 'buah', '1170112', 'Perlengkapan Kendaraan dan Mesin'),
 (5861, '01', '01', '07', '01', '12', '03', '307', NULL, NULL, '01.01.07.01.12.03.307', '', '', '', '1170112', 'Perlengkapan Kendaraan dan Mesin'),
 (5862, '01', '01', '07', '01', '13', '', '', NULL, NULL, '01.01.07.01.13', 'Dst   ..', '', '', NULL, NULL),
-(5863, '01', '01', '07', '02', '', '', '', NULL, NULL, '01.01.07.02', 'Persediaan Bahan/Material', '', '', NULL, NULL),
+(5863, '01', '01', '07', '02', '', '', '', NULL, NULL, '01.01.07.02', 'Persediaan Bahan/Material', '', '', '11702', 'Persediaan Bahan/Material'),
 (5864, '01', '01', '07', '02', '01', '', '', NULL, NULL, '01.01.07.02.01', 'Persediaan Bahan Baku Bangunan', '', '', '1170201', 'Persediaan Bahan Baku Bangunan'),
 (5865, '01', '01', '07', '02', '02', '', '', NULL, NULL, '01.01.07.02.02', 'Persediaan Bahan/Bibit Tanaman', '', '', '1170202', 'Persediaan Bahan/Bibit Tanaman'),
 (5866, '01', '01', '07', '02', '03', '', '', NULL, NULL, '01.01.07.02.03', 'Persediaan Bibit Ternak', '', '', '1170203', 'Persediaan Bibit Ternak'),
@@ -6511,7 +6398,7 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (5886, '01', '01', '07', '02', '23', '', '', NULL, NULL, '01.01.07.02.23', 'Persediaan Perlengkapan Ibadah', '', '', '1170223', 'Persediaan Perlengkapan Ibadah'),
 (5887, '01', '01', '07', '02', '24', '', '', NULL, NULL, '01.01.07.02.24', 'Persediaan Peralatan dan Perlengkapan Rumah Tangga', '', '', '1170224', 'Persediaan Peralatan dan Perlengkapan Rumah Tangga'),
 (5888, '01', '01', '07', '02', '25', '', '', NULL, NULL, '01.01.07.02.25', 'Persediaan Peralatan dan Perlengkapan Kesehatan', '', '', '1170225', 'Persediaan Peralatan dan Perlengkapan Kesehatan'),
-(5889, '01', '01', '07', '03', '', '', '', NULL, NULL, '01.01.07.03', 'Persediaan Barang Lainnya', '', '', NULL, NULL),
+(5889, '01', '01', '07', '03', '', '', '', NULL, NULL, '01.01.07.03', 'Persediaan Barang Lainnya', '', '', '11703', 'Persediaan Barang Lainnya'),
 (5890, '01', '01', '07', '03', '01', '', '', NULL, NULL, '01.01.07.03.01', 'Persediaan Barang Yang Akan Diberikan Kepada Pihak Ketiga', '', '', NULL, NULL),
 (5891, '01', '01', '07', '03', '02', '', '', NULL, NULL, '01.01.07.03.02', 'Dst   ..', '', '', NULL, NULL);
 
@@ -7440,11 +7327,11 @@ CREATE TABLE IF NOT EXISTS `transaksi_full` (
   `no_bukti` varchar(20) NOT NULL,
   `kd_brg` varchar(30) NOT NULL,
   `kd_sskel` varchar(15) DEFAULT NULL,
-  `nm_sskel` varchar(30) DEFAULT NULL,
-  `nm_brg` varchar(30) DEFAULT NULL,
+  `nm_sskel` varchar(70) DEFAULT NULL,
+  `nm_brg` varchar(70) DEFAULT NULL,
   `spesifikasi` varchar(70) DEFAULT NULL,
   `kd_perk` varchar(15) DEFAULT NULL,
-  `nm_perk` varchar(20) DEFAULT NULL,
+  `nm_perk` varchar(70) DEFAULT NULL,
   `satuan` varchar(10) DEFAULT NULL,
   `qty` mediumint(9) NOT NULL,
   `harga_sat` int(11) NOT NULL,
@@ -7457,19 +7344,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_full` (
   `status_ambil` tinyint(1) NOT NULL DEFAULT '0',
   `tgl_update` datetime DEFAULT NULL,
   `user_id` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `transaksi_full`
---
-
-INSERT INTO `transaksi_full` (`id_history`, `id_trans`, `id_masuk`, `id_keluar`, `id_opname`, `kd_lokasi`, `kd_lok_msk`, `nm_satker`, `thn_ang`, `no_dok`, `tgl_dok`, `tgl_buku`, `no_bukti`, `kd_brg`, `kd_sskel`, `nm_sskel`, `nm_brg`, `spesifikasi`, `kd_perk`, `nm_perk`, `satuan`, `qty`, `harga_sat`, `total_harga`, `jns_trans`, `keterangan`, `status`, `status_edit`, `status_hapus`, `status_ambil`, `tgl_update`, `user_id`) VALUES
-(86, NULL, 31, NULL, NULL, '08.01.01.01', '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, '08.01.01.01.abc', '2015-01-01', '2015-01-01', '', '1010306010000001', '1010306010', 'Batu Baterai        ', 'Baterai ABC 1000 mAH', NULL, '115111', 'Barang Konsumsi     ', 'Buah', 10, 2000, 20000, 'M02', '', 0, 0, 0, 0, '2015-09-30 15:47:12', 'adit'),
-(88, NULL, 33, NULL, NULL, '08.01.01.01', '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, '08.01.01.01.bca', '2015-02-01', '2015-02-01', '', '1010306010000001', '1010306010', 'Batu Baterai        ', 'Baterai ABC 1000 mAH', NULL, '115111', 'Barang Konsumsi     ', 'Buah', 20, 2000, 40000, 'M02', '20', 0, 0, 0, 0, '2015-09-30 15:48:21', 'adit'),
-(89, 30, NULL, 30, 0, '08.01.01.01', '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, '08.01.01.01.hpk', '2015-03-01', '2015-03-01', '', '1010306010000001', '1010306010', 'Batu Baterai        ', 'Baterai ABC 1000 mAH', NULL, '115111', 'Barang Konsumsi     ', 'Buah', -10, -2000, -20000, 'K01', '', 0, 0, 0, 0, '2015-09-30 15:49:03', 'adit'),
-(90, NULL, NULL, 31, 0, '08.01.01.01', '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, '08.01.01.01.hpk', '2015-03-01', '2015-03-01', '', '1010306010000001', '1010306010', 'Batu Baterai        ', 'Baterai ABC 1000 mAH', NULL, '115111', 'Barang Konsumsi     ', 'Buah', -14, -2000, -28000, 'K01', '', 0, 0, 0, 0, '2015-09-30 15:49:04', 'adit'),
-(91, NULL, 34, NULL, NULL, '08.01.01.01', '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, '08.01.01.01.abc', '2015-01-01', '2015-01-01', '', '01.01.07.01.01.01.03', '', '', 'Ballpoint', NULL, '1170101', 'Persediaan Perlenkap', 'buah', 10, 1000, 10000, 'M02', '', 0, 0, 0, 0, '2015-10-01 06:59:14', 'adit'),
-(92, NULL, 35, NULL, NULL, '08.01.01.01', '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, '08.01.01.01.abc', '2015-01-01', '2015-01-01', '', '01.01.07.01.01.01.54', '', '', 'Penggaris', NULL, '1170101', 'Persediaan Perlenkap', 'buah', 10, 1000, 10000, 'M02', '', 0, 0, 0, 0, '2015-10-01 07:00:15', 'adit');
+) ENGINE=InnoDB AUTO_INCREMENT=146 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -7490,12 +7365,12 @@ CREATE TABLE IF NOT EXISTS `transaksi_keluar` (
   `tgl_buku` date NOT NULL,
   `no_bukti` varchar(20) NOT NULL,
   `kd_sskel` varchar(15) DEFAULT NULL,
-  `nm_sskel` varchar(30) DEFAULT NULL,
-  `kd_brg` varchar(30) NOT NULL,
+  `nm_sskel` varchar(70) DEFAULT NULL,
+  `kd_brg` varchar(70) NOT NULL,
   `nm_brg` varchar(30) DEFAULT NULL,
   `spesifikasi` varchar(70) DEFAULT NULL,
   `kd_perk` varchar(7) DEFAULT NULL,
-  `nm_perk` varchar(20) DEFAULT NULL,
+  `nm_perk` varchar(70) DEFAULT NULL,
   `satuan` varchar(10) DEFAULT NULL,
   `qty` mediumint(9) NOT NULL,
   `harga_sat` int(11) NOT NULL,
@@ -7508,17 +7383,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_keluar` (
   `status_ambil` tinyint(1) NOT NULL DEFAULT '0',
   `tgl_update` date DEFAULT NULL,
   `user_id` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `transaksi_keluar`
---
-
-INSERT INTO `transaksi_keluar` (`id`, `id_masuk`, `id_opname`, `kd_lokasi`, `kd_lok_msk`, `nm_satker`, `thn_ang`, `no_dok`, `tgl_dok`, `tgl_buku`, `no_bukti`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `kd_perk`, `nm_perk`, `satuan`, `qty`, `harga_sat`, `total_harga`, `jns_trans`, `keterangan`, `status`, `status_edit`, `status_hapus`, `status_ambil`, `tgl_update`, `user_id`) VALUES
-(26, 26, 0, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.01.01.klr', '2015-09-04', '2015-09-04', '', '1010305006', 'Alat Pengikat       ', '1010305006000001', 'Lem', NULL, '115113', 'Bahan untuk Pemeliha', 'Buah', -5, 3000, -15000, 'K02', '', 0, 0, 0, 0, '2015-09-30', 'ffd'),
-(27, 27, 0, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.01.01.klr', '2015-09-04', '2015-09-04', '', '1010305006', 'Alat Pengikat       ', '1010305006000001', 'Lem', NULL, '115113', 'Bahan untuk Pemeliha', 'Buah', -2, 3000, -6000, 'K02', '', 0, 0, 0, 0, '2015-09-30', 'ffd'),
-(30, 31, 0, '08.01.01.01', '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, '08.01.01.01.hpk', '2015-03-01', '2015-03-01', '', '1010306010', 'Batu Baterai        ', '1010306010000001', 'Baterai ABC 1000 mAH', NULL, '115111', 'Barang Konsumsi     ', 'Buah', -10, 2000, -20000, 'K01', '', 0, 0, 0, 0, '2015-09-30', 'adit'),
-(31, 33, 0, '08.01.01.01', '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, '08.01.01.01.hpk', '2015-03-01', '2015-03-01', '', '1010306010', 'Batu Baterai        ', '1010306010000001', 'Baterai ABC 1000 mAH', NULL, '115111', 'Barang Konsumsi     ', 'Buah', -14, 2000, -28000, 'K01', '', 0, 0, 0, 0, '2015-09-30', 'adit');
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -7538,12 +7403,12 @@ CREATE TABLE IF NOT EXISTS `transaksi_masuk` (
   `tgl_buku` date NOT NULL,
   `no_bukti` varchar(20) NOT NULL,
   `kd_sskel` varchar(20) DEFAULT NULL,
-  `nm_sskel` varchar(30) DEFAULT NULL,
+  `nm_sskel` varchar(70) DEFAULT NULL,
   `kd_brg` varchar(30) NOT NULL,
-  `nm_brg` varchar(30) DEFAULT NULL,
+  `nm_brg` varchar(70) DEFAULT NULL,
   `spesifikasi` varchar(70) DEFAULT NULL,
   `kd_perk` varchar(7) DEFAULT NULL,
-  `nm_perk` varchar(20) DEFAULT NULL,
+  `nm_perk` varchar(70) DEFAULT NULL,
   `satuan` varchar(10) DEFAULT NULL,
   `qty` mediumint(9) NOT NULL,
   `qty_akhir` mediumint(9) DEFAULT NULL,
@@ -7557,19 +7422,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_masuk` (
   `status_ambil` tinyint(1) NOT NULL DEFAULT '0',
   `tgl_update` date DEFAULT NULL,
   `user_id` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `transaksi_masuk`
---
-
-INSERT INTO `transaksi_masuk` (`id`, `id_opname`, `kd_lokasi`, `kd_lok_msk`, `nm_satker`, `thn_ang`, `no_dok`, `tgl_dok`, `tgl_buku`, `no_bukti`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `kd_perk`, `nm_perk`, `satuan`, `qty`, `qty_akhir`, `harga_sat`, `total_harga`, `jns_trans`, `keterangan`, `status`, `status_edit`, `status_hapus`, `status_ambil`, `tgl_update`, `user_id`) VALUES
-(26, NULL, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.01.01.002', '2015-02-01', '2015-02-02', '', '1010305006', 'Alat Pengikat       ', '1010305006000001', 'Lem', NULL, '115113', 'Bahan untuk Pemeliha', 'Buah', 5, 0, 3000, 15000, 'M02', '', 0, 0, 0, 0, '2015-09-30', 'ffd'),
-(27, NULL, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.01.01.002', '2015-02-01', '2015-02-02', '', '1010305006', 'Alat Pengikat       ', '1010305006000001', 'Lem', NULL, '115113', 'Bahan untuk Pemeliha', 'Buah', 5, 3, 3000, 15000, 'M02', '', 0, 0, 0, 0, '2015-09-30', 'ffd'),
-(31, NULL, '08.01.01.01', '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, '08.01.01.01.abc', '2015-01-01', '2015-01-01', '', '1010306010', 'Batu Baterai        ', '1010306010000001', 'Baterai ABC 1000 mAH', NULL, '115111', 'Barang Konsumsi     ', 'Buah', 10, 0, 2000, 20000, 'M02', '', 0, 0, 0, 0, '2015-09-30', 'adit'),
-(33, NULL, '08.01.01.01', '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, '08.01.01.01.bca', '2015-02-01', '2015-02-01', '', '1010306010', 'Batu Baterai        ', '1010306010000001', 'Baterai ABC 1000 mAH', NULL, '115111', 'Barang Konsumsi     ', 'Buah', 20, 6, 2000, 40000, 'M02', '20', 0, 0, 0, 0, '2015-09-30', 'adit'),
-(34, NULL, '08.01.01.01', '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, '08.01.01.01.abc', '2015-01-01', '2015-01-01', '', '', '', '01.01.07.01.01.01.03', 'Ballpoint', NULL, '1170101', 'Persediaan Perlenkap', 'buah', 10, 10, 1000, 10000, 'M02', '', 0, 0, 0, 0, '2015-10-01', 'adit'),
-(35, NULL, '08.01.01.01', '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, '08.01.01.01.abc', '2015-01-01', '2015-01-01', '', '', '', '01.01.07.01.01.01.54', 'Penggaris', NULL, '1170101', 'Persediaan Perlenkap', 'buah', 10, 10, 1000, 10000, 'M02', '', 0, 0, 0, 0, '2015-10-01', 'adit');
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -7591,16 +7444,7 @@ CREATE TABLE IF NOT EXISTS `ttd` (
   `tgl_isi` date NOT NULL,
   `tgl_setuju` date NOT NULL,
   `unit` varchar(3) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `ttd`
---
-
-INSERT INTO `ttd` (`id`, `kd_lokasi`, `kota`, `tanggal`, `nip`, `nama`, `jabatan`, `nip2`, `nama2`, `jabatan2`, `tgl_isi`, `tgl_setuju`, `unit`) VALUES
-(1, '01.01.01.01', 'Depok', '0000-00-00', '9283731', 'Iman', 'Kepala', '8379299', 'Fikri F', 'Wakil', '0000-00-00', '0000-00-00', '1'),
-(2, '21.01.01.01', '', '0000-00-00', '', '', '', '', '', '', '0000-00-00', '0000-00-00', '1'),
-(3, '21.01', 'Pekalongan', '0000-00-00', 'NIP. 06697667', 'Moza Hapsari ', 'Kepala Kantor', 'NIP. 06699786', 'Qezia Carissa Elivina', 'Kasubag TU', '0000-00-00', '0000-00-00', '1');
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -8516,22 +8360,22 @@ ALTER TABLE `log_persediaan`
 -- AUTO_INCREMENT for table `log_trans_keluar`
 --
 ALTER TABLE `log_trans_keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT for table `log_trans_masuk`
 --
 ALTER TABLE `log_trans_masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=85;
 --
 -- AUTO_INCREMENT for table `opname`
 --
 ALTER TABLE `opname`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `persediaan`
 --
 ALTER TABLE `persediaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5894;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5892;
 --
 -- AUTO_INCREMENT for table `satker`
 --
@@ -8556,22 +8400,22 @@ ALTER TABLE `thn_aktif`
 -- AUTO_INCREMENT for table `transaksi_full`
 --
 ALTER TABLE `transaksi_full`
-  MODIFY `id_history` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=93;
+  MODIFY `id_history` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=146;
 --
 -- AUTO_INCREMENT for table `transaksi_keluar`
 --
 ALTER TABLE `transaksi_keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT for table `transaksi_masuk`
 --
 ALTER TABLE `transaksi_masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=59;
 --
 -- AUTO_INCREMENT for table `ttd`
 --
 ALTER TABLE `ttd`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `user`
 --
