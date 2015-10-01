@@ -32,14 +32,15 @@ class modelTransaksi extends mysql_db
         $status = $data['status'];
         $user_id = $data['user_id'];
 
-        $query_perk = "SELECT kd_kbrg, nm_sskel, kd_perk, nm_perk, nm_brg,satuan from persediaan where kd_brg='$kd_brg' and kd_lokasi like '$kd_lokasi%' ";
+        $query_perk = "SELECT nm_sskel, kd_perk, nm_perk, nm_brg, spesifikasi, satuan from persediaan where kd_brg='$kd_brg' ";
         $result_perk = $this->query($query_perk);
         $data_perk = $this->fetch_array($result_perk);
-        $kd_sskel = $data_perk['kd_kbrg'];
+        $kd_sskel = $data['kd_brg'];
         $nm_sskel = $data_perk['nm_sskel'];
         $kd_perk = $data_perk['kd_perk'];
         $nm_perk = $data_perk['nm_perk'];
         $nm_brg = $data_perk['nm_brg'];
+        $spesifikasi = $data_perk['spesifikasi'];
         $satuan = $data['satuan'];
 
 // Memasukan Data Transaksi Masuk ke tabel Transaksi Masuk        
@@ -57,6 +58,7 @@ class modelTransaksi extends mysql_db
                     nm_sskel='$nm_sskel',
                     kd_brg='$kd_brg',
                     nm_brg='$nm_brg',
+                    spesifikasi='$spesifikasi',
                     kd_perk='$kd_perk',
                     nm_perk='$nm_perk',
                     satuan='$satuan',
@@ -92,6 +94,7 @@ class modelTransaksi extends mysql_db
                         nm_sskel='$nm_sskel',
                         kd_brg='$kd_brg',
                         nm_brg='$nm_brg',
+                        spesifikasi='$spesifikasi',
                         kd_perk='$kd_perk',
                         nm_perk='$nm_perk',
                         satuan='$satuan',
@@ -138,11 +141,11 @@ class modelTransaksi extends mysql_db
         $status = $data['status'];
         $user_id = $data['user_id'];
 
-        $query_perk = "SELECT kd_kbrg, nm_sskel, kd_perk, nm_perk from persediaan where kd_brg='$kd_brg' and kd_lokasi like '$kd_lokasi%' ";
+        $query_perk = "SELECT nm_sskel, kd_perk, nm_perk from persediaan where kd_brg='$kd_brg' and kd_lokasi like '$kd_lokasi%' ";
         
         $result_perk = $this->query($query_perk);
         $data_perk = $this->fetch_array($result_perk);
-        $kd_sskel = $data_perk['kd_kbrg'];
+        $kd_sskel = $data_perk['kd_brg'];
         $nm_sskel = $data_perk['nm_sskel'];
         $kd_perk = $data_perk['kd_perk'];
         $nm_perk = $data_perk['nm_perk'];
@@ -245,11 +248,11 @@ class modelTransaksi extends mysql_db
         $status = $data['status'];
         $user_id = $data['user_id'];
 
-        $query_perk = "SELECT kd_kbrg, nm_sskel, kd_perk, nm_perk from persediaan where kd_brg='$kd_brg' and kd_lokasi like '$kd_lokasi%' ";
+        $query_perk = "SELECT nm_sskel, kd_perk, nm_perk from persediaan where kd_brg='$kd_brg' ";
         
         $result_perk = $this->query($query_perk);
         $data_perk = $this->fetch_array($result_perk);
-        $kd_sskel = $data_perk['kd_kbrg'];
+        $kd_sskel = $data_perk['kd_brg'];
         $nm_sskel = $data_perk['nm_sskel'];
         $kd_perk = $data_perk['kd_perk'];
         $nm_perk = $data_perk['nm_perk'];
@@ -838,20 +841,21 @@ class modelTransaksi extends mysql_db
     public function bacabrg($data)
     {
         $str = $data;
-        if (substr_count($str,".") == 1) {
-            $query = "select kd_brg, nm_brg from persediaan where kd_lokasi like '$data.%.%'";
-        }
-        else if (substr_count($str,".") == 2) {
-            $query = "select kd_brg, nm_brg from persediaan where kd_lokasi like '$data.%'";
-        }
-        else{
-            $query = "select kd_brg, nm_brg from persediaan where kd_lokasi = '$data'";
-        }
+        // if (substr_count($str,".") == 1) {
+        //     $query = "select kd_brg, nm_brg from persediaan where kd_lokasi like '$data.%.%'";
+        // }
+        // else if (substr_count($str,".") == 2) {
+        //     $query = "select kd_brg, nm_brg from persediaan where kd_lokasi like '$data.%'";
+        // }
+        // else{
+        //     $query = "select kd_brg, nm_brg from persediaan where kd_lokasi = '$data'";
+        // }
+        $query = "select kd_brg, nm_brg, spesifikasi from persediaan";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         while ($row = $this->fetch_array($result))
         {
-            echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg']."</option>";
+            echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg'].' '.$row['spesifikasi']."</option>";
         }   
     }    
 
@@ -1000,7 +1004,7 @@ class modelTransaksi extends mysql_db
     {
         $kd_brg = $data['kd_brg'];
         $kd_lokasi = $data['kd_lokasi'];
-        $query_brg = "select * from persediaan where kd_brg = '$kd_brg' and kd_lokasi like '$kd_lokasi%' ";
+        $query_brg = "select * from persediaan where kd_brg = '$kd_brg' ";
         $result_brg = $this->query($query_brg);
         $row_brg = $this->fetch_array($result_brg);
         // echo '<input type="hidden" name="nm_brg" value="'.$row_brg['nm_brg'].'">';
@@ -1033,7 +1037,7 @@ class modelTransaksi extends mysql_db
         $result = $this->query($query);
         $sisa_brg = $this->fetch_array($result);
 
-       $query_brg = "select satuan from persediaan where kd_brg = '$kd_brg' and kd_lokasi like '$kd_lokasi%' ";
+       $query_brg = "select satuan from persediaan where kd_brg = '$kd_brg' ";
         $result_brg = $this->query($query_brg);
         $row_brg = $this->fetch_array($result_brg);
 
@@ -1111,10 +1115,10 @@ class modelTransaksi extends mysql_db
         $no_bukti = $dok['no_bukti'];
         $jns_trans = $dok['jns_trans'];
         
-        $query_perk = "SELECT kd_kbrg, nm_sskel, kd_perk, nm_perk, nm_brg from persediaan where kd_brg='$kd_brg' and kd_lokasi like '$kd_lokasi%' ";
+        $query_perk = "SELECT nm_sskel, kd_perk, nm_perk, nm_brg from persediaan where kd_brg='$kd_brg' ";
         $result_perk = $this->query($query_perk);
         $data_perk = $this->fetch_array($result_perk);
-        $kd_sskel = $data_perk['kd_kbrg'];
+        $kd_sskel = $data_perk['kd_brg'];
         $nm_sskel = $data_perk['nm_sskel'];
         $kd_perk = $data_perk['kd_perk'];
         $nm_perk = $data_perk['nm_perk'];

@@ -594,7 +594,7 @@ else {
        $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
-          data: {manage:'readbrg'},
+          data: {manage:'readbrgmsk'},
           success: function (output) {     
             $('#kd_brg').html(output);
           }
