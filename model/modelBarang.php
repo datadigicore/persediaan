@@ -18,6 +18,22 @@ class modelBarang extends mysql_db
 
 
 	}
+
+	public function tambahsubbrg($data)
+	{
+		$kd_brg = $data['kdbrg'];
+		$nm_brg = $data['nmbrg'];
+		$spesifikasi = $data['spesifikasi'];
+		$satuan = $data['satuan'];
+		$query = "Insert into persediaan
+        			set kd_brg='$kd_brg',
+        			nm_brg='$nm_brg',
+                    spesifikasi='$spesifikasi',
+                    satuan='$satuan'";
+        $result = $this->query($query);
+		return $result;
+	}
+
 	public function tambahbrg($data)
 	{
 		$kd_kbrg = $data['kd_kbrg'];
@@ -109,8 +125,25 @@ class modelBarang extends mysql_db
         echo '<option value="">-- Pilih Kode Barang --</option>';
 		while ($row = $this->fetch_array($result))
 		{
-			
-			echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg']."</option>";
+			if (substr_count($row['kd_brg'],".") == 3) {
+				echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg']."</option>";
+				$query2 = "select kd_brg, nm_brg from persediaan where kd_brg like '$row[kd_brg]%'  order by kd_brg asc";
+				$result2 = $this->query($query2);
+				while ($row2 = $this->fetch_array($result2))
+				{
+					if (substr_count($row2['kd_brg'],".") == 4) {
+						echo '<option value="'.$row2['kd_brg'].'">&nbsp;&nbsp;'.$row2['kd_brg'].' '.$row2['nm_brg']."</option>";
+						$query3 = "select kd_brg, nm_brg from persediaan where kd_brg like '$row2[kd_brg]%' order by kd_brg asc";
+						$result3 = $this->query($query3);
+						while ($row3 = $this->fetch_array($result3))
+						{
+							if (substr_count($row3['kd_brg'],".") == 5) {
+								echo '<option value="'.$row3['kd_brg'].'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$row3['kd_brg'].' '.$row3['nm_brg']."</option>";
+							}
+						}
+					}
+				}
+			}
 		}	
 	}
 

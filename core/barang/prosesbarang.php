@@ -49,6 +49,30 @@ else
 			$Barang->cek_barang($data);
 		break;
 
+		case 'addsubbarang':
+			$nokdbarang = $purifier->purify($_POST['kdbarang_no']);
+			$kdbarang = $nokdbarang.'.'.$purifier->purify($_POST['kdbarang']);
+			$nmbarang = $purifier->purify($_POST['nmbarang']);
+			$spesifikasi = $purifier->purify($_POST['spesifikasi']);
+			$satuan = $purifier->purify($_POST['satuan']);
+			$data = array(
+				"kdbrg" => $kdbarang,
+				"nmbrg" => $nmbarang,
+				"spesifikasi" => $spesifikasi,
+				"satuan" => $satuan,
+		    );
+		    print_r($data);
+			$Barang->tambahsubbrg($data);
+			$datalog = array(
+				"kdbrg" => $kdbarang,
+				"nmbrg" => $nmbarang,
+				"spesifikasi" => $spesifikasi,
+				"satuan" => $satuan,
+				"aksi" => "T-Persediaan"
+		    );
+			$Barang->loghistory($datalog);			
+		break;
+
 		case 'addbarang':
 			$kdbarang = $purifier->purify($_POST['kdsskel']);
 			$kd_jbrg = $purifier->purify($_POST['kodebarang']);
@@ -176,10 +200,36 @@ else
 				"tanggal" => $tanggal
 		    	
 		    );
-        	
 			$Barang->loghistory($datalog);
 		break;
-
+		case 'delbarang':
+			$id = $purifier->purify($_POST['id']);
+			$idbarang = $purifier->purify($_POST['idbrg']);
+			$nmbarang = $purifier->purify($_POST['urbrg']);
+			$data = array(
+				"id" => $id
+		    );
+			$Barang->hapusbarang($data);
+			//========= Log History =========//
+			$kdlokasiuser = $_SESSION['kd_lok'];
+			$nmsatkeruser = $_SESSION['nama_satker'];
+			$username = $_SESSION['username'];
+			$aksi = "H-Satker";
+			$tanggal = date("Y-m-d h:i:sa");
+			$datalog = array(
+				"kdlokasiuser" => $kdlokasiuser,
+				"nmsatkeruser" => $nmsatkeruser,
+				"username" => $username,
+				"kd_sektor" => $idsatker,
+		    	"nm_sektor" => $nmsatker,
+		    	"tahun" => $tahun,
+		    	"aksi" => $aksi,
+		    	"tanggal" => $tanggal
+		    );
+			$Barang->loghistory($datalog);
+			print_r($_POST);
+			//========= Log History =========//
+		break;
 		default:
 			echo "Error Data Tidak Tersedia";
 		break;
