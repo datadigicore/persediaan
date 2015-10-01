@@ -18,8 +18,8 @@ $primaryKey = 'id';
 // Load Data berdasarkan nama table nya
 $columns = array(
     array( 'db' => 'id', 'dt' => 0 ),
-    array( 'db' => 'kd_kbrg', 'dt' => 1 ),
-    array( 'db' => 'kd_jbrg', 'dt' => 2 ),
+    array( 'db' => 'kd_brg', 'dt' => 1 ),
+    array( 'db' => 'kd_brg', 'dt' => 2 ),
     array( 'db' => 'nm_brg', 'dt' => 3 ),
     array( 'db' => 'satuan', 'dt' => 4 ),
 );
