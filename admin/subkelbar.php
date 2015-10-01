@@ -68,7 +68,7 @@
                 </form>
               </div>
               <div class="box box-primary">
-                <div class="box-header">
+                <div class="box-header with-border">
                   <h3 class="box-title">Tabel Sub Kelompok Barang Persediaan</h3>
                 </div>
                 <div class="box-body">
@@ -98,11 +98,8 @@
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       var table;
-      $(function () {
-        $(".select2").select2();
-        $(".treeview").addClass("active");
-        $("li#subkelbar").addClass("active");
-        table = $("#example1").DataTable({
+      function myTable() {
+      table = $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
           "ajax": "../core/loadtable/loadsubkelbar",
@@ -123,7 +120,14 @@
              "targets": [5],"targets": 5 }
           ],
           "order": [[ 0, "desc" ]],
+          "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
         });
+      }
+      $(function () {
+        $(".select2").select2();
+        $(".treeview").addClass("active");
+        $("li#subkelbar").addClass("active");
+        myTable();
         $(document).on("click", "#btnedt", function(){
           var tr = $(this).closest('tr');
           var row = table.row( tr );
@@ -179,29 +183,7 @@
                   setTimeout("$('#myModal').modal('hide');",redirectTime);
                   $("#example1").DataTable().destroy();
                   $("#example1 tbody").empty();
-                  table = $("#example1").DataTable({
-                    "processing": false,
-                    "serverSide": true,
-                    "ajax": "../core/loadtable/loadsubkelbar",
-                    "columnDefs":
-                    [
-                      {"targets": 0,
-                       "visible": false },
-                      {"targets": 1 },
-                      {"targets": 2 },
-                      {"targets": 3 },
-                      {"targets": 4 },
-                      {"orderable": false,
-                       "data": null,
-                       "defaultContent":  '<div class="box-tools">'+
-                                            '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                            '<button id="btnhps" class="btn btn-danger btn-xs btn-flat pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
-                                          '</div>',
-                       "targets": [5],"targets": 5 }
-                    ],
-                    "order": [[ 0, "desc" ]],
-                    "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
-                  });
+                  myTable();
                 }
               });
               return false;
@@ -320,29 +302,7 @@
             setTimeout("$('#myModal').modal('hide');",redirectTime);
             $("#example1").DataTable().destroy();
             $("#example1 tbody").empty();
-            table = $("#example1").DataTable({
-              "processing": false,
-              "serverSide": true,
-              "ajax": "../core/loadtable/loadsubkelbar",
-              "columnDefs":
-              [
-                {"targets": 0,
-                 "visible": false },
-                {"targets": 1 },
-                {"targets": 2 },
-                {"targets": 3 },
-                {"targets": 4 },
-                {"orderable": false,
-                 "data": null,
-                 "defaultContent":  '<div class="box-tools">'+
-                                      '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                      '<button id="btnhps" class="btn btn-danger btn-xs btn-flat pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
-                                    '</div>',
-                 "targets": [5],"targets": 5 }
-              ],
-              "order": [[ 0, "desc" ]],
-              "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
-            });
+            myTable();
           }
         });
         return false;
