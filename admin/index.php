@@ -70,42 +70,8 @@
             </div>
           </div>
           <div class="row">
-            <section class="col-lg-7 connectedSortable">
-              <div class="box box-primary">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Grafik Donat</h3>
-                </div>
-                <div class="box-body chart-responsive">
-                  <div class="chart" id="graphic-donut" style="height: 300px; position: relative;"></div>
-                </div>
-              </div>
-            </section>
-            <section class="col-lg-5 connectedSortable">
-              <div class="box box-solid bg-teal-gradient">
-                <div class="box-header">
-                  <i class="fa fa-th"></i>
-                  <h3 class="box-title">Grafik Persediaan</h3>
-                </div>
-                <div class="box-body border-radius-none">
-                  <div class="chart" id="line-chart" style="height: 250px;"></div>
-                </div>
-                <div class="box-footer no-border">
-                  <div class="row">
-                    <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
-                      <input type="text" class="knob" data-readonly="true" value="20" data-width="60" data-height="60" data-fgColor="#39CCCC" />
-                      <div class="knob-label">Kaca</div>
-                    </div>
-                    <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
-                      <input type="text" class="knob" data-readonly="true" value="12" data-width="60" data-height="60" data-fgColor="#39CCCC" />
-                      <div class="knob-label">Aspal</div>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60" data-fgColor="#39CCCC" />
-                      <div class="knob-label">Semen</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <section class="col-lg-12 connectedSortable">
+              <img src="../dist/img/pekalongan-banner.jpg" style="width:100%">
             </section>
           </div>
         </section>
