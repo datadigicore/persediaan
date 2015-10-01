@@ -124,6 +124,30 @@
           ],
           "order": [[ 0, "desc" ]],
         });
+        $(document).on("click", "#btnedt", function(){
+          var tr = $(this).closest('tr');
+          var row = table.row( tr );
+          id_row = row.data()[0];
+          kdbarang_row = row.data()[1];
+          urbarang_row  = row.data()[2];
+          spesifikasi_row  = row.data()[3];
+          satuan_row  = row.data()[4];
+          if ( row.child.isShown() ) {
+            $('div.slider', row.child()).slideUp( function () {
+              row.child.hide();
+              tr.removeClass('shown');
+            });
+          }
+          else {
+            row.child( format(row.data())).show();
+            tr.addClass('shown');
+            $('div.slider', row.child()).slideDown();
+            $("#kdbarang"+id_row+"").val(kdbarang_row);
+            $("#urbarang"+id_row+"").val(urbarang_row);
+            $("#spesifikasi"+id_row+"").val(spesifikasi_row);
+            $("#satuan"+id_row+"").val(satuan_row);
+          }
+        });
         $(document).on('click', '#btnhps', function () {
           var tr = $(this).closest('tr');
           var row = table.row( tr );
@@ -183,6 +207,55 @@
               return false;
             }
           });
+      });
+      function format ( d ) {
+        return '<div class="slider">'+
+        '<form action="../core/barang/prosesbarang" method="post" class="form-horizontal" id="updbarang">'+
+        '<table width="100%">'+
+           '<tr>'+
+              '<input type="hidden" name="manage" value="updbarang">'+
+              '<input type="hidden" name="id" value="'+d[0]+'">'+
+              '<td width="15.8%"><input style="width:95%" id="kdbarang'+d[0]+'" name="updkdbarang" class="form-control" type="text" placeholder="Kode Barang"></td>'+
+              '<td width="44.2%"><input style="width:98.2%" id="urbarang'+d[0]+'" name="updurbarang" class="form-control" type="text" placeholder="Uraian Barang"></td>'+
+              '<td><input style="width:94%" id="spesifikasi'+d[0]+'" name="updspesifikasi" class="form-control" type="text" placeholder="Spesifikasi"></td>'+
+              '<td><input style="width:94%" id="satuan'+d[0]+'" name="updsatuan" class="form-control" type="text" placeholder="Satuan"></td>'+
+              '<td style="vertical-align:middle; width:15%;">'+
+                '<div class="box-tools">'+
+                  '<button id="btnrst" class="btn btn-flat btn-sm btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
+                  '<button id="btnupd" class="btn btn-flat btn-sm btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
+                '</div>'
+              '</td>'+
+           '</tr>'+
+        '</table>'+
+        '</form></div>';  
+      }
+      $(document).on('submit', '#updbarang', function (e) {
+        $('#myModal').modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+        $('#myModal').modal('show');
+        e.preventDefault();
+        redirectTime = "2600";
+        var formURL = $(this).attr("action");
+        var addData = new FormData(this);
+        $.ajax({
+          type: "post",
+          data: addData,
+          url : formURL,
+          contentType: false,
+          cache: false,  
+          processData: false,
+          success: function(data)
+          {
+            $("#success-alert").alert();
+            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+            $("#success-alert").alert('close');
+            });
+            setTimeout("location.href = redirectURL;",redirectTime); 
+          }
+        });
+        return false;
       });
       $.ajax({
         type: "post",
