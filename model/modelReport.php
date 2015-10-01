@@ -1220,7 +1220,7 @@ class modelReport extends mysql_db
         $satker_asal = $data['satker_asal'];
 
 
-        // $this->getsatker($kd_lokasi);
+        
         echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
         $this->getsatker($kd_lokasi);
         echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">BUKU PENERIMAAN BARANG</p>
@@ -1338,12 +1338,19 @@ class modelReport extends mysql_db
                             <td >PENYIMPAN BARANG</td>
                         </tr>
                         <tr>
-                            <td> 
+                        <td><br></br>
+                        <br></br>
+                        </td>
                         </tr>
                         <tr>
                             <td colspan="4">(.......................................................)</td>
                             <td colspan="7"></td>
                             <td >(.......................................................)</td>
+                        </tr>                        
+                        <tr>
+                            <td colspan="4">NIP..................................................</td>
+                            <td colspan="7"></td>
+                            <td >NIP..................................................</td>
                         </tr>
                         </table>';
                 // $this->cetak_nama_pj($satker_asal);
@@ -1371,7 +1378,7 @@ class modelReport extends mysql_db
         $satker_asal = $data['satker_asal'];
 
 
-        // $this->getsatker($kd_lokasi);
+        $this->getsatker($kd_lokasi);
         echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
         echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">BUKU PENGELUARAN BARANG</p>
                 <br></br>
@@ -1473,6 +1480,35 @@ class modelReport extends mysql_db
                 echo '</table>';
 
                 // $this->cetak_nama_pj($satker_asal);
+                echo '</table>';
+                echo '<br></br>';
+                echo '  <table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% ">
+                        <tr>
+                            <td colspan="4"></td>
+                            <td colspan="7"></td>
+                            <td >...............,...................................</td>
+                        </tr>                        
+                        <tr>
+                            <td colspan="4">ATASAN LANGSUNG</td>
+                            <td colspan="7"></td>
+                            <td >PENYIMPAN BARANG</td>
+                        </tr>
+                        <tr>
+                        <td><br></br>
+                        <br></br>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">(.......................................................)</td>
+                            <td colspan="7"></td>
+                            <td >(.......................................................)</td>
+                        </tr>                        
+                        <tr>
+                            <td colspan="4">NIP..................................................</td>
+                            <td colspan="7"></td>
+                            <td >NIP..................................................</td>
+                        </tr>
+                        </table>';
 
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
                 ob_end_clean();
@@ -1499,7 +1535,7 @@ class modelReport extends mysql_db
 
 
         echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
-        // $this->getsatker($kd_lokasi);
+        $this->getsatker($kd_lokasi);
         
         echo ' 
               <p align="center" style="margin:0px; padding:0px; font-weight:bold;">BUKU BARANG PAKAI HABIS</p>
@@ -1652,7 +1688,35 @@ class modelReport extends mysql_db
                 }
 
                 echo '</table>';
-
+                
+                echo '<br></br>';
+                echo '  <table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% ">
+                        <tr>
+                            <td colspan="4"></td>
+                            <td colspan="7"></td>
+                            <td >...............,...................................</td>
+                        </tr>                        
+                        <tr>
+                            <td colspan="4">ATASAN LANGSUNG</td>
+                            <td colspan="7"></td>
+                            <td >PENYIMPAN BARANG</td>
+                        </tr>
+                        <tr>
+                        <td><br></br>
+                        <br></br>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">(.......................................................)</td>
+                            <td colspan="7"></td>
+                            <td >(.......................................................)</td>
+                        </tr>                        
+                        <tr>
+                            <td colspan="4">NIP..................................................</td>
+                            <td colspan="7"></td>
+                            <td >NIP..................................................</td>
+                        </tr>
+                        </table>';
                 // $this->cetak_nama_pj($satker_asal);
 
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
@@ -1684,7 +1748,7 @@ class modelReport extends mysql_db
         $brg = $this->fetch_array($result_detail);
         echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
     
-        // $this->getsatker($kd_lokasi);
+        $this->getsatker($kd_lokasi);
         
         echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">KARTU BARANG</p>
                 <br></br>
@@ -1812,6 +1876,7 @@ class modelReport extends mysql_db
 
                 // $this->cetak_nama_pj($satker_asal);
 
+
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
                 ob_end_clean();
                 //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
@@ -1839,7 +1904,7 @@ class modelReport extends mysql_db
         $brg = $this->fetch_array($result_detail);
         echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
     
-        // $this->getsatker($kd_lokasi);
+        $this->getsatker($kd_lokasi);
         
         echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">KARTU PERSEDIAAN BARANG</p>
                 <br></br>
@@ -1990,7 +2055,35 @@ class modelReport extends mysql_db
                 }
 
                 echo '</table>';
-
+                
+                echo '<br></br>';
+                echo '  <table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% ">
+                        <tr>
+                            <td colspan="4"></td>
+                            <td colspan="7"></td>
+                            <td >...............,...................................</td>
+                        </tr>                        
+                        <tr>
+                            <td colspan="4">ATASAN LANGSUNG</td>
+                            <td colspan="7"></td>
+                            <td >PENYIMPAN BARANG</td>
+                        </tr>
+                        <tr>
+                        <td><br></br>
+                        <br></br>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">(.......................................................)</td>
+                            <td colspan="7"></td>
+                            <td >(.......................................................)</td>
+                        </tr>                        
+                        <tr>
+                            <td colspan="4">NIP..................................................</td>
+                            <td colspan="7"></td>
+                            <td >NIP..................................................</td>
+                        </tr>
+                        </table>';
                 // $this->cetak_nama_pj($satker_asal);
 
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..

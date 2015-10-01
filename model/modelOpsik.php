@@ -206,15 +206,15 @@ class modelOpsik extends mysql_db
 
 
         $query_hrg = "SELECT sum(qty_akhir) as qty, sum(qty_akhir*harga_sat)/sum(qty_akhir) as harga, 
-                         sum(qty_akhir*harga_sat)%sum(qty_akhir) as sisabagi
+                         sum(qty_akhir*harga_sat)%sum(qty_akhir) as sisabagi, harga_sat
                          from transaksi_masuk
-                         where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and kd_brg='$kd_brg' and status_hapus=0";
+                         where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and kd_brg='$kd_brg' and status_hapus=0 and qty_akhir>0 order by tgl_dok asc limit 1";
         $result_hrg = $this->query($query_hrg);
         $data_hrg = $this->fetch_array($result_hrg);
-        $hrg_sat = floor($data_hrg['harga']);
+        $hrg_sat = floor($data_hrg['harga_sat']);
         $sisabagi = $data_hrg['sisabagi'];
         
-        $total_harga = ($kuantitas*$hrg_sat)+$sisabagi;
+        $total_harga = $kuantitas*$hrg_sat;
 
 
 
