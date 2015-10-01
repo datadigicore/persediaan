@@ -56,13 +56,13 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Dokumen</label>
                       <div class="col-sm-9">
-                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen">
+                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" onchange="masuk_tanggal()">
                       </div>
                     </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Buku</label>
                       <div class="col-sm-9">
-                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku">
+                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" >
                       </div> 
                     </div>
                   </div>
@@ -105,14 +105,29 @@
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">
-    var table;
+      function masuk_tanggal() {
+      
+        var tgl_dok = $('#tgl_dok').val();
+        $('#tgl_buku').val(tgl_dok);
+
+         
+      }
+
+      var table;
       $(function () {
         $(".select2").select2();
         $('#tgl_dok').css('background-color' , '#FFFFFF');
         $('#tgl_buku').css('background-color' , '#FFFFFF');
         $("li#trans_masuk").addClass("active");
         $('#tgl_dok').datepicker({
-          format: "dd-mm-yyyy"
+          format: "dd-mm-yyyy",
+              onSelect: function(dateText, inst) {
+        var date = $(this).val();
+        var time = $('#time').val();
+        alert('on select triggered');
+        $("#start").val(date + time.toString(' HH:mm').toString());
+
+    }
         });
         $('#tgl_buku').datepicker({
           format: "dd-mm-yyyy"
@@ -186,15 +201,15 @@
             alert("Silahkan Isi Nomor Dokumen");
             return false;
           }
-          if(tgl_dok.substring(6,10)!=tahun_ang){
-            alert("Tahun Dokumen Tidak Sesuai Dengan Tahun Anggaran");
-            return false;
-          }
-          if(tgl_buku.substring(6,10)!=tahun_ang){
-            alert("Tahun Bukti Tidak Sesuai Dengan Tahun Anggaran");
-            return false;
-          }
-          e.preventDefault();
+          // if(tgl_dok.substring(6,10)!=tahun_ang){
+          //   alert("Tahun Dokumen Tidak Sesuai Dengan Tahun Anggaran");
+          //   return false;
+          // }
+          // if(tgl_buku.substring(6,10)!=tahun_ang){
+          //   alert("Tahun Bukti Tidak Sesuai Dengan Tahun Anggaran");
+          //   return false;
+          // }
+          // e.preventDefault();
           var formURL = $(this).attr("action");
           var addData = new FormData(this);
           $.ajax({

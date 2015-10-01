@@ -273,6 +273,7 @@ else
 					// "keterangan" => $keterangan,
 				);
 				print_r($data);
+				echo 'masuk ident';
 				$Transaksi->transaksi_masuk_ident($data);
 			}
 			else{
