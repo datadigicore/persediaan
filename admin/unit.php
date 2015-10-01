@@ -15,7 +15,7 @@
             <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-table"></i> Tabel Unit</a></li>
+            <li class="active"><a href="#"><i class="fa fa-table"></i> Tabel Sub Unit</a></li>
           </ol>
         </section>
         <section class="content">
@@ -24,29 +24,29 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-warning">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tambah Data Unit</h3>
+                  <h3 class="box-title">Tambah Data Sub Unit</h3>
                 </div>  
                 <form action="../core/unit/prosesunit" method="post" class="form-horizontal" id="addunit">
                   <div class="box-body">
                     <div class="form-group" style="margin-top:15px;">
-                      <label class="col-sm-2 control-label">Kode Satker</label>
+                      <label class="col-sm-2 control-label">Kode Unit</label>
                       <div class="col-sm-9">
                         <input type="hidden" name="manage" value="addunit">
                         <select name="kdsatker" id="kdsatker" class="form-control select2">
-                          <option value="">-- Pilih Kode Satker --</option>
+                          <option value="">-- Pilih Kode Unit --</option>
                         </select>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode Unit</label>
+                      <label class="col-sm-2 control-label">Kode Sub Unit</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kdunit" id="kdunit" class="form-control" placeholder="Masukkan Kode Unit">
+                        <input type="text" name="kdunit" id="kdunit" class="form-control" placeholder="Masukkan Kode Sub Unit">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Uraian Unit</label>
+                      <label class="col-sm-2 control-label">Uraian Sub Unit</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nmunit" class="form-control" id="nmunit" placeholder="Masukkan Uraian Satker">
+                        <input type="text" name="nmunit" class="form-control" id="nmunit" placeholder="Masukkan Uraian Unit">
                       </div>
                     </div>
                   </div>
@@ -58,7 +58,7 @@
               </div>
               <div class="box box-warning">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tabel Data Unit</h3>
+                  <h3 class="box-title">Tabel Data Sub Unit</h3>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
@@ -66,10 +66,10 @@
                       <tr>
                         <th>ID</th>
                         <th width="14%">Kode Sektor</th>
-                        <th width="14%">Kode Satker</th>
                         <th width="14%">Kode Unit</th>
-                        <th>Uraian Unit</th>
-                        <th width="9%">Aksi</th>
+                        <th width="14%">Kode Sub Unit</th>
+                        <th>Uraian Sub Unit</th>
+                        <th width="12.5%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -118,8 +118,8 @@
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
-                                  '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                  '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
+                                  '<button id="btnhps" class="btn btn-danger btn-xs btn-flat pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
              "targets": [5],"targets": 5 }
           ],
@@ -159,7 +159,7 @@
       id_unit = row.data()[1]+'.'+row.data()[2]+'.'+row.data()[3];
       nm_unit = row.data()[4];
       managedata = "delunit";
-      job=confirm("Anda yakin ingin menghapus data ini?\nJika dihapus maka akan menghapus seluruh sub divisi terkait dengan Unit");
+      job=confirm("Anda yakin ingin menghapus data ini?\nJika dihapus maka akan menghapus seluruh sub divisi terkait dengan Sub Unit");
         if(job!=true){
           return false;
         }
@@ -193,9 +193,9 @@
               '<input type="hidden" name="manage" value="updunit">'+
               '<input type="hidden" name="id" value="'+d[0]+'">'+
               '<td width="14%"><input style="width:90%" id="kdsektor'+d[0]+'" name="updkdsektor" class="form-control" type="text" placeholder="Kode Sektor"></td>'+
-              '<td width="14.2%"><input style="width:90%" id="kdsatker'+d[0]+'" name="updkdsatker" class="form-control" type="text" placeholder="Kode Satker"></td>'+
-              '<td width="14.2%"><input style="width:90%" id="kdunit'+d[0]+'" name="updkdunit" class="form-control" type="text" placeholder="Kode Unit"></td>'+
-              '<td><input style="width:97%" id="urunit'+d[0]+'" name="updurunit" class="form-control" type="text" placeholder="Uraian Unit"></td>'+
+              '<td width="14.2%"><input style="width:90%" id="kdsatker'+d[0]+'" name="updkdsatker" class="form-control" type="text" placeholder="Kode Unit"></td>'+
+              '<td width="14.2%"><input style="width:90%" id="kdunit'+d[0]+'" name="updkdunit" class="form-control" type="text" placeholder="Kode Sub Unit"></td>'+
+              '<td><input style="width:97%" id="urunit'+d[0]+'" name="updurunit" class="form-control" type="text" placeholder="Uraian Sub Unit"></td>'+
               '<td style="vertical-align:middle; width:15%;">'+
                 '<div class="box-tools">'+
                   '<button id="btnrst" class="btn btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
@@ -242,7 +242,7 @@
         }
         else {
           var kdsektor = $(this).val();
-          $('#kodeuappbe').html('<option value="">-- Pilih Kode Satker --</option>');
+          $('#kodeuappbe').html('<option value="">-- Pilih Kode Unit --</option>');
           $('#kodeuappbe').val("").trigger("change");
           $.ajax({
             type: "post",
@@ -270,12 +270,12 @@
                 nmunit   : "required"
               },
               messages: {
-                  kdsatker: { required  : "Masukkan Kode Satker" },
-                  kdunit  : { required  : "Masukkan Kode Unit",
+                  kdsatker: { required  : "Masukkan Kode Unit" },
+                  kdunit  : { required  : "Masukkan Kode Sub Unit",
                               number    : "Masukkan Angka",
                               maxlength : "Maksimal 2 digit",
                               minlength : "Minimal 2 digit"},
-                  nmunit  : { required  : "Masukkan Nama Unit" }
+                  nmunit  : { required  : "Masukkan Nama Sub Unit" }
               },
               submitHandler: function(form) {
                 $('#addunit').submit(function(e){

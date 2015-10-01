@@ -15,7 +15,7 @@
             <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-table"></i> Tabel Gudang</a></li>
+            <li class="active"><a href="#"><i class="fa fa-table"></i> Tabel UPB</a></li>
           </ol>
         </section>
         <section class="content">
@@ -24,29 +24,29 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-danger">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tambah Data Gudang</h3>
+                  <h3 class="box-title">Tambah Data UPB</h3>
                 </div>
                 <form action="../core/gudang/prosesgudang" method="post" class="form-horizontal" id="addgudang">
                   <div class="box-body">
                     <div class="form-group" style="margin-top:15px;">
-                      <label class="col-sm-2 control-label">Kode Unit</label>
+                      <label class="col-sm-2 control-label">Kode Sub Unit</label>
                       <div class="col-sm-9">
                         <input type="hidden" name="manage" value="addgudang">
                         <select name="kdunit" id="kdunit" class="form-control select2">
-                          <option value="">-- Pilih Kode Unit --</option>
+                          <option value="">-- Pilih Kode Sub Unit --</option>
                         </select>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode Gudang</label>
+                      <label class="col-sm-2 control-label">Kode UPB</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kdgudang" class="form-control" id="kdgudang" placeholder="Masukkan Kode Gudang">
+                        <input type="text" name="kdgudang" class="form-control" id="kdgudang" placeholder="Masukkan Kode UPB">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Uraian Gudang</label>
+                      <label class="col-sm-2 control-label">Uraian UPB</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nmgudang" class="form-control" id="nmgudang" placeholder="Masukkan Uraian gudang">
+                        <input type="text" name="nmgudang" class="form-control" id="nmgudang" placeholder="Masukkan Uraian UPB">
                       </div>
                     </div>
                   </div>
@@ -58,7 +58,7 @@
               </div>
               <div class="box box-danger">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tabel Data Gudang</h3>
+                  <h3 class="box-title">Tabel Data UPB</h3>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
@@ -67,10 +67,10 @@
                         <th>ID</th>
                         <th width="14%">Kode Sektor</th>
                         <th width="14%">Kode Satker</th>
-                        <th width="14%">Kode Unit</th>
-                        <th width="14%">Kode Gudang</th>
-                        <th>Uraian Gudang</th>
-                        <th width="9%">Aksi</th>
+                        <th width="14%">Kode Sub Unit</th>
+                        <th width="14%">Kode UPB</th>
+                        <th>Uraian UPB</th>
+                        <th width="12.5%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -120,8 +120,8 @@
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
-                                  '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                  '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
+                                  '<button id="btnhps" class="btn btn-danger btn-xs btn-flat pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
              "targets": [6],"targets": 6 }
           ],
@@ -198,9 +198,9 @@
               '<input type="hidden" name="id" value="'+d[0]+'">'+
               '<td width="14.15%"><input style="width:90%" id="kdsektor'+d[0]+'" name="updkdsektor" class="form-control" type="text" placeholder="Kode Sektor"></td>'+
               '<td width="14.15%"><input style="width:90%" id="kdsatker'+d[0]+'" name="updkdsatker" class="form-control" type="text" placeholder="Kode Satker"></td>'+
-              '<td width="14.2%"><input style="width:90%" id="kdunit'+d[0]+'" name="updkdunit" class="form-control" type="text" placeholder="Kode Unit"></td>'+
-              '<td width="14.2%"><input style="width:90%" id="kdgudang'+d[0]+'" name="updkdgudang" class="form-control" type="text" placeholder="Kode Gudang"></td>'+
-              '<td><input style="width:97%" id="nmgudang'+d[0]+'" name="updnmgudang" class="form-control" type="text" placeholder="Uraian gudang"></td>'+
+              '<td width="14.2%"><input style="width:90%" id="kdunit'+d[0]+'" name="updkdunit" class="form-control" type="text" placeholder="Kode Sub Unit"></td>'+
+              '<td width="14.2%"><input style="width:90%" id="kdgudang'+d[0]+'" name="updkdgudang" class="form-control" type="text" placeholder="Kode UPB"></td>'+
+              '<td><input style="width:97%" id="nmgudang'+d[0]+'" name="updnmgudang" class="form-control" type="text" placeholder="Uraian UPB"></td>'+
               '<td style="vertical-align:middle; width:15%;">'+
                 '<div class="box-tools">'+
                   '<button id="btnrst" class="btn btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
@@ -257,11 +257,11 @@
               },
               messages: {
                   kdunit: { required  : "Masukkan Kode Satker" },
-                  kdgudang  : { required  : "Masukkan Kode Gudang",
+                  kdgudang  : { required  : "Masukkan Kode UPB",
                               number    : "Masukkan Angka",
                               maxlength : "Maksimal 2 digit",
                               minlength : "Minimal 2 digit"},
-                  nmgudang  : { required  : "Masukkan Nama Gudang" }
+                  nmgudang  : { required  : "Masukkan Nama UPB" }
               },
               submitHandler: function(form) {
                 $('#addgudang').submit(function(e){

@@ -23,6 +23,32 @@
           <div class="row">
             <section class="col-lg-12 connectedSortable">
               <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Tambah Data Sub Kelompok Barang</h3>
+                </div>  
+                <form action="../core/barang/prosesbarang" method="post" class="form-horizontal" id="addbarang">
+                  <div class="box-body">
+                    <div class="form-group" style="margin-top:15px;">
+                      <label class="col-sm-2 control-label">Kode Barang </label>
+                      <div class="col-sm-9">
+                        <input type="text" name="kdbarang" class="form-control" id="kdbarang" placeholder="Masukkan Kode Barang">
+                        <input type="hidden" name="manage" value="addbarang">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Uraian Barang</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="nmbarang" class="form-control" id="nmbarang" placeholder="Masukkan Uraian Barang">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="box-footer">
+                    <button type="Reset" class="btn btn-default">Reset</button>
+                    <button type="submit" class="btn btn-info pull-right">Submit</button>
+                  </div>
+                </form>
+              </div>
+              <div class="box box-primary">
                 <div class="box-header">
                   <h3 class="box-title">Tabel Sub Kelompok Barang Persediaan</h3>
                 </div>

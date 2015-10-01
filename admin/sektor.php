@@ -15,7 +15,7 @@
             <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-table"></i> Tabel Sektor</a></li>
+            <li class="active"><a href="#"><i class="fa fa-table"></i> Tabel Bidang</a></li>
           </ol>
         </section>
         <section class="content">
@@ -24,21 +24,21 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tambah Data Sektor</h3>
+                  <h3 class="box-title">Tambah Data Bidang</h3>
                 </div>  
                 <form action="../core/sektor/prosessektor" method="post" class="form-horizontal" id="addsektor">
                   <div class="box-body">
                     <div class="form-group" style="margin-top:15px;">
-                      <label class="col-sm-2 control-label">Kode Sektor </label>
+                      <label class="col-sm-2 control-label">Kode Bidang </label>
                       <div class="col-sm-9">
-                        <input type="text" name="kdsektor" class="form-control" id="kdsektor" placeholder="Masukkan Kode Sektor">
+                        <input type="text" name="kdsektor" class="form-control" id="kdsektor" placeholder="Masukkan Kode Bidang">
                         <input type="hidden" name="manage" value="addsektor">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Uraian Sektor</label>
+                      <label class="col-sm-2 control-label">Uraian Bidang</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nmsektor" class="form-control" id="nmsektor" placeholder="Masukkan Uraian Sektor">
+                        <input type="text" name="nmsektor" class="form-control" id="nmsektor" placeholder="Masukkan Uraian Bidang">
                       </div>
                     </div>
                   </div>
@@ -50,16 +50,16 @@
               </div>
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tabel Data Sektor</h3>
+                  <h3 class="box-title">Tabel Data Bidang</h3>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th width="14%">Kode Sektor</th>
-                        <th>Uraian Sektor</th>
-                        <th width="9%">Aksi</th>
+                        <th width="14%">Kode Bidang</th>
+                        <th>Uraian Bidang</th>
+                        <th width="12.5%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -97,8 +97,8 @@
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btnedt" class="btn btn-success btn-sm daterange pull-left" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>'+
-                                  '<button id="btnhps" class="btn btn-danger btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Hapus"><i class="fa fa-remove"></i></button>'+
+                                  '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
+                                  '<button id="btnhps" class="btn btn-danger btn-xs btn-flat pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
              "targets": [3],"targets": 3 },
           ],
@@ -134,7 +134,7 @@
       id_sektor = row.data()[1];
       nm_sektor = row.data()[2];
       managedata = "delsektor";
-      job=confirm("Anda yakin ingin menghapus data ini?\nJika dihapus maka akan menghapus seluruh Sub Divisi terkait dengan Sektor");
+      job=confirm("Anda yakin ingin menghapus data ini?\nJika dihapus maka akan menghapus seluruh Sub Divisi terkait dengan Bidang");
         if(job!=true){
           return false;
         }
@@ -167,8 +167,8 @@
            '<tr>'+
               '<input type="hidden" name="manage" value="updsektor">'+
               '<input type="hidden" name="id" value="'+d[0]+'">'+
-              '<td width="14%"><input style="width:90%" id="kdsektor'+d[0]+'" name="updkdsektor" class="form-control" type="text" placeholder="Kode Sektor"></td>'+
-              '<td><input style="width:98%" id="ursektor'+d[0]+'" name="updursektor" class="form-control" type="text" placeholder="Uraian Sektor"></td>'+
+              '<td width="14%"><input style="width:90%" id="kdsektor'+d[0]+'" name="updkdsektor" class="form-control" type="text" placeholder="Kode Bidang"></td>'+
+              '<td><input style="width:98%" id="ursektor'+d[0]+'" name="updursektor" class="form-control" type="text" placeholder="Uraian Bidang"></td>'+
               '<td style="vertical-align:middle; width:15%;">'+
                 '<div class="box-tools">'+
                   '<button id="btnrst" class="btn btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
@@ -227,12 +227,12 @@
                 nmsektor: "required"
               },
               messages: {
-                  kdsektor: { required  : "Masukkan Kode Sektor",
+                  kdsektor: { required  : "Masukkan Kode Bidang",
                               number    : "Masukkan Angka",
                               maxlength : "Maksimal 2 digit",
                               minlength : "Minimal 2 digit",
-                              remote    : "Kode Sektor telah terdaftar"},
-                  nmsektor: { required  : "Masukkan Nama Sektor" }
+                              remote    : "Kode Bidang telah terdaftar"},
+                  nmsektor: { required  : "Masukkan Nama Bidang" }
               },
               submitHandler: function(form) {
                 $('#addsektor').submit(function(e){
