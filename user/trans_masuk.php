@@ -121,13 +121,17 @@
         $("li#trans_masuk").addClass("active");
         $('#tgl_dok').datepicker({
           format: "dd-mm-yyyy"
-        });
+        });         
         $('#tgl_dok').datepicker().on("changeDate", function(e) {
           $('#tgl_buku').val($(this).val());
-        });         
+          $(this).datepicker('hide');
+        });
         $('#tgl_buku').datepicker({
           format: "dd-mm-yyyy"
-        });             
+        });
+        $('#tgl_buku').datepicker().on("changeDate", function(e) {
+          $(this).datepicker('hide');
+        });
         $("li#saldo_awal").addClass("active");
         table = $("#example1").DataTable({
           "processing": false,
