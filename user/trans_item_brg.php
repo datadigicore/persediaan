@@ -186,13 +186,14 @@ else {
                     <thead>
                       <tr>
                         <th>ID</th>
+                        <th>No Dok</th>
                         <th>Tgl Dokumen</th>
                         <th>Nama Barang</th>
+                        <th>Spesifikasi</th>
                         <th>Jumlah</th>
                         <th>Harga Satuan</th>
-                        <th>Total Harga</th>
-                        <th>No Dok</th>
-                        <th>No Bukti</th>
+                        <th>Total Harga</th>  
+                        <th>Keterangan</th>
                         <th width="8%">Aksi</th>
                       </tr>
                     </thead>
@@ -268,14 +269,14 @@ else {
             {"targets": 4 },
             {"targets": 5 },
             {"targets": 6 },
-            {"targets": 7,
-             "visible": false },
+            {"targets": 7 },
+            {"targets": 8 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                   '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
-             "targets": [8],"targets": 8 },
+             "targets": [9],"targets": 9 },
           ],
         });
         // $('#example1 tbody').on('click', 'tr', function () {
@@ -439,14 +440,14 @@ else {
                   {"targets": 4 },
                   {"targets": 5 },
                   {"targets": 6 },
-                  {"targets": 7,
-                   "visible": false },
+                  {"targets": 7 },
+                  {"targets": 8 },
                   {"orderable": false,
                    "data": null,
                    "defaultContent":  '<div class="box-tools">'+
                                         '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
                                       '</div>',
-                   "targets": [8],"targets": 8 },
+                   "targets": [9],"targets": 9 },
                 ],
                 "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
               });
@@ -501,14 +502,14 @@ else {
             {"targets": 4 },
             {"targets": 5 },
             {"targets": 6 },
-            {"targets": 7,
-             "visible": false },
+            {"targets": 7 },
+            {"targets": 8 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                   '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
-             "targets": [8],"targets": 8 },
+             "targets": [9],"targets": 9 },
           ],
         });
         // $('#example1 tbody').on('click', 'tr', function () {
@@ -694,14 +695,14 @@ else {
                   {"targets": 4 },
                   {"targets": 5 },
                   {"targets": 6 },
-                  {"targets": 7,
-                   "visible": false },
+                  {"targets": 7 },
+                  {"targets": 8 },
                   {"orderable": false,
                    "data": null,
                    "defaultContent":  '<div class="box-tools">'+
                                         '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
                                       '</div>',
-                   "targets": [8],"targets": 8 },
+                   "targets": [9],"targets": 9 },
                 ],
               });
             }

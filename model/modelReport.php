@@ -893,9 +893,9 @@ class modelReport extends mysql_db
                         <td style="font-weight:bold;">NILAI</td>
                 </tr>';
         echo '  <tr>
-                    <td align="right" style="font-size:90%; background-color:#DEDEDE;"><b>117</b></td>
+                    <td align="center" style="font-size:90%; background-color:#DEDEDE;"><b>117</b></td>
                     <td align="left" style="font-size:90%; background-color:#DEDEDE;"><b>Persediaan</b></td>
-                    <td align="right" colspan="7" style="font-size:90%; background-color:#DEDEDE;"><b>'.$this->sum_persedia($data,"117").'</b></td>
+                    <td align="right"  style="font-size:90%; background-color:#DEDEDE;"><b>'.$this->sum_persedia($data,"117").'</b></td>
                 </tr>';
                 $sql="SELECT kd_perk, nm_perk, sum(total_harga) as nilai FROM (
                                     SELECT tgl_dok, thn_ang, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_masuk
