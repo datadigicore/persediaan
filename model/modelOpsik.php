@@ -16,7 +16,7 @@ class modelOpsik extends mysql_db
            
             $kd_lokasi=$row_id['kd_lokasi'];
             $nm_satker = $row_id['nm_satker'];
-            $thn_ang = $row_id['thn_ang']
+            $thn_ang = $row_id['thn_ang'];
             $no_dok = $row_id['no_dok'];
             $tgl_dok = $row_id['tgl_dok'];
             $tgl_buku = $row_id['tgl_buku'];
