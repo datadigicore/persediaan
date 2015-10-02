@@ -16,7 +16,7 @@ class modelOpsik extends mysql_db
            
             $kd_lokasi=$row_id['kd_lokasi'];
             $nm_satker = $row_id['nm_satker'];
-            
+            $thn_ang = $row_id['thn_ang']
             $no_dok = $row_id['no_dok'];
             $tgl_dok = $row_id['tgl_dok'];
             $tgl_buku = $row_id['tgl_buku'];
@@ -30,11 +30,11 @@ class modelOpsik extends mysql_db
 
             $kd_brg = $row_id['kd_brg'];
             $nm_brg = $row_id['nm_brg'];
-            $keterangan = $row_id['keterangan'];
+            $keterangan = 'Hapus Opname : '.$row_id['keterangan'];
             $id_trans = $row_id['id'];
-            $qty_awal = $row_id['qty'];
+            $qty_awal = -1 * $row_id['qty'];
             $harga_sat = $row_id['harga_sat'];
-            $total_harga = $row_id['total_harga'];
+            $total_harga = -1 * $row_id['total_harga'];
 
             echo "Masuk kesini";
             $query_hps_msk = "delete from transaksi_masuk where id_opname='$id_opname' and jns_trans='P01' ";
@@ -52,6 +52,39 @@ class modelOpsik extends mysql_db
             // $result_hps = $this->query($query_hps_klr);
 
             //Memasukkan Data Ke Transaksi Full
+
+                $query_full = "Insert into transaksi_full
+                    set 
+                    kd_lokasi='$kd_lokasi',
+                    kd_lok_msk='',
+                    id_opname='$id_opname',
+                    id_masuk='$id_trans',
+                    nm_satker='$nm_satker',
+                    thn_ang='$thn_ang',
+                    no_dok='$no_dok',
+                    tgl_dok='$tgl_dok',
+                    tgl_buku='$tgl_buku',
+                    no_bukti='$no_bukti',
+                    jns_trans='H03',
+                    kd_sskel='$kd_sskel',
+                    nm_sskel='$nm_sskel',
+                    kd_brg='$kd_brg',
+                    nm_brg='$nm_brg',
+                    kd_perk='$kd_perk',
+                    nm_perk='$nm_perk',
+                    satuan='$satuan',
+                    qty='$qty_awal',
+                    
+                    harga_sat='$harga_sat',
+                    total_harga='$total_harga',
+                    keterangan='$keterangan',
+                    status='0',
+                    tgl_update=NOW(),
+                    user_id='$user_id'";   
+                $result_full = $this->query($query_full);   
+
+
+
         }        
         else
         {
