@@ -153,7 +153,7 @@ class modelBarang extends mysql_db
 
 	public function bacassatuan($data)
 	{
-		$query = "select satuan from persediaan where satuan like '$data%' group by satuan asc";
+		$query = "select satuan from persediaan where satuan like '%$data%' group by satuan asc";
         $result = $this->query($query);
         $json = array();
         while ($row = $this->fetch_array($result))
