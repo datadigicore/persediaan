@@ -318,7 +318,7 @@ class modelTransaksi extends mysql_db
         while($kuantitas > 0)
         {   
             echo " kuantitas tersisa : ".$kuantitas; 
-            $query_id = "select id, id_opname, kd_sskel, nm_sskel, kd_brg, nm_brg, satuan, kd_perk, nm_perk, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and qty_akhir>0 and status_hapus=0 and status_edit=0 order by tgl_dok asc limit 1";     
+            $query_id = "select id, id_opname, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, satuan, kd_perk, nm_perk, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and qty_akhir>0 and status_hapus=0 and status_edit=0 order by tgl_dok asc limit 1";     
             $result_id = $this->query($query_id);
             $row_id = $this->fetch_array($result_id);
             $id_trans_m = $row_id['id'];   
@@ -332,6 +332,7 @@ class modelTransaksi extends mysql_db
             $kd_perk = $row_id['kd_perk'];
             $nm_perk = $row_id['nm_perk'];
             $nm_brg = $row_id['nm_brg'];
+            $spesifikasi = $row_id['spesifikasi'];
             // $satuan = $row_id['satuan'];
 
             echo "ID transaksi masuk : ".$id_trans_m.' '.$qty_akhir.' '.$harga_sat;
@@ -361,6 +362,7 @@ class modelTransaksi extends mysql_db
                                     nm_perk='$nm_perk',                                    
                                     kd_brg='$kd_brg',
                                     nm_brg='$nm_brg',
+                                    spesifikasi='$spesifikasi',
                                     satuan='$satuan',
                                     qty=-1*'$kuantitas',
                                     harga_sat='$harga_sat',
@@ -402,6 +404,7 @@ class modelTransaksi extends mysql_db
                                 nm_perk='$nm_perk',
                                 kd_brg='$kd_brg',
                                 nm_brg='$nm_brg',
+                                spesifikasi='$spesifikasi',
                                 satuan='$satuan',
                                 qty='$minus_qty',
                                 harga_sat='$minus_hrg',
@@ -445,6 +448,7 @@ class modelTransaksi extends mysql_db
                                 nm_perk='$nm_perk',
                                 kd_brg='$kd_brg',
                                 nm_brg='$nm_brg',
+                                spesifikasi='$spesifikasi',
                                 satuan='$satuan',
                                 qty=-1*'$qty_akhir',
                                 harga_sat='$harga_sat',
@@ -486,6 +490,7 @@ class modelTransaksi extends mysql_db
                                 nm_perk='$nm_perk',
                                 kd_brg='$kd_brg',
                                 nm_brg='$nm_brg',
+                                spesifikasi='$spesifikasi',
                                 satuan='$satuan',
                                 qty='$minus_qty',
                                 harga_sat='$minus_hrg',
