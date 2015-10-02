@@ -132,49 +132,41 @@ class modelBarang extends mysql_db
 		}	
 	}
 
-	public function bacabarang()
+	public function bacabarang($data)
 	{
-		$query = "select kd_brg, nm_brg from persediaan order by kd_brg asc";
+		$query = "select kd_brg, nm_brg from persediaan where CONCAT(kd_brg,' ',nm_brg) like '%$data%' order by kd_brg asc";
         $result = $this->query($query);
-        echo '<option value="">-- Pilih Kode Barang --</option>';
-		while ($row = $this->fetch_array($result))
-		{
-			if (substr_count($row['kd_brg'],".") == 3) {
-				echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg']."</option>";
-				$query2 = "select kd_brg, nm_brg from persediaan where kd_brg like '$row[kd_brg]%'  order by kd_brg asc";
-				$result2 = $this->query($query2);
-				while ($row2 = $this->fetch_array($result2))
-				{
-					if (substr_count($row2['kd_brg'],".") == 4) {
-						echo '<option value="'.$row2['kd_brg'].'">&nbsp;&nbsp;'.$row2['kd_brg'].' '.$row2['nm_brg']."</option>";
-						$query3 = "select kd_brg, nm_brg from persediaan where kd_brg like '$row2[kd_brg]%' order by kd_brg asc";
-						$result3 = $this->query($query3);
-						while ($row3 = $this->fetch_array($result3))
-						{
-							if (substr_count($row3['kd_brg'],".") == 5) {
-								echo '<option value="'.$row3['kd_brg'].'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$row3['kd_brg'].' '.$row3['nm_brg']."</option>";
-							}
-						}
-					}
-				}
-			}
-		}	
+        $json = array();
+        while ($row = $this->fetch_array($result))
+        {
+        	if ((substr_count($row['kd_brg'],".") >= 3 and (substr_count($row['kd_brg'],".") <= 5))) {
+        		$dynamic = array(
+	                'id' => $row['kd_brg'],
+	                'text' => $row['kd_brg']." ".$row['nm_brg']
+	            );
+	            array_push($json, $dynamic);
+        	}
+            
+        }   
+        echo json_encode($json);
 	}
 
-	public function bacassatuan()
+	public function bacassatuan($data)
 	{
-		$query = "select satuan from persediaan group by satuan asc";
+		$query = "select satuan from persediaan where satuan like '$data%' group by satuan asc";
         $result = $this->query($query);
-        echo '<option value="">-- Pilih Satuan Barang --</option>';
-		while ($row = $this->fetch_array($result))
-		{
-			if ($row['satuan'] == " " or $row['satuan'] == "" or $row['satuan'] == ";") {
-				
-			}
-			else{
-				echo '<option value="'.$row['satuan'].'">'.$row['satuan']."</option>";
-			}
-		}	
+        $json = array();
+        while ($row = $this->fetch_array($result))
+        {
+        	if ($row['satuan'] != " " or $row['satuan'] != "" or $row['satuan'] != ";") {
+        		$dynamic = array(
+	                'id' => $row['satuan'],
+	                'text' => $row['satuan']
+	            );
+	            array_push($json, $dynamic);
+        	}
+        }   
+        echo json_encode($json);
 	}
 
 	public function ubah_barang($data)

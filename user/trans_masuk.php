@@ -120,15 +120,11 @@
         $('#tgl_buku').css('background-color' , '#FFFFFF');
         $("li#trans_masuk").addClass("active");
         $('#tgl_dok').datepicker({
-          format: "dd-mm-yyyy",
-              onSelect: function(dateText, inst) {
-        var date = $(this).val();
-        var time = $('#time').val();
-        alert('on select triggered');
-        $("#start").val(date + time.toString(' HH:mm').toString());
-
-    }
+          format: "dd-mm-yyyy"
         });
+        $('#tgl_dok').datepicker().on("changeDate", function(e) {
+          $('#tgl_buku').val($(this).val());
+        });         
         $('#tgl_buku').datepicker({
           format: "dd-mm-yyyy"
         });             

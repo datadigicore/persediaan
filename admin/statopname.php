@@ -3,7 +3,6 @@
   <head>
     <?php include("include/loadcss.php"); ?>
     <link href="../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="../plugins/iCheck/all.css" rel="stylesheet" type="text/css" />
   </head>
   <body class="skin-blue layout-boxed">
     <div class="wrapper">
@@ -26,52 +25,17 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-warning">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tambah Tahun Aktif</h3>
-                </div>  
-                <form action="../core/konfig/proseskonfigurasi" method="post" class="form-horizontal" id="addkonfig">
-                  <div class="box-body">
-                    <div class="form-group" style="margin-top:15px;">
-                      <label class="col-sm-2 control-label">Tahun</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="thnaktif" class="form-control" id="thnaktif" placeholder="Masukkan Tahun">
-                        <input type="hidden" name="manage" value="addthnaktif">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Keterangan</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Keterangan">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label"></label>
-                      <div class="col-sm-9">
-                        <label>
-                          <input type="checkbox" name="status" class="minimal" value="Aktif"/>
-                        </label>
-                        &nbsp;&nbsp;Sebagai Tahun Aktif
-                      </div>
-                  </div>
-                  </div>
-                  <div class="box-footer">
-                    <button type="Reset" class="btn btn-default">Reset</button>
-                    <button type="submit" class="btn btn-warning pull-right">Submit</button>
-                  </div>
-                </form>
-              </div>
-              <div class="box box-warning">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Tabel Data Pengelola</h3>
+                  <h3 class="box-title">Tabel Status Opname</h3>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th width="12%">Tahun</th>
-                        <th width="64%">Keterangan</th>
-                        <th>status</th>
-                        <th width="12.8%">Aksi</th>
+                        <th width="20%">Kode UPB</th>
+                        <th width="48%">Nama UPB</th>
+                        <th>Tahun Anggaran</th>
+                        <th width="7%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -87,25 +51,16 @@
     <?php include("include/loadjs.php"); ?>
     <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
-    <script src="../plugins/iCheck/icheck.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       var table;
-      $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-        checkboxClass: 'icheckbox_minimal-blue',
-        radioClass: 'iradio_minimal-blue'
-      });
-      $(function () {
-        $("li#statopname").addClass("active");
-        $("li.statopname").addClass("active3");
-        $("li.statopname>a").append('<i class="fa fa-angle-down pull-right" style="margin-top:3px;"></i>');
-        $(".select2").select2();
+      function myTable() {
         table = $("#example1").DataTable({
           "oLanguage": {
             "sInfoFiltered": ""
           },
           "processing": false,
           "serverSide": true,
-          "ajax": "../core/loadtable/tablethnaktif",
+          "ajax": "../core/loadtable/tablestatopname",
           "columnDefs":
           [
             {"targets": 0,
@@ -116,13 +71,19 @@
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btnakt" class="btn btn-flat btn-info btn-xs pull-left"><i class="fa fa-check-square-o"></i> Aktif</button>'+
-                                  '<button id="btnhps" class="btn btn-flat btn-danger btn-xs pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
+                                  '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
              "targets": [4],"targets": 4 }
           ],
           "order": [[ 1, "asc" ]]
         });
+      }
+      $(function () {
+        $("li#statopname").addClass("active");
+        $("li.statopname").addClass("active3");
+        $("li.statopname>a").append('<i class="fa fa-angle-down pull-right" style="margin-top:3px;"></i>');
+        $(".select2").select2();
+        myTable();
       });
       $(document).on('click', '#btnakt', function () {
         var tr = $(this).closest('tr');

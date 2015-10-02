@@ -119,6 +119,9 @@
         $('#rph_sat').css('background-color' , '#FFFFFF');
         $('#tgl_dok').datepicker({
           format: "dd-mm-yyyy"
+        });
+        $('#tgl_dok').datepicker().on("changeDate", function(e) {
+          $('#tgl_buku').val($(this).val());
         });         
         $('#tgl_buku').datepicker({
           format: "dd-mm-yyyy"

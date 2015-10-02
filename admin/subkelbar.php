@@ -32,7 +32,6 @@
                       <label class="col-sm-2 control-label">Kode Barang </label>
                       <div class="col-sm-7">
                         <select name="kdbarang_no" id="kdbarang_no" class="form-control select2">
-                          <option selected="selected">-- Pilih Kode Barang --</option>
                         </select>
                         <input type="hidden" name="manage" value="addsubbarang">
                       </div>
@@ -56,7 +55,6 @@
                       <label class="col-sm-2 control-label">Satuan</label>
                       <div class="col-sm-9">
                         <select name="satuan" id="satuan" class="form-control select2">
-                          <option selected="selected">-- Pilih Satuan Barang --</option>
                         </select>
                       </div>
                     </div>
@@ -125,6 +123,54 @@
       }
       $(function () {
         $(".select2").select2();
+        $("#kdbarang_no").select2({
+          placeholder: "-- Pilih Kode Item Barang --",
+          ajax: {
+            url: '../core/barang/prosesbarang',
+            dataType: 'json',
+            type: 'post',
+            delay: 250,
+            data: function (params) {
+              return {
+                manage:'readbarang',
+                q: params.term, // search term
+                page: params.page
+              };
+            },
+            processResults: function (data, page) {
+              return {
+                results: data
+              };
+            },
+            cache: true
+          },
+          escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+          minimumInputLength: 1,
+        });
+        $("#satuan").select2({
+          placeholder: "-- Pilih Satuan Barang --",
+          ajax: {
+            url: '../core/barang/prosesbarang',
+            dataType: 'json',
+            type: 'post',
+            delay: 250,
+            data: function (params) {
+              return {
+                manage:'readsatuan',
+                q: params.term, // search term
+                page: params.page
+              };
+            },
+            processResults: function (data, page) {
+              return {
+                results: data
+              };
+            },
+            cache: true
+          },
+          escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+          minimumInputLength: 1,
+        });
         $(".treeview").addClass("active");
         $("li#subkelbar").addClass("active");
         myTable();
@@ -241,22 +287,6 @@
           }
         });
         return false;
-      });
-      $.ajax({
-        type: "post",
-        url: '../core/barang/prosesbarang',
-        data: {manage:'readsatuan'},
-        success: function (output) {     
-          $('#satuan').html(output);
-        }
-      });
-      $.ajax({
-        type: "post",
-        url: '../core/barang/prosesbarang',
-        data: {manage:'readbarang'},
-        success: function (output) {     
-          $('#kdbarang_no').html(output);
-        }
       });
       $('#addbarang').submit(function(e){
         if($("#kdbarang_no").val()=="")

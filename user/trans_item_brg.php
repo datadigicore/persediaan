@@ -469,6 +469,9 @@ else {
     var table;
       $(function () {
         $(".select2").select2();
+        $("#kd_brg").select2({
+          placeholder: "-- Pilih Kode Item Barang --",
+        });
         $("li#trans_keluar").addClass("active");
         $('#tgl_dok').datepicker({
           format: "dd-mm-yyyy"

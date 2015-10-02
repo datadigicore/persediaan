@@ -29,11 +29,13 @@ else
 		break;
 
 		case 'readbarang':
-			$Barang->bacabarang();
+			$search = $_POST['q'];
+			$Barang->bacabarang($search);
 		break;
 
 		case 'readsatuan':
-			$Barang->bacassatuan();
+			$search = $_POST['q'];
+			$Barang->bacassatuan($search);
 		break;
 
 		case 'cekbarang':
