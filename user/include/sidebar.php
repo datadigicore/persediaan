@@ -22,6 +22,7 @@
                 <li id="l_buku_bph"><a href="l_buku_bph"><span>Buku Barang Pakai Habis</span></a></li>
                 <li id="l_kartu_brg"><a href="l_kartu_brg"><span>Kartu Barang</span></a></li>
                 <li id="l_kartu_p_brg"><a href="l_kartu_p_brg"><span>Kartu Persediaan Barang</span></a></li>
+                <li id="l_pp_bph"><a href="l_pp_bph"><span>Penerimaan & Pengeluaran</span></a></li>
               </ul>
             </li>           
           </ul>
