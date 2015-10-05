@@ -7,6 +7,131 @@ class modelOpsik extends mysql_db
         $id_opname = $data['id'];
         $user_id = $data['user_id'];
 
+        $query_t_full = "select * from transaksi_full where id_opname='$id_opname' and jns_trans='P02' and id_masuk is not null ";
+        $result_t_full = $this->query($query_t_full);
+        while ($row_id = $this->fetch_array($result_t_full))
+            { 
+                $id_masuk = $row_id['id_masuk'];
+                $kd_lokasi=$row_id['kd_lokasi'];
+                $nm_satker = $row_id['nm_satker'];
+                $thn_ang = $row_id['thn_ang'];
+                $no_dok = $row_id['no_dok'];
+                $tgl_dok = $row_id['tgl_dok'];
+                $tgl_buku = $row_id['tgl_buku'];
+                $no_bukti = $row_id['no_bukti'];
+
+                $kd_sskel = $row_id['kd_sskel'];
+                $nm_sskel = $row_id['nm_sskel'];
+                $kd_perk = $row_id['kd_perk'];
+                $nm_perk = $row_id['nm_perk'];
+                $satuan = $row_id['satuan'];
+
+                $kd_brg = $row_id['kd_brg'];
+                $nm_brg = $row_id['nm_brg'];
+                $harga_sat = $row_id['harga_sat'];
+                $total_harga = $row_id['total_harga'];
+                $keterangan = 'Hapus Refresh OP Msk : '.$row_id['keterangan'];
+
+
+                $query_hrg_masuk = "update transaksi_masuk  set harga_sat=harga_sat-'$harga_sat', total_harga = total_harga-'$total_harga'  where  id='$id_masuk'";
+                $result_hrg_masuk = $this->query($query_hrg_masuk);
+                $query_full = "Insert into transaksi_full
+                            set 
+                            kd_lokasi='$kd_lokasi',
+                            kd_lok_msk='',
+                            id_opname='$id_opname',
+                            id_masuk='$id_masuk',
+                            nm_satker='$nm_satker',
+                            thn_ang='$thn_ang',
+                            no_dok='$no_dok',
+                            tgl_dok='$tgl_dok',
+                            tgl_buku='$tgl_buku',
+                            no_bukti='$no_bukti',
+                            jns_trans='H03',
+                            kd_sskel='$kd_sskel',
+                            nm_sskel='$nm_sskel',
+                            kd_brg='$kd_brg',
+                            nm_brg='$nm_brg',
+                            kd_perk='$kd_perk',
+                            nm_perk='$nm_perk',
+                            satuan='$satuan',
+                            qty='0',
+                            
+                            harga_sat=-1*'$harga_sat',
+                            total_harga=-1*'$total_harga',
+                            keterangan='$keterangan',
+                            status='0',
+                            tgl_update=NOW(),
+                            user_id='$user_id'";   
+                        $result_full = $this->query($query_full);  
+
+
+
+            }
+            
+            $query_t_full_klr = "select * from transaksi_full where id_opname='$id_opname' and jns_trans='P02' and id_keluar is not null ";
+                    $result_t_full_klr = $this->query($query_t_full_klr);
+                    while ($row_id = $this->fetch_array($result_t_full_klr))
+                        { 
+                            $id_keluar = $row_id['id_keluar'];
+                            $kd_lokasi=$row_id['kd_lokasi'];
+                            $nm_satker = $row_id['nm_satker'];
+                            $thn_ang = $row_id['thn_ang'];
+                            $no_dok = $row_id['no_dok'];
+                            $tgl_dok = $row_id['tgl_dok'];
+                            $tgl_buku = $row_id['tgl_buku'];
+                            $no_bukti = $row_id['no_bukti'];
+
+                            $kd_sskel = $row_id['kd_sskel'];
+                            $nm_sskel = $row_id['nm_sskel'];
+                            $kd_perk = $row_id['kd_perk'];
+                            $nm_perk = $row_id['nm_perk'];
+                            $satuan = $row_id['satuan'];
+
+                            $kd_brg = $row_id['kd_brg'];
+                            $nm_brg = $row_id['nm_brg'];
+                            $harga_sat = $row_id['harga_sat'];
+                            $total_harga = $row_id['total_harga'];
+                            $keterangan = 'Hapus Refresh OP Klr : '.$row_id['keterangan'];
+
+
+                            $query_hrg_keluar = "update transaksi_keluar  set harga_sat=harga_sat-'$harga_sat', total_harga = total_harga-'$total_harga'  where  id='$id_keluar'";
+                            $result_hrg_keluar = $this->query($query_hrg_keluar);
+                            
+                            $query_full = "Insert into transaksi_full
+                                        set 
+                                        kd_lokasi='$kd_lokasi',
+                                        kd_lok_msk='',
+                                        id_opname='$id_opname',
+                                        id_keluar='$id_keluar',
+                                        nm_satker='$nm_satker',
+                                        thn_ang='$thn_ang',
+                                        no_dok='$no_dok',
+                                        tgl_dok='$tgl_dok',
+                                        tgl_buku='$tgl_buku',
+                                        no_bukti='$no_bukti',
+                                        jns_trans='H03',
+                                        kd_sskel='$kd_sskel',
+                                        nm_sskel='$nm_sskel',
+                                        kd_brg='$kd_brg',
+                                        nm_brg='$nm_brg',
+                                        kd_perk='$kd_perk',
+                                        nm_perk='$nm_perk',
+                                        satuan='$satuan',
+                                        qty='0',
+                                        
+                                        harga_sat=-1*'$harga_sat',
+                                        total_harga=-1*'$total_harga',
+                                        keterangan='$keterangan',
+                                        status='0',
+                                        tgl_update=NOW(),
+                                        user_id='$user_id'";   
+                                    $result_full = $this->query($query_full);  
+
+
+
+                        }
+
         //mnghapus hasil opname di transaksi masuk
         $query_msk = "select * from transaksi_masuk WHERE id_opname='$id_opname' and jns_trans='P01' ";
         $result_msk = $this->query($query_msk);
@@ -238,15 +363,19 @@ class modelOpsik extends mysql_db
         $satuan = $data_perk['satuan'];
 
 
-        $query_hrg = "SELECT sum(qty_akhir) as qty, sum(qty_akhir*harga_sat)/sum(qty_akhir) as harga, 
-                         sum(qty_akhir*harga_sat)%sum(qty_akhir) as sisabagi, harga_sat
+        $query_hrg = "SELECT  harga_sat
                          from transaksi_masuk
-                         where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and kd_brg='$kd_brg' and status_hapus=0 and qty_akhir>0 order by tgl_dok asc limit 1";
+                         where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and kd_brg='$kd_brg' and status_hapus=0 and qty_akhir>0 order by tgl_dok desc limit 1";
+        $query_jml = "SELECT  sum(qty_akhir) as qty
+                         from transaksi_masuk
+                         where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and kd_brg='$kd_brg' and status_hapus=0 and qty_akhir>0 order by tgl_dok desc limit 1";
         $result_hrg = $this->query($query_hrg);
+        $result_jml = $this->query($query_jml);
         $data_hrg = $this->fetch_array($result_hrg);
-        $hrg_sat = floor($data_hrg['harga_sat']);
-        $sisabagi = $data_hrg['sisabagi'];
-        
+        $data_jml = $this->fetch_array($result_jml);
+
+        $hrg_sat = $data_hrg['harga_sat'];
+       
         $total_harga = $kuantitas*$hrg_sat;
 
 
@@ -284,7 +413,7 @@ class modelOpsik extends mysql_db
         $row_id = $this->fetch_array($result_id);
         $id_opname = $row_id['id'];
           
-        $jml_brg = $data_hrg['qty'];
+        $jml_brg = $data_jml['qty'];
         $selisih = $kuantitas - $jml_brg;
         $selisih_total_harga = ($selisih*$hrg_sat)+$sisabagi;
         if($selisih>0)
@@ -364,7 +493,7 @@ class modelOpsik extends mysql_db
                 $row_id = $this->fetch_array($result_id);
                 $id_trans_m = $row_id['id'];   
                 $qty_akhir = $row_id['qty_akhir'];      
-                $harga_sat = $row_id['harga_sat']; 
+                $harga_sat = $hrg_sat; 
                 $total_harga = $selisih*$harga_sat;  
 
                 $kd_sskel = $row_id['kd_sskel'];
@@ -372,7 +501,7 @@ class modelOpsik extends mysql_db
                 $kd_perk = $row_id['kd_perk'];
                 $nm_perk = $row_id['nm_perk'];
 
-                echo "ID transaksi masuk : ".$id_trans_m.' '.$qty_akhir.' '.$harga_sat;
+                echo "ID transaksi masuk : ".$id_trans_m.' '.$qty_akhir.' '.$hrg_sat;
                 echo '<br>';
 
                 
@@ -401,7 +530,7 @@ class modelOpsik extends mysql_db
                                         nm_brg='$nm_brg',
                                         satuan='$satuan',
                                         qty=-1*'$selisih',
-                                        harga_sat='$harga_sat',
+                                        harga_sat='$hrg_sat',
                                         total_harga=-1*'$total_harga',
                                         keterangan='$keterangan',
                                         status=0,
@@ -417,7 +546,7 @@ class modelOpsik extends mysql_db
                     $row_idk = $this->fetch_array($result_idk);
                     $id_transk = $row_idk['id'];
                     $minus_qty = -$selisih;
-                    $minus_hrg = -$harga_sat;
+                    $minus_hrg = -$hrg_sat;
                     $minus_total = -$total_harga;
                     echo "id trans keluar : ".$id_transk;
                     echo '<br>';
@@ -457,8 +586,8 @@ class modelOpsik extends mysql_db
                     $row_id = $this->fetch_array($result_id);
                     $id_trans = $row_id['id'];   
                     $qty_akhir = $row_id['qty_akhir'];      
-                    $harga_sat = $row_id['harga_sat']; 
-                    $total_harga = $qty_akhir * $harga_sat;
+                    $harga_sat = $hrg_sat; 
+                    $total_harga = $qty_akhir * $hrg_sat;
                     echo $id_trans.' '.$qty_akhir.' '.$harga_sat;
                     echo '<br>';
 
@@ -483,7 +612,7 @@ class modelOpsik extends mysql_db
                                     nm_brg='$nm_brg',
                                     satuan='$satuan',
                                     qty=-1*'$qty_akhir',
-                                    harga_sat='$harga_sat',
+                                    harga_sat='$hrg_sat',
                                     total_harga=-1*'$total_harga',
                                     keterangan='$keterangan',
                                     status=0,
@@ -500,7 +629,7 @@ class modelOpsik extends mysql_db
                     $id_transk = $row_idk['id'];
 
                     $minus_qty = -$qty_akhir;
-                    $minus_hrg = -$harga_sat;
+                    $minus_hrg = -$hrg_sat;
                     $minus_total = -$total_harga;
 
                     $query_full = "Insert into transaksi_full
@@ -544,10 +673,124 @@ class modelOpsik extends mysql_db
         $update_brg_klr = "update transaksi_keluar set  status=1, id_opname='$id_opname' where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 and status=0 ";
         $result_upd_klr = $this->query($update_brg_klr);
 
+        //Mengubah Harga2 Transaksi Masuk Berdasarkan Harga Pembelian Terakhir
+        $query = "SELECT * FROM transaksi_masuk where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 and status=1 and id_opname='$id_opname'  ";
+        $result = $this->query($query);
+
+        while ($data_msk = $this->fetch_array($result))
+        {
+            $id = $data_msk['id'];  
+            $qty_lama = $data_msk['qty'];
+            $hrg_lama = $data_msk['harga_sat'];
+            $total_hrg_lama = $data_msk['total_harga'];
+
+            $thn_ang=$data_msk['thn_ang'];
+            $no_dok=$data_msk['no_dok'];
+            $tgl_dok=$data_msk['tgl_dok'];
+            $tgl_buku=$data_msk['tgl_buku'];
+            $keterangan = "Refresh : ".$data_msk['keterangan'];
+
+            $total_hrg_baru = $qty_lama * $hrg_sat;
+            $selisih_harga = $hrg_sat-$hrg_lama;
+            $selisih_subtotal = $total_hrg_baru - $total_hrg_lama ;
+
+            $update_harga = "update transaksi_masuk set harga_sat='$hrg_sat', total_harga='$total_hrg_baru' where id='$id' ";
+            $resuly_upd_hrg = $this->query($update_harga);
+
+                    $query_full = "Insert into transaksi_full
+                    set 
+                    kd_lokasi='$kd_lokasi',
+                    kd_lok_msk='',
+                    id_opname='$id_opname',
+                    id_masuk='$id',
+                    nm_satker='$nm_satker',
+                    thn_ang='$thn_ang',
+                    no_dok='$no_dok',
+                    tgl_dok='$tgl_dok',
+                    tgl_buku='$tgl_buku',
+                    no_bukti='$no_bukti',
+                    jns_trans='P02',
+                    kd_sskel='$kd_sskel',
+                    nm_sskel='$nm_sskel',
+                    kd_brg='$kd_brg',
+                    nm_brg='$nm_brg',
+                    kd_perk='$kd_perk',
+                    nm_perk='$nm_perk',
+                    satuan='$satuan',
+                    qty='0',
+                    
+                    harga_sat='$selisih_harga',
+                    total_harga='$selisih_subtotal',
+                    keterangan='$keterangan',
+                    status='1',
+                    tgl_update=NOW(),
+                    user_id='$user_id'";   
+            $result_full = $this->query($query_full);
+
+
+        
+        }
+
+        //Mengubah Harga2 Transaksi Keluar Berdasarkan Harga Pembelian Terakhir
+        $query = "SELECT * FROM transaksi_keluar where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 and status=1 and id_opname='$id_opname'  ";
+        $result = $this->query($query);
+
+        while ($data_msk = $this->fetch_array($result))
+        {
+            $id = $data_msk['id'];  
+            $qty_lama = $data_msk['qty'];
+            $hrg_lama = $data_msk['harga_sat'];
+            $total_hrg_lama = $data_msk['total_harga'];
+
+            $thn_ang=$data_msk['thn_ang'];
+            $no_dok=$data_msk['no_dok'];
+            $tgl_dok=$data_msk['tgl_dok'];
+            $tgl_buku=$data_msk['tgl_buku'];
+            $keterangan = "Refresh : ".$data_msk['keterangan'];
+
+            $total_hrg_baru = $qty_lama * $hrg_sat;
+            $selisih_harga = $hrg_sat-$hrg_lama;
+            $selisih_subtotal = $total_hrg_baru-$total_hrg_lama;
+
+            $update_harga = "update transaksi_keluar set harga_sat='$hrg_sat', total_harga='$total_hrg_baru' where id='$id' ";
+            $resuly_upd_hrg = $this->query($update_harga);
+                    $query_full = "Insert into transaksi_full
+                    set 
+                    kd_lokasi='$kd_lokasi',
+                    kd_lok_msk='',
+                    id_opname='$id_opname',
+                    id_keluar='$id',
+                    nm_satker='$nm_satker',
+                    thn_ang='$thn_ang',
+                    no_dok='$no_dok',
+                    tgl_dok='$tgl_dok',
+                    tgl_buku='$tgl_buku',
+                    no_bukti='$no_bukti',
+                    jns_trans='P02',
+                    kd_sskel='$kd_sskel',
+                    nm_sskel='$nm_sskel',
+                    kd_brg='$kd_brg',
+                    nm_brg='$nm_brg',
+                    kd_perk='$kd_perk',
+                    nm_perk='$nm_perk',
+                    satuan='$satuan',
+                    qty='0',
+                    
+                    harga_sat='$selisih_harga',
+                    total_harga='$selisih_subtotal',
+                    keterangan='$keterangan',
+                    status='1',
+                    tgl_update=NOW(),
+                    user_id='$user_id'";   
+            $result_full = $this->query($query_full);
+        
+        }
+
+
 
 
 
     }   
 
 }
-?>
+?> 
