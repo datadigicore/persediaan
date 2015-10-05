@@ -1286,7 +1286,7 @@ class modelReport extends mysql_db
                     <td >Tanggal</td>
                     <td >Ket</td>
                 </tr>';
-
+                $this->label_nomor(12);
 
                 // if($jenis=="tanggal") 
                 // {
@@ -1443,7 +1443,7 @@ class modelReport extends mysql_db
                     <td >Ket</td>
                 </tr>';
 
-
+                $this->label_nomor(10);
                 // if($jenis=="tanggal") 
                 // {
                     $sql="SELECT tgl_buku, nm_brg, abs(qty) as qty, harga_sat,abs(total_harga) as total_harga, jns_trans, keterangan, tgl_buku 
@@ -1615,7 +1615,7 @@ class modelReport extends mysql_db
                             <td >Tanggal</td>
                             <td >Nomor</td>
                         </tr>';
-
+                    $this->label_nomor(14);
                 // if($jenis=="tanggal") 
                 // {
                     $sql="SELECT id, tgl_buku, no_dok, tgl_dok, nm_sskel, nm_brg,  spesifikasi, qty, satuan, harga_sat,total_harga, keterangan 
@@ -1816,7 +1816,7 @@ class modelReport extends mysql_db
                     <td>SISA</td>
                     <td>KETERANGAN</td>
                 </tr>';
-
+                $this->label_nomor(6);
                 // if($jenis=="tanggal") 
                 // {
                     $sql="SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
@@ -1969,7 +1969,7 @@ class modelReport extends mysql_db
                 </table>';
             echo    '<table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% " border=1 align="center">
                     <tr>
-                        <td rowspan="2">Tanggal</td>
+                        <td rowspan="2">No</td>
                         <td rowspan="2" width="10%">No./Tgl Surat Dasar Penerimaan / Pengeluaran</td>
                         <td rowspan="2" >Uraian</td>
                         <td colspan="3" >Barang-barang</td>
@@ -1986,7 +1986,7 @@ class modelReport extends mysql_db
                         <td>Sisa</td>
                     </tr>
                 ';
-
+                $this->label_nomor(11);
                 // if($jenis=="tanggal") 
                 // {
                     $sql="SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
@@ -2302,14 +2302,42 @@ class modelReport extends mysql_db
                 }
 
             echo   '</table>';
-        $mpdf=new mPDF('utf-8', 'A4-L');
 
-                $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
-                ob_end_clean();
-                //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
-                $mpdf->WriteHTML(utf8_encode($html));
-                $mpdf->Output("pp_bph.pdf" ,'I');
-                exit;
+            echo '<br></br>';
+            echo '  <table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:85% ">
+                        <tr>
+                            <td colspan="4"></td>
+                            <td colspan="7"></td>
+                            <td >...............,...................................</td>
+                        </tr>                        
+                        <tr>
+                            <td colspan="4">ATASAN LANGSUNG</td>
+                            <td colspan="7"></td>
+                            <td >PENYIMPAN BARANG</td>
+                        </tr>
+                        <tr>
+                        <td><br></br>
+                        <br></br>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">(.......................................................)</td>
+                            <td colspan="7"></td>
+                            <td >(.......................................................)</td>
+                        </tr>                        
+                        <tr>
+                            <td colspan="4">NIP..................................................</td>
+                            <td colspan="7"></td>
+                            <td >NIP..................................................</td>
+                        </tr>
+                    </table>';
+            $mpdf=new mPDF('utf-8', 'A4-L');
+            $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
+            ob_end_clean();
+            //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
+            $mpdf->WriteHTML(utf8_encode($html));
+            $mpdf->Output("pp_bph.pdf" ,'I');
+            exit;
 
     }
 
