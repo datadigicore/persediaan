@@ -27,6 +27,13 @@
                 </div>  
                 <form action="../core/tandatgn/prosestndatgn" method="post" class="form-horizontal" id="addtndatgn">
                   <div class="box-body">
+                     <div class="form-group">
+                      <label class="col-sm-2 control-label">Kode Satker</label>
+                      <div class="col-sm-9">
+                        <select name="read_no_dok" id="read_no_dok" class="form-control">
+                        </select>
+                      </div>
+                    </div>                   
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nama</label>
                       <div class="col-sm-9">
@@ -110,6 +117,15 @@
         $('#nip2').val(output.nip2);
         $('#jabatan2').val(output.jabatan2);
         $('#kota').val(output.kota);
+        }
+      });
+
+      $.ajax({
+        type: "post",
+        url: '../core/transaksi/prosestransaksi',
+        data: {manage:'readsatkerdok',no_dok:"<?php echo($_SESSION['kd_lok']);?>"},
+        success: function (output) {     
+          $('#read_no_dok').html(output);
         }
       });
 
