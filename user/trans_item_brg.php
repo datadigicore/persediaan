@@ -328,7 +328,9 @@ else {
           }
           if(output.qty!=null)
           {
-            alert("Tidak dapat menghapus, barang sudah dikeluarkan pada tanggal "+output.tgl_dok+" sebanyak "+output.qty+" "+output.satuan);
+            date = output.tgl_dok.split("-");
+            tanggal = date[2]+"/"+date[1]+"/"+date[0];
+            alert("Tidak dapat menghapus, barang sudah dikeluarkan pada tanggal "+tanggal+" sebanyak "+Math.abs(output.qty)+" "+output.satuan);
             return false;
           }
           else

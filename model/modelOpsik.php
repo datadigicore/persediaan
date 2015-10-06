@@ -190,7 +190,7 @@ class modelOpsik extends mysql_db
                     tgl_dok='$tgl_dok',
                     tgl_buku='$tgl_buku',
                     no_bukti='$no_bukti',
-                    jns_trans='H03',
+                    jns_trans='P01-H',
                     kd_sskel='$kd_sskel',
                     nm_sskel='$nm_sskel',
                     kd_brg='$kd_brg',
@@ -263,7 +263,7 @@ class modelOpsik extends mysql_db
                     tgl_dok='$tgl_dok',
                     tgl_buku='$tgl_buku',
                     no_bukti='$no_bukti',
-                    jns_trans='H03',
+                    jns_trans='P01-H',
                     kd_sskel='$kd_sskel',
                     nm_sskel='$nm_sskel',
                     kd_brg='$kd_brg',
@@ -314,7 +314,7 @@ class modelOpsik extends mysql_db
     {
         $kd_lokasi = $data['kd_lokasi'];
         $thn_ang = $data['thn_ang'];
-        $query = "select kd_brg, nm_brg FROM transaksi_masuk where kd_lokasi like '$kd_lokasi%' and status_hapus=0 and qty>0  and thn_ang = '$thn_ang' and status=0 GROUP BY kd_brg ORDER BY nm_brg ASC ";
+        $query = "select kd_brg, nm_brg FROM transaksi_full where kd_lokasi like '$kd_lokasi%' and status_hapus=0 and qty>0  and thn_ang = '$thn_ang' and status=0 GROUP BY kd_brg ORDER BY nm_brg ASC ";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         while ($row = $this->fetch_array($result))
@@ -692,7 +692,7 @@ class modelOpsik extends mysql_db
 
             $total_hrg_baru = $qty_lama * $hrg_sat;
             $selisih_harga = $hrg_sat-$hrg_lama;
-            $selisih_subtotal = $total_hrg_baru - $total_hrg_lama ;
+            $selisih_subtotal = $total_hrg_baru-$total_hrg_lama;
 
             $update_harga = "update transaksi_masuk set harga_sat='$hrg_sat', total_harga='$total_hrg_baru' where id='$id' ";
             $resuly_upd_hrg = $this->query($update_harga);

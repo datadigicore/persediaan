@@ -655,7 +655,7 @@ class modelTransaksi extends mysql_db
         $id_masuk = $data['id'];
         $thn_ang = $data['thn_ang'];
 
-        $query_id = "select id,  kd_sskel, nm_sskel, kd_perk, nm_perk, kd_brg, satuan,  kd_lokasi, nm_satker, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti,kd_brg, nm_brg, qty, harga_sat, total_harga  from transaksi_masuk WHERE id='$id_masuk'";
+        $query_id = "select id,  kd_sskel, nm_sskel, kd_perk, nm_perk, kd_brg, satuan,  kd_lokasi, nm_satker, thn_ang, no_dok, jns_trans, tgl_dok, tgl_buku, no_bukti,kd_brg, nm_brg, qty, harga_sat, total_harga  from transaksi_masuk WHERE id='$id_masuk'";
         $result_id = $this->query($query_id);
         $row_id = $this->fetch_array($result_id);
         $kd_lokasi=$row_id['kd_lokasi'];
@@ -665,6 +665,7 @@ class modelTransaksi extends mysql_db
         $tgl_dok = $row_id['tgl_dok'];
         $tgl_buku = $row_id['tgl_buku'];
         $no_bukti = $row_id['no_bukti'];
+        $jns_trans = $row_id['jns_trans'].'-H';
 
         $kd_sskel = $row_id['kd_sskel'];
         $nm_sskel = $row_id['nm_sskel'];
@@ -1074,7 +1075,7 @@ class modelTransaksi extends mysql_db
        $id_masuk = $data['id_masuk'];
 
 
-       $query_cek = "SELECT tgl_dok,qty,satuan,status from transaksi_keluar where kd_lokasi='$kd_lokasi' and id_masuk='$id_masuk' and status_hapus=0";
+       $query_cek = "SELECT tgl_dok,qty,satuan,status from transaksi_keluar where kd_lokasi like '$kd_lokasi%' and id_masuk='$id_masuk' and status_hapus=0";
        $result = $this->query($query_cek);
        $cek= $this->fetch_array($result);
        $jumlah = $cek["qty"];
@@ -1084,7 +1085,7 @@ class modelTransaksi extends mysql_db
        $cek_opname= $this->fetch_array($result_cek_opname);
        $status = $cek_opname["status"];
    
-       echo json_encode(array("tgl_dok"=>$cek["tgl_dok"], "qty"=>$jumlah,"satuan"=>$cek["satuan"],"st_op"=>$status));
+       echo json_encode(array("tgl_dok"=>$cek["tgl_dok"], "qty"=>$jumlah,"satuan"=>$cek["satuan"],"st_op"=>$status,"id"=>$id_masuk));
     }
     
     public function loghistory_masuk($datalog)

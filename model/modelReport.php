@@ -861,8 +861,8 @@ class modelReport extends mysql_db
                                 $saldo = $this->sum_persedia($data_lp,"11701","saldo");
                                 echo '
                                 <tr style="font-size:45%;">
-                                        <td align="right" style="background-color:#DEDEDE; font-size:90%;"><b>'.$data[kd_perk].'</b></td>
-                                        <td  align="left" style="background-color:#DEDEDE; font-size:90%;"><b>'.$data[nm_perk].'</b></td>
+                                        <td align="right" style=" font-size:90%;"><b>'.$data[kd_perk].'</b></td>
+                                        <td  align="left" style=" font-size:90%;"><b>'.$data[nm_perk].'</b></td>
                                         <td align="right"  style="font-size:90%; "><b>'.$qty_SA.'</b></td>
                                         <td align="right"  style="font-size:90%; "><b>'.$hrg_SA.'</b></td>
                                         <td align="right"  style="font-size:90%; "><b>'.$qty_msk.'</b></td>
@@ -3537,11 +3537,11 @@ public function transaksi_persediaan_excel($data)
         }        
         elseif($kode=="117"&&$nilai=="qty_msk")
         {
-            $sql = "SELECT sum(qty) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and qty>0 ";
+            $sql = "SELECT sum(qty) as jml from transaksi_masuk where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' ";
         }
         elseif($kode=="117"&&$nilai=="qty_klr")
         {
-            $sql = "SELECT sum(qty) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and qty<0 ";
+            $sql = "SELECT sum(qty) as jml from transaksi_keluar where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' ";
         }
         elseif($kode=="117"&&$nilai=="saldo")
         {
@@ -3558,18 +3558,17 @@ public function transaksi_persediaan_excel($data)
         }        
         elseif($kode=="11701" && $nilai=="qty_msk")
         {
-            $sql = "SELECT sum(qty) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and qty>0 and kd_perk like '11701%'  ";
+            $sql = "SELECT sum(qty) as jml from transaksi_masuk where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '11701%'    ";
         }
         elseif($kode=="11701" && $nilai=="qty_klr")
         {
-            $sql = "SELECT sum(qty) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and qty<0 and kd_perk like '11701%'  ";
+            $sql = "SELECT sum(qty) as jml from transaksi_keluar where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '11701%'    ";
         }
         elseif($kode=="11701" && $nilai=="saldo")
         {
             $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '11701%' ";
         }
-
-        elseif($nilai=="qty_SA")
+        elseif($kode!=="11701" && $nilai=="qty_SA")
         {
             $sql = "SELECT sum(qty) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and jns_trans='M01' and thn_ang='$thn_ang' and kd_perk like '$kode%'  ";
         }
@@ -3579,13 +3578,13 @@ public function transaksi_persediaan_excel($data)
         }        
         elseif($nilai=="qty_msk")
         {
-            $sql = "SELECT sum(qty) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and qty>0 and kd_perk like '$kode%' ";
+            $sql = "SELECT sum(qty) as jml from transaksi_masuk where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '$kode%'  ";
         }
         elseif($nilai=="qty_klr")
         {
-            $sql = "SELECT sum(qty) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and qty<0 and kd_perk like '$kode%' ";
+            $sql = "SELECT sum(qty) as jml from transaksi_keluar where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '$kode%'  ";
         }
-        elseif($nilai=="saldo")
+        elseif($kode!=="11701" && $nilai=="saldo")
         {
             $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '$kode%' ";
         }
