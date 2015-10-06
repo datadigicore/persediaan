@@ -68,7 +68,7 @@ else
 			$Transaksi->bacaidenttrans_klr($idtrans);
 		break;
 		case 'readbrgmsk':
-			$kd_lokasi = $_SESSION['kd_lok'];
+			$kd_lokasi = $purifier->purify($_POST['kd_satker']);
 			$thn_ang = $_SESSION['thn_ang'];
 			$data = array(
 				"kd_lokasi" => $kd_lokasi,

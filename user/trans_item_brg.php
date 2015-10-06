@@ -624,7 +624,7 @@ else {
        $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
-          data: {manage:'readbrgmsk'},
+          data: {manage:'readbrgmsk',kd_satker:"<?php echo($_POST['kd_satker']);?>"},
           success: function (output) {     
             $('#kd_brg').html(output);
           }

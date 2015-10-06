@@ -5,16 +5,18 @@ class modelTransaksi extends mysql_db
     
     public function transaksi_masuk($data)
     {
-        $kd_lokasi = $data['kd_lokasi'];
-        $kd_lok_msk = $data['kd_lokasi'];
+        // $kd_lokasi = $data['kd_lokasi'];
+        
         $nm_satker = $data['nm_satker'];
         $thn_ang = $data['thn_ang'];
         $no_dok = $data['no_dok'];
 
-        $query_dok = "select tgl_dok, tgl_buku, no_bukti, jns_trans from transaksi_masuk where no_dok='$no_dok'";
+        $query_dok = "select kd_lokasi, tgl_dok, tgl_buku, no_bukti, jns_trans from transaksi_masuk where no_dok='$no_dok'";
         $result_dok = $this->query($query_dok);
         $dok = $this->fetch_array($result_dok);
 
+        $kd_lokasi = $dok['kd_lokasi'];
+        $kd_lok_msk = $dok['kd_lokasi'];
         $tgl_dok = $dok['tgl_dok'];
         $tgl_buku = $dok['tgl_buku'];
         $no_bukti = $dok['no_bukti'];
@@ -286,17 +288,18 @@ class modelTransaksi extends mysql_db
 
     public function trnsaksi_keluar($data)
     {
-        $kd_lokasi = $data['kd_lokasi'];
+        // $kd_lokasi = $data['kd_lokasi'];
         $kd_lok_msk = $data['kd_lokasi'];
         $nm_satker = $data['nm_satker'];
 
         $thn_ang = $data['thn_ang'];
         $no_dok = $data['no_dok'];
 
-        $query_dok = "select tgl_dok, tgl_buku, no_bukti, jns_trans from transaksi_keluar where no_dok='$no_dok'";
+        $query_dok = "select kd_lokasi, tgl_dok, tgl_buku, no_bukti, jns_trans from transaksi_keluar where no_dok='$no_dok'";
         $result_dok = $this->query($query_dok);
         $dok = $this->fetch_array($result_dok);
 
+        $kd_lokasi = $dok['kd_lokasi'];
         $tgl_dok = $dok['tgl_dok'];
         $tgl_buku = $dok['tgl_buku'];
         $no_bukti = $dok['no_bukti'];

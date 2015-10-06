@@ -874,17 +874,17 @@ class modelReport extends mysql_db
                                 $prev_perk=$data[kd_perk];
                             }                    
 
-                            echo '<tr>
-                                     <td  align="center" style="font-size:90%;">'.$data[kd_brg].'</td> 
-                                     <td  align="left" style="font-size:90%;">'.$data[nm_brg].' '.$data[spesifikasi].'</td> 
-                                     <td  align="center" style="font-size:90%;">'.$data[brg_thn_lalu].'</td> 
-                                     <td  align="right" style="font-size:90%;">'.number_format($data[hrg_thn_lalu],2,",",".").'</td> 
-                                     <td align="center" style="font-size:90%;">'.$jml_msk.'</td> 
-                                     <td align="center" style="font-size:90%;">'.abs($jml_klr).'</td> 
-                                     <td align="center" style="font-size:90%;">'.$jumlah.'</td> 
-                                     <td align="center" style="font-size:90%;">'.$jml_selisih.'</td> 
-                                     <td align="right" style="font-size:90%;">'.number_format($hrg_selisih,2,",",".").'</td> 
-                                </tr>';
+                            // echo '<tr>
+                            //          <td  align="center" style="font-size:90%;">'.$data[kd_brg].'</td> 
+                            //          <td  align="left" style="font-size:90%;">'.$data[nm_brg].' '.$data[spesifikasi].'</td> 
+                            //          <td  align="center" style="font-size:90%;">'.$data[brg_thn_lalu].'</td> 
+                            //          <td  align="right" style="font-size:90%;">'.number_format($data[hrg_thn_lalu],2,",",".").'</td> 
+                            //          <td align="center" style="font-size:90%;">'.$jml_msk.'</td> 
+                            //          <td align="center" style="font-size:90%;">'.abs($jml_klr).'</td> 
+                            //          <td align="center" style="font-size:90%;">'.$jumlah.'</td> 
+                            //          <td align="center" style="font-size:90%;">'.$jml_selisih.'</td> 
+                            //          <td align="right" style="font-size:90%;">'.number_format($hrg_selisih,2,",",".").'</td> 
+                            //     </tr>';
                         }
                         echo '<tr>
                                     <td colspan="2">JUMLAH</td>  
@@ -3572,19 +3572,19 @@ public function transaksi_persediaan_excel($data)
         {
             $sql = "SELECT sum(qty) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and jns_trans='M01' and thn_ang='$thn_ang' and kd_perk like '$kode%'  ";
         }
-        elseif($nilai=="hrg_SA")
+        elseif($kode!=="11701" && $nilai=="hrg_SA")
         {
             $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and jns_trans='M01' and thn_ang='$thn_ang' and kd_perk like '$kode%' ";
         }        
-        elseif($nilai=="qty_msk")
+        elseif($kode!=="11701" && $nilai=="qty_msk")
         {
             $sql = "SELECT sum(qty) as jml from transaksi_masuk where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '$kode%'  ";
         }
-        elseif($nilai=="qty_klr")
+        elseif($kode!=="11701" && $nilai=="qty_klr")
         {
             $sql = "SELECT sum(qty) as jml from transaksi_keluar where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '$kode%'  ";
         }
-        elseif($kode!=="11701" && $nilai=="saldo")
+        elseif($kode!=="11701" && $kode!=="11701" && $nilai=="saldo")
         {
             $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '$kode%' ";
         }
@@ -3595,7 +3595,7 @@ public function transaksi_persediaan_excel($data)
         // }
         else
         {
-            $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and kd_perk like '$kode%'";
+            $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '$kode%'";
         }
         $result = $this->query($sql);
         $array = $this->fetch_array($result);
