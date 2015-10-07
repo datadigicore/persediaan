@@ -30,7 +30,7 @@ else
 
 		case 'readbrg':
 
-		$kd_lokasi = $_SESSION['kd_lok'];
+		$kd_lokasi = $purifier->purify($_POST['kd_satker']);
 		$thn_ang = $_SESSION['thn_ang'];
 		$data = array(
 				"kd_lokasi" => $kd_lokasi,
@@ -38,27 +38,48 @@ else
 		);
 			$Opsik->baca_persediaan_masuk($data);
 		break;
-
+		case 'readidentopsik':
+			$idtrans = $purifier->purify($_POST['idtrans']);
+			$Opsik->bacaidentopsik($idtrans);
+		break;
 		case 'tbh_opname':
 			$kd_lokasi = $purifier->purify($_POST['read_no_dok']);;
 			$kd_lok_msk = $_SESSION['kd_lok'];
 			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
 
-			$no_dok = $kd_lokasi.'.'.$purifier->purify($_POST['no_dok']);
-			$no_bukti = $purifier->purify($_POST['no_dok']);
+			$no_dok = $kd_lokasi.$purifier->purify($_POST['no_dok']);
+			$no_bukti = null;
 			$tgl_dok = $Opsik->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
 			$tgl_buku = $Opsik->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
 
-			$jns_trans = $_POST['jenis_trans'];
+
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			$kuantitas = $purifier->purify($_POST['jml_msk']);
 			$keterangan = $purifier->purify($_POST['keterangan']);
 			$status = 1;
 			$user_id = $_SESSION['username'];
 
-			
-			
+			if ($kd_brg=="") {
+				$data = array(
+					"kd_lokasi" => $kd_lokasi,
+					// "kd_lok_msk" => $kd_lok_msk,
+					"nm_satker" => $nm_satker,
+					"thn_ang" => $thn_ang,
+					"jns_trans" => $jns_trans,
+					"no_dok" => $no_dok,
+					"tgl_dok" => $tgl_dok,
+					"tgl_buku" => $tgl_buku,
+					"no_bukti" => $no_bukti,
+					"status" => $status,
+					"user_id" => $user_id
+				);
+				// print_r($data);
+				echo 'masuk ident';
+				$Opsik->tbh_opname_ident($data);
+			}			
+			else{
+			$no_dok = $purifier->purify($_POST['no_dok_item']);
 			$data = array(
 				"kd_lokasi" => $kd_lokasi,
 				"kd_lok_msk" => $kd_lok_msk,
@@ -76,9 +97,10 @@ else
 				"status" => $status,
 				"user_id" => $user_id
 			);
-
-			// print_r($data);
+			echo 'masuk Full Input';
+			print_r($data);
 			$Opsik->tbh_opname($data);
+			}
 		break;		
 
 		case 'ubahopsik':

@@ -858,7 +858,7 @@ class modelReport extends mysql_db
                                 $qty_msk = $this->sum_persedia($data_lp,$data[kd_perk],"qty_msk");
                                 $qty_klr = $this->sum_persedia($data_lp,$data[kd_perk],"qty_klr");
                                 $sisa = $qty_msk - $qty_klr;
-                                $saldo = $this->sum_persedia($data_lp,"11701","saldo");
+                                $saldo = $this->sum_persedia($data_lp,$data[kd_perk],"saldo");
                                 echo '
                                 <tr style="font-size:45%;">
                                         <td align="right" style=" font-size:90%;"><b>'.$data[kd_perk].'</b></td>
@@ -3586,7 +3586,7 @@ public function transaksi_persediaan_excel($data)
         }
         elseif($kode!=="11701" && $kode!=="11701" && $nilai=="saldo")
         {
-            $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '$kode%' ";
+            $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi = '$kd_lokasi' and thn_ang='$thn_ang' and kd_perk ='$kode' ";
         }
 
         // elseif($kode=="11701")
@@ -3595,7 +3595,7 @@ public function transaksi_persediaan_excel($data)
         // }
         else
         {
-            $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '$kode%'";
+            // $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '$kode%'";
         }
         $result = $this->query($sql);
         $array = $this->fetch_array($result);

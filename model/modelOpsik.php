@@ -303,6 +303,42 @@ class modelOpsik extends mysql_db
 
     }
 
+
+    public function tbh_opname_ident($data)
+    {
+        $kd_lokasi = $data['kd_lokasi'];
+        $kd_lok_msk = $data['kd_lokasi'];
+        $nm_satker = $data['nm_satker'];
+        $thn_ang = $data['thn_ang'];
+        $no_dok = $data['no_dok'];
+        $tgl_dok = $data['tgl_dok'];
+        $tgl_buku = $data['tgl_buku'];
+        $no_bukti = $data['no_bukti'];
+        $jns_trans = $data['jns_trans'];
+        $status = $data['status'];
+        $user_id = $data['user_id'];
+
+
+        // Memasukan Data Transaksi Masuk ke tabel Transaksi Masuk        
+        $query = "Insert into opname
+                    set kd_lokasi='$kd_lokasi',
+                    kd_lok_msk='$kd_lok_msk',
+                    nm_satker='$nm_satker',
+                    thn_ang='$thn_ang',
+                    no_dok='$no_dok',
+                    tgl_dok='$tgl_dok',
+                    tgl_buku='$tgl_buku',
+                    no_bukti='$no_bukti',
+                    jns_trans='P01',
+                    status=0,
+                    tgl_update=CURDATE(),
+                    user_id='$user_id'"; 
+
+        $result = $this->query($query);
+        return $result;
+            
+    } 
+
     function konversi_tanggal($tgl)
     {
         $data_tgl = explode("-",$tgl);
@@ -314,12 +350,12 @@ class modelOpsik extends mysql_db
     {
         $kd_lokasi = $data['kd_lokasi'];
         $thn_ang = $data['thn_ang'];
-        $query = "select kd_brg, nm_brg FROM transaksi_full where kd_lokasi like '$kd_lokasi%' and status_hapus=0 and qty>0  and thn_ang = '$thn_ang' and status=0 GROUP BY kd_brg ORDER BY nm_brg ASC ";
+        $query = "select kd_brg, nm_brg, spesifikasi FROM transaksi_masuk where kd_lokasi like '$kd_lokasi%' and qty>0  and thn_ang = '$thn_ang' and status=0 GROUP BY kd_brg ORDER BY nm_brg ASC ";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         while ($row = $this->fetch_array($result))
         {
-            echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg']."</option>";
+            echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg'].$row['spesifikasi']."</option>";
         }   
     }
 
@@ -335,22 +371,56 @@ class modelOpsik extends mysql_db
                          where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and kd_brg='$kd_brg'";
     }
 
+
+    public function bacaidentopsik($data)
+    {
+        $query = "select no_bukti, tgl_dok, tgl_buku, jns_trans, nm_satker, sum(total_harga) as total_harga from opname where no_dok = '$data' and status_hapus=0 group by no_dok";
+        $result = $this->query($query);
+        if ($row = $this->fetch_assoc($result))
+        {
+            $datedok = date_create($row["tgl_dok"]);
+            $datebuku = date_create($row["tgl_buku"]);
+            $hslnobukti = $row["no_bukti"];
+            $hsljenistrans = $row["jns_trans"];
+            $hsltgldok = date_format($datedok,"d-m-Y");
+            $hsltglbuku = date_format($datebuku,"d-m-Y");
+            $hslsatker = $row["nm_satker"];
+            $hsltottrans = $row["total_harga"];
+            if($hsltottrans=="")
+            {
+                $hsltottrans=0;
+            }
+            else
+            {
+                $hsltottrans = abs($row["total_harga"]);
+            }
+            echo json_encode(array("nobukti"=>$hslnobukti,"jenistrans"=>$hsljenistrans,"tgldok"=>$hsltgldok,"tglbuku"=>$hsltglbuku,"satker"=>$hslsatker,"total"=>$hsltottrans));
+        }   
+    }  
     public function tbh_opname($data)
     {
-        $kd_lokasi = $data['kd_lokasi'];
-        $kd_lok_msk = $data['kd_lokasi'];
+
         $nm_satker = $data['nm_satker'];
-        $thn_ang = $data['thn_ang'];
         $no_dok = $data['no_dok'];
-        $tgl_dok = $data['tgl_dok'];
-        $tgl_buku = $data['tgl_buku'];
-        $no_bukti = $data['no_bukti'];
+        $thn_ang = $data['thn_ang'];
         $kd_brg = $data['kd_brg'];
         $kuantitas = $data['kuantitas'];
-        $jns_trans = $data['jns_trans'];
         $keterangan = $data['keterangan'];
         $status = $data['status'];
         $user_id = $data['user_id'];
+
+        $query_dok = "select kd_lokasi, tgl_dok, tgl_buku, no_dok, no_bukti, jns_trans, keterangan from opname where no_dok='$no_dok'";
+        $result_dok = $this->query($query_dok);
+        $dok = $this->fetch_array($result_dok);
+
+        $kd_lokasi = $dok['kd_lokasi'];
+        $kd_lok_msk = $dok['kd_lokasi'];
+        $tgl_dok = $dok['tgl_dok'];
+        $tgl_buku = $dok['tgl_buku'];
+        $no_dok = $dok['no_dok'];
+        $no_bukti = $dok['no_bukti'];
+        $jns_trans = $dok['jns_trans'];
+        
 
         $query_perk = "SELECT kd_sskel, nm_sskel, kd_perk, nm_perk, nm_brg, satuan from transaksi_masuk where kd_brg='$kd_brg' and kd_lokasi = '$kd_lokasi' ";
         $result_perk = $this->query($query_perk);
