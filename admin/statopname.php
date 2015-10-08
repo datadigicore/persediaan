@@ -35,6 +35,11 @@
                         <th width="20%">Kode UPB</th>
                         <th width="48%">Nama UPB</th>
                         <th>Tahun Anggaran</th>
+                        <th>Nama Barang</th>
+                        <th>Spesifikasi</th>
+                        <th>Jumlah</th>
+                        <th>Satuan</th>
+                        <th>Keterangan</th>
                         <th width="7%">Aksi</th>
                       </tr>
                     </thead>
@@ -68,12 +73,17 @@
             {"targets": 1 },
             {"targets": 2 },
             {"targets": 3 },
+            {"targets": 4 },
+            {"targets": 5 },
+            {"targets": 6 },
+            {"targets": 7 },
+            {"targets": 8 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                   '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
-             "targets": [4],"targets": 4 }
+             "targets": [9],"targets": 9 }
           ],
           "order": [[ 1, "asc" ]]
         });

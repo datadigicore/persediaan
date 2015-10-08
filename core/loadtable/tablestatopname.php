@@ -16,6 +16,11 @@ $columns = array(
     array( 'db' => 'kd_lokasi', 'dt' => 1 ),
     array( 'db' => 'nm_satker', 'dt' => 2 ),
     array( 'db' => 'thn_ang', 'dt' => 3 ),
+    array( 'db' => 'nm_brg', 'dt' => 4 ),
+    array( 'db' => 'spesifikasi', 'dt' => 5 ),
+    array( 'db' => 'qty', 'dt' => 6 ),
+    array( 'db' => 'satuan', 'dt' => 7 ),
+    array( 'db' => 'keterangan', 'dt' => 8 ),
 );
  
 // Settingan Koneksi Datatable

@@ -11,7 +11,7 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Unit Pengguna Barang
+            Identitas Penandatanganan Laporan
             <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           <ol class="breadcrumb">
@@ -23,7 +23,7 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Penanggung Jawab Barang Persediaan</h3>
+                  <h3 class="box-title">Atasan Langsung </h3>
                 </div>  
                 <form action="../core/tandatgn/prosestndatgn" method="post" class="form-horizontal" id="addtndatgn">
                   <div class="box-body">
@@ -57,7 +57,7 @@
                   <div class="box-footer" style="padding:0;">
                   </div>
                 <div class="box-header with-border">
-                  <h3 class="box-title">Pengelola Barang Persediaan</h3>
+                  <h3 class="box-title">Penyimpan Barang</h3>
                 </div>  
                   <div class="box-body">
                     <div class="form-group">
@@ -106,28 +106,51 @@
       $("li#tnda_tangan").addClass("active");
       $.ajax({
         type: "post",
-        url: '../core/tandatgn/prosestndatgn',
-        data: {manage:'baca_data_pj'},
-        dataType: "json",
-        success: function (output) {
-        $('#nama').val(output.nama);
-        $('#nip').val(output.nip);
-        $('#jabatan').val(output.jabatan);            
-        $('#nama2').val(output.nama2);
-        $('#nip2').val(output.nip2);
-        $('#jabatan2').val(output.jabatan2);
-        $('#kota').val(output.kota);
-        }
-      });
-
-      $.ajax({
-        type: "post",
         url: '../core/transaksi/prosestransaksi',
         data: {manage:'readsatkerdok',no_dok:"<?php echo($_SESSION['kd_lok']);?>"},
         success: function (output) {     
           $('#read_no_dok').html(output);
         }
       });
+
+
+      $.ajax({
+        type: "post",
+        url: '../core/tandatgn/prosestndatgn',
+        data: {manage:'baca_data_awal'},
+        dataType: "json",
+        success: function (output) {
+          $('#nama').val(output.nama);
+          $('#nip').val(output.nip);
+          $('#jabatan').val(output.jabatan);            
+          $('#nama2').val(output.nama2);
+          $('#nip2').val(output.nip2);
+          $('#jabatan2').val(output.jabatan2);
+          $('#kota').val(output.kota);
+        }
+      });
+
+      $('#read_no_dok').change(function(){
+          var kd_lok = $('#read_no_dok').val(); 
+          $.ajax({
+          type: "post",
+          url: '../core/tandatgn/prosestndatgn',
+          data: {manage:'baca_data_pj',kd_lok:kd_lok},
+          dataType: "json",
+          success: function (output) {     
+            $('#nama').val(output.nama);
+            $('#nip').val(output.nip);
+            $('#jabatan').val(output.jabatan);            
+            $('#nama2').val(output.nama2);
+            $('#nip2').val(output.nip2);
+            $('#jabatan2').val(output.jabatan2);
+            $('#kota').val(output.kota);
+          }
+       });
+        
+      });
+
+
 
       $('#addtndatgn').submit(function(e){
         $('#myModal').modal({

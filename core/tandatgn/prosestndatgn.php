@@ -12,7 +12,7 @@ else
 	switch ($manage)
 	{
 		case 'addtndatgn':
-			$kdlokasi = $_SESSION['kd_lok'];
+			$kdlokasi = $purifier->purify($_POST['read_no_dok']);
 			$kota = $purifier->purify($_POST['kota']);
 			$tanggal = $purifier->purify($_POST['tanggal']);
 			$nip = $purifier->purify($_POST['nip']);
@@ -43,8 +43,13 @@ else
 		break;
 
 		case 'baca_data_pj':
-		$data = $_SESSION['kd_lok'];
+		$data = $purifier->purify($_POST['kd_lok']);
 		$Tndatgn->baca_data_pj($data);
+		break;		
+
+		case 'baca_data_awal':
+		$data = $_SESSION['kd_lok'];
+		$Tndatgn->baca_data_awal($data);
 		break;
 
 		default:

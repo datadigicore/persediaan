@@ -71,6 +71,20 @@ class modelTndtgn extends mysql_db
 	
 
 
+	}	
+
+	public function baca_data_awal($data)
+	{
+		$query = "select * from ttd where kd_lokasi like '$data%' order by kd_lokasi asc limit 1";
+        $result = $this->query($query);
+
+        $data_pj = $this->fetch_array($result);
+
+        echo json_encode(array("nip"=>$data_pj["nip"], "nama"=>$data_pj["nama"], "jabatan"=>$data_pj["jabatan"], "nip2"=>$data_pj["nip2"], "nama2"=>$data_pj["nama2"], "jabatan2"=>$data_pj["jabatan2"], "kota"=>$data_pj["kota"]));
+
+	
+
+
 }
 }
 ?>
