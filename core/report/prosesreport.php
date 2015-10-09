@@ -42,9 +42,10 @@ else
 				"tgl_akhir" => $tgl_akhir,
 				"kd_lokasi" => $kd_lokasi,
 				"satker_asal" => $satker_asal,
+				"format" => $format,
 				"user_id" => $user_id
 			   );
-			// print_r($data);
+			print_r($data);
 			if($kd_brg=="all" && $format=="pdf")
 			{
 				$Report->buku_persediaan_all($data);
@@ -65,7 +66,7 @@ else
 
 		case 'lap_persediaan':
 			$kd_lokasi = $purifier->purify($_POST['satker']);
-			$satker_asal = $_SESSION['kd_lok'];
+			$satker_asal = $purifier->purify($_POST['satker']);
 			$jenis = $purifier->purify($_POST['jenis']);
 			$semester = explode("-",$purifier->purify($_POST['smt']));
 			$bln_awal = $semester[0];

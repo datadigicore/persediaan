@@ -36,7 +36,7 @@ class modelReport extends mysql_db
 
     public function buku_persediaan($data)
     {
-        $mpdf=new mPDF('utf-8', 'A4-L');
+        
         // $mpdf->setFooter('{PAGENO}');
         ob_start(); 
         $jenis = $data['jenis'];
@@ -47,6 +47,7 @@ class modelReport extends mysql_db
         $kd_lokasi = $data['kd_lokasi'];
         $thn_ang = $data['thn_ang'];
         $satker_asal = $data['satker_asal'];
+        $format = $data['format'];
 
         $detail_brg = "SELECT nm_brg, satuan from persediaan where  kd_brg='$kd_brg' ";
         $result_detail = $this->query($detail_brg);
@@ -191,11 +192,22 @@ class modelReport extends mysql_db
 
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
                 ob_end_clean();
+
+                if($format=="excel") 
+                {
+                    $this->excel_export($html);
+
+                }
+                else {
                 //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
+                $mpdf=new mPDF('utf-8', 'A4-L');
                 $mpdf->WriteHTML(utf8_encode($html));
                 $mpdf->Output("buku_persediaan.pdf" ,'I');
                 exit;
+            }
          }
+
+
 
     public function buku_persediaan_all($data)
     {
@@ -367,23 +379,56 @@ class modelReport extends mysql_db
                 exit;
         }
 
-    public function laporan_persediaan($data)
+    public function laporan_persediaan($data_lp)
     {
         $mpdf=new mPDF('utf-8', 'A4-L');
         $mpdf->setFooter('{PAGENO}');
         ob_start(); 
 
-        $jenis = $data['jenis'];
-        $bln_awal = $data['bln_awal'];
-        $bln_akhir = $data['bln_akhir'];
-        $tgl_akhir = $data['tgl_akhir'];
+        $jenis = $data_lp['jenis'];
+        $bln_awal = $data_lp['bln_awal'];
+        $bln_akhir = $data_lp['bln_akhir'];
+        $tgl_akhir = $data_lp['tgl_akhir'];
 
-        $kd_brg = $data['kd_brg'];
-        $thn_ang = $data['thn_ang'];
-        $kd_lokasi = $data['kd_lokasi'];
-        $date = $this->cek_periode($data);
-        $satker_asal = $data['satker_asal'];
+        $kd_brg = $data_lp['kd_brg'];
+        $thn_ang = $data_lp['thn_ang'];
+        $kd_lokasi = $data_lp['kd_lokasi'];
+        $date = $this->cek_periode($data_lp);
+        $satker_asal = $data_lp['satker_asal'];
 
+        if($jenis=="tanggal")
+                {
+                    $sql="SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, sum(total_harga) as nilai from 
+                         (SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_dok from transaksi_masuk
+                          UNION ALL
+                          SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_dok from transaksi_keluar)
+                          transaksi 
+                            where  tgl_dok <= '$tgl_akhir' and kd_lokasi like '{$kd_lokasi}%'  AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
+                    $result = $this->query($sql);
+                }
+        elseif($jenis=="semester")
+                {
+                    $sql="SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, 
+                          sum(case when month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' then total_harga else 0 end) as nilai,
+                          sum(case when month(tgl_dok) < '$bln_awal' then total_harga else 0 end) as nilai0
+                         from 
+                         (SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_dok from transaksi_masuk
+                          UNION ALL
+                          SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_dok from transaksi_keluar)
+                          transaksi 
+                            where   kd_lokasi like '{$kd_lokasi}%'  AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
+                    $result = $this->query($sql);
+                }
+        else
+                {
+                    $sql="SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, sum(total_harga) as nilai from 
+                         (SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang from transaksi_masuk
+                          UNION ALL
+                          SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang from transaksi_keluar)
+                          transaksi  
+                          where  kd_lokasi like '{$kd_lokasi}%'  AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
+                    $result = $this->query($sql);
+                }
         
         echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
         $this->getsatker($kd_lokasi);
@@ -401,41 +446,9 @@ class modelReport extends mysql_db
         echo '  <tr>
                     <td align="right" style="font-size:90%; "><b>117</b></td>
                     <td align="left" style="font-size:90%; "><b>Persediaan</b></td>
-                    <td align="right"  style="font-size:90%; "><b>'.$this->sum_persedia($data,"117").'</b></td>
+                    <td align="right"  style="font-size:90%; "><b>'.$this->sum_persedia($data_lp,"117","saldo").'</b></td>
                 </tr>';
-                if($jenis=="tanggal")
-                {
-                    $sql="SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, sum(total_harga) as nilai from 
-                         (SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_dok from transaksi_masuk
-                          UNION ALL
-                          SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_dok from transaksi_keluar)
-                          transaksi 
-                            where  tgl_dok <= '$tgl_akhir' and kd_lokasi like '{$kd_lokasi}%'  AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
-                    $result = $this->query($sql);
-                }
-                elseif($jenis=="semester")
-                {
-                    $sql="SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, 
-                          sum(case when month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' then total_harga else 0 end) as nilai,
-                          sum(case when month(tgl_dok) < '$bln_awal' then total_harga else 0 end) as nilai0
-                         from 
-                         (SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_dok from transaksi_masuk
-                          UNION ALL
-                          SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_dok from transaksi_keluar)
-                          transaksi 
-                            where   kd_lokasi like '{$kd_lokasi}%'  AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
-                    $result = $this->query($sql);
-                }
-                else
-                {
-                    $sql="SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, sum(total_harga) as nilai from 
-                         (SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang from transaksi_masuk
-                          UNION ALL
-                          SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang from transaksi_keluar)
-                          transaksi  
-                          where  kd_lokasi like '{$kd_lokasi}%'  AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
-                    $result = $this->query($sql);
-                }
+
                 $no=0;
                 $jumlah=0;
                 $saldo=0;
@@ -450,7 +463,7 @@ class modelReport extends mysql_db
                         echo '<tr>
                                 <td align="right" style="font-size:90%; ">'.substr($data[kd_perk],0, 5).'</td>
                                 <td  align="left" style="font-size:90%; ">'.'Persediaan Bahan Pakai Habis'.'</td>
-                                <td  align="right" style="font-size:90%; ;">'.$this->sum_persedia($data,"11701").'</td>
+                                <td  align="right" style="font-size:90%; ;">'.$this->sum_persedia($data_lp,"11701","saldo").'</td>
                                 <tr>
                                ';
                         $kd_rek=substr($data[kd_perk],0, 5);
@@ -461,7 +474,7 @@ class modelReport extends mysql_db
                         <tr >
                                 <td align="right" style=" font-size:90%;">'.$data[kd_perk].'</td>
                                 <td  align="left" style=" font-size:90%;">'.$data[nm_perk].'</td>
-                                <td  align="right" style=" font-size:90%;">'.$this->sum_persedia($data,$data[kd_perk]).'</b></td>
+                                <td  align="right" style=" font-size:90%;">'.$this->sum_persedia($data_lp,$data[kd_perk],"saldo").'</b></td>
                               </tr> ';
                         $prev_perk=$data[kd_perk];
                     }                    
@@ -719,7 +732,7 @@ class modelReport extends mysql_db
                                             ) transaksi
                                             where  kd_lokasi like '{$kd_lokasi}%'  and thn_ang='$thn_ang' and status_hapus=0
                                             GROUP by kd_brg";
-                        $result = $this->query($sql);
+                       
                         }
                         elseif($jenis=="tanggal")
                         {
@@ -742,7 +755,7 @@ class modelReport extends mysql_db
                                             ) transaksi
                                             where   kd_lokasi like '{$kd_lokasi}%'  and thn_ang>='$thn_ang_lalu' and status_hapus=0
                                             GROUP by kd_brg";
-                        $result = $this->query($sql);
+                        
                         }
                         else
                         {
@@ -759,9 +772,9 @@ class modelReport extends mysql_db
                                             ) transaksi
                                             where  kd_lokasi like '{$kd_lokasi}%'  and thn_ang='$thn_ang' and status_hapus=0
                                             GROUP by kd_brg";
-                        $result = $this->query($sql);
+                        
                         }
-
+                $result = $this->query($sql);
                 echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
                 $this->getsatker($kd_lokasi);
                 $date = $this->cek_periode($data_lp);
@@ -775,7 +788,7 @@ class modelReport extends mysql_db
                         <tr>
                             <td rowspan="2" style="font-weight:bold;">KODE</td>
                             <td  width="30%" rowspan="2" style="font-weight:bold;" >URAIAN</td>
-                            <td  width="20%" colspan="2" style="font-weight:bold;"  >SALDO AWAL PER JANUARI '.$thn_ang.'</td>
+                            <td  width="20%" colspan="2" style="font-weight:bold;"  >SALDO AWAL 1 JANUARI '.$thn_ang.'</td>
                             <td colspan="3" style="font-weight:bold;">MUTASI</td>
                             <td colspan="2" style="font-weight:bold;">NILAI</td>
                             <tr>
@@ -800,6 +813,8 @@ class modelReport extends mysql_db
                         $qty_msk = $this->sum_persedia($data_lp,"117","qty_msk");
                         $qty_klr = $this->sum_persedia($data_lp,"117","qty_klr");
                         $sisa = $qty_msk - $qty_klr;
+                        $sisa_acc = $sisa + $qty_SA;
+
                         $saldo = $this->sum_persedia($data_lp,"117","saldo");
 
                         echo '  <tr>
@@ -810,7 +825,7 @@ class modelReport extends mysql_db
                                         <td align="right"  style="font-size:90%; "><b>'.$qty_msk.'</b></td>
                                         <td align="right"  style="font-size:90%; "><b>'.$qty_klr.'</b></td>
                                         <td align="right"  style="font-size:90%; "><b>'.$sisa.'</b></td>
-                                        <td align="right"  style="font-size:90%; "><b>'.$sisa.'</b></td>
+                                        <td align="right"  style="font-size:90%; "><b>'.$sisa_acc.'</b></td>
                                         <td align="right"  style="font-size:90%; "><b>'.$saldo.'</b></td>
 
                                     </tr>';
@@ -834,7 +849,9 @@ class modelReport extends mysql_db
                                 $qty_msk = $this->sum_persedia($data_lp,"11701","qty_msk");
                                 $qty_klr = $this->sum_persedia($data_lp,"11701","qty_klr");
                                 $sisa = $qty_msk - $qty_klr;
+                                $sisa_acc = $sisa + $qty_SA;
                                 $saldo = $this->sum_persedia($data_lp,"11701","saldo");
+
 
                                 echo '<tr>
                                         <td align="right" style="font-size:90%; "><b>'.substr($data[kd_perk],0, 5).'</b></td>
@@ -844,7 +861,7 @@ class modelReport extends mysql_db
                                         <td align="right"  style="font-size:90%; "><b>'.$qty_msk.'</b></td>
                                         <td align="right"  style="font-size:90%; "><b>'.$qty_klr.'</b></td>
                                         <td align="right"  style="font-size:90%; "><b>'.$sisa.'</b></td>
-                                        <td align="right"  style="font-size:90%; "><b>'.$sisa.'</b></td>
+                                        <td align="right"  style="font-size:90%; "><b>'.$sisa_acc.'</b></td>
                                         <td align="right"  style="font-size:90%; "><b>'.$saldo.'</b></td>
 
                                         </tr>
@@ -858,18 +875,19 @@ class modelReport extends mysql_db
                                 $qty_msk = $this->sum_persedia($data_lp,$data[kd_perk],"qty_msk");
                                 $qty_klr = $this->sum_persedia($data_lp,$data[kd_perk],"qty_klr");
                                 $sisa = $qty_msk - $qty_klr;
+                                $sisa_acc = $sisa + $qty_SA;
                                 $saldo = $this->sum_persedia($data_lp,$data[kd_perk],"saldo");
                                 echo '
                                 <tr style="font-size:45%;">
-                                        <td align="right" style=" font-size:90%;"><b>'.$data[kd_perk].'</b></td>
-                                        <td  align="left" style=" font-size:90%;"><b>'.$data[nm_perk].'</b></td>
-                                        <td align="right"  style="font-size:90%; "><b>'.$qty_SA.'</b></td>
-                                        <td align="right"  style="font-size:90%; "><b>'.$hrg_SA.'</b></td>
-                                        <td align="right"  style="font-size:90%; "><b>'.$qty_msk.'</b></td>
-                                        <td align="right"  style="font-size:90%; "><b>'.$qty_klr.'</b></td>
-                                        <td align="right"  style="font-size:90%; "><b>'.$sisa.'</b></td>
-                                        <td align="right"  style="font-size:90%; "><b>'.$sisa.'</b></td>
-                                        <td align="right"  style="font-size:90%; "><b>'.$saldo.'</b></td>
+                                        <td align="right" style=" font-size:90%;">'.$data[kd_perk].'</td>
+                                        <td  align="left" style=" font-size:90%;">'.$data[nm_perk].'</td>
+                                        <td align="right"  style="font-size:90%; ">'.$qty_SA.'</td>
+                                        <td align="right"  style="font-size:90%; ">'.number_format($hrg_SA,2,",",".").'</td>
+                                        <td align="right"  style="font-size:90%; ">'.$qty_msk.'</td>
+                                        <td align="right"  style="font-size:90%; ">'.$qty_klr.'</td>
+                                        <td align="right"  style="font-size:90%; ">'.$sisa.'</td>
+                                        <td align="right"  style="font-size:90%; ">'.$sisa_acc.'</td>
+                                        <td align="right"  style="font-size:90%; ">'.number_format($saldo,2,",",".").'</td>
                                       </tr> ';
                                 $prev_perk=$data[kd_perk];
                             }                    
@@ -888,9 +906,9 @@ class modelReport extends mysql_db
                         }
                         echo '<tr>
                                     <td colspan="2">JUMLAH</td>  
-                                    <td colspan="2" align="right">'.number_format($total_thn_lalu,2,",",".").'</td> 
+                                    <td colspan="2" align="right">'.number_format($this->sum_persedia($data_lp,"117","hrg_SA"),2,",",".").'</td> 
                                     <td colspan="3"></td>  
-                                    <td colspan="2" align="right">'.number_format($total_akumulasi,2,",",".").'</td>  
+                                    <td colspan="2" align="right">'.number_format($this->sum_persedia($data_lp,"117","saldo"),2,",",".").'</td>  
                                 </tr>';
                         echo '</table>';
                         if($no>=6)
@@ -911,17 +929,17 @@ class modelReport extends mysql_db
                         exit;
                  }    
 
-    public function neraca($data)
+    public function neraca($data_lp)
     {
         $mpdf=new mPDF('utf-8', 'A4-L');
         $mpdf->setFooter('{PAGENO}');
         ob_start(); 
-        $kd_lokasi = $data['kd_lokasi'];
-        $kd_brg = $data['kd_brg'];
-        $tgl_akhir = $data['tgl_akhir'];
-        $thn_ang = $data['thn_ang'];
-        $date = $this->cek_periode($data);
-        $satker_asal = $data['satker_asal'];
+        $kd_lokasi = $data_lp['kd_lokasi'];
+        $kd_brg = $data_lp['kd_brg'];
+        $tgl_akhir = $data_lp['tgl_akhir'];
+        $thn_ang = $data_lp['thn_ang'];
+        $date = $this->cek_periode($data_lp);
+        $satker_asal = $data_lp['satker_asal'];
 
 
 
@@ -940,7 +958,7 @@ class modelReport extends mysql_db
         echo '  <tr>
                     <td align="center" style="font-size:90%; background-color:#DEDEDE;"><b>117</b></td>
                     <td align="left" style="font-size:90%; background-color:#DEDEDE;"><b>Persediaan</b></td>
-                    <td align="right"  style="font-size:90%; background-color:#DEDEDE;"><b>'.$this->sum_persedia($data,"117").'</b></td>
+                    <td align="right"  style="font-size:90%; background-color:#DEDEDE;"><b>'.$this->sum_persedia($data_lp,"117","saldo").'</b></td>
                 </tr>';
                 $sql="SELECT kd_perk, nm_perk, sum(total_harga) as nilai FROM (
                                     SELECT tgl_dok, thn_ang, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_masuk
@@ -991,6 +1009,21 @@ class modelReport extends mysql_db
         $thn_ang_lalu = intval($thn_ang)-1;
         $satker_asal = $data['satker_asal'];
 
+
+        $sql="SELECT kd_perk,
+                     nm_perk,
+                     sum(case when jns_trans='M01' THEN total_harga else 0 end) as thn_lalu, 
+                     sum(case when total_harga>=0 and jns_trans !='M01' then total_harga else 0 end) as tambah, 
+                     sum(case when total_harga<0 and jns_trans !='M01' then total_harga else 0 end) as kurang 
+                     FROM
+                     (
+                     SELECT tgl_dok, thn_ang, kd_perk, nm_perk, jns_trans, total_harga, status_hapus, kd_lokasi from transaksi_masuk
+                        UNION ALL
+                     SELECT tgl_dok, thn_ang, kd_perk, nm_perk, jns_trans, total_harga, status_hapus, kd_lokasi from transaksi_keluar
+                     ) transaksi  
+                      where kd_perk not like '' and kd_lokasi like '{$kd_lokasi}%'  and thn_ang='$thn_ang' and status_hapus=0 and tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'
+                      GROUP BY kd_perk";
+
         echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
         $this->getsatker($kd_lokasi);
         $date = $this->cek_periode($data);
@@ -1014,7 +1047,7 @@ class modelReport extends mysql_db
                 <tr>
                     <td rowspan="2">KODE</td>
                     <td  width="30%" rowspan="2"  >URAIAN</td>
-                    <td  width="13%" rowspan="2"  >NILAI S/D 31 DESEMBER '.$thn_ang_lalu.'</td>
+                    <td  width="12%" rowspan="2"  >SALDO 1 JANUARI '.$thn_ang.'</td>
                     <td colspan="2">MUTASI</td>
                     <td rowspan="2" width="13%">NILAI S/D '.$date.'</td>
                     <tr>
@@ -1023,19 +1056,6 @@ class modelReport extends mysql_db
                     </tr> 
                 </tr>';
 
-                $sql="SELECT kd_perk,
-                             nm_perk,
-                             sum(case when year(tgl_dok)='$thn_ang_lalu' THEN total_harga else 0 end) as thn_lalu, 
-                             sum(case when total_harga>=0 and thn_ang='$thn_ang' then total_harga else 0 end) as tambah, 
-                             sum(case when total_harga<0 and thn_ang='$thn_ang' then total_harga else 0 end) as kurang 
-                             FROM
-                             (
-                              SELECT tgl_dok, thn_ang, kd_perk, nm_perk, total_harga, status_hapus, kd_lokasi from transaksi_masuk
-                              UNION ALL
-                              SELECT tgl_dok, thn_ang, kd_perk, nm_perk, total_harga, status_hapus, kd_lokasi from transaksi_keluar
-                             ) transaksi  
-                              where kd_perk not like '' and kd_lokasi like '{$kd_lokasi}%'  and thn_ang>='$thn_ang_lalu' and status_hapus=0 and tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'
-                              GROUP BY kd_perk";
                 $result = $this->query($sql);
                 $no=0;
                 $total=0;
@@ -3456,6 +3476,12 @@ public function transaksi_persediaan_excel($data)
 
     }
 
+         public function excel_export($html,$nama)
+         {
+                header("Content-type: application/vnd-ms-excel");
+                header("Content-Disposition: attachment; filename=".$nama.".xls");
+                echo $html;
+         }
 
     public function getsatker($kd_lokasi)
     {
@@ -3529,19 +3555,19 @@ public function transaksi_persediaan_excel($data)
         $thn_ang = $data['thn_ang'];
         if($kode=="117"&&$nilai=="qty_SA")
         {
-            $sql = "SELECT sum(qty) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and jns_trans='M01' and thn_ang='$thn_ang'  ";
+            $sql = "SELECT sum(qty) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and jns_trans like 'M01%'  and thn_ang='$thn_ang'  ";
         }
         elseif($kode=="117"&&$nilai=="hrg_SA")
         {
-            $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and jns_trans='M01' and thn_ang='$thn_ang' ";
+            $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and jns_trans like 'M01%'  and thn_ang='$thn_ang' ";
         }        
         elseif($kode=="117"&&$nilai=="qty_msk")
         {
-            $sql = "SELECT sum(qty) as jml from transaksi_masuk where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' ";
+            $sql = "SELECT sum(qty) as jml from transaksi_masuk where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and jns_trans not like 'M01%'  ";
         }
         elseif($kode=="117"&&$nilai=="qty_klr")
         {
-            $sql = "SELECT sum(qty) as jml from transaksi_keluar where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' ";
+            $sql = "SELECT sum(qty) as jml from transaksi_keluar where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang'   ";
         }
         elseif($kode=="117"&&$nilai=="saldo")
         {
@@ -3550,19 +3576,19 @@ public function transaksi_persediaan_excel($data)
 
         elseif($kode=="11701" && $nilai=="qty_SA")
         {
-            $sql = "SELECT sum(qty) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and jns_trans='M01' and thn_ang='$thn_ang' and kd_perk like '11701%'   ";
+            $sql = "SELECT sum(qty) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and jns_trans like 'M01%' and thn_ang='$thn_ang' and kd_perk like '11701%'   ";
         }
         elseif($kode=="11701" && $nilai=="hrg_SA")
         {
-            $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and jns_trans='M01' and thn_ang='$thn_ang' and kd_perk like '11701%'  ";
+            $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and jns_trans like 'M01%'  and thn_ang='$thn_ang' and kd_perk like '11701%'  ";
         }        
         elseif($kode=="11701" && $nilai=="qty_msk")
         {
-            $sql = "SELECT sum(qty) as jml from transaksi_masuk where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '11701%'    ";
+            $sql = "SELECT sum(qty) as jml from transaksi_masuk where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '11701%'  and jns_trans not like 'M01%'    ";
         }
         elseif($kode=="11701" && $nilai=="qty_klr")
         {
-            $sql = "SELECT sum(qty) as jml from transaksi_keluar where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '11701%'    ";
+            $sql = "SELECT sum(qty) as jml from transaksi_keluar where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '11701%'   ";
         }
         elseif($kode=="11701" && $nilai=="saldo")
         {
@@ -3570,15 +3596,15 @@ public function transaksi_persediaan_excel($data)
         }
         elseif($kode!=="11701" && $nilai=="qty_SA")
         {
-            $sql = "SELECT sum(qty) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and jns_trans='M01' and thn_ang='$thn_ang' and kd_perk like '$kode%'  ";
+            $sql = "SELECT sum(qty) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and jns_trans like 'M01%'  and thn_ang='$thn_ang' and kd_perk like '$kode%'  ";
         }
         elseif($kode!=="11701" && $nilai=="hrg_SA")
         {
-            $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and jns_trans='M01' and thn_ang='$thn_ang' and kd_perk like '$kode%' ";
+            $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and jns_trans like 'M01%'  and thn_ang='$thn_ang' and kd_perk like '$kode%' ";
         }        
         elseif($kode!=="11701" && $nilai=="qty_msk")
         {
-            $sql = "SELECT sum(qty) as jml from transaksi_masuk where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '$kode%'  ";
+            $sql = "SELECT sum(qty) as jml from transaksi_masuk where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '$kode%'  and jns_trans not like 'M01%'  ";
         }
         elseif($kode!=="11701" && $nilai=="qty_klr")
         {
@@ -3764,17 +3790,15 @@ public function transaksi_persediaan_excel($data)
         $pj = $this->fetch_array($result);
 
 
-        echo '
-              <br></br>
-              <table style="text-align: center; width: 100%; font-size:80% "  >
+        echo '<br></br>
+              <table style="text-align: center; width: 100%; font-size:84% "  >
               <tr>
-                <td style="text-align: center;"> Kuasa Pengguna Barang, </td>
-                <td style="text-align: center;"> Petugas Pengelola Persediaan, </td>
-              </tr>
-
+                <td style="text-align: center;"></td>
+                <td style="text-align: center;"> '.$pj['kota'].',................................... </td>
+              </tr>            
               <tr>
-                <td style="text-align: center;">'.$pj['jabatan'].'</td>
-                <td style="text-align: center;">'.$pj['jabatan2'].'</td>
+                <td style="text-align: center;"> ATASAN LANGSUNG, </td>
+                <td style="text-align: center;"> PENYIMPAN BARANG, </td>
               </tr>
               <tr>
                 <td><br></br> <br></br> <br></br></td>
@@ -3786,10 +3810,9 @@ public function transaksi_persediaan_excel($data)
               </tr>              
 
               <tr>
-                <td style="text-align: center;">'.$pj['nip'].'</td>
-                <td style="text-align: center;">'.$pj['nip2'].'</td>
+                <td style="text-align: center;">NIP'." ".$pj['nip'].'</td>
+                <td style="text-align: center;">NIP'." ".$pj['nip2'].'</td>
               </tr>
-              
               </table>';
 
 
