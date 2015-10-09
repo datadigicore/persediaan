@@ -1442,19 +1442,28 @@ class modelReport extends mysql_db
         $thn_ang = $data['thn_ang'];
         $satker_asal = $data['satker_asal'];
 
+        echo '<table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-weight:bold; font-size:0.9em; "  align="center">
+                <tr>
+                    <td rowspan="2" width="5%"><img src="../../dist/img/pekalongan2.png" alt="Pekalongan" height="8%" /></td>
+                    <td style= "vertical-align: centers;"></td>
+                </tr>
+                <tr>
+                    <td style= "vertical-align: centers;">BUKU PENGELUARAN BARANG</td>
+                </tr>
 
+                </table>
+
+                ';  
         $this->getsatker($kd_lokasi);
-        echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
-        echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">BUKU PENGELUARAN BARANG</p>
-                <br></br>
-                
+        
+        echo '   
                 <table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% " border=1 align="center">
                 <tr >
                     <td >No</td>
                     <td >Tanggal</td>
 
-                    <td >Nomor Urut</td>
-                    <td >Nama Barang</td>
+                    <td width="5%" >Nomor Urut</td>
+                    <td width="30%" >Nama Barang</td>
                     <td >Banyaknya</td>
                     <td >Harga Satuan</td>
                     <td >Jumlah Harga</td>
@@ -1597,16 +1606,22 @@ class modelReport extends mysql_db
         $kd_lokasi = $data['kd_lokasi'];
         $thn_ang = $data['thn_ang'];
         $satker_asal = $data['satker_asal'];
+       
+        echo '<table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-weight:bold; font-size:0.9em; "  align="center">
+                <tr>
+                    <td rowspan="2" width="5%"><img src="../../dist/img/pekalongan2.png" alt="Pekalongan" height="8%" /></td>
+                    <td style= "vertical-align: centers;"></td>
+                </tr>
+                <tr>
+                    <td style= "vertical-align: centers;">BUKU BARANG PAKAI HABIS</td>
+                </tr>
 
+                </table>
 
-        echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
-        $this->getsatker($kd_lokasi);
-        
-        echo ' 
-              <p align="center" style="margin:0px; padding:0px; font-weight:bold;">BUKU BARANG PAKAI HABIS</p>
-                <br></br>
-                
-                <table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% " border=1 align="center">
+                ';   
+        $this->getsatker($kd_lokasi);               
+       
+        echo  '<table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% " border=1 align="center">
                <tr>
                     <td rowspan="2" colspan="9">PENERIMAAN</td>
                     <td rowspan="2" colspan="5">PENGELUARAN</td>
@@ -1811,13 +1826,23 @@ class modelReport extends mysql_db
         $detail_brg = "SELECT nm_sskel, nm_brg, satuan,spesifikasi from persediaan where  kd_brg='$kd_brg' ";
         $result_detail = $this->query($detail_brg);
         $brg = $this->fetch_array($result_detail);
-        echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
+        echo '<table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-weight:bold; font-size:0.9em; "  align="center">
+                <tr>
+                    <td rowspan="2" width="5%"><img src="../../dist/img/pekalongan2.png" alt="Pekalongan" height="9%" /></td>
+                    <td style= "vertical-align: centers;">KARTU BARANG</td>
+                </tr>
+                <tr>
+                    <td style= "vertical-align: top;"> </td>
+                </tr>
+
+                </table>
+
+                ';   
     
         $this->getsatker($kd_lokasi);
         
-        echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">KARTU BARANG</p>
-                <br></br>
-                <table style=" width: 100%; font-size:90%;"  >               
+
+        echo '  <table style="width: 100%; font-size:90%;"  >               
                 <tr>
                     <td align="left">Nama Barang :'.$brg['nm_brg'].'</td>
                 </tr>                
@@ -1967,13 +1992,23 @@ class modelReport extends mysql_db
         $detail_brg = "SELECT nm_sskel, nm_brg, satuan,spesifikasi from persediaan where  kd_brg='$kd_brg' ";
         $result_detail = $this->query($detail_brg);
         $brg = $this->fetch_array($result_detail);
-        echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
     
-        $this->getsatker($kd_lokasi);
         
-        echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">KARTU PERSEDIAAN BARANG</p>
-                <br></br>
-                <table style=" width: 100%; font-size:90%;"  >               
+        
+        echo '<table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-weight:bold; font-size:0.9em; "  align="center">
+                <tr>
+                    <td rowspan="2" width="5%"><img src="../../dist/img/pekalongan2.png" alt="Pekalongan" height="8%" /></td>
+                    <td style= "vertical-align: centers;">KARTU PERSEDIAAN BARANG</td>
+                </tr>
+                <tr>
+                    <td style= "vertical-align: top;"> </td>
+                </tr>
+
+                </table>
+
+                ';   
+        $this->getsatker($kd_lokasi);
+        echo '        <table style=" width: 100%; font-size:90%;"  >               
                 <tr>
                     <td align="left">Gudang :'.'............'.'</td>
                 </tr>                   
