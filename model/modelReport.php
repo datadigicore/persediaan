@@ -12,7 +12,7 @@ class modelReport extends mysql_db
         $query = "select kd_brg, nm_brg FROM transaksi_masuk where kd_lokasi like '$data%' and status_hapus=0  and kd_brg not like '' GROUP BY kd_brg ORDER BY nm_brg ASC ";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
-        echo '<option value="all">Semua Barang</option>';
+        // echo '<option value="all">Semua Barang</option>';
         while ($row = $this->fetch_array($result))
         {
             echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg']."</option>";
@@ -1282,29 +1282,38 @@ class modelReport extends mysql_db
         $bulan = $data['bulan'];
         $kd_lokasi = $data['kd_lokasi'];
         $thn_ang = $data['thn_ang'];
-        $satker_asal = $data['satker_asal'];
+        $satker_asal = $data['kd_lokasi'];
 
 
-        
-        echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
+
+        echo '<table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-weight:bold; font-size:0.9em; "  align="center">
+                <tr>
+                    <td rowspan="2" width="5%"><img src="../../dist/img/pekalongan2.png" alt="Pekalongan" height="8%" /></td>
+                    <td style= "vertical-align: centers;"></td>
+                </tr>
+                <tr>
+                    <td style= "vertical-align: centers;">BUKU PENERIMAAN BARANG</td>
+                </tr>
+                </table>';
         $this->getsatker($kd_lokasi);
-        echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">BUKU PENERIMAAN BARANG</p>
-                <br></br>
-                
-                <table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% " border=1 align="center">
+        echo '  <table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% " border=1 align="center">
                 <tr >
-                    <td >No</td>
-                    <td >Tanggal</td>
-                    <td >Dari</td>
-                    <td >Nomor</td>
-                    <td >Tanggal</td>
-                    <td >Nama Barang</td>
-                    <td >Banyaknya</td>
-                    <td >Harga Satuan</td>
-                    <td >Jumlah Harga</td>
-                    <td >Nomor</td>
-                    <td >Tanggal</td>
-                    <td >Ket</td>
+                    <td rowspan="2" >No</td>
+                    <td rowspan="2" >Tanggal</td>
+                    <td rowspan="2" >Dari</td>
+                    <td colspan="2" >Dokumen Faktur</td>
+                    <td rowspan="2" >Nama Barang</td>
+                    <td rowspan="2" >Banyaknya</td>
+                    <td rowspan="2" width="10%" >Harga Satuan</td>
+                    <td rowspan="2" width="10%" >Jumlah Harga</td>
+                    <td colspan="2" >B.A Penerimaan</td>
+                    <td rowspan="2" >Ket</td>
+                </tr>
+                <tr>
+                    <td>Nomor</td>
+                    <td>Tanggal</td>
+                    <td>Nomor</td>
+                    <td>Tanggal</td>
                 </tr>';
                 $this->label_nomor(12);
 
@@ -1370,55 +1379,28 @@ class modelReport extends mysql_db
                 while($data=$this->fetch_assoc($result))
                 {
                     $no+=1;
-                    echo'<tr>
-                    <center><td  align="center">'.$no.'</td></center>
+                    echo'<tr >
+                    <center><td style="height:25px"  align="center">'.$no.'</td></center>
                     <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_buku]).'</td></center>
                     <center><td  align="center">'.'-'.'</td></center>
-                    <center><td  align="center">'.$data[no_dok].'</td></center>
+                    <center><td  align="left">'.$data[no_dok].'</td></center>
                     <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_dok]).'</td></center>
-                    <center><td  align="center">'.$data[nm_brg].'</td></center>
+                    <center><td  align="left">'.$data[nm_brg].'</td></center>
                     <center><td  align="center">'.$data[qty].'</td></center>
-                    <center><td  align="center">'.$data[harga_sat].'</td></center>
-                    <center><td  align="center">'.$data[total_harga].'</td></center>
+                    <center><td  align="right">'.$data[harga_sat].'</td></center>
+                    <center><td  align="right">'.$data[total_harga].'</td></center>
                     
-                    <center><td  align="center">'.$data[no_dok].'</td></center>
+                    <center><td  align="left">'.$data[no_dok].'</td></center>
                     <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_buku]).'</td></center>
-                    <center><td  align="center">'.$data[keterangan].'</td></center>';
+                    <center><td  align="left">'.$data[keterangan].'</td></center>';
 
                  
                 }
                 echo '</tr>';
 
                 echo '</table>';
-                echo '<br></br>';
-                echo '  <table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% ">
-                        <tr>
-                            <td colspan="4"></td>
-                            <td colspan="7"></td>
-                            <td >...............,...................................</td>
-                        </tr>                        
-                        <tr>
-                            <td colspan="4">ATASAN LANGSUNG</td>
-                            <td colspan="7"></td>
-                            <td >PENYIMPAN BARANG</td>
-                        </tr>
-                        <tr>
-                        <td><br></br>
-                        <br></br>
-                        </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">(.......................................................)</td>
-                            <td colspan="7"></td>
-                            <td >(.......................................................)</td>
-                        </tr>                        
-                        <tr>
-                            <td colspan="4">NIP..................................................</td>
-                            <td colspan="7"></td>
-                            <td >NIP..................................................</td>
-                        </tr>
-                        </table>';
-                // $this->cetak_nama_pj($satker_asal);
+
+                $this->cetak_nama_pj($satker_asal);
 
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
                 ob_end_clean();
@@ -1440,7 +1422,7 @@ class modelReport extends mysql_db
         $bulan = $data['bulan'];
         $kd_lokasi = $data['kd_lokasi'];
         $thn_ang = $data['thn_ang'];
-        $satker_asal = $data['satker_asal'];
+        $satker_asal = $data['kd_lokasi'];
 
         echo '<table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-weight:bold; font-size:0.9em; "  align="center">
                 <tr>
@@ -1553,37 +1535,10 @@ class modelReport extends mysql_db
                 echo '</tr>';
                 echo '</table>';
 
-                // $this->cetak_nama_pj($satker_asal);
+                
                 echo '</table>';
-                echo '<br></br>';
-                echo '  <table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% ">
-                        <tr>
-                            <td colspan="4"></td>
-                            <td colspan="7"></td>
-                            <td >...............,...................................</td>
-                        </tr>                        
-                        <tr>
-                            <td colspan="4">ATASAN LANGSUNG</td>
-                            <td colspan="7"></td>
-                            <td >PENYIMPAN BARANG</td>
-                        </tr>
-                        <tr>
-                        <td><br></br>
-                        <br></br>
-                        </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">(.......................................................)</td>
-                            <td colspan="7"></td>
-                            <td >(.......................................................)</td>
-                        </tr>                        
-                        <tr>
-                            <td colspan="4">NIP..................................................</td>
-                            <td colspan="7"></td>
-                            <td >NIP..................................................</td>
-                        </tr>
-                        </table>';
-
+                $this->cetak_nama_pj($satker_asal);
+                
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
                 ob_end_clean();
                 //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
