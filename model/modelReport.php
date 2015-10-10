@@ -99,8 +99,8 @@ class modelReport extends mysql_db
                 {
                     $sql="SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
                                     FROM transaksi_masuk 
-                                    where year(tgl_dok)='$thn_ang'  
-                                     AND kd_brg='$kd_brg' 
+                                    where 
+                                     kd_brg='$kd_brg' 
                                      and kd_lokasi like '{$kd_lokasi}%'   
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'
@@ -108,8 +108,8 @@ class modelReport extends mysql_db
                                      union all 
                                      SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
                                      FROM transaksi_keluar 
-                                     where year(tgl_dok)='$thn_ang'  
-                                     AND kd_brg='$kd_brg' 
+                                     where 
+                                     kd_brg='$kd_brg' 
                                      and kd_lokasi like '{$kd_lokasi}%'  
                                      AND status_hapus=0
                                      AND thn_ang='$thn_ang'

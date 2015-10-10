@@ -118,6 +118,21 @@ else
 				);
 			$Transaksi->sisa_barang($data);
 		break;
+		
+		case 'tutup_tahun':
+			$kd_lokasi = $purifier->purify($_POST['satker']);
+			$thn_ang = $_SESSION['thn_ang'];
+			$thn_ang_lalu = $_SESSION['thn_ang']-1;
+			$user_id = $_SESSION['username'];
+			$data = array(
+				"kd_lokasi" => $kd_lokasi,
+				"thn_ang" => $thn_ang,
+				"thn_ang_lalu" => $thn_ang_lalu,
+				"user_id" => $user_id
+				);
+			print_r($data);
+			$Transaksi->tutup_tahun($data);
+		break;
 
 		case 'tbh_transaksi_klr':
 			$kd_lokasi = $purifier->purify($_POST['read_no_dok']);

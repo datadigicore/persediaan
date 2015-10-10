@@ -93,7 +93,7 @@ else {
                             </div>
                           </div>
                           <div class="form-group">
-                            <label class="col-sm-3 control-label">Jml dikeluarkan</label>
+                            <label class="col-sm-3 control-label">Jumlah Hasil Opname</label>
                             <div class="col-sm-4">
                               <input type="number" min="1"  name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah">
                             </div>
