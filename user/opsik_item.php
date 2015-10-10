@@ -95,7 +95,7 @@ else {
                           <div class="form-group">
                             <label class="col-sm-3 control-label">Jml dikeluarkan</label>
                             <div class="col-sm-4">
-                              <input type="number" min="1" max name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah">
+                              <input type="number" min="1"  name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah">
                             </div>
                             <div class="col-sm-4">
                               <input type="text" name="satuan" id="satuan" class="form-control"  readonly>
@@ -288,7 +288,7 @@ else {
             $('#rph_sat').val(output.sisa);
             $('#satuan').val(output.satuan);
 
-            document.getElementById("jml_msk").setAttribute("max",output.sisa);
+            
 
             }
           });

@@ -18,7 +18,7 @@ $primaryKey = 'id';
 $columns = array(
     array( 'db' => 'id', 'dt' => 0 ),
     array( 'db' => 'jns_trans', 'dt' => 1 ),
-    array( 'db' => 'no_dok', 'dt' => 2 ),
+    array( 'db' => 'no_dok', 'dt' => 2),
     array( 'db' => 'no_bukti', 'dt' => 3 ),
     array( 'db' => 'tgl_dok', 'dt' => 4, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
     array( 'db' => 'tgl_buku', 'dt' => 5, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
@@ -31,13 +31,13 @@ $sql_details = $config->sql_details();
 
 $str = $kd_satker;
 if (substr_count($str,".") == 1) {
-    $where = "kd_lokasi like '$kd_satker.%.%' and status_hapus=0 and thn_ang='$thn_ang' group by no_dok";   
+    $where = "kd_lokasi like '$kd_satker.%.%' and status_hapus=0 and thn_ang='$thn_ang' and jns_trans not like 'P%'  group by no_dok";   
 }
 else if (substr_count($str,".") == 2) {
-    $where = "kd_lokasi like '$kd_satker.%' and status_hapus=0 and thn_ang='$thn_ang' group by no_dok";
+    $where = "kd_lokasi like '$kd_satker.%' and status_hapus=0 and thn_ang='$thn_ang' and jns_trans not like 'P%'  group by no_dok";
 }
 else{
-    $where = "kd_lokasi='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang' group by no_dok"; 
+    $where = "kd_lokasi='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang' and jns_trans not like 'P%'  group by no_dok"; 
 }
 
 // Pengaturan Output Server Side Processing
