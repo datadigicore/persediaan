@@ -181,10 +181,10 @@ while ($data = $this->fetch_array($hasil))
         $result = $this->query($query);
         
 // Mendapatkan ID transaksi masuk dan disimpan ke variabel id_trans             
-        $query_id = "select id from transaksi_masuk WHERE kd_brg='$kd_brg' and qty='$kuantitas' and kd_lokasi='$kd_lokasi' and no_dok='$no_dok' and user_id='$user_id' order by ID DESC";
-        $result_id = $this->query($query_id);
-        $row_id = $this->fetch_array($result_id);
-        $id_trans = $row_id['id'];
+        // $query_id = "select id from transaksi_masuk WHERE kd_brg='$kd_brg' and qty='$kuantitas' and kd_lokasi='$kd_lokasi' and no_dok='$no_dok' and user_id='$user_id' order by ID DESC";
+        // $result_id = $this->query($query_id);
+        // $row_id = $this->fetch_array($result_id);
+        $id_trans = $last_id = $this->insert_id();
 
 // Memasukkan Data Transaksi Masuk ke Tabel Transaksi Full
         $query_full = "Insert into transaksi_full
@@ -481,14 +481,15 @@ while ($data = $this->fetch_array($hasil))
                                     tgl_update=CURDATE(),
                                     user_id='$user_id'";   
                 $result_keluar = $this->query($query_keluar);
+                $id_transk = $this->insert_id();
 
                 $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $kuantitas where kd_lokasi='$kd_lokasi' and id='$id_trans_m'";
                 $result_upd_masuk = $this->query($query_upd_masuk);
 
-                $query_idk = "select id from transaksi_keluar WHERE kd_brg='$kd_brg' and user_id='$user_id' and kd_lokasi='$kd_lokasi' and no_dok='$no_dok' order by id DESC";
-                $result_idk = $this->query($query_idk);
-                $row_idk = $this->fetch_array($result_idk);
-                $id_transk = $row_idk['id'];
+                // $query_idk = "select id from transaksi_keluar WHERE kd_brg='$kd_brg' and user_id='$user_id' and kd_lokasi='$kd_lokasi' and no_dok='$no_dok' order by id DESC";
+                // $result_idk = $this->query($query_idk);
+                // $row_idk = $this->fetch_array($result_idk);
+                
                 $minus_qty = -$kuantitas;
                 $minus_hrg = -$harga_sat;
                 $minus_total = -$total_harga;
@@ -533,6 +534,7 @@ while ($data = $this->fetch_array($hasil))
                 $row_id = $this->fetch_array($result_id);
                 $id_trans = $row_id['id'];   
                 $qty_akhir = $row_id['qty_akhir'];      
+                $id_opname = $row_id['id_opname'];      
                 $harga_sat = $row_id['harga_sat']; 
                 $total_harga = $qty_akhir * $harga_sat;
                 echo $id_trans.' '.$qty_akhir.' '.$harga_sat;
@@ -567,14 +569,15 @@ while ($data = $this->fetch_array($hasil))
                                 tgl_update=CURDATE(),
                                 user_id='$user_id'"; 
                 $result_keluar = $this->query($query_keluar);
+                 $id_transk = $this->insert_id();
 
                 $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $qty_akhir where kd_lokasi='$kd_lokasi' and id='$id_trans'";
                 $result_upd_masuk = $this->query($query_upd_masuk);
 
-                $query_idk = "select id from transaksi_keluar WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and user_id='$user_id' and no_dok='$no_dok' order by id DESC";
-                $result_idk = $this->query($query_idk);
-                $row_idk = $this->fetch_array($result_idk);
-                $id_transk = $row_idk['id'];
+                // $query_idk = "select id from transaksi_keluar WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and user_id='$user_id' and no_dok='$no_dok' order by id DESC";
+                // $result_idk = $this->query($query_idk);
+                // $row_idk = $this->fetch_array($result_idk);
+               
 
                 $minus_qty = -$qty_akhir;
                 $minus_hrg = -$harga_sat;
