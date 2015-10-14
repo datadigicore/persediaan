@@ -420,6 +420,11 @@ else {
             processData: false,
             success: function(data)
             {
+              $("#kd_brg").select2("val", "");
+              $("#jml_msk").val('');
+              $("#satuan").val('');
+              $("#rph_sat").val('');
+              $("#keterangan").val('');
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
               table = $("#example1").DataTable({
@@ -546,7 +551,7 @@ else {
       var tr = $(this).closest('tr');
       var row = table.row( tr );
       redirectTime = "2600";
-      redirectURL = "trans_masuk";
+      redirectURL = "trans_keluar";
       id_row = row.data()[0];
       managedata = "hapusTransKeluar";
 
@@ -674,6 +679,11 @@ else {
             processData: false,
             success: function(data)
             {
+              $("#kd_brg").select2("val", "");
+              $("#jml_msk").val('');
+              $("#satuan").val('');
+              $("#rph_sat").val('');
+              $("#keterangan").val('');
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
               table = $("#example1").DataTable({

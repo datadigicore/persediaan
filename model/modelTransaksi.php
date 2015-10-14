@@ -184,7 +184,7 @@ while ($data = $this->fetch_array($hasil))
         // $query_id = "select id from transaksi_masuk WHERE kd_brg='$kd_brg' and qty='$kuantitas' and kd_lokasi='$kd_lokasi' and no_dok='$no_dok' and user_id='$user_id' order by ID DESC";
         // $result_id = $this->query($query_id);
         // $row_id = $this->fetch_array($result_id);
-        $id_trans = $last_id = $this->insert_id();
+        $id_trans = $this->insert_id();
 
 // Memasukkan Data Transaksi Masuk ke Tabel Transaksi Full
         $query_full = "Insert into transaksi_full
