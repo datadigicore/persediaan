@@ -50,8 +50,11 @@ else
 
 			$no_dok = $kd_lokasi.$purifier->purify($_POST['no_dok']);
 			$no_bukti = null;
-			$tgl_dok = $Opsik->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
-			$tgl_buku = $Opsik->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
+			// $tgl_dok = $Opsik->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
+			// $tgl_buku = $Opsik->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
+
+			$tgl_dok = $thn_ang.$purifier->purify($_POST['smt']);
+			$tgl_buku = $thn_ang.$purifier->purify($_POST['smt']);
 
 
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
@@ -70,12 +73,14 @@ else
 					"no_dok" => $no_dok,
 					"tgl_dok" => $tgl_dok,
 					"tgl_buku" => $tgl_buku,
+					"keterangan" => $keterangan,
 					"no_bukti" => $no_bukti,
 					"status" => $status,
 					"user_id" => $user_id
 				);
 				// print_r($data);
 				echo 'masuk ident';
+				print_r($data);
 				$Opsik->tbh_opname_ident($data);
 			}			
 			else{

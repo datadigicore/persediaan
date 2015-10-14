@@ -35,7 +35,7 @@
                             <select name="read_no_dok" id="read_no_dok" class="form-control">
                             </select>
                           </div>
-                          <div class="col-sm-7">
+                          <div class="col-sm-6">
                             <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="Masukkan No. Dokumen">
                             <input type="hidden" name="manage" value="tbh_opname">  
                             <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>  
@@ -47,7 +47,7 @@
                             <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor Bukti">
                           </div>
                         </div> -->
-                        <div class="form-group">
+<!--                         <div class="form-group">
                           <label class="col-sm-2 control-label">Tanggal Dokumen</label>
                           <div class="col-sm-9">
                             <input type="text" name="tgl_dok" max="10" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" >
@@ -58,7 +58,22 @@
                           <div class="col-sm-9">
                             <input type="text" name="tgl_buku" max="10" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" >
                           </div> 
+                        </div> -->
+                    <div class="form-group" id="smt" >
+                      <label class="col-sm-2 control-label">Semester</label>
+                      <div class="col-sm-2">
+                        <select name="smt" id="smt" class="form-control">
+                          <option value="-06-30">Semester 1</option>
+                          <option value="-12-31">Semester 2</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                       <label class="col-sm-2 control-label">Keterangan</label>
+                       <div class="col-sm-8">
+                          <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Keterangan">
                         </div>
+                    </div> 
                   </div>
                   <div class="box-footer">
                     <button type="Reset" class="btn btn-default">Reset</button>
@@ -270,15 +285,15 @@
         var no_dok = $("#no_dok").val();
 
         if (jns_trans != "") {
-          if(tgl_dok.substring(6,10)!=tahun_ang){
-            alert("Tahun Dokumen Tidak Sesuai Dengan Tahun Anggaran");
-            return false;
-          }
+          // if(tgl_dok.substring(6,10)!=tahun_ang){
+          //   alert("Tahun Dokumen Tidak Sesuai Dengan Tahun Anggaran");
+          //   return false;
+          // }
 
-          if(tgl_buku.substring(6,10)!=tahun_ang){
-            alert("Tahun BUkti Tidak Sesuai Dengan Tahun Anggaran");
-            return false;
-          }
+          // if(tgl_buku.substring(6,10)!=tahun_ang){
+          //   alert("Tahun BUkti Tidak Sesuai Dengan Tahun Anggaran");
+          //   return false;
+          // }
           e.preventDefault();
           var formURL = $(this).attr("action");
           var addData = new FormData(this);

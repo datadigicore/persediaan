@@ -10,7 +10,8 @@ class modelOpsik extends mysql_db
         $query_t_full = "select * from transaksi_full where id_opname='$id_opname' and jns_trans='P02' and id_masuk is not null ";
         $result_t_full = $this->query($query_t_full);
         while ($row_id = $this->fetch_array($result_t_full))
-            { 
+            {
+                $id_full = $row_id['id_history']; 
                 $id_masuk = $row_id['id_masuk'];
                 $kd_lokasi=$row_id['kd_lokasi'];
                 $nm_satker = $row_id['nm_satker'];
@@ -35,34 +36,35 @@ class modelOpsik extends mysql_db
 
                 $query_hrg_masuk = "update transaksi_masuk  set harga_sat=harga_sat-'$harga_sat', total_harga = total_harga-'$total_harga'  where  id='$id_masuk'";
                 $result_hrg_masuk = $this->query($query_hrg_masuk);
-                $query_full = "Insert into transaksi_full
-                            set 
-                            kd_lokasi='$kd_lokasi',
-                            kd_lok_msk='',
-                            id_opname='$id_opname',
-                            id_masuk='$id_masuk',
-                            nm_satker='$nm_satker',
-                            thn_ang='$thn_ang',
-                            no_dok='$no_dok',
-                            tgl_dok='$tgl_dok',
-                            tgl_buku='$tgl_buku',
-                            no_bukti='$no_bukti',
-                            jns_trans='H03',
-                            kd_sskel='$kd_sskel',
-                            nm_sskel='$nm_sskel',
-                            kd_brg='$kd_brg',
-                            nm_brg='$nm_brg',
-                            kd_perk='$kd_perk',
-                            nm_perk='$nm_perk',
-                            satuan='$satuan',
-                            qty='0',
+                $query_full = "delete from transaksi_full where id_history='$id_full' ";
+                // $query_full = "Insert into transaksi_full
+                //             set 
+                //             kd_lokasi='$kd_lokasi',
+                //             kd_lok_msk='',
+                //             id_opname='$id_opname',
+                //             id_masuk='$id_masuk',
+                //             nm_satker='$nm_satker',
+                //             thn_ang='$thn_ang',
+                //             no_dok='$no_dok',
+                //             tgl_dok='$tgl_dok',
+                //             tgl_buku='$tgl_buku',
+                //             no_bukti='$no_bukti',
+                //             jns_trans='H03',
+                //             kd_sskel='$kd_sskel',
+                //             nm_sskel='$nm_sskel',
+                //             kd_brg='$kd_brg',
+                //             nm_brg='$nm_brg',
+                //             kd_perk='$kd_perk',
+                //             nm_perk='$nm_perk',
+                //             satuan='$satuan',
+                //             qty='0',
                             
-                            harga_sat=-1*'$harga_sat',
-                            total_harga=-1*'$total_harga',
-                            keterangan='$keterangan',
-                            status='0',
-                            tgl_update=NOW(),
-                            user_id='$user_id'";   
+                //             harga_sat=-1*'$harga_sat',
+                //             total_harga=-1*'$total_harga',
+                //             keterangan='$keterangan',
+                //             status='0',
+                //             tgl_update=NOW(),
+                //             user_id='$user_id'";   
                         $result_full = $this->query($query_full);  
 
 
@@ -72,7 +74,8 @@ class modelOpsik extends mysql_db
             $query_t_full_klr = "select * from transaksi_full where id_opname='$id_opname' and jns_trans='P02' and id_keluar is not null ";
                     $result_t_full_klr = $this->query($query_t_full_klr);
                     while ($row_id = $this->fetch_array($result_t_full_klr))
-                        { 
+                        {
+                            $id_full = $row_id['id_history']; 
                             $id_keluar = $row_id['id_keluar'];
                             $kd_lokasi=$row_id['kd_lokasi'];
                             $nm_satker = $row_id['nm_satker'];
@@ -98,34 +101,35 @@ class modelOpsik extends mysql_db
                             $query_hrg_keluar = "update transaksi_keluar  set harga_sat=harga_sat-'$harga_sat', total_harga = total_harga-'$total_harga'  where  id='$id_keluar'";
                             $result_hrg_keluar = $this->query($query_hrg_keluar);
                             
-                            $query_full = "Insert into transaksi_full
-                                        set 
-                                        kd_lokasi='$kd_lokasi',
-                                        kd_lok_msk='',
-                                        id_opname='$id_opname',
-                                        id_keluar='$id_keluar',
-                                        nm_satker='$nm_satker',
-                                        thn_ang='$thn_ang',
-                                        no_dok='$no_dok',
-                                        tgl_dok='$tgl_dok',
-                                        tgl_buku='$tgl_buku',
-                                        no_bukti='$no_bukti',
-                                        jns_trans='H03',
-                                        kd_sskel='$kd_sskel',
-                                        nm_sskel='$nm_sskel',
-                                        kd_brg='$kd_brg',
-                                        nm_brg='$nm_brg',
-                                        kd_perk='$kd_perk',
-                                        nm_perk='$nm_perk',
-                                        satuan='$satuan',
-                                        qty='0',
+                            $query_full = "delete from transaksi_full where id_history='$id_full' ";
+                            // $query_full = "Insert into transaksi_full
+                            //             set 
+                            //             kd_lokasi='$kd_lokasi',
+                            //             kd_lok_msk='',
+                            //             id_opname='$id_opname',
+                            //             id_keluar='$id_keluar',
+                            //             nm_satker='$nm_satker',
+                            //             thn_ang='$thn_ang',
+                            //             no_dok='$no_dok',
+                            //             tgl_dok='$tgl_dok',
+                            //             tgl_buku='$tgl_buku',
+                            //             no_bukti='$no_bukti',
+                            //             jns_trans='H03',
+                            //             kd_sskel='$kd_sskel',
+                            //             nm_sskel='$nm_sskel',
+                            //             kd_brg='$kd_brg',
+                            //             nm_brg='$nm_brg',
+                            //             kd_perk='$kd_perk',
+                            //             nm_perk='$nm_perk',
+                            //             satuan='$satuan',
+                            //             qty='0',
                                         
-                                        harga_sat=-1*'$harga_sat',
-                                        total_harga=-1*'$total_harga',
-                                        keterangan='$keterangan',
-                                        status='0',
-                                        tgl_update=NOW(),
-                                        user_id='$user_id'";   
+                            //             harga_sat=-1*'$harga_sat',
+                            //             total_harga=-1*'$total_harga',
+                            //             keterangan='$keterangan',
+                            //             status='0',
+                            //             tgl_update=NOW(),
+                            //             user_id='$user_id'";   
                                     $result_full = $this->query($query_full);  
 
 
@@ -314,6 +318,7 @@ class modelOpsik extends mysql_db
         $tgl_dok = $data['tgl_dok'];
         $tgl_buku = $data['tgl_buku'];
         $no_bukti = $data['no_bukti'];
+        $keterangan = $data['keterangan'];
         $jns_trans = $data['jns_trans'];
         $status = $data['status'];
         $user_id = $data['user_id'];
@@ -329,6 +334,7 @@ class modelOpsik extends mysql_db
                     tgl_dok='$tgl_dok',
                     tgl_buku='$tgl_buku',
                     no_bukti='$no_bukti',
+                    keterangan='$keterangan',
                     jns_trans='P01',
                     status=0,
                     tgl_update=CURDATE(),
@@ -405,11 +411,11 @@ class modelOpsik extends mysql_db
         $thn_ang = $data['thn_ang'];
         $kd_brg = $data['kd_brg'];
         $kuantitas = $data['kuantitas'];
-        $keterangan = $data['keterangan'];
+        
         $status = $data['status'];
         $user_id = $data['user_id'];
 
-        $query_dok = "select kd_lokasi, tgl_dok, tgl_buku, no_dok, no_bukti, jns_trans, keterangan from opname where no_dok='$no_dok'";
+        $query_dok = "select kd_lokasi, tgl_dok, tgl_buku, no_dok, no_bukti, keterangan, jns_trans, keterangan from opname where no_dok='$no_dok'";
         $result_dok = $this->query($query_dok);
         $dok = $this->fetch_array($result_dok);
 
@@ -420,6 +426,7 @@ class modelOpsik extends mysql_db
         $no_dok = $dok['no_dok'];
         $no_bukti = $dok['no_bukti'];
         $jns_trans = $dok['jns_trans'];
+        $keterangan = $dok['keterangan'];
         
 
         $query_perk = "SELECT kd_sskel, nm_sskel, kd_perk, nm_perk, nm_brg, satuan from transaksi_masuk where kd_brg='$kd_brg' and kd_lokasi = '$kd_lokasi' ";
@@ -517,10 +524,10 @@ class modelOpsik extends mysql_db
                     user_id='$user_id'";   
             $result_masuk = $this->query($query_masuk);
         
-        $query_id = "select id from transaksi_masuk WHERE kd_brg='$kd_brg' and qty='$selisih' and kd_lokasi='$kd_lokasi' and no_dok='$no_dok' order by ID DESC LIMIT 1";
-        $result_id = $this->query($query_id);
-        $row_id = $this->fetch_array($result_id);
-        $id_trans = $row_id['id'];
+        // $query_id = "select id from transaksi_masuk WHERE kd_brg='$kd_brg' and qty='$selisih' and kd_lokasi='$kd_lokasi' and no_dok='$no_dok' order by ID DESC LIMIT 1";
+        // $result_id = $this->query($query_id);
+        // $row_id = $this->fetch_array($result_id);
+        $id_trans = $this->insert_id();
         
             $query_full = "Insert into transaksi_full
                     set 
@@ -611,10 +618,10 @@ class modelOpsik extends mysql_db
                     $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $selisih where kd_lokasi='$kd_lokasi' and id='$id_trans_m'";
                     $result_upd_masuk = $this->query($query_upd_masuk);
 
-                    $query_idk = "select id from transaksi_keluar WHERE kd_brg='$kd_brg' and user_id='$user_id' order by id DESC";
-                    $result_idk = $this->query($query_idk);
-                    $row_idk = $this->fetch_array($result_idk);
-                    $id_transk = $row_idk['id'];
+                    // $query_idk = "select id from transaksi_keluar WHERE kd_brg='$kd_brg' and user_id='$user_id' order by id DESC";
+                    // $result_idk = $this->query($query_idk);
+                    // $row_idk = $this->fetch_array($result_idk);
+                    $id_transk = $this->insert_id();
                     $minus_qty = -$selisih;
                     $minus_hrg = -$hrg_sat;
                     $minus_total = -$total_harga;
@@ -693,11 +700,10 @@ class modelOpsik extends mysql_db
                     $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $qty_akhir where kd_lokasi='$kd_lokasi' and id='$id_trans'";
                     $result_upd_masuk = $this->query($query_upd_masuk);
 
-                    $query_idk = "select id from transaksi_keluar WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' order by id DESC";
-                    $result_idk = $this->query($query_idk);
-                    $row_idk = $this->fetch_array($result_idk);
-                    $id_transk = $row_idk['id'];
-
+                    // $query_idk = "select id from transaksi_keluar WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' order by id DESC";
+                    // $result_idk = $this->query($query_idk);
+                    // $row_idk = $this->fetch_array($result_idk);
+                    $id_transk = $this->insert_id();
                     $minus_qty = -$qty_akhir;
                     $minus_hrg = -$hrg_sat;
                     $minus_total = -$total_harga;
@@ -744,7 +750,7 @@ class modelOpsik extends mysql_db
         $result_upd_klr = $this->query($update_brg_klr);
 
         //Mengubah Harga2 Transaksi Masuk Berdasarkan Harga Pembelian Terakhir
-        $query = "SELECT * FROM transaksi_masuk where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 and status=1 and id_opname='$id_opname'  ";
+        $query = "SELECT * FROM transaksi_masuk where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 and status=1 and id_opname='$id_opname' and jns_trans!='P01'  ";
         $result = $this->query($query);
 
         while ($data_msk = $this->fetch_array($result))
@@ -802,7 +808,7 @@ class modelOpsik extends mysql_db
         }
 
         //Mengubah Harga2 Transaksi Keluar Berdasarkan Harga Pembelian Terakhir
-        $query = "SELECT * FROM transaksi_keluar where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 and status=1 and id_opname='$id_opname'  ";
+        $query = "SELECT * FROM transaksi_keluar where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 and status=1 and id_opname='$id_opname' and jns_trans!='P01'  ";
         $result = $this->query($query);
 
         while ($data_msk = $this->fetch_array($result))
@@ -853,11 +859,14 @@ class modelOpsik extends mysql_db
                     tgl_update=NOW(),
                     user_id='$user_id'";   
             $result_full = $this->query($query_full);
+
+      
         
         }
 
 
-
+            $query_hps_dok = "delete from opname where nm_brg is null and kd_lokasi='$kd_lokasi' ";
+            $result_hps_dok = $this->query($query_hps_dok); 
 
 
     }   
