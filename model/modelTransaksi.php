@@ -483,6 +483,30 @@ while ($data = $this->fetch_array($hasil))
                 $result_keluar = $this->query($query_keluar);
                 $id_transk = $this->insert_id();
 
+                $query_log = "Insert into log_trans_keluar
+                        set 
+                        kd_lokasi='$kd_lokasi',
+                        nm_satker='$nm_satker',
+                        thn_ang='$thn_ang',
+                        no_dok='$no_dok',
+                        tgl_dok='$tgl_dok',
+                        tgl_buku='$tgl_buku',
+                        no_bukti='$no_bukti',
+                        jns_trans='$jns_trans',
+                        aksi='TAMBAH-klr',
+                        kd_brg='$kd_brg',
+                        nm_brg='$nm_brg',
+                        
+                        
+                        qty=-1*'$kuantitas',
+                        
+                        harga_sat='$harga_sat',
+                        total_harga=-1*'$total_harga',
+                        keterangan='$keterangan',
+                        tgl_update=NOW(),
+                        user_id='$user_id'";   
+                $result_log = $this->query($query_log);
+
                 $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $kuantitas where kd_lokasi='$kd_lokasi' and id='$id_trans_m'";
                 $result_upd_masuk = $this->query($query_upd_masuk);
 
@@ -569,8 +593,27 @@ while ($data = $this->fetch_array($hasil))
                                 tgl_update=CURDATE(),
                                 user_id='$user_id'"; 
                 $result_keluar = $this->query($query_keluar);
-                 $id_transk = $this->insert_id();
-
+                $id_transk = $this->insert_id();
+                $query_log = "Insert into log_trans_keluar
+                        set 
+                        kd_lokasi='$kd_lokasi',
+                        nm_satker='$nm_satker',
+                        thn_ang='$thn_ang',
+                        no_dok='$no_dok',
+                        tgl_dok='$tgl_dok',
+                        tgl_buku='$tgl_buku',
+                        no_bukti='$no_bukti',
+                        jns_trans='$jns_trans',
+                        aksi='TAMBAH-klr',
+                        kd_brg='$kd_brg',
+                        nm_brg='$nm_brg',
+                        qty=-1*'$qty_akhir',
+                        harga_sat='$harga_sat',
+                        total_harga=-1*'$total_harga',
+                        keterangan='$keterangan',
+                        tgl_update=NOW(),
+                        user_id='$user_id'";   
+                $result_log = $this->query($query_log);
                 $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $qty_akhir where kd_lokasi='$kd_lokasi' and id='$id_trans'";
                 $result_upd_masuk = $this->query($query_upd_masuk);
 

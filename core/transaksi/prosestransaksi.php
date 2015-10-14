@@ -200,18 +200,10 @@ else
 				print_r($data);
 				
 				$Transaksi->trnsaksi_keluar($data);
-			}
-
 			//========= Log History =========//
-				$kd_lokasi = $_SESSION['kd_lok'];
+
 				
-				$nm_satker = $_SESSION['nama_satker'];
 				$thn_ang = $_SESSION['thn_ang'];
-				$no_dok = $kd_lokasi.$purifier->purify($_POST['disnodok']);
-				$no_bukti = $purifier->purify($_POST['disnobukti']);
-				$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['distgldok']));
-				$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['distglbuku']));
-				
 				$jns_trans = $_POST['disjenistrans'];
 				$kd_brg = $purifier->purify($_POST['kd_brg']);
 				
@@ -241,7 +233,10 @@ else
 					"user_id" => $user_id,
 			    	"tanggal" => $tanggal
 			    );
-				$Transaksi->loghistory_keluar($datalog);
+				// $Transaksi->loghistory_keluar($datalog);
+			}
+
+
 				//========= Log History =========//
 
 		break;

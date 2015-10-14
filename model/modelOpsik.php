@@ -614,6 +614,7 @@ class modelOpsik extends mysql_db
                                         tgl_update=CURDATE(),
                                         user_id='$user_id'";   
                     $result_keluar = $this->query($query_keluar);
+                    $id_transk = $this->insert_id();
 
                     $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $selisih where kd_lokasi='$kd_lokasi' and id='$id_trans_m'";
                     $result_upd_masuk = $this->query($query_upd_masuk);
@@ -621,7 +622,7 @@ class modelOpsik extends mysql_db
                     // $query_idk = "select id from transaksi_keluar WHERE kd_brg='$kd_brg' and user_id='$user_id' order by id DESC";
                     // $result_idk = $this->query($query_idk);
                     // $row_idk = $this->fetch_array($result_idk);
-                    $id_transk = $this->insert_id();
+                    
                     $minus_qty = -$selisih;
                     $minus_hrg = -$hrg_sat;
                     $minus_total = -$total_harga;
@@ -696,14 +697,15 @@ class modelOpsik extends mysql_db
                                     tgl_update=CURDATE(),
                                     user_id='$user_id'"; 
                     $result_keluar = $this->query($query_keluar);
+                    $row_idk = $this->insert_id();
 
                     $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $qty_akhir where kd_lokasi='$kd_lokasi' and id='$id_trans'";
                     $result_upd_masuk = $this->query($query_upd_masuk);
 
                     // $query_idk = "select id from transaksi_keluar WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' order by id DESC";
                     // $result_idk = $this->query($query_idk);
-                    // $row_idk = $this->fetch_array($result_idk);
-                    $id_transk = $this->insert_id();
+                    
+                   
                     $minus_qty = -$qty_akhir;
                     $minus_hrg = -$hrg_sat;
                     $minus_total = -$total_harga;
@@ -711,7 +713,7 @@ class modelOpsik extends mysql_db
                     $query_full = "Insert into transaksi_full
                                     set kd_lokasi='$kd_lokasi',
                                     id_trans='$id_transk',
-                                    id_keluar='$id_transk',
+                                    id_keluar='$row_idk',
                                     id_opname='$id_opname',
                                     kd_lok_msk='$kd_lok_msk',
                                     nm_satker='$nm_satker',

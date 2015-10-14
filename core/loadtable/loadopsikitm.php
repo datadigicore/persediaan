@@ -40,13 +40,13 @@ $sql_details = $config->sql_details();
 
 $str = $kd_satker;
 if (substr_count($str,".") == 1) {
-    $where = "kd_lokasi like '$kd_satker.%.%' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and kd_brg !='' group by no_dok ";
+    $where = "kd_lokasi like '$kd_satker.%.%' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and kd_brg !=''  ";
 }
 else if (substr_count($str,".") == 2) {
-    $where = "kd_lokasi like '$kd_satker.%' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and kd_brg !='' group by no_dok  ";
+    $where = "kd_lokasi like '$kd_satker.%' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and kd_brg !=''   ";
 }
 else{
-    $where = "kd_lokasi='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and kd_brg !='' group by no_dok ";
+    $where = "kd_lokasi='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and kd_brg !=''  ";
 }
  
 // Pengaturan Output Server Side Processing
