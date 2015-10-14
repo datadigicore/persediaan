@@ -484,7 +484,28 @@ class modelOpsik extends mysql_db
                     tgl_update=CURDATE(),
                     user_id='$user_id'";   
         $result = $this->query($query);  
-        
+ 
+        $query_log = "Insert into log_opname
+                        set 
+                        kd_lokasi='$kd_lokasi',
+                        nm_satker='$nm_satker',
+                        thn_ang='$thn_ang',
+                        no_dok='$no_dok',
+                        tgl_dok='$tgl_dok',
+                        tgl_buku='$tgl_buku',
+                        no_bukti='$no_bukti',
+                        jns_trans='P01',
+                        aksi='TAMBAH-op',
+                        kd_brg='$kd_brg',
+                        nm_brg='$nm_brg',
+                        qty='$kuantitas',
+                        harga_sat='$hrg_sat',
+                        total_harga='$total_harga',
+                        keterangan='$keterangan',
+                        tgl_update=NOW(),
+                        user_id='$user_id'";   
+            $result_log = $this->query($query_log);
+
         $query_id = "select id from opname WHERE kd_brg='$kd_brg'  and kd_lokasi='$kd_lokasi' and no_dok='$no_dok' order by ID DESC LIMIT 1";
         $result_id = $this->query($query_id);
         $row_id = $this->fetch_array($result_id);
