@@ -241,12 +241,7 @@ else {
           minimumInputLength: 1,
         });
         $("li#trans_masuk").addClass("active");
-        $('#tgl_dok').datepicker({
-          format: "dd-mm-yyyy"
-        });         
-        $('#tgl_buku').datepicker({
-          format: "dd-mm-yyyy"
-        });             
+            
         $("li#saldo_awal").addClass("active");
         table = $("#example1").DataTable({
           "processing": false,
