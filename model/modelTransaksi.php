@@ -103,9 +103,11 @@ while ($data = $this->fetch_array($hasil))
         }
             $query_ttp_msk = "UPDATE transaksi_masuk set status_ambil=1 where thn_ang = '$thn_ang_lalu' and kd_lokasi='$kd_lokasi' ";
             $query_ttp_klr = "UPDATE transaksi_keluar set status_ambil=1 where thn_ang = '$thn_ang_lalu' and kd_lokasi='$kd_lokasi' ";
+            $query_set_user = "UPDATE user set tutup_tahun='Y' where thn_ang = '$thn_ang' and kd_lokasi='$kd_lokasi' and tutup_tahun is null ";
 
             $result_ttp_msk = $this->query($query_ttp_msk);
             $result_ttp_klr = $this->query($query_ttp_klr);
+            $result_set_user = $this->query($query_set_user);
 
     }
     

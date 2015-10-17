@@ -46,22 +46,22 @@ else
 				"user_id" => $user_id
 			   );
 			print_r($data);
-			if($kd_brg=="all" && $format=="pdf")
-			{
-				$Report->buku_persediaan_all($data);
-			}
-			elseif($kd_brg=="all" && $format=="excel")
-			{
-				$Report->buku_persediaan_all_excel($data);
-			}
-			elseif($format== "pdf")
-			{
+			// if($kd_brg=="all" && $format=="pdf")
+			// {
+			// 	$Report->buku_persediaan_all($data);
+			// }
+			// elseif($kd_brg=="all" && $format=="excel")
+			// {
+			// 	$Report->buku_persediaan_all_excel($data);
+			// }
+			// elseif($format== "pdf")
+			// {
+			// 	$Report->buku_persediaan($data);
+			// }
+			// else
+			// {
 				$Report->buku_persediaan($data);
-			}
-			else
-			{
-				$Report->buku_persediaan_excel($data);
-			}
+			// }
 		break;
 
 		case 'lap_persediaan':
