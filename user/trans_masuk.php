@@ -189,6 +189,29 @@
         }
       });
 
+      $('#jenis_trans').change(function(){
+        var jns_trans= $('#jenis_trans').val();
+        var kd_lokasi = $('#read_no_dok').val();
+        if (jns_trans=='M01') {
+          $.ajax({
+            type: "post",
+            url: '../core/transaksi/prosestransaksi',
+            data: {manage:'cek_saldo_awal',kd_lokasi:kd_lokasi},
+            dataType: "json",
+            success: function (output) {
+              if(output.saldo!==null){
+                alert("Saldo Awal Telah Dimasukkan");
+                $('#jenis_trans').val('');
+                
+          }
+
+              
+
+            }
+          });
+        }
+
+      });
       $('#addtransmsk').submit(function(e){
         var jns_trans = $("#jenis_trans").val();
         var tahun_ang = $("#tahun_ang").val();

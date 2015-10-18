@@ -14,7 +14,30 @@ else
 		case 'readbrg':
 			$search = $_POST['q'];
 			$Transaksi->bacabrg($search);
-		break;		
+		break;
+
+		case 'cek_saldo_awal':
+		$kd_lokasi = $purifier->purify($_POST['kd_lokasi']);
+		$thn_ang = $_SESSION['thn_ang'];
+		$data = array(
+				"kd_lokasi" => $kd_lokasi,
+				"thn_ang" => $thn_ang
+				);
+		$Transaksi->cek_saldo_awal($data);
+		break;
+
+		case 'cek_rangkap_brg_msk':
+		$kd_lokasi = $purifier->purify($_POST['kd_lokasi']);
+		$thn_ang = $_SESSION['thn_ang'];
+		$kd_brg = $purifier->purify($_POST['kd_brg']);
+		$data = array(
+				"kd_lokasi" => $kd_lokasi,
+				"thn_ang" => $thn_ang,
+				"kd_brg" => $kd_brg
+				);
+		$Transaksi->cek_rangkap_brg_msk($data);
+		break;
+
 		case 'readnodok':
 			$no_dok = $purifier->purify($_POST['no_dok']);
 			$kd_lokasi = $_SESSION['kd_lok'];
