@@ -21,16 +21,16 @@ class modelReport extends mysql_db
 
     public function baca_satker($kd_lokasi)
     {
-        $query = "select kode, NamaSatker from satker where kode like '{$kd_lokasi}%'";
+        $query = "select kode, NamaSatker from satker where kode like '{$kd_lokasi}%' order by kode asc";
         $result = $this->query($query);
         // echo '<option value="">-- Pilih Kode Satker --</option>';
 
         while ($row = $this->fetch_array($result))
         {
-            $str = $row['kode'];
-            if (substr_count($str,".") == 3) {
+            // $str = $row['kode'];
+            // if (substr_count($str,".") == 3) {
             echo '<option value="'.$row['kode'].'">'.$row['kode'].'        '.$row['NamaSatker']."</option>";
-             }
+             // }
         } 
     }
 
@@ -52,11 +52,13 @@ class modelReport extends mysql_db
         $format = $data['format'];
         
         // $this->refresh($kd_lokasi,$thn_ang);
-
-        $result = $this->get_query($data,"buku_persediaan",$kd_lokasi,$kd_brg);
-        $this->cetak_header($data,"buku_persediaan");
-        $this->cetak_data($result, "buku_persediaan");                    
+        $this->cetak_header($data,"buku_persediaan",$kd_lokasi,"");
+        $this->get_query($data,"buku_persediaan",$kd_lokasi,$kd_brg);
+        
+                          
         $this->cetak_nama_pj($satker_asal);
+
+       
 
         $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
         ob_end_clean();
@@ -567,21 +569,29 @@ class modelReport extends mysql_db
         {
                 $mpdf=new mPDF('utf-8', 'A4-L');
                 ob_start();
-                $thn_ang = $data_lp['thn_ang'];
-                $jenis = $data_lp['jenis'];
-                $bln_awal = $data_lp['bln_awal'];
-                $bln_akhir = $data_lp['bln_akhir'];
-                $tgl_awal = $data_lp['tgl_awal'];
-                $tgl_akhir = $data_lp['tgl_akhir'];
-                $thn_ang_lalu = intval($thn_ang)-1;
+
                 $kd_brg = $data_lp['kd_brg'];
                 $kd_lokasi = $data_lp['kd_lokasi'];
                 $satker_asal = $data_lp['satker_asal'];
+                $no = 1;
+                $this->cetak_header($data_lp,"rincian_persediaan2",$kd_lokasi,$no);
+                $query = "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' order by kode asc";
+                $result = $this->query($query);
+                
+                while($kdsatker=$this->fetch_assoc($result))
+                { 
+                  $no++;
+                  $kd_lokasi2=$kdsatker['kode'];
+                  $nm_satker=$kdsatker['NamaSatker'];
+                 
+                  $this->get_query($data_lp,"rincian_persediaan2",$kd_lokasi2,"",$nm_satker);
+                  // echo '<pagebreak />';
+                  
 
-                $result = $this->get_query($data_lp,"rincian_persediaan2",$kd_lokasi,"");
-                $this->cetak_header($data_lp,"rincian_persediaan2");
-                $this->cetak_data($result, "rincian_persediaan2",$data_lp);       
-                 $this->cetak_nama_pj($satker_asal);
+                }
+                echo '</table>';
+                   
+                  $this->cetak_nama_pj($satker_asal);
 
                         // $this->hitung_brg_rusak($kd_lokasi);
                 $html = ob_get_contents();
@@ -2014,9 +2024,9 @@ class modelReport extends mysql_db
 
     }
 
-    public function cetak_header($data,$nm_lap){
+    public function cetak_header($data,$nm_lap,$kd_lokasi, $inc){
             $kd_brg = $data['kd_brg'];
-            $kd_lokasi = $data['kd_lokasi'];
+            // $kd_lokasi = $data['kd_lokasi'];
             $thn_ang = $data['thn_ang'];
             
             if($nm_lap=="buku_persediaan"){
@@ -2078,30 +2088,39 @@ class modelReport extends mysql_db
                       </tr>';
           }   
           elseif($nm_lap=="rincian_persediaan2"){
-                echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
-                $this->getsatker($kd_lokasi);
-                $date = $this->cek_periode($data);
-
-                echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">LAPORAN RINCIAN BARANG PERSEDIAAN</p>
-                       <p align="center" style="margin:0px; padding:0px; font-weight:bold;">UNTUK PERIODE YANG BERAKHIR PADA '.$date.'</p>
-                       <p align="center" style="margin:0px; padding:0px; font-weight:bold;">TAHUN ANGGARAN '.$thn_ang.'</p>
-                        <br></br>
-
-                        <table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border=1 align="center">
+    
+              $date = $this->cek_periode($data);
+            
+              echo '<table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-weight:bold; font-size:1em; "  align="center">
                         <tr>
+                            <td rowspan="3" width="5%"><img src="../../dist/img/pekalongan2.png" alt="Pekalongan" height="8%" /></td>
+                            <td width="100%" style= "vertical-align: bottom;">LAPORAN MUTASI PERSEDIAAN</td>
+                        </tr>
+                        <tr>
+                            <td>UNTUK PERIODE YANG BERAKHIR PADA '.$date.'<td>
+                        </tr>
+                        <tr>
+                            <td>TAHUN ANGGARAN : '.$thn_ang.'</td>
+                        </tr>
+                      </table>
+                    ';
+              $this->getsatker($kd_lokasi);
+              echo '<table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; " border=1 align="center">';
+              echo '<tr>
+                            <td rowspan="2" style="font-weight:bold;">NO</td>
                             <td rowspan="2" style="font-weight:bold;">KODE</td>
-                            <td  width="30%" rowspan="2" style="font-weight:bold;" >URAIAN</td>
-                            <td  width="20%" colspan="2" style="font-weight:bold;"  >SALDO AWAL 1 JANUARI '.$thn_ang.'</td>
+                            <td  width="35%" rowspan="2" style="font-weight:bold;" >URAIAN</td>
+                            <td  width="10%" colspan="2" style="font-weight:bold;"  >SALDO AWAL 1 JANUARI '.$thn_ang.'</td>
                             <td colspan="3" style="font-weight:bold;">MUTASI</td>
                             <td colspan="2" style="font-weight:bold;">NILAI</td>
                             <tr>
-                                <td>JUMLAH</td>
-                                <td>RUPIAH</td>
-                                <td style="font-size:95%; ">TAMBAH</td>
-                                <td style="font-size:95%;">KURANG</td>
-                                <td style="font-size:95%;">JUMLAH</td>
-                                <td style="font-size:95%;">JUMLAH</td>
-                                <td style="font-size:95%;">RUPIAH</td>
+                                <td width="7%">JUMLAH</td>
+                                <td width="10%">RUPIAH</td>
+                                <td style="font-size:90%; ">TAMBAH</td>
+                                <td style="font-size:90%;">KURANG</td>
+                                <td style="font-size:90%;">JUMLAH</td>
+                                <td style="font-size:90%;">JUMLAH</td>
+                                <td width="10%" style="font-size:90%;">RUPIAH</td>
                             </tr> 
                         </tr>';
           }
@@ -2438,7 +2457,8 @@ class modelReport extends mysql_db
             }       
         }
 
-        public function get_query($data,$nm_lap,$kd_lokasi,$kd_brg){
+        public function get_query($data,$nm_lap,$kd_lokasi,$kd_brg,$nm_satker){
+          
             
             $jenis = $data['jenis'];
 
@@ -2498,6 +2518,7 @@ class modelReport extends mysql_db
                                     where   kd_lokasi like '{$kd_lokasi}%'  AND thn_ang='$thn_ang' AND status_hapus=0 GROUP BY kd_brg";
             }   
             elseif($nm_lap=="rincian_persediaan2"){
+
               $kriteria1 = substr($sblm_kriteria, 5);
                     $sql="SELECT kd_perk, nm_perk, kd_brg, nm_brg, 
                             sum(case WHEN jns_trans='M01' THEN qty else 0 end) as brg_thn_lalu,  
@@ -2651,14 +2672,15 @@ class modelReport extends mysql_db
 
             }
             else {
-              echo "masuk else";
+              
             }
 
             $result=$this->query($sql);
-            return $result;
+            $this->cetak_data($result, $nm_lap,$data,$kd_lokasi,$nm_satker);
+            
         }
 
-    public function cetak_data($result,$nm_lap,$data_lp){
+    public function cetak_data($result,$nm_lap,$data_lp,$kd_lokasi,$nm_satker){
 
             if($nm_lap=="buku_persediaan"){
                  $no = 0;
@@ -2708,7 +2730,7 @@ class modelReport extends mysql_db
                         echo '<tr>
                                 <td align="right" style="font-size:90%; ">'.substr($data[kd_perk],0, 5).'</td>
                                 <td  align="left" style="font-size:90%; ">'.'Persediaan Bahan Pakai Habis'.'</td>
-                                <td  align="right" style="font-size:90%; ;">'.$this->sum_persedia($data_lp,"11701","saldo").'</td>
+                                <td  align="right" style="font-size:90%; ;">'.$this->sum_persedia($data_lp,"11701","saldo",$kd_lokasi).'</td>
                                 <tr>
                                ';
                         $kd_rek=substr($data[kd_perk],0, 5);
@@ -2719,7 +2741,7 @@ class modelReport extends mysql_db
                         <tr >
                                 <td align="right" style=" font-size:90%;">'.$data[kd_perk].'</td>
                                 <td  align="left" style=" font-size:90%;">'.$data[nm_perk].'</td>
-                                <td  align="right" style=" font-size:90%;">'.$this->sum_persedia($data_lp,$data[kd_perk],"saldo").'</b></td>
+                                <td  align="right" style=" font-size:90%;">'.$this->sum_persedia($data_lp,$data[kd_perk],"saldo",$kd_lokasi).'</b></td>
                               </tr> ';
                         $prev_perk=$data[kd_perk];
                     }                    
@@ -2747,39 +2769,46 @@ class modelReport extends mysql_db
                       </tr>';
                 
                 echo '</table>';
-                if($no>=6)
-                {
-                echo '<pagebreak />';
-                }
+                // if($no>=6)
+                // {
+                // echo '<pagebreak />';
+                // }
                 
            
         }       
         elseif($nm_lap=="rincian_persediaan2"){
-            $no=0;
+          
+            $no=1;
             $total_thn_lalu=0;
             $total_akumulasi=0;
             $prev_sskel=null;
             $kd_rek=null;
+            $skpd=null;
 
-            $qty_SA = $this->sum_persedia($data_lp,"117","qty_SA");
-            $hrg_SA = $this->sum_persedia($data_lp,"117","hrg_SA");
-            $qty_msk = $this->sum_persedia($data_lp,"117","qty_msk");
-            $qty_klr = $this->sum_persedia($data_lp,"117","qty_klr");
+            $qty_SA = $this->sum_persedia($data_lp,"117","qty_SA",$kd_lokasi);
+            $hrg_SA = $this->sum_persedia($data_lp,"117","hrg_SA",$kd_lokasi);
+            $qty_msk = $this->sum_persedia($data_lp,"117","qty_msk",$kd_lokasi);
+            $qty_klr = $this->sum_persedia($data_lp,"117","qty_klr",$kd_lokasi);
             $sisa = $qty_msk - $qty_klr;
             $sisa_acc = $sisa + $qty_SA;
 
-            $saldo = $this->sum_persedia($data_lp,"117","saldo");
-
+            $saldo = $this->sum_persedia($data_lp,"117","saldo",$kd_lokasi);
+            if($saldo!==0){
+            echo '<tr>
+                  <td colspan style="font-weight:bold; background-color:#EFEFEF;">1</td>
+                  <td colspan="9" align="left" style="font-weight:bold; background-color:#EFEFEF;">'.$nm_satker.'</td>
+                  </tr>';
             echo '  <tr>
+                      <td align="right" style="font-size:90%; "></td>
                       <td align="right" style="font-size:90%; "><b>117</b></td>
                       <td align="left" style="font-size:90%; "><b>Persediaan</b></td>
-                      <td align="right"  style="font-size:90%; "><b>'.$qty_SA.'</b></td>
-                      <td align="right"  style="font-size:90%; "><b>'.$hrg_SA.'</b></td>
-                      <td align="right"  style="font-size:90%; "><b>'.$qty_msk.'</b></td>
-                      <td align="right"  style="font-size:90%; "><b>'.$qty_klr.'</b></td>
-                      <td align="right"  style="font-size:90%; "><b>'.$sisa.'</b></td>
-                      <td align="right"  style="font-size:90%; "><b>'.$sisa_acc.'</b></td>
-                      <td align="right"  style="font-size:90%; "><b>'.$saldo.'</b></td>
+                      <td align="center"  style="font-size:90%; "><b>'.$qty_SA.'</b></td>
+                      <td align="center"  style="font-size:90%; "><b>'.$hrg_SA.'</b></td>
+                      <td align="center"  style="font-size:90%; "><b>'.$qty_msk.'</b></td>
+                      <td align="center"  style="font-size:90%; "><b>'.$qty_klr.'</b></td>
+                      <td align="center"  style="font-size:90%; "><b>'.$sisa.'</b></td>
+                      <td align="center"  style="font-size:90%; "><b>'.$sisa_acc.'</b></td>
+                      <td align="center"  style="font-size:90%; "><b>'.$saldo.'</b></td>
                     </tr>';
             while($data=$this->fetch_assoc($result))
             {
@@ -2793,28 +2822,28 @@ class modelReport extends mysql_db
                             $jml_klr = $data[keluar]+$data[keluar0];
 
                         
-
                             if($kd_rek!=substr($data[kd_perk],0, 5))
                             {
-                                $qty_SA = $this->sum_persedia($data_lp,"11701","qty_SA");
-                                $hrg_SA = $this->sum_persedia($data_lp,"11701","hrg_SA");
-                                $qty_msk = $this->sum_persedia($data_lp,"11701","qty_msk");
-                                $qty_klr = $this->sum_persedia($data_lp,"11701","qty_klr");
+                                $qty_SA = $this->sum_persedia($data_lp,substr($data[kd_perk],0, 5),"qty_SA",$kd_lokasi);
+                                $hrg_SA = $this->sum_persedia($data_lp,substr($data[kd_perk],0, 5),"hrg_SA",$kd_lokasi);
+                                $qty_msk = $this->sum_persedia($data_lp,substr($data[kd_perk],0, 5),"qty_msk",$kd_lokasi);
+                                $qty_klr = $this->sum_persedia($data_lp,substr($data[kd_perk],0, 5),"qty_klr",$kd_lokasi);
                                 $sisa = $qty_msk - $qty_klr;
                                 $sisa_acc = $sisa + $qty_SA;
-                                $saldo = $this->sum_persedia($data_lp,"11701","saldo");
+                                $saldo = $this->sum_persedia($data_lp,"11701","saldo",$kd_lokasi);
 
 
                                 echo '<tr>
+                                        <td align="right" style="font-size:90%; "></td>
                                         <td align="right" style="font-size:90%; "><b>'.substr($data[kd_perk],0, 5).'</b></td>
-                                        <td align="left" style="font-size:90%; "><b>'.'Persediaan Bahan Pakai Habis'.'</b></td>
-                                        <td align="right"  style="font-size:90%; "><b>'.$qty_SA.'</b></td>
-                                        <td align="right"  style="font-size:90%; "><b>'.$hrg_SA.'</b></td>
-                                        <td align="right"  style="font-size:90%; "><b>'.$qty_msk.'</b></td>
-                                        <td align="right"  style="font-size:90%; "><b>'.$qty_klr.'</b></td>
-                                        <td align="right"  style="font-size:90%; "><b>'.$sisa.'</b></td>
-                                        <td align="right"  style="font-size:90%; "><b>'.$sisa_acc.'</b></td>
-                                        <td align="right"  style="font-size:90%; "><b>'.$saldo.'</b></td>
+                                        <td align="left" style="font-size:90%; "><b>'.$data[nm_perk].'</b></td>
+                                        <td align="center"  style="font-size:90%; "><b>'.$qty_SA.'</b></td>
+                                        <td align="center"  style="font-size:90%; "><b>'.$hrg_SA.'</b></td>
+                                        <td align="center"  style="font-size:90%; "><b>'.$qty_msk.'</b></td>
+                                        <td align="center"  style="font-size:90%; "><b>'.$qty_klr.'</b></td>
+                                        <td align="center"  style="font-size:90%; "><b>'.$sisa.'</b></td>
+                                        <td align="center"  style="font-size:90%; "><b>'.$sisa_acc.'</b></td>
+                                        <td align="center"  style="font-size:90%; "><b>'.$saldo.'</b></td>
 
                                         </tr>
                                        ';
@@ -2822,15 +2851,16 @@ class modelReport extends mysql_db
                             }
                             if($prev_perk!=$data[kd_perk])
                             {
-                                $qty_SA = $this->sum_persedia($data_lp,$data[kd_perk],"qty_SA");
-                                $hrg_SA = $this->sum_persedia($data_lp,$data[kd_perk],"hrg_SA");
-                                $qty_msk = $this->sum_persedia($data_lp,$data[kd_perk],"qty_msk");
-                                $qty_klr = $this->sum_persedia($data_lp,$data[kd_perk],"qty_klr");
+                                $qty_SA = $this->sum_persedia($data_lp,$data[kd_perk],"qty_SA",$kd_lokasi);
+                                $hrg_SA = $this->sum_persedia($data_lp,$data[kd_perk],"hrg_SA",$kd_lokasi);
+                                $qty_msk = $this->sum_persedia($data_lp,$data[kd_perk],"qty_msk",$kd_lokasi);
+                                $qty_klr = $this->sum_persedia($data_lp,$data[kd_perk],"qty_klr",$kd_lokasi);
                                 $sisa = $qty_msk - $qty_klr;
                                 $sisa_acc = $sisa + $qty_SA;
-                                $saldo = $this->sum_persedia($data_lp,$data[kd_perk],"saldo");
+                                $saldo = $this->sum_persedia($data_lp,$data[kd_perk],"saldo",$kd_lokasi);
                                 echo '
                                 <tr style="font-size:45%;">
+                                        <td align="right" style="font-size:90%; "></td>
                                         <td align="right" style=" font-size:90%;">'.$data[kd_perk].'</td>
                                         <td  align="left" style=" font-size:90%;">'.$data[nm_perk].'</td>
                                         <td align="right"  style="font-size:90%; ">'.$qty_SA.'</td>
@@ -2856,18 +2886,19 @@ class modelReport extends mysql_db
                             //          <td align="right" style="font-size:90%;">'.number_format($hrg_selisih,2,",",".").'</td> 
                             //     </tr>';
                         }
-                        echo '<tr>
-                                    <td colspan="2">JUMLAH</td>  
-                                    <td colspan="2" align="right">'.number_format($this->sum_persedia($data_lp,"117","hrg_SA"),2,",",".").'</td> 
-                                    <td colspan="3"></td>  
-                                    <td colspan="2" align="right">'.number_format($this->sum_persedia($data_lp,"117","saldo"),2,",",".").'</td>  
-                                </tr>';
-                        echo '</table>';
-                        if($no>=6)
-                        {
-                        echo '<pagebreak />';
-                        }
-
+                        // echo '<tr>
+                        //             <td></td>
+                        //             <td colspan="2">JUMLAH</td>  
+                        //             <td colspan="2" align="right">'.number_format($this->sum_persedia($data_lp,"117","hrg_SA",$kd_lokasi),2,",",".").'</td> 
+                        //             <td colspan="3"></td>  
+                        //             <td colspan="2" align="right">'.number_format($this->sum_persedia($data_lp,"117","saldo",$kd_lokasi),2,",",".").'</td>  
+                        //         </tr>';
+                        // echo '</table>';
+                        // if($no>=6)
+                        // {
+                        // echo '<pagebreak />';
+                        // }
+}
         }
         elseif($nm_lap=="neraca"){
             while($data=$this->fetch_assoc($result))
@@ -3307,41 +3338,43 @@ class modelReport extends mysql_db
         $data_sektor = $this->fetch_array($result_sektor);
         $nama_sektor = $data_sektor['NamaSatker'];
 
-        $result_satker = $this->query($query_satker);
-        $data_satker = $this->fetch_array($result_satker);
-        $nama_satker = $data_sektor['NamaSatker'];
+        // $result_satker = $this->query($query_satker);
+        // $data_satker = $this->fetch_array($result_satker);
+        // $nama_satker = $data_sektor['NamaSatker'];
 
-        $result_unit = $this->query($query_unit);
-        $data_unit = $this->fetch_array($result_unit);
-        $nama_unit = $data_unit['NamaSatker'];
+        // $result_unit = $this->query($query_unit);
+        // $data_unit = $this->fetch_array($result_unit);
+        // $nama_unit = $data_unit['NamaSatker'];
         
-        $result_gudang = $this->query($query_gudang);
-        $data_gudang = $this->fetch_array($result_gudang);
-        $nama_gudang = $data_unit['NamaSatker'];
+        // $result_gudang = $this->query($query_gudang);
+        // $data_gudang = $this->fetch_array($result_gudang);
+        // $nama_gudang = $data_unit['NamaSatker'];
+        
+
         echo '<table style="text-align: left; width: 50%; font-size:85% ">';
-        if($detil[0]!="")
-        {
+        // if($detil[0]!="")
+        // {
         echo '
                     <tr>
                         <td>SKPD</td>
                         <td colspan="2">'.':  '.$nama_sektor.'</td>
                     </tr>';
-        }
-        if($detil[1]!="")
-        {
+        // }
+        // if($detil[1]!="")
+        // {
         echo  ' 
                     <tr>
                         <td>KABUPATEN / KOTA</td>
                         <td colspan="2">'.':  '.' '.'Kota Pekalongan'.'</td>
                     </tr>'; 
-        }
-        if($detil[2]!="")
-        {               
+        // }
+        // if($detil[2]!="")
+        // {               
         echo  '<tr>
                         <td>PROVINSI </td>
                         <td colspan="2">'.':  '.'Jawa Tengah'.'</td>
                     </tr>';
-        }
+        // }
         // if($detil[3]!="")
         // { 
         // echo            '<tr>
@@ -3356,9 +3389,9 @@ class modelReport extends mysql_db
 
     }
 
-    public function sum_persedia($data,$kode,$nilai)
+    public function sum_persedia($data,$kode,$nilai,$kd_lokasi)
     {
-        $kd_lokasi = $data['kd_lokasi'];
+        
         $thn_ang = $data['thn_ang'];
         $jenis = $data['jenis'];
         $tgl_awal = $data['tgl_awal'];
@@ -3532,7 +3565,7 @@ class modelReport extends mysql_db
             $nilai2=0;
         }
         
-        $sql = "SELECT ".$nm_kolom." as jml from ".$nm_tabel." where kd_lokasi = '$kd_lokasi' and thn_ang='$thn_ang' ".$jns_trans." ".$kd_perk." ".$kriteria;
+        $sql = "SELECT ".$nm_kolom." as jml from ".$nm_tabel." where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' ".$jns_trans." ".$kd_perk." ".$kriteria;
 
         $result = $this->query($sql);
         $array = $this->fetch_array($result);
