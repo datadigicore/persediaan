@@ -19,7 +19,7 @@ class modelTransaksi extends mysql_db
         $kd_lokasi = $data['kd_lokasi'];
         $thn_ang_now = $data['thn_ang'];
         $user_id = $data['user_id'];
-        $thn_ang_lalu = $data['thn_ang_lalu'];
+        $thn_ang_lalu = $thn_ang_now-1;
 
         $query = "select kd_lokasi, nm_satker, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, jns_trans, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, satuan, sum(qty_akhir) as qty_akhir, harga_sat, keterangan, untuk, kd_perk, nm_perk   from transaksi_masuk where kd_lokasi='$kd_lokasi' and qty_akhir>0 and status_ambil=0 and thn_ang = '$thn_ang_lalu' group by kd_brg, harga_sat";
         $hasil = $this->query($query);
@@ -114,7 +114,7 @@ class modelTransaksi extends mysql_db
                 }
                     $query_ttp_msk = "UPDATE transaksi_masuk set status_ambil=1 where thn_ang = '$thn_ang_lalu' and kd_lokasi='$kd_lokasi' ";
                     $query_ttp_klr = "UPDATE transaksi_keluar set status_ambil=1 where thn_ang = '$thn_ang_lalu' and kd_lokasi='$kd_lokasi' ";
-                    $query_set_user = "UPDATE user set tutup_tahun='Y' where thn_ang = '$thn_ang' and kd_lokasi='$kd_lokasi' and tutup_tahun is null ";
+                    $query_set_user = "UPDATE user set tutup_tahun='Y' where tahun = '$thn_ang_now' and kd_lokasi='$kd_lokasi' and tutup_tahun is null ";
 
                     $result_ttp_msk = $this->query($query_ttp_msk);
                     $result_ttp_klr = $this->query($query_ttp_klr);

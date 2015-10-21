@@ -64,6 +64,12 @@
                       <div class="col-sm-9">
                         <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" >
                       </div> 
+                    </div>                    
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Keterangan</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Uraian / keterangan" >
+                      </div> 
                     </div>
                   </div>
                   <div class="box-footer">
