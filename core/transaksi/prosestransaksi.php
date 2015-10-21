@@ -190,6 +190,7 @@ else
 					"tgl_dok" => $tgl_dok,
 					"tgl_buku" => $tgl_buku,
 					"no_bukti" => $no_bukti,
+					"keterangan" => $keterangan,
 					"status" => $status,
 					"user_id" => $user_id
 
@@ -295,6 +296,7 @@ else
 					"tgl_dok" => $tgl_dok,
 					"tgl_buku" => $tgl_buku,
 					"no_bukti" => $no_bukti,
+					"keterangan" => $keterangan,
 					"status" => $status,
 					"user_id" => $user_id
 					// "kd_brg" => $kd_brg,

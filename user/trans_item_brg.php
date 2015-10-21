@@ -95,6 +95,12 @@ else {
                             <input type="hidden" name="manage" value="tbh_transaksi_msk">
                             <input type="hidden" id="read_no_dok" name="read_no_dok">
                           </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-3 control-label">Keterangan</label>
+                          <div class="col-sm-8">
+                            <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="" readonly>
+                          </div>
                         </div>  
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Kode Barang</label>
@@ -103,12 +109,7 @@ else {
                             </select>
                           </div>
                         </div>
-                        <div class="form-group">
-                          <label class="col-sm-3 control-label">Keterangan</label>
-                          <div class="col-sm-8">
-                            <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Uraian / Keterangan">
-                          </div>
-                        </div>
+
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Jumlah Masuk</label>
                           <div class="col-sm-4">
@@ -141,7 +142,7 @@ else {
                           <div class="form-group">
                             <label class="col-sm-3 control-label">Keterangan</label>
                             <div class="col-sm-8">
-                              <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Keterangan">
+                              <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="" readonly>
                             </div>
                           </div>
                           <div class="form-group">

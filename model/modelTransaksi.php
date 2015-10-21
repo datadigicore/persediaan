@@ -130,7 +130,7 @@ class modelTransaksi extends mysql_db
         $thn_ang = $data['thn_ang'];
         $no_dok = $data['no_dok'];
 
-        $query_dok = "select kd_lokasi, tgl_dok, tgl_buku, no_bukti, jns_trans from transaksi_masuk where no_dok='$no_dok'";
+        $query_dok = "select kd_lokasi, tgl_dok, tgl_buku, no_bukti, jns_trans, keterangan from transaksi_masuk where no_dok='$no_dok'";
         $result_dok = $this->query($query_dok);
         $dok = $this->fetch_array($result_dok);
 
@@ -140,6 +140,7 @@ class modelTransaksi extends mysql_db
         $tgl_buku = $dok['tgl_buku'];
         $no_bukti = $dok['no_bukti'];
         $jns_trans = $dok['jns_trans'];
+        $keterangan = $dok['keterangan'];
         
 
         $kd_brg = $data['kd_brg'];
@@ -149,7 +150,7 @@ class modelTransaksi extends mysql_db
         $harga_sat = $data['harga_sat'];
         $total_harga = $kuantitas*$harga_sat;
         
-        $keterangan = $data['keterangan'];
+        
         $status = $data['status'];
         $user_id = $data['user_id'];
 
@@ -258,7 +259,7 @@ class modelTransaksi extends mysql_db
         // $kuantitas = $data['kuantitas'];
         // $harga_sat = $data['harga_sat'];
         // $total_harga = $kuantitas*$harga_sat;
-        // $keterangan = $data['keterangan'];
+        $keterangan = $data['keterangan'];
         $status = $data['status'];
         $user_id = $data['user_id'];
 
@@ -282,10 +283,7 @@ class modelTransaksi extends mysql_db
                     tgl_buku='$tgl_buku',
                     no_bukti='$no_bukti',
                     jns_trans='$jns_trans',
-                    kd_sskel='$kd_sskel',
-                    nm_sskel='$nm_sskel',
-                    kd_perk='$kd_perk',
-                    nm_perk='$nm_perk',
+                    keterangan='$keterangan',
                     status=0,
                     tgl_update=CURDATE(),
                     user_id='$user_id'"; 
@@ -365,6 +363,7 @@ class modelTransaksi extends mysql_db
         $tgl_buku = $data['tgl_buku'];
         $no_bukti = $data['no_bukti'];
         $jns_trans = $data['jns_trans'];
+        $keterangan = $data['keterangan'];
 
         $status = $data['status'];
         $user_id = $data['user_id'];
@@ -389,10 +388,8 @@ class modelTransaksi extends mysql_db
                     tgl_buku='$tgl_buku',
                     no_bukti='$no_bukti',
                     jns_trans='$jns_trans',
-                    kd_sskel='$kd_sskel',
-                    nm_sskel='$nm_sskel',
-                    kd_perk='$kd_perk',
-                    nm_perk='$nm_perk',
+                    keterangan='$keterangan',
+
                     status=0,
                     tgl_update=CURDATE(),
                     user_id='$user_id'"; 
@@ -414,7 +411,7 @@ class modelTransaksi extends mysql_db
         $thn_ang = $data['thn_ang'];
         $no_dok = $data['no_dok'];
 
-        $query_dok = "select kd_lokasi, tgl_dok, tgl_buku, no_bukti, jns_trans from transaksi_keluar where no_dok='$no_dok'";
+        $query_dok = "select kd_lokasi, tgl_dok, tgl_buku, no_bukti, jns_trans, keterangan from transaksi_keluar where no_dok='$no_dok'";
         $result_dok = $this->query($query_dok);
         $dok = $this->fetch_array($result_dok);
 
@@ -423,6 +420,7 @@ class modelTransaksi extends mysql_db
         $tgl_buku = $dok['tgl_buku'];
         $no_bukti = $dok['no_bukti'];
         $jns_trans = $dok['jns_trans'];
+        $keterangan = $dok['keterangan'];
         
         $kd_brg = $data['kd_brg'];
 
@@ -432,7 +430,7 @@ class modelTransaksi extends mysql_db
         $harga_sat = $data['harga_sat'];
         
        
-        $keterangan = $data['keterangan'];
+        
         $status = $data['status'];
         $user_id = $data['user_id'];
 

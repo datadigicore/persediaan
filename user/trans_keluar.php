@@ -70,6 +70,12 @@
                           <div class="col-sm-9">
                             <input type="text" name="tgl_buku" max="10" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" readonly>
                           </div> 
+                        </div>                        
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Keterangan</label>
+                          <div class="col-sm-9">
+                            <input type="text" name="keterangan"  class="form-control" id="keterangan" placeholder="Masukkan Keterangan Jenis Transaksi" >
+                          </div> 
                         </div>
                   </div>
                   <div class="box-footer">
