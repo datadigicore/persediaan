@@ -68,8 +68,8 @@
       $("li#tutup_tahun").addClass("active");
        $.ajax({
           type: "post",
-          url: '../core/report/prosesreport',
-          data: {manage:'baca_satker'},
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'readsatkerdok'},
           success: function (output) {     
             $('#satker').html(output);
           }

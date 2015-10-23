@@ -14,6 +14,11 @@ else
 		case 'readbrg':
 			$search = $_POST['q'];
 			$Transaksi->bacabrg($search);
+		break;		
+
+		case 'cek_tahun_aktif':
+			$thn_ang = $_SESSION['thn_ang'];
+			$Transaksi->cek_tahun_aktif($thn_ang);
 		break;
 
 		case 'cek_saldo_awal':

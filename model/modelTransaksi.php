@@ -2,6 +2,13 @@
 include('../../utility/mysql_db.php');
 class modelTransaksi extends mysql_db
 {
+    public function cek_tahun_aktif($thn_ang){
+        $sql = "SELECT status FROM thn_aktif where tahun='$thn_ang'";
+        $hasil = $this->query($sql);
+        $tahun = $this->fetch_array($hasil);
+        echo json_encode(array("tahun"=>$tahun["status"]));
+
+    }
 
     public function cek_saldo_awal($data){
         $kd_lokasi = $data['kd_lokasi'];
@@ -1045,13 +1052,13 @@ class modelTransaksi extends mysql_db
         $nodok = $data['no_dok'];
         $kdlokasi = $data['kd_lokasi'];
         $thnang = $data['thn_ang'];
-        $query = "select kode from satker where kode like '$kdlokasi%'";
+        $query = "select kode, NamaSatker from satker where kode like '$kdlokasi%'";
         $result = $this->query($query);
         while ($row = $this->fetch_array($result))
         {
             $str = $row['kode'];
             if (substr_count($str,".") == 3) {
-                echo '<option value="'.$row['kode'].'">'.$row['kode']."</option>";
+                echo '<option value="'.$row['kode'].'">'.$row['kode'].'  -  '.$row['NamaSatker']."</option>";
             }
         }   
     }
