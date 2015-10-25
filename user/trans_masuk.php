@@ -205,6 +205,7 @@
           var tahun = output.tahun;
           if(tahun!=="Aktif") {
             $('button:submit').attr("disabled", true); 
+            $("#addtransmsk").css("display","none");
         }
       }});
 

@@ -257,7 +257,18 @@
           }
         });
       });
-
+      $.ajax({
+        type: "post",
+        url: '../core/transaksi/prosestransaksi',
+        data: {manage:'cek_tahun_aktif',thn_ang:"<?php echo($_SESSION['thn_ang']);?>"},
+        dataType: "json",
+        success: function (output) {
+          var tahun = output.tahun;
+          if(tahun!=="Aktif") {
+            $('button:submit').attr("disabled", true); 
+            $("#addtransmsk").css("display","none");
+        }
+      }});
         $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',

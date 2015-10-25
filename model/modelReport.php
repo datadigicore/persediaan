@@ -53,9 +53,7 @@ class modelReport extends mysql_db
         
         // $this->refresh($kd_lokasi,$thn_ang);
         $this->cetak_header($data,"buku_persediaan",$kd_lokasi,"");
-        $this->get_query($data,"buku_persediaan",$kd_lokasi,$kd_brg);
-        
-                          
+        $this->get_query($data,"buku_persediaan",$kd_lokasi,$kd_brg,"","");
         $this->cetak_nama_pj($satker_asal);
 
        
@@ -74,8 +72,6 @@ class modelReport extends mysql_db
             exit;
             }
          }
-
-
 
     public function buku_persediaan_all($data)
     {
@@ -470,18 +466,18 @@ class modelReport extends mysql_db
                 $kd_brg = $data_lp['kd_brg'];
                 $kd_lokasi = $data_lp['kd_lokasi'];
                 $satker_asal = $data_lp['satker_asal'];
-                $no = 1;
+                $no_urut = 0;
                 $this->cetak_header($data_lp,"rincian_persediaan2",$kd_lokasi,$no);
                 $query = "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' order by kode asc";
                 $result = $this->query($query);
                 
                 while($kdsatker=$this->fetch_assoc($result))
                 { 
-                  $no++;
+                  $no_urut++;
                   $kd_lokasi2=$kdsatker['kode'];
                   $nm_satker=$kdsatker['NamaSatker'];
                  
-                  $this->get_query($data_lp,"rincian_persediaan2",$kd_lokasi2,"",$nm_satker);
+                  $this->get_query($data_lp,"rincian_persediaan2",$kd_lokasi2,"",$nm_satker,$no_urut);
                   // echo '<pagebreak />';
                   
 
@@ -818,24 +814,24 @@ class modelReport extends mysql_db
                 </tr>
                 </table>';
         $this->getsatker($kd_lokasi);
-        echo '  <table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% " border=1 align="center">
+        echo '  <table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90%; " border=1 align="center">
                 <tr >
-                    <td rowspan="2" >No</td>
-                    <td rowspan="2" >Tanggal</td>
-                    <td rowspan="2" >Dari</td>
-                    <td colspan="2" >Dokumen Faktur</td>
-                    <td rowspan="2" >Nama Barang</td>
-                    <td rowspan="2" >Banyaknya</td>
-                    <td rowspan="2" width="10%" >Harga Satuan</td>
-                    <td rowspan="2" width="10%" >Jumlah Harga</td>
-                    <td colspan="2" >B.A Penerimaan</td>
-                    <td rowspan="2" >Ket</td>
+                    <td rowspan="2" style="font-weight:bold" >No</td>
+                    <td rowspan="2" style="font-weight:bold" >Tanggal</td>
+                    <td rowspan="2" style="font-weight:bold" >Dari</td>
+                    <td colspan="2" style="font-weight:bold" >Dokumen Faktur</td>
+                    <td rowspan="2" style="font-weight:bold">Nama Barang</td>
+                    <td rowspan="2" style="font-weight:bold">Banyaknya</td>
+                    <td rowspan="2" style="font-weight:bold">Harga Satuan</td>
+                    <td rowspan="2" style="font-weight:bold">Jumlah Harga</td>
+                    <td colspan="2" style="font-weight:bold">B.A Penerimaan</td>
+                    <td rowspan="2" style="font-weight:bold">Ket</td>
                 </tr>
                 <tr>
-                    <td>Nomor</td>
-                    <td>Tanggal</td>
-                    <td>Nomor</td>
-                    <td>Tanggal</td>
+                    <td style="font-weight:bold">Nomor</td>
+                    <td style="font-weight:bold">Tanggal</td>
+                    <td style="font-weight:bold">Nomor</td>
+                    <td style="font-weight:bold">Tanggal</td>
                 </tr>';
                 $this->label_nomor(12);
 
@@ -1503,7 +1499,7 @@ class modelReport extends mysql_db
                     <tr>
                         <td rowspan="2">No</td>
                         <td rowspan="2" width="10%">No./Tgl Surat Dasar Penerimaan / Pengeluaran</td>
-                        <td rowspan="2" >Uraian</td>
+                        <td rowspan="2" width="20%" >Uraian</td>
                         <td colspan="3" >Barang-barang</td>
                         <td <td rowspan="2" >Uraian</td>>Harga Satuan</td>
                         <td colspan="3" >Jumlah Harga Barang yg Diterima/Yang Dikeluarkan/Sisa</td>
@@ -1515,7 +1511,7 @@ class modelReport extends mysql_db
                         <td>Sisa</td>
                         <td>Bertambah</td>
                         <td>Berkurang</td>
-                        <td>Sisa</td>
+                        <td width="10%">Sisa</td>
                     </tr>
                 ';
                 $this->label_nomor(11);
@@ -2049,7 +2045,7 @@ class modelReport extends mysql_db
 
         }
         elseif($nm_lap=="penerimaan_brg"){
-            echo '<table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% " border=1 align="center">
+            echo '<table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90%; " border=1 align="center">
                     <tr >
                         <td rowspan="2" >No</td>
                         <td rowspan="2" >Tanggal</td>
@@ -2299,7 +2295,7 @@ class modelReport extends mysql_db
             }       
         }
 
-        public function get_query($data,$nm_lap,$kd_lokasi,$kd_brg,$nm_satker){
+        public function get_query($data,$nm_lap,$kd_lokasi,$kd_brg,$nm_satker,$no_urut){
           
             
             $jenis = $data['jenis'];
@@ -2522,11 +2518,11 @@ class modelReport extends mysql_db
             }
 
             $result=$this->query($sql);
-            $this->cetak_data($result, $nm_lap,$data,$kd_lokasi,$nm_satker);
+            $this->cetak_data($result, $nm_lap,$data,$kd_lokasi,$nm_satker,$no_urut);
             
         }
 
-    public function cetak_data($result,$nm_lap,$data_lp,$kd_lokasi,$nm_satker){
+    public function cetak_data($result,$nm_lap,$data_lp,$kd_lokasi,$nm_satker,$no_urut){
 
             if($nm_lap=="buku_persediaan"){
                  $no = 0;
@@ -2664,7 +2660,7 @@ class modelReport extends mysql_db
             $saldo = $this->sum_persedia($data_lp,"117","saldo",$kd_lokasi);
             if($saldo!==0){
             echo '<tr>
-                  <td colspan style="font-weight:bold; background-color:#EFEFEF;">'.'1'.'</td>
+                  <td colspan style="font-weight:bold; background-color:#EFEFEF;">'.$no_urut.'</td>
                   <td colspan="9" align="left" style="font-weight:bold; background-color:#EFEFEF;">'.$nm_satker.'</td>
                   </tr>';
             echo '  <tr>
@@ -2704,9 +2700,17 @@ class modelReport extends mysql_db
 
                                 echo '<tr>
                                         <td align="right" style="font-size:90%; "></td>
-                                        <td align="right" style="font-size:90%; "><b>'.substr($data[kd_perk],0, 5).'</b></td>
-                                        <td align="left" style="font-size:90%; "><b>'.$data[nm_perk].'</b></td>
-                                        <td align="center"  style="font-size:90%; "><b>'.$qty_SA.'</b></td>
+                                        <td align="right" style="font-size:90%; "><b>'.substr($data[kd_perk],0, 5).'</b></td>';
+                                if(substr($data[kd_perk],0, 5)=="11701"){
+                                        echo '<td align="left" style="font-size:90%; "><b>'."Persediaan Bahan Pakai Habis".'</b></td>';
+                                    }
+                                elseif(substr($data[kd_perk],0, 5)=="11702"){
+                                    echo '<td align="left" style="font-size:90%; "><b>'."Persediaan Bahan / Material".'</b></td>';
+                                }
+                                else{
+                                    echo '<td align="left" style="font-size:90%; "><b>'."Persediaan Brang Lainnya".'</b></td>';
+                                }
+                                echo    '<td align="center"  style="font-size:90%; "><b>'.$qty_SA.'</b></td>
                                         <td align="center"  style="font-size:90%; "><b>'.$hrg_SA.'</b></td>
                                         <td align="center"  style="font-size:90%; "><b>'.$qty_msk.'</b></td>
                                         <td align="center"  style="font-size:90%; "><b>'.$qty_klr.'</b></td>
@@ -3233,7 +3237,7 @@ class modelReport extends mysql_db
              echo '<tr>';
 
                 for($i=1; $i<=$col; $i++) {
-                    echo '<td>'.$i.'</td>';
+                    echo '<td style ="font-weight:bold">'.$i.'</td>';
                     
                 }
                 echo '</tr>';

@@ -73,7 +73,7 @@ class modelOpsik extends mysql_db
                     // $query_t_full_klr = "DELETE from transaksi_full where id_opname='$id_opname' and jns_trans='P02'   and kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' ";
                     // $result_full = $this->query($query_t_full_klr); 
             
-                    $query = "select * from transaksi_keluar where id_opname='$id_opname' and kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and jns_trans!='P01' ";
+                    $query = "select * from transaksi_keluar where id_opname='$id_opname' and jns_trans!='P01' ";
                     $result = $this->query($query);
                     while ($row_id = $this->fetch_array($result))
                         {
@@ -103,9 +103,9 @@ class modelOpsik extends mysql_db
                             $total_harga = $row_id['total_harga'];
                             $keterangan = 'Hapus Refresh Harga Klr : '.$row_id['keterangan'];
 
-                            $query = "SELECT harga_sat from transaksi_masuk where id='$id_masuk' and kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' limit 1";
-                            $result = $this->query($query);
-                            $data_harga = $this->fetch_array($result);
+                            $query = "select harga_sat from transaksi_masuk where id='$id_masuk' ";
+                            // $result = $this->query($query);
+                             $data_harga = $this->fetch_array($this->query($query));
                             $harga_baru = $data_harga['harga_sat'];
                             $subtotal_baru = $qty * $harga_baru;
                             $selisih_subtotal = $subtotal_baru - $total_harga;
@@ -323,7 +323,10 @@ class modelOpsik extends mysql_db
      }
 
         $query_hapus = "delete from opname where id= '$id_opname' ";
-        $result_hapus = $this->query($query_hapus);
+        $this->query($query_hapus);
+
+        $query_hapus_full = "update transaksi_full set id_opname=0 where id_opname='id_opname' ";
+        $this->query($query_hapus_full);
 
     }
 
