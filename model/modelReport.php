@@ -593,152 +593,9 @@ class modelReport extends mysql_db
         $kd_lokasi = $data['kd_lokasi'];
 
 
-
-        
-        echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
-        echo ' 
-                <table style="text-align: center; width: 90%; " align="center">
-                <tr>
-                    <td>DAFTAR TRANSAKSI PERSEDIAAN</td>
-                </tr>
-                <tr>
-                    
-                </tr>
-                <tr>
-                    <td>TAHUN ANGGARAN : '.$thn_ang.'</td>
-                </tr>
-             
-                 <tr>
-                    <td width="90%" align="left">JENIS TRANSAKSI : '.$nm_trans.'</td>
-                </tr>
-
-                </table>
-                <table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 90%;" border=1 align="center">
-                <tr>
-                    <td width="18%"><b>KODE</b></td>
-                    <td width="40%"><b>URAIAN</b></td>
-                    <td><b>KUANTITAS</b></td>
-                    <td><b>RUPIAH</b></td>
-                </tr>';
-
-                if($jenis=="tanggal")
-                {
-                    $sql="SELECT 
-                                        kd_sskel,
-                                        nm_sskel, 
-                                        kd_brg, 
-                                        nm_brg, 
-                                        kd_perk, 
-                                        nm_perk, 
-                                        sum(qty) as qty, 
-                                        sum(total_harga) as harga 
-                                        from (
-                                        SELECT tgl_dok, thn_ang, kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, qty, jns_trans, total_harga, status_hapus, kd_lokasi from transaksi_masuk
-                                        UNION ALL
-                                        SELECT tgl_dok, thn_ang, kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, qty, jns_trans, total_harga, status_hapus, kd_lokasi from transaksi_keluar
-                                        ) transaksi
-                                        where 
-                                            tgl_dok >= '$tgl_awal' and 
-                                            tgl_dok <= '$tgl_akhir' and 
-                                            kd_lokasi like '{$kd_lokasi}%'  AND 
-                                            thn_ang='$thn_ang' and
-                                            status_hapus = 0 and
-                                            jns_trans='$kd_trans' 
-                                        GROUP BY kd_brg";
-                    $result = $this->query($sql);
-                }
-                elseif($jenis=="bulan")
-                {
-                    $sql="SELECT 
-                                        kd_sskel, 
-                                        nm_sskel, 
-                                        kd_brg, 
-                                        nm_brg, 
-                                        kd_perk, 
-                                        nm_perk, 
-                                        sum(qty) as qty, 
-                                        sum(total_harga) as harga 
-                                        from (
-                                        SELECT tgl_dok, thn_ang, kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, qty, jns_trans, total_harga, status_hapus, kd_lokasi from transaksi_masuk
-                                        UNION ALL
-                                        SELECT tgl_dok, thn_ang, kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, qty, jns_trans, total_harga, status_hapus, kd_lokasi from transaksi_keluar
-                                        ) transaksi
-                                        where 
-                                            month(tgl_dok)='$bulan' and 
-                                            kd_lokasi like '{$kd_lokasi}%'  AND 
-                                            thn_ang='$thn_ang' AND
-                                            status_hapus = 0 and
-                                            jns_trans='$kd_trans' 
-                                        GROUP BY kd_brg";
-                    $result = $this->query($sql);
-                }
-                else
-                {   
-                    
-                    $sql="SELECT 
-                                        kd_sskel, 
-                                        nm_sskel, 
-                                        kd_brg, 
-                                        nm_brg, 
-                                        kd_perk, 
-                                        nm_perk, 
-                                        sum(qty) as qty, 
-                                        sum(total_harga) as harga 
-                                        from (
-                                        SELECT tgl_dok, thn_ang, kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, qty, jns_trans, total_harga, status_hapus, kd_lokasi from transaksi_masuk
-                                        UNION ALL
-                                        SELECT tgl_dok, thn_ang, kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, qty, jns_trans, total_harga, status_hapus, kd_lokasi from transaksi_keluar
-                                        ) transaksi 
-                                        where 
-                                            thn_ang='$thn_ang' and
-                                            kd_lokasi like '{$kd_lokasi}%'  and
-                                            status_hapus = 0 and
-                                            jns_trans='$kd_trans'
-                                        GROUP BY kd_brg
-                                        ";
-                    $result = $this->query($sql);
-
-                }
-  
-
-                $no=0;
-                $jumlah=0;
-                $saldo=0;
-                $prev_sskel=null;
-                $prev_perk=null;
-                while($data=$this->fetch_assoc($result))
-                {
-                    $no+=1;
-                    if($prev_perk!=$data[nm_sskel])
-                    {
-                        echo '
-                        <tr >
-                                <td align="right" ><b>'.$data[kd_perk].'</b></td>
-                                <td colspan="3" align="left"><b>'.$data[nm_perk].'</b></td>
-                              </tr> ';
-                    }                    
-
-                    if($prev_sskel!=$data[nm_sskel])
-                    {
-                        echo '<tr >
-                                <td align="right" ><b>'.$data[kd_sskel].'</b></td>
-                                <td colspan="3" align="left"><b>'.$data[nm_sskel].'</b></td>
-                              </tr> ';
-                    }
-
-                    echo '<tr>
-                             <td  align="right">'.substr($data[kd_brg],10).'</td> 
-                             <td  align="left">'.$data[nm_brg].'</td> 
-                             <td align="center">'.number_format($data[qty]).'</td> 
-                             <td align="center">'.number_format($data[harga]).'</td> 
-                        </tr>';
-                    $saldo+=$data[harga];
-                }
-                echo '<tr>
-                        <td colspan="3">JUMLAH</td>
-                        <td>'.number_format($saldo).'</td>
-                      </tr>';
-                echo '</table>';
+        $this->cetak_header($data_lp,"transaksi_persediaan",$kd_lokasi,$no);
+        $this->get_query($data,"transaksi_persediaan",$kd_lokasi,"",$nm_satker);
+       
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
                 ob_end_clean();
                 //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
@@ -877,202 +734,23 @@ class modelReport extends mysql_db
     public function l_pp_bph($data)
     {
 
-        ob_start(); 
+        
 
         $jenis = $data['jenis'];
-        $bln_awal = $data['bln_awal'];
-        $bln_akhir = $data['bln_akhir'];
-        $tgl_akhir = $data['tgl_akhir'];
-
-        $kd_brg = $data['kd_brg'];
         $thn_ang = $data['thn_ang'];
         $kd_lokasi = $data['kd_lokasi'];
         $date = $this->cek_periode($data);
         $satker_asal = $data['satker_asal'];
-        $this->cetak_header($data,"pp_brg_pakai_habis",$kd_lokasi,$kd_brg);
-        $sql="SELECT id, tgl_buku, no_dok, tgl_dok, nm_sskel, nm_brg,  spesifikasi, qty, satuan, untuk, harga_sat,total_harga, keterangan 
-                                            FROM transaksi_masuk 
-                                            where month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir'
-                                             and kd_lokasi like '{$kd_lokasi}%'   
-                                             AND status_hapus=0
-                                             AND thn_ang='$thn_ang'
-                                        union all
-            SELECT id, tgl_buku, no_dok, tgl_dok, nm_sskel, nm_brg, spesifikasi,  qty, satuan, untuk, harga_sat,total_harga, keterangan 
-                                            FROM transaksi_keluar 
-                                            where month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir'
-                                             and kd_lokasi like '{$kd_lokasi}%'   
-                                             AND status_hapus=0
-                                             AND thn_ang='$thn_ang'
 
-                                             ORDER BY tgl_dok ASC,id asc, nm_brg asc;";
-        $result = $this->query($sql);
-
-        // echo '<table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-weight:bold; font-size:0.9em; "  align="center">
-        //         <tr>
-        //             <td rowspan="2" width="5%"><img src="../../dist/img/pekalongan2.png" alt="Pekalongan" height="8%" /></td>
-        //             <td style= "vertical-align: bottom;">LAPORAN SEMESTER TTG PENERIMAAN DAN PENGELUARAN BARANG PAKAI HABIS</td>
-        //         </tr>
-        //         <tr>
-        //             <td style= "vertical-align: top;">SEMESTER '.'..... TAHUN '.$thn_ang.'</td>
-        //         </tr>
-
-        //         </table>
-        //         ';   
-        // $this->getsatker($kd_lokasi);
-        // echo '<table style="text-align:center;  white-space: nowrap; border-collapse: collapse; margin-left: word-break:break-all; auto; margin-right: auto; width: 100%; font-size:80%;" border=1 align="center" >
-        //             <tr>
-        //                 <td rowspan="3">NO</td>
-        //                 <td rowspan="3">Terima tgl</td>
-        //                 <td rowspan="3">Dari</td>
-        //                 <td colspan="2">Dokumen Faktur</td>
-        //                 <td colspan="2">Dasar Penerimaan</td>
-        //                 <td rowspan="3">Banyaknya</td>
-        //                 <td rowspan="3">Nama Barang</td>
-        //                 <td rowspan="3">Harga Satuan</td>
-        //                 <td colspan="2">Buku Penerimaan</td>
-        //                 <td rowspan="3">Ket.</td>
-        //                 <td rowspan="3">No.Urut</td>
-        //                 <td rowspan="3">Terima Tgl</td>
-        //                 <td colspan="2">Surat Bon</td>
-        //                 <td rowspan="3">Untuk</td>
-        //                 <td rowspan="3">Banyaknya</td>
-        //                 <td rowspan="3">Nama Brg</td>
-        //                 <td rowspan="3">Harga Satuan</td>
-        //                 <td rowspan="3">Jumlah Harga</td>
-        //                 <td rowspan="3">Tgl Penyerahan</td>
-        //                 <td rowspan="3">Ket</td>
-        //             </tr>
-        //             <tr>
-        //                 <td rowspan="2">Nomor</td>
-        //                 <td rowspan="2">Tgl</td>
-        //                 <td rowspan="2">Jenis Surat</td>
-        //                 <td rowspan="2">Nomor</td>
-        //                 <td colspan="2">B.A./Srt Penerimaan</td>
-        //                 <td rowspan="2">No</td>
-        //                 <td rowspan="2">Tgl</td>
-        //             </tr>
-        //             <tr>
-        //                 <td>Nomor</td>
-        //                 <td>Tanggal</td>
-        //             </tr>';
-       
-
-            $no=0;
-            $jumlah=0;
-            $sisa=0;
-            $subtotal=0;
-
-            while($data=$this->fetch_assoc($result))
-            {
-                    $no+=1;
-                    $sisa+=$data[qty];
-                    $subtotal =  abs($data[qty])*$data[harga_sat];
-                    $saldo +=  ($data[qty]*$data[harga_sat]);
-                    echo'<tr>
-                    <center><td  align="center">'.$no.'</td></center>
-
-
-                    ';
-                if($data[qty]>0) 
-                {
-                        echo '  <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
-                                <center><td  align="center">'.$data[untuk].'</td></center>
-                                <center><td  align="center">'.$data[no_dok].'</td></center> 
-                                <center><td  align="center">'.$this->konversi_tanggal($data[tgl_dok]).'</td></center>
-                                <center><td  align="center">'.'BAST'.'</td></center>
-                                <center><td  align="center">'.'......'.'</td></center>
-                                <center><td  align="center">'.$data[qty].'</td></center>
-                                <center><td  align="center">'.$data[nm_brg].'</td></center>
-                                <center><td  align="center">'.$data[harga_sat].'</td></center>
-                                <center><td  align="center">'.'</td></center>
-                                <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
-                                <center><td  align="center">'.$data[keterangan].'</td></center>
-                                <center><td  align="center">'.$no.'</td></center>
-                                <center><td  align="center"></td></center>
-                                <center><td  align="center"></td></center>
-                                <center><td  align="center"></td></center>
-                                <center><td  align="center"></td></center>
-                                <center><td  align="center"></td></center>
-                                <center><td  align="center"></td></center>
-                                <center><td  align="center"></td></center>
-                                <center><td  align="center"></td></center>
-                                <center><td  align="center"></td></center>
-                                <center><td  align="center"></td></center>
-                                ';
-                }
-                else 
-                {
-                    
-                        echo '  
-                                <center><td  align="center"></td></center>
-                                <center><td  align="center"></td></center>
-                                <center><td  align="center"></td></center>
-                                <center><td  align="center"></td></center>
-                                <center><td  align="center"></td></center>
-                                <center><td  align="center"></td></center>
-                                <center><td  align="center"></td></center>
-                                <center><td  align="center"></td></center>
-                                <center><td  align="center"></td></center>
-                                <center><td  align="center"></td></center>
-                                <center><td  align="center"></td></center>
-                                <center><td  align="center"></td></center>
-                                <center><td  align="center">'.$no.'</td></center>
-                                <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
-                                <center><td  align="center">'.'</td></center>
-                                <center><td  align="center">'.$data[tgl_buku].'</td></center>
-                                <center><td  align="center">'.$data[untuk].'</td></center>
-                                <center><td  align="center">'.abs($data[qty]).'</td></center>
-                                <center><td  align="center">'.$data[nm_brg].'</td></center>
-                                <center><td  align="center">'.$data[harga_sat].'</td></center>
-                                <center><td  align="center">'.$subtotal.'</td></center>
-                                <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
-                                <center><td  align="center">'.$data[keterangan].'</td></center>
-                                ';
-                           
-                }
-
-                    
-
-                echo  '</tr>';
-                }
-
-            echo   '</table>';
-
-            echo '<br></br>';
-            echo '  <table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:85% ">
-                        <tr>
-                            <td colspan="4"></td>
-                            <td colspan="7"></td>
-                            <td >...............,...................................</td>
-                        </tr>                        
-                        <tr>
-                            <td colspan="4">ATASAN LANGSUNG</td>
-                            <td colspan="7"></td>
-                            <td >PENYIMPAN BARANG</td>
-                        </tr>
-                        <tr>
-                        <td><br></br>
-                        <br></br>
-                        </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">(.......................................................)</td>
-                            <td colspan="7"></td>
-                            <td >(.......................................................)</td>
-                        </tr>                        
-                        <tr>
-                            <td colspan="4">NIP..................................................</td>
-                            <td colspan="7"></td>
-                            <td >NIP..................................................</td>
-                        </tr>
-                    </table>';
-            $mpdf=new mPDF('utf-8', 'A4-L');
-            $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
-            ob_end_clean();
-            //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
-            $mpdf->WriteHTML(utf8_encode($html));
-            $mpdf->Output("pp_bph.pdf" ,'I');
-            exit;
+        ob_start(); 
+        $this->cetak_header($data,"pp_brg_pakai_habis",$kd_lokasi,"");
+        $this->get_query($data,"pp_brg_pakai_habis",$kd_lokasi,"",$nm_satker,"");
+        $mpdf=new mPDF('utf-8', 'A4-L');
+        $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
+        ob_end_clean(); 
+        $mpdf->WriteHTML(utf8_encode($html));
+        $mpdf->Output("pp_bph.pdf" ,'I');
+        exit;
 
     }
 
@@ -1525,8 +1203,9 @@ class modelReport extends mysql_db
             $bulan = $data['bulan'];
 
             $thn_ang = $data['thn_ang'];
-            $bln_awal = $data_lp['bln_awal'];
-            $bln_akhir = $data_lp['bln_akhir'];
+            $bln_awal = $data['bln_awal'];
+            $bln_akhir = $data['bln_akhir'];
+            $kd_trans = $data['kd_trans'];
 
             if($jenis=="semester"){
             $kriteria = "and month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' ";
@@ -1637,7 +1316,7 @@ class modelReport extends mysql_db
                                     SELECT tgl_dok, thn_ang, kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, qty, jns_trans, total_harga, status_hapus, kd_lokasi from transaksi_keluar
                                                 ) transaksi
                                     where 
-                                     kd_lokasi like '{$kd_lokasi}%' ".$kriteria."
+                                     kd_lokasi like '{$kd_lokasi}%' ".$kriteria." and
                                      thn_ang='$thn_ang' and
                                      jns_trans='$kd_trans' 
                                      GROUP BY kd_brg";
@@ -1720,14 +1399,12 @@ class modelReport extends mysql_db
                                                     FROM transaksi_masuk 
                                                     where month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir'
                                                      and kd_lokasi like '{$kd_lokasi}%'   
-                                                     AND status_hapus=0
                                                      AND thn_ang='$thn_ang'
                                                 union all
                     SELECT id, tgl_buku, no_dok, tgl_dok, nm_sskel, nm_brg, spesifikasi,  qty, satuan, untuk, harga_sat,total_harga, keterangan 
                                                     FROM transaksi_keluar 
                                                     where month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir'
                                                      and kd_lokasi like '{$kd_lokasi}%'   
-                                                     AND status_hapus=0
                                                      AND thn_ang='$thn_ang'
 
                                                      ORDER BY tgl_dok ASC,id asc, nm_brg asc;";
