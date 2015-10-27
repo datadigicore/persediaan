@@ -325,8 +325,33 @@ class modelOpsik extends mysql_db
         $query_hapus = "delete from opname where id= '$id_opname' ";
         $this->query($query_hapus);
 
-        $query_hapus_full = "update transaksi_full set id_opname=0 where id_opname='id_opname' ";
-        $this->query($query_hapus_full);
+        // $query_hapus_full = "update transaksi_full set id_opname=0 where id_opname='id_opname' ";
+        // $this->query($query_hapus_full);
+
+
+        $query_log = "Insert into log_trans_masuk
+                        set 
+                        kd_lokasi='$kd_lokasi',
+                        nm_satker='$nm_satker',
+                        thn_ang='$thn_ang',
+                        no_dok='$no_dok',
+                        tgl_dok='$tgl_dok',
+                        tgl_buku='$tgl_buku',
+                        no_bukti='$no_bukti',
+                        jns_trans='$jns_trans',
+                        aksi='HAPUS - Opname',
+                        kd_brg='$kd_brg',
+                        nm_brg='$nm_brg',
+                        
+                        
+                        qty='$qty',
+                        
+                        harga_sat='$harga_sat',
+                        total_harga='$total_harga',
+                        keterangan='$keterangan',
+                        tgl_update=NOW(),
+                        user_id='$user_id'";   
+        $this->query($query_log);
 
     }
 
@@ -508,7 +533,7 @@ class modelOpsik extends mysql_db
                     user_id='$user_id'";   
         $result = $this->query($query);  
  
-        $query_log = "Insert into log_opname
+        $query_log = "Insert into log_trans_masuk
                         set 
                         kd_lokasi='$kd_lokasi',
                         nm_satker='$nm_satker',
@@ -518,7 +543,7 @@ class modelOpsik extends mysql_db
                         tgl_buku='$tgl_buku',
                         no_bukti='$no_bukti',
                         jns_trans='P01',
-                        aksi='TAMBAH-op',
+                        aksi='TAMBAH-Opname',
                         kd_brg='$kd_brg',
                         nm_brg='$nm_brg',
                         qty='$kuantitas',

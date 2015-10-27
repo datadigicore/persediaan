@@ -501,7 +501,7 @@ class modelTransaksi extends mysql_db
                 $result_keluar = $this->query($query_keluar);
                 $id_transk = $this->insert_id();
 
-                $query_log = "Insert into log_trans_keluar
+                $query_log = "Insert into log_trans_masuk
                         set 
                         kd_lokasi='$kd_lokasi',
                         nm_satker='$nm_satker',
@@ -511,7 +511,7 @@ class modelTransaksi extends mysql_db
                         tgl_buku='$tgl_buku',
                         no_bukti='$no_bukti',
                         jns_trans='$jns_trans',
-                        aksi='TAMBAH-klr',
+                        aksi='TAMBAH-Keluar',
                         kd_brg='$kd_brg',
                         nm_brg='$nm_brg',
                         
@@ -612,7 +612,7 @@ class modelTransaksi extends mysql_db
                                 user_id='$user_id'"; 
                 $result_keluar = $this->query($query_keluar);
                 $id_transk = $this->insert_id();
-                $query_log = "Insert into log_trans_keluar
+                $query_log = "Insert into log_trans_masuk
                         set 
                         kd_lokasi='$kd_lokasi',
                         nm_satker='$nm_satker',
@@ -622,7 +622,7 @@ class modelTransaksi extends mysql_db
                         tgl_buku='$tgl_buku',
                         no_bukti='$no_bukti',
                         jns_trans='$jns_trans',
-                        aksi='TAMBAH-klr',
+                        aksi='TAMBAH-KELUAR',
                         kd_brg='$kd_brg',
                         nm_brg='$nm_brg',
                         qty=-1*'$qty_akhir',
@@ -1481,7 +1481,7 @@ class modelTransaksi extends mysql_db
         $keterangan = $datalog['keterangan'];
         $tanggal = $datalog['tanggal'];
        
-        $query_log = "Insert into log_trans_keluar
+        $query_log = "Insert into log_trans_masuk
                         set 
                         kd_lokasi='$kd_lokasi',
                         nm_satker='$nm_satker',
@@ -1587,7 +1587,7 @@ class modelTransaksi extends mysql_db
         $tanggal = $data['tanggal'];
         $user_id = $data['user_id'];
 
-                $query_log = "Insert into log_trans_keluar
+                $query_log = "Insert into log_trans_masuk
                         set 
                         kd_lokasi='$kd_lokasi',
                         nm_satker='$nm_satker',

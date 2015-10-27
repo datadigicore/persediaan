@@ -508,7 +508,7 @@ else
 				"kd_lokasi" => $kd_lokasi,
 				"nm_satker" => $nm_satker,
 				"thn_ang" => $thn_ang,
-				"aksi" => "H-transaksi keluar",
+				"aksi" => "HAPUS - KELUAR",
 				"tanggal" => $tanggal,
 				"user_id" => $user_id
 			);
