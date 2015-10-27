@@ -34,15 +34,20 @@ class modelReport extends mysql_db
         } 
     }
 
-    public function baca_satker_admin()
+    public function baca_satker_admin($kd_lokasi)
     {
-        $query = "select kd_lokasi, nm_satker from transaksi_full group by kd_lokasi order by kd_lokasi asc";
+        $query = "select kode, NamaSatker from satker where kode like '$kd_lokasi%' order by kode asc";
         $result = $this->query($query);
-        echo '<option value="">-- Pilih Kode Satker --</option>';
+        $json = array();
         while ($row = $this->fetch_array($result))
         {
-            echo '<option value="'.$row['kd_lokasi'].'">'.$row['kd_lokasi'].'&nbsp;&nbsp;&nbsp;'.$row['nm_satker']."</option>";
-        } 
+            $dynamic = array(
+                'id' => $row['kode'],
+                'text' => $row['kode']." ".$row['NamaSatker']
+            );
+            array_push($json, $dynamic);
+        }   
+        echo json_encode($json);
     }
 
 

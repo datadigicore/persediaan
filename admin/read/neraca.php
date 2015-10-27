@@ -4,7 +4,6 @@
       <label class="col-sm-3 control-label">Kode Satker</label>
       <div class="col-sm-8">
         <select name="satker" id="satker" class="form-control select2">
-          <option value="">-- Pilih Kode Satker --</option>
         </select>
       </div>
   </div>  

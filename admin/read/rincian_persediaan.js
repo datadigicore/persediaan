@@ -1,4 +1,4 @@
-$(".select2").select2();
+ajaxSatker();
 $(function () {
         $("#bln").hide();
         // $("#awal").hide();
@@ -44,15 +44,6 @@ $(function () {
 
       });
       
-      $.ajax({
-          type: "post",
-          url: '../core/report/prosesreport',
-          data: {manage:'baca_satker_admin'},
-          success: function (output) {     
-            $('#satker').html(output);
-          }
-       });
-
       $('form').on('submit', function() {
         var D1a = document.getElementById("tgl_awal").value;
         var D2a = document.getElementById("tgl_akhir").value;

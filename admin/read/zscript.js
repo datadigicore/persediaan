@@ -10,7 +10,32 @@ function loadScript(url, callback)
 } 
 var changeScript = function() {
 };
-
+function ajaxSatker(){
+  $("#satker").select2({
+  placeholder: "-- Pilih Kode Item Barang --",
+  ajax: {
+    url: '../core/report/prosesreport',
+    dataType: 'json',
+    type: 'post',
+    delay: 250,
+    data: function (params) {
+      return {
+        manage:'baca_satker_admin',
+        q: params.term, // search term
+        page: params.page
+      };
+    },
+    processResults: function (data, page) {
+      return {
+        results: data
+      };
+    },
+    cache: true
+  },
+    escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+    minimumInputLength: 1,
+  });
+};
 function setActive(change){
 if (change[0] == "Laporan Persediaan") {
   $("#lp").css({"border-left":"4px solid #00c0ef"});

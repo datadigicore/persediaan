@@ -23,8 +23,8 @@ else
 		break;
 
 		case 'baca_satker_admin':
-		// $kd_lokasi= $_SESSION['kd_lok'];
-		$Report->baca_satker_admin();
+		$search = $_POST['q'];
+		$Report->baca_satker_admin($search);
 		break;
 		
 		case 'buku_persediaan':
