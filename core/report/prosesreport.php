@@ -21,6 +21,11 @@ else
 		$kd_lokasi= $_SESSION['kd_lok'];
 		$Report->baca_satker($kd_lokasi);
 		break;
+
+		case 'baca_satker_admin':
+		// $kd_lokasi= $_SESSION['kd_lok'];
+		$Report->baca_satker_admin();
+		break;
 		
 		case 'buku_persediaan':
 			$kd_lokasi = $purifier->purify($_POST['satker']);

@@ -34,6 +34,17 @@ class modelReport extends mysql_db
         } 
     }
 
+    public function baca_satker_admin()
+    {
+        $query = "select kd_lokasi, nm_satker from transaksi_full group by kd_lokasi order by kd_lokasi asc";
+        $result = $this->query($query);
+        echo '<option value="">-- Pilih Kode Satker --</option>';
+        while ($row = $this->fetch_array($result))
+        {
+            echo '<option value="'.$row['kd_lokasi'].'">'.$row['kd_lokasi'].'&nbsp;&nbsp;&nbsp;'.$row['nm_satker']."</option>";
+        } 
+    }
+
 
 
     public function buku_persediaan($data)
