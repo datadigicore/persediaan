@@ -18,8 +18,8 @@ $purifier = new HTMLPurifier($config_security);
 $username = $purifier->purify($_POST['username']);
 $password = $purifier->purify(md5($_POST['password']));
 $thn_ang = $purifier->purify($_POST['thn_ang']);
-$username = mysql_real_escape_string($username);
-$password = mysql_real_escape_string($password);
+$username = mysql_escape_string($username);
+$password = mysql_escape_string($password);
 if ($username == "masteradmin" or $username == "adminsimsedia") {
 	$sql = "select * from user where user_name='$username' and user_pass='$password'";
 }
