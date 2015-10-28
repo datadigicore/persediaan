@@ -312,6 +312,7 @@
             alert("Tahun BUkti Tidak Sesuai Dengan Tahun Anggaran");
             return false;
           }
+          $('button:submit').attr("disabled", true); 
           e.preventDefault();
           var formURL = $(this).attr("action");
           var addData = new FormData(this);
@@ -324,6 +325,14 @@
             processData: false,
             success: function(data)
             {
+              $("#jenis_trans").val('');
+              $("#no_dok").val('');
+              $("#tgl_dok").val('');
+              $("#tgl_buku").val('');
+              $("#keterangan").val('');
+              $("#example1").DataTable().destroy();
+              $("#example1 tbody").empty();
+              $('button:submit').attr("disabled", false); 
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
               table = $("#example1").DataTable({

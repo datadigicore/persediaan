@@ -414,6 +414,7 @@ else {
             alert("Masukkan Harga Beli Satuan");
             return false;
           };
+          $('button:submit').attr("disabled", true);
           e.preventDefault();
           var formURL = $(this).attr("action");
           var addData = new FormData(this);
@@ -431,6 +432,7 @@ else {
               $("#satuan").val('');
               $("#rph_sat").val('');
               $("#keterangan").val('');
+              $('button:submit').attr("disabled", false); 
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
               table = $("#example1").DataTable({
@@ -673,6 +675,7 @@ else {
             alert("Masukkan Harga Beli Satuan");
             return false;
           };
+          $('button:submit').attr("disabled", true);
           e.preventDefault();
           var formURL = $(this).attr("action");
           var addData = new FormData(this);
@@ -690,6 +693,7 @@ else {
               $("#satuan").val('');
               $("#rph_sat").val('');
               $("#keterangan").val('');
+              $('button:submit').attr("disabled", false);
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
               table = $("#example1").DataTable({

@@ -9,7 +9,7 @@ class modelReport extends mysql_db
     {
         $kd_lokasi = $data['kd_lokasi'];
         $thn_ang = $data['thn_ang'];
-        $query = "select kd_brg, nm_brg FROM transaksi_masuk where kd_lokasi like '$data%' and status_hapus=0  and kd_brg not like '' GROUP BY kd_brg ORDER BY nm_brg ASC ";
+        $query = "select kd_brg, nm_brg FROM transaksi_masuk where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_brg not like '' GROUP BY kd_brg ORDER BY nm_brg ASC ";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         // echo '<option value="all">Semua Barang</option>';
@@ -261,37 +261,43 @@ class modelReport extends mysql_db
 
     public function laporan_persediaan($data_lp)
     {
-        $mpdf=new mPDF('utf-8', 'A4-L');
-        $mpdf->setFooter('{PAGENO}');
+        
         ob_start(); 
 
-
+        $format = $data_lp['format'];
         $thn_ang = $data_lp['thn_ang'];
         $kd_lokasi = $data_lp['kd_lokasi'];
         $date = $this->cek_periode($data_lp);
         $satker_asal = $data_lp['satker_asal'];
-
+        $no_urut = 0;
         $this->cetak_header($data_lp,"laporan_persediaan",$kd_lokasi,$no);
         $query = "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' order by kode asc";
         $result = $this->query($query);
                 
         while($kdsatker=$this->fetch_assoc($result))
         { 
-          $no++;
+          $no_urut++;
           $kd_lokasi2=$kdsatker['kode'];
           $nm_satker=$kdsatker['NamaSatker'];
-          $this->get_query($data_lp,"laporan_persediaan",$kd_lokasi2,"",$nm_satker);
+          $this->get_query($data_lp,"laporan_persediaan",$kd_lokasi2,"",$nm_satker,$no_urut);
         }
-        echo '</table>';
-                   
+        echo '</table>';            
         $this->cetak_nama_pj($satker_asal);
-        // $this->hitung_brg_rusak($kd_lokasi);
+
         $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
         ob_end_clean();
-        //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
-        $mpdf->WriteHTML(utf8_encode($html));
-        $mpdf->Output($nama_dokumen.".pdf" ,'I');
-        exit;
+        if($format=="excel"){
+            $this->excel_export($html,"Lap_persediaan");
+        }
+        else {
+
+            $mpdf=new mPDF('utf-8', 'A4-L');
+            $mpdf->setFooter('{PAGENO}');
+            $mpdf->WriteHTML(utf8_encode($html));
+            $mpdf->Output("Lap_persediaan.pdf" ,'I');
+            exit;
+        }
+
     }    
 
     public function rincian_persediaan($data)
@@ -480,6 +486,7 @@ class modelReport extends mysql_db
                 ob_start();
 
                 $kd_brg = $data_lp['kd_brg'];
+                $format = $data_lp['format'];
                 $kd_lokasi = $data_lp['kd_lokasi'];
                 $satker_asal = $data_lp['satker_asal'];
                 $no_urut = 0;
@@ -494,53 +501,62 @@ class modelReport extends mysql_db
                   $nm_satker=$kdsatker['NamaSatker'];
                  
                   $this->get_query($data_lp,"rincian_persediaan2",$kd_lokasi2,"",$nm_satker,$no_urut);
-                  // echo '<pagebreak />';
-                  
+        
 
                 }
                 echo '</table>';
                    
-                  $this->cetak_nama_pj($satker_asal);
-
-                        // $this->hitung_brg_rusak($kd_lokasi);
+                $this->cetak_nama_pj($satker_asal);
                 $html = ob_get_contents();
                 ob_end_clean();
-                //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
-                $mpdf->WriteHTML(utf8_encode($html));
-                $mpdf->Output($nama_dokumen.".pdf" ,'I');
-                exit;
+                if($format=="excel"){
+                    $this->excel_export($html,"Mutasi_persediaan");
+                }
+                else {
+
+                    $mpdf=new mPDF('utf-8', 'A4-L');
+                    $mpdf->setFooter('{PAGENO}');
+                    $mpdf->WriteHTML(utf8_encode($html));
+                    $mpdf->Output("Mutasi_persediaan.pdf" ,'I');
+                    exit;
+                }
+
           }    
 
     public function neraca($data_lp)
     {
-        $mpdf=new mPDF('utf-8', 'A4-L');
-        $mpdf->setFooter('{PAGENO}');
-        ob_start(); 
+       
         $kd_lokasi = $data_lp['kd_lokasi'];
         $satker_asal = $data_lp['satker_asal'];
-
+        $format = $data_lp['format'];
+        ob_start(); 
         $this->cetak_header($data_lp,"neraca",$kd_lokasi,$no);
         $query = "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' order by kode asc";
-                $result = $this->query($query);         
-                while($kdsatker=$this->fetch_assoc($result))
-                { 
-                  $no++;
-                  $kd_lokasi2=$kdsatker['kode'];
-                  $nm_satker=$kdsatker['NamaSatker'];
+        $result = $this->query($query);         
+        while($kdsatker=$this->fetch_assoc($result))
+        { 
+            $no++;
+            $kd_lokasi2=$kdsatker['kode'];
+            $nm_satker=$kdsatker['NamaSatker'];
                  
-                  $this->get_query($data_lp,"neraca",$kd_lokasi2,"",$nm_satker);
+            $this->get_query($data_lp,"neraca",$kd_lokasi2,"",$nm_satker,$no);
                   // echo '<pagebreak />'; 
-                }
-                echo '</table>';
+        }
+        echo '</table>';
+        $this->cetak_nama_pj($satker_asal);
+        $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
+        ob_end_clean();
+        if($format=="excel"){
+            $this->excel_export($html,"Neraca");
+        }
+        else {
+            $mpdf=new mPDF('utf-8', 'A4-L');
+            $mpdf->setFooter('{PAGENO}');
+            $mpdf->WriteHTML(utf8_encode($html));
+            $mpdf->Output("Neraca.pdf" ,'I');
+            exit;
+        }
 
-
-                $this->cetak_nama_pj($satker_asal);
-                $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
-                ob_end_clean();
-                //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
-                $mpdf->WriteHTML(utf8_encode($html));
-                $mpdf->Output("posisi_persediaan.pdf" ,'I');
-                exit;
     }
 
     public function mutasi_prsedia($data)
@@ -548,19 +564,20 @@ class modelReport extends mysql_db
         $mpdf=new mPDF('utf-8', 'A4-L');
         ob_start(); 
         $kd_lokasi = $data['kd_lokasi'];
+        $format = $data['format'];
         $satker_asal = $data['satker_asal'];
         $this->cetak_header($data_lp,"mutasi_persediaan",$kd_lokasi,$no);
 
         $query = "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' order by kode asc";
         $result = $this->query($query);
-                
+        $no = 0;
                 while($kdsatker=$this->fetch_assoc($result))
                 { 
                   $no++;
                   $kd_lokasi2=$kdsatker['kode'];
                   $nm_satker=$kdsatker['NamaSatker'];
                  
-                  $this->get_query($data,"mutasi_persediaan",$kd_lokasi2,"",$nm_satker);
+                  $this->get_query($data,"mutasi_persediaan",$kd_lokasi2,"",$nm_satker,$no);
                   
 
                 }
@@ -570,10 +587,19 @@ class modelReport extends mysql_db
 
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
                 ob_end_clean();
-                //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
-                $mpdf->WriteHTML(utf8_encode($html));
-                $mpdf->Output("mutasi_persediaan.pdf" ,'I');
-                exit;
+        if($format=="excel") 
+        {
+            $this->excel_export($html,"Mutasi_Persediaan");
+        }
+        else {
+
+            $mpdf=new mPDF('utf-8', 'A4-L');
+            $mpdf->WriteHTML(utf8_encode($html));
+            $mpdf->Output("Mutasi_persediaan.pdf" ,'I');
+            exit;
+            }
+         
+
          }
 
     public function transaksi_persediaan($data)
@@ -584,24 +610,24 @@ class modelReport extends mysql_db
         $jenis = $data['jenis'];
         $kd_trans = $data['kd_trans'];
         $nm_trans = $data['nm_trans'];
-        $bulan = $data['bulan'];
-        $tgl_awal = $data['tgl_awal'];
-        $tgl_akhir = $data['tgl_akhir'];
-
-        $kd_brg = $data['kd_brg'];
+        $format = $data['format'];
         $thn_ang = $data['thn_ang'];
         $kd_lokasi = $data['kd_lokasi'];
 
-
         $this->cetak_header($data_lp,"transaksi_persediaan",$kd_lokasi,$no);
-        $this->get_query($data,"transaksi_persediaan",$kd_lokasi,"",$nm_satker);
+        $this->get_query($data,"transaksi_persediaan",$kd_lokasi,"",$nm_satker,"");
        
-                $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
-                ob_end_clean();
-                //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
-                $mpdf->WriteHTML(utf8_encode($html));
-                $mpdf->Output($nama_dokumen.".pdf" ,'I');
-                exit;
+        $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
+        ob_end_clean();
+        if($format=="excel") {
+            $this->excel_export($html,"Transaksi_Persediaan");
+        }
+        else {
+            $mpdf=new mPDF('utf-8', 'A4-L');
+            $mpdf->WriteHTML(utf8_encode($html));
+            $mpdf->Output("Transaksi_persediaan.pdf" ,'I');
+            exit;
+        }
     }
 
     public function l_terima_brg($data)
@@ -612,16 +638,24 @@ class modelReport extends mysql_db
         $jenis = $data['jenis'];
         $kd_lokasi = $data['kd_lokasi'];
         $satker_asal = $data['kd_lokasi'];
+        $format = $data['format'];
 
         $this->cetak_header($data,"penerimaan_brg",$kd_lokasi,"");
-        $this->get_query($data,"penerimaan_brg",$kd_lokasi,"",$nm_satker);
+        $this->get_query($data,"penerimaan_brg",$kd_lokasi,"",$nm_satker,"");
         $this->cetak_nama_pj($satker_asal);
 
         $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
         ob_end_clean();
-        $mpdf->WriteHTML(utf8_encode($html));
-        $mpdf->Output("bu_pbrg.pdf" ,'I');
-        exit;
+        if($format=="excel") {
+            $this->excel_export($html,"Penerimaan_brg");
+        }
+        else {
+            $mpdf=new mPDF('utf-8', 'A4-L');
+            $mpdf->WriteHTML(utf8_encode($html));
+            $mpdf->Output("Penerimaan_brg.pdf" ,'I');
+            exit;
+        }
+
     }
 
     public function l_keluar_brg($data)
@@ -637,21 +671,28 @@ class modelReport extends mysql_db
         $kd_lokasi = $data['kd_lokasi'];
         $thn_ang = $data['thn_ang'];
         $satker_asal = $data['kd_lokasi'];
+        $format = $data['format'];
 
         $this->cetak_header($data,"pengeluaran_brg",$kd_lokasi,"");
         $this->get_query($data,"pengeluaran_brg",$kd_lokasi,"",$nm_satker,"");
         $this->cetak_nama_pj($satker_asal);
         $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
-        ob_end_clean();                
-        $mpdf->WriteHTML(utf8_encode($html));
-        $mpdf->Output("bu_pbrg.pdf" ,'I');
-        exit;
+        ob_end_clean();
+        if($format=="excel") {
+            $this->excel_export($html,"Pengeluaran_brg");
+        }
+        else {
+            $mpdf=new mPDF('utf-8', 'A4-L');
+            $mpdf->WriteHTML(utf8_encode($html));
+            $mpdf->Output("Pengeluaran_brg.pdf" ,'I');
+            exit;
+        }                
+
     }
 
 
     public function buku_bph($data)
     {
-        $mpdf=new mPDF('utf-8', 'A4-L');
         // $mpdf->setFooter('{PAGENO}');
         ob_start(); 
         $jenis = $data['jenis'];
@@ -662,6 +703,7 @@ class modelReport extends mysql_db
         $kd_lokasi = $data['kd_lokasi'];
         $thn_ang = $data['thn_ang'];
         $satker_asal = $data['kd_lokasi'];
+        $format = $data['format'];
         
         $this->cetak_header($data,"buku_brg_pakai_habis",$kd_lokasi,"");
         $this->get_query($data,"buku_brg_pakai_habis",$kd_lokasi,"",$nm_satker,"");       
@@ -669,9 +711,15 @@ class modelReport extends mysql_db
 
         $html = ob_get_contents(); 
         ob_end_clean();
-        $mpdf->WriteHTML(utf8_encode($html));
-        $mpdf->Output("buku_bph.pdf" ,'I');
-        exit;
+        if($format=="excel") {
+            $this->excel_export($html,"Buku_brg_pakai_hbs");
+        }
+        else {
+            $mpdf=new mPDF('utf-8', 'A4-L');
+            $mpdf->WriteHTML(utf8_encode($html));
+            $mpdf->Output("Buku_brg_pakai_hbs.pdf" ,'I');
+            exit;
+        }  
     }
 
 
@@ -689,18 +737,25 @@ class modelReport extends mysql_db
         $kd_lokasi = $data['kd_lokasi'];
         $thn_ang = $data['thn_ang'];
         $satker_asal = $data['satker_asal'];
+        $format = $data['format'];
 
         $detail_brg = "SELECT nm_sskel, nm_brg, satuan,spesifikasi from persediaan where  kd_brg='$kd_brg' ";
         $result_detail = $this->query($detail_brg);
         $brg = $this->fetch_array($result_detail);
         $this->cetak_header($data,"kartu_brg",$kd_lokasi,$kd_brg);
         $this->get_query($data,"kartu_brg",$kd_lokasi,$kd_brg,$nm_satker,"");  
-                $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
-                ob_end_clean();
+        $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
+        ob_end_clean();
+        if($format=="excel") {
+            $this->excel_export($html,"kartu_barang");
+        }
+        else {
+            $mpdf=new mPDF('utf-8', 'A4-L');
+            $mpdf->WriteHTML(utf8_encode($html));
+            $mpdf->Output("kartu_barang.pdf" ,'I');
+            exit;
+        }          
                 
-                $mpdf->WriteHTML(utf8_encode($html));
-                $mpdf->Output("buku_persediaan.pdf" ,'I');
-                exit;
          }
 
     public function kartu_p_barang($data)
@@ -1466,7 +1521,7 @@ class modelReport extends mysql_db
                     $saldo = $this->sum_persedia($data_lp,"117","saldo",$kd_lokasi);
                     echo '<tr>
 
-                          <td colspan style="font-weight:bold; background-color:#EFEFEF;">'.'1'.'</td>
+                          <td colspan style="font-weight:bold; background-color:#EFEFEF;">'.$no_urut.'</td>
                           <td colspan="3" align="left" style="font-weight:bold; background-color:#EFEFEF;">'.$nm_satker.'</td>
                           </tr>';
                     if($saldo!==0){
@@ -1681,7 +1736,7 @@ class modelReport extends mysql_db
                     $saldo = $this->sum_persedia($data_lp,"117","saldo",$kd_lokasi);
                     echo '<tr>
 
-                          <td colspan style="font-weight:bold; background-color:#EFEFEF;">'.'1'.'</td>
+                          <td colspan style="font-weight:bold; background-color:#EFEFEF;">'.$no_urut.'</td>
                           <td colspan="3" align="left" style="font-weight:bold; background-color:#EFEFEF;">'.$nm_satker.'</td>
                           </tr>';
                     if($saldo!==0){
@@ -1762,7 +1817,7 @@ class modelReport extends mysql_db
                 $saldo = $this->sum_persedia($data_lp,"117","saldo",$kd_lokasi);
                 echo '<tr>
 
-                          <td colspan style="font-weight:bold; background-color:#EFEFEF;">'.'1'.'</td>
+                          <td colspan style="font-weight:bold; background-color:#EFEFEF;">'.$no_urut.'</td>
                           <td colspan="6" align="left" style="font-weight:bold; background-color:#EFEFEF;">'.$nm_satker.'</td>
                           </tr>';
                 echo '  <tr>

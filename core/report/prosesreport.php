@@ -13,7 +13,12 @@ else
 	switch ($manage)
 	{
 		case 'readbrg':
-			$data = $_SESSION['kd_lok'];
+			$kd_lokasi = $_SESSION['kd_lok'];
+			$thn_ang = $_SESSION['thn_ang'];
+			$data = array(
+				"kd_lokasi"=>$kd_lokasi,
+				"thn_ang" => $thn_ang
+			   );
 			$Report->bacabrg($data);
 		break;
 		
@@ -90,13 +95,10 @@ else
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $kd_lokasi,
 			"satker_asal" => $satker_asal,
+			"format" => $format,
 			"user_id" => $user_id);
-			if($format=="pdf"){
-				$Report->laporan_persediaan($data);
-			}
-			else {
-				$Report->laporan_persediaan_excel($data);
-			}
+		$Report->laporan_persediaan($data);
+
 		break;
 
 		case 'rincian':
@@ -122,15 +124,9 @@ else
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $kd_lokasi,
 			"satker_asal" => $satker_asal,
+			"format" => $format,
 			"user_id" => $user_id);
-			if($format=="pdf"){
-				$Report->rincian_persediaan2($data);
-			}
-			else {
-				$Report->rincian_persediaan_excel($data);
-			}
-
-			
+		$Report->rincian_persediaan2($data);
 		break;		
 
 		case 'neraca':
@@ -150,15 +146,11 @@ else
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $kd_lokasi,
 			"satker_asal" => $satker_asal,
+			"format" => $format,
 			"user_id" => $user_id);
 			// print_r($data);
-			if($format=="pdf"){
-				$Report->neraca($data);
-			}
-			else {
-				$Report->neraca_excel($data);
-			}
-			
+		$Report->neraca($data);
+
 		break;
 
 		case 'mutasi':
@@ -178,14 +170,13 @@ else
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $kd_lokasi,
 			"satker_asal" => $satker_asal,
+			"format" => $format,
 			"user_id" => $user_id);
 			// print_r($data);
-			if($format=="pdf"){
-				$Report->mutasi_prsedia($data);
-			}
-			else {
-				$Report->mutasi_prsedia_excel($data);
-			}
+
+		$Report->mutasi_prsedia($data);
+			
+
 			
 		break;
 
@@ -215,14 +206,11 @@ else
 				"tgl_akhir" => $tgl_akhir,
 				"kd_lokasi" => $kd_lokasi,
 				"satker_asal" => $satker_asal,
+				"format" => $format,
 				"user_id" => $user_id
 			   );
-			if($format=="pdf"){
 				$Report->transaksi_persediaan($data);
-			}
-			else {
-				$Report->transaksi_persediaan_excel($data);
-			}
+
 			
 		break;
 
