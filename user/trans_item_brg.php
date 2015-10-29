@@ -338,22 +338,50 @@ else {
             }
             else
             {
-              $('#myModal').modal({
-                backdrop: 'static',
-                keyboard: false
-              });
-              $('#myModal').modal('show');
+
               $.ajax({
                 type: "post",
                 url : "../core/transaksi/prosestransaksi",
                 data: {manage:managedata,id:id_row},
                 success: function(data)
                 {
-                  $("#success-alert").alert();
-                  $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-                  $("#success-alert").alert('close');
-                  });
-                  setTimeout("location.href = redirectURL;",redirectTime); 
+                    $("#kd_brg").select2("val", "");
+                    $("#jml_msk").val('');
+                    $("#satuan").val('');
+                    $("#rph_sat").val('');
+                    $("#example1").DataTable().destroy();
+                    $("#example1 tbody").empty();
+                    table = $("#example1").DataTable({
+                      "processing": false,
+                      "serverSide": true,
+                      "ajax": {
+                          'type': 'GET',
+                          'url': '../core/loadtable/loadtransmskitm',
+                          'data': {
+                             no_dok: '<?php echo $_POST["satker"]?>',
+                          },
+                      },
+                      "columnDefs":
+                      [
+                        {"targets": 0,
+                         "visible": false },
+                        {"targets": 1 },
+                        {"targets": 2 },
+                        {"targets": 3 },
+                        {"targets": 4 },
+                        {"targets": 5 },
+                        {"targets": 6 },
+                        {"targets": 7 },
+                        {"targets": 8 },
+                        {"orderable": false,
+                         "data": null,
+                         "defaultContent":  '<div class="box-tools">'+
+                                              '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
+                                            '</div>',
+                         "targets": [9],"targets": 9 },
+                      ],
+                      "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
+                    });
                 }
               });
             return false;
