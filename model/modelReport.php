@@ -606,9 +606,13 @@ class modelReport extends mysql_db
         $thn_ang = $data['thn_ang'];
         $satker_asal = $data['satker_asal'];
         
-        $this->cetak_header($data,"kartu_p_brg",$kd_lokasi,$kd_brg,"");
-        $this->get_query($data,"kartu_p_brg",$kd_lokasi,$kd_brg,$nm_satker,"");  
-        
+        $hasil = $this->query_brg($kd_brg,$kd_lokasi);
+        while($kode_brg=$this->fetch_array($hasil)) 
+        {
+            $this->cetak_header($data,"kartu_p_brg",$kd_lokasi,$kode_brg['kd_brg'],"");
+            $this->get_query($data,"kartu_p_brg",$kd_lokasi,$kode_brg['kd_brg'],$nm_satker,"");
+            echo '<pagebreak />';  
+        }
 
                 $this->cetak_nama_pj($satker_asal);
 

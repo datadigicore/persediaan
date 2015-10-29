@@ -70,8 +70,8 @@ class modelOpsik extends mysql_db
 
 
             }
-                    // $query_t_full_klr = "DELETE from transaksi_full where id_opname='$id_opname' and jns_trans='P02'   and kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' ";
-                    // $result_full = $this->query($query_t_full_klr); 
+                    $hapus_id = "UPDATE transaksi_full set id_opname=0 where id_opname='$id_opname'  ";
+                    $this->query($hapus_id); 
             
                     $query = "select * from transaksi_keluar where id_opname='$id_opname' and jns_trans!='P01' ";
                     $result = $this->query($query);
@@ -149,7 +149,8 @@ class modelOpsik extends mysql_db
                                         tgl_update=NOW(),
                                         user_id='$user_id'";   
                                     $result_full = $this->query($query_full);  
-
+                    $hapus_id = "UPDATE transaksi_full set id_opname=0 where id_opname='$id_opname' ";
+                    $this->query($hapus_id); 
 
 
                         }
