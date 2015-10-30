@@ -48,6 +48,23 @@ class modelReport extends mysql_db
             array_push($json, $dynamic);
         }   
         echo json_encode($json);
+    }    
+
+    public function baca_upb($kd_lokasi)
+    {
+
+        $query = "select kode, NamaSatker from satker where kode like '$kd_lokasi%' and CHAR_LENGTH(kode) = 11 order by kode asc";
+        $result = $this->query($query);
+        $json = array();
+        while ($row = $this->fetch_array($result))
+        {
+            $dynamic = array(
+                'id' => $row['kode'],
+                'text' => $row['kode']." ".$row['NamaSatker']
+            );
+            array_push($json, $dynamic);
+        }   
+        echo json_encode($json);
     }
 
     public function query_brg($kd_brg,$kd_lokasi){
