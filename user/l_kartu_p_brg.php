@@ -28,17 +28,17 @@
                 </div>  
                 <form action="../core/report/prosesreport" method="post" class="form-horizontal" id="addtransmsk" >
                    <input type="hidden" name="manage" value="l_kartu_p_brg">  
-                  <div class="box-body">
-                      <label class="col-sm-2 control-label">Kode Persediaan</label>
-                      <div class="col-sm-4">
-                        <select name="kd_brg" id="kd_brg" class="form-control">
-                        </select>
-                      </div>
-                    </div>                   
                     <div class="box-body">
                       <label class="col-sm-2 control-label">Kode Satker</label>
                       <div class="col-sm-4">
                         <select name="satker" id="satker" class="form-control">
+                        </select>
+                      </div>
+                    </div> 
+                    <div class="box-body">
+                      <label class="col-sm-2 control-label">Kode Persediaan</label>
+                      <div class="col-sm-4">
+                        <select name="kd_brg" id="kd_brg" class="form-control">
                         </select>
                       </div>
                     </div> 
@@ -168,7 +168,7 @@
        $.ajax({
           type: "post",
           url: '../core/report/prosesreport',
-          data: {manage:'baca_satker'},
+          data: {manage:'baca_upb'},
           success: function (output) {     
             $('#satker').html(output);
           }

@@ -24,21 +24,21 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Laporan Buku Persediaan </h3>
+                  <h3 class="box-title">Buku Persediaan </h3>
                 </div>  
                 <form action="../core/report/prosesreport" method="post" class="form-horizontal" id="addtransmsk" >
-                   <input type="hidden" name="manage" value="buku_persediaan">  
-                  <div class="box-body">
-                      <label class="col-sm-2 control-label">Kode Persediaan</label>
-                      <div class="col-sm-4">
-                        <select name="kd_brg" id="kd_brg" class="form-control">
-                        </select>
-                      </div>
-                    </div>                   
+                   <input type="hidden" name="manage" value="buku_persediaan">                    
                     <div class="box-body">
                       <label class="col-sm-2 control-label">Kode Satker</label>
                       <div class="col-sm-4">
                         <select name="satker" id="satker" class="form-control">
+                        </select>
+                      </div>
+                    </div> 
+                    <div class="box-body">
+                      <label class="col-sm-2 control-label">Kode Persediaan</label>
+                      <div class="col-sm-4">
+                        <select name="kd_brg" id="kd_brg" class="form-control">
                         </select>
                       </div>
                     </div> 
@@ -168,7 +168,7 @@
        $.ajax({
           type: "post",
           url: '../core/report/prosesreport',
-          data: {manage:'baca_satker'},
+          data: {manage:'baca_upb'},
           success: function (output) {     
             $('#satker').html(output);
           }

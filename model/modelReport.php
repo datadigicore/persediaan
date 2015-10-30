@@ -58,13 +58,11 @@ class modelReport extends mysql_db
         $json = array();
         while ($row = $this->fetch_array($result))
         {
-            $dynamic = array(
-                'id' => $row['kode'],
-                'text' => $row['kode']." ".$row['NamaSatker']
-            );
-            array_push($json, $dynamic);
-        }   
-        echo json_encode($json);
+            // $str = $row['kode'];
+            // if (substr_count($str,".") == 3) {
+            echo '<option value="'.$row['kode'].'">'.$row['kode'].'        '.$row['NamaSatker']."</option>";
+             // }
+        } 
     }
 
     public function query_brg($kd_brg,$kd_lokasi){
@@ -1235,7 +1233,7 @@ class modelReport extends mysql_db
               $sql="SELECT id, tgl_buku, no_dok, tgl_dok, nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
                                 FROM transaksi_masuk 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'  
-                                      and kd_lokasi like '{$kd_lokasi}%'   
+                                      and kd_lokasi = '$kd_lokasi'   
                                       AND thn_ang='$thn_ang'
                                 ORDER BY tgl_dok ASC,id asc";
                    
@@ -1245,7 +1243,7 @@ class modelReport extends mysql_db
               $sql="SELECT id, tgl_buku, no_dok, tgl_dok, nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
                                 FROM transaksi_keluar 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'  
-                                      and kd_lokasi like '{$kd_lokasi}%'   
+                                      and kd_lokasi = '$kd_lokasi'
                                       AND thn_ang='$thn_ang'
                                 ORDER BY tgl_dok ASC,id asc";
 
@@ -1254,18 +1252,16 @@ class modelReport extends mysql_db
               $sql="SELECT id, tgl_buku, no_dok, tgl_dok, nm_sskel, nm_brg,  spesifikasi, qty, satuan, harga_sat,total_harga, keterangan 
                                             FROM transaksi_masuk 
                                             where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
-                                             and kd_lokasi like '{$kd_lokasi}%'   
-                                             AND status_hapus=0
-                                             AND thn_ang='$thn_ang'
-                                        union all
-                        SELECT id, tgl_buku, no_dok, tgl_dok, nm_sskel, nm_brg, spesifikasi,  qty, satuan, harga_sat,total_harga, keterangan 
+                                            and kd_lokasi = '$kd_lokasi' 
+                                            AND thn_ang='$thn_ang'
+                    union all
+                    SELECT id, tgl_buku, no_dok, tgl_dok, nm_sskel, nm_brg, spesifikasi,  qty, satuan, harga_sat,total_harga, keterangan 
                                             FROM transaksi_keluar 
                                             where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
-                                             and kd_lokasi like '{$kd_lokasi}%'   
-                                             AND status_hapus=0
+                                             and kd_lokasi = '$kd_lokasi'  
                                              AND thn_ang='$thn_ang'
 
-                        ORDER BY tgl_dok ASC,id asc, nm_brg asc;";
+                    ORDER BY tgl_dok ASC,id asc, nm_brg asc;";
                     
 
             }
@@ -1274,14 +1270,14 @@ class modelReport extends mysql_db
                             FROM transaksi_masuk 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
                                     AND kd_brg='$kd_brg' 
-                                    and kd_lokasi like '{$kd_lokasi}%'   
+                                    and kd_lokasi = '$kd_lokasi' 
                                     AND thn_ang='$thn_ang'
                                 union all 
                             SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
                               FROM transaksi_keluar 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
                                     AND kd_brg='$kd_brg' 
-                                    and kd_lokasi like '{$kd_lokasi}%'   
+                                    and kd_lokasi = '$kd_lokasi'  
                                     AND thn_ang='$thn_ang'
                             ORDER BY tgl_dok ASC,id asc;";
 
@@ -1291,14 +1287,14 @@ class modelReport extends mysql_db
                                     FROM transaksi_masuk 
                                     where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
                                      AND kd_brg='$kd_brg' 
-                                     and kd_lokasi like '{$kd_lokasi}%'   
+                                     and kd_lokasi ='$kd_lokasi'   
                                      AND thn_ang='$thn_ang'
                                      union all 
                                      SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
                                      FROM transaksi_keluar 
                                      where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
                                      AND kd_brg='$kd_brg' 
-                                     and kd_lokasi like '{$kd_lokasi}%'   
+                                     and kd_lokasi = '$kd_lokasi'   
                                      AND thn_ang='$thn_ang'
                                      ORDER BY tgl_dok ASC,id asc;";
 
@@ -1307,13 +1303,13 @@ class modelReport extends mysql_db
                   $sql="SELECT id, tgl_buku, no_dok, tgl_dok, nm_sskel, nm_brg,  spesifikasi, qty, satuan, untuk, harga_sat,total_harga, keterangan 
                                                     FROM transaksi_masuk 
                                                     where month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir'
-                                                     and kd_lokasi like '{$kd_lokasi}%'   
+                                                     and kd_lokasi = '$kd_lokasi'  
                                                      AND thn_ang='$thn_ang'
                                                 union all
                     SELECT id, tgl_buku, no_dok, tgl_dok, nm_sskel, nm_brg, spesifikasi,  qty, satuan, untuk, harga_sat,total_harga, keterangan 
                                                     FROM transaksi_keluar 
                                                     where month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir'
-                                                     and kd_lokasi like '{$kd_lokasi}%'   
+                                                     and kd_lokasi = '$kd_lokasi'  
                                                      AND thn_ang='$thn_ang'
 
                                                      ORDER BY tgl_dok ASC,id asc, nm_brg asc;";

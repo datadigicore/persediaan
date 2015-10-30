@@ -25,6 +25,11 @@ else
 		case 'baca_satker':
 		$kd_lokasi= $_SESSION['kd_lok'];
 		$Report->baca_satker($kd_lokasi);
+		break;		
+
+		case 'baca_upb':
+		$kd_lokasi= $_SESSION['kd_lok'];
+		$Report->baca_upb($kd_lokasi);
 		break;
 
 		case 'baca_satker_admin':
