@@ -36,7 +36,7 @@ class modelReport extends mysql_db
 
     public function baca_satker_admin($kd_lokasi)
     {
-        $query = "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' and char_length(kode)=11 order by kode asc";
+        $query = "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%'  order by kode asc";
         $result = $this->query($query);
         $json = array();
         while ($row = $this->fetch_array($result))
@@ -53,7 +53,7 @@ class modelReport extends mysql_db
     public function baca_upb($kd_lokasi)
     {
 
-        $query = "select kode, NamaSatker from satker where kode like '$kd_lokasi%' and CHAR_LENGTH(kode) = 11 order by kode asc";
+        $query = "select kode, NamaSatker from satker where kode like '$kd_lokasi%' and char_length(kode)=11 order by kode asc";
         $result = $this->query($query);
         $json = array();
         while ($row = $this->fetch_array($result))

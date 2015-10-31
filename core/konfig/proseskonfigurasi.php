@@ -2,6 +2,7 @@
 include('../../model/modelkonfigurasi.php');
 include('../../config/purifier.php');
 include('../../config/admin.php');
+
 $Konfig = new modelKonfigurasi();
 if (empty($_POST['manage'])) {
 	echo "Error Data Tidak Tersedia";
@@ -55,6 +56,25 @@ else
 			$id = $purifier->purify($_POST['id']);
 			$Konfig->hapustahun($id);
 		break;
+
+		case 'baca_upb_admin':
+		$search = $_POST['q'];
+		$Konfig->baca_upb_admin($search);
+		break;		
+
+		case 'refresh':
+		$kd_lokasi = $purifier->purify($_POST['satker']);
+		$thn_ang = $_SESSION['thn_ang'];
+
+		$user_id = $_SESSION['username'];
+		$data = array(
+				"kd_lokasi" => $kd_lokasi,
+				"thn_ang" => $thn_ang,
+				"user_id" => $user_id
+		);
+		$Konfig->refresh($kd_lokasi, $thn_ang, $user_id);
+		break;
+
 		default:
 			echo "Error Data Tidak Tersedia";
 		break;
