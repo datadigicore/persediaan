@@ -36,7 +36,7 @@ class modelReport extends mysql_db
 
     public function baca_satker_admin($kd_lokasi)
     {
-        $query = "select kode, NamaSatker from satker where kode like '$kd_lokasi%' order by kode asc";
+        $query = "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' and char_length(kode)=11 order by kode asc";
         $result = $this->query($query);
         $json = array();
         while ($row = $this->fetch_array($result))
@@ -122,7 +122,7 @@ class modelReport extends mysql_db
         $satker_asal = $data_lp['satker_asal'];
         $no_urut = 0;
         $this->cetak_header($data_lp,"laporan_persediaan",$kd_lokasi,"",$no);
-        $query = "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' order by kode asc";
+        $query = "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' and char_length(kode)=11 order by kode asc";
         $result = $this->query($query);
                 
         while($kdsatker=$this->fetch_assoc($result))
@@ -342,7 +342,7 @@ class modelReport extends mysql_db
                 $satker_asal = $data_lp['satker_asal'];
                 $no_urut = 0;
                 $this->cetak_header($data_lp,"rincian_persediaan2",$kd_lokasi,"",$no);
-                $query = "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' order by kode asc";
+                $query = "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' and char_length(kode)=11 order by kode asc";
                 $result = $this->query($query);
                 
                 while($kdsatker=$this->fetch_assoc($result))
@@ -382,7 +382,7 @@ class modelReport extends mysql_db
         $format = $data_lp['format'];
         ob_start(); 
         $this->cetak_header($data_lp,"neraca",$kd_lokasi,"",$no);
-        $query = "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' order by kode asc";
+        $query = "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' and char_length(kode)=11 order by kode asc";
         $result = $this->query($query);         
         while($kdsatker=$this->fetch_assoc($result))
         { 
@@ -419,7 +419,7 @@ class modelReport extends mysql_db
         $satker_asal = $data['satker_asal'];
         $this->cetak_header($data_lp,"mutasi_persediaan",$kd_lokasi,"",$no);
 
-        $query = "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' order by kode asc";
+        $query = "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' and char_length(kode)=11 order by kode asc";
         $result = $this->query($query);
         $no = 0;
                 while($kdsatker=$this->fetch_assoc($result))
