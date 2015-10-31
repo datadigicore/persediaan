@@ -2196,7 +2196,7 @@ class modelReport extends mysql_db
             $nm_tabel = " transaksi_full ";
             $jns_trans= "";
             $kd_perk  = "";
-            $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' ";
+            $sql = "SELECT sum(qty_akhir*harga_sat) as jml from transaksi_masuk where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' ";
         }
 
         elseif($kode=="11701" && $nilai=="qty_SA")
@@ -2213,7 +2213,7 @@ class modelReport extends mysql_db
             $nm_tabel = " transaksi_full ";
             $jns_trans= " and jns_trans like 'M01%' ";
             $kd_perk  = " and kd_perk like '11701%' ";
-            $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and jns_trans like 'M01%'  and thn_ang='$thn_ang' and kd_perk like '11701%'  ";
+            $sql = "SELECT sum(qty_akhir*harga_sat) as jml from transaksi_masuk where kd_lokasi like '$kd_lokasi%' and jns_trans like 'M01%'  and thn_ang='$thn_ang' and kd_perk like '11701%'  ";
         }        
         elseif($kode=="11701" && $nilai=="qty_msk")
         {
@@ -2237,7 +2237,7 @@ class modelReport extends mysql_db
             $nm_tabel = " transaksi_full ";
             $jns_trans= " and jns_trans not like 'M01%' ";
             $kd_perk  = " and kd_perk like '11701%' ";
-            $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '11701%' ";
+            $sql = "SELECT sum(qty_akhir*harga_sat) as jml from transaksi_masuk where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '11701%' ";
         }
         elseif($kode!=="11701" && $nilai=="qty_SA")
         {
@@ -2253,7 +2253,7 @@ class modelReport extends mysql_db
             $nm_tabel = " transaksi_masuk ";
             $jns_trans= " and jns_trans like 'M01%' ";
             $kd_perk  = " and kd_perk like '$kode%' ";
-            $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and jns_trans like 'M01%'  and thn_ang='$thn_ang' and kd_perk like '$kode%' ";
+            $sql = "SELECT sum(qty_akhir*harga_sat) as jml from transaksi_masuk where kd_lokasi like '$kd_lokasi%' and jns_trans like 'M01%'  and thn_ang='$thn_ang' and kd_perk like '$kode%' ";
         }        
         elseif($kode!=="11701" && $nilai=="qty_msk")
         {
@@ -2277,16 +2277,16 @@ class modelReport extends mysql_db
             $nm_tabel = " transaksi_full ";
             $jns_trans= "";
             $kd_perk  = " and kd_perk like '$kode%' ";
-            $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi = '$kd_lokasi' and thn_ang='$thn_ang' and kd_perk like '$kode%' ";
+            $sql = "SELECT sum(qty_akhir*harga_sat) as jml from transaksi_masuk where kd_lokasi = '$kd_lokasi' and thn_ang='$thn_ang' and kd_perk like '$kode%' ";
         }
 
         // elseif($kode=="11701")
         // {
-        //     $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and kd_perk like '11701%'";
+        //     $sql = "SELECT sum(qty_akhir*harga_sat) as jml from transaksi_masuk where kd_lokasi like '$kd_lokasi%' and kd_perk like '11701%'";
         // }
         else
         {
-            // $sql = "SELECT sum(total_harga) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '$kode%'";
+            // $sql = "SELECT sum(qty_akhir*harga_sat) as jml from transaksi_masuk where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '$kode%'";
         }
 
         if($jenis=="semester"){
