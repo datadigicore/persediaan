@@ -56,13 +56,13 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Dokumen</label>
                       <div class="col-sm-9">
-                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" onchange="masuk_tanggal()">
+                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" onchange="masuk_tanggal()" readon;y>
                       </div>
                     </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Buku</label>
                       <div class="col-sm-9">
-                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" >
+                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" readonly>
                       </div> 
                     </div>                    
                     <div class="form-group">
@@ -244,15 +244,15 @@
             alert("Silahkan Isi Nomor Dokumen");
             return false;
           }
-          // if(tgl_dok.substring(6,10)!=tahun_ang){
-          //   alert("Tahun Dokumen Tidak Sesuai Dengan Tahun Anggaran");
-          //   return false;
-          // }
-          // if(tgl_buku.substring(6,10)!=tahun_ang){
-          //   alert("Tahun Bukti Tidak Sesuai Dengan Tahun Anggaran");
-          //   return false;
-          // }
-          // e.preventDefault();
+          if(tgl_dok.substring(6,10)!=tahun_ang){
+            alert("Tahun Dokumen Tidak Sesuai Dengan Tahun Anggaran");
+            return false;
+          }
+          if(tgl_buku.substring(6,10)!=tahun_ang){
+            alert("Tahun Bukti Tidak Sesuai Dengan Tahun Anggaran");
+            return false;
+          }
+          e.preventDefault();
           $('button:submit').attr("disabled", true); 
           var formURL = $(this).attr("action");
           var addData = new FormData(this);
