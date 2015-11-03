@@ -56,7 +56,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Dokumen</label>
                       <div class="col-sm-9">
-                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" onchange="masuk_tanggal()" readon;y>
+                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" onchange="masuk_tanggal()" readonly>
                       </div>
                     </div>                    
                     <div class="form-group">
