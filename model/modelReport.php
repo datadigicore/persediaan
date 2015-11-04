@@ -1380,7 +1380,7 @@ class modelReport extends mysql_db
                           <td align="right" style="font-size:90%; "></td>
                           <td align="right" style="font-size:90%; "><b>117</b></td>
                           <td align="left" style="font-size:90%; "><b>Persediaan</b></td>
-                          <td align="right"  style="font-size:90%; "><b>'.$this->sum_persedia($data_lp,"117","saldo",$kd_lokasi).'</b></td>
+                          <td align="right"  style="font-size:90%; "><b>'.number_format($this->sum_persedia($data_lp,"117","saldo",$kd_lokasi),2,",",".").'</b></td>
                       </tr>';  
                     
            
@@ -1396,7 +1396,7 @@ class modelReport extends mysql_db
                                     <td></td>
                                     <td align="right" style="font-size:90%; ">'.substr($data[kd_perk],0, 5).'</td>
                                     <td  align="left" style="font-size:90%; ">'.$data[nm_perk].'</td>
-                                    <td  align="right" style="font-size:90%; ;">'.$this->sum_persedia($data_lp,substr($data[kd_perk],0, 5),"saldo",$kd_lokasi).'</td>
+                                    <td  align="right" style="font-size:90%; ;">'.number_format($this->sum_persedia($data_lp,substr($data[kd_perk],0, 5),"saldo",$kd_lokasi),2,",",".").'</td>
                                     <tr>
                                    ';
                             $kd_rek=substr($data[kd_perk],0, 5);
@@ -1408,7 +1408,7 @@ class modelReport extends mysql_db
                                     <td align="right" style=" font-size:90%;"></td>
                                     <td align="right" style=" font-size:90%;">'.$data[kd_perk].'</td>
                                     <td  align="left" style=" font-size:90%;">'.$data[nm_perk].'</td>
-                                    <td  align="right" style=" font-size:90%;">'.$this->sum_persedia($data_lp,$data[kd_perk],"saldo",$kd_lokasi).'</b></td>
+                                    <td  align="right" style=" font-size:90%;">'.number_format($this->sum_persedia($data_lp,$data[kd_perk],"saldo",$kd_lokasi),2,",",".").'</b></td>
                                   </tr> ';
                             $prev_perk=$data[kd_perk];
                         }                    
@@ -1595,7 +1595,7 @@ class modelReport extends mysql_db
                           <td align="right" style="font-size:90%; "></td>
                           <td align="right" style="font-size:90%; "><b>117</b></td>
                           <td align="left" style="font-size:90%; "><b>Persediaan</b></td>
-                          <td align="right"  style="font-size:90%; "><b>'.$this->sum_persedia($data_lp,"117","saldo",$kd_lokasi).'</b></td>
+                          <td align="right"  style="font-size:90%; "><b>'.number_format($this->sum_persedia($data_lp,"117","saldo",$kd_lokasi),2,",",".").'</b></td>
                       </tr>';  
                     
            
@@ -1611,7 +1611,7 @@ class modelReport extends mysql_db
                                     <td></td>
                                     <td align="right" style="font-size:90%; ">'.substr($data[kd_perk],0, 5).'</td>
                                     <td  align="left" style="font-size:90%; ">'.$data[nm_perk].'</td>
-                                    <td  align="right" style="font-size:90%; ;">'.$this->sum_persedia($data_lp,substr($data[kd_perk],0, 5),"saldo",$kd_lokasi).'</td>
+                                    <td  align="right" style="font-size:90%; ;">'.number_format($this->sum_persedia($data_lp,substr($data[kd_perk],0, 5),"saldo",$kd_lokasi),2,",",".").'</td>
                                     <tr>
                                    ';
                             $kd_rek=substr($data[kd_perk],0, 5);
@@ -1623,7 +1623,7 @@ class modelReport extends mysql_db
                                     <td align="right" style=" font-size:90%;"></td>
                                     <td align="right" style=" font-size:90%;">'.$data[kd_perk].'</td>
                                     <td  align="left" style=" font-size:90%;">'.$data[nm_perk].'</td>
-                                    <td  align="right" style=" font-size:90%;">'.$this->sum_persedia($data_lp,$data[kd_perk],"saldo",$kd_lokasi).'</b></td>
+                                    <td  align="right" style=" font-size:90%;">'.number_format($this->sum_persedia($data_lp,$data[kd_perk],"saldo",$kd_lokasi),2,",",".").'</b></td>
                                   </tr> ';
                             $prev_perk=$data[kd_perk];
                         }                    
@@ -1663,8 +1663,8 @@ class modelReport extends mysql_db
                 $saldo_akhir=0;
                 $saldo_thn_lalu=0;
                 $saldo_akumulasi=0;
-                $hrg_SA = $this->sum_persedia($data_lp,"117","hrg_SA",$kd_lokasi);
-                $saldo = $this->sum_persedia($data_lp,"117","saldo",$kd_lokasi);
+                $hrg_SA = number_format($this->sum_persedia($data_lp,"117","hrg_SA",$kd_lokasi),2,",",".");
+                $saldo = number_format($this->sum_persedia($data_lp,"117","saldo",$kd_lokasi),2,",",".");
                 echo '<tr>
 
                           <td colspan style="font-weight:bold; background-color:#EFEFEF;">'.$no_urut.'</td>
