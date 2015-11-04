@@ -1460,7 +1460,7 @@ class modelReport extends mysql_db
             $sisa_acc = $sisa + $qty_SA;
 
             $saldo = $this->sum_persedia($data_lp,"117","saldo",$kd_lokasi);
-            if($saldo!==0){
+            if($qty_msk!==0){
             echo '<tr>
                   <td colspan style="font-weight:bold; background-color:#EFEFEF;">'.$no_urut.'</td>
                   <td colspan="9" align="left" style="font-weight:bold; background-color:#EFEFEF;">'.$nm_satker.'</td>
@@ -1470,12 +1470,12 @@ class modelReport extends mysql_db
                       <td align="right" style="font-size:90%; "><b>117</b></td>
                       <td align="left" style="font-size:90%; "><b>Persediaan</b></td>
                       <td align="center"  style="font-size:90%; "><b>'.$qty_SA.'</b></td>
-                      <td align="center"  style="font-size:90%; "><b>'.$hrg_SA.'</b></td>
+                      <td align="center"  style="font-size:90%; "><b>'.number_format($hrg_SA,2,",",".").'</b></td>
                       <td align="center"  style="font-size:90%; "><b>'.$qty_msk.'</b></td>
                       <td align="center"  style="font-size:90%; "><b>'.$qty_klr.'</b></td>
                       <td align="center"  style="font-size:90%; "><b>'.$sisa.'</b></td>
                       <td align="center"  style="font-size:90%; "><b>'.$sisa_acc.'</b></td>
-                      <td align="center"  style="font-size:90%; "><b>'.$saldo.'</b></td>
+                      <td align="center"  style="font-size:90%; "><b>'.number_format($saldo,2,",",".").'</b></td>
                     </tr>';
             while($data=$this->fetch_assoc($result))
             {
@@ -1513,12 +1513,12 @@ class modelReport extends mysql_db
                                     echo '<td align="left" style="font-size:90%; "><b>'."Persediaan Brang Lainnya".'</b></td>';
                                 }
                                 echo    '<td align="center"  style="font-size:90%; "><b>'.$qty_SA.'</b></td>
-                                        <td align="center"  style="font-size:90%; "><b>'.$hrg_SA.'</b></td>
+                                        <td align="center"  style="font-size:90%; "><b>'.number_format($hrg_SA,2,",",".").'</b></td>
                                         <td align="center"  style="font-size:90%; "><b>'.$qty_msk.'</b></td>
                                         <td align="center"  style="font-size:90%; "><b>'.$qty_klr.'</b></td>
                                         <td align="center"  style="font-size:90%; "><b>'.$sisa.'</b></td>
                                         <td align="center"  style="font-size:90%; "><b>'.$sisa_acc.'</b></td>
-                                        <td align="center"  style="font-size:90%; "><b>'.$saldo.'</b></td>
+                                        <td align="center"  style="font-size:90%; "><b>'.number_format($saldo,2,",",".").'</b></td>
 
                                         </tr>
                                        ';
@@ -2192,8 +2192,8 @@ class modelReport extends mysql_db
         }
         elseif($kode=="117"&&$nilai=="saldo")
         {
-            $nm_kolom = " sum(total_harga) ";
-            $nm_tabel = " transaksi_full ";
+            $nm_kolom = " sum(qty_akhir*harga_sat) ";
+            $nm_tabel = " transaksi_masuk";
             $jns_trans= "";
             $kd_perk  = "";
             $sql = "SELECT sum(qty_akhir*harga_sat) as jml from transaksi_masuk where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' ";
@@ -2233,8 +2233,8 @@ class modelReport extends mysql_db
         }
         elseif($kode=="11701" && $nilai=="saldo")
         {
-            $nm_kolom = " sum(total_harga) ";
-            $nm_tabel = " transaksi_full ";
+            $nm_kolom = " sum(qty_akhir*harga_sat) ";
+            $nm_tabel = " transaksi_masuk ";
             $jns_trans= " and jns_trans not like 'M01%' ";
             $kd_perk  = " and kd_perk like '11701%' ";
             $sql = "SELECT sum(qty_akhir*harga_sat) as jml from transaksi_masuk where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '11701%' ";
@@ -2273,8 +2273,8 @@ class modelReport extends mysql_db
         }
         elseif($kode!=="11701" && $nilai=="saldo")
         {
-            $nm_kolom = " sum(total_harga) ";
-            $nm_tabel = " transaksi_full ";
+            $nm_kolom = " sum(qty_akhir*harga_sat) ";
+            $nm_tabel = " transaksi_masuk ";
             $jns_trans= "";
             $kd_perk  = " and kd_perk like '$kode%' ";
             $sql = "SELECT sum(qty_akhir*harga_sat) as jml from transaksi_masuk where kd_lokasi = '$kd_lokasi' and thn_ang='$thn_ang' and kd_perk like '$kode%' ";
