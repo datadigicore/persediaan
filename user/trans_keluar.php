@@ -62,13 +62,13 @@
                         <div class="form-group">
                           <label class="col-sm-2 control-label">Tanggal Dokumen</label>
                           <div class="col-sm-9">
-                            <input type="text" name="tgl_dok" max="10" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" readonly>
+                            <input type="text" name="tgl_dok" max="10" class="form-control" id="tgl_dok" >
                           </div>
                         </div>                    
                         <div class="form-group">
                           <label class="col-sm-2 control-label">Tanggal Buku</label>
                           <div class="col-sm-9">
-                            <input type="text" name="tgl_buku" max="10" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" readonly>
+                            <input type="text" name="tgl_buku" max="10" class="form-control" id="tgl_buku" >
                           </div> 
                         </div>                        
                         <div class="form-group">
@@ -115,14 +115,14 @@
     <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
+    <script src="../dist/js/jquery.mask.js" ></script>
     <script type="text/javascript">
     var table;
       $(function () {
         $(".select2").select2();
         $("li#trans_keluar").addClass("active");
-        $('#tgl_dok').css('background-color' , '#FFFFFF');
-        $('#tgl_buku').css('background-color' , '#FFFFFF');
-        $('#rph_sat').css('background-color' , '#FFFFFF');
+        $('#tgl_dok').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
+        $('#tgl_buku').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
         $('#tgl_dok').datepicker({
           format: "dd-mm-yyyy"
         });         
