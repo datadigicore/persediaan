@@ -688,7 +688,76 @@ class modelTransaksi extends mysql_db
     }
 
    
+    public function ubah_dok_masuk($data){
 
+        $kd_lokasi = $data['kd_lokasi'];
+        $thn_ang = $data['thn_ang'];
+        $tgl_dok= $data['tgl_dok'];
+        $tgl_buku = $data['tgl_buku'];
+        $no_dok = $data['no_dok'];
+        $no_dok_lama = $data['no_dok_lama'];
+        $keterangan = $data['keterangan'];
+
+        $query = "SELECT * from transaksi_masuk where no_dok = '$no_dok_lama' and kd_lokasi = '$kd_lokasi' and thn_ang='$thn_ang' ";
+        $result = $this->query($query);
+
+        while($dok = $this->fetch_array($result)){
+                $kd_lokasi = $dok['kd_lokasi'];
+                $nm_satker = $dok['nm_satker'];
+                $thn_ang = $dok['thn_ang'];
+                $tgl_dok_lama = $dok['tgl_dok'];
+                $tgl_buku_lama = $dok['tgl_buku'];
+                $jns_trans= $dok['jns_trans'];
+                $kd_brg = $dok['kd_brg'];
+                $nm_brg = $dok['nm_brg'];
+                $keterangan_lama = $dok['keterangan'];
+                $koreksi = 'Koreksi ';
+
+                if($no_dok!==$no_dok_lama){
+                    $koreksi .= 'no_dok '.$no_dok_lama.', ';
+                }
+                if($tgl_dok!==$tgl_dok_lama){
+                    $koreksi .= 'tgl_dok '.$tgl_dok_lama.', ';
+                }
+                if($tgl_buku!==$tgl_dok_lama){
+                            $koreksi .= 'tgl_buku '.$tgl_dok_lama.', ';
+                }
+                if($keterangan!==$keterangan_lama){
+                            $koreksi .= 'ket. '.$keterangan_lama.', ';
+                }
+
+        }
+
+        $query_log = "Insert into log_trans_masuk
+                                set 
+                                kd_lokasi='$kd_lokasi',
+                                nm_satker='$nm_satker',
+                                thn_ang='$thn_ang',
+                                no_dok='$no_dok',
+                                tgl_dok='$tgl_dok',
+                                tgl_buku='$tgl_buku',
+                                no_bukti='$no_bukti',
+                                jns_trans='$jns_trans',
+                                aksi='$koreksi',
+                                kd_brg='$kd_brg',
+                                nm_brg='$nm_brg',
+                                
+                                
+                                qty='0',
+                                
+                                harga_sat='0',
+                                total_harga='0',
+                                keterangan='$keterangan',
+                                tgl_update=NOW(),
+                                user_id='$user_id'";   
+        $result_log = $this->query($query_log);
+
+
+        $query = "UPDATE transaksi_masuk set no_dok = '$no_dok', tgl_dok='$tgl_dok', tgl_buku = '$tgl_buku', keterangan = '$keterangan' 
+                        where no_dok = '$no_dok_lama' and kd_lokasi = '$kd_lokasi' and thn_ang='$thn_ang' ";
+                        $result = $this->query($query);
+
+    }
 
     public function ubah_transaksi_masuk($data)
     {
