@@ -26,3 +26,53 @@
     <button type="submit" class="btn btn-info pull-right">Submit</button>
   </div>
 </form>
+<script type="text/javascript">
+    var table;
+      $(function () {
+        $(".treeview").addClass("active");
+        $("li#neraca").addClass("active");
+        $('#tgl_awal').datepicker({
+          format: "dd-mm-yyyy"
+        });         
+        $('#tgl_akhir').datepicker({
+          format: "dd-mm-yyyy"
+        });             
+        $("li#mutasi_sedia").addClass("active");
+
+      });
+        $("#satker").select2({
+          placeholder: "-- Masukkan Kode Satker --",
+          ajax: {
+            url: '../core/report/prosesreport',
+            dataType: 'json',
+            type: 'post',
+            delay: 250,
+            data: function (params) {
+              return {
+                manage:'baca_satker_admin',
+                q: params.term, // search term
+                page: params.page
+              };
+            },
+            processResults: function (data, page) {
+              return {
+                results: data
+              };
+            },
+            cache: true
+          },
+            escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+            minimumInputLength: 1,
+        });
+      $('form').on('submit', function() {
+        if(document.getElementById("satker").value=="")
+        {
+          alert("Kode Satker Belum Dipilih");
+          return false;
+        }
+        else
+        {
+          return true;
+        }
+    });
+</script>

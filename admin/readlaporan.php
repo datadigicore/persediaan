@@ -73,22 +73,22 @@
       $("#lp").click(function(){
         data = ["Laporan Persediaan","lap_persediaan","lp"];
         changeButton(data);
-        loadScript("read/"+data[1]+".js", changeScript);
+        // loadScript("read/"+data[1]+".js", changeScript);
       });
       $("#rp").click(function(){
         data = ["Rincian Persediaan","rincian_persediaan","rp"];
         changeButton(data);
-        loadScript("read/"+data[1]+".js", changeScript);
+        // loadScript("read/"+data[1]+".js", changeScript);
       });
       $("#pp").click(function(){
         data = ["Posisi Persediaan","neraca","pp"];
         changeButton(data);
-        loadScript("read/"+data[1]+".js", changeScript);
+        // loadScript("read/"+data[1]+".js", changeScript);
       });
       $("#mp").click(function(){
         data = ["Mutasi Persediaan","mutasi_prsedia","mp"];
         changeButton(data);
-        loadScript("read/"+data[1]+".js", changeScript);
+        // loadScript("read/"+data[1]+".js", changeScript);
       });
     </script>
   </body>
