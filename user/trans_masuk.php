@@ -337,15 +337,21 @@
           $("#tgl_buku"+id_row +"").val(tgl_buku_row);
           $('#tgl_dok'+id_row +"").mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
           $('#tgl_buku'+id_row +"").mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
+          $('#tgl_dok'+id_row +"").datepicker({
+            format: "dd-mm-yyyy"
+          });
+          $('#tgl_buku'+id_row +"").datepicker({
+            format: "dd-mm-yyyy"
+          }); 
         }
       });
       function format ( d ) {
         return '<div class="slider">'+
-        '<form action="../core/" method="post" class="form-horizontal" id="upd_dok_masuk">'+
+        '<form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="upd_dok_masuk">'+
         '<table width="100%">'+
            '<tr>'+
               '<input type="hidden" name="manage" value="ubah_dok_masuk">'+
-              '<input type="hidden" name="id" value="'+d[0]+'">'+
+              '<input type="hidden" name="no_dok_lama" value="'+d[2]+'">'+
               '<td width="7%"><input style="width:90%" id="jns_trans'+d[0]+'" name="jns_trans_baru" class="form-control" type="text" readonly></td>'+
               '<td width="11%"><input style="width:98%" id="kd_satker'+d[0]+'" name="kd_satker" class="form-control" type="text" readonly></td>'+
               '<td><input style="width:98%" id="nodok'+d[0]+'" name="nodok_baru" class="form-control" type="text" ></td>'+
@@ -368,28 +374,52 @@
         //   keyboard: false
         // });
         // $('#myModal').modal('show');
-        alert("Sedang Diuji Coba");
+        
         e.preventDefault();
         redirectTime = "2600";
         redirectURL = "trans_masuk";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
-        // $.ajax({
-        //   type: "post",
-        //   data: addData,
-        //   url : formURL,
-        //   contentType: false,
-        //   cache: false,  
-        //   processData: false,
-        //   success: function(data)
-        //   {
-        //     $("#success-alert").alert();
-        //     $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-        //     $("#success-alert").alert('close');
-        //     });
-        //     setTimeout("location.href = redirectURL;",redirectTime); 
-        //   }
-        // });
+        $.ajax({
+          type: "post",
+          data: addData,
+          url : formURL,
+          contentType: false,
+          cache: false,  
+          processData: false,
+          success: function(data)
+          {
+              $("#example1").DataTable().destroy();
+              $("#example1 tbody").empty();
+              $('button:submit').attr("disabled", false); 
+              table = $("#example1").DataTable({
+                "processing": false,
+                "serverSide": true,
+                "ajax": "../core/loadtable/loadtransmsk",
+                "columnDefs":
+                [
+                  {"targets": 0,
+                   "visible": false },
+                  {"targets": 1 },
+                  {"targets": 2 },
+                  {"targets": 3,
+                   "visible": false },
+                  {"targets": 4 },
+                  {"targets": 5 },
+                  {"targets": 6 },
+                  {"orderable": false,
+                   "data": null,
+                   "defaultContent":  '<div class="box-tools">'+
+                                        
+                                        '<button id="btntmbh" class="btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
+                                        '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
+                                      '</div>',
+                   "targets": [7],"targets": 7 },
+                ],
+                "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
+              });
+          }
+        });
         return false;
       });
     </script>
