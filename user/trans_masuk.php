@@ -92,7 +92,7 @@
                         <th width="18%">No Bukti</th>
                         <th>Tanggal Dokumen</th>
                         <th>Tanggal Buku</th>
-                        <th>Total Transaksi</th>
+                        <th>Keterangan</th>
                         <th width="8.5%">Aksi</th>
                       </tr>
                     </thead>
@@ -154,12 +154,12 @@
              "visible": false },
             {"targets": 4 },
             {"targets": 5 },
-            {"targets": 6,
-             "visible": false  },
+            {"targets": 6 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                   '<button id="btntmbh" class="btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
+                                  // '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                 '</div>',
              "targets": [7],"targets": 7 },
           ],
@@ -289,11 +289,11 @@
                    "visible": false },
                   {"targets": 4 },
                   {"targets": 5 },
-                  {"targets": 6,
-                   "visible": false  },
+                  {"targets": 6 },
                   {"orderable": false,
                    "data": null,
                    "defaultContent":  '<div class="box-tools">'+
+                                        '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                         '<button id="btntmbh" class="btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
                                       '</div>',
                    "targets": [7],"targets": 7 },
@@ -308,6 +308,89 @@
           alert("Harap Masukkan Data Terlebih Dahulu");
           return false;
         }       
+      });
+      $(document).on('click', '#btnedt', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+        id_row = row.data()[0];
+        jns_trans_row = row.data()[1];
+        gab_row = row.data()[2];
+        kdsatker_row = gab_row.substring(0,11);
+        nodok_row = gab_row.substring(12,20);
+        tgl_dok_row = row.data()[4];
+        tgl_buku_row = row.data()[5];
+        keterangan_row = row.data()[6];
+        if ( row.child.isShown() ) {
+          $('div.slider', row.child()).slideUp( function () {
+            row.child.hide();
+            tr.removeClass('shown');
+          });
+        }
+        else {
+          row.child( format(row.data())).show();
+          tr.addClass('shown');
+          $('div.slider', row.child()).slideDown();
+          $("#jns_trans"+id_row +"").val(jns_trans_row);
+          $("#kd_satker"+id_row +"").val(kdsatker_row);
+          $("#nodok"+id_row +"").val(nodok_row);
+          $("#tgl_dok"+id_row +"").val(tgl_dok_row);
+          $("#tgl_buku"+id_row +"").val(tgl_buku_row);
+          $('#tgl_dok'+id_row +"").mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
+          $('#tgl_buku'+id_row +"").mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
+        }
+      });
+      function format ( d ) {
+        return '<div class="slider">'+
+        '<form action="../core/" method="post" class="form-horizontal" id="upd_dok_masuk">'+
+        '<table width="100%">'+
+           '<tr>'+
+              '<input type="hidden" name="manage" value="ubah_dok_masuk">'+
+              '<input type="hidden" name="id" value="'+d[0]+'">'+
+              '<td width="7%"><input style="width:90%" id="jns_trans'+d[0]+'" name="jns_trans_baru" class="form-control" type="text" readonly></td>'+
+              '<td width="11%"><input style="width:98%" id="kd_satker'+d[0]+'" name="kd_satker" class="form-control" type="text" readonly></td>'+
+              '<td><input style="width:98%" id="nodok'+d[0]+'" name="nodok_baru" class="form-control" type="text" ></td>'+
+              '<td><input style="width:98%" id="tgl_dok'+d[0]+'" name="tgl_dok_baru" class="form-control" type="text" ></td>'+
+              '<td><input style="width:98%" id="tgl_buku'+d[0]+'" name="tgl_buku_baru" class="form-control" type="text" ></td>'+
+              '<td><input style="width:98%" id="keterangan'+d[0]+'" name="ket_baru" class="form-control" type="text" ></td>'+
+              '<td style="vertical-align:middle; width:7%;">'+
+                '<div class="box-tools">'+
+                  // '<button id="btnrst" class="btn btn-warning btn-xs pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
+                  '<button id="btnupd" class="btn btn-primary btn-xs pull-right"><i class="fa fa-upload"></i> Update</button>'+
+                '</div>'
+              '</td>'+
+           '</tr>'+
+        '</table>'+
+        '</form></div>';
+      }
+      $(document).on('submit', '#upd_dok_masuk', function (e) {
+        // $('#myModal').modal({
+        //   backdrop: 'static',
+        //   keyboard: false
+        // });
+        // $('#myModal').modal('show');
+        alert("Sedang Diuji Coba");
+        e.preventDefault();
+        redirectTime = "2600";
+        redirectURL = "trans_masuk";
+        var formURL = $(this).attr("action");
+        var addData = new FormData(this);
+        // $.ajax({
+        //   type: "post",
+        //   data: addData,
+        //   url : formURL,
+        //   contentType: false,
+        //   cache: false,  
+        //   processData: false,
+        //   success: function(data)
+        //   {
+        //     $("#success-alert").alert();
+        //     $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+        //     $("#success-alert").alert('close');
+        //     });
+        //     setTimeout("location.href = redirectURL;",redirectTime); 
+        //   }
+        // });
+        return false;
       });
     </script>
   </body>

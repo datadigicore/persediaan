@@ -22,7 +22,7 @@ $columns = array(
     array( 'db' => 'no_bukti', 'dt' => 3 ),
     array( 'db' => 'tgl_dok', 'dt' => 4, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
     array( 'db' => 'tgl_buku', 'dt' => 5, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
-    array( 'db' => 'total_harga', 'dt' => 6 ),
+    array( 'db' => 'keterangan', 'dt' => 6 ),
     // array( 'db' => 'nm_brg', 'dt' => 5 ),
     // array( 'db' => 'qty', 'dt' => 6 ),
     // array( 'db' => 'harga_sat', 'dt' => 7 ),
