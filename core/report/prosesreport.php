@@ -35,6 +35,11 @@ else
 		case 'baca_satker_admin':
 		$search = $_POST['q'];
 		$Report->baca_satker_admin($search);
+		break;		
+
+		case 'baca_upb_admin':
+		$search = $_POST['q'];
+		$Report->baca_upb_admin($search);
 		break;
 		
 		case 'buku_persediaan':

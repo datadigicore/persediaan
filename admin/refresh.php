@@ -24,8 +24,10 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title"> Refresh Mutasi Persediaan</h3>
-                </div>  
+                 <!--  <h3 class="box-title"> Refresh Mutasi Persediaan</h3> -->
+                 <h5>Refresh Berfungsi untuk menghitung ulang mutasi pengeluaran barang dengan metode FIFO yang disebabkan input persediaan masuk dengan tanggal penerimaan dibawah tanggal pengeluaran barang</h5>  
+                </div>
+
                 <form action="../core/konfig/proseskonfigurasi" method="post" class="form-horizontal" id="addtransmsk" >
                    <input type="hidden" name="manage" value="refresh">  
                   <div class="box-body">
@@ -67,7 +69,7 @@
       $(".treeview").addClass("active");
       $("li#refresh").addClass("active");
   $("#satker").select2({
-  placeholder: "-- Pilih Kode Item Barang --",
+  placeholder: "-- Masukkan Kode UPB--",
   ajax: {
     url: '../core/konfig/proseskonfigurasi',
     dataType: 'json',
