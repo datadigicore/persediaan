@@ -47,19 +47,19 @@
                             <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor Bukti">
                           </div>
                         </div> -->
-<!--                         <div class="form-group">
+                        <div class="form-group">
                           <label class="col-sm-2 control-label">Tanggal Dokumen</label>
-                          <div class="col-sm-9">
-                            <input type="text" name="tgl_dok" max="10" class="form-control" id="tgl_dok" placeholder="Masukkan Tanggal Dokumen" >
+                          <div class="col-sm-2">
+                            <input type="text" name="tgl_dok"  class="form-control" id="tgl_dok" >
                           </div>
                         </div>                    
-                        <div class="form-group">
+<!--                         <div class="form-group">
                           <label class="col-sm-2 control-label">Tanggal Buku</label>
                           <div class="col-sm-9">
                             <input type="text" name="tgl_buku" max="10" class="form-control" id="tgl_buku" placeholder="Masukkan Tanggal Buku" >
                           </div> 
                         </div> -->
-                    <div class="form-group" id="smt" >
+<!--                     <div class="form-group" id="smt" >
                       <label class="col-sm-2 control-label">Semester</label>
                       <div class="col-sm-2">
                         <select name="smt" id="smt" class="form-control">
@@ -67,13 +67,13 @@
                           <option value="-12-31">Semester 2</option>
                         </select>
                       </div>
-                    </div>
-                    <div class="form-group">
+                    </div> -->
+<!--                     <div class="form-group">
                        <label class="col-sm-2 control-label">Keterangan</label>
                        <div class="col-sm-8">
                           <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Keterangan">
                         </div>
-                    </div> 
+                    </div> --> 
                   </div>
                   <div class="box-footer">
                     <button type="Reset" class="btn btn-default">Reset</button>

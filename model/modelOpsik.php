@@ -460,6 +460,7 @@ class modelOpsik extends mysql_db
         $thn_ang = $data['thn_ang'];
         $kd_brg = $data['kd_brg'];
         $kuantitas = $data['kuantitas'];
+        $keterangan = $data['keterangan'];
         
         $status = $data['status'];
         $user_id = $data['user_id'];
@@ -475,7 +476,7 @@ class modelOpsik extends mysql_db
         $no_dok = $dok['no_dok'];
         $no_bukti = $dok['no_bukti'];
         $jns_trans = $dok['jns_trans'];
-        $keterangan = $dok['keterangan'];
+        // $keterangan = $dok['keterangan'];
         
 
         $query_perk = "SELECT kd_sskel, nm_sskel, kd_perk, nm_perk, nm_brg, satuan from transaksi_masuk where kd_brg='$kd_brg' and kd_lokasi = '$kd_lokasi' ";

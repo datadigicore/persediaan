@@ -50,11 +50,11 @@ else
 
 			$no_dok = $kd_lokasi.$purifier->purify($_POST['no_dok']);
 			$no_bukti = null;
-			// $tgl_dok = $Opsik->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
-			// $tgl_buku = $Opsik->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
+			$tgl_dok = $Opsik->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
+			$tgl_buku = $Opsik->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
 
-			$tgl_dok = $thn_ang.$purifier->purify($_POST['smt']);
-			$tgl_buku = $thn_ang.$purifier->purify($_POST['smt']);
+			// $tgl_dok = $thn_ang.$purifier->purify($_POST['smt']);
+			// $tgl_buku = $thn_ang.$purifier->purify($_POST['smt']);
 
 
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
