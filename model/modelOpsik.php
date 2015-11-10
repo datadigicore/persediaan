@@ -532,7 +532,8 @@ class modelOpsik extends mysql_db
                     status=0,
                     tgl_update=CURDATE(),
                     user_id='$user_id'";   
-        $result = $this->query($query);  
+        $result = $this->query($query); 
+        $id_opname = $this->insert_id(); 
  
         $query_log = "Insert into log_trans_masuk
                         set 
@@ -555,10 +556,10 @@ class modelOpsik extends mysql_db
                         user_id='$user_id'";   
             $result_log = $this->query($query_log);
 
-        $query_id = "select id from opname WHERE kd_brg='$kd_brg'  and kd_lokasi='$kd_lokasi' and no_dok='$no_dok' order by ID DESC LIMIT 1";
-        $result_id = $this->query($query_id);
-        $row_id = $this->fetch_array($result_id);
-        $id_opname = $row_id['id'];
+        // $query_id = "select id from opname WHERE kd_brg='$kd_brg'  and kd_lokasi='$kd_lokasi' and no_dok='$no_dok' order by ID DESC LIMIT 1";
+        // $result_id = $this->query($query_id);
+        // $row_id = $this->fetch_array($result_id);
+        
           
         $jml_brg = $data_jml['qty'];
         $selisih = $kuantitas - $jml_brg;
