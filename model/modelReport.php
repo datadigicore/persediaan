@@ -1205,7 +1205,7 @@ class modelReport extends mysql_db
                     //               ) transaksi
                     //               where   kd_lokasi like '$kd_lokasi%'  and thn_ang='$thn_ang' 
                     //               GROUP by kd_brg";
-                        $sql= "SELECT kd_perk, nm_perk from transaksi_masuk kd_lokasi where kd_lokasi like '$kd_lokasi%'  and thn_ang='$thn_ang' 
+                        $sql= "SELECT kd_perk, nm_perk from transaksi_masuk where kd_lokasi like '$kd_lokasi%'  and thn_ang='$thn_ang' 
                                   GROUP by kd_brg";
             }
             elseif($nm_lap=="neraca"){
@@ -2111,51 +2111,61 @@ class modelReport extends mysql_db
         $data_sektor = $this->fetch_array($result_sektor);
         $nama_sektor = $data_sektor['NamaSatker'];
 
-        // $result_satker = $this->query($query_satker);
-        // $data_satker = $this->fetch_array($result_satker);
-        // $nama_satker = $data_sektor['NamaSatker'];
+        $result_satker = $this->query($query_satker);
+        $data_satker = $this->fetch_array($result_satker);
+        $nama_satker = $data_sektor['NamaSatker'];
 
-        // $result_unit = $this->query($query_unit);
-        // $data_unit = $this->fetch_array($result_unit);
-        // $nama_unit = $data_unit['NamaSatker'];
+        $result_unit = $this->query($query_unit);
+        $data_unit = $this->fetch_array($result_unit);
+        $nama_unit = $data_unit['NamaSatker'];
         
-        // $result_gudang = $this->query($query_gudang);
-        // $data_gudang = $this->fetch_array($result_gudang);
-        // $nama_gudang = $data_unit['NamaSatker'];
+        $result_gudang = $this->query($query_gudang);
+        $data_gudang = $this->fetch_array($result_gudang);
+        $nama_gudang = $data_unit['NamaSatker'];
         
 
-        echo '<table style="text-align: left; width: 50%; font-size:85% ">';
-        // if($detil[0]!="")
-        // {
-        echo '
-                    <tr>
-                        <td>SKPD</td>
-                        <td colspan="2">'.':  '.$nama_sektor.'</td>
-                    </tr>';
-        // }
-        // if($detil[1]!="")
-        // {
+        echo '<table style="text-align: left; width: 50%; font-size:85%; font-weight:bold;">';
+        echo  '<tr>
+                    <td>Provinsi</td>
+                    <td colspan="2">'.':  '.'Jawa Tengah'.'</td>
+               </tr>';
         echo  ' 
                     <tr>
-                        <td>KABUPATEN / KOTA</td>
+                        <td>Kabupaten / Kota</td>
                         <td colspan="2">'.':  '.' '.'Kota Pekalongan'.'</td>
                     </tr>'; 
-        // }
-        // if($detil[2]!="")
-        // {               
-        echo  '<tr>
-                        <td>PROVINSI </td>
-                        <td colspan="2">'.':  '.'Jawa Tengah'.'</td>
+        if($detil[0]!="")
+        {
+        echo '
+                    <tr>
+                        <td>Bidang</td>
+                        <td colspan="2">'.':  '.$nama_sektor.'</td>
                     </tr>';
-        // }
-        // if($detil[3]!="")
-        // { 
-        // echo            '<tr>
-        //                 <td>Gudang </td>
-        //                 <td colspan="2">'.':  '.$nama_gudang.'</td>
-        //             </tr>
-        //             <p></p>';
-        // }
+        }
+        if($detil[1]!="")
+        {
+        echo  ' 
+                    <tr>
+                        <td>Unit Organisasi</td>
+                        <td colspan="2">'.':  '.' '.$nama_satker.'</td>
+                    </tr>'; 
+        }
+        if($detil[2]!="")
+        {               
+        echo  ' 
+                    <tr>
+                        <td>Sub Unit Organisasi</td>
+                        <td colspan="2">'.':  '.' '.$nama_unit.'</td>
+                    </tr>'; 
+        }
+        if($detil[3]!="")
+        { 
+        echo            '<tr>
+                        <td>UPB</td>
+                        <td colspan="2">'.':  '.$nama_gudang.'</td>
+                    </tr>
+                    <p></p>';
+        }
         echo '</table>';
         echo '<br></br>';
 
