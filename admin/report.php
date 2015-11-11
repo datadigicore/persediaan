@@ -26,11 +26,11 @@
               <li><a href="#rincian_persediaan" data-toggle="tab">Rincian Persediaan<i class="fa"></i></a></li>
               <li><a href="#neraca" data-toggle="tab">Posisi Persediaan<i class="fa"></i></a></li>
               <li><a href="#mutasi" data-toggle="tab">Mutasi Persediaan<i class="fa"></i></a></li>
-              <li><a href="#transaksi" data-toggle="tab">Daftar Transaksi Persediaan Per UPB<i class="fa"></i></a></li>
+              <li><a href="#trans" data-toggle="tab">Daftar Transaksi Persediaan Per UPB<i class="fa"></i></a></li>
               <li><a href="#terima_brg" data-toggle="tab">Buku Penerimaan Barang Per UPB<i class="fa"></i></a></li>
-              <li><a href="keluar_brg" data-toggle="tab">Buku Pengeluaran Barang Per UPB<i class="fa"></i></a></li>
-              <li><a href="buku_pakai_habis" data-toggle="tab">Buku Barang Pakai Habis Per UPB<i class="fa"></i></a></li>
-              <li><a href="terima_keluar_brg" data-toggle="tab">Penerimaan & pengeluaran Barang Pakai Habis Per UPB<i class="fa"></i></a></li>
+              <li><a href="#keluar_brg" data-toggle="tab">Buku Pengeluaran Barang Per UPB<i class="fa"></i></a></li>
+              <li><a href="#buku_pakai_habis" data-toggle="tab">Buku Barang Pakai Habis Per UPB<i class="fa"></i></a></li>
+              <li><a href="#terima_keluar_brg" data-toggle="tab">Penerimaan & pengeluaran Barang Pakai Habis Per UPB<i class="fa"></i></a></li>
 
           </ul>
 
@@ -49,8 +49,45 @@
                   </div>
 
                   <div class="tab-pane" id="rincian_persediaan">
+                  </div>
+
+                  <div class="tab-pane" id="neraca">
+                  </div>
+
+                  <div class="tab-pane" id="mutasi">
 
                   </div>
+                    
+                  <div class="tab-pane" id="trans">
+                    <div class="box-body">
+                      <label class="col-sm-2 control-label">Jenis Transaksi</label>
+                      <div class="col-sm-4">
+                        <select name="jenis_trans" id="jenis_trans" class="form-control">
+                          <option value="">---Pilih Jenis Transaksi---</option>
+                          <option value="M01-Saldo Awal">Saldo Awal</option>
+                          <option value="M02-Pembelian">Pembelian</option>
+                          <option value="M03-Transfer Masuk">Transfer Masuk</option>
+                          <option value="K01-Habis Pakai">Habis Pakai</option>
+                          <option value="K02-Usang">Usang</option>
+                          <option value="K03-Rusak">Rusak</option>
+                          <option value="K04-Transfer Keluar">Transfer Keluar</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="tab-pane" id="terima_brg">
+                  </div>
+
+                  <div class="tab-pane" id="keluar_brg">
+                  </div>
+
+                  <div class="tab-pane" id="buku_pakai_habis">
+                  </div>
+
+                  <div class="tab-pane" id="terima_keluar_brg">
+                  </div>
+
               </div>
                     <div class="box-body radio" style="display: none;">
                         <label class="col-sm-2 control-label"><input type="radio" name="jenis" id="tanggal" value="tanggal" checked>Tanggal</label>
@@ -80,6 +117,15 @@
                         </select>
                       </div>
                     </div> 
+                    <div class="box-body" style="display: none;">
+                      <label class="col-sm-2 control-label">Format laporan</label>
+                      <div class="col-sm-4">
+                        <select name="format" id="format" class="form-control">
+                          <option value="pdf">PDF</option>
+                          <option value="excel">Excel</option>
+                        </select>
+                      </div>
+                    </div> 
               <div class="form-group" style="margin-top: 15px;">
                   <div class="col-xs-5 col-xs-offset-3">
                       <button type="submit" class="btn btn-default">Cetak</button>
@@ -98,7 +144,8 @@
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
 
     <script type="text/javascript">
-    var manage_val;
+      $("li#laporan").addClass("active");
+      var manage_val;
       $('#tgl_awal').datepicker({
           format: "dd-mm-yyyy"
       });         

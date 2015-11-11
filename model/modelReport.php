@@ -182,7 +182,7 @@ class modelReport extends mysql_db
         $kd_lokasi = $data['kd_lokasi'];
         $satker_asal = $data['satker_asal'];
 
-        echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
+        //echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
         $this->getsatker($kd_lokasi);
         $date = $this->cek_periode($data);
 
@@ -686,7 +686,7 @@ class modelReport extends mysql_db
                 $detail_brg = "SELECT nm_brg, satuan from persediaan where  kd_brg like '$kd_brg' ";
                 $result_detail = $this->query($detail_brg);
                 $brg = $this->fetch_array($result_detail);
-                echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
+                //echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
                 $this->getsatker($kd_lokasi);
                 
                 echo ' <p align="center" style="margin:0px; padding:0px; font-weight:bold;">KARTU PERSEDIAAN</p>
@@ -721,7 +721,7 @@ class modelReport extends mysql_db
                         </tr>';          
             }
             elseif($nm_lap=="laporan_persediaan"){
-              echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
+              //echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
               $this->getsatker($kd_lokasi);
               echo '<p align="center" style="margin:0px; padding:0px; font-weight:bold;">LAPORAN PERSEDIAAN BARANG</p>
                     <p align="center" style="margin:0px; padding:0px; font-weight:bold;">UNTUK PERIODE YANG BERAKHIR PADA '.$date.'</p>
@@ -775,7 +775,7 @@ class modelReport extends mysql_db
                         </tr>';
           }
           elseif($nm_lap=="neraca"){
-              echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
+              //echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
               $this->getsatker($kd_lokasi);
               $date = $this->cek_periode($data);
               echo '<p align="center" style="margin:0px; padding:0px; font-weight:bold;">LAPORAN POSISI PERSEDIAAN DI NERACA</p>
@@ -825,7 +825,7 @@ class modelReport extends mysql_db
 
         }
         elseif($nm_lap=="transaksi_persediaan"){
-            echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
+            //echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
             echo ' 
                     <table style="text-align: center; width: 90%; " align="center">
                     <tr>
