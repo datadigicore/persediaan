@@ -1842,32 +1842,32 @@ class modelReport extends mysql_db
                         <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
                         <center><td  align="center">'.$data[nm_brg].'</td></center>
                         <center><td  align="center">'.$data[spesifikasi].'</td></center>
-                        <center><td  align="center">'.'-'.'</td></center>
+                        <center><td  align="center">'.''.'</td></center>
                         <center><td  align="center">'.$data[qty].' '.$data[satuan].'</td></center>
                         <center><td  align="center">'.$data[harga_sat].'</td></center>
                         <center><td  align="center">'.$this->konversi_tanggal($data[tgl_dok]).'</td></center>
                         <center><td  align="center">'.$data[no_dok].'</td></center>
-                        <td>'.'-'.'</td>
-                        <td>'.'-'.'</td>
-                        <td>'.'-'.'</td>
-                        <td>'.'-'.'</td>
-                        <td>'.'-'.'</td>
+                        <td>'.''.'</td>
+                        <td>'.''.'</td>
+                        <td>'.''.'</td>
+                        <td>'.''.'</td>
+                        <td>'.''.'</td>
                         </tr>';
                 }
                 else
                 {
                     echo '<tr>
                             <center><td  align="center">'.$no.'</td></center>
-                            <center><td  align="center">'.'-'.'</td></center>
+                            <center><td  align="center">'.''.'</td></center>
                             <center><td  align="center">'.$data[nm_brg].'</td></center>
                             <center><td  align="center">'.$data[spesifikasi].'</td></center>
-                            <td>'.'-'.'</td>
-                            <td>'.'-'.'</td>
-                            <td>'.'-'.'</td>
-                            <td>'.'-'.'</td>
-                            <td>'.'-'.'</td>
+                            <td>'.''.'</td>
+                            <td>'.''.'</td>
+                            <td>'.''.'</td>
+                            <td>'.''.'</td>
+                            <td>'.''.'</td>
                             <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
-                            <center><td  align="center">'.'-'.'</td></center>
+                            <center><td  align="center">'.''.'</td></center>
                             <center><td  align="center">'.abs($data[qty]).' '.$data[satuan].'</td></center>
                             <center><td  align="center">'.$data[no_dok].'</td></center>
                             <center><td  align="center">'.$data[keterangan].'</td></center>
@@ -1896,13 +1896,13 @@ class modelReport extends mysql_db
                          if($data[qty]>0) 
                          {
                             echo '<center><td  align="center">'.$data[qty].'</td></center> 
-                            <center><td  align="center">'.'-'.'</td></center>
+                            <center><td  align="center">'.''.'</td></center>
                             <center><td  align="center">'.$sisa.'</td></center>
                             <center><td  align="center">'.$data[keterangan].'</td></center>';
                          }
                          else 
                          {                
-                            echo '<center><td  align="center">'.'-'.'</td></center>
+                            echo '<center><td  align="center">'.''.'</td></center>
                             <center><td  align="center">'.abs($data[qty]).'</td></center>
                             <center><td  align="center">'.$sisa.'</td></center>
                             <center><td  align="center">'.$data[keterangan].'</td></center>'; 
@@ -1934,22 +1934,22 @@ class modelReport extends mysql_db
                         if($data[qty]>0) 
                         {
                             echo '<center><td  align="center">'.$data[qty].'</td></center> 
-                                    <center><td  align="center">'.'-'.'</td></center>
+                                    <center><td  align="center">'.''.'</td></center>
                                     <center><td  align="center">'.$sisa.'</td></center>
                                     <center><td  align="center">'.$data[harga_sat].'</td></center>
                                     <center><td  align="center">'.$subtotal.'</td></center>
-                                    <center><td  align="center">'.'-'.'</td></center>
+                                    <center><td  align="center">'.''.'</td></center>
                                     <center><td  align="center">'.$saldo.'</td></center>
                                     <center><td  align="center">'.''.'</td></center>';
                         }
                         else 
                         {
                         
-                            echo '  <center><td  align="center">'.'-'.'</td></center>
+                            echo '  <center><td  align="center">'.''.'</td></center>
                                     <center><td  align="center">'.abs($data[qty]).'</td></center>
                                     <center><td  align="center">'.$sisa.'</td></center>
                                     <center><td  align="center">'.$data[harga_sat].'</td></center>
-                                    <center><td  align="center">'.'-'.'</td></center>
+                                    <center><td  align="center">'.''.'</td></center>
                                     <center><td  align="center">'.$subtotal.'</td></center>
                                     <center><td  align="center">'.$saldo.'</td></center>
                                     <center><td  align="center">'.''.'</td></center>';
@@ -2025,7 +2025,7 @@ class modelReport extends mysql_db
                                 <center><td  align="center"></td></center>
                                 <center><td  align="center">'.$no.'</td></center>
                                 <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
-                                <center><td  align="center">'.'</td></center>
+                                <center><td  align="center">'.$data[no_dok].'</td></center>
                                 <center><td  align="center">'.$data[tgl_buku].'</td></center>
                                 <center><td  align="center">'.$data[untuk].'</td></center>
                                 <center><td  align="center">'.abs($data[qty]).'</td></center>

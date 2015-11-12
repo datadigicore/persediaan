@@ -40,7 +40,7 @@
                       <div class="col-sm-2">
                         <select name="smt" id="smt" class="form-control">
                           <option value="01-06">Semester 1</option>
-                          <option value="07-12">Semester 2</option>
+                          <option value="01-12">Semester 2</option>
                         </select>
                       </div>
                     </div> 

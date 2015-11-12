@@ -79,12 +79,7 @@ else {
                             <input type="hidden" id="read_no_dok" name="read_no_dok">
                             </div>
                           </div>  
-                          <div class="form-group">
-                            <label class="col-sm-3 control-label">Keterangan</label>
-                            <div class="col-sm-8">
-                              <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Keterangan">
-                            </div>
-                          </div>
+
                           <div class="form-group">
                             <label class="col-sm-3 control-label">Kode Barang</label>
                             <div class="col-sm-8">
@@ -106,10 +101,14 @@ else {
                             <div class="col-sm-8">
                               <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="Saldo Barang" readonly >
                             </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">Keterangan Atas Selisih</label>
+                            <div class="col-sm-8">
+                              <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Mis. Hilang / Usang / Rusak">
+                            </div>
                           </div>                  
-                        </div>  
-                    
-                      
+                        </div>   
                     </div>
                   </div> <!-- </div class="box-body">  -->
                   <div class="box-footer">
