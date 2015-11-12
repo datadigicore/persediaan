@@ -119,7 +119,7 @@ class modelTransaksi extends mysql_db
                            
                     $result2 = $this->query($query_full);
                 }
-                    $query_ttp_msk = "UPDATE transaksi_masuk set status_ambil=1,qty_akhir=0 where thn_ang = '$thn_ang_lalu' and kd_lokasi='$kd_lokasi' ";
+                    $query_ttp_msk = "UPDATE transaksi_masuk set status_ambil=1 where thn_ang = '$thn_ang_lalu' and kd_lokasi='$kd_lokasi' ";
                     $query_ttp_klr = "UPDATE transaksi_keluar set status_ambil=1 where thn_ang = '$thn_ang_lalu' and kd_lokasi='$kd_lokasi' ";
                     $query_set_user = "UPDATE user set tutup_tahun='Y' where tahun = '$thn_ang_now' and kd_lokasi='$kd_lokasi' and tutup_tahun is null ";
 
