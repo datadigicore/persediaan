@@ -1446,7 +1446,7 @@ class modelTransaksi extends mysql_db
        $cek= $this->fetch_array($result);
        $jumlah = $cek["qty"];
 
-       $query_cek_opname = "SELECT status from transaksi_masuk where kd_lokasi='$kd_lokasi' and id='$id_masuk'";
+       $query_cek_opname = "SELECT status from transaksi_masuk where kd_lokasi like '$kd_lokasi%' and id='$id_masuk'";
        $result_cek_opname = $this->query($query_cek_opname);
        $cek_opname= $this->fetch_array($result_cek_opname);
        $status = $cek_opname["status"];
