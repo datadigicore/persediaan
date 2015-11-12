@@ -347,12 +347,12 @@ class modelReport extends mysql_db
                 exit;
          }
 
-        public function query_bidang($lingkup) {
+        public function query_bidang($lingkup,$kd_lokasi) {
             if($lingkup=="skpd") {
-                return "where kode like '$kd_lokasi%' and char_length(kode)=11";
+                return "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' and char_length(kode)=11 order by kode asc";
             }
             else{
-                return " group by KodeSektor ";
+                return "SELECT kode, NamaSatker FROM satker group by KodeSektor order by kode asc";
             }
         } 
         public function rincian_persediaan2($data_lp)
@@ -364,10 +364,10 @@ class modelReport extends mysql_db
                 $format = $data_lp['format'];
                 $kd_lokasi = $data_lp['kd_lokasi'];
                 $satker_asal = $data_lp['satker_asal'];
+                $lingkup = $data_lp['lingkup'];
                 $no_urut = 0;
                 $this->cetak_header($data_lp,"rincian_persediaan2",$kd_lokasi,"",$no);
-                $where = $this->query_bidang($data_lp['lingkup']);
-                $query = "SELECT kode, NamaSatker FROM satker ".$where." order by kode asc";
+                $query = $this->query_bidang($lingkup,$kd_lokasi);
                 $result = $this->query($query);
                 
                 while($kdsatker=$this->fetch_assoc($result))
