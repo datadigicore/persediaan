@@ -149,6 +149,7 @@ else
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
 			$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
+			$lingkup = $purifier->purify($_POST['lingkup']);
 			$format = $purifier->purify($_POST['format']);
 			$user_id= $_SESSION['username'];
 			$data = array(
@@ -159,6 +160,7 @@ else
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $kd_lokasi,
 			"satker_asal" => $satker_asal,
+			"lingkup" => $lingkup,
 			"format" => $format,
 			"user_id" => $user_id);
 			// print_r($data);

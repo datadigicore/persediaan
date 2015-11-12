@@ -348,11 +348,17 @@ class modelReport extends mysql_db
          }
 
         public function query_bidang($lingkup,$kd_lokasi) {
-            if($lingkup=="skpd") {
+            if($lingkup=="upb") {
                 return "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' and char_length(kode)=11 order by kode asc";
             }
-            else{
+            else if($lingkup=="skpd"){
                 return "SELECT kode, NamaSatker FROM satker group by KodeSektor order by kode asc";
+            }
+            else if($lingkup=="kota"){
+                return "SELECT kd_lokasi from user where kd_lokasi is null limit 1";
+            }
+            else {
+                return "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' and char_length(kode)=11 order by kode asc";
             }
         } 
         public function rincian_persediaan2($data_lp)
@@ -405,9 +411,11 @@ class modelReport extends mysql_db
         $kd_lokasi = $data_lp['kd_lokasi'];
         $satker_asal = $data_lp['satker_asal'];
         $format = $data_lp['format'];
+        $lingkup = $data_lp['lingkup'];
         ob_start(); 
         $this->cetak_header($data_lp,"neraca",$kd_lokasi,"",$no);
-        $query = "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' and char_length(kode)=11 order by kode asc";
+        // $query = "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' and char_length(kode)=11 order by kode asc";
+        $query = $this->query_bidang($lingkup,$kd_lokasi);
         $result = $this->query($query);         
         while($kdsatker=$this->fetch_assoc($result))
         { 
@@ -1612,7 +1620,7 @@ class modelReport extends mysql_db
 }
         }
         elseif($nm_lap=="neraca"){
-                                $no=0;
+                    $no=0;
                     $jumlah=0;
                     $saldo=0;
                     $prev_sskel=null;
@@ -1620,13 +1628,13 @@ class modelReport extends mysql_db
                     $kd_rek=null;
 
                     $saldo = $this->sum_persedia($data_lp,"117","saldo",$kd_lokasi);
+                    if($saldo>0){
                     echo '<tr>
 
-                          <td colspan style="font-weight:bold; background-color:#EFEFEF;">'.$no_urut.'</td>
+                          <td colspan style="font-weight:bold; background-color:#EFEFEF;">'.''.'</td>
                           <td colspan="3" align="left" style="font-weight:bold; background-color:#EFEFEF;">'.$nm_satker.'</td>
                           </tr>';
-                    if($saldo!==0){
-                                  echo '  <tr>
+                    echo '  <tr>
                                   
                           <td align="right" style="font-size:90%; "></td>
                           <td align="right" style="font-size:90%; "><b>117</b></td>
@@ -1634,23 +1642,41 @@ class modelReport extends mysql_db
                           <td align="right"  style="font-size:90%; "><b>'.number_format($this->sum_persedia($data_lp,"117","saldo",$kd_lokasi),2,",",".").'</b></td>
                       </tr>';  
                     
-           
-
-
 
                     while($data=$this->fetch_array($result))
                     {
                         $no+=1;
                         if($kd_rek!=substr($data[kd_perk],0, 5))
                         {
+                                                    if($kd_rek!=substr($data[kd_perk],0, 5))
+                        {
                             echo '<tr>
-                                    <td></td>
-                                    <td align="right" style="font-size:90%; ">'.substr($data[kd_perk],0, 5).'</td>
-                                    <td  align="left" style="font-size:90%; ">'.$data[nm_perk].'</td>
+                                        <td align="right" style="font-size:90%; "></td>
+                                        <td align="right" style="font-size:90%; "><b>'.substr($data[kd_perk],0, 5).'</b></td>';
+                                if(substr($data[kd_perk],0, 5)=="11701"){
+                                        echo '<td align="left" style="font-size:90%; "><b>'."&nbsp;&nbsp;Persediaan Bahan Pakai Habis".'</b></td>';
+                                    }
+                                elseif(substr($data[kd_perk],0, 5)=="11702"){
+                                    echo '<td align="left" style="font-size:90%; "><b>'."&nbsp;&nbsp;Persediaan Bahan / Material".'</b></td>';
+                                }
+                                else{
+                                    echo '<td align="left" style="font-size:90%; "><b>'."&nbsp;&nbsp;Persediaan Brang Lainnya".'</b></td>';
+                                }
+                            echo '
+
                                     <td  align="right" style="font-size:90%; ;">'.number_format($this->sum_persedia($data_lp,substr($data[kd_perk],0, 5),"saldo",$kd_lokasi),2,",",".").'</td>
-                                    <tr>
+                                    
                                    ';
                             $kd_rek=substr($data[kd_perk],0, 5);
+                        }
+                            // echo '<tr>
+                            //         <td></td>
+                            //         <td align="right" style="font-size:90%; ">'.substr($data[kd_perk],0, 5).'</td>
+                            //         <td  align="left" style="font-size:90%; ">'.$data[nm_perk].'</td>
+                            //         <td  align="right" style="font-size:90%; ;">'.number_format($this->sum_persedia($data_lp,substr($data[kd_perk],0, 5),"saldo",$kd_lokasi),2,",",".").'</td>
+                            //         <tr>
+                            //        ';
+                            // $kd_rek=substr($data[kd_perk],0, 5);
                         }
                         if($prev_perk!=$data[kd_perk])
                         {
