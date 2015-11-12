@@ -22,10 +22,10 @@
         </section>
         <section class="content">
           <ul class="nav nav-tabs">
-              <li><a href="#lap_persediaan" data-toggle="tab">Laporan Persediaan<i class="fa"></i></a></li>
+              <!-- <li><a href="#lap_persediaan" data-toggle="tab">Laporan Persediaan<i class="fa"></i></a></li> -->
               <li><a href="#rincian_persediaan" data-toggle="tab">Rincian Persediaan<i class="fa"></i></a></li>
-              <li><a href="#neraca" data-toggle="tab">Posisi Persediaan<i class="fa"></i></a></li>
-              <li><a href="#mutasi" data-toggle="tab">Mutasi Persediaan<i class="fa"></i></a></li>
+              <!-- <li><a href="#neraca" data-toggle="tab">Posisi Persediaan<i class="fa"></i></a></li>
+              <li><a href="#mutasi" data-toggle="tab">Mutasi Persediaan<i class="fa"></i></a></li> -->
               <li><a href="#trans" data-toggle="tab">Daftar Transaksi Persediaan Per UPB<i class="fa"></i></a></li>
               <li><a href="#terima_brg" data-toggle="tab">Buku Penerimaan Barang Per UPB<i class="fa"></i></a></li>
               <li><a href="#keluar_brg" data-toggle="tab">Buku Pengeluaran Barang Per UPB<i class="fa"></i></a></li>
@@ -36,19 +36,16 @@
 
           <form action="../core/report/prosesreport" method="post" class="form-horizontal" >
               <div class="tab-content">
-                 <div class="box-body">
-                    <label class="col-sm-2 control-label">Kode Satker</label>
-                       <div class="col-sm-4">
-                          <select name="satker" id="satker" class="form-control">
-                          </select>
-                        </div>
-                  </div> 
                   <div class="tab-pane active" id="lap_persediaan">  
                       <input type="hidden" name="manage" id="manage" value="lap_persediaan">
 
                   </div>
 
                   <div class="tab-pane" id="rincian_persediaan">
+                    <div class="box-body radio" >
+                        <label class="col-sm-2 control-label"><input type="radio" name="lingkup" id="kota" value="kota" >Kota</label>
+                        <label class="col-sm-2 control-label"><input type="radio" name="lingkup" id="skpd" value="skpd" checked>SKPD</label>
+                    </div> 
                   </div>
 
                   <div class="tab-pane" id="neraca">
@@ -89,6 +86,13 @@
                   </div>
 
               </div>
+                 <div class="box-body">
+                    <label class="col-sm-2 control-label">Kode Satker</label>
+                       <div class="col-sm-4">
+                          <select name="satker" id="satker" class="form-control">
+                          </select>
+                        </div>
+                  </div> 
                     <div class="box-body radio" style="display: none;">
                         <label class="col-sm-2 control-label"><input type="radio" name="jenis" id="tanggal" value="tanggal" checked>Tanggal</label>
                         <label class="col-sm-2 control-label"><input type="radio" name="jenis" id="semester" value="semester">Semester</label>

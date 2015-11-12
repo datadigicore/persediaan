@@ -115,6 +115,7 @@ else
 			$kd_lokasi = $purifier->purify($_POST['satker']);
 			$satker_asal = $_SESSION['kd_lok'];
 			$jenis = $purifier->purify($_POST['jenis']);
+			$lingkup = $purifier->purify($_POST['lingkup']);
 			$semester = explode("-",$purifier->purify($_POST['smt']));
 			$bln_awal = $semester[0];
 			$bln_akhir = $semester[1];
@@ -134,8 +135,10 @@ else
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $kd_lokasi,
 			"satker_asal" => $satker_asal,
+			"lingkup" => $lingkup,
 			"format" => $format,
 			"user_id" => $user_id);
+		print_r($data);
 		$Report->rincian_persediaan2($data);
 		break;		
 

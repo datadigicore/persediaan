@@ -347,6 +347,14 @@ class modelReport extends mysql_db
                 exit;
          }
 
+        public function query_bidang($lingkup) {
+            if($lingkup=="skpd") {
+                return "where kode like '$kd_lokasi%' and char_length(kode)=11";
+            }
+            else{
+                return " group by KodeSektor ";
+            }
+        } 
         public function rincian_persediaan2($data_lp)
         {
                 $mpdf=new mPDF('utf-8', 'A4-L');
@@ -358,7 +366,8 @@ class modelReport extends mysql_db
                 $satker_asal = $data_lp['satker_asal'];
                 $no_urut = 0;
                 $this->cetak_header($data_lp,"rincian_persediaan2",$kd_lokasi,"",$no);
-                $query = "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' and char_length(kode)=11 order by kode asc";
+                $where = $this->query_bidang($data_lp['lingkup']);
+                $query = "SELECT kode, NamaSatker FROM satker ".$where." order by kode asc";
                 $result = $this->query($query);
                 
                 while($kdsatker=$this->fetch_assoc($result))
@@ -2261,7 +2270,7 @@ class modelReport extends mysql_db
         {
             $nm_kolom = " sum(qty_akhir*harga_sat) ";
             $nm_tabel = " transaksi_masuk ";
-            $jns_trans= " and jns_trans not like 'M01%' ";
+            $jns_trans= "";
             $kd_perk  = " and kd_perk like '11701%' ";
             $sql = "SELECT sum(qty_akhir*harga_sat) as jml from transaksi_masuk where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_perk like '11701%' ";
         }
