@@ -22,10 +22,10 @@
         </section>
         <section class="content">
           <ul class="nav nav-tabs">
-              <!-- <li><a href="#lap_persediaan" data-toggle="tab">Laporan Persediaan<i class="fa"></i></a></li> -->
+              <li><a href="#lap_persediaan" data-toggle="tab">Laporan Persediaan<i class="fa"></i></a></li>
               <li><a href="#rincian_persediaan" data-toggle="tab">Rincian Persediaan<i class="fa"></i></a></li>
-              <!-- <li><a href="#neraca" data-toggle="tab">Posisi Persediaan<i class="fa"></i></a></li>
-              <li><a href="#mutasi" data-toggle="tab">Mutasi Persediaan<i class="fa"></i></a></li> -->
+              <!-- <li><a href="#neraca" data-toggle="tab">Posisi Persediaan<i class="fa"></i></a></li> -->
+              <li><a href="#mutasi" data-toggle="tab">Mutasi Persediaan<i class="fa"></i></a></li>
               <li><a href="#trans" data-toggle="tab">Daftar Transaksi Persediaan Per UPB<i class="fa"></i></a></li>
               <li><a href="#terima_brg" data-toggle="tab">Buku Penerimaan Barang Per UPB<i class="fa"></i></a></li>
               <li><a href="#keluar_brg" data-toggle="tab">Buku Pengeluaran Barang Per UPB<i class="fa"></i></a></li>

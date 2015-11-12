@@ -42,11 +42,11 @@
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>
-                      <div class="col-sm-2">
+                      <div class="col-sm-5">
                         <select name="read_no_dok" id="read_no_dok" class="form-control">
                         </select>
                       </div>
-                      <div class="col-sm-7">
+                      <div class="col-sm-4">
                         <input type="text" name="no_dok" class="form-control"  id="no_dok" placeholder="Masukkan No. Dokumen">
                         <input type="hidden" name="manage" value="tbh_transaksi_msk">
                         <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>

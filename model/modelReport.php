@@ -1394,12 +1394,13 @@ class modelReport extends mysql_db
                     $kd_rek=null;
 
                     $saldo = $this->sum_persedia($data_lp,"117","saldo",$kd_lokasi);
+                    if($saldo!==0){
                     echo '<tr>
 
                           <td colspan style="font-weight:bold; background-color:#EFEFEF;">'.$no_urut.'</td>
                           <td colspan="3" align="left" style="font-weight:bold; background-color:#EFEFEF;">'.$nm_satker.'</td>
                           </tr>';
-                    if($saldo!==0){
+                    
                                   echo '  <tr>
                                   
                           <td align="right" style="font-size:90%; "></td>
@@ -1418,11 +1419,21 @@ class modelReport extends mysql_db
                         if($kd_rek!=substr($data[kd_perk],0, 5))
                         {
                             echo '<tr>
-                                    <td></td>
-                                    <td align="right" style="font-size:90%; ">'.substr($data[kd_perk],0, 5).'</td>
-                                    <td  align="left" style="font-size:90%; ">'.$data[nm_perk].'</td>
+                                        <td align="right" style="font-size:90%; "></td>
+                                        <td align="right" style="font-size:90%; "><b>'.substr($data[kd_perk],0, 5).'</b></td>';
+                                if(substr($data[kd_perk],0, 5)=="11701"){
+                                        echo '<td align="left" style="font-size:90%; "><b>'."&nbsp;&nbsp;Persediaan Bahan Pakai Habis".'</b></td>';
+                                    }
+                                elseif(substr($data[kd_perk],0, 5)=="11702"){
+                                    echo '<td align="left" style="font-size:90%; "><b>'."&nbsp;&nbsp;Persediaan Bahan / Material".'</b></td>';
+                                }
+                                else{
+                                    echo '<td align="left" style="font-size:90%; "><b>'."&nbsp;&nbsp;Persediaan Brang Lainnya".'</b></td>';
+                                }
+                            echo '
+
                                     <td  align="right" style="font-size:90%; ;">'.number_format($this->sum_persedia($data_lp,substr($data[kd_perk],0, 5),"saldo",$kd_lokasi),2,",",".").'</td>
-                                    <tr>
+                                    
                                    ';
                             $kd_rek=substr($data[kd_perk],0, 5);
                         }
@@ -1690,6 +1701,7 @@ class modelReport extends mysql_db
                 $saldo_akumulasi=0;
                 $hrg_SA = number_format($this->sum_persedia($data_lp,"117","hrg_SA",$kd_lokasi),2,",",".");
                 $saldo = number_format($this->sum_persedia($data_lp,"117","saldo",$kd_lokasi),2,",",".");
+                if($saldo>0){
                 echo '<tr>
 
                           <td colspan style="font-weight:bold; background-color:#EFEFEF;">'.$no_urut.'</td>
@@ -1731,6 +1743,7 @@ class modelReport extends mysql_db
                     //         <td align="right">'.number_format($saldo_akumulasi,2,",",".").'</td>  
                     //     </tr>
                     //     ';
+            }
                 if($no>=6)
                 {
                 echo '<pagebreak />';
