@@ -1476,7 +1476,7 @@ class modelReport extends mysql_db
             $sisa_acc = $sisa + $qty_SA;
 
             $saldo = $this->sum_persedia($data_lp,"117","saldo",$kd_lokasi);
-            if($qty_msk!==0){
+            if($qty_msk!==0||$qty_SA!==0){
             echo '<tr>
                   <td colspan style="font-weight:bold; background-color:#EFEFEF;">'.$no_urut.'</td>
                   <td colspan="9" align="left" style="font-weight:bold; background-color:#EFEFEF;">'.$nm_satker.'</td>
@@ -1520,13 +1520,13 @@ class modelReport extends mysql_db
                                         <td align="right" style="font-size:90%; "></td>
                                         <td align="right" style="font-size:90%; "><b>'.substr($data[kd_perk],0, 5).'</b></td>';
                                 if(substr($data[kd_perk],0, 5)=="11701"){
-                                        echo '<td align="left" style="font-size:90%; "><b>'."Persediaan Bahan Pakai Habis".'</b></td>';
+                                        echo '<td align="left" style="font-size:90%; "><b>'."&nbsp;&nbsp;Persediaan Bahan Pakai Habis".'</b></td>';
                                     }
                                 elseif(substr($data[kd_perk],0, 5)=="11702"){
-                                    echo '<td align="left" style="font-size:90%; "><b>'."Persediaan Bahan / Material".'</b></td>';
+                                    echo '<td align="left" style="font-size:90%; "><b>'."&nbsp;&nbsp;Persediaan Bahan / Material".'</b></td>';
                                 }
                                 else{
-                                    echo '<td align="left" style="font-size:90%; "><b>'."Persediaan Brang Lainnya".'</b></td>';
+                                    echo '<td align="left" style="font-size:90%; "><b>'."&nbsp;&nbsp;Persediaan Brang Lainnya".'</b></td>';
                                 }
                                 echo    '<td align="center"  style="font-size:90%; "><b>'.$qty_SA.'</b></td>
                                         <td align="center"  style="font-size:90%; "><b>'.number_format($hrg_SA,2,",",".").'</b></td>
@@ -1553,7 +1553,7 @@ class modelReport extends mysql_db
                                 <tr style="font-size:45%;">
                                         <td align="right" style="font-size:90%; "></td>
                                         <td align="right" style=" font-size:90%;">'.$data[kd_perk].'</td>
-                                        <td  align="left" style=" font-size:90%;">'.$data[nm_perk].'</td>
+                                        <td  align="left" style=" font-size:90%;">'."&nbsp;&nbsp;&nbsp;&nbsp;-".$data[nm_perk].'</td>
                                         <td align="right"  style="font-size:90%; ">'.$qty_SA.'</td>
                                         <td align="right"  style="font-size:90%; ">'.number_format($hrg_SA,2,",",".").'</td>
                                         <td align="right"  style="font-size:90%; ">'.$qty_msk.'</td>
