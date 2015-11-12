@@ -146,7 +146,8 @@
              "visible": false },
             {"targets": 3 },
             {"targets": 4 },
-            {"targets": 5 },
+            {"targets": 5,
+             "visible": false },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
@@ -306,6 +307,7 @@
           //   return false;
           // }
           e.preventDefault();
+          $('button:submit').attr("disabled", true); 
           var formURL = $(this).attr("action");
           var addData = new FormData(this);
           $.ajax({
@@ -317,8 +319,10 @@
             processData: false,
             success: function(data)
             {
+              $("#no_dok").val('');
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
+              $('button:submit').attr("disabled", false); 
               table = $("#example1").DataTable({
                 "processing": false,
                 "serverSide": true,
@@ -333,7 +337,8 @@
                    "visible": false },
                   {"targets": 3 },
                   {"targets": 4 },
-                  {"targets": 5 },
+                  {"targets": 5,
+                   "visible": false },
                   {"orderable": false,
                    "data": null,
                    "defaultContent":  '<div class="box-tools">'+

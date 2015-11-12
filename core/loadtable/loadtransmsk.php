@@ -41,7 +41,10 @@ $config = new config();
 $sql_details = $config->sql_details();
 
 $str = $kd_satker;
-if (substr_count($str,".") == 1) {
+if (substr_count($str,".") == 0) {
+    $where = "kd_lokasi like '$kd_satker.%.%.%' and status_hapus=0 and thn_ang='$thn_ang'  and jns_trans not like 'P%'  group by no_dok";   
+}
+else if (substr_count($str,".") == 1) {
     $where = "kd_lokasi like '$kd_satker.%.%' and status_hapus=0 and thn_ang='$thn_ang'  and jns_trans not like 'P%'  group by no_dok";   
 }
 else if (substr_count($str,".") == 2) {

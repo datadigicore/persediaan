@@ -365,6 +365,7 @@ else {
           };
 
           e.preventDefault();
+          $('button:submit').attr("disabled", true); 
           var formURL = $(this).attr("action");
           var addData = new FormData(this);
           $.ajax({
@@ -378,6 +379,11 @@ else {
             {
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
+              $("#kd_brg").select2("val", "");
+              $("#jml_msk").val('');
+              $("#satuan").val('');
+              $("#keterangan").val('');
+              $('button:submit').attr("disabled", false); 
               table = $("#example1").DataTable({
                 "processing": false,
                 "serverSide": true,
