@@ -27,6 +27,11 @@ class modelTransaksi extends mysql_db
         $thn_ang_now = $data['thn_ang'];
         $user_id = $data['user_id'];
         $thn_ang_lalu = $thn_ang_now-1;
+        $no_dok = "";
+        $tgl_dok = "";
+        $tgl_buku = "";
+        $no_bukti = "";
+        $nm_satker = "";
 
         $query = "select kd_lokasi, nm_satker, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, jns_trans, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, satuan, sum(qty_akhir) as qty_akhir, harga_sat, keterangan, untuk, kd_perk, nm_perk   from transaksi_masuk where kd_lokasi='$kd_lokasi' and qty_akhir>0 and status_ambil=0 and thn_ang = '$thn_ang_lalu' group by kd_brg, harga_sat";
         $hasil = $this->query($query);
@@ -119,6 +124,9 @@ class modelTransaksi extends mysql_db
                            
                     $result2 = $this->query($query_full);
                 }
+
+
+
                     $query_ttp_msk = "UPDATE transaksi_masuk set status_ambil=1 where thn_ang = '$thn_ang_lalu' and kd_lokasi='$kd_lokasi' ";
                     $query_ttp_klr = "UPDATE transaksi_keluar set status_ambil=1 where thn_ang = '$thn_ang_lalu' and kd_lokasi='$kd_lokasi' ";
                     $query_set_user = "UPDATE user set tutup_tahun='Y' where tahun = '$thn_ang_now' and kd_lokasi='$kd_lokasi' and tutup_tahun is null ";
@@ -126,6 +134,28 @@ class modelTransaksi extends mysql_db
                     $result_ttp_msk = $this->query($query_ttp_msk);
                     $result_ttp_klr = $this->query($query_ttp_klr);
                     $result_set_user = $this->query($query_set_user);
+
+                $query_log = "Insert into log_trans_masuk
+                        set 
+                        kd_lokasi='$kd_lokasi',
+                        nm_satker='$nm_satker',
+                        thn_ang='$thn_ang_now',
+                        no_dok='$no_dok',
+                        tgl_dok='$tgl_dok',
+                        tgl_buku='$tgl_buku',
+                        no_bukti='$no_bukti',
+                        jns_trans='I',
+                        aksi='IMPORT-SALDO AWAL',
+                        kd_brg='$kd_brg',
+                        nm_brg='$nm_brg',
+                        qty=0,
+                        harga_sat=0,
+                        total_harga=0,
+                        keterangan='$keterangan',
+                        tgl_update=NOW(),
+                        user_id='$user_id'";   
+                $this->query($query_log);
+
 
     }
     
