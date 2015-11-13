@@ -308,23 +308,26 @@ class modelOpsik extends mysql_db
 
                 //Memasukkan Data Hapus Opname ke Tabel Transaksi Full   
             }
-            $query_hps_msk = "delete from transaksi_keluar where id_opname='$id_opname' and jns_trans='P01' ";
-            $result_hps_klr = $this->query($query_hps_msk);
 
-
-            $query_ubah_msk = "update transaksi_masuk set status=0, id_opname=null where  id_opname='$id_opname' and status=1 ";
-            $result_msk = $this->query($query_ubah_msk);
-            
-            $query_ubah_klr = "update transaksi_keluar set status=0, id_opname=0 where  id_opname='$id_opname' and status=1 ";
-            $result_klr = $this->query($query_ubah_klr);
 
 
 
         }
+
      }
+
 
         $query_hapus = "delete from opname where id= '$id_opname' ";
         $this->query($query_hapus);
+        $query_hps_msk = "delete from transaksi_keluar where id_opname='$id_opname' and jns_trans='P01' ";
+        $result_hps_klr = $this->query($query_hps_msk);
+
+
+        $query_ubah_msk = "update transaksi_masuk set status=0, id_opname=null where  id_opname='$id_opname' and status=1 ";
+        $result_msk = $this->query($query_ubah_msk);
+            
+        $query_ubah_klr = "update transaksi_keluar set status=0, id_opname=0 where  id_opname='$id_opname' and status=1 ";
+        $result_klr = $this->query($query_ubah_klr);
 
         // $query_hapus_full = "update transaksi_full set id_opname=0 where id_opname='id_opname' ";
         // $this->query($query_hapus_full);
@@ -564,6 +567,7 @@ class modelOpsik extends mysql_db
           
         $jml_brg = $data_jml['qty'];
         $selisih = $kuantitas - $jml_brg;
+        $selisih_kondisi = $selisih;
         $selisih_total_harga = ($selisih*$hrg_sat)+$sisabagi;
         if($selisih>0)
         {
@@ -823,121 +827,123 @@ class modelOpsik extends mysql_db
         $update_brg_klr = "update transaksi_keluar set  status=1, id_opname='$id_opname' where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 and status=0 ";
         $result_upd_klr = $this->query($update_brg_klr);
 
+        if($selisih_kondisi!==0){
         //Mengubah Harga2 Transaksi Masuk Berdasarkan Harga Pembelian Terakhir
-        $query = "SELECT * FROM transaksi_masuk where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 and status=1 and id_opname='$id_opname' and jns_trans!='P01'  ";
+        $query = "SELECT * FROM transaksi_masuk where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and thn_ang='$thn_ang'  ";
         $result = $this->query($query);
-
-        while ($data_msk = $this->fetch_array($result))
-        {
-            $id = $data_msk['id'];  
-            $qty_lama = $data_msk['qty'];
-            $hrg_lama = $data_msk['harga_sat'];
-            $total_hrg_lama = $data_msk['total_harga'];
-
-            $thn_ang=$data_msk['thn_ang'];
-            $no_dok=$data_msk['no_dok'];
-            $tgl_dok=$data_msk['tgl_dok'];
-            $tgl_buku=$data_msk['tgl_buku'];
-            $keterangan = "Refresh : ".$data_msk['keterangan'];
-
-            $total_hrg_baru = $qty_lama * $hrg_sat;
-            $selisih_harga = $hrg_sat-$hrg_lama;
-            $selisih_subtotal = $total_hrg_baru-$total_hrg_lama;
-
-            $update_harga = "update transaksi_masuk set harga_sat='$hrg_sat', total_harga='$total_hrg_baru' where id='$id' ";
-            $resuly_upd_hrg = $this->query($update_harga);
-
-                    $query_full = "Insert into transaksi_full
-                    set 
-                    kd_lokasi='$kd_lokasi',
-                    kd_lok_msk='',
-                    id_opname='$id_opname',
-                    id_masuk='$id',
-                    nm_satker='$nm_satker',
-                    thn_ang='$thn_ang',
-                    no_dok='$no_dok',
-                    tgl_dok='$tgl_dok',
-                    tgl_buku='$tgl_buku',
-                    no_bukti='$no_bukti',
-                    jns_trans='P02',
-                    kd_sskel='$kd_sskel',
-                    nm_sskel='$nm_sskel',
-                    kd_brg='$kd_brg',
-                    nm_brg='$nm_brg',
-                    kd_perk='$kd_perk',
-                    nm_perk='$nm_perk',
-                    satuan='$satuan',
-                    qty='0',
-                    
-                    harga_sat='$selisih_harga',
-                    total_harga='$selisih_subtotal',
-                    keterangan='$keterangan',
-                    status='1',
-                    tgl_update=NOW(),
-                    user_id='$user_id'";   
-            $result_full = $this->query($query_full);
-
-
         
-        }
+            while ($data_msk = $this->fetch_array($result))
+            {
+                $id = $data_msk['id'];  
+                $qty_lama = $data_msk['qty'];
+                $hrg_lama = $data_msk['harga_sat'];
+                $total_hrg_lama = $data_msk['total_harga'];
 
-        //Mengubah Harga2 Transaksi Keluar Berdasarkan Harga Pembelian Terakhir
-        $query = "SELECT * FROM transaksi_keluar where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 and status=1 and id_opname='$id_opname' and jns_trans!='P01'  ";
-        $result = $this->query($query);
+                $thn_ang=$data_msk['thn_ang'];
+                $no_dok=$data_msk['no_dok'];
+                $tgl_dok=$data_msk['tgl_dok'];
+                $tgl_buku=$data_msk['tgl_buku'];
+                $keterangan = "Refresh : ".$data_msk['keterangan'];
 
-        while ($data_msk = $this->fetch_array($result))
-        {
-            $id = $data_msk['id'];  
-            $qty_lama = $data_msk['qty'];
-            $hrg_lama = $data_msk['harga_sat'];
-            $total_hrg_lama = $data_msk['total_harga'];
+                $total_hrg_baru = $qty_lama * $hrg_sat;
+                $selisih_harga = $hrg_sat-$hrg_lama;
+                $selisih_subtotal = $total_hrg_baru-$total_hrg_lama;
 
-            $thn_ang=$data_msk['thn_ang'];
-            $no_dok=$data_msk['no_dok'];
-            $tgl_dok=$data_msk['tgl_dok'];
-            $tgl_buku=$data_msk['tgl_buku'];
-            $keterangan = "Refresh : ".$data_msk['keterangan'];
+                $update_harga = "update transaksi_masuk set harga_sat='$hrg_sat', total_harga='$total_hrg_baru' where id='$id' ";
+                $resuly_upd_hrg = $this->query($update_harga);
 
-            $total_hrg_baru = $qty_lama * $hrg_sat;
-            $selisih_harga = $hrg_sat-$hrg_lama;
-            $selisih_subtotal = $total_hrg_baru-$total_hrg_lama;
+                        $query_full = "Insert into transaksi_full
+                        set 
+                        kd_lokasi='$kd_lokasi',
+                        kd_lok_msk='',
+                        id_opname='$id_opname',
+                        id_masuk='$id',
+                        nm_satker='$nm_satker',
+                        thn_ang='$thn_ang',
+                        no_dok='$no_dok',
+                        tgl_dok='$tgl_dok',
+                        tgl_buku='$tgl_buku',
+                        no_bukti='$no_bukti',
+                        jns_trans='P02',
+                        kd_sskel='$kd_sskel',
+                        nm_sskel='$nm_sskel',
+                        kd_brg='$kd_brg',
+                        nm_brg='$nm_brg',
+                        kd_perk='$kd_perk',
+                        nm_perk='$nm_perk',
+                        satuan='$satuan',
+                        qty='0',
+                        
+                        harga_sat='$selisih_harga',
+                        total_harga='$selisih_subtotal',
+                        keterangan='$keterangan',
+                        status='1',
+                        tgl_update=NOW(),
+                        user_id='$user_id'";   
+                $result_full = $this->query($query_full);
 
-            $update_harga = "update transaksi_keluar set harga_sat='$hrg_sat', total_harga='$total_hrg_baru' where id='$id' ";
-            $resuly_upd_hrg = $this->query($update_harga);
-                    $query_full = "Insert into transaksi_full
-                    set 
-                    kd_lokasi='$kd_lokasi',
-                    kd_lok_msk='',
-                    id_opname='$id_opname',
-                    id_keluar='$id',
-                    nm_satker='$nm_satker',
-                    thn_ang='$thn_ang',
-                    no_dok='$no_dok',
-                    tgl_dok='$tgl_dok',
-                    tgl_buku='$tgl_buku',
-                    no_bukti='$no_bukti',
-                    jns_trans='P02',
-                    kd_sskel='$kd_sskel',
-                    nm_sskel='$nm_sskel',
-                    kd_brg='$kd_brg',
-                    nm_brg='$nm_brg',
-                    kd_perk='$kd_perk',
-                    nm_perk='$nm_perk',
-                    satuan='$satuan',
-                    qty='0',
-                    
-                    harga_sat='$selisih_harga',
-                    total_harga='$selisih_subtotal',
-                    keterangan='$keterangan',
-                    status='1',
-                    tgl_update=NOW(),
-                    user_id='$user_id'";   
-            $result_full = $this->query($query_full);
 
-      
-        
-        }
+            
+            }
 
+            //Mengubah Harga2 Transaksi Keluar Berdasarkan Harga Pembelian Terakhir
+            $query = "SELECT * FROM transaksi_keluar where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and thn_ang='$thn_ang'  ";
+            $result = $this->query($query);
+
+            while ($data_msk = $this->fetch_array($result))
+            {
+                $id = $data_msk['id'];  
+                $qty_lama = $data_msk['qty'];
+                $hrg_lama = $data_msk['harga_sat'];
+                $total_hrg_lama = $data_msk['total_harga'];
+
+                $thn_ang=$data_msk['thn_ang'];
+                $no_dok=$data_msk['no_dok'];
+                $tgl_dok=$data_msk['tgl_dok'];
+                $tgl_buku=$data_msk['tgl_buku'];
+                $keterangan = "Refresh : ".$data_msk['keterangan'];
+
+                $total_hrg_baru = $qty_lama * $hrg_sat;
+                $selisih_harga = $hrg_sat-$hrg_lama;
+                $selisih_subtotal = $total_hrg_baru-$total_hrg_lama;
+
+                $update_harga = "update transaksi_keluar set harga_sat='$hrg_sat', total_harga='$total_hrg_baru' where id='$id' ";
+                $resuly_upd_hrg = $this->query($update_harga);
+                        $query_full = "Insert into transaksi_full
+                        set 
+                        kd_lokasi='$kd_lokasi',
+                        kd_lok_msk='',
+                        id_opname='$id_opname',
+                        id_keluar='$id',
+                        nm_satker='$nm_satker',
+                        thn_ang='$thn_ang',
+                        no_dok='$no_dok',
+                        tgl_dok='$tgl_dok',
+                        tgl_buku='$tgl_buku',
+                        no_bukti='$no_bukti',
+                        jns_trans='P02',
+                        kd_sskel='$kd_sskel',
+                        nm_sskel='$nm_sskel',
+                        kd_brg='$kd_brg',
+                        nm_brg='$nm_brg',
+                        kd_perk='$kd_perk',
+                        nm_perk='$nm_perk',
+                        satuan='$satuan',
+                        qty='0',
+                        
+                        harga_sat='$selisih_harga',
+                        total_harga='$selisih_subtotal',
+                        keterangan='$keterangan',
+                        status='1',
+                        tgl_update=NOW(),
+                        user_id='$user_id'";   
+                $result_full = $this->query($query_full);
+
+          
+            
+            }
+}
+    
 
             $query_hps_dok = "delete from opname where nm_brg is null and kd_lokasi='$kd_lokasi' ";
             $result_hps_dok = $this->query($query_hps_dok); 
