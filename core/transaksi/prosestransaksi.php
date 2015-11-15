@@ -412,6 +412,33 @@ else
 			);
 			print_r($data);
 			$Transaksi->ubah_dok_masuk($data);
+		break;		
+
+		case 'ubah_dok_keluar':
+			$kd_lokasi = $purifier->purify($_POST['kd_satker']);
+			$kd_trans = $purifier->purify($_POST['jns_trans_baru']);
+			$thn_ang = $_SESSION['thn_ang'];
+			$no_dok = $kd_lokasi.'.'.$purifier->purify($_POST['nodok_baru']);
+			$no_dok_lama = $purifier->purify($_POST['no_dok_lama']);
+			$no_bukti = $purifier->purify($_POST['nodok_baru']);
+			$keterangan = $purifier->purify($_POST['ket_baru']);
+			$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok_baru']));
+			$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_buku_baru']));
+			$user_id = $_SESSION['username'];
+			$data = array(
+				"kd_lokasi" => $kd_lokasi,
+				"kd_trans" => $kd_trans,
+				"thn_ang" => $thn_ang,
+				"no_dok" => $no_dok,
+				"no_dok_lama" => $no_dok_lama,
+				"no_bukti" => $no_bukti,
+				"tgl_dok" => $tgl_dok,
+				"tgl_buku" => $tgl_buku,
+				"keterangan" => $keterangan,
+				"user_id" => $user_id
+			);
+			print_r($data);
+			$Transaksi->ubah_dok_keluar($data);
 		break;
 
 		case 'ubah_transaksi_msk':

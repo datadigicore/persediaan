@@ -22,6 +22,7 @@ $columns = array(
     array( 'db' => 'no_bukti', 'dt' => 3 ),
     array( 'db' => 'tgl_dok', 'dt' => 4, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
     array( 'db' => 'tgl_buku', 'dt' => 5, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
+    array( 'db' => 'keterangan', 'dt' => 6 ),
 );
  
 // Settingan Koneksi Datatable

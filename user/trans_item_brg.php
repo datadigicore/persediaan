@@ -178,6 +178,7 @@ else {
                     </div>
                 </form>
               </div>
+              <?php if ($_POST['manage']=="trans_masuk") { ?>
               <div class="box box-info">
                 <div class="box-header with-border">
                   <h3 class="box-title">Daftar Transaksi Masuk</h3>
@@ -188,7 +189,7 @@ else {
                       <tr>
                         <th>ID</th>
                         <th>No Dok</th>
-                        <th>Tgl Dokumen</th>
+                        <th>Kode Barang</th>
                         <th>Nama Barang</th>
                         <th>Spesifikasi</th>
                         <th>Jumlah</th>
@@ -201,6 +202,32 @@ else {
                   </table>
                 </div>
               </div>
+              <?php } ?>              
+              <?php if ($_POST['manage']=="trans_keluar") { ?>
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Daftar Transaksi Keluar/h3>
+                </div>
+                <div class="box-body">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>No Dokumen</th>
+                        <th>Kode Barang</th>
+                        <th>Nama Barang</th>
+                        <th>Spesifikasi</th>
+                        <th>Jumlah</th>
+                        <th>Harga Satuan</th>
+                        <th>Total Harga</th>  
+                        <th>Keterangan</th>
+                        <th width="8%">Aksi</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+              <?php } ?>
             </section>
           </div>
         </section>
@@ -259,7 +286,8 @@ else {
           [
             {"targets": 0,
              "visible": false },
-            {"targets": 1 },
+            {"targets": 1,
+             "visible": false  },
             {"targets": 2 },
             {"targets": 3 },
             {"targets": 4 },
@@ -271,6 +299,7 @@ else {
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                   '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
+                                  '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                 '</div>',
              "targets": [9],"targets": 9 },
           ],
@@ -302,7 +331,62 @@ else {
           }
         });
       });
+      $(document).on('click', '#btnedt', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+        id_row = row.data()[0];
+        kd_brg_row = row.data()[2];
+        nm_brg_row = row.data()[3];
+        spesifikasi_row = row.data()[4];
+        qty_row = row.data()[5];
+        harga_sat_row = row.data()[6];
+        total_harga_row = row.data()[7];
+        ket_row = row.data()[8];
+        if ( row.child.isShown() ) {
+          $('div.slider', row.child()).slideUp( function () {
+            row.child.hide();
+            tr.removeClass('shown');
+          });
+        }
+        else {
+          row.child( format(row.data())).show();
+          tr.addClass('shown');
+          $('div.slider', row.child()).slideDown();
+          $("#kd_brg"+id_row +"").val(kd_brg_row);
+          $("#nm_brg"+id_row +"").val(nm_brg_row);
+          $("#spesifikasi"+id_row +"").val("Jumlah Baru");
+          $("#qty"+id_row +"").val(qty_row);
+          $("#harga_sat"+id_row +"").val(harga_sat_row);
+          $("#total_harga"+id_row +"").val("Harga Sat.Baru (Rp.)");
+          $("#keterangan"+id_row +"").val(ket_row);
 
+
+        }
+      });
+      function format ( d ) {
+        return '<div class="slider">'+
+        '<form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="upd_dok_masuk">'+
+        '<table width="100%">'+
+           '<tr>'+
+              '<input type="hidden" name="manage" value="ubah_brg_masuk">'+
+              '<input type="hidden" name="id" value="'+id_row+'">'+
+              '<td width="14%"><input style="width:97%" id="kd_brg'+d[0]+'" name="jns_trans_baru" class="form-control" type="text" readonly></td>'+
+              '<td width="11%"><input style="width:97%" id="nm_brg'+d[0]+'" name="kd_satker" class="form-control" type="text" readonly></td>'+
+              '<td width="10%"><input style="width:97%" id="spesifikasi'+d[0]+'" name="nodok_baru" class="form-control" type="text" readonly></td>'+
+              '<td width="8%"><input style="width:97%" id="qty'+d[0]+'" name="tgl_dok_baru" class="form-control" type="number" ></td>'+
+              '<td width="13%"><input style="width:99%" id="total_harga'+d[0]+'" name="ket_baru" class="form-control" type="text" readonly ></td>'+
+              '<td width="11%"><input style="width:98%" id="harga_sat'+d[0]+'" name="tgl_buku_baru" class="form-control" type="number" ></td>'+
+              
+              '<td style="vertical-align:middle; width:7%;">'+
+                '<div class="box-tools">'+
+                  // '<button id="btnrst" class="btn btn-warning btn-xs pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
+                  '<button id="btnupd" class="btn btn-primary btn-xs pull-right"><i class="fa fa-upload"></i> Update</button>'+
+                '</div>'
+              '</td>'+
+           '</tr>'+
+        '</table>'+
+        '</form></div>';
+      }
       $(document).on('click', '#btnhps', function () {
       var tr = $(this).closest('tr');
       var row = table.row( tr );
