@@ -763,7 +763,7 @@ else {
           $.ajax({
             type: "post",
             url: '../core/transaksi/prosestransaksi',
-            data: {manage:'sisabarang',kd_brg:kd_brg},
+            data: {manage:'sisabarang',kd_brg:kd_brg, nodok:'<?php echo $_POST["satker"];?>'},
             dataType: "json",
             success: function (output) {
             $('#rph_sat').val(output.sisa);

@@ -1501,7 +1501,7 @@ class modelTransaksi extends mysql_db
         $kd_lokasi = $data['kd_lokasi'];
         $kd_brg = $data['kd_brg'];
         $thn_ang = $data['thn_ang'];
-        $query = "select sum(qty_akhir) as sisa,satuan from transaksi_masuk  where kd_brg = '$kd_brg' and kd_lokasi like '$kd_lokasi%' and status_hapus=0 and thn_ang<='$thn_ang'";  
+        $query = "select sum(qty_akhir) as sisa,satuan from transaksi_masuk  where kd_brg = '$kd_brg' and kd_lokasi = '$kd_lokasi' and thn_ang='$thn_ang'";  
         $result = $this->query($query);
         $sisa_brg = $this->fetch_array($result);
 

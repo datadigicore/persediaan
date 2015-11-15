@@ -137,7 +137,8 @@ else
 
 		case 'sisabarang':
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
-			$kd_lokasi = $_SESSION['kd_lok'];
+			$no_dok = $purifier->purify($_POST['nodok']);
+			$kd_lokasi = substr($no_dok, 0, 11);
 			$thn_ang = $_SESSION['thn_ang'];
 			$data = array(
 				"kd_lokasi" => $kd_lokasi,

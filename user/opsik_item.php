@@ -90,7 +90,7 @@ else {
                           <div class="form-group">
                             <label class="col-sm-3 control-label">Jumlah Hasil Opname</label>
                             <div class="col-sm-4">
-                              <input type="number" min="1"  name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah">
+                              <input type="number" min="0"  name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah">
                             </div>
                             <div class="col-sm-4">
                               <input type="text" name="satuan" id="satuan" class="form-control"  readonly>
@@ -314,7 +314,7 @@ else {
           $.ajax({
             type: "post",
             url: '../core/transaksi/prosestransaksi',
-            data: {manage:'sisabarang',kd_brg:kd_brg},
+            data: {manage:'sisabarang',kd_brg:kd_brg, nodok:'<?php echo $_POST["satker"];?>'},
             dataType: "json",
             success: function (output) {
             $('#rph_sat').val(output.sisa);
