@@ -109,6 +109,9 @@ class modelKonfigurasi extends mysql_db
             // $sql = "CREATE TEMPORARY TABLE transaksi_fullTemp SELECT * FROM transaksi_full where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and id_keluar is null and jns_trans not like 'K%'  ";
             $sql = "DELETE FROM transaksi_full where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and id_keluar is not null ";
             $result = $this->query($sql);
+
+            $sql = "DELETE FROM transaksi_full where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and jns_trans in ('P02-K','P01-K') ";
+            $result = $this->query($sql);
              
             // MENGEMBALIKKAN NILAI SALDO AWAL SEPERTI SEMUA, DIISI PENUH
             $sql = "UPDATE transaksi_masuk set qty_akhir = qty where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' ";

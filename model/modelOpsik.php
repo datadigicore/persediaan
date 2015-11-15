@@ -101,7 +101,7 @@ class modelOpsik extends mysql_db
 
                             $harga_sat = $row_id['harga_sat'];
                             $total_harga = $row_id['total_harga'];
-                            $keterangan = 'Hapus Refresh Harga Klr : '.$row_id['keterangan'];
+                            $keterangan = 'Hapus Refresh Harga Kel. : '.$row_id['keterangan'];
 
                             $query = "select harga_sat from transaksi_masuk where id='$id_masuk' ";
                             // $result = $this->query($query);
@@ -132,7 +132,7 @@ class modelOpsik extends mysql_db
                                         tgl_dok='$tgl_dok',
                                         tgl_buku='$tgl_buku',
                                         no_bukti='$no_bukti',
-                                        jns_trans='P02-H',
+                                        jns_trans='P02-K',
                                         kd_sskel='$kd_sskel',
                                         nm_sskel='$nm_sskel',
                                         kd_brg='$kd_brg',
@@ -288,7 +288,7 @@ class modelOpsik extends mysql_db
                     tgl_dok='$tgl_dok',
                     tgl_buku='$tgl_buku',
                     no_bukti='$no_bukti',
-                    jns_trans='P01-H',
+                    jns_trans='P01-K',
                     kd_sskel='$kd_sskel',
                     nm_sskel='$nm_sskel',
                     kd_brg='$kd_brg',
@@ -342,7 +342,7 @@ class modelOpsik extends mysql_db
                         tgl_dok='$tgl_dok',
                         tgl_buku='$tgl_buku',
                         no_bukti='$no_bukti',
-                        jns_trans='$jns_trans',
+                        jns_trans='P01-H',
                         aksi='HAPUS - Opname',
                         kd_brg='$kd_brg',
                         nm_brg='$nm_brg',
