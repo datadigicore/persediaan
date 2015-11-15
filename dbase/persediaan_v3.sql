@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 19 Okt 2015 pada 00.29
+-- Generation Time: 15 Nov 2015 pada 21.29
 -- Versi Server: 5.6.25
 -- PHP Version: 5.6.11
 
@@ -216,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `log_history` (
   `ket_nmsatker` text NOT NULL,
   `keterangan` text NOT NULL,
   `tanggal` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `log_history`
@@ -224,7 +224,9 @@ CREATE TABLE IF NOT EXISTS `log_history` (
 
 INSERT INTO `log_history` (`id`, `kodesatker`, `namasatker`, `thnanggaran`, `username`, `aksi`, `ket_kdsatker`, `ket_nmsatker`, `keterangan`, `tanggal`) VALUES
 (1, NULL, NULL, 2015, 'masteradmin', 'T-Sektor', '67', 'KARANG TARUNA', 'Tahun Anggaran 2015', '2015-09-10 03:05:38'),
-(2, NULL, NULL, 2015, 'masteradmin', 'T-Sektor', '23', 'ka', 'Tahun Anggaran 2015', '2015-09-10 03:06:21');
+(2, NULL, NULL, 2015, 'masteradmin', 'T-Sektor', '23', 'ka', 'Tahun Anggaran 2015', '2015-09-10 03:06:21'),
+(3, NULL, NULL, 2015, 'masteradmin', 'U-Sektor', '01', 'Sekwan/DPRD', 'Tahun Anggaran 2015', '2015-11-13 03:30:06'),
+(4, NULL, NULL, 2015, 'masteradmin', 'U-Sektor', '01', 'Sekwan / DPRD', 'Tahun Anggaran 2015', '2015-11-13 04:16:21');
 
 -- --------------------------------------------------------
 
@@ -252,7 +254,7 @@ CREATE TABLE IF NOT EXISTS `log_opname` (
   `jns_trans` varchar(5) NOT NULL,
   `keterangan` varchar(100) NOT NULL,
   `tgl_update` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -302,7 +304,7 @@ CREATE TABLE IF NOT EXISTS `log_trans_keluar` (
   `jns_trans` varchar(5) NOT NULL,
   `keterangan` varchar(100) NOT NULL,
   `tgl_update` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -316,7 +318,7 @@ CREATE TABLE IF NOT EXISTS `log_trans_masuk` (
   `nm_satker` varchar(40) DEFAULT NULL,
   `thn_ang` year(4) DEFAULT NULL,
   `user_id` varchar(20) NOT NULL,
-  `aksi` varchar(20) DEFAULT NULL,
+  `aksi` varchar(60) DEFAULT NULL,
   `no_dok` varchar(20) NOT NULL,
   `tgl_dok` date NOT NULL,
   `tgl_buku` date NOT NULL,
@@ -330,7 +332,7 @@ CREATE TABLE IF NOT EXISTS `log_trans_masuk` (
   `jns_trans` varchar(5) NOT NULL,
   `keterangan` varchar(100) NOT NULL,
   `tgl_update` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=311 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=667 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -345,10 +347,10 @@ CREATE TABLE IF NOT EXISTS `opname` (
   `kd_lok_msk` varchar(20) DEFAULT NULL,
   `nm_satker` varchar(40) DEFAULT NULL,
   `thn_ang` year(4) DEFAULT NULL,
-  `no_dok` varchar(20) NOT NULL,
+  `no_dok` varchar(40) NOT NULL,
   `tgl_dok` date NOT NULL,
   `tgl_buku` date NOT NULL,
-  `no_bukti` varchar(20) NOT NULL,
+  `no_bukti` varchar(40) NOT NULL,
   `kd_sskel` varchar(15) DEFAULT NULL,
   `nm_sskel` varchar(30) DEFAULT NULL,
   `kd_brg` varchar(30) NOT NULL,
@@ -362,6 +364,7 @@ CREATE TABLE IF NOT EXISTS `opname` (
   `total_harga` int(11) DEFAULT NULL,
   `jns_trans` varchar(5) NOT NULL,
   `keterangan` varchar(100) NOT NULL,
+  `ket_brg` varchar(60) DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL,
   `status_edit` tinyint(1) NOT NULL DEFAULT '0',
   `status_hapus` tinyint(1) NOT NULL DEFAULT '0',
@@ -381,7 +384,7 @@ CREATE TABLE IF NOT EXISTS `perk` (
   `id` mediumint(9) NOT NULL,
   `kd_perk` varchar(7) DEFAULT NULL,
   `nm_perk` varchar(68) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `perk`
@@ -425,7 +428,7 @@ INSERT INTO `perk` (`id`, `kd_perk`, `nm_perk`) VALUES
 (35, '1170218', 'Persediaan Perlengkapan Upacara'),
 (36, '1170219', 'Persediaan Angkutan Darat Bermotor dan Tidak Bermotor'),
 (37, '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor'),
-(38, '1170221', 'PersediaanPembelian Gordyn'),
+(38, '1170221', 'Persediaan Pembelian Gordyn'),
 (39, '1170222', 'Persediaan Karpet / Matras'),
 (40, '1170223', 'Persediaan Perlengkapan Ibadah'),
 (41, '1170224', 'Persediaan Peralatan dan Perlengkapan Rumah Tangga'),
@@ -624,7 +627,7 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (158, '01', '01', '07', '01', '01', '03', '18', NULL, NULL, '01.01.07.01.01.03.18', 'Ink Jet Cartridge ', 'Black', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 3229800),
 (159, '01', '01', '07', '01', '01', '03', '19', NULL, NULL, '01.01.07.01.01.03.19', 'Ink Jet Cartridge ', 'Color', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 3229800),
 (160, '01', '01', '07', '01', '01', '03', '34', NULL, NULL, '01.01.07.01.01.03.34', 'Ink Jet Refil (Tinta Isi Ulang)', 'Hitam ', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 1373400),
-(161, '01', '01', '07', '01', '01', '03', '34', NULL, NULL, '01.01.07.01.01.03.34', 'Ink Jet Refil (Tinta Isi Ulang)', 'Warna', '', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 0),
+(161, '01', '01', '07', '01', '01', '03', '34', NULL, NULL, '01.01.07.01.01.03.34', 'Ink Jet Refil (Tinta Isi Ulang)', 'Warna', 'Buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 0),
 (162, '01', '01', '07', '01', '01', '03', '39', NULL, NULL, '01.01.07.01.01.03.39', 'Pita Facsimili', 'Untuk Facsimili', 'roll', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 978600),
 (163, '01', '01', '07', '01', '01', '03', '43', NULL, NULL, '01.01.07.01.01.03.43', 'Ribbon Cartridge (Dot Matrix', '', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 847350),
 (164, '01', '01', '07', '01', '01', '03', '44', NULL, NULL, '01.01.07.01.01.03.44', 'Ribbon Pack/Refil(Dot Matrix)', '', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 101850),
@@ -652,72 +655,72 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (186, '01', '01', '07', '01', '02', '01', '36', NULL, NULL, '01.01.07.01.02.01.36', 'Film Foto Berwarna', 'NS 200 ; isi 36', 'roll', '1170102', 'Persediaan Dokumen/Administrasi Tender', 35700),
 (187, '01', '01', '07', '01', '02', '01', '60', NULL, NULL, '01.01.07.01.02.01.60', 'Plastik Transparan', 'Folio, Uk. 0,03 mm ; isi 100 lb', 'pak', '1170102', 'Persediaan Dokumen/Administrasi Tender', 75600),
 (188, '01', '01', '07', '01', '02', '02', '', NULL, NULL, '01.01.07.01.02.02', 'Barang Cetak', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(189, '01', '01', '07', '01', '02', '02', '01', NULL, NULL, '01.01.07.01.02.02.01', 'Amplop Kop Coklat Cetakan', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(190, '01', '01', '07', '01', '02', '02', '02', NULL, NULL, '01.01.07.01.02.02.02', 'Amplop Kop Putih Cetakan', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(191, '01', '01', '07', '01', '02', '02', '03', NULL, NULL, '01.01.07.01.02.02.03', 'Stopmap Cetakan', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(192, '01', '01', '07', '01', '02', '02', '04', NULL, NULL, '01.01.07.01.02.02.04', 'SPTPD Hotel', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(193, '01', '01', '07', '01', '02', '02', '05', NULL, NULL, '01.01.07.01.02.02.05', 'SPTPD Restaurant', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(194, '01', '01', '07', '01', '02', '02', '06', NULL, NULL, '01.01.07.01.02.02.06', 'SPTPD Hiburan', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(195, '01', '01', '07', '01', '02', '02', '07', NULL, NULL, '01.01.07.01.02.02.07', 'SPTPD Reklame', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(196, '01', '01', '07', '01', '02', '02', '08', NULL, NULL, '01.01.07.01.02.02.08', 'SPTPD PPJ Non PLN', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(197, '01', '01', '07', '01', '02', '02', '09', NULL, NULL, '01.01.07.01.02.02.09', 'SPTPD Sarang Burung', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(198, '01', '01', '07', '01', '02', '02', '10', NULL, NULL, '01.01.07.01.02.02.10', 'SPTPD Parkir', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(199, '01', '01', '07', '01', '02', '02', '11', NULL, NULL, '01.01.07.01.02.02.11', 'SPTPD Titik Strategis', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(200, '01', '01', '07', '01', '02', '02', '12', NULL, NULL, '01.01.07.01.02.02.12', 'SSPD BPHTB', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(201, '01', '01', '07', '01', '02', '02', '13', NULL, NULL, '01.01.07.01.02.02.13', 'Blangko A2', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(202, '01', '01', '07', '01', '02', '02', '14', NULL, NULL, '01.01.07.01.02.02.14', 'Blangko STS', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(203, '01', '01', '07', '01', '02', '02', '15', NULL, NULL, '01.01.07.01.02.02.15', 'Blangko Nota Penjualan', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(204, '01', '01', '07', '01', '02', '02', '16', NULL, NULL, '01.01.07.01.02.02.16', 'Kartu Disposisi', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(205, '01', '01', '07', '01', '02', '02', '17', NULL, NULL, '01.01.07.01.02.02.17', 'Kartu Data Pajak ABT', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(206, '01', '01', '07', '01', '02', '02', '18', NULL, NULL, '01.01.07.01.02.02.18', 'Blangko SSP', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(207, '01', '01', '07', '01', '02', '02', '19', NULL, NULL, '01.01.07.01.02.02.19', 'Kertas Continuous Form Berlogo', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(208, '01', '01', '07', '01', '02', '02', '20', NULL, NULL, '01.01.07.01.02.02.20', 'Nota Akte', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(209, '01', '01', '07', '01', '02', '02', '21', NULL, NULL, '01.01.07.01.02.02.21', 'Nota KTP KK', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(210, '01', '01', '07', '01', '02', '02', '22', NULL, NULL, '01.01.07.01.02.02.22', 'Nota Surat Pindah', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(211, '01', '01', '07', '01', '02', '02', '23', NULL, NULL, '01.01.07.01.02.02.23', 'Blangko Permohonan Akte Kelahiran Baru', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(212, '01', '01', '07', '01', '02', '02', '24', NULL, NULL, '01.01.07.01.02.02.24', 'Blangko Permohonan Akte Kelahiran TP (Lama)', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(213, '01', '01', '07', '01', '02', '02', '25', NULL, NULL, '01.01.07.01.02.02.25', 'Blangko Permohonan Akte Kelahiran TP (Baru)', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(214, '01', '01', '07', '01', '02', '02', '26', NULL, NULL, '01.01.07.01.02.02.26', 'Blangko Permohonan Kutipan Kedua Kel/Kem(Lama)', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(215, '01', '01', '07', '01', '02', '02', '27', NULL, NULL, '01.01.07.01.02.02.27', 'Blangko Permohonan Kutipan Kedua Kel/Kem(Baru)', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(216, '01', '01', '07', '01', '02', '02', '28', NULL, NULL, '01.01.07.01.02.02.28', 'Blangko Surat Kelahiran Kelurahan', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(217, '01', '01', '07', '01', '02', '02', '29', NULL, NULL, '01.01.07.01.02.02.29', 'Blangko Permohonan Perkawinan', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(218, '01', '01', '07', '01', '02', '02', '30', NULL, NULL, '01.01.07.01.02.02.30', 'Blangko Form Perceraian', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(219, '01', '01', '07', '01', '02', '02', '31', NULL, NULL, '01.01.07.01.02.02.31', 'Blangko Kutipan Kedua Perkawinan', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(220, '01', '01', '07', '01', '02', '02', '32', NULL, NULL, '01.01.07.01.02.02.32', 'Blangko Surat Kuasa', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(221, '01', '01', '07', '01', '02', '02', '33', NULL, NULL, '01.01.07.01.02.02.33', 'Blangko Rekomendasi', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(222, '01', '01', '07', '01', '02', '02', '34', NULL, NULL, '01.01.07.01.02.02.34', 'Blangko Permohonan Pengesahan anak', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(223, '01', '01', '07', '01', '02', '02', '35', NULL, NULL, '01.01.07.01.02.02.35', 'Blangko Permohonan akte Kematian', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(224, '01', '01', '07', '01', '02', '02', '36', NULL, NULL, '01.01.07.01.02.02.36', 'KTP WNI ', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(225, '01', '01', '07', '01', '02', '02', '37', NULL, NULL, '01.01.07.01.02.02.37', 'KTP WNA', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(226, '01', '01', '07', '01', '02', '02', '38', NULL, NULL, '01.01.07.01.02.02.38', 'Kartu Keluarga (Lama)', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(227, '01', '01', '07', '01', '02', '02', '39', NULL, NULL, '01.01.07.01.02.02.39', 'Kartu Keluarga (Baru)', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(228, '01', '01', '07', '01', '02', '02', '40', NULL, NULL, '01.01.07.01.02.02.40', 'Kutipan Akte Kelahiran', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(229, '01', '01', '07', '01', '02', '02', '41', NULL, NULL, '01.01.07.01.02.02.41', 'Kutipan akte Kematian', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(230, '01', '01', '07', '01', '02', '02', '42', NULL, NULL, '01.01.07.01.02.02.42', 'Kutipan Akte Perkawainan', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(231, '01', '01', '07', '01', '02', '02', '43', NULL, NULL, '01.01.07.01.02.02.43', 'Kutipan Akte Perceraian', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(232, '01', '01', '07', '01', '02', '02', '44', NULL, NULL, '01.01.07.01.02.02.44', 'Kutipan Akte Pengakuan Anak', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(233, '01', '01', '07', '01', '02', '02', '45', NULL, NULL, '01.01.07.01.02.02.45', 'Register Akte Kelahiran', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(234, '01', '01', '07', '01', '02', '02', '46', NULL, NULL, '01.01.07.01.02.02.46', 'Register Akte Kematian', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(235, '01', '01', '07', '01', '02', '02', '47', NULL, NULL, '01.01.07.01.02.02.47', 'Register Akte Perkawinan', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(236, '01', '01', '07', '01', '02', '02', '48', NULL, NULL, '01.01.07.01.02.02.48', 'Register Akte Perceraian', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(237, '01', '01', '07', '01', '02', '02', '49', NULL, NULL, '01.01.07.01.02.02.49', 'Register Akte Pengakuan Anak', '', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(238, '01', '01', '07', '01', '02', '02', '50', NULL, NULL, '01.01.07.01.02.02.50', 'Blangko Pendaftaran', 'Dinsosnakertrans', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(239, '01', '01', '07', '01', '02', '02', '51', NULL, NULL, '01.01.07.01.02.02.51', 'Blangko Pernyataan', 'Dinsosnakertrans', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(240, '01', '01', '07', '01', '02', '02', '52', NULL, NULL, '01.01.07.01.02.02.52', 'Cetak Register Pemeriksaan', 'Dinsosnakertrans', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(241, '01', '01', '07', '01', '02', '02', '53', NULL, NULL, '01.01.07.01.02.02.53', 'Cetak Akte Pengawasan KK', 'Dinsosnakertrans', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(242, '01', '01', '07', '01', '02', '02', '54', NULL, NULL, '01.01.07.01.02.02.54', 'Cetak Kartu Pemeriksaan', 'Dinsosnakertrans', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(243, '01', '01', '07', '01', '02', '02', '55', NULL, NULL, '01.01.07.01.02.02.55', 'Cetak Sertifikat/Piagam', 'Dinsosnakertrans', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(244, '01', '01', '07', '01', '02', '02', '56', NULL, NULL, '01.01.07.01.02.02.56', 'Cetak Blangko Kartu Kuning', 'Dinsosnakertrans', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(245, '01', '01', '07', '01', '02', '02', '57', NULL, NULL, '01.01.07.01.02.02.57', 'Krcis Parkir ', 'Dishubparbud', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(246, '01', '01', '07', '01', '02', '02', '58', NULL, NULL, '01.01.07.01.02.02.58', 'Karcis Retribusi Terminal', 'Dishubparbud', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(247, '01', '01', '07', '01', '02', '02', '59', NULL, NULL, '01.01.07.01.02.02.59', 'Karcis Retribusi Rekreasi/Hiburan', 'Dishubparbud', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(248, '01', '01', '07', '01', '02', '02', '60', NULL, NULL, '01.01.07.01.02.02.60', 'Kartu tanda masuk (KTM) Rekreasi/hiburan', 'Dishubparbud', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(249, '01', '01', '07', '01', '02', '02', '61', NULL, NULL, '01.01.07.01.02.02.61', 'Buku Uji', 'Dishubparbud', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(250, '01', '01', '07', '01', '02', '02', '62', NULL, NULL, '01.01.07.01.02.02.62', 'Plat Uji', 'Dishubparbud', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(251, '01', '01', '07', '01', '02', '02', '63', NULL, NULL, '01.01.07.01.02.02.63', 'Stiker Samping', 'Dishubparbud', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(252, '01', '01', '07', '01', '02', '02', '64', NULL, NULL, '01.01.07.01.02.02.64', 'Kartu Induk', 'Dishubparbud', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(253, '01', '01', '07', '01', '02', '02', '65', NULL, NULL, '01.01.07.01.02.02.65', 'BEN 26 (Kwitansi Pengujian)', 'Dishubparbud', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
-(254, '01', '01', '07', '01', '02', '02', '66', NULL, NULL, '01.01.07.01.02.02.66', 'Blangko LHKPN', 'BKD', '', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(189, '01', '01', '07', '01', '02', '02', '01', NULL, NULL, '01.01.07.01.02.02.01', 'Amplop Kop Coklat Cetakan', '', 'lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(190, '01', '01', '07', '01', '02', '02', '02', NULL, NULL, '01.01.07.01.02.02.02', 'Amplop Kop Putih Cetakan', '', 'lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(191, '01', '01', '07', '01', '02', '02', '03', NULL, NULL, '01.01.07.01.02.02.03', 'Stopmap Cetakan', '', 'lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(192, '01', '01', '07', '01', '02', '02', '04', NULL, NULL, '01.01.07.01.02.02.04', 'SPTPD Hotel', '', 'lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(193, '01', '01', '07', '01', '02', '02', '05', NULL, NULL, '01.01.07.01.02.02.05', 'SPTPD Restaurant', '', 'lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(194, '01', '01', '07', '01', '02', '02', '06', NULL, NULL, '01.01.07.01.02.02.06', 'SPTPD Hiburan', '', 'lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(195, '01', '01', '07', '01', '02', '02', '07', NULL, NULL, '01.01.07.01.02.02.07', 'SPTPD Reklame', '', 'lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(196, '01', '01', '07', '01', '02', '02', '08', NULL, NULL, '01.01.07.01.02.02.08', 'SPTPD PPJ Non PLN', '', 'lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(197, '01', '01', '07', '01', '02', '02', '09', NULL, NULL, '01.01.07.01.02.02.09', 'SPTPD Sarang Burung', '', 'lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(198, '01', '01', '07', '01', '02', '02', '10', NULL, NULL, '01.01.07.01.02.02.10', 'SPTPD Parkir', '', 'lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(199, '01', '01', '07', '01', '02', '02', '11', NULL, NULL, '01.01.07.01.02.02.11', 'SPTPD Titik Strategis', '', 'lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(200, '01', '01', '07', '01', '02', '02', '12', NULL, NULL, '01.01.07.01.02.02.12', 'SSPD BPHTB', '', 'lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(201, '01', '01', '07', '01', '02', '02', '13', NULL, NULL, '01.01.07.01.02.02.13', 'Blangko A2', '', 'Bendel', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(202, '01', '01', '07', '01', '02', '02', '14', NULL, NULL, '01.01.07.01.02.02.14', 'Blangko STS', '', 'Bendel', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(203, '01', '01', '07', '01', '02', '02', '15', NULL, NULL, '01.01.07.01.02.02.15', 'Blangko Nota Penjualan', '', 'Bendel', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(204, '01', '01', '07', '01', '02', '02', '16', NULL, NULL, '01.01.07.01.02.02.16', 'Kartu Disposisi', '', 'Bendel', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(205, '01', '01', '07', '01', '02', '02', '17', NULL, NULL, '01.01.07.01.02.02.17', 'Kartu Data Pajak ABT', '', 'Bendel', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(206, '01', '01', '07', '01', '02', '02', '18', NULL, NULL, '01.01.07.01.02.02.18', 'Blangko SSP', '', 'Bendel', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(207, '01', '01', '07', '01', '02', '02', '19', NULL, NULL, '01.01.07.01.02.02.19', 'Kertas Continuous Form Berlogo', '', 'lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(208, '01', '01', '07', '01', '02', '02', '20', NULL, NULL, '01.01.07.01.02.02.20', 'Nota Akte', '', 'lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(209, '01', '01', '07', '01', '02', '02', '21', NULL, NULL, '01.01.07.01.02.02.21', 'Nota KTP KK', '', 'lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(210, '01', '01', '07', '01', '02', '02', '22', NULL, NULL, '01.01.07.01.02.02.22', 'Nota Surat Pindah', '', 'lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(211, '01', '01', '07', '01', '02', '02', '23', NULL, NULL, '01.01.07.01.02.02.23', 'Blangko Permohonan Akte Kelahiran Baru', '', 'Rim', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(212, '01', '01', '07', '01', '02', '02', '24', NULL, NULL, '01.01.07.01.02.02.24', 'Blangko Permohonan Akte Kelahiran TP (Lama)', '', 'Rim', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(213, '01', '01', '07', '01', '02', '02', '25', NULL, NULL, '01.01.07.01.02.02.25', 'Blangko Permohonan Akte Kelahiran TP (Baru)', '', 'Rim', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(214, '01', '01', '07', '01', '02', '02', '26', NULL, NULL, '01.01.07.01.02.02.26', 'Blangko Permohonan Kutipan Kedua Kel/Kem(Lama)', '', 'Rim', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(215, '01', '01', '07', '01', '02', '02', '27', NULL, NULL, '01.01.07.01.02.02.27', 'Blangko Permohonan Kutipan Kedua Kel/Kem(Baru)', '', 'Rim', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(216, '01', '01', '07', '01', '02', '02', '28', NULL, NULL, '01.01.07.01.02.02.28', 'Blangko Surat Kelahiran Kelurahan', '', 'Rim', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(217, '01', '01', '07', '01', '02', '02', '29', NULL, NULL, '01.01.07.01.02.02.29', 'Blangko Permohonan Perkawinan', '', 'Rim', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(218, '01', '01', '07', '01', '02', '02', '30', NULL, NULL, '01.01.07.01.02.02.30', 'Blangko Form Perceraian', '', 'Rim', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(219, '01', '01', '07', '01', '02', '02', '31', NULL, NULL, '01.01.07.01.02.02.31', 'Blangko Kutipan Kedua Perkawinan', '', 'Rim', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(220, '01', '01', '07', '01', '02', '02', '32', NULL, NULL, '01.01.07.01.02.02.32', 'Blangko Surat Kuasa', '', 'Rim', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(221, '01', '01', '07', '01', '02', '02', '33', NULL, NULL, '01.01.07.01.02.02.33', 'Blangko Rekomendasi', '', 'Rim', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(222, '01', '01', '07', '01', '02', '02', '34', NULL, NULL, '01.01.07.01.02.02.34', 'Blangko Permohonan Pengesahan anak', '', 'Rim', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(223, '01', '01', '07', '01', '02', '02', '35', NULL, NULL, '01.01.07.01.02.02.35', 'Blangko Permohonan akte Kematian', '', 'Rim', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(224, '01', '01', '07', '01', '02', '02', '36', NULL, NULL, '01.01.07.01.02.02.36', 'KTP WNI ', '', 'Lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(225, '01', '01', '07', '01', '02', '02', '37', NULL, NULL, '01.01.07.01.02.02.37', 'KTP WNA', '', 'Lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(226, '01', '01', '07', '01', '02', '02', '38', NULL, NULL, '01.01.07.01.02.02.38', 'Kartu Keluarga (Lama)', '', 'Lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(227, '01', '01', '07', '01', '02', '02', '39', NULL, NULL, '01.01.07.01.02.02.39', 'Kartu Keluarga (Baru)', '', 'Lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(228, '01', '01', '07', '01', '02', '02', '40', NULL, NULL, '01.01.07.01.02.02.40', 'Kutipan Akte Kelahiran', '', 'Lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(229, '01', '01', '07', '01', '02', '02', '41', NULL, NULL, '01.01.07.01.02.02.41', 'Kutipan akte Kematian', '', 'Lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(230, '01', '01', '07', '01', '02', '02', '42', NULL, NULL, '01.01.07.01.02.02.42', 'Kutipan Akte Perkawainan', '', 'Lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(231, '01', '01', '07', '01', '02', '02', '43', NULL, NULL, '01.01.07.01.02.02.43', 'Kutipan Akte Perceraian', '', 'Lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(232, '01', '01', '07', '01', '02', '02', '44', NULL, NULL, '01.01.07.01.02.02.44', 'Kutipan Akte Pengakuan Anak', '', 'Lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(233, '01', '01', '07', '01', '02', '02', '45', NULL, NULL, '01.01.07.01.02.02.45', 'Register Akte Kelahiran', '', 'Bendel', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(234, '01', '01', '07', '01', '02', '02', '46', NULL, NULL, '01.01.07.01.02.02.46', 'Register Akte Kematian', '', 'Bendel', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(235, '01', '01', '07', '01', '02', '02', '47', NULL, NULL, '01.01.07.01.02.02.47', 'Register Akte Perkawinan', '', 'Bendel', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(236, '01', '01', '07', '01', '02', '02', '48', NULL, NULL, '01.01.07.01.02.02.48', 'Register Akte Perceraian', '', 'Bendel', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(237, '01', '01', '07', '01', '02', '02', '49', NULL, NULL, '01.01.07.01.02.02.49', 'Register Akte Pengakuan Anak', '', 'Bendel', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(238, '01', '01', '07', '01', '02', '02', '50', NULL, NULL, '01.01.07.01.02.02.50', 'Blangko Pendaftaran', 'Dinsosnakertrans', 'Rim', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(239, '01', '01', '07', '01', '02', '02', '51', NULL, NULL, '01.01.07.01.02.02.51', 'Blangko Pernyataan', 'Dinsosnakertrans', 'Rim', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(240, '01', '01', '07', '01', '02', '02', '52', NULL, NULL, '01.01.07.01.02.02.52', 'Cetak Register Pemeriksaan', 'Dinsosnakertrans', 'Buku', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(241, '01', '01', '07', '01', '02', '02', '53', NULL, NULL, '01.01.07.01.02.02.53', 'Cetak Akte Pengawasan KK', 'Dinsosnakertrans', 'Buku', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(242, '01', '01', '07', '01', '02', '02', '54', NULL, NULL, '01.01.07.01.02.02.54', 'Cetak Kartu Pemeriksaan', 'Dinsosnakertrans', 'Buku', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(243, '01', '01', '07', '01', '02', '02', '55', NULL, NULL, '01.01.07.01.02.02.55', 'Cetak Sertifikat/Piagam', 'Dinsosnakertrans', 'Lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(244, '01', '01', '07', '01', '02', '02', '56', NULL, NULL, '01.01.07.01.02.02.56', 'Cetak Blangko Kartu Kuning', 'Dinsosnakertrans', 'Lembar', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(245, '01', '01', '07', '01', '02', '02', '57', NULL, NULL, '01.01.07.01.02.02.57', 'Krcis Parkir ', 'Dishubparbud', 'Bendel', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(246, '01', '01', '07', '01', '02', '02', '58', NULL, NULL, '01.01.07.01.02.02.58', 'Karcis Retribusi Terminal', 'Dishubparbud', 'Bendel', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(247, '01', '01', '07', '01', '02', '02', '59', NULL, NULL, '01.01.07.01.02.02.59', 'Karcis Retribusi Rekreasi/Hiburan', 'Dishubparbud', 'Bendel', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(248, '01', '01', '07', '01', '02', '02', '60', NULL, NULL, '01.01.07.01.02.02.60', 'Kartu tanda masuk (KTM) Rekreasi/hiburan', 'Dishubparbud', 'Bendel', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(249, '01', '01', '07', '01', '02', '02', '61', NULL, NULL, '01.01.07.01.02.02.61', 'Buku Uji', 'Dishubparbud', 'Buah', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(250, '01', '01', '07', '01', '02', '02', '62', NULL, NULL, '01.01.07.01.02.02.62', 'Plat Uji', 'Dishubparbud', 'Buah', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(251, '01', '01', '07', '01', '02', '02', '63', NULL, NULL, '01.01.07.01.02.02.63', 'Stiker Samping', 'Dishubparbud', 'Buah', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(252, '01', '01', '07', '01', '02', '02', '64', NULL, NULL, '01.01.07.01.02.02.64', 'Kartu Induk', 'Dishubparbud', 'Buah', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(253, '01', '01', '07', '01', '02', '02', '65', NULL, NULL, '01.01.07.01.02.02.65', 'BEN 26 (Kwitansi Pengujian)', 'Dishubparbud', 'Buah', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
+(254, '01', '01', '07', '01', '02', '02', '66', NULL, NULL, '01.01.07.01.02.02.66', 'Blangko LHKPN', 'BKD', 'Buku', '1170102', 'Persediaan Dokumen/Administrasi Tender', 0),
 (255, '01', '01', '07', '01', '03', '', '', NULL, NULL, '01.01.07.01.03', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', '', '', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 0),
 (256, '01', '01', '07', '01', '03', '01', '', NULL, NULL, '01.01.07.01.03.01', 'ALAT LISTRIK(''Lampu Pijar 110/220 Volt (Bollam))', '', '', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 0),
 (257, '01', '01', '07', '01', '03', '01', '01', NULL, NULL, '01.01.07.01.03.01.01', 'Lampu Esensial', '', ' Buah ', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 50400),
@@ -734,27 +737,27 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (268, '01', '01', '07', '01', '03', '01', '152', NULL, NULL, '01.01.07.01.03.01.152', 'Lampu Tornado', '', ' Buah ', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 73500),
 (269, '01', '01', '07', '01', '03', '01', '153', NULL, NULL, '01.01.07.01.03.01.153', 'Lampu Hemat Energi LED', '9 w', ' Buah ', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 210000),
 (270, '01', '01', '07', '01', '03', '01', '154', NULL, NULL, '01.01.07.01.03.01.154', 'Lampu Downlight', 'BCS22W Clean  1x TLE22W w/ lamp', ' set ', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 367500),
-(271, '01', '01', '07', '01', '03', '01', '323', NULL, NULL, '01.01.07.01.03.01.323', 'Lampu Jalan', '150 Watt', ' set ', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 4593750),
-(272, '01', '01', '07', '01', '03', '01', '328', NULL, NULL, '01.01.07.01.03.01.328', 'Street Lamp', 'SRX 066 SON/SON T 70 W', 'Buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 1927800),
-(273, '01', '01', '07', '01', '03', '01', '332', NULL, NULL, '01.01.07.01.03.01.332', 'Street Lighting', 'LMPJ 504 HPLN 80 W', 'Buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 51450);
+(271, '01', '01', '07', '01', '03', '01', '323', NULL, NULL, '01.01.07.01.03.01.323', 'Lampu Jalan', '150 Watt', ' set ', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 4593750);
 INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
+(272, '01', '01', '07', '01', '03', '01', '328', NULL, NULL, '01.01.07.01.03.01.328', 'Street Lamp', 'SRX 066 SON/SON T 70 W', 'Buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 1927800),
+(273, '01', '01', '07', '01', '03', '01', '332', NULL, NULL, '01.01.07.01.03.01.332', 'Street Lighting', 'LMPJ 504 HPLN 80 W', 'Buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 51450),
 (274, '01', '01', '07', '01', '03', '01', '340', NULL, NULL, '01.01.07.01.03.01.340', 'Lampu Flood', 'QVF133 1xHPLS 150W', ' set ', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 141750),
 (275, '01', '01', '07', '01', '03', '01', '454', NULL, NULL, '01.01.07.01.03.01.454', 'Lampu Taman', '', ' set ', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 114450),
 (276, '01', '01', '07', '01', '03', '01', '455', NULL, NULL, '01.01.07.01.03.01.455', 'Lampu Batten & Waterproof', 'Cover for New SiMbat 1xTLD ; 36W', ' set ', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 173250),
 (277, '01', '01', '07', '01', '03', '01', '482', NULL, NULL, '01.01.07.01.03.01.482', 'Lampu Hemat Energy LED', '3 Watt', 'Buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 26250),
 (278, '01', '01', '07', '01', '03', '01', '491', NULL, NULL, '01.01.07.01.03.01.491', 'Lampu Sorot ', '10 Watt', 'Buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 28350),
 (279, '01', '01', '07', '01', '03', '01', '499', NULL, NULL, '01.01.07.01.03.01.499', 'HID Lamps - Metal Halide', 'HPIT PLUS 250 W GES', 'Buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 321300),
-(280, '01', '01', '07', '01', '03', '01', '508', NULL, NULL, '01.01.07.01.03.01.508', 'TIME SWITCH/TIMER', '', '', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 525000),
+(280, '01', '01', '07', '01', '03', '01', '508', NULL, NULL, '01.01.07.01.03.01.508', 'TIME SWITCH/TIMER', '', 'Buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 525000),
 (281, '01', '01', '07', '01', '03', '02', '', NULL, NULL, '01.01.07.01.03.02', 'Perlengkapan Kelistrikan Kendaraan', '', '', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 0),
 (282, '01', '01', '07', '01', '03', '02', '21', NULL, NULL, '01.01.07.01.03.02.21', 'Accu Motor', '', 'buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 822150),
 (283, '01', '01', '07', '01', '03', '02', '22', NULL, NULL, '01.01.07.01.03.02.22', 'Accu Mobil', 'YB5L-B 12V', 'buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 184800),
 (284, '01', '01', '07', '01', '03', '02', '23', NULL, NULL, '01.01.07.01.03.02.23', 'Accu Truck/Bus', '12V 10AH', 'buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 302400),
 (285, '01', '01', '07', '01', '03', '02', '25', NULL, NULL, '01.01.07.01.03.02.25', 'Air Accu', '', 'botol', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 23100),
-(286, '01', '01', '07', '01', '03', '02', '25', NULL, NULL, '01.01.07.01.03.02.25', 'Batery AAA', '', '', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 0),
+(286, '01', '01', '07', '01', '03', '02', '25', NULL, NULL, '01.01.07.01.03.02.25', 'Batery AAA', '', 'Buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 0),
 (287, '01', '01', '07', '01', '03', '02', '27', NULL, NULL, '01.01.07.01.03.02.27', 'Batery Ukuran Kecil', '12V/5Ah', 'buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 192150),
 (288, '01', '01', '07', '01', '03', '02', '28', NULL, NULL, '01.01.07.01.03.02.28', 'Battery Ukuran Sedang', 'Kering, 200 Ah, 12 V', 'buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 5392800),
 (289, '01', '01', '07', '01', '03', '02', '29', NULL, NULL, '01.01.07.01.03.02.29', 'Battery Ukuran Besar', '12 N2 3', 'buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 698250),
-(290, '01', '01', '07', '01', '03', '02', '29', NULL, NULL, '01.01.07.01.03.02.29', 'Battery Kotak', '', '', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 0),
+(290, '01', '01', '07', '01', '03', '02', '29', NULL, NULL, '01.01.07.01.03.02.29', 'Battery Kotak', '', 'Buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 0),
 (291, '01', '01', '07', '01', '03', '02', '72', NULL, NULL, '01.01.07.01.03.02.72', 'Battery Charger Ukuran Kecil', 'Quick Battery Charger  BC-20CR for BT-24Q/24QW/30Q', 'buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 6438600),
 (292, '01', '01', '07', '01', '03', '02', '73', NULL, NULL, '01.01.07.01.03.02.73', 'Battery Charger Ukuran Sedang', 'Quick Battery Charger  BC-27MC', 'buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 6115200),
 (293, '01', '01', '07', '01', '03', '02', '74', NULL, NULL, '01.01.07.01.03.02.74', 'Battery Charger Ukuran Besar', 'Solar Panel Charger for Battery Pack BT-20Q/23Q/32Q/24Q/24QW/30Q', 'buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 45198300),
@@ -965,16 +968,16 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (498, '01', '01', '07', '01', '03', '06', '77', NULL, NULL, '01.01.07.01.03.06.77', 'Motherboard untuk Workstation/Server', '', 'unit', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 4962300),
 (499, '01', '01', '07', '01', '03', '06', '78', NULL, NULL, '01.01.07.01.03.06.78', 'Controller SATA / SCSI / SAS ', 'PCIe x4, 8P (4 int/4 ext) SAS RAID Controller - Intel® 80333 IOP @ 500 MHz, 128MB memory.', 'unit', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 9305100),
 (500, '01', '01', '07', '01', '03', '06', '84', NULL, NULL, '01.01.07.01.03.06.84', 'Plotter Pen Accessories', '0.3mm four color pens ', 'unit', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 193200),
-(501, '01', '01', '07', '01', '03', '06', '90', NULL, NULL, '01.01.07.01.03.06.90', 'Plotter Accessories ', '32MB SIMM for DSJ 1000', 'unit', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 2871750),
-(502, '01', '01', '07', '01', '03', '06', '107', NULL, NULL, '01.01.07.01.03.06.107', 'Chassis untuk PC / Desktop', 'Full Tower, Side Panel, Bays : 5x5.25", 5x3.5", 1x8cm front fan, 1x12cm rear fan', 'unit', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 1403850),
-(503, '01', '01', '07', '01', '03', '06', '112', NULL, NULL, '01.01.07.01.03.06.112', 'Digitizer Accesories', '16-button Full-Crosshair Cursor, 100" Cable', 'unit', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 4080300);
+(501, '01', '01', '07', '01', '03', '06', '90', NULL, NULL, '01.01.07.01.03.06.90', 'Plotter Accessories ', '32MB SIMM for DSJ 1000', 'unit', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 2871750);
 INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
+(502, '01', '01', '07', '01', '03', '06', '107', NULL, NULL, '01.01.07.01.03.06.107', 'Chassis untuk PC / Desktop', 'Full Tower, Side Panel, Bays : 5x5.25", 5x3.5", 1x8cm front fan, 1x12cm rear fan', 'unit', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 1403850),
+(503, '01', '01', '07', '01', '03', '06', '112', NULL, NULL, '01.01.07.01.03.06.112', 'Digitizer Accesories', '16-button Full-Crosshair Cursor, 100" Cable', 'unit', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 4080300),
 (504, '01', '01', '07', '01', '04', '', '', NULL, NULL, '01.01.07.01.04', 'Persediaan Perangko, materei dan benda pos lainnya', '', '', '1170104', 'Persediaan Perangko, materei dan benda pos lainnya', 0),
 (505, '01', '01', '07', '01', '04', '01', '', NULL, NULL, '01.01.07.01.04.01', 'Perangko, materei dan benda pos ', '', '', '1170104', 'Persediaan Perangko, materei dan benda pos lainnya', 0),
-(506, '01', '01', '07', '01', '04', '01', '01', NULL, NULL, '01.01.07.01.04.01.01', 'Materai 3000', '', '', '1170104', 'Persediaan Perangko, materei dan benda pos lainnya', 0),
-(507, '01', '01', '07', '01', '04', '01', '02', NULL, NULL, '01.01.07.01.04.01.02', 'Materai 6000', '', '', '1170104', 'Persediaan Perangko, materei dan benda pos lainnya', 0),
-(508, '01', '01', '07', '01', '04', '01', '03', NULL, NULL, '01.01.07.01.04.01.03', 'Prangko', '', '', '1170104', 'Persediaan Perangko, materei dan benda pos lainnya', 0),
-(509, '01', '01', '07', '01', '04', '01', '04', NULL, NULL, '01.01.07.01.04.01.04', 'Benda Pos Lainnya', '', '', '1170104', 'Persediaan Perangko, materei dan benda pos lainnya', 0),
+(506, '01', '01', '07', '01', '04', '01', '01', NULL, NULL, '01.01.07.01.04.01.01', 'Materai 3000', '', 'Lembar', '1170104', 'Persediaan Perangko, materei dan benda pos lainnya', 0),
+(507, '01', '01', '07', '01', '04', '01', '02', NULL, NULL, '01.01.07.01.04.01.02', 'Materai 6000', '', 'Lembar', '1170104', 'Persediaan Perangko, materei dan benda pos lainnya', 0),
+(508, '01', '01', '07', '01', '04', '01', '03', NULL, NULL, '01.01.07.01.04.01.03', 'Prangko', '', 'Buah', '1170104', 'Persediaan Perangko, materei dan benda pos lainnya', 0),
+(509, '01', '01', '07', '01', '04', '01', '04', NULL, NULL, '01.01.07.01.04.01.04', 'Benda Pos Lainnya', '', 'Buah', '1170104', 'Persediaan Perangko, materei dan benda pos lainnya', 0),
 (510, '01', '01', '07', '01', '05', '', '', NULL, NULL, '01.01.07.01.05', 'Persediaan Peralatan Kebersihan dan Bahan Pembersih.', '', '', '1170105', 'Persediaan Peralatan Kebersihan dan Bahan Pembersih.', 0),
 (511, '01', '01', '07', '01', '05', '01', '', NULL, NULL, '01.01.07.01.05.01', 'PERABOT KANTOR', '', '', '1170105', 'Persediaan Peralatan Kebersihan dan Bahan Pembersih.', 0),
 (512, '01', '01', '07', '01', '05', '01', '01', NULL, NULL, '01.01.07.01.05.01.01', 'Ember', 'Besar; Plastik', 'buah', '1170105', 'Persediaan Peralatan Kebersihan dan Bahan Pembersih.', 70350),
@@ -1011,21 +1014,21 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (543, '01', '01', '07', '01', '05', '01', '32', NULL, NULL, '01.01.07.01.05.01.32', 'Tongkat Pel', '', 'Buah', '1170105', 'Persediaan Peralatan Kebersihan dan Bahan Pembersih.', 41580),
 (544, '01', '01', '07', '01', '06', '', '', NULL, NULL, '01.01.07.01.06', 'Persediaan Bahan Bakar Minyak/Gas', '', '', '1170106', 'Persediaan Bahan Bakar Minyak/Gas', 0),
 (545, '01', '01', '07', '01', '06', '01', '', NULL, NULL, '01.01.07.01.06.01', 'Persediaan Bahan Bakar Minyak/Gas', '', '', '1170106', 'Persediaan Bahan Bakar Minyak/Gas', 0),
-(546, '01', '01', '07', '01', '06', '01', '01', NULL, NULL, '01.01.07.01.06.01.01', 'Minyak Tanah', '', '', '1170106', 'Persediaan Bahan Bakar Minyak/Gas', 0),
-(547, '01', '01', '07', '01', '06', '01', '02', NULL, NULL, '01.01.07.01.06.01.02', 'Bensin Premium', '', '', '1170106', 'Persediaan Bahan Bakar Minyak/Gas', 0),
-(548, '01', '01', '07', '01', '06', '01', '03', NULL, NULL, '01.01.07.01.06.01.03', 'Solar', '', '', '1170106', 'Persediaan Bahan Bakar Minyak/Gas', 0),
-(549, '01', '01', '07', '01', '06', '01', '04', NULL, NULL, '01.01.07.01.06.01.04', 'Pertamax', '', '', '1170106', 'Persediaan Bahan Bakar Minyak/Gas', 0),
-(550, '01', '01', '07', '01', '06', '01', '05', NULL, NULL, '01.01.07.01.06.01.05', 'Gas 3 Kg', '', '', '1170106', 'Persediaan Bahan Bakar Minyak/Gas', 0),
-(551, '01', '01', '07', '01', '06', '01', '06', NULL, NULL, '01.01.07.01.06.01.06', 'Gas 5 Kg', '', '', '1170106', 'Persediaan Bahan Bakar Minyak/Gas', 0),
-(552, '01', '01', '07', '01', '06', '01', '07', NULL, NULL, '01.01.07.01.06.01.07', 'Gas 12 Kg', '', '', '1170106', 'Persediaan Bahan Bakar Minyak/Gas', 0),
+(546, '01', '01', '07', '01', '06', '01', '01', NULL, NULL, '01.01.07.01.06.01.01', 'Minyak Tanah', '', 'Liter', '1170106', 'Persediaan Bahan Bakar Minyak/Gas', 0),
+(547, '01', '01', '07', '01', '06', '01', '02', NULL, NULL, '01.01.07.01.06.01.02', 'Bensin Premium', '', 'Liter', '1170106', 'Persediaan Bahan Bakar Minyak/Gas', 0),
+(548, '01', '01', '07', '01', '06', '01', '03', NULL, NULL, '01.01.07.01.06.01.03', 'Solar', '', 'Liter', '1170106', 'Persediaan Bahan Bakar Minyak/Gas', 0),
+(549, '01', '01', '07', '01', '06', '01', '04', NULL, NULL, '01.01.07.01.06.01.04', 'Pertamax', '', 'Liter', '1170106', 'Persediaan Bahan Bakar Minyak/Gas', 0),
+(550, '01', '01', '07', '01', '06', '01', '05', NULL, NULL, '01.01.07.01.06.01.05', 'Gas 3 Kg', '', 'Buah', '1170106', 'Persediaan Bahan Bakar Minyak/Gas', 0),
+(551, '01', '01', '07', '01', '06', '01', '06', NULL, NULL, '01.01.07.01.06.01.06', 'Gas 5 Kg', '', 'Buah', '1170106', 'Persediaan Bahan Bakar Minyak/Gas', 0),
+(552, '01', '01', '07', '01', '06', '01', '07', NULL, NULL, '01.01.07.01.06.01.07', 'Gas 12 Kg', '', 'Buah', '1170106', 'Persediaan Bahan Bakar Minyak/Gas', 0),
 (553, '01', '01', '07', '01', '07', '', '', NULL, NULL, '01.01.07.01.07', 'Persediaan Isi Tabung pemadam kebakaran', '', '', '1170107', 'Persediaan Isi Tabung pemadam kebakaran', 0),
 (554, '01', '01', '07', '01', '07', '01', '', NULL, NULL, '01.01.07.01.07.01', 'Persediaan Isi Tabung pemadam kebakaran', '', '', '1170107', 'Persediaan Isi Tabung pemadam kebakaran', 0),
-(555, '01', '01', '07', '01', '07', '01', '01', NULL, NULL, '01.01.07.01.07.01.01', 'Isi Tabung Alat Pemadam Api Dry Chemical', '', '', '1170107', 'Persediaan Isi Tabung pemadam kebakaran', 0),
-(556, '01', '01', '07', '01', '07', '01', '02', NULL, NULL, '01.01.07.01.07.01.02', 'Isi Tabung Alat Pemadam Api Dry Chemical Throlly', '', '', '1170107', 'Persediaan Isi Tabung pemadam kebakaran', 0),
-(557, '01', '01', '07', '01', '07', '01', '03', NULL, NULL, '01.01.07.01.07.01.03', 'Isi Tabung Alat Pemadam ApiCarbone Dioxide', '', '', '1170107', 'Persediaan Isi Tabung pemadam kebakaran', 0),
+(555, '01', '01', '07', '01', '07', '01', '01', NULL, NULL, '01.01.07.01.07.01.01', 'Isi Tabung Alat Pemadam Api Dry Chemical', '', 'Buah', '1170107', 'Persediaan Isi Tabung pemadam kebakaran', 0),
+(556, '01', '01', '07', '01', '07', '01', '02', NULL, NULL, '01.01.07.01.07.01.02', 'Isi Tabung Alat Pemadam Api Dry Chemical Throlly', '', 'Buah', '1170107', 'Persediaan Isi Tabung pemadam kebakaran', 0),
+(557, '01', '01', '07', '01', '07', '01', '03', NULL, NULL, '01.01.07.01.07.01.03', 'Isi Tabung Alat Pemadam ApiCarbone Dioxide', '', 'Buah', '1170107', 'Persediaan Isi Tabung pemadam kebakaran', 0),
 (558, '01', '01', '07', '01', '08', '', '', NULL, NULL, '01.01.07.01.08', 'Persediaan Isi Tabung Gas', '', '', '1170108', 'Persediaan Isi Tabung Gas', 0),
 (559, '01', '01', '07', '01', '08', '01', '', NULL, NULL, '01.01.07.01.08.01', 'Persediaan Isi Tabung Gas', '', '', '1170108', 'Persediaan Isi Tabung Gas', 0),
-(560, '01', '01', '07', '01', '08', '01', '01', NULL, NULL, '01.01.07.01.08.01.01', 'Isi Tabung Gas Oksigen', '', '', '1170108', 'Persediaan Isi Tabung Gas', 0),
+(560, '01', '01', '07', '01', '08', '01', '01', NULL, NULL, '01.01.07.01.08.01.01', 'Isi Tabung Gas Oksigen', '', 'Buah', '1170108', 'Persediaan Isi Tabung Gas', 0),
 (561, '01', '01', '07', '01', '09', '', '', NULL, NULL, '01.01.07.01.09', 'Persediaan Peralatan Pertamanan', '', '', '1170109', 'Persediaan Peralatan Pertamanan', 0),
 (562, '01', '01', '07', '01', '09', '01', '', NULL, NULL, '01.01.07.01.09.01', '(Obat-Obatan Pestisida) Akarisida', '', '', '1170109', 'Persediaan Peralatan Pertamanan', 0),
 (563, '01', '01', '07', '01', '09', '01', '01', NULL, NULL, '01.01.07.01.09.01.01', 'Akarisida Tepung (Bubuk)', 'Fenoksi / Piretroid, Cair', 'liter', '1170109', 'Persediaan Peralatan Pertamanan', 103950),
@@ -1225,11 +1228,11 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (757, '01', '01', '07', '01', '10', '01', '169', NULL, NULL, '01.01.07.01.10.01.169', 'CHEM I Calibrator', '', 'Kit', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 3346350),
 (758, '01', '01', '07', '01', '10', '01', '170', NULL, NULL, '01.01.07.01.10.01.170', 'Chloramin T', '250 gr', 'botol', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 1189650),
 (759, '01', '01', '07', '01', '10', '01', '171', NULL, NULL, '01.01.07.01.10.01.171', 'Chlorampenicol ', '', 'pak', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 1996050),
-(760, '01', '01', '07', '01', '10', '01', '172', NULL, NULL, '01.01.07.01.10.01.172', 'Chlorampenicol disk  (C30)', 'CT0013B', 'Blitz', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 589050),
+(760, '01', '01', '07', '01', '10', '01', '172', NULL, NULL, '01.01.07.01.10.01.172', 'Chlorampenicol disk  (C30)', 'CT0013B', 'Blitz', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 589050);
+INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
 (761, '01', '01', '07', '01', '10', '01', '173', NULL, NULL, '01.01.07.01.10.01.173', 'Chloride ', '1 kit', 'Kit', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 4143300),
 (762, '01', '01', '07', '01', '10', '01', '174', NULL, NULL, '01.01.07.01.10.01.174', 'Chloroform', '2,5 ltr', 'botol', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 1517250),
-(763, '01', '01', '07', '01', '10', '01', '175', NULL, NULL, '01.01.07.01.10.01.175', 'CHOL Cholesterol', '', 'Kit', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 2303700);
-INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
+(763, '01', '01', '07', '01', '10', '01', '175', NULL, NULL, '01.01.07.01.10.01.175', 'CHOL Cholesterol', '', 'Kit', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 2303700),
 (764, '01', '01', '07', '01', '10', '01', '176', NULL, NULL, '01.01.07.01.10.01.176', 'Cholesterol', '4x100 ml', 'Kit', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 5177550),
 (765, '01', '01', '07', '01', '10', '01', '177', NULL, NULL, '01.01.07.01.10.01.177', 'Cholesterol', 'LDL (R1)', 'Kit', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 7052850),
 (766, '01', '01', '07', '01', '10', '01', '178', NULL, NULL, '01.01.07.01.10.01.178', 'Cholesterol', 'LDL (R2)', 'Kit', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 2107350),
@@ -1482,11 +1485,11 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (1013, '01', '01', '07', '01', '10', '01', '425', NULL, NULL, '01.01.07.01.10.01.425', 'Silica Gel GF 254', '25 unit', 'Box', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 4994850),
 (1014, '01', '01', '07', '01', '10', '01', '426', NULL, NULL, '01.01.07.01.10.01.426', 'Silver Nitrate GR', '', 'paket', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 1285200),
 (1015, '01', '01', '07', '01', '10', '01', '427', NULL, NULL, '01.01.07.01.10.01.427', 'Silver Rgt Set', '50 test', 'Pak', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 3104850),
-(1016, '01', '01', '07', '01', '10', '01', '428', NULL, NULL, '01.01.07.01.10.01.428', 'Silver Sulfate GR', '', 'paket', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 2702700),
+(1016, '01', '01', '07', '01', '10', '01', '428', NULL, NULL, '01.01.07.01.10.01.428', 'Silver Sulfate GR', '', 'paket', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 2702700);
+INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
 (1017, '01', '01', '07', '01', '10', '01', '429', NULL, NULL, '01.01.07.01.10.01.429', 'Sodium ', 'diethyl dithiocarbamate, 100 gr', 'botol', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 1861650),
 (1018, '01', '01', '07', '01', '10', '01', '430', NULL, NULL, '01.01.07.01.10.01.430', 'Spot Anti HCV', '20 test', 'Box', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 3343200),
-(1019, '01', '01', '07', '01', '10', '01', '431', NULL, NULL, '01.01.07.01.10.01.431', 'Spot Anti HCV cassette', '25 test', 'Box', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 1661100);
-INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
+(1019, '01', '01', '07', '01', '10', '01', '431', NULL, NULL, '01.01.07.01.10.01.431', 'Spot Anti HCV cassette', '25 test', 'Box', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 1661100),
 (1020, '01', '01', '07', '01', '10', '01', '432', NULL, NULL, '01.01.07.01.10.01.432', 'Standart Aluminium', '100 ml', 'botol', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 1114050),
 (1021, '01', '01', '07', '01', '10', '01', '433', NULL, NULL, '01.01.07.01.10.01.433', 'Standart Aluminium', '500 ml', 'botol', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 1313550),
 (1022, '01', '01', '07', '01', '10', '01', '434', NULL, NULL, '01.01.07.01.10.01.434', 'Standart Arsen', '500 ml', 'botol', '1170110', 'Persediaan Perlengkapan Laboratorium dan Kesehatan', 1313550),
@@ -1753,11 +1756,11 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (1283, '01', '01', '07', '02', '01', '01', '88', NULL, NULL, '01.01.07.02.01.01.88', 'Genteng Metal Type 2x4 PJ. 75 cm LB. 82 cm grade Gold colour', '', 'Lbr', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
 (1284, '01', '01', '07', '02', '01', '01', '89', NULL, NULL, '01.01.07.02.01.01.89', 'Genteng Metal Type 2x4 PJ. 75 cm LB. 82 cm grade Gold stone', '', 'Lbr', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
 (1285, '01', '01', '07', '02', '01', '01', '90', NULL, NULL, '01.01.07.02.01.01.90', 'Genteng Metal Type 2x4 PJ. 75 cm LB. 82 cm grade Platinum colour', '', 'Lbr', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
-(1286, '01', '01', '07', '02', '01', '01', '91', NULL, NULL, '01.01.07.02.01.01.91', 'Genteng Metal Type 2x4 PJ. 75 cm LB. 82 cm grade Platinum stone', '', 'Lbr', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
+(1286, '01', '01', '07', '02', '01', '01', '91', NULL, NULL, '01.01.07.02.01.01.91', 'Genteng Metal Type 2x4 PJ. 75 cm LB. 82 cm grade Platinum stone', '', 'Lbr', '1170201', 'Persediaan Bahan Baku Bangunan', 0);
+INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
 (1287, '01', '01', '07', '02', '01', '01', '92', NULL, NULL, '01.01.07.02.01.01.92', 'Genteng Metal Type 2x4 PJ. 75 cm LB. 82 cm grade Saphire colour', '', 'Lbr', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
 (1288, '01', '01', '07', '02', '01', '01', '93', NULL, NULL, '01.01.07.02.01.01.93', 'Genteng Metal Type 2x4 PJ. 75 cm LB. 82 cm grade Saphire stone', '', 'Lbr', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
-(1289, '01', '01', '07', '02', '01', '01', '94', NULL, NULL, '01.01.07.02.01.01.94', 'Genteng Metal Type 1x4 PJ. 37,5 cm LB. 82 cm grade ruby colour', '', 'Lbr', '1170201', 'Persediaan Bahan Baku Bangunan', 0);
-INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
+(1289, '01', '01', '07', '02', '01', '01', '94', NULL, NULL, '01.01.07.02.01.01.94', 'Genteng Metal Type 1x4 PJ. 37,5 cm LB. 82 cm grade ruby colour', '', 'Lbr', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
 (1290, '01', '01', '07', '02', '01', '01', '95', NULL, NULL, '01.01.07.02.01.01.95', 'Genteng Metal Type 1x4 PJ. 37,5 cm LB. 82 cm grade Silver colour', '', 'Lbr', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
 (1291, '01', '01', '07', '02', '01', '01', '96', NULL, NULL, '01.01.07.02.01.01.96', 'Genteng Metal Type 1x4 PJ. 37,5 cm LB. 82 cm grade Silver stone', '', 'Lbr', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
 (1292, '01', '01', '07', '02', '01', '01', '97', NULL, NULL, '01.01.07.02.01.01.97', 'Genteng Metal Type 1x4 PJ. 37,5 cm LB. 82 cm grade Gold colour', '', 'Lbr', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
@@ -2032,12 +2035,12 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (1561, '01', '01', '07', '02', '01', '01', '366', NULL, NULL, '01.01.07.02.01.01.366', 'Pewarna Paving (Lapisan Kepala) Biru Tua', '', 'M2', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
 (1562, '01', '01', '07', '02', '01', '01', '367', NULL, NULL, '01.01.07.02.01.01.367', 'Pewarna Paving (Lapisan Kepala) Coklat Muda', '', 'M2', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
 (1563, '01', '01', '07', '02', '01', '01', '368', NULL, NULL, '01.01.07.02.01.01.368', 'Pewarna Paving (Lapisan Kepala) Coklat Tua', '', 'M2', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
-(1564, '01', '01', '07', '02', '01', '01', '369', NULL, NULL, '01.01.07.02.01.01.369', 'Pewarna Paving (Full Colour) Merah Tb. 6 cm', '', 'M2', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
+(1564, '01', '01', '07', '02', '01', '01', '369', NULL, NULL, '01.01.07.02.01.01.369', 'Pewarna Paving (Full Colour) Merah Tb. 6 cm', '', 'M2', '1170201', 'Persediaan Bahan Baku Bangunan', 0);
+INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
 (1565, '01', '01', '07', '02', '01', '01', '370', NULL, NULL, '01.01.07.02.01.01.370', 'Pewarna Paving (Full Colour) Merah Tb. 8 cm', '', 'M2', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
 (1566, '01', '01', '07', '02', '01', '01', '371', NULL, NULL, '01.01.07.02.01.01.371', 'Pewarna Paving (Full Colour) Kuning Tb. 6 cm', '', 'M2', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
 (1567, '01', '01', '07', '02', '01', '01', '372', NULL, NULL, '01.01.07.02.01.01.372', 'Pewarna Paving (Full Colour) Kuning Tb. 8 cm', '', 'M2', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
-(1568, '01', '01', '07', '02', '01', '01', '373', NULL, NULL, '01.01.07.02.01.01.373', 'Pewarna Paving (Full Colour) Hijau Tb. 6 cm', '', 'M2', '1170201', 'Persediaan Bahan Baku Bangunan', 0);
-INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
+(1568, '01', '01', '07', '02', '01', '01', '373', NULL, NULL, '01.01.07.02.01.01.373', 'Pewarna Paving (Full Colour) Hijau Tb. 6 cm', '', 'M2', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
 (1569, '01', '01', '07', '02', '01', '01', '374', NULL, NULL, '01.01.07.02.01.01.374', 'Pewarna Paving (Full Colour) Hijau Tb. 8 cm', '', 'M2', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
 (1570, '01', '01', '07', '02', '01', '01', '375', NULL, NULL, '01.01.07.02.01.01.375', 'Pewarna Paving (Full Colour) Hitam Tb. 6 cm', '', 'M2', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
 (1571, '01', '01', '07', '02', '01', '01', '376', NULL, NULL, '01.01.07.02.01.01.376', 'Pewarna Paving (Full Colour) Hitam Tb. 8 cm', '', 'M2', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
@@ -2312,12 +2315,12 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (1840, '01', '01', '07', '02', '01', '01', '645', NULL, NULL, '01.01.07.02.01.01.645', 'Sock GI 1/2"', '', 'Bh', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
 (1841, '01', '01', '07', '02', '01', '01', '646', NULL, NULL, '01.01.07.02.01.01.646', 'Stabiliser voltage ( stavolt 5.000 VA )', '', 'Bh', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
 (1842, '01', '01', '07', '02', '01', '01', '647', NULL, NULL, '01.01.07.02.01.01.647', 'stabiliser voltage ( stavolt 3.000 VA )', '', 'Bh', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
-(1843, '01', '01', '07', '02', '01', '01', '648', NULL, NULL, '01.01.07.02.01.01.648', 'Stop kran kuningan dia. 1"', '', 'Bh', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
+(1843, '01', '01', '07', '02', '01', '01', '648', NULL, NULL, '01.01.07.02.01.01.648', 'Stop kran kuningan dia. 1"', '', 'Bh', '1170201', 'Persediaan Bahan Baku Bangunan', 0);
+INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
 (1844, '01', '01', '07', '02', '01', '01', '649', NULL, NULL, '01.01.07.02.01.01.649', 'Stop kran kuningan dia. 1,5"', '', 'Bh', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
 (1845, '01', '01', '07', '02', '01', '01', '650', NULL, NULL, '01.01.07.02.01.01.650', 'Stop kran kuningan dia. 2"', '', 'Bh', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
 (1846, '01', '01', '07', '02', '01', '01', '651', NULL, NULL, '01.01.07.02.01.01.651', 'Stop kran kuningan dia. 2,5"', '', 'Bh', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
-(1847, '01', '01', '07', '02', '01', '01', '652', NULL, NULL, '01.01.07.02.01.01.652', 'Stop kran kuningan dia. 3"', '', 'Bh', '1170201', 'Persediaan Bahan Baku Bangunan', 0);
-INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
+(1847, '01', '01', '07', '02', '01', '01', '652', NULL, NULL, '01.01.07.02.01.01.652', 'Stop kran kuningan dia. 3"', '', 'Bh', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
 (1848, '01', '01', '07', '02', '01', '01', '653', NULL, NULL, '01.01.07.02.01.01.653', 'Stop kran kuningan dia. 4"', '', 'Bh', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
 (1849, '01', '01', '07', '02', '01', '01', '654', NULL, NULL, '01.01.07.02.01.01.654', 'Stop kran  2,5"', '', 'Bh', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
 (1850, '01', '01', '07', '02', '01', '01', '655', NULL, NULL, '01.01.07.02.01.01.655', 'Stop kran 2"', '', 'Bh', '1170201', 'Persediaan Bahan Baku Bangunan', 0),
@@ -2597,12 +2600,12 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (2124, '01', '01', '07', '02', '04', '', '', NULL, NULL, '01.01.07.02.04', 'Persediaan Bahan Obat-Obatan', '', '', '1170204', 'Persediaan Bahan Obat-Obatan', 0),
 (2125, '01', '01', '07', '02', '04', '01', '', NULL, NULL, '01.01.07.02.04.01', 'BAHAN OBAT (''Obat Medis)', '', '', '1170204', 'Persediaan Bahan Obat-Obatan', 0),
 (2126, '01', '01', '07', '02', '04', '01', '01', NULL, NULL, '01.01.07.02.04.01.01', 'Hematoxylin', ' Spec. : CAT. S2S07', 'box', '1170204', 'Persediaan Bahan Obat-Obatan', 2713200),
-(2127, '01', '01', '07', '02', '04', '01', '02', NULL, NULL, '01.01.07.02.04.01.02', 'Amikacin AK', '', 'pak/5dos', '1170204', 'Persediaan Bahan Obat-Obatan', 714000),
+(2127, '01', '01', '07', '02', '04', '01', '02', NULL, NULL, '01.01.07.02.04.01.02', 'Amikacin AK', '', 'pak/5dos', '1170204', 'Persediaan Bahan Obat-Obatan', 714000);
+INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
 (2128, '01', '01', '07', '02', '04', '01', '03', NULL, NULL, '01.01.07.02.04.01.03', 'Amoxilin  disk  (AML 10)', '', 'Blitz/5 catrige ', '1170204', 'Persediaan Bahan Obat-Obatan', 676200),
 (2129, '01', '01', '07', '02', '04', '01', '04', NULL, NULL, '01.01.07.02.04.01.04', 'Amphetamine', '50 test', 'Box ', '1170204', 'Persediaan Bahan Obat-Obatan', 2055900),
 (2130, '01', '01', '07', '02', '04', '01', '05', NULL, NULL, '01.01.07.02.04.01.05', 'Ampicilin disk  (AMP 25)', '', 'Blitz/5 catrige ', '1170204', 'Persediaan Bahan Obat-Obatan', 676200),
-(2131, '01', '01', '07', '02', '04', '01', '06', NULL, NULL, '01.01.07.02.04.01.06', 'Ampicillin AM 10', '', 'Pak/5dos', '1170204', 'Persediaan Bahan Obat-Obatan', 714000);
-INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
+(2131, '01', '01', '07', '02', '04', '01', '06', NULL, NULL, '01.01.07.02.04.01.06', 'Ampicillin AM 10', '', 'Pak/5dos', '1170204', 'Persediaan Bahan Obat-Obatan', 714000),
 (2132, '01', '01', '07', '02', '04', '01', '07', NULL, NULL, '01.01.07.02.04.01.07', 'Ampicillin Sulbactam SAM', '', 'pak/5dos', '1170204', 'Persediaan Bahan Obat-Obatan', 714000),
 (2133, '01', '01', '07', '02', '04', '01', '08', NULL, NULL, '01.01.07.02.04.01.08', 'Benzodiazepine', '', 'card', '1170204', 'Persediaan Bahan Obat-Obatan', 66150),
 (2134, '01', '01', '07', '02', '04', '01', '09', NULL, NULL, '01.01.07.02.04.01.09', 'Cannabinoid', 'Besar', 'card', '1170204', 'Persediaan Bahan Obat-Obatan', 66150),
@@ -2633,7 +2636,7 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (2159, '01', '01', '07', '02', '04', '01', '34', NULL, NULL, '01.01.07.02.04.01.34', 'Nitofurantoin F/M 30', '', 'Pak/5dos', '1170204', 'Persediaan Bahan Obat-Obatan', 714000),
 (2160, '01', '01', '07', '02', '04', '01', '35', NULL, NULL, '01.01.07.02.04.01.35', 'Norfloxacin NOR 10', '', 'Pak/5dos', '1170204', 'Persediaan Bahan Obat-Obatan', 714000),
 (2161, '01', '01', '07', '02', '04', '01', '36', NULL, NULL, '01.01.07.02.04.01.36', 'Opiate', 'ukuran kecil', 'card', '1170204', 'Persediaan Bahan Obat-Obatan', 66150),
-(2162, '01', '01', '07', '02', '04', '01', '37', NULL, NULL, '01.01.07.02.04.01.37', 'Penicillin', '5 x 50 disk', '', '1170204', 'Persediaan Bahan Obat-Obatan', 642600),
+(2162, '01', '01', '07', '02', '04', '01', '37', NULL, NULL, '01.01.07.02.04.01.37', 'Penicillin', '5 x 50 disk', 'Botol', '1170204', 'Persediaan Bahan Obat-Obatan', 642600),
 (2163, '01', '01', '07', '02', '04', '01', '38', NULL, NULL, '01.01.07.02.04.01.38', 'Pot  salep', '', 'buah', '1170204', 'Persediaan Bahan Obat-Obatan', 1155),
 (2164, '01', '01', '07', '02', '04', '01', '39', NULL, NULL, '01.01.07.02.04.01.39', 'Pot Salep ', '65 gr', 'Buah', '1170204', 'Persediaan Bahan Obat-Obatan', 1470),
 (2165, '01', '01', '07', '02', '04', '01', '40', NULL, NULL, '01.01.07.02.04.01.40', 'Sulbactam Sulpeperaxon 20 ne (SCF)', '', 'pak/5dos', '1170204', 'Persediaan Bahan Obat-Obatan', 714000),
@@ -2873,12 +2876,12 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (2399, '01', '01', '07', '02', '04', '02', '231', NULL, NULL, '01.01.07.02.04.02.231', 'Eggostim', '@100 gr', 'gr', '1170204', 'Persediaan Bahan Obat-Obatan', 72450),
 (2400, '01', '01', '07', '02', '04', '02', '232', NULL, NULL, '01.01.07.02.04.02.232', 'Eggostim', '@100 gr, ,1 kg', 'kg', '1170204', 'Persediaan Bahan Obat-Obatan', 691950),
 (2401, '01', '01', '07', '02', '04', '02', '233', NULL, NULL, '01.01.07.02.04.02.233', 'Eggostim', '15kg', 'kg', '1170204', 'Persediaan Bahan Obat-Obatan', 9968700),
-(2402, '01', '01', '07', '02', '04', '02', '234', NULL, NULL, '01.01.07.02.04.02.234', 'Elektovit', '1 kg', 'kg', '1170204', 'Persediaan Bahan Obat-Obatan', 245700),
+(2402, '01', '01', '07', '02', '04', '02', '234', NULL, NULL, '01.01.07.02.04.02.234', 'Elektovit', '1 kg', 'kg', '1170204', 'Persediaan Bahan Obat-Obatan', 245700);
+INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
 (2403, '01', '01', '07', '02', '04', '02', '235', NULL, NULL, '01.01.07.02.04.02.235', 'Elektovit', '100 gr', 'gr', '1170204', 'Persediaan Bahan Obat-Obatan', 25305),
 (2404, '01', '01', '07', '02', '04', '02', '236', NULL, NULL, '01.01.07.02.04.02.236', 'Elektovit', 'Eritromycin, Doxicycline Bakteri gram negatif, @ 100 gr', '50 kg', '1170204', 'Persediaan Bahan Obat-Obatan', 15576750),
 (2405, '01', '01', '07', '02', '04', '02', '237', NULL, NULL, '01.01.07.02.04.02.237', 'Elektovit', '@ 100 gr', '100 gr', '1170204', 'Persediaan Bahan Obat-Obatan', 34650),
-(2406, '01', '01', '07', '02', '04', '02', '238', NULL, NULL, '01.01.07.02.04.02.238', 'Elektovit', '@ 100 gr', '1 kg', '1170204', 'Persediaan Bahan Obat-Obatan', 331800);
-INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
+(2406, '01', '01', '07', '02', '04', '02', '238', NULL, NULL, '01.01.07.02.04.02.238', 'Elektovit', '@ 100 gr', '1 kg', '1170204', 'Persediaan Bahan Obat-Obatan', 331800),
 (2407, '01', '01', '07', '02', '04', '02', '239', NULL, NULL, '01.01.07.02.04.02.239', 'Elektovit', '@ 100 gr', '15kg', '1170204', 'Persediaan Bahan Obat-Obatan', 4775400),
 (2408, '01', '01', '07', '02', '04', '02', '240', NULL, NULL, '01.01.07.02.04.02.240', 'Elektro San', '1 kg', 'kg', '1170204', 'Persediaan Bahan Obat-Obatan', 221550),
 (2409, '01', '01', '07', '02', '04', '02', '241', NULL, NULL, '01.01.07.02.04.02.241', 'Elektro San', '100 gr', 'gr', '1170204', 'Persediaan Bahan Obat-Obatan', 22890),
@@ -3019,7 +3022,7 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (2544, '01', '01', '07', '02', '04', '02', '376', NULL, NULL, '01.01.07.02.04.02.376', 'Kalmiral', 'Feed suplemen, 25 kg', 'zak', '1170204', 'Persediaan Bahan Obat-Obatan', 1403850),
 (2545, '01', '01', '07', '02', '04', '02', '377', NULL, NULL, '01.01.07.02.04.02.377', 'Kaloxy', 'Antibiotik LA, 50 ml', 'botol', '1170204', 'Persediaan Bahan Obat-Obatan', 54600),
 (2546, '01', '01', '07', '02', '04', '02', '378', NULL, NULL, '01.01.07.02.04.02.378', 'Kaloxy', 'Oxytetraciclin ; 50 ml', 'botol', '1170204', 'Persediaan Bahan Obat-Obatan', 48300),
-(2547, '01', '01', '07', '02', '04', '02', '379', NULL, NULL, '01.01.07.02.04.02.379', 'Kalvidog', 'komb. vitamn, mineral; 100tab', '', '1170204', 'Persediaan Bahan Obat-Obatan', 179550),
+(2547, '01', '01', '07', '02', '04', '02', '379', NULL, NULL, '01.01.07.02.04.02.379', 'Kalvidog', 'komb. vitamn, mineral; 100tab', 'Botol', '1170204', 'Persediaan Bahan Obat-Obatan', 179550),
 (2548, '01', '01', '07', '02', '04', '02', '380', NULL, NULL, '01.01.07.02.04.02.380', 'Kalvidog (botol)', 'feed suplemen u/anjing,100tab', 'tablet', '1170204', 'Persediaan Bahan Obat-Obatan', 203700),
 (2549, '01', '01', '07', '02', '04', '02', '381', NULL, NULL, '01.01.07.02.04.02.381', 'kalvimix RX', 'feed suplemen, 25 kg', 'zak', '1170204', 'Persediaan Bahan Obat-Obatan', 10136700),
 (2550, '01', '01', '07', '02', '04', '02', '382', NULL, NULL, '01.01.07.02.04.02.382', 'Kalvix RX', 'Vitamin kompleks ; 25 kg', 'sachet', '1170204', 'Persediaan Bahan Obat-Obatan', 8927100),
@@ -3145,12 +3148,12 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (2670, '01', '01', '07', '02', '04', '02', '502', NULL, NULL, '01.01.07.02.04.02.502', 'Oxytocin inj', '20 ml', 'botol', '1170204', 'Persediaan Bahan Obat-Obatan', 111300),
 (2671, '01', '01', '07', '02', '04', '02', '503', NULL, NULL, '01.01.07.02.04.02.503', 'Oxytocin inj', '50 ml', 'botol', '1170204', 'Persediaan Bahan Obat-Obatan', 241500),
 (2672, '01', '01', '07', '02', '04', '02', '504', NULL, NULL, '01.01.07.02.04.02.504', 'Oxytocin Pituitaria', '50 ml', 'ml', '1170204', 'Persediaan Bahan Obat-Obatan', 143850),
-(2673, '01', '01', '07', '02', '04', '02', '505', NULL, NULL, '01.01.07.02.04.02.505', 'Oxytral', 'Oxytetracyclin, Lidocain, 50 ml', 'botol', '1170204', 'Persediaan Bahan Obat-Obatan', 46830),
+(2673, '01', '01', '07', '02', '04', '02', '505', NULL, NULL, '01.01.07.02.04.02.505', 'Oxytral', 'Oxytetracyclin, Lidocain, 50 ml', 'botol', '1170204', 'Persediaan Bahan Obat-Obatan', 46830);
+INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
 (2674, '01', '01', '07', '02', '04', '02', '506', NULL, NULL, '01.01.07.02.04.02.506', 'Paket Broiler', 'satu periode pemeliharaan broilr, 100 ekor', 'ples', '1170204', 'Persediaan Bahan Obat-Obatan', 89040),
 (2675, '01', '01', '07', '02', '04', '02', '507', NULL, NULL, '01.01.07.02.04.02.507', 'Panto Vitamin Injeksi', '100 ml', 'botol', '1170204', 'Persediaan Bahan Obat-Obatan', 35490),
 (2676, '01', '01', '07', '02', '04', '02', '508', NULL, NULL, '01.01.07.02.04.02.508', 'Panto Vitamin Injeksi', '20 ml', 'botol', '1170204', 'Persediaan Bahan Obat-Obatan', 11235),
-(2677, '01', '01', '07', '02', '04', '02', '509', NULL, NULL, '01.01.07.02.04.02.509', 'Panto Vitamin Injeksi', '50 ml', 'botol', '1170204', 'Persediaan Bahan Obat-Obatan', 21735);
-INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
+(2677, '01', '01', '07', '02', '04', '02', '509', NULL, NULL, '01.01.07.02.04.02.509', 'Panto Vitamin Injeksi', '50 ml', 'botol', '1170204', 'Persediaan Bahan Obat-Obatan', 21735),
 (2678, '01', '01', '07', '02', '04', '02', '510', NULL, NULL, '01.01.07.02.04.02.510', 'Panto Vitamin Injeksi', '500 ml', 'botol', '1170204', 'Persediaan Bahan Obat-Obatan', 140700),
 (2679, '01', '01', '07', '02', '04', '02', '511', NULL, NULL, '01.01.07.02.04.02.511', 'Para Formaldehide', 'bahan dasar formalin, 25 kg', 'zak', '1170204', 'Persediaan Bahan Obat-Obatan', 2594550),
 (2680, '01', '01', '07', '02', '04', '02', '512', NULL, NULL, '01.01.07.02.04.02.512', 'Paramectine RV', 'Sulfadiazin,trimethoprin', 'botol', '1170204', 'Persediaan Bahan Obat-Obatan', 365400),
@@ -3419,12 +3422,12 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (2943, '01', '01', '07', '02', '04', '02', '775', NULL, NULL, '01.01.07.02.04.02.775', 'Vitamin B-komplek', 'Vit B-1, B-6, Nicotinamide.Ca D pan, 100 cc', 'botol', '1170204', 'Persediaan Bahan Obat-Obatan', 33600),
 (2944, '01', '01', '07', '02', '04', '02', '776', NULL, NULL, '01.01.07.02.04.02.776', 'Vitamin C1', '', 'pack', '1170204', 'Persediaan Bahan Obat-Obatan', 8400),
 (2945, '01', '01', '07', '02', '04', '02', '777', NULL, NULL, '01.01.07.02.04.02.777', 'Vitamin Injeksi', '100 ml', 'botol', '1170204', 'Persediaan Bahan Obat-Obatan', 98700),
-(2946, '01', '01', '07', '02', '04', '02', '778', NULL, NULL, '01.01.07.02.04.02.778', 'Vitamin Injeksi', '20 ml', 'botol', '1170204', 'Persediaan Bahan Obat-Obatan', 26250),
+(2946, '01', '01', '07', '02', '04', '02', '778', NULL, NULL, '01.01.07.02.04.02.778', 'Vitamin Injeksi', '20 ml', 'botol', '1170204', 'Persediaan Bahan Obat-Obatan', 26250);
+INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
 (2947, '01', '01', '07', '02', '04', '02', '779', NULL, NULL, '01.01.07.02.04.02.779', 'Vitamin Injeksi', '50 ml', 'botol', '1170204', 'Persediaan Bahan Obat-Obatan', 56700),
 (2948, '01', '01', '07', '02', '04', '02', '780', NULL, NULL, '01.01.07.02.04.02.780', 'Vitamino', 'stres, masa penyembuhan, 1 ltr', 'botol', '1170204', 'Persediaan Bahan Obat-Obatan', 561750),
 (2949, '01', '01', '07', '02', '04', '02', '781', NULL, NULL, '01.01.07.02.04.02.781', 'Vitol 140', 'Vit A, D3 dan E, 100  ml', 'botol', '1170204', 'Persediaan Bahan Obat-Obatan', 200550),
-(2950, '01', '01', '07', '02', '04', '02', '782', NULL, NULL, '01.01.07.02.04.02.782', 'Vitramix-LC', 'Campuran pakan, 25 kg', 'zak', '1170204', 'Persediaan Bahan Obat-Obatan', 941850);
-INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
+(2950, '01', '01', '07', '02', '04', '02', '782', NULL, NULL, '01.01.07.02.04.02.782', 'Vitramix-LC', 'Campuran pakan, 25 kg', 'zak', '1170204', 'Persediaan Bahan Obat-Obatan', 941850),
 (2951, '01', '01', '07', '02', '04', '02', '783', NULL, NULL, '01.01.07.02.04.02.783', 'Wormmectin Injeksi', '20ml/1lusin', 'botol', '1170204', 'Persediaan Bahan Obat-Obatan', 753900),
 (2952, '01', '01', '07', '02', '04', '02', '784', NULL, NULL, '01.01.07.02.04.02.784', 'Worzol-B', 'Albendazole, 24 bolus', 'bolus', '1170204', 'Persediaan Bahan Obat-Obatan', 187950),
 (2953, '01', '01', '07', '02', '04', '02', '785', NULL, NULL, '01.01.07.02.04.02.785', 'X-tra', '500 gr', 'zak', '1170204', 'Persediaan Bahan Obat-Obatan', 189000),
@@ -3704,12 +3707,12 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (3227, '01', '01', '07', '02', '05', '01', '245', NULL, NULL, '01.01.07.02.05.01.245', 'Phosphonate Rgt Set', '25 ml; 100 test', 'Pak', '1170205', 'Persediaan Bahan Kimia', 2504250),
 (3228, '01', '01', '07', '02', '05', '01', '246', NULL, NULL, '01.01.07.02.05.01.246', 'Phosver 3 Phosphate', '10 ml; Pk/100', 'Pak', '1170205', 'Persediaan Bahan Kimia', 741300),
 (3229, '01', '01', '07', '02', '05', '01', '247', NULL, NULL, '01.01.07.02.05.01.247', 'Phosver 3 Phosphate', '25 ml; Pk/100', 'Pak', '1170205', 'Persediaan Bahan Kimia', 900900),
-(3230, '01', '01', '07', '02', '05', '01', '248', NULL, NULL, '01.01.07.02.05.01.248', 'Photassium Rgt Set', '100 test', 'Pak', '1170205', 'Persediaan Bahan Kimia', 4266150),
+(3230, '01', '01', '07', '02', '05', '01', '248', NULL, NULL, '01.01.07.02.05.01.248', 'Photassium Rgt Set', '100 test', 'Pak', '1170205', 'Persediaan Bahan Kimia', 4266150);
+INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
 (3231, '01', '01', '07', '02', '05', '01', '249', NULL, NULL, '01.01.07.02.05.01.249', 'Poch Pack D', ' 5 lt ', 'box', '1170205', 'Persediaan Bahan Kimia', 686700),
 (3232, '01', '01', '07', '02', '05', '01', '250', NULL, NULL, '01.01.07.02.05.01.250', 'Poch Pack L', ' 500 ml ', 'box', '1170205', 'Persediaan Bahan Kimia', 2165100),
 (3233, '01', '01', '07', '02', '05', '01', '251', NULL, NULL, '01.01.07.02.05.01.251', 'Ponceau 4 R', '25 mg', 'botol', '1170205', 'Persediaan Bahan Kimia', 6757800),
-(3234, '01', '01', '07', '02', '05', '01', '252', NULL, NULL, '01.01.07.02.05.01.252', 'Ponceau S', '', 'Kit', '1170205', 'Persediaan Bahan Kimia', 2651250);
-INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
+(3234, '01', '01', '07', '02', '05', '01', '252', NULL, NULL, '01.01.07.02.05.01.252', 'Ponceau S', '', 'Kit', '1170205', 'Persediaan Bahan Kimia', 2651250),
 (3235, '01', '01', '07', '02', '05', '01', '253', NULL, NULL, '01.01.07.02.05.01.253', 'Potassium Hidroxide pellets For Analisis', ' 1 kg', 'Paket', '1170205', 'Persediaan Bahan Kimia', 403200),
 (3236, '01', '01', '07', '02', '05', '01', '254', NULL, NULL, '01.01.07.02.05.01.254', 'Potassium Hydrogen Phthalate GR For Analisis', '250 gr', 'Paket', '1170205', 'Persediaan Bahan Kimia', 1158150),
 (3237, '01', '01', '07', '02', '05', '01', '255', NULL, NULL, '01.01.07.02.05.01.255', 'Potato Dextrose agar', '500 gr', 'botol', '1170205', 'Persediaan Bahan Kimia', 1912050),
@@ -3888,19 +3891,19 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (3410, '01', '01', '07', '02', '05', '02', '39', NULL, NULL, '01.01.07.02.05.02.39', 'Virolisa Anti HIV 1+2', '96 test', ' Kit ', '1170205', 'Persediaan Bahan Kimia', 3706500),
 (3411, '01', '01', '07', '02', '06', '', '', NULL, NULL, '01.01.07.02.06', 'Persediaan Bahan Makanan Pokok', '', '', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
 (3412, '01', '01', '07', '02', '06', '01', '', NULL, NULL, '01.01.07.02.06.01', 'Persediaan Bahan Makanan Pokok', '', '', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
-(3413, '01', '01', '07', '02', '06', '01', '01', NULL, NULL, '01.01.07.02.06.01.01', 'Beras', '', '', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
-(3414, '01', '01', '07', '02', '06', '01', '02', NULL, NULL, '01.01.07.02.06.01.02', 'Tepung/Trigu', '', '', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
-(3415, '01', '01', '07', '02', '06', '01', '03', NULL, NULL, '01.01.07.02.06.01.03', 'Gula ', '', '', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
-(3416, '01', '01', '07', '02', '06', '01', '04', NULL, NULL, '01.01.07.02.06.01.04', 'Telur', '', '', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
-(3417, '01', '01', '07', '02', '06', '01', '05', NULL, NULL, '01.01.07.02.06.01.05', 'Minyak Goreng', '', '', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
-(3418, '01', '01', '07', '02', '06', '01', '06', NULL, NULL, '01.01.07.02.06.01.06', 'Mie Instan', '', '', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
-(3419, '01', '01', '07', '02', '06', '01', '07', NULL, NULL, '01.01.07.02.06.01.07', 'Susu', '', '', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
-(3420, '01', '01', '07', '02', '06', '01', '08', NULL, NULL, '01.01.07.02.06.01.08', 'Sayur sayuran', '', '', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
-(3421, '01', '01', '07', '02', '06', '01', '09', NULL, NULL, '01.01.07.02.06.01.09', 'Buah buahan', '', '', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
-(3422, '01', '01', '07', '02', '06', '01', '10', NULL, NULL, '01.01.07.02.06.01.10', 'Daging (Sapi, Ayam, Ikan)', '', '', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
-(3423, '01', '01', '07', '02', '06', '01', '11', NULL, NULL, '01.01.07.02.06.01.11', 'Sagu', '', '', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
-(3424, '01', '01', '07', '02', '06', '01', '12', NULL, NULL, '01.01.07.02.06.01.12', 'Roti/Biskuit', '', '', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
-(3425, '01', '01', '07', '02', '06', '01', '13', NULL, NULL, '01.01.07.02.06.01.13', 'Jagung', '', '', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
+(3413, '01', '01', '07', '02', '06', '01', '01', NULL, NULL, '01.01.07.02.06.01.01', 'Beras', '', 'Kg', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
+(3414, '01', '01', '07', '02', '06', '01', '02', NULL, NULL, '01.01.07.02.06.01.02', 'Tepung/Trigu', '', 'Kg', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
+(3415, '01', '01', '07', '02', '06', '01', '03', NULL, NULL, '01.01.07.02.06.01.03', 'Gula ', '', 'Kg', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
+(3416, '01', '01', '07', '02', '06', '01', '04', NULL, NULL, '01.01.07.02.06.01.04', 'Telur', '', 'Kg', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
+(3417, '01', '01', '07', '02', '06', '01', '05', NULL, NULL, '01.01.07.02.06.01.05', 'Minyak Goreng', '', 'Lt', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
+(3418, '01', '01', '07', '02', '06', '01', '06', NULL, NULL, '01.01.07.02.06.01.06', 'Mie Instan', '', 'Dos', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
+(3419, '01', '01', '07', '02', '06', '01', '07', NULL, NULL, '01.01.07.02.06.01.07', 'Susu', '', 'Dos', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
+(3420, '01', '01', '07', '02', '06', '01', '08', NULL, NULL, '01.01.07.02.06.01.08', 'Sayur sayuran', '', 'Kg', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
+(3421, '01', '01', '07', '02', '06', '01', '09', NULL, NULL, '01.01.07.02.06.01.09', 'Buah buahan', '', 'Kg', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
+(3422, '01', '01', '07', '02', '06', '01', '10', NULL, NULL, '01.01.07.02.06.01.10', 'Daging (Sapi, Ayam, Ikan)', '', 'Kg', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
+(3423, '01', '01', '07', '02', '06', '01', '11', NULL, NULL, '01.01.07.02.06.01.11', 'Sagu', '', 'Kg', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
+(3424, '01', '01', '07', '02', '06', '01', '12', NULL, NULL, '01.01.07.02.06.01.12', 'Roti/Biskuit', '', 'Bungkus', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
+(3425, '01', '01', '07', '02', '06', '01', '13', NULL, NULL, '01.01.07.02.06.01.13', 'Jagung', '', 'Kg', '1170206', 'Persediaan Bahan Makanan Pokok', 0),
 (3426, '01', '01', '07', '02', '07', '', '', NULL, NULL, '01.01.07.02.07', 'Persediaan suku cadang peralatan', '', '', '1170207', 'Persediaan suku cadang peralatan', 0),
 (3427, '01', '01', '07', '02', '07', '01', '', NULL, NULL, '01.01.07.02.07.01', 'PERLENGKAPAN KENDARAAN & MESIN (''Suku Cadang Alat Besar)', '', '', '1170207', 'Persediaan suku cadang peralatan', 0),
 (3428, '01', '01', '07', '02', '07', '01', '01', NULL, NULL, '01.01.07.02.07.01.01', 'Ban Traktor Roda 4 ', '45 PK (1 set)', 'set', '1170207', 'Persediaan suku cadang peralatan', 342667500),
@@ -3996,12 +3999,12 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (3518, '01', '01', '07', '02', '07', '03', '77', NULL, NULL, '01.01.07.02.07.03.77', 'Kampas Rem', '', 'buah', '1170207', 'Persediaan suku cadang peralatan', 34650),
 (3519, '01', '01', '07', '02', '07', '03', '78', NULL, NULL, '01.01.07.02.07.03.78', 'Kampas Kopling', '', 'Set', '1170207', 'Persediaan suku cadang peralatan', 105000),
 (3520, '01', '01', '07', '02', '07', '03', '79', NULL, NULL, '01.01.07.02.07.03.79', 'Kamrat', '', 'buah', '1170207', 'Persediaan suku cadang peralatan', 52500),
-(3521, '01', '01', '07', '02', '07', '03', '80', NULL, NULL, '01.01.07.02.07.03.80', 'Karburator Cleaner', '', 'buah', '1170207', 'Persediaan suku cadang peralatan', 38850),
+(3521, '01', '01', '07', '02', '07', '03', '80', NULL, NULL, '01.01.07.02.07.03.80', 'Karburator Cleaner', '', 'buah', '1170207', 'Persediaan suku cadang peralatan', 38850);
+INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
 (3522, '01', '01', '07', '02', '07', '03', '81', NULL, NULL, '01.01.07.02.07.03.81', 'Kartel', 'Roda 2', 'buah', '1170207', 'Persediaan suku cadang peralatan', 231000),
 (3523, '01', '01', '07', '02', '07', '03', '82', NULL, NULL, '01.01.07.02.07.03.82', 'Kawat Las', 'RB f3.2 ', 'Kg', '1170207', 'Persediaan suku cadang peralatan', 44100),
 (3524, '01', '01', '07', '02', '07', '03', '83', NULL, NULL, '01.01.07.02.07.03.83', 'Kawat Las Kobe', 'f26', 'Kg', '1170207', 'Persediaan suku cadang peralatan', 174300),
-(3525, '01', '01', '07', '02', '07', '03', '84', NULL, NULL, '01.01.07.02.07.03.84', 'Kawat Segel', '', 'rol', '1170207', 'Persediaan suku cadang peralatan', 105000);
-INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
+(3525, '01', '01', '07', '02', '07', '03', '84', NULL, NULL, '01.01.07.02.07.03.84', 'Kawat Segel', '', 'rol', '1170207', 'Persediaan suku cadang peralatan', 105000),
 (3526, '01', '01', '07', '02', '07', '03', '85', NULL, NULL, '01.01.07.02.07.03.85', 'Kiprok', '', 'buah', '1170207', 'Persediaan suku cadang peralatan', 56700),
 (3527, '01', '01', '07', '02', '07', '03', '86', NULL, NULL, '01.01.07.02.07.03.86', 'Klem Accu', '', 'Buah', '1170207', 'Persediaan suku cadang peralatan', 29400),
 (3528, '01', '01', '07', '02', '07', '03', '87', NULL, NULL, '01.01.07.02.07.03.87', 'Klem Selang', '', 'Buah', '1170207', 'Persediaan suku cadang peralatan', 2100),
@@ -4073,11 +4076,11 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (3594, '01', '01', '07', '02', '07', '03', '153', NULL, NULL, '01.01.07.02.07.03.153', 'Shell End Mill Cutter', '? 50 x 40', 'buah', '1170207', 'Persediaan suku cadang peralatan', 6163500),
 (3595, '01', '01', '07', '02', '07', '03', '154', NULL, NULL, '01.01.07.02.07.03.154', 'Shell End Mill Cutter', '? 50 x 22x36', 'buah', '1170207', 'Persediaan suku cadang peralatan', 6545700),
 (3596, '01', '01', '07', '02', '07', '03', '155', NULL, NULL, '01.01.07.02.07.03.155', 'Sikat Baja', '', 'buah', '1170207', 'Persediaan suku cadang peralatan', 17850),
-(3597, '01', '01', '07', '02', '07', '03', '156', NULL, NULL, '01.01.07.02.07.03.156', 'Sikat Kawat', '', '', '1170207', 'Persediaan suku cadang peralatan', 6300),
-(3598, '01', '01', '07', '02', '07', '03', '157', NULL, NULL, '01.01.07.02.07.03.157', 'Sikat Kikir', '', '', '1170207', 'Persediaan suku cadang peralatan', 14700),
+(3597, '01', '01', '07', '02', '07', '03', '156', NULL, NULL, '01.01.07.02.07.03.156', 'Sikat Kawat', '', 'Buah', '1170207', 'Persediaan suku cadang peralatan', 6300),
+(3598, '01', '01', '07', '02', '07', '03', '157', NULL, NULL, '01.01.07.02.07.03.157', 'Sikat Kikir', '', 'Buah', '1170207', 'Persediaan suku cadang peralatan', 14700),
 (3599, '01', '01', '07', '02', '07', '03', '158', NULL, NULL, '01.01.07.02.07.03.158', 'Sikat Kuningan', '', 'Buah', '1170207', 'Persediaan suku cadang peralatan', 35700),
-(3600, '01', '01', '07', '02', '07', '03', '159', NULL, NULL, '01.01.07.02.07.03.159', 'Sikat Las', '', '', '1170207', 'Persediaan suku cadang peralatan', 42000),
-(3601, '01', '01', '07', '02', '07', '03', '160', NULL, NULL, '01.01.07.02.07.03.160', 'Siku Presisi', '', '', '1170207', 'Persediaan suku cadang peralatan', 2311050),
+(3600, '01', '01', '07', '02', '07', '03', '159', NULL, NULL, '01.01.07.02.07.03.159', 'Sikat Las', '', 'Buah', '1170207', 'Persediaan suku cadang peralatan', 42000),
+(3601, '01', '01', '07', '02', '07', '03', '160', NULL, NULL, '01.01.07.02.07.03.160', 'Siku Presisi', '', 'Buah', '1170207', 'Persediaan suku cadang peralatan', 2311050),
 (3602, '01', '01', '07', '02', '07', '03', '161', NULL, NULL, '01.01.07.02.07.03.161', 'Slang gas Oxy-Acetylene', 'uk.: 1/4 x 3/8 inchi, p. 20 m', 'unit', '1170207', 'Persediaan suku cadang peralatan', 1197000),
 (3603, '01', '01', '07', '02', '07', '03', '162', NULL, NULL, '01.01.07.02.07.03.162', 'Slang gas Oxy-Acetylene', 'Level kombinasi (45? dan 90? magnet)', 'unit', '1170207', 'Persediaan suku cadang peralatan', 75600),
 (3604, '01', '01', '07', '02', '07', '03', '163', NULL, NULL, '01.01.07.02.07.03.163', 'Slondom', '', 'buah', '1170207', 'Persediaan suku cadang peralatan', 78750),
@@ -4120,12 +4123,12 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (3641, '01', '01', '07', '02', '07', '03', '200', NULL, NULL, '01.01.07.02.07.03.200', '', '', '', '1170207', 'Persediaan suku cadang peralatan', 0),
 (3642, '01', '01', '07', '02', '08', '', '', NULL, NULL, '01.01.07.02.08', 'Persediaan Hadiah Tropi/Piala dll (Barang)', '', '', '1170208', 'Persediaan Hadiah Tropi/Piala dll (Barang)', 0),
 (3643, '01', '01', '07', '02', '08', '01', '', NULL, NULL, '01.01.07.02.08.01', 'Persediaan Hadiah Tropi/Piala dll (Barang)', '', '', '1170208', 'Persediaan Hadiah Tropi/Piala dll (Barang)', 0),
-(3644, '01', '01', '07', '02', '08', '01', '01', NULL, NULL, '01.01.07.02.08.01.01', 'Piagam/Sertifikat', '', '', '1170208', 'Persediaan Hadiah Tropi/Piala dll (Barang)', 0),
-(3645, '01', '01', '07', '02', '08', '01', '02', NULL, NULL, '01.01.07.02.08.01.02', 'Piala Kecil', '', '', '1170208', 'Persediaan Hadiah Tropi/Piala dll (Barang)', 0),
-(3646, '01', '01', '07', '02', '08', '01', '03', NULL, NULL, '01.01.07.02.08.01.03', 'Piala Sedang', '', '', '1170208', 'Persediaan Hadiah Tropi/Piala dll (Barang)', 0),
-(3647, '01', '01', '07', '02', '08', '01', '04', NULL, NULL, '01.01.07.02.08.01.04', 'Piala Besar', '', '', '1170208', 'Persediaan Hadiah Tropi/Piala dll (Barang)', 0),
-(3648, '01', '01', '07', '02', '08', '01', '05', NULL, NULL, '01.01.07.02.08.01.05', 'Medali', '', '', '1170208', 'Persediaan Hadiah Tropi/Piala dll (Barang)', 0),
-(3649, '01', '01', '07', '02', '08', '01', '06', NULL, NULL, '01.01.07.02.08.01.06', 'Tropi', '', '', '1170208', 'Persediaan Hadiah Tropi/Piala dll (Barang)', 0),
+(3644, '01', '01', '07', '02', '08', '01', '01', NULL, NULL, '01.01.07.02.08.01.01', 'Piagam/Sertifikat', '', 'Lembar', '1170208', 'Persediaan Hadiah Tropi/Piala dll (Barang)', 0),
+(3645, '01', '01', '07', '02', '08', '01', '02', NULL, NULL, '01.01.07.02.08.01.02', 'Piala Kecil', '', 'Buah', '1170208', 'Persediaan Hadiah Tropi/Piala dll (Barang)', 0),
+(3646, '01', '01', '07', '02', '08', '01', '03', NULL, NULL, '01.01.07.02.08.01.03', 'Piala Sedang', '', 'Buah', '1170208', 'Persediaan Hadiah Tropi/Piala dll (Barang)', 0),
+(3647, '01', '01', '07', '02', '08', '01', '04', NULL, NULL, '01.01.07.02.08.01.04', 'Piala Besar', '', 'Buah', '1170208', 'Persediaan Hadiah Tropi/Piala dll (Barang)', 0),
+(3648, '01', '01', '07', '02', '08', '01', '05', NULL, NULL, '01.01.07.02.08.01.05', 'Medali', '', 'Buah', '1170208', 'Persediaan Hadiah Tropi/Piala dll (Barang)', 0),
+(3649, '01', '01', '07', '02', '08', '01', '06', NULL, NULL, '01.01.07.02.08.01.06', 'Tropi', '', 'Buah', '1170208', 'Persediaan Hadiah Tropi/Piala dll (Barang)', 0),
 (3650, '01', '01', '07', '02', '09', '', '', NULL, NULL, '01.01.07.02.09', 'Persediaan pakan satwa', '', '', '1170209', 'Persediaan pakan satwa', 0),
 (3651, '01', '01', '07', '02', '09', '01', '', NULL, NULL, '01.01.07.02.09.01', 'Pakan', '', '', '1170209', 'Persediaan pakan satwa', 0),
 (3652, '01', '01', '07', '02', '09', '01', '01', NULL, NULL, '01.01.07.02.09.01.01', 'Pakan Ikan Bandeng', 'Bandeng B-3, 805.03', 'Kg', '1170209', 'Persediaan pakan satwa', 12915),
@@ -4217,65 +4220,65 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (3738, '01', '01', '07', '02', '10', '01', '47', NULL, NULL, '01.01.07.02.10.01.47', 'Sitokinin', '100 ml', 'botol', '1170210', 'Persediaan pupuk tanaman', 42000),
 (3739, '01', '01', '07', '02', '11', '', '', NULL, NULL, '01.01.07.02.11', 'Persediaan Bahan Perlengkapan Diklat/ Pelatihan/Sosialisasi/Workshop', '', '', '1170211', 'Persediaan Bahan Perlengkapan Diklat/ Pelatihan/Sosialisasi/Workshop', 0),
 (3740, '01', '01', '07', '02', '11', '01', '', NULL, NULL, '01.01.07.02.11.01', 'Persediaan Bahan Perlengkapan Diklat/ Pelatihan/Sosialisasi/Workshop', '', '', '1170211', 'Persediaan Bahan Perlengkapan Diklat/ Pelatihan/Sosialisasi/Workshop', 0),
-(3741, '01', '01', '07', '02', '11', '01', '01', NULL, NULL, '01.01.07.02.11.01.01', 'Tas', '', '', '1170211', 'Persediaan Bahan Perlengkapan Diklat/ Pelatihan/Sosialisasi/Workshop', 0),
-(3742, '01', '01', '07', '02', '11', '01', '02', NULL, NULL, '01.01.07.02.11.01.02', 'BlockNote', '', '', '1170211', 'Persediaan Bahan Perlengkapan Diklat/ Pelatihan/Sosialisasi/Workshop', 0),
-(3743, '01', '01', '07', '02', '11', '01', '03', NULL, NULL, '01.01.07.02.11.01.03', 'Bolpoint', '', '', '1170211', 'Persediaan Bahan Perlengkapan Diklat/ Pelatihan/Sosialisasi/Workshop', 0),
-(3744, '01', '01', '07', '02', '11', '01', '04', NULL, NULL, '01.01.07.02.11.01.04', 'Map Kertas', '', '', '1170211', 'Persediaan Bahan Perlengkapan Diklat/ Pelatihan/Sosialisasi/Workshop', 0),
-(3745, '01', '01', '07', '02', '11', '01', '05', NULL, NULL, '01.01.07.02.11.01.05', 'Map Plastik', '', '', '1170211', 'Persediaan Bahan Perlengkapan Diklat/ Pelatihan/Sosialisasi/Workshop', 0),
-(3746, '01', '01', '07', '02', '11', '01', '06', NULL, NULL, '01.01.07.02.11.01.06', 'Id Card', '', '', '1170211', 'Persediaan Bahan Perlengkapan Diklat/ Pelatihan/Sosialisasi/Workshop', 0),
-(3747, '01', '01', '07', '02', '11', '01', '07', NULL, NULL, '01.01.07.02.11.01.07', 'Modul Diklat', '', '', '1170211', 'Persediaan Bahan Perlengkapan Diklat/ Pelatihan/Sosialisasi/Workshop', 0),
+(3741, '01', '01', '07', '02', '11', '01', '01', NULL, NULL, '01.01.07.02.11.01.01', 'Tas', '', 'Buah', '1170211', 'Persediaan Bahan Perlengkapan Diklat/ Pelatihan/Sosialisasi/Workshop', 0),
+(3742, '01', '01', '07', '02', '11', '01', '02', NULL, NULL, '01.01.07.02.11.01.02', 'BlockNote', '', 'Buah', '1170211', 'Persediaan Bahan Perlengkapan Diklat/ Pelatihan/Sosialisasi/Workshop', 0),
+(3743, '01', '01', '07', '02', '11', '01', '03', NULL, NULL, '01.01.07.02.11.01.03', 'Bolpoint', '', 'Buah', '1170211', 'Persediaan Bahan Perlengkapan Diklat/ Pelatihan/Sosialisasi/Workshop', 0),
+(3744, '01', '01', '07', '02', '11', '01', '04', NULL, NULL, '01.01.07.02.11.01.04', 'Map Kertas', '', 'Buah', '1170211', 'Persediaan Bahan Perlengkapan Diklat/ Pelatihan/Sosialisasi/Workshop', 0),
+(3745, '01', '01', '07', '02', '11', '01', '05', NULL, NULL, '01.01.07.02.11.01.05', 'Map Plastik', '', 'Buah', '1170211', 'Persediaan Bahan Perlengkapan Diklat/ Pelatihan/Sosialisasi/Workshop', 0),
+(3746, '01', '01', '07', '02', '11', '01', '06', NULL, NULL, '01.01.07.02.11.01.06', 'Id Card', '', 'Buah', '1170211', 'Persediaan Bahan Perlengkapan Diklat/ Pelatihan/Sosialisasi/Workshop', 0),
+(3747, '01', '01', '07', '02', '11', '01', '07', NULL, NULL, '01.01.07.02.11.01.07', 'Modul Diklat', '', 'Buah', '1170211', 'Persediaan Bahan Perlengkapan Diklat/ Pelatihan/Sosialisasi/Workshop', 0),
 (3748, '01', '01', '07', '02', '12', '', '', NULL, NULL, '01.01.07.02.12', 'Persediaan Bahan Makanan', 'NIHIL *(Di Luar Bahan Makanan Pokok)', '', '1170212', 'Persediaan Bahan Makanan', 0),
 (3749, '01', '01', '07', '02', '13', '', '', NULL, NULL, '01.01.07.02.13', 'Persediaan Perlengkapan Olah Raga', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
 (3750, '01', '01', '07', '02', '13', '01', '', NULL, NULL, '01.01.07.02.13.01', 'Peralatan Olahraga Non POA', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3751, '01', '01', '07', '02', '13', '01', '01', NULL, NULL, '01.01.07.02.13.01.01', ' Bola Kaki  ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3752, '01', '01', '07', '02', '13', '01', '03', NULL, NULL, '01.01.07.02.13.01.03', ' Bola Voli ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3753, '01', '01', '07', '02', '13', '01', '04', NULL, NULL, '01.01.07.02.13.01.04', ' Net Bola Voli ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3754, '01', '01', '07', '02', '13', '01', '05', NULL, NULL, '01.01.07.02.13.01.05', ' Shutlekock ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3755, '01', '01', '07', '02', '13', '01', '06', NULL, NULL, '01.01.07.02.13.01.06', ' Raket Bulutangkis ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3756, '01', '01', '07', '02', '13', '01', '07', NULL, NULL, '01.01.07.02.13.01.07', ' Net Bulutangkis ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3757, '01', '01', '07', '02', '13', '01', '08', NULL, NULL, '01.01.07.02.13.01.08', ' Bad Tenis Meja ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3758, '01', '01', '07', '02', '13', '01', '09', NULL, NULL, '01.01.07.02.13.01.09', ' Bola Tenis Meja ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3759, '01', '01', '07', '02', '13', '01', '10', NULL, NULL, '01.01.07.02.13.01.10', ' Meja Tenis Meja ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3760, '01', '01', '07', '02', '13', '01', '11', NULL, NULL, '01.01.07.02.13.01.11', ' Matras Senam ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3761, '01', '01', '07', '02', '13', '01', '12', NULL, NULL, '01.01.07.02.13.01.12', ' Tongkat Estafet (set isi Lima) ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3762, '01', '01', '07', '02', '13', '01', '13', NULL, NULL, '01.01.07.02.13.01.13', ' Catur ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3751, '01', '01', '07', '02', '13', '01', '01', NULL, NULL, '01.01.07.02.13.01.01', ' Bola Kaki  ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3752, '01', '01', '07', '02', '13', '01', '03', NULL, NULL, '01.01.07.02.13.01.03', ' Bola Voli ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3753, '01', '01', '07', '02', '13', '01', '04', NULL, NULL, '01.01.07.02.13.01.04', ' Net Bola Voli ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3754, '01', '01', '07', '02', '13', '01', '05', NULL, NULL, '01.01.07.02.13.01.05', ' Shutlekock ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3755, '01', '01', '07', '02', '13', '01', '06', NULL, NULL, '01.01.07.02.13.01.06', ' Raket Bulutangkis ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3756, '01', '01', '07', '02', '13', '01', '07', NULL, NULL, '01.01.07.02.13.01.07', ' Net Bulutangkis ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3757, '01', '01', '07', '02', '13', '01', '08', NULL, NULL, '01.01.07.02.13.01.08', ' Bad Tenis Meja ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3758, '01', '01', '07', '02', '13', '01', '09', NULL, NULL, '01.01.07.02.13.01.09', ' Bola Tenis Meja ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3759, '01', '01', '07', '02', '13', '01', '10', NULL, NULL, '01.01.07.02.13.01.10', ' Meja Tenis Meja ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3760, '01', '01', '07', '02', '13', '01', '11', NULL, NULL, '01.01.07.02.13.01.11', ' Matras Senam ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3761, '01', '01', '07', '02', '13', '01', '12', NULL, NULL, '01.01.07.02.13.01.12', ' Tongkat Estafet (set isi Lima) ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3762, '01', '01', '07', '02', '13', '01', '13', NULL, NULL, '01.01.07.02.13.01.13', ' Catur ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
 (3763, '01', '01', '07', '02', '13', '02', '', NULL, NULL, '01.01.07.02.13.02', 'Peralatan Olahraga Anak (POA)', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3764, '01', '01', '07', '02', '13', '02', '01', NULL, NULL, '01.01.07.02.13.02.01', ' Tas POA ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3765, '01', '01', '07', '02', '13', '02', '02', NULL, NULL, '01.01.07.02.13.02.02', ' Kantong ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3766, '01', '01', '07', '02', '13', '02', '03', NULL, NULL, '01.01.07.02.13.02.03', ' Bola Soft Tenis ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3767, '01', '01', '07', '02', '13', '02', '04', NULL, NULL, '01.01.07.02.13.02.04', ' Bola POA ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3768, '01', '01', '07', '02', '13', '02', '05', NULL, NULL, '01.01.07.02.13.02.05', 'Bola Ayun ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3769, '01', '01', '07', '02', '13', '02', '07', NULL, NULL, '01.01.07.02.13.02.07', ' Rocket/ Rudal ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3770, '01', '01', '07', '02', '13', '02', '08', NULL, NULL, '01.01.07.02.13.02.08', ' Gawang Aman ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3771, '01', '01', '07', '02', '13', '02', '09', NULL, NULL, '01.01.07.02.13.02.09', ' Petak Lompat ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3772, '01', '01', '07', '02', '13', '02', '10', NULL, NULL, '01.01.07.02.13.02.10', ' Clapper ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3773, '01', '01', '07', '02', '13', '02', '11', NULL, NULL, '01.01.07.02.13.02.11', ' Bilah ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3774, '01', '01', '07', '02', '13', '02', '12', NULL, NULL, '01.01.07.02.13.02.12', ' Cones ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3775, '01', '01', '07', '02', '13', '02', '13', NULL, NULL, '01.01.07.02.13.02.13', ' Gelang Raja ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3776, '01', '01', '07', '02', '13', '02', '14', NULL, NULL, '01.01.07.02.13.02.14', ' Buku POA ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
-(3777, '01', '01', '07', '02', '13', '02', '15', NULL, NULL, '01.01.07.02.13.02.15', ' CD POA ', '', '', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3764, '01', '01', '07', '02', '13', '02', '01', NULL, NULL, '01.01.07.02.13.02.01', ' Tas POA ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3765, '01', '01', '07', '02', '13', '02', '02', NULL, NULL, '01.01.07.02.13.02.02', ' Kantong ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3766, '01', '01', '07', '02', '13', '02', '03', NULL, NULL, '01.01.07.02.13.02.03', ' Bola Soft Tenis ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3767, '01', '01', '07', '02', '13', '02', '04', NULL, NULL, '01.01.07.02.13.02.04', ' Bola POA ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3768, '01', '01', '07', '02', '13', '02', '05', NULL, NULL, '01.01.07.02.13.02.05', 'Bola Ayun ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3769, '01', '01', '07', '02', '13', '02', '07', NULL, NULL, '01.01.07.02.13.02.07', ' Rocket/ Rudal ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3770, '01', '01', '07', '02', '13', '02', '08', NULL, NULL, '01.01.07.02.13.02.08', ' Gawang Aman ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3771, '01', '01', '07', '02', '13', '02', '09', NULL, NULL, '01.01.07.02.13.02.09', ' Petak Lompat ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3772, '01', '01', '07', '02', '13', '02', '10', NULL, NULL, '01.01.07.02.13.02.10', ' Clapper ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3773, '01', '01', '07', '02', '13', '02', '11', NULL, NULL, '01.01.07.02.13.02.11', ' Bilah ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3774, '01', '01', '07', '02', '13', '02', '12', NULL, NULL, '01.01.07.02.13.02.12', ' Cones ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3775, '01', '01', '07', '02', '13', '02', '13', NULL, NULL, '01.01.07.02.13.02.13', ' Gelang Raja ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3776, '01', '01', '07', '02', '13', '02', '14', NULL, NULL, '01.01.07.02.13.02.14', ' Buku POA ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
+(3777, '01', '01', '07', '02', '13', '02', '15', NULL, NULL, '01.01.07.02.13.02.15', ' CD POA ', '', 'Buah', '1170213', 'Persediaan Perlengkapan Olah Raga', 0),
 (3778, '01', '01', '07', '02', '14', '', '', NULL, NULL, '01.01.07.02.14', 'Persediaan peralatan pertanian', '', '', '1170214', 'Persediaan peralatan pertanian', 0),
 (3779, '01', '01', '07', '02', '14', '01', '', NULL, NULL, '01.01.07.02.14.01', 'Persediaan peralatan pertanian', '', '', '1170214', 'Persediaan peralatan pertanian', 0),
-(3780, '01', '01', '07', '02', '14', '01', '01', NULL, NULL, '01.01.07.02.14.01.01', 'Cangkul Betul (Lurus)', '', '', '1170214', 'Persediaan peralatan pertanian', 0),
-(3781, '01', '01', '07', '02', '14', '01', '02', NULL, NULL, '01.01.07.02.14.01.02', 'Cangkul Burung (Alabangka)', '', '', '1170214', 'Persediaan peralatan pertanian', 0),
-(3782, '01', '01', '07', '02', '14', '01', '03', NULL, NULL, '01.01.07.02.14.01.03', 'Cangkul Besar', '', '', '1170214', 'Persediaan peralatan pertanian', 0),
-(3783, '01', '01', '07', '02', '14', '01', '04', NULL, NULL, '01.01.07.02.14.01.04', 'Cangkul kecil/Pancong', '', '', '1170214', 'Persediaan peralatan pertanian', 0),
-(3784, '01', '01', '07', '02', '14', '01', '05', NULL, NULL, '01.01.07.02.14.01.05', 'Cangkul pembuat Lobang tanah atau slondom', '', '', '1170214', 'Persediaan peralatan pertanian', 0),
-(3785, '01', '01', '07', '02', '14', '01', '06', NULL, NULL, '01.01.07.02.14.01.06', 'Lempa', '', '', '1170214', 'Persediaan peralatan pertanian', 0),
-(3786, '01', '01', '07', '02', '14', '01', '07', NULL, NULL, '01.01.07.02.14.01.07', 'Bendo', '', '', '1170214', 'Persediaan peralatan pertanian', 0),
-(3787, '01', '01', '07', '02', '14', '01', '08', NULL, NULL, '01.01.07.02.14.01.08', 'Canteng', '', '', '1170214', 'Persediaan peralatan pertanian', 0),
-(3788, '01', '01', '07', '02', '14', '01', '09', NULL, NULL, '01.01.07.02.14.01.09', 'Babatan', '', '', '1170214', 'Persediaan peralatan pertanian', 0),
-(3789, '01', '01', '07', '02', '14', '01', '10', NULL, NULL, '01.01.07.02.14.01.10', 'Parang Panjang', '', '', '1170214', 'Persediaan peralatan pertanian', 0),
-(3790, '01', '01', '07', '02', '14', '01', '11', NULL, NULL, '01.01.07.02.14.01.11', 'Sabit Padi', '', '', '1170214', 'Persediaan peralatan pertanian', 0),
-(3791, '01', '01', '07', '02', '14', '01', '12', NULL, NULL, '01.01.07.02.14.01.12', 'Osrok', '', '', '1170214', 'Persediaan peralatan pertanian', 0),
-(3792, '01', '01', '07', '02', '14', '01', '13', NULL, NULL, '01.01.07.02.14.01.13', 'Garuk', '', '', '1170214', 'Persediaan peralatan pertanian', 0),
-(3793, '01', '01', '07', '02', '14', '01', '14', NULL, NULL, '01.01.07.02.14.01.14', 'Garpu Tanah', '', '', '1170214', 'Persediaan peralatan pertanian', 0),
-(3794, '01', '01', '07', '02', '14', '01', '15', NULL, NULL, '01.01.07.02.14.01.15', 'Wadung', '', '', '1170214', 'Persediaan peralatan pertanian', 0),
-(3795, '01', '01', '07', '02', '14', '01', '16', NULL, NULL, '01.01.07.02.14.01.16', 'Cakar Ayam', '', '', '1170214', 'Persediaan peralatan pertanian', 0),
-(3796, '01', '01', '07', '02', '14', '01', '17', NULL, NULL, '01.01.07.02.14.01.17', 'Cetok', '', '', '1170214', 'Persediaan peralatan pertanian', 0),
-(3797, '01', '01', '07', '02', '14', '01', '18', NULL, NULL, '01.01.07.02.14.01.18', 'Gathul', '', '', '1170214', 'Persediaan peralatan pertanian', 0),
-(3798, '01', '01', '07', '02', '14', '01', '19', NULL, NULL, '01.01.07.02.14.01.19', 'Pangot', '', '', '1170214', 'Persediaan peralatan pertanian', 0),
-(3799, '01', '01', '07', '02', '14', '01', '20', NULL, NULL, '01.01.07.02.14.01.20', 'Ungkal', '', '', '1170214', 'Persediaan peralatan pertanian', 0),
+(3780, '01', '01', '07', '02', '14', '01', '01', NULL, NULL, '01.01.07.02.14.01.01', 'Cangkul Betul (Lurus)', '', 'Buah', '1170214', 'Persediaan peralatan pertanian', 0),
+(3781, '01', '01', '07', '02', '14', '01', '02', NULL, NULL, '01.01.07.02.14.01.02', 'Cangkul Burung (Alabangka)', '', 'Buah', '1170214', 'Persediaan peralatan pertanian', 0),
+(3782, '01', '01', '07', '02', '14', '01', '03', NULL, NULL, '01.01.07.02.14.01.03', 'Cangkul Besar', '', 'Buah', '1170214', 'Persediaan peralatan pertanian', 0),
+(3783, '01', '01', '07', '02', '14', '01', '04', NULL, NULL, '01.01.07.02.14.01.04', 'Cangkul kecil/Pancong', '', 'Buah', '1170214', 'Persediaan peralatan pertanian', 0),
+(3784, '01', '01', '07', '02', '14', '01', '05', NULL, NULL, '01.01.07.02.14.01.05', 'Cangkul pembuat Lobang tanah atau slondom', '', 'Buah', '1170214', 'Persediaan peralatan pertanian', 0),
+(3785, '01', '01', '07', '02', '14', '01', '06', NULL, NULL, '01.01.07.02.14.01.06', 'Lempa', '', 'Buah', '1170214', 'Persediaan peralatan pertanian', 0),
+(3786, '01', '01', '07', '02', '14', '01', '07', NULL, NULL, '01.01.07.02.14.01.07', 'Bendo', '', 'Buah', '1170214', 'Persediaan peralatan pertanian', 0),
+(3787, '01', '01', '07', '02', '14', '01', '08', NULL, NULL, '01.01.07.02.14.01.08', 'Canteng', '', 'Buah', '1170214', 'Persediaan peralatan pertanian', 0),
+(3788, '01', '01', '07', '02', '14', '01', '09', NULL, NULL, '01.01.07.02.14.01.09', 'Babatan', '', 'Buah', '1170214', 'Persediaan peralatan pertanian', 0),
+(3789, '01', '01', '07', '02', '14', '01', '10', NULL, NULL, '01.01.07.02.14.01.10', 'Parang Panjang', '', 'Buah', '1170214', 'Persediaan peralatan pertanian', 0),
+(3790, '01', '01', '07', '02', '14', '01', '11', NULL, NULL, '01.01.07.02.14.01.11', 'Sabit Padi', '', 'Buah', '1170214', 'Persediaan peralatan pertanian', 0),
+(3791, '01', '01', '07', '02', '14', '01', '12', NULL, NULL, '01.01.07.02.14.01.12', 'Osrok', '', 'Buah', '1170214', 'Persediaan peralatan pertanian', 0),
+(3792, '01', '01', '07', '02', '14', '01', '13', NULL, NULL, '01.01.07.02.14.01.13', 'Garuk', '', 'Buah', '1170214', 'Persediaan peralatan pertanian', 0),
+(3793, '01', '01', '07', '02', '14', '01', '14', NULL, NULL, '01.01.07.02.14.01.14', 'Garpu Tanah', '', 'Buah', '1170214', 'Persediaan peralatan pertanian', 0),
+(3794, '01', '01', '07', '02', '14', '01', '15', NULL, NULL, '01.01.07.02.14.01.15', 'Wadung', '', 'Buah', '1170214', 'Persediaan peralatan pertanian', 0),
+(3795, '01', '01', '07', '02', '14', '01', '16', NULL, NULL, '01.01.07.02.14.01.16', 'Cakar Ayam', '', 'Buah', '1170214', 'Persediaan peralatan pertanian', 0),
+(3796, '01', '01', '07', '02', '14', '01', '17', NULL, NULL, '01.01.07.02.14.01.17', 'Cetok', '', 'Buah', '1170214', 'Persediaan peralatan pertanian', 0),
+(3797, '01', '01', '07', '02', '14', '01', '18', NULL, NULL, '01.01.07.02.14.01.18', 'Gathul', '', 'Buah', '1170214', 'Persediaan peralatan pertanian', 0),
+(3798, '01', '01', '07', '02', '14', '01', '19', NULL, NULL, '01.01.07.02.14.01.19', 'Pangot', '', 'Buah', '1170214', 'Persediaan peralatan pertanian', 0),
+(3799, '01', '01', '07', '02', '14', '01', '20', NULL, NULL, '01.01.07.02.14.01.20', 'Ungkal', '', 'Buah', '1170214', 'Persediaan peralatan pertanian', 0),
 (3800, '01', '01', '07', '02', '15', '', '', NULL, NULL, '01.01.07.02.15', 'Persediaan Hewan Qurban', '', '', '1170215', 'Persediaan Hewan Qurban', 0),
 (3801, '01', '01', '07', '02', '15', '01', '', NULL, NULL, '01.01.07.02.15.01', 'Persediaan Hewan Qurban', '', '', '1170215', 'Persediaan Hewan Qurban', 0),
 (3802, '01', '01', '07', '02', '15', '01', '01', NULL, NULL, '01.01.07.02.15.01.01', 'Sapi ', '', 'ekor', '1170215', 'Persediaan Hewan Qurban', 0),
@@ -4283,64 +4286,64 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (3804, '01', '01', '07', '02', '16', '', '', NULL, NULL, '01.01.07.02.16', 'Persediaan Persyaratan Pernikahan', 'NIHIL', '', '1170216', 'Persediaan Persyaratan Pernikahan', 0),
 (3805, '01', '01', '07', '02', '17', '', '', NULL, NULL, '01.01.07.02.17', 'Persediaan Perlengkapan Seni', '?', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
 (3806, '01', '01', '07', '02', '17', '01', '', NULL, NULL, '01.01.07.02.17.01', 'Seni rupa dan Musik', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3807, '01', '01', '07', '02', '17', '01', '01', NULL, NULL, '01.01.07.02.17.01.01', 'Cat', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3808, '01', '01', '07', '02', '17', '01', '02', NULL, NULL, '01.01.07.02.17.01.02', 'Pewarna', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3809, '01', '01', '07', '02', '17', '01', '03', NULL, NULL, '01.01.07.02.17.01.03', 'Kuas', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3810, '01', '01', '07', '02', '17', '01', '04', NULL, NULL, '01.01.07.02.17.01.04', 'Pensil Biasa', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3811, '01', '01', '07', '02', '17', '01', '05', NULL, NULL, '01.01.07.02.17.01.05', 'Pensil Lukis', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3812, '01', '01', '07', '02', '17', '01', '06', NULL, NULL, '01.01.07.02.17.01.06', 'Pensil Warna', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3813, '01', '01', '07', '02', '17', '01', '07', NULL, NULL, '01.01.07.02.17.01.07', 'Crayon', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3814, '01', '01', '07', '02', '17', '01', '08', NULL, NULL, '01.01.07.02.17.01.08', 'Penghapus', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3815, '01', '01', '07', '02', '17', '01', '09', NULL, NULL, '01.01.07.02.17.01.09', 'Kain lukis', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3816, '01', '01', '07', '02', '17', '01', '10', NULL, NULL, '01.01.07.02.17.01.10', 'Papan Lukis', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3817, '01', '01', '07', '02', '17', '01', '11', NULL, NULL, '01.01.07.02.17.01.11', 'Kertas Gambar', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3818, '01', '01', '07', '02', '17', '01', '12', NULL, NULL, '01.01.07.02.17.01.12', 'Senar Gitar/Kentrung', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3819, '01', '01', '07', '02', '17', '01', '13', NULL, NULL, '01.01.07.02.17.01.13', 'Seruling', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3820, '01', '01', '07', '02', '17', '01', '14', NULL, NULL, '01.01.07.02.17.01.14', 'Angklung', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3821, '01', '01', '07', '02', '17', '01', '15', NULL, NULL, '01.01.07.02.17.01.15', 'Calung', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3822, '01', '01', '07', '02', '17', '01', '16', NULL, NULL, '01.01.07.02.17.01.16', 'CengCeng', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0);
+(3807, '01', '01', '07', '02', '17', '01', '01', NULL, NULL, '01.01.07.02.17.01.01', 'Cat', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3808, '01', '01', '07', '02', '17', '01', '02', NULL, NULL, '01.01.07.02.17.01.02', 'Pewarna', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3809, '01', '01', '07', '02', '17', '01', '03', NULL, NULL, '01.01.07.02.17.01.03', 'Kuas', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3810, '01', '01', '07', '02', '17', '01', '04', NULL, NULL, '01.01.07.02.17.01.04', 'Pensil Biasa', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3811, '01', '01', '07', '02', '17', '01', '05', NULL, NULL, '01.01.07.02.17.01.05', 'Pensil Lukis', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3812, '01', '01', '07', '02', '17', '01', '06', NULL, NULL, '01.01.07.02.17.01.06', 'Pensil Warna', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3813, '01', '01', '07', '02', '17', '01', '07', NULL, NULL, '01.01.07.02.17.01.07', 'Crayon', '', 'dos', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3814, '01', '01', '07', '02', '17', '01', '08', NULL, NULL, '01.01.07.02.17.01.08', 'Penghapus', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3815, '01', '01', '07', '02', '17', '01', '09', NULL, NULL, '01.01.07.02.17.01.09', 'Kain lukis', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0);
 INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `satuan`, `kd_perk`, `nm_perk`, `harga`) VALUES
-(3823, '01', '01', '07', '02', '17', '01', '17', NULL, NULL, '01.01.07.02.17.01.17', 'Gitar', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3824, '01', '01', '07', '02', '17', '01', '18', NULL, NULL, '01.01.07.02.17.01.18', 'Kentrung', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3816, '01', '01', '07', '02', '17', '01', '10', NULL, NULL, '01.01.07.02.17.01.10', 'Papan Lukis', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3817, '01', '01', '07', '02', '17', '01', '11', NULL, NULL, '01.01.07.02.17.01.11', 'Kertas Gambar', '', 'Lembar', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3818, '01', '01', '07', '02', '17', '01', '12', NULL, NULL, '01.01.07.02.17.01.12', 'Senar Gitar/Kentrung', '', 'Set', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3819, '01', '01', '07', '02', '17', '01', '13', NULL, NULL, '01.01.07.02.17.01.13', 'Seruling', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3820, '01', '01', '07', '02', '17', '01', '14', NULL, NULL, '01.01.07.02.17.01.14', 'Angklung', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3821, '01', '01', '07', '02', '17', '01', '15', NULL, NULL, '01.01.07.02.17.01.15', 'Calung', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3822, '01', '01', '07', '02', '17', '01', '16', NULL, NULL, '01.01.07.02.17.01.16', 'CengCeng', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3823, '01', '01', '07', '02', '17', '01', '17', NULL, NULL, '01.01.07.02.17.01.17', 'Gitar', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3824, '01', '01', '07', '02', '17', '01', '18', NULL, NULL, '01.01.07.02.17.01.18', 'Kentrung', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
 (3825, '01', '01', '07', '02', '17', '02', '', NULL, NULL, '01.01.07.02.17.02', 'Kostum Tari', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3826, '01', '01', '07', '02', '17', '02', '01', NULL, NULL, '01.01.07.02.17.02.01', 'Sanggul', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3827, '01', '01', '07', '02', '17', '02', '02', NULL, NULL, '01.01.07.02.17.02.02', 'Accesoris Sanggul', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3828, '01', '01', '07', '02', '17', '02', '03', NULL, NULL, '01.01.07.02.17.02.03', 'Perhiasan Tari (Giwang, Kalung, Gelang, Bross)', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3829, '01', '01', '07', '02', '17', '02', '04', NULL, NULL, '01.01.07.02.17.02.04', 'Pakaian Tari', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3830, '01', '01', '07', '02', '17', '02', '05', NULL, NULL, '01.01.07.02.17.02.05', 'Jarik', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3831, '01', '01', '07', '02', '17', '02', '06', NULL, NULL, '01.01.07.02.17.02.06', 'Sampur', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3832, '01', '01', '07', '02', '17', '02', '07', NULL, NULL, '01.01.07.02.17.02.07', 'Stagen', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3833, '01', '01', '07', '02', '17', '02', '08', NULL, NULL, '01.01.07.02.17.02.08', 'Celana Tari', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3826, '01', '01', '07', '02', '17', '02', '01', NULL, NULL, '01.01.07.02.17.02.01', 'Sanggul', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3827, '01', '01', '07', '02', '17', '02', '02', NULL, NULL, '01.01.07.02.17.02.02', 'Accesoris Sanggul', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3828, '01', '01', '07', '02', '17', '02', '03', NULL, NULL, '01.01.07.02.17.02.03', 'Perhiasan Tari (Giwang, Kalung, Gelang, Bross)', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3829, '01', '01', '07', '02', '17', '02', '04', NULL, NULL, '01.01.07.02.17.02.04', 'Pakaian Tari', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3830, '01', '01', '07', '02', '17', '02', '05', NULL, NULL, '01.01.07.02.17.02.05', 'Jarik', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3831, '01', '01', '07', '02', '17', '02', '06', NULL, NULL, '01.01.07.02.17.02.06', 'Sampur', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3832, '01', '01', '07', '02', '17', '02', '07', NULL, NULL, '01.01.07.02.17.02.07', 'Stagen', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3833, '01', '01', '07', '02', '17', '02', '08', NULL, NULL, '01.01.07.02.17.02.08', 'Celana Tari', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
 (3834, '01', '01', '07', '02', '17', '03', '', NULL, NULL, '01.01.07.02.17.03', 'Property Tari', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3835, '01', '01', '07', '02', '17', '03', '01', NULL, NULL, '01.01.07.02.17.03.01', 'Kipas', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3836, '01', '01', '07', '02', '17', '03', '02', NULL, NULL, '01.01.07.02.17.03.02', 'Rebana', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3837, '01', '01', '07', '02', '17', '03', '03', NULL, NULL, '01.01.07.02.17.03.03', 'Dumbuk', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3838, '01', '01', '07', '02', '17', '03', '04', NULL, NULL, '01.01.07.02.17.03.04', 'Keris', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3839, '01', '01', '07', '02', '17', '03', '05', NULL, NULL, '01.01.07.02.17.03.05', 'Tameng', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3840, '01', '01', '07', '02', '17', '03', '06', NULL, NULL, '01.01.07.02.17.03.06', 'Pedang', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3841, '01', '01', '07', '02', '17', '03', '07', NULL, NULL, '01.01.07.02.17.03.07', 'Jarik', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3835, '01', '01', '07', '02', '17', '03', '01', NULL, NULL, '01.01.07.02.17.03.01', 'Kipas', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3836, '01', '01', '07', '02', '17', '03', '02', NULL, NULL, '01.01.07.02.17.03.02', 'Rebana', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3837, '01', '01', '07', '02', '17', '03', '03', NULL, NULL, '01.01.07.02.17.03.03', 'Dumbuk', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3838, '01', '01', '07', '02', '17', '03', '04', NULL, NULL, '01.01.07.02.17.03.04', 'Keris', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3839, '01', '01', '07', '02', '17', '03', '05', NULL, NULL, '01.01.07.02.17.03.05', 'Tameng', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3840, '01', '01', '07', '02', '17', '03', '06', NULL, NULL, '01.01.07.02.17.03.06', 'Pedang', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3841, '01', '01', '07', '02', '17', '03', '07', NULL, NULL, '01.01.07.02.17.03.07', 'Jarik', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
 (3842, '01', '01', '07', '02', '17', '04', '', NULL, NULL, '01.01.07.02.17.04', 'Make-up Tari', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3843, '01', '01', '07', '02', '17', '04', '01', NULL, NULL, '01.01.07.02.17.04.01', 'Alas Bedak', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3844, '01', '01', '07', '02', '17', '04', '02', NULL, NULL, '01.01.07.02.17.04.02', 'Bedak Padat', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3845, '01', '01', '07', '02', '17', '04', '03', NULL, NULL, '01.01.07.02.17.04.03', 'Bedak tabur', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3846, '01', '01', '07', '02', '17', '04', '04', NULL, NULL, '01.01.07.02.17.04.04', 'Pensil Alis', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3847, '01', '01', '07', '02', '17', '04', '05', NULL, NULL, '01.01.07.02.17.04.05', 'Blush On', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3848, '01', '01', '07', '02', '17', '04', '06', NULL, NULL, '01.01.07.02.17.04.06', 'Eye Syadow', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3849, '01', '01', '07', '02', '17', '04', '07', NULL, NULL, '01.01.07.02.17.04.07', 'Eye Liner', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3850, '01', '01', '07', '02', '17', '04', '08', NULL, NULL, '01.01.07.02.17.04.08', 'Lem Bulu Mata', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3851, '01', '01', '07', '02', '17', '04', '09', NULL, NULL, '01.01.07.02.17.04.09', 'Bulu Mata', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3852, '01', '01', '07', '02', '17', '04', '10', NULL, NULL, '01.01.07.02.17.04.10', 'Lipstik', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3853, '01', '01', '07', '02', '17', '04', '11', NULL, NULL, '01.01.07.02.17.04.11', 'Hairspray', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3854, '01', '01', '07', '02', '17', '04', '12', NULL, NULL, '01.01.07.02.17.04.12', 'Cekip', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3855, '01', '01', '07', '02', '17', '04', '13', NULL, NULL, '01.01.07.02.17.04.13', 'Peniti', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
-(3856, '01', '01', '07', '02', '17', '04', '14', NULL, NULL, '01.01.07.02.17.04.14', 'Rajut', '', '', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3843, '01', '01', '07', '02', '17', '04', '01', NULL, NULL, '01.01.07.02.17.04.01', 'Alas Bedak', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3844, '01', '01', '07', '02', '17', '04', '02', NULL, NULL, '01.01.07.02.17.04.02', 'Bedak Padat', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3845, '01', '01', '07', '02', '17', '04', '03', NULL, NULL, '01.01.07.02.17.04.03', 'Bedak tabur', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3846, '01', '01', '07', '02', '17', '04', '04', NULL, NULL, '01.01.07.02.17.04.04', 'Pensil Alis', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3847, '01', '01', '07', '02', '17', '04', '05', NULL, NULL, '01.01.07.02.17.04.05', 'Blush On', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3848, '01', '01', '07', '02', '17', '04', '06', NULL, NULL, '01.01.07.02.17.04.06', 'Eye Syadow', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3849, '01', '01', '07', '02', '17', '04', '07', NULL, NULL, '01.01.07.02.17.04.07', 'Eye Liner', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3850, '01', '01', '07', '02', '17', '04', '08', NULL, NULL, '01.01.07.02.17.04.08', 'Lem Bulu Mata', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3851, '01', '01', '07', '02', '17', '04', '09', NULL, NULL, '01.01.07.02.17.04.09', 'Bulu Mata', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3852, '01', '01', '07', '02', '17', '04', '10', NULL, NULL, '01.01.07.02.17.04.10', 'Lipstik', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3853, '01', '01', '07', '02', '17', '04', '11', NULL, NULL, '01.01.07.02.17.04.11', 'Hairspray', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3854, '01', '01', '07', '02', '17', '04', '12', NULL, NULL, '01.01.07.02.17.04.12', 'Cekip', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3855, '01', '01', '07', '02', '17', '04', '13', NULL, NULL, '01.01.07.02.17.04.13', 'Peniti', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
+(3856, '01', '01', '07', '02', '17', '04', '14', NULL, NULL, '01.01.07.02.17.04.14', 'Rajut', '', 'Buah', '1170217', 'Persediaan Perlengkapan Seni', 0),
 (3857, '01', '01', '07', '02', '18', '', '', NULL, NULL, '01.01.07.02.18', 'Persediaan Perlengkapan Upacara', '', '', '1170218', 'Persediaan Perlengkapan Upacara', 0),
 (3858, '01', '01', '07', '02', '18', '01', '', NULL, NULL, '01.01.07.02.18.01', 'Persediaan Perlengkapan Upacara', '', '', '1170218', 'Persediaan Perlengkapan Upacara', 0),
-(3859, '01', '01', '07', '02', '18', '01', '01', NULL, NULL, '01.01.07.02.18.01.01', 'Sarung Tangan', '', '', '1170218', 'Persediaan Perlengkapan Upacara', 0),
-(3860, '01', '01', '07', '02', '18', '01', '02', NULL, NULL, '01.01.07.02.18.01.02', 'Peci', '', '', '1170218', 'Persediaan Perlengkapan Upacara', 0),
-(3861, '01', '01', '07', '02', '18', '01', '03', NULL, NULL, '01.01.07.02.18.01.03', 'Slayer', '', '', '1170218', 'Persediaan Perlengkapan Upacara', 0),
-(3862, '01', '01', '07', '02', '18', '01', '04', NULL, NULL, '01.01.07.02.18.01.04', 'Bendera', '', '', '1170218', 'Persediaan Perlengkapan Upacara', 0),
-(3863, '01', '01', '07', '02', '18', '01', '05', NULL, NULL, '01.01.07.02.18.01.05', 'Atribut Upacara', '', '', '1170218', 'Persediaan Perlengkapan Upacara', 0),
+(3859, '01', '01', '07', '02', '18', '01', '01', NULL, NULL, '01.01.07.02.18.01.01', 'Sarung Tangan', '', 'Buah', '1170218', 'Persediaan Perlengkapan Upacara', 0),
+(3860, '01', '01', '07', '02', '18', '01', '02', NULL, NULL, '01.01.07.02.18.01.02', 'Peci', '', 'Buah', '1170218', 'Persediaan Perlengkapan Upacara', 0),
+(3861, '01', '01', '07', '02', '18', '01', '03', NULL, NULL, '01.01.07.02.18.01.03', 'Slayer', '', 'Buah', '1170218', 'Persediaan Perlengkapan Upacara', 0),
+(3862, '01', '01', '07', '02', '18', '01', '04', NULL, NULL, '01.01.07.02.18.01.04', 'Bendera', '', 'Buah', '1170218', 'Persediaan Perlengkapan Upacara', 0),
+(3863, '01', '01', '07', '02', '18', '01', '05', NULL, NULL, '01.01.07.02.18.01.05', 'Atribut Upacara', '', 'Buah', '1170218', 'Persediaan Perlengkapan Upacara', 0),
 (3864, '01', '01', '07', '02', '19', '', '', NULL, NULL, '01.01.07.02.19', 'Persediaan Angkutan Darat Bermotor dan Tidak Bermotor', '', '', '1170219', 'Persediaan Angkutan Darat Bermotor dan Tidak Bermotor', 0),
 (3865, '01', '01', '07', '02', '20', '', '', NULL, NULL, '01.01.07.02.20', 'Persediaan Peralatan dan Perlengkapan Kantor', '', '', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 0),
 (3866, '01', '01', '07', '02', '20', '01', '', NULL, NULL, '01.01.07.02.20.01', 'PERLENGKAPAN KANTOR (''Pakaian Dinas )', '', '', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 0),
@@ -4369,7 +4372,7 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (3889, '01', '01', '07', '02', '20', '01', '23', NULL, NULL, '01.01.07.02.20.01.23', 'Baret emblem standart', 'Kain', 'buah', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 130935),
 (3890, '01', '01', '07', '02', '20', '01', '24', NULL, NULL, '01.01.07.02.20.01.24', 'Borgol Dus Hijau', 'Standart', 'unit', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 64890),
 (3891, '01', '01', '07', '02', '20', '01', '25', NULL, NULL, '01.01.07.02.20.01.25', 'Borgol Dus Merah', 'Standart', 'unit', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 50715),
-(3892, '01', '01', '07', '02', '20', '01', '26', NULL, NULL, '01.01.07.02.20.01.26', 'Borgol Jari', 'Standart', '', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 33495),
+(3892, '01', '01', '07', '02', '20', '01', '26', NULL, NULL, '01.01.07.02.20.01.26', 'Borgol Jari', 'Standart', 'Buah', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 33495),
 (3893, '01', '01', '07', '02', '20', '01', '27', NULL, NULL, '01.01.07.02.20.01.27', 'Borgol Kwalitas Import (Spanyol)', 'Standart', 'unit', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 42630),
 (3894, '01', '01', '07', '02', '20', '01', '28', NULL, NULL, '01.01.07.02.20.01.28', 'Borgol Pol PP', 'Standart', 'buah', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 116655),
 (3895, '01', '01', '07', '02', '20', '01', '29', NULL, NULL, '01.01.07.02.20.01.29', 'Dasi warna hitam', 'bahan Satin halus polos', 'buah', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 47670),
@@ -4381,7 +4384,7 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (3901, '01', '01', '07', '02', '20', '01', '35', NULL, NULL, '01.01.07.02.20.01.35', 'Handban', 'Standart', 'Pasang', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 111615),
 (3902, '01', '01', '07', '02', '20', '01', '36', NULL, NULL, '01.01.07.02.20.01.36', 'Helm Patwal Pol PP', 'Warna Keki bertuliskan Pol PP kuning scotlight', 'buah', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 361305),
 (3903, '01', '01', '07', '02', '20', '01', '37', NULL, NULL, '01.01.07.02.20.01.37', 'Helm Provost ', 'Warna putih dpan logo Pol PP dari kuningan ', 'buah', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 206010),
-(3904, '01', '01', '07', '02', '20', '01', '38', NULL, NULL, '01.01.07.02.20.01.38', 'Helm Sekuriti Standar Polisi', 'Standart', '', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 103320),
+(3904, '01', '01', '07', '02', '20', '01', '38', NULL, NULL, '01.01.07.02.20.01.38', 'Helm Sekuriti Standar Polisi', 'Standart', 'Buah', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 103320),
 (3905, '01', '01', '07', '02', '20', '01', '39', NULL, NULL, '01.01.07.02.20.01.39', 'Hem Putih Panjang katun halus', 'Bahan Katon Halus lengan Panjang', 'buah', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 192780),
 (3906, '01', '01', '07', '02', '20', '01', '40', NULL, NULL, '01.01.07.02.20.01.40', 'Hem warna putih (bahan Katun)', 'Pakaian Jadi', 'buah', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 117180),
 (3907, '01', '01', '07', '02', '20', '01', '41', NULL, NULL, '01.01.07.02.20.01.41', 'HT Alinco DJ 195 / DJ 196', 'Standart', 'buah', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 1586130),
@@ -4498,9 +4501,9 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (4018, '01', '01', '07', '02', '20', '01', '152', NULL, NULL, '01.01.07.02.20.01.152', 'Tanda Pengenal Pegawai', 'Standart', 'buah', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 41160),
 (4019, '01', '01', '07', '02', '20', '01', '153', NULL, NULL, '01.01.07.02.20.01.153', 'Tas Kerja kulit untuk Anggota DPRD', 'Standart', 'buah', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 689955),
 (4020, '01', '01', '07', '02', '20', '01', '154', NULL, NULL, '01.01.07.02.20.01.154', 'Tas kerja Pol PP', 'Bahan kain parasut bordir logo Pol PP ', 'buah', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 113715),
-(4021, '01', '01', '07', '02', '20', '01', '155', NULL, NULL, '01.01.07.02.20.01.155', 'Tempat Borgol Imitasi', 'Standart', '', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 20265),
+(4021, '01', '01', '07', '02', '20', '01', '155', NULL, NULL, '01.01.07.02.20.01.155', 'Tempat Borgol Imitasi', 'Standart', 'Buah', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 20265),
 (4022, '01', '01', '07', '02', '20', '01', '156', NULL, NULL, '01.01.07.02.20.01.156', 'Tempat borgol kulit', 'Standart', 'buah', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 29400),
-(4023, '01', '01', '07', '02', '20', '01', '157', NULL, NULL, '01.01.07.02.20.01.157', 'Topi Jengle Pet', 'Bahan laken dibordir lengkap', '', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 116655),
+(4023, '01', '01', '07', '02', '20', '01', '157', NULL, NULL, '01.01.07.02.20.01.157', 'Topi Jengle Pet', 'Bahan laken dibordir lengkap', 'Buah', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 116655),
 (4024, '01', '01', '07', '02', '20', '01', '158', NULL, NULL, '01.01.07.02.20.01.158', 'Topi LINMAS', 'Kain', 'buah', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 31500),
 (4025, '01', '01', '07', '02', '20', '01', '159', NULL, NULL, '01.01.07.02.20.01.159', 'Topi Mutz/Peci dan emblem', 'Kain', 'buah', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 75180),
 (4026, '01', '01', '07', '02', '20', '01', '160', NULL, NULL, '01.01.07.02.20.01.160', 'Topi PDH/Hansip', 'Kain', 'buah', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 31500),
@@ -4517,11 +4520,11 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (4037, '01', '01', '07', '02', '22', '', '', NULL, NULL, '01.01.07.02.22', 'Persediaan Karpet / Matras', 'NIHIL', '', '1170222', 'Persediaan Karpet / Matras', 0),
 (4038, '01', '01', '07', '02', '23', '', '', NULL, NULL, '01.01.07.02.23', 'Persediaan Perlengkapan Ibadah', '', '', '1170223', 'Persediaan Perlengkapan Ibadah', 0),
 (4039, '01', '01', '07', '02', '23', '01', '', NULL, NULL, '01.01.07.02.23.01', 'Persediaan Perlengkapan Ibadah', '', '', '1170223', 'Persediaan Perlengkapan Ibadah', 0),
-(4040, '01', '01', '07', '02', '23', '01', '01', NULL, NULL, '01.01.07.02.23.01.01', 'Sarung ', '', '', '1170223', 'Persediaan Perlengkapan Ibadah', 0),
-(4041, '01', '01', '07', '02', '23', '01', '02', NULL, NULL, '01.01.07.02.23.01.02', 'Mukenah', '', '', '1170223', 'Persediaan Perlengkapan Ibadah', 0),
-(4042, '01', '01', '07', '02', '23', '01', '03', NULL, NULL, '01.01.07.02.23.01.03', 'Al Quran', '', '', '1170223', 'Persediaan Perlengkapan Ibadah', 0),
-(4043, '01', '01', '07', '02', '23', '01', '04', NULL, NULL, '01.01.07.02.23.01.04', 'Tasbih', '', '', '1170223', 'Persediaan Perlengkapan Ibadah', 0),
-(4044, '01', '01', '07', '02', '23', '01', '05', NULL, NULL, '01.01.07.02.23.01.05', 'Sejadah', '', '', '1170223', 'Persediaan Perlengkapan Ibadah', 0),
+(4040, '01', '01', '07', '02', '23', '01', '01', NULL, NULL, '01.01.07.02.23.01.01', 'Sarung ', '', 'Buah', '1170223', 'Persediaan Perlengkapan Ibadah', 0),
+(4041, '01', '01', '07', '02', '23', '01', '02', NULL, NULL, '01.01.07.02.23.01.02', 'Mukenah', '', 'Buah', '1170223', 'Persediaan Perlengkapan Ibadah', 0),
+(4042, '01', '01', '07', '02', '23', '01', '03', NULL, NULL, '01.01.07.02.23.01.03', 'Al Quran', '', 'Buah', '1170223', 'Persediaan Perlengkapan Ibadah', 0),
+(4043, '01', '01', '07', '02', '23', '01', '04', NULL, NULL, '01.01.07.02.23.01.04', 'Tasbih', '', 'Buah', '1170223', 'Persediaan Perlengkapan Ibadah', 0),
+(4044, '01', '01', '07', '02', '23', '01', '05', NULL, NULL, '01.01.07.02.23.01.05', 'Sejadah', '', 'Buah', '1170223', 'Persediaan Perlengkapan Ibadah', 0),
 (4045, '01', '01', '07', '02', '24', '', '', NULL, NULL, '01.01.07.02.24', 'Persediaan Peralatan dan Perlengkapan Rumah Tangga', 'Sudah Tersedia Di Kode 01', '', '1170224', 'Persediaan Peralatan dan Perlengkapan Rumah Tangga', 0),
 (4046, '01', '01', '07', '02', '25', '', '', NULL, NULL, '01.01.07.02.25', 'Persediaan Peralatan dan Perlengkapan Kesehatan', 'Sudah Tersedia Di Kode 01', '', '1170225', 'Persediaan Peralatan dan Perlengkapan Kesehatan', 0),
 (4047, '01', '01', '07', '03', '', '', '', NULL, NULL, '01.01.07.03', 'Persediaan Barang Lainnya', '', '', '11703', 'Persediaan Barang Lainnya', 0),
@@ -4543,14 +4546,14 @@ CREATE TABLE IF NOT EXISTS `satker` (
   `kode` varchar(50) DEFAULT NULL,
   `NamaSatker` varchar(255) DEFAULT NULL,
   `tahun` int(6) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=465 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=467 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `satker`
 --
 
 INSERT INTO `satker` (`Satker_ID`, `KodeSektor`, `KodeSatker`, `KodeUnit`, `Gudang`, `kode`, `NamaSatker`, `tahun`) VALUES
-(1, '01', NULL, NULL, NULL, '01', 'Sekwan/DPRD', NULL),
+(1, '01', NULL, NULL, NULL, '01', 'Sekwan / DPRD', NULL),
 (2, '02', NULL, NULL, NULL, '02', 'Gubernur/Bupati/Walikota', NULL),
 (3, '03', NULL, NULL, NULL, '03', 'Wakil Gubernur/Bupati/Walikota', NULL),
 (4, '04', NULL, NULL, NULL, '04', 'Sekretariat Daerah', NULL),
@@ -5013,7 +5016,9 @@ INSERT INTO `satker` (`Satker_ID`, `KodeSektor`, `KodeSatker`, `KodeUnit`, `Guda
 (461, '67', NULL, NULL, NULL, '67', 'KARANG TARUNA', 2015),
 (462, '23', NULL, NULL, NULL, '23', 'ka', 2015),
 (463, '67', NULL, NULL, NULL, '67', 'KARANG TARUNA', 2016),
-(464, '23', NULL, NULL, NULL, '23', 'ka', 2016);
+(464, '23', NULL, NULL, NULL, '23', 'ka', 2016),
+(465, '67', NULL, NULL, NULL, '67', 'KARANG TARUNA', 2016),
+(466, '23', NULL, NULL, NULL, '23', 'ka', 2016);
 
 -- --------------------------------------------------------
 
@@ -5451,10 +5456,10 @@ CREATE TABLE IF NOT EXISTS `transaksi_full` (
   `kd_lok_msk` varchar(20) DEFAULT NULL,
   `nm_satker` varchar(40) NOT NULL,
   `thn_ang` year(4) DEFAULT NULL,
-  `no_dok` varchar(20) NOT NULL,
+  `no_dok` varchar(40) NOT NULL,
   `tgl_dok` date NOT NULL,
   `tgl_buku` date NOT NULL,
-  `no_bukti` varchar(20) NOT NULL,
+  `no_bukti` varchar(40) NOT NULL,
   `kd_brg` varchar(30) NOT NULL,
   `kd_sskel` varchar(15) DEFAULT NULL,
   `nm_sskel` varchar(70) DEFAULT NULL,
@@ -5475,26 +5480,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_full` (
   `status_ambil` tinyint(1) NOT NULL DEFAULT '0',
   `tgl_update` datetime DEFAULT NULL,
   `user_id` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=1355 DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `transaksi_full`
---
-
-INSERT INTO `transaksi_full` (`id_history`, `id_trans`, `id_masuk`, `id_keluar`, `id_opname`, `kd_lokasi`, `kd_lok_msk`, `nm_satker`, `thn_ang`, `no_dok`, `tgl_dok`, `tgl_buku`, `no_bukti`, `kd_brg`, `kd_sskel`, `nm_sskel`, `nm_brg`, `spesifikasi`, `kd_perk`, `nm_perk`, `satuan`, `qty`, `harga_sat`, `total_harga`, `jns_trans`, `keterangan`, `untuk`, `status`, `status_edit`, `status_hapus`, `status_ambil`, `tgl_update`, `user_id`) VALUES
-(1339, NULL, 36, NULL, NULL, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.01.01.294', '2015-01-01', '2015-01-01', '', '01.01.07.01.03.06.107', '01.01.07.01.03.', '', 'Chassis untuk PC / Desktop', 'Full Tower, Side Panel, Bays : 5x5.25", 5x3.5", 1x8cm front fan, 1x12c', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 'unit', 2, 30000, 60000, 'M02', '', NULL, 0, 0, 0, 0, '2015-10-16 09:46:22', 'ffd'),
-(1340, NULL, 37, NULL, NULL, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.01.01.294', '2015-01-01', '2015-01-01', '', '01.01.07.01.03.06.107', '01.01.07.01.03.', '', 'Chassis untuk PC / Desktop', 'Full Tower, Side Panel, Bays : 5x5.25", 5x3.5", 1x8cm front fan, 1x12c', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 'unit', 3, 15000, 45000, 'M02', '', NULL, 0, 0, 0, 0, '2015-10-16 09:47:03', 'ffd'),
-(1341, 10, NULL, 10, 0, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.01.01.klr', '2015-04-01', '2015-04-01', '', '01.01.07.01.03.06.107', '01.01.07.01.03.', '', 'Chassis untuk PC / Desktop', 'Full Tower, Side Panel, Bays : 5x5.25", 5x3.5", 1x8cm front fan, 1x12c', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 'unit', -2, -30000, -60000, 'K01', '', NULL, 0, 0, 0, 0, '2015-10-16 09:48:04', 'ffd'),
-(1342, NULL, NULL, 11, 0, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.01.01.klr', '2015-04-01', '2015-04-01', '', '01.01.07.01.03.06.107', '01.01.07.01.03.', '', 'Chassis untuk PC / Desktop', 'Full Tower, Side Panel, Bays : 5x5.25", 5x3.5", 1x8cm front fan, 1x12c', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 'unit', -2, -15000, -30000, 'K01', '', NULL, 0, 0, 0, 0, '2015-10-16 09:48:04', 'ffd'),
-(1343, 11, NULL, 11, NULL, '21.01.01.01', '', '', 2015, '', '2015-04-01', '2015-04-01', '', '01.01.07.01.03.06.107', '01.01.07.01.03.', '', 'Chassis untuk PC / Desktop', NULL, '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 'unit', 2, 15000, 30000, 'H01', 'Hapus Transaksi Keluar', NULL, 0, 0, 0, 0, '2015-10-16 00:00:00', 'ffd'),
-(1344, 10, NULL, 10, NULL, '21.01.01.01', '', '', 2015, '', '2015-04-01', '2015-04-01', '', '01.01.07.01.03.06.107', '01.01.07.01.03.', '', 'Chassis untuk PC / Desktop', NULL, '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 'unit', 2, 30000, 60000, 'H01', 'Hapus Transaksi Keluar', NULL, 0, 0, 0, 0, '2015-10-16 00:00:00', 'ffd'),
-(1345, 0, NULL, 12, 2, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.01.01op', '2015-06-30', '2015-06-30', '', '01.01.07.01.03.06.107', '01.01.07.01.03.', '', 'Chassis untuk PC / Desktop', NULL, '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 'unit', -2, -30000, -60000, 'P01', 'Opname SMT 1', NULL, 0, 0, 0, 0, '2015-10-16 09:53:05', 'ffd'),
-(1346, NULL, NULL, 13, 2, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.01.01op', '2015-06-30', '2015-06-30', '', '01.01.07.01.03.06.107', '01.01.07.01.03.', '', 'Chassis untuk PC / Desktop', NULL, '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 'unit', -2, -30000, -60000, 'P01', 'Opname SMT 1', NULL, 0, 0, 0, 0, '2015-10-16 09:53:05', 'ffd'),
-(1349, NULL, 12, NULL, 2, '21.01.01.01', '', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.01.01op', '2015-06-30', '2015-06-30', '', '01.01.07.01.03.06.107', '01.01.07.01.03.', '', 'Chassis untuk PC / Desktop', NULL, '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 'unit', 2, 30000, 60000, 'P01-H', 'Hapus Opname : Opname SMT 1', NULL, 0, 0, 0, 0, '2015-10-16 09:54:24', 'ffd'),
-(1350, NULL, 13, NULL, 2, '21.01.01.01', '', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.01.01op', '2015-06-30', '2015-06-30', '', '01.01.07.01.03.06.107', '01.01.07.01.03.', '', 'Chassis untuk PC / Desktop', NULL, '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 'unit', 2, 30000, 60000, 'P01-H', 'Hapus Opname : Opname SMT 1', NULL, 0, 0, 0, 0, '2015-10-16 09:54:24', 'ffd'),
-(1352, NULL, 39, NULL, NULL, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.01.01.pol', '2015-10-01', '2015-10-01', '', '01.01.07.01.03.06.107', '01.01.07.01.03.', '', 'Chassis untuk PC / Desktop', 'Full Tower, Side Panel, Bays : 5x5.25", 5x3.5", 1x8cm front fan, 1x12c', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 'unit', 2, 50000, 100000, 'M02', '', NULL, 0, 0, 0, 0, '2015-10-17 16:05:17', 'ffd'),
-(1353, NULL, 40, NULL, NULL, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.01.01.294', '2015-01-01', '2015-01-01', '', '01.01.07.02.20.01.83', '01.01.07.02.20.', '', 'Pakaian Dinas Upacara Keprotokolan', 'Pakaian Jadi', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 'Set', 1, 4000, 4000, 'M02', '', NULL, 0, 0, 0, 0, '2015-10-17 16:06:36', 'ffd'),
-(1354, NULL, 41, NULL, NULL, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.01.01.09', '2015-10-17', '2015-10-17', '', '', '', '', '', NULL, '', '', '', 0, 0, 0, 'M01', '', NULL, 0, 0, 0, 0, '2015-10-17 16:44:30', 'ffd');
+) ENGINE=InnoDB AUTO_INCREMENT=491 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -5510,10 +5496,10 @@ CREATE TABLE IF NOT EXISTS `transaksi_keluar` (
   `kd_lok_msk` varchar(20) DEFAULT NULL,
   `nm_satker` varchar(40) DEFAULT NULL,
   `thn_ang` year(4) DEFAULT NULL,
-  `no_dok` varchar(20) NOT NULL,
+  `no_dok` varchar(40) NOT NULL,
   `tgl_dok` date NOT NULL,
   `tgl_buku` date NOT NULL,
-  `no_bukti` varchar(20) NOT NULL,
+  `no_bukti` varchar(40) NOT NULL,
   `kd_sskel` varchar(15) DEFAULT NULL,
   `nm_sskel` varchar(70) DEFAULT NULL,
   `kd_brg` varchar(70) NOT NULL,
@@ -5527,6 +5513,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_keluar` (
   `total_harga` int(11) DEFAULT NULL,
   `jns_trans` varchar(5) NOT NULL,
   `keterangan` varchar(100) NOT NULL,
+  `ket_brg` varchar(60) DEFAULT NULL,
   `untuk` varchar(70) DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL,
   `status_edit` tinyint(1) NOT NULL DEFAULT '0',
@@ -5534,7 +5521,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_keluar` (
   `status_ambil` tinyint(1) NOT NULL DEFAULT '0',
   `tgl_update` date DEFAULT NULL,
   `user_id` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -5549,10 +5536,10 @@ CREATE TABLE IF NOT EXISTS `transaksi_masuk` (
   `kd_lok_msk` varchar(20) DEFAULT NULL,
   `nm_satker` varchar(40) DEFAULT NULL,
   `thn_ang` year(4) DEFAULT NULL,
-  `no_dok` varchar(20) NOT NULL,
+  `no_dok` varchar(40) NOT NULL,
   `tgl_dok` date NOT NULL,
   `tgl_buku` date NOT NULL,
-  `no_bukti` varchar(20) NOT NULL,
+  `no_bukti` varchar(40) NOT NULL,
   `kd_sskel` varchar(20) DEFAULT NULL,
   `nm_sskel` varchar(70) DEFAULT NULL,
   `kd_brg` varchar(30) NOT NULL,
@@ -5567,6 +5554,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_masuk` (
   `total_harga` int(11) DEFAULT NULL,
   `jns_trans` varchar(5) NOT NULL,
   `keterangan` varchar(100) NOT NULL,
+  `ket_brg` varchar(60) DEFAULT NULL,
   `untuk` varchar(70) DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL,
   `status_edit` tinyint(1) NOT NULL DEFAULT '0',
@@ -5574,18 +5562,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_masuk` (
   `status_ambil` tinyint(1) NOT NULL DEFAULT '0',
   `tgl_update` date DEFAULT NULL,
   `user_id` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `transaksi_masuk`
---
-
-INSERT INTO `transaksi_masuk` (`id`, `id_opname`, `kd_lokasi`, `kd_lok_msk`, `nm_satker`, `thn_ang`, `no_dok`, `tgl_dok`, `tgl_buku`, `no_bukti`, `kd_sskel`, `nm_sskel`, `kd_brg`, `nm_brg`, `spesifikasi`, `kd_perk`, `nm_perk`, `satuan`, `qty`, `qty_akhir`, `harga_sat`, `total_harga`, `jns_trans`, `keterangan`, `untuk`, `status`, `status_edit`, `status_hapus`, `status_ambil`, `tgl_update`, `user_id`) VALUES
-(36, NULL, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.01.01.294', '2015-01-01', '2015-01-01', '', '01.01.07.01.03.06.10', '', '01.01.07.01.03.06.107', 'Chassis untuk PC / Desktop', 'Full Tower, Side Panel, Bays : 5x5.25", 5x3.5", 1x8cm front fan, 1x12c', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 'unit', 2, 2, 30000, 60000, 'M02', '', NULL, 0, 0, 0, 0, '2015-10-16', 'ffd'),
-(37, NULL, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.01.01.294', '2015-01-01', '2015-01-01', '', '01.01.07.01.03.06.10', '', '01.01.07.01.03.06.107', 'Chassis untuk PC / Desktop', 'Full Tower, Side Panel, Bays : 5x5.25", 5x3.5", 1x8cm front fan, 1x12c', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 'unit', 3, 3, 15000, 45000, 'M02', '', NULL, 0, 0, 0, 0, '2015-10-16', 'ffd'),
-(39, NULL, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.01.01.pol', '2015-10-01', '2015-10-01', '', '01.01.07.01.03.06.10', '', '01.01.07.01.03.06.107', 'Chassis untuk PC / Desktop', 'Full Tower, Side Panel, Bays : 5x5.25", 5x3.5", 1x8cm front fan, 1x12c', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 'unit', 2, 2, 50000, 100000, 'M02', '', NULL, 0, 0, 0, 0, '2015-10-17', 'ffd'),
-(40, NULL, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.01.01.294', '2015-01-01', '2015-01-01', '', '01.01.07.02.20.01.83', '', '01.01.07.02.20.01.83', 'Pakaian Dinas Upacara Keprotokolan', 'Pakaian Jadi', '1170220', 'Persediaan Peralatan dan Perlengkapan Kantor', 'Set', 1, 1, 4000, 4000, 'M02', '', NULL, 0, 0, 0, 0, '2015-10-17', 'ffd'),
-(41, NULL, '21.01.01.01', '21.01.01.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, '21.01.01.01.09', '2015-10-17', '2015-10-17', '', '', '', '', NULL, NULL, '', '', NULL, 0, NULL, 0, NULL, 'M01', '', NULL, 0, 0, 0, 0, '2015-10-17', 'ffd');
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -5616,7 +5593,7 @@ CREATE TABLE IF NOT EXISTS `ttd` (
 INSERT INTO `ttd` (`id`, `kd_lokasi`, `kota`, `tanggal`, `nip`, `nama`, `jabatan`, `nip2`, `nama2`, `jabatan2`, `tgl_isi`, `tgl_setuju`, `unit`) VALUES
 (1, '08.01.01.01', '', '0000-00-00', '', '', '', '', '', '', '0000-00-00', '0000-00-00', '1'),
 (3, '08.01.01.02', '', '0000-00-00', '', '', '', '', '', '', '0000-00-00', '0000-00-00', '1'),
-(4, '21.01.01.01', 'Pekalongan', '0000-00-00', '0283874783293', 'FIKRI FADLILLAH', 'KASUBAG TU', '0283874783293', 'FIKRI FADLILLAH', 'KASUBAG TU', '0000-00-00', '0000-00-00', '1'),
+(4, '21.01.01.01', '', '0000-00-00', '', '', '', '', '', '', '0000-00-00', '0000-00-00', '1'),
 (5, '08.01.01.03', '', '0000-00-00', '', '', '', '', '', '', '0000-00-00', '0000-00-00', '1');
 
 -- --------------------------------------------------------
@@ -5635,7 +5612,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `nm_satker` varchar(40) DEFAULT NULL,
   `tahun` year(4) DEFAULT NULL,
   `tutup_tahun` char(1) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `user`
@@ -5644,14 +5621,13 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`user_id`, `user_name`, `user_pass`, `user_email`, `user_level`, `kd_lokasi`, `nm_satker`, `tahun`, `tutup_tahun`) VALUES
 (1, 'masteradmin', '0192023a7bbd73250516f069df18b500', 'yohanes.christomas@gmail.com', 1, NULL, NULL, NULL, NULL),
 (2, 'masteruser', '0192023a7bbd73250516f069df18b500', 'yohanes.christomas@gmail.com', 2, NULL, NULL, NULL, NULL),
-(16, 'ffd', 'c4ca4238a0b923820dcc509a6f75849b', 'fikri.fadlillah@yahoo.com', 2, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, NULL),
-(17, 'ffst', 'c4ca4238a0b923820dcc509a6f75849b', 'fikri.fadlillah@yahoo.com', 2, '50.04.12.01', 'Kelurahan Banyurip Ageng', 2015, NULL),
-(18, 'adit', '357344787fa3d91429f000604af9667f', 'adit@gmail.com', 2, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, NULL),
-(19, 'kepala', '0192023a7bbd73250516f069df18b500', 'admin@gmail.com', 2, '08.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, NULL),
-(20, 'ffst2', 'c4ca4238a0b923820dcc509a6f75849b', 'fikri.fadlillah@yahoo.com', 2, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, NULL),
+(16, 'ffda', 'c4ca4238a0b923820dcc509a6f75849b', 'fikri.fadlillah@yahoo.com', 2, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2015, NULL),
+(20, 'ffst2', 'c4ca4238a0b923820dcc509a6f75849b', 'fikri.fadlillah@yahoo.com', 2, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, 'Y'),
 (21, 'ffst3', 'c4ca4238a0b923820dcc509a6f75849b', 'fikri.fadlillah@yahoo.com', 2, '08.01.01.02', 'UPTD Pendidikan Kec. Pekalongan Barat', 2015, NULL),
 (22, 'ffstm', 'c4ca4238a0b923820dcc509a6f75849b', 'fikri.fadlillah@yahoo.com', 2, '08.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, NULL),
-(23, 'ffd', 'c4ca4238a0b923820dcc509a6f75849b', 'fikri.fadlillah@yahoo.com', 2, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2016, NULL);
+(23, 'ffd', 'c4ca4238a0b923820dcc509a6f75849b', 'fikri.fadlillah@yahoo.com', 2, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2016, NULL),
+(27, 'ffst', 'c4ca4238a0b923820dcc509a6f75849b', 'sss@yahoo.com', 2, '08', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2016, NULL),
+(28, 'ffstm', 'c4ca4238a0b923820dcc509a6f75849b', 'fikri.fadlillah@yahoo.com', 2, '08.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2016, NULL);
 
 -- --------------------------------------------------------
 
@@ -6523,12 +6499,12 @@ ALTER TABLE `kel`
 -- AUTO_INCREMENT for table `log_history`
 --
 ALTER TABLE `log_history`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `log_opname`
 --
 ALTER TABLE `log_opname`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=70;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `log_persediaan`
 --
@@ -6538,12 +6514,12 @@ ALTER TABLE `log_persediaan`
 -- AUTO_INCREMENT for table `log_trans_keluar`
 --
 ALTER TABLE `log_trans_keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `log_trans_masuk`
 --
 ALTER TABLE `log_trans_masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=311;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=667;
 --
 -- AUTO_INCREMENT for table `opname`
 --
@@ -6553,7 +6529,7 @@ ALTER TABLE `opname`
 -- AUTO_INCREMENT for table `perk`
 --
 ALTER TABLE `perk`
-  MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=48;
+  MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT for table `persediaan`
 --
@@ -6563,7 +6539,7 @@ ALTER TABLE `persediaan`
 -- AUTO_INCREMENT for table `satker`
 --
 ALTER TABLE `satker`
-  MODIFY `Satker_ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=465;
+  MODIFY `Satker_ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=467;
 --
 -- AUTO_INCREMENT for table `skel`
 --
@@ -6583,17 +6559,17 @@ ALTER TABLE `thn_aktif`
 -- AUTO_INCREMENT for table `transaksi_full`
 --
 ALTER TABLE `transaksi_full`
-  MODIFY `id_history` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1355;
+  MODIFY `id_history` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=491;
 --
 -- AUTO_INCREMENT for table `transaksi_keluar`
 --
 ALTER TABLE `transaksi_keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=85;
 --
 -- AUTO_INCREMENT for table `transaksi_masuk`
 --
 ALTER TABLE `transaksi_masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=80;
 --
 -- AUTO_INCREMENT for table `ttd`
 --
@@ -6603,7 +6579,7 @@ ALTER TABLE `ttd`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(32) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
+  MODIFY `user_id` int(32) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `wilayah`
 --
