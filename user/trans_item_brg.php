@@ -299,7 +299,7 @@ else {
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                   '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
-                                  '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
+                                  // '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                 '</div>',
              "targets": [9],"targets": 9 },
           ],
