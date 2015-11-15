@@ -241,6 +241,14 @@ else {
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <?php if ($_POST['manage']=="trans_masuk") { ?>
     <script type="text/javascript">
+    $('form').on('focus', 'input[type=number]', function (e) {
+      $(this).on('mousewheel.disableScroll', function (e) {
+        e.preventDefault()
+      })
+    })
+    $('form').on('blur', 'input[type=number]', function (e) {
+      $(this).off('mousewheel.disableScroll')
+    });
     var table;
       $(function () {
         $(".select2").select2();
@@ -594,6 +602,14 @@ else {
 <!-- ########################################################################## -->
 
     <script type="text/javascript">
+    $('form').on('focus', 'input[type=number]', function (e) {
+      $(this).on('mousewheel.disableScroll', function (e) {
+        e.preventDefault()
+      })
+    })
+    $('form').on('blur', 'input[type=number]', function (e) {
+      $(this).off('mousewheel.disableScroll')
+    });
     var table;
       $(function () {
         $(".select2").select2();
