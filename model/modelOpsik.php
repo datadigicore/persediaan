@@ -409,12 +409,12 @@ class modelOpsik extends mysql_db
     {
         $kd_lokasi = $data['kd_lokasi'];
         $thn_ang = $data['thn_ang'];
-        $query = "select kd_brg, nm_brg, spesifikasi FROM transaksi_masuk where kd_lokasi like '$kd_lokasi%' and qty>0  and thn_ang = '$thn_ang' and status=0 GROUP BY kd_brg ORDER BY nm_brg ASC ";
+        $query = "select kd_brg, nm_brg, spesifikasi FROM transaksi_masuk where kd_lokasi = '$kd_lokasi' and qty>0  and thn_ang = '$thn_ang' and status=0 GROUP BY kd_brg ORDER BY nm_brg ASC ";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         while ($row = $this->fetch_array($result))
         {
-            echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg'].$row['spesifikasi']."</option>";
+            echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg'].' '.$row['spesifikasi']."</option>";
         }   
     }
 

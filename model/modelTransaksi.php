@@ -1440,34 +1440,17 @@ class modelTransaksi extends mysql_db
         $kd_lokasi = $data['kd_lokasi'];
         $thn_ang = $data['thn_ang'];
         $str = $kd_lokasi;
-        if (substr_count($str,".") == 1) {
-            $query = "select kd_brg, nm_brg FROM transaksi_masuk where kd_lokasi like '$kd_lokasi.%.%' and status_hapus=0  and thn_ang <= '$thn_ang' and kd_brg not like '' GROUP BY kd_brg ORDER BY nm_brg ASC ";
-        }
-        else if (substr_count($str,".") == 2) {
-            $query = "select kd_brg, nm_brg FROM transaksi_masuk where kd_lokasi like '$kd_lokasi.%' and status_hapus=0  and thn_ang <= '$thn_ang' and kd_brg not like '' GROUP BY kd_brg ORDER BY nm_brg ASC ";
-        }
-        else{
-            $query = "select kd_brg, nm_brg FROM transaksi_masuk where kd_lokasi = '$kd_lokasi' and status_hapus=0  and thn_ang <= '$thn_ang' and kd_brg not like '' GROUP BY kd_brg ORDER BY nm_brg ASC ";
-        }
+
+        $query = "select kd_brg, nm_brg, spesifikasi FROM transaksi_masuk where kd_lokasi = '$kd_lokasi'  and thn_ang = '$thn_ang' and kd_brg!='' GROUP BY kd_brg ORDER BY nm_brg ASC ";
+
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         while ($row = $this->fetch_array($result))
         {
-            echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg']."</option>";
+            echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg'].' '.$row['spesifikasi']."</option>";
         }   
     }
 
-
-    public function bacauakpb($data)
-    {
-        $query = "select * from uakpb";
-        $result = $this->query($query);
-        echo '<option value="">-- Pilih Kode Barang --</option>';
-        while ($row = $this->fetch_array($result))
-        {
-            echo '<option value="'.$row['kd_lokasi'].'">'.$row['kd_lokasi'].' '.$row['nm_uakpb']."</option>";
-        }   
-    }
 
     public function baca_detil_trans($data)
     {

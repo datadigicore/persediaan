@@ -104,7 +104,7 @@ class modelKonfigurasi extends mysql_db
 
     public function refresh($kd_lokasi, $thn_ang, $user_id)
     {
-            
+            $this->query("BEGIN");
             // MEMBUAT TABEL TEMPORER TRANSAKSI KELUAR UNTUK MENYIMPAN HASIL PENGELUARAN BARANG SECARA FIFO
             // $sql = "CREATE TEMPORARY TABLE transaksi_fullTemp SELECT * FROM transaksi_full where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and id_keluar is null and jns_trans not like 'K%'  ";
             $sql = "DELETE FROM transaksi_full where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and id_keluar is not null ";
@@ -361,6 +361,7 @@ class modelKonfigurasi extends mysql_db
                                     tgl_update=NOW(),
                                     user_id='$user_id'";    
             $result_log = $this->query($query_log);
+            $this->query("COMMIT");
 
     }
 
