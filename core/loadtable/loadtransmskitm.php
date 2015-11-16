@@ -29,6 +29,7 @@ $columns = array(
     array( 'db' => 'total_harga', 'dt' => 7),
     
     array( 'db' => 'keterangan', 'dt' => 8 ),
+    array( 'db' => 'qty_akhir', 'dt' => 9 ),
     // array( 'db' => 'harga_sat', 'dt' => 7 ),
     // array( 'db' => 'total_harga', 'dt' => 8 ),
     // array( 'db' => 'keterangan', 'dt' => 9 ),

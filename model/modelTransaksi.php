@@ -975,6 +975,7 @@ class modelTransaksi extends mysql_db
                             $tgl_dok = $row_id['tgl_dok'];
                             $tgl_buku = $row_id['tgl_buku'];
                             $no_bukti = $row_id['no_bukti'];
+                            $jns_trans = $row_id['jns_trans'].'-U';
 
                             $kd_sskel = $row_id['kd_sskel'];
                             $nm_sskel = $row_id['nm_sskel'];
@@ -989,7 +990,7 @@ class modelTransaksi extends mysql_db
 
                             $harga_sat = $row_id['harga_sat'];
                             $total_harga = $row_id['total_harga'];
-                            $keterangan = 'Ubah Harga : '.$row_id['keterangan'];
+                            $keterangan = 'Ubah Harga Keluar: '.$row_id['keterangan'];
 
                             $query = "select harga_sat from transaksi_masuk where id='$id_masuk' ";
                             $data_harga = $this->fetch_array($this->query($query));
@@ -1058,11 +1059,11 @@ class modelTransaksi extends mysql_db
                                 tgl_dok='$tgl_dok',
                                 tgl_buku='$tgl_buku',
                                 no_bukti='$no_bukti',
-                                jns_trans='$jns_trans',
+                                jns_trans='M0-U',
                                 aksi='$koreksi',
                                 kd_brg='$kd_brg',
                                 nm_brg='$nm_brg',
-                                qty='$qty',
+                                qty='$kuantitas',
                                 harga_sat='$harga_baru',
                                 total_harga='$subtotal_baru',
                                 keterangan='$keterangan',

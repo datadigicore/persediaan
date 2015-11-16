@@ -443,46 +443,31 @@ else
 		break;
 
 		case 'ubah_transaksi_msk':
-			$kd_lokasi = $_SESSION['kd_lok'];
-			$kd_trans = $purifier->purify($_POST['kd_trans']);
+
+			$kd_trans = $purifier->purify($_POST['id']);
 			$kd_lok_msk = $_SESSION['kd_lok'];
 			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
-			$no_dok = $purifier->purify($_POST['no_dok']);
-			$no_bukti = $purifier->purify($_POST['no_bukti']);
-			$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
-			$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
 
-			// $jns_trans = $_POST['jenis_trans'];
+			$kuantitas = $purifier->purify($_POST['jumlah_baru']);
+			$hrg_sat = $purifier->purify($_POST['harga_baru']);
 
-			$kuantitas = $purifier->purify($_POST['jml_msk']);
-			$keterangan = $purifier->purify($_POST['keterangan']);
-			$hrg_sat = $purifier->purify($_POST['rph_sat']);
 
-			$status = 0;
 			$user_id = $_SESSION['username'];
 			
 			
 			$data = array(
-				"kd_lokasi" => $kd_lokasi,
+
 				"kd_trans" => $kd_trans,
 				"kd_lok_msk" => $kd_lok_msk,
 				"nm_satker" => $nm_satker,
 				"thn_ang" => $thn_ang,
-				"no_dok" => $no_dok,
-				"tgl_dok" => $tgl_dok,
-				"tgl_buku" => $tgl_buku,
-				"no_bukti" => $no_bukti,
 				"kuantitas" => $kuantitas,
-				"keterangan" => $keterangan,
 		    	"harga_sat" => $hrg_sat,
 
-
-				"keterangan" => $keterangan,
-				"status" => $status,
 				"user_id" => $user_id
 			);
-			
+			print_r($data);
 			$Transaksi->ubah_transaksi_masuk($data);
 		break;		
 

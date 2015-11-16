@@ -196,6 +196,7 @@ else {
                         <th>Harga Satuan</th>
                         <th>Total Harga</th>  
                         <th>Keterangan</th>
+                        <th width="8%">Sisa</th>
                         <th width="8%">Aksi</th>
                       </tr>
                     </thead>
@@ -303,13 +304,15 @@ else {
             {"targets": 6 },
             {"targets": 7 },
             {"targets": 8 },
+            {"targets": 9,
+             "visible": true },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                   '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
-                                  // '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
+                                  '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                 '</div>',
-             "targets": [9],"targets": 9 },
+             "targets": [10],"targets": 10 },
           ],
         });
         // $('#example1 tbody').on('click', 'tr', function () {
@@ -350,40 +353,58 @@ else {
         harga_sat_row = row.data()[6];
         total_harga_row = row.data()[7];
         ket_row = row.data()[8];
-        if ( row.child.isShown() ) {
-          $('div.slider', row.child()).slideUp( function () {
-            row.child.hide();
-            tr.removeClass('shown');
-          });
-        }
-        else {
-          row.child( format(row.data())).show();
-          tr.addClass('shown');
-          $('div.slider', row.child()).slideDown();
-          $("#kd_brg"+id_row +"").val(kd_brg_row);
-          $("#nm_brg"+id_row +"").val(nm_brg_row);
-          $("#spesifikasi"+id_row +"").val("Jumlah Baru");
-          $("#qty"+id_row +"").val(qty_row);
-          $("#harga_sat"+id_row +"").val(harga_sat_row);
-          $("#total_harga"+id_row +"").val("Harga Sat.Baru (Rp.)");
-          $("#keterangan"+id_row +"").val(ket_row);
+        qty_akhir = row.data()[5]-row.data()[9];
+        if(qty_akhir==0) qty_akhir=1;
 
+        $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'cek_brg_masuk',id_row:id_row},
+          dataType: "json",
+          success: function (output) {
+            if(output.st_op==1)
+            {
+              alert("Tidak Dapat Menghapus Barang yang sudah diopname !");
+              return false;
+            }
+            if ( row.child.isShown() ) {
+              $('div.slider', row.child()).slideUp( function () {
+                row.child.hide();
+                tr.removeClass('shown');
+              });
+            }
+            else {
+              row.child( format(row.data())).show();
+              tr.addClass('shown');
+              $('div.slider', row.child()).slideDown();
+              $("#kd_brg"+id_row +"").val(kd_brg_row);
+              $("#nm_brg"+id_row +"").val(nm_brg_row);
+              $("#spesifikasi"+id_row +"").val("Jumlah Baru");
+              $("#qty"+id_row +"").val(qty_row);
+              $("#harga_sat"+id_row +"").val(harga_sat_row);
+              $("#total_harga"+id_row +"").val("Harga Sat.Baru (Rp.)");
+              $("#keterangan"+id_row +"").val(ket_row);
 
-        }
+            }
+          }
+      });
+
+        
+
       });
       function format ( d ) {
         return '<div class="slider">'+
-        '<form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="upd_dok_masuk">'+
+        '<form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="ubah_brg_masuk">'+
         '<table width="100%">'+
            '<tr>'+
-              '<input type="hidden" name="manage" value="ubah_brg_masuk">'+
+              '<input type="hidden" name="manage" value="ubah_transaksi_msk">'+
               '<input type="hidden" name="id" value="'+id_row+'">'+
               '<td width="14%"><input style="width:97%" id="kd_brg'+d[0]+'" name="jns_trans_baru" class="form-control" type="text" readonly></td>'+
               '<td width="11%"><input style="width:97%" id="nm_brg'+d[0]+'" name="kd_satker" class="form-control" type="text" readonly></td>'+
               '<td width="10%"><input style="width:97%" id="spesifikasi'+d[0]+'" name="nodok_baru" class="form-control" type="text" readonly></td>'+
-              '<td width="8%"><input style="width:97%" id="qty'+d[0]+'" name="tgl_dok_baru" class="form-control" type="number" ></td>'+
+              '<td width="8%"><input style="width:97%" id="qty'+d[0]+'" name="jumlah_baru" class="form-control" type="number" min="'+qty_akhir+'" required ></td>'+
               '<td width="13%"><input style="width:99%" id="total_harga'+d[0]+'" name="ket_baru" class="form-control" type="text" readonly ></td>'+
-              '<td width="11%"><input style="width:98%" id="harga_sat'+d[0]+'" name="tgl_buku_baru" class="form-control" type="number" ></td>'+
+              '<td width="11%"><input style="width:98%" id="harga_sat'+d[0]+'" name="harga_baru" class="form-control" type="number" required ></td>'+
               
               '<td style="vertical-align:middle; width:7%;">'+
                 '<div class="box-tools">'+
@@ -395,6 +416,61 @@ else {
         '</table>'+
         '</form></div>';
       }
+      $(document).on('submit', '#ubah_brg_masuk', function (e) {        
+        e.preventDefault();
+        var formURL = $(this).attr("action");
+        var addData = new FormData(this);
+        $.ajax({
+          type: "post",
+          data: addData,
+          url : formURL,
+          contentType: false,
+          cache: false,  
+          processData: false,
+          success: function(data)
+          {
+              $("#example1").DataTable().destroy();
+              $("#example1 tbody").empty();
+              $('button:submit').attr("disabled", false); 
+              table = $("#example1").DataTable({
+                "processing": false,
+                "serverSide": true,
+                "ajax":
+                {
+                  'type': 'GET',
+                  'url': '../core/loadtable/loadtransmskitm',
+                  'data': {
+                     no_dok: '<?php echo $_POST["satker"]?>',
+                  },
+                },
+                "columnDefs":
+                [
+                  {"targets": 0,
+                   "visible": false },
+                  {"targets": 1,
+                   "visible": false  },
+                  {"targets": 2 },
+                  {"targets": 3 },
+                  {"targets": 4 },
+                  {"targets": 5 },
+                  {"targets": 6 },
+                  {"targets": 7 },
+                  {"targets": 8 },
+                  {"targets": 9,
+                   "visible": true },
+                  {"orderable": false,
+                   "data": null,
+                   "defaultContent":  '<div class="box-tools">'+
+                                        '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
+                                        '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
+                                      '</div>',
+                   "targets": [10],"targets": 10 },
+                ],
+              });
+          }
+        });
+        return false;
+      });
       $(document).on('click', '#btnhps', function () {
       var tr = $(this).closest('tr');
       var row = table.row( tr );
@@ -465,12 +541,14 @@ else {
                         {"targets": 6 },
                         {"targets": 7 },
                         {"targets": 8 },
+                        {"targets": 9,
+                         "visible": false },
                         {"orderable": false,
                          "data": null,
                          "defaultContent":  '<div class="box-tools">'+
                                               '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
                                             '</div>',
-                         "targets": [9],"targets": 9 },
+                         "targets": [10],"targets": 10 },
                       ],
                       "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
                     });
@@ -577,12 +655,14 @@ else {
                   {"targets": 6 },
                   {"targets": 7 },
                   {"targets": 8 },
+                  {"targets": 9,
+                   "visible": false },
                   {"orderable": false,
                    "data": null,
                    "defaultContent":  '<div class="box-tools">'+
                                         '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
                                       '</div>',
-                   "targets": [9],"targets": 9 },
+                   "targets": [10],"targets": 10 },
                 ],
                 "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
               });
