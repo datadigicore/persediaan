@@ -169,7 +169,7 @@ else
 			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
 			
-			$no_bukti = null;
+			$no_bukti = $purifier->purify($_POST['no_dok']);
 			$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
 			$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
 			$jns_trans = $_POST['jenis_trans'];
@@ -277,7 +277,7 @@ else
 			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
 			
-			$no_bukti = null;
+			$no_bukti = $purifier->purify($_POST['no_dok']);
 			$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
 			$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
 			

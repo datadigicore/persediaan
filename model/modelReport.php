@@ -1263,7 +1263,7 @@ class modelReport extends mysql_db
 
             }
             elseif($nm_lap=="penerimaan_brg"){
-              $sql="SELECT id, tgl_buku, no_dok, tgl_dok, nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
+              $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
                                 FROM transaksi_masuk 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'  
                                       and kd_lokasi = '$kd_lokasi'   
@@ -1273,7 +1273,7 @@ class modelReport extends mysql_db
 
             }
             elseif($nm_lap=="pengeluaran_brg"){
-              $sql="SELECT id, tgl_buku, no_dok, tgl_dok, nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
+              $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
                                 FROM transaksi_keluar 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'  
                                       and kd_lokasi = '$kd_lokasi'
@@ -1282,13 +1282,13 @@ class modelReport extends mysql_db
 
             }
             elseif($nm_lap=="buku_brg_pakai_habis"){
-              $sql="SELECT id, tgl_buku, no_dok, tgl_dok, nm_sskel, nm_brg,  spesifikasi, qty, satuan, harga_sat,total_harga, keterangan 
+              $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, nm_sskel, nm_brg,  spesifikasi, qty, satuan, harga_sat,total_harga, keterangan 
                                             FROM transaksi_masuk 
                                             where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
                                             and kd_lokasi = '$kd_lokasi' 
                                             AND thn_ang='$thn_ang'
                     union all
-                    SELECT id, tgl_buku, no_dok, tgl_dok, nm_sskel, nm_brg, spesifikasi,  qty, satuan, harga_sat,total_harga, keterangan 
+                    SELECT id, tgl_buku, no_bukti, tgl_dok, nm_sskel, nm_brg, spesifikasi,  qty, satuan, harga_sat,total_harga, keterangan 
                                             FROM transaksi_keluar 
                                             where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
                                              and kd_lokasi = '$kd_lokasi'  
@@ -1333,13 +1333,13 @@ class modelReport extends mysql_db
 
             }
             elseif($nm_lap=="pp_brg_pakai_habis"){
-                  $sql="SELECT id, tgl_buku, no_dok, tgl_dok, nm_sskel, nm_brg,  spesifikasi, qty, satuan, untuk, harga_sat,total_harga, keterangan 
+                  $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, nm_sskel, nm_brg,  spesifikasi, qty, satuan, untuk, harga_sat,total_harga, keterangan 
                                                     FROM transaksi_masuk 
                                                     where month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir'
                                                      and kd_lokasi = '$kd_lokasi'  
                                                      AND thn_ang='$thn_ang'
                                                 union all
-                    SELECT id, tgl_buku, no_dok, tgl_dok, nm_sskel, nm_brg, spesifikasi,  qty, satuan, untuk, harga_sat,total_harga, keterangan 
+                    SELECT id, tgl_buku, no_bukti, tgl_dok, nm_sskel, nm_brg, spesifikasi,  qty, satuan, untuk, harga_sat,total_harga, keterangan 
                                                     FROM transaksi_keluar 
                                                     where month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir'
                                                      and kd_lokasi = '$kd_lokasi'  
@@ -1829,14 +1829,14 @@ class modelReport extends mysql_db
                     <center><td style="height:25px"  align="center">'.$no.'</td></center>
                     <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_buku]).'</td></center>
                     <center><td  align="center">'.'-'.'</td></center>
-                    <center><td  align="left">'.$data[no_dok].'</td></center>
+                    <center><td  align="left">'.$data[no_bukti].'</td></center>
                     <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_dok]).'</td></center>
                     <center><td  align="left">'.$data[nm_brg].'</td></center>
                     <center><td  align="center">'.$data[qty].'</td></center>
                     <center><td  align="right">'.$data[harga_sat].'</td></center>
                     <center><td  align="right">'.$data[total_harga].'</td></center>
                     
-                    <center><td  align="left">'.$data[no_dok].'</td></center>
+                    <center><td  align="left">'.$data[no_bukti].'</td></center>
                     <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_buku]).'</td></center>
                     <center><td  align="left">'.$data[keterangan].'</td></center>';
 
@@ -1894,7 +1894,7 @@ class modelReport extends mysql_db
                         <center><td  align="center">'.$data[qty].' '.$data[satuan].'</td></center>
                         <center><td  align="center">'.$data[harga_sat].'</td></center>
                         <center><td  align="center">'.$this->konversi_tanggal($data[tgl_dok]).'</td></center>
-                        <center><td  align="center">'.$data[no_dok].'</td></center>
+                        <center><td  align="center">'.$data[no_bukti].'</td></center>
                         <td>'.''.'</td>
                         <td>'.''.'</td>
                         <td>'.''.'</td>
@@ -1917,7 +1917,7 @@ class modelReport extends mysql_db
                             <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
                             <center><td  align="center">'.''.'</td></center>
                             <center><td  align="center">'.abs($data[qty]).' '.$data[satuan].'</td></center>
-                            <center><td  align="center">'.$data[no_dok].'</td></center>
+                            <center><td  align="center">'.$data[no_bukti].'</td></center>
                             <center><td  align="center">'.$data[keterangan].'</td></center>
                          </tr>
                     ';
@@ -2032,14 +2032,14 @@ class modelReport extends mysql_db
                 {
                         echo '  <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
                                 <center><td  align="center">'.$data[untuk].'</td></center>
-                                <center><td  align="center">'.$data[no_dok].'</td></center> 
+                                <center><td  align="center">'.$data[no_bukti].'</td></center> 
                                 <center><td  align="center">'.$this->konversi_tanggal($data[tgl_dok]).'</td></center>
                                 <center><td  align="center">'.'BAST'.'</td></center>
                                 <center><td  align="center">'.'......'.'</td></center>
                                 <center><td  align="center">'.$data[qty].'</td></center>
                                 <center><td  align="center">'.$data[nm_brg].'</td></center>
                                 <center><td  align="center">'.$data[harga_sat].'</td></center>
-                                <center><td  align="center">'.'</td></center>
+                                <center><td  align="center">'.$data[no_bukti].'</td></center>
                                 <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
                                 <center><td  align="center">'.$data[keterangan].'</td></center>
                                 <center><td  align="center">'.$no.'</td></center>
@@ -2073,8 +2073,8 @@ class modelReport extends mysql_db
                                 <center><td  align="center"></td></center>
                                 <center><td  align="center">'.$no.'</td></center>
                                 <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
-                                <center><td  align="center">'.$data[no_dok].'</td></center>
-                                <center><td  align="center">'.$data[tgl_buku].'</td></center>
+                                <center><td  align="center">'.$data[no_bukti].'</td></center>
+                                <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
                                 <center><td  align="center">'.$data[untuk].'</td></center>
                                 <center><td  align="center">'.abs($data[qty]).'</td></center>
                                 <center><td  align="center">'.$data[nm_brg].'</td></center>
