@@ -29,18 +29,6 @@
                 <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal"  id="addtransmsk" >
                   <div class="box-body" style="padding-top:15px;">
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Jenis Transaksi</label>
-                      <div class="col-sm-9">
-                        <select name="jenis_trans" id="jenis_trans" class="form-control">
-                          <option value="">Pilih Jenis Transaksi</option>
-                          <option value="M01">Saldo Awal</option>
-                          <option value="M02">Pembelian</option>
-                          <option value="M03">Transfer Masuk</option>
-                          <option value="M04">Hibah Masuk</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="form-group">
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>
                       <div class="col-sm-5">
                         <select name="read_no_dok" id="read_no_dok" class="form-control">
@@ -51,6 +39,18 @@
                         <input type="hidden" name="manage" value="tbh_transaksi_msk">
                         <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>
                         <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>    
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Jenis Transaksi</label>
+                      <div class="col-sm-9">
+                        <select name="jenis_trans" id="jenis_trans" class="form-control">
+                          <option value="">Pilih Jenis Transaksi</option>
+                          <option value="M01">Saldo Awal</option>
+                          <option value="M02">Pembelian</option>
+                          <option value="M03">Transfer Masuk</option>
+                          <option value="M04">Hibah Masuk</option>
+                        </select>
                       </div>
                     </div>
                     <div class="form-group">
@@ -221,7 +221,7 @@
             dataType: "json",
             success: function (output) {
               if(output.saldo!==null){
-                alert("Saldo Awal Telah Dimasukkan");
+                alert("Saldo Awal Telah Dimasukkan / Import Saldo Awal telah dilakukan");
                 $('#jenis_trans').val('');
                 
           }
