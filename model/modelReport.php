@@ -434,7 +434,7 @@ class modelReport extends mysql_db
             $this->excel_export($html,"Neraca");
         }
         else {
-            $mpdf=new mPDF('utf-8', 'A4-L');
+            $mpdf=new mPDF('utf-8', 'A4');
             $mpdf->setFooter('{PAGENO}');
             $mpdf->WriteHTML(utf8_encode($html));
             $mpdf->Output("Neraca.pdf" ,'I');
@@ -793,12 +793,13 @@ class modelReport extends mysql_db
           }
           elseif($nm_lap=="neraca"){
               //echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
-              $this->getsatker($kd_lokasi);
-              $date = $this->cek_periode($data);
-              echo '<p align="center" style="margin:0px; padding:0px; font-weight:bold;">LAPORAN POSISI PERSEDIAAN DI NERACA</p>
+              
+            $date = $this->cek_periode($data);
+            echo '<p align="center" style="margin:0px; padding:0px; font-weight:bold;">LAPORAN POSISI PERSEDIAAN DI NERACA</p>
                     <p align="center" style="margin:0px; padding:0px; font-weight:bold;">UNTUK PERIODE YANG BERAKHIR PADA '.$date.'</p>
-                    <p align="center" style="margin:0px; padding:0px; font-weight:bold;">TAHUN ANGGARAN '.$thn_ang.'</p>
-                    <br></br>  
+                    <p align="center" style="margin:0px; padding:0px; font-weight:bold;">TAHUN ANGGARAN '.$thn_ang.'</p><br></br>';
+            $this->getsatker($kd_lokasi);
+            echo '
                       <table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border=1 align="center">
                       <tr>
                           
@@ -2172,45 +2173,45 @@ class modelReport extends mysql_db
         $nama_gudang = $data_unit['NamaSatker'];
         
 
-        echo '<table style="text-align: left; width: 50%; font-size:85%; font-weight:bold;">';
+        echo '<table style="text-align: left; width: 70%; font-size:80%;" >';
         echo  '<tr>
-                    <td>Provinsi</td>
-                    <td colspan="2">'.':  '.'Jawa Tengah'.'</td>
+                    <td style="font-weight:bold">Provinsi</td>
+                    <td>'.':  '.'PROVINSI JAWA TENGAH'.'</td>
                </tr>';
         echo  ' 
                     <tr>
-                        <td>Kabupaten / Kota</td>
-                        <td colspan="2">'.':  '.' '.'Kota Pekalongan'.'</td>
+                        <td style="font-weight:bold">Kabupaten / Kota</td>
+                        <td>'.':  '.' '.'KOTA PEKALONGAN'.'</td>
                     </tr>'; 
         if($detil[0]!="")
         {
         echo '
                     <tr>
-                        <td>Bidang</td>
-                        <td colspan="2">'.':  '.$nama_sektor.'</td>
+                        <td style="font-weight:bold">Bidang</td>
+                        <td >'.':  '.$nama_sektor.'</td>
                     </tr>';
         }
         if($detil[1]!="")
         {
         echo  ' 
                     <tr>
-                        <td>Unit Organisasi</td>
-                        <td colspan="2">'.':  '.' '.$nama_satker.'</td>
+                        <td style="font-weight:bold">Unit Organisasi</td>
+                        <td >'.':  '.' '.$nama_satker.'</td>
                     </tr>'; 
         }
         if($detil[2]!="")
         {               
         echo  ' 
                     <tr>
-                        <td>Sub Unit Organisasi</td>
-                        <td colspan="2">'.':  '.' '.$nama_unit.'</td>
+                        <td style="font-weight:bold">Sub Unit Organisasi</td>
+                        <td >'.':  '.' '.$nama_unit.'</td>
                     </tr>'; 
         }
         if($detil[3]!="")
         { 
         echo            '<tr>
-                        <td>UPB</td>
-                        <td colspan="2">'.':  '.$nama_gudang.'</td>
+                        <td style="font-weight:bold">UPB</td>
+                        <td >'.':  '.$nama_gudang.'</td>
                     </tr>
                     <p></p>';
         }

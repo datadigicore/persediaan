@@ -6,7 +6,7 @@ class modelOpsik extends mysql_db
     {
         $id_opname = $data['id'];
         $user_id = $data['user_id'];
-
+        $this->query("BEGIN");
         $query_t_full = "select * from transaksi_full where id_opname='$id_opname' and jns_trans='P02' and id_masuk is not null ";
         $result_t_full = $this->query($query_t_full);
         while ($row_id = $this->fetch_array($result_t_full))
@@ -356,6 +356,7 @@ class modelOpsik extends mysql_db
                         tgl_update=NOW(),
                         user_id='$user_id'";   
         $this->query($query_log);
+        $this->query("COMMIT");
 
     }
 
@@ -467,7 +468,7 @@ class modelOpsik extends mysql_db
         
         $status = $data['status'];
         $user_id = $data['user_id'];
-
+        $this->query("BEGIN");
         $query_dok = "select kd_lokasi, tgl_dok, tgl_buku, no_dok, no_bukti, keterangan, jns_trans, keterangan from opname where no_dok='$no_dok'";
         $result_dok = $this->query($query_dok);
         $dok = $this->fetch_array($result_dok);
@@ -948,7 +949,7 @@ class modelOpsik extends mysql_db
             $query_hps_dok = "delete from opname where nm_brg is null and kd_lokasi='$kd_lokasi' ";
             $result_hps_dok = $this->query($query_hps_dok); 
 
-
+            $this->query("COMMIT");
     }   
 
 }
