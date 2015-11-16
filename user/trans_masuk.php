@@ -175,6 +175,8 @@
         satker = row.data()[2];
         tgl_dok = row.data()[4];
         tgl_buku = row.data()[5];
+        kd_satker = satker.substring(0,11);
+
         var $form=$(document.createElement('form')).css({display:'none'}).attr("method","POST").attr("action","trans_item_brg");
         var $input=$(document.createElement('input')).css({display:'none'}).attr('name','id').val(id_row);
         var $input2=$(document.createElement('input')).css({display:'none'}).attr('name','jenistrans').val(jns_trans);
@@ -182,7 +184,8 @@
         var $input4=$(document.createElement('input')).css({display:'none'}).attr('name','tanggalbuku').val(tgl_buku);
         var $input5=$(document.createElement('input')).css({display:'none'}).attr('name','satker').val(satker);
         var $input6=$(document.createElement('input')).css({display:'none'}).attr('name','manage').val(manage);
-        $form.append($input).append($input2).append($input3).append($input4).append($input5).append($input6);
+        var $input7=$(document.createElement('input')).css({display:'none'}).attr('name','kd_satker').val(kd_satker);
+        $form.append($input).append($input2).append($input3).append($input4).append($input5).append($input6).append($input7);
         $("body").append($form);
         $form.submit();
       });

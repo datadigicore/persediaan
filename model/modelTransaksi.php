@@ -21,6 +21,18 @@ class modelTransaksi extends mysql_db
         echo json_encode(array("saldo"=>$row_brg["jns_trans"]));
     }
 
+    public function cek_status_opname($data){
+        $kd_lokasi = $data['kd_lokasi'];
+        $thn_ang = $data['thn_ang'];
+        $kd_brg = $data['kd_brg'];
+        $tgl_dok = $data['tgl_dok'];
+
+        $query ="select nm_brg,spesifikasi, status from transaksi_masuk where kd_lokasi = '$kd_lokasi' and tgl_dok <= '$tgl_dok' and kd_brg = '$kd_brg' and thn_ang = '$thn_ang' and status=1 limit 1";
+        $hasil = $this->query($query);
+        $row_brg = $this->fetch_array($hasil);
+        echo json_encode(array("status"=>$row_brg["status"],"nm_brg"=>$row_brg["nm_brg"], "spesifikasi"=>$row_brg["spesifikasi"]));
+    }
+
     public function tutup_tahun($data)
     {
         $kd_lokasi = $data['kd_lokasi'];

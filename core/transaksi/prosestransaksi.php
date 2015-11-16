@@ -31,6 +31,20 @@ else
 		$Transaksi->cek_saldo_awal($data);
 		break;
 
+		case 'cek_status_opname':
+		$kd_lokasi = $purifier->purify($_POST['kd_lokasi']);
+		$thn_ang = $_SESSION['thn_ang'];
+		$kd_brg = $purifier->purify($_POST['kd_brg']);
+		$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
+		$data = array(
+				"kd_lokasi" => $kd_lokasi,
+				"thn_ang" => $thn_ang,
+				"tgl_dok" => $tgl_dok,
+				"kd_brg" => $kd_brg
+				);
+		$Transaksi->cek_status_opname($data);
+		break;
+
 		case 'cek_rangkap_brg_msk':
 		$kd_lokasi = $purifier->purify($_POST['kd_lokasi']);
 		$thn_ang = $_SESSION['thn_ang'];
