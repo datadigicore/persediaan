@@ -584,7 +584,7 @@ else {
             data: {manage:'cek_status_opname',kd_brg:kd_brg, tgl_dok:tgl_dok, kd_lokasi:'<?php echo $_POST["kd_satker"];?>'},
             dataType: "json",
             success: function (output) {
-              if(output.status!=null) {
+              if(output.st_op=='1') {
                 alert(output.nm_brg+" "+output.spesifikasi+" Sudah Dilakukan Opname, Untuk menambahkan barang, Hapus Opname Terlebih Dahulu.");
                 $("#kd_brg").select2("val", "");
                 $("#jml_msk").val('');

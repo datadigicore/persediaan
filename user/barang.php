@@ -46,7 +46,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode Barang</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kodebarang" class="form-control" id="kodebarang" placeholder="Pilih Kode Sub-sub Kelompok Barang terlebih dahulu" onkeyup="cek_kode()" onchange="cek_kode()" required readonly>
+                        <input type="text" name="kodebarang" class="form-control" id="kodebarang" placeholder="Pilih Kode Sub-sub Kelompok Barang terlebih dahulu" required readonly>
                       </div>
                     </div>                    
 					         <div class="form-group">
@@ -336,6 +336,7 @@
           alert("Kode Sub Sub Kelompok Barang Belum Dipilih");
           return false;
         }
+        cek_kode();
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false

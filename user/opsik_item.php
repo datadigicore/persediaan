@@ -392,6 +392,14 @@ else {
               $("#satuan").val('');
               $("#keterangan").val('');
               $('button:submit').attr("disabled", false); 
+               $.ajax({
+                  type: "post",
+                  url: '../core/opsik/prosesopsik',
+                  data: {manage:'readbrg',kd_satker:"<?php echo($_POST['kd_satker']);?>"},
+                  success: function (output) {     
+                    $('#kd_brg').html(output);
+                  }
+               });
               table = $("#example1").DataTable({
                 "processing": false,
                 "serverSide": true,

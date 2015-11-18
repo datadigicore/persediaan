@@ -72,6 +72,7 @@ class modelReport extends mysql_db
         $query = "select kode, NamaSatker from satker where kode like '$kd_lokasi%' and char_length(kode)=11 order by kode asc";
         $result = $this->query($query);
         $json = array();
+        echo '<option value="">-- Pilih Kode Satker --</option>';
         while ($row = $this->fetch_array($result))
         {
             // $str = $row['kode'];

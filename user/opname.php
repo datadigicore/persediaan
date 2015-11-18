@@ -63,7 +63,7 @@
                       <label class="col-sm-2 control-label">Semester</label>
                       <div class="col-sm-2">
                         <select name="smt" id="smt" class="form-control">
-                          <option value="-06-30">Semester 1</option>
+                          <!-- <option value="-06-30">Semester 1</option> -->
                           <option value="-12-31">Semester 2</option>
                         </select>
                       </div>

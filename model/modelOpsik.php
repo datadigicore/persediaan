@@ -483,7 +483,7 @@ class modelOpsik extends mysql_db
         // $keterangan = $dok['keterangan'];
         
 
-        $query_perk = "SELECT kd_sskel, nm_sskel, kd_perk, nm_perk, nm_brg, satuan from transaksi_masuk where kd_brg='$kd_brg' and kd_lokasi = '$kd_lokasi' ";
+        $query_perk = "SELECT kd_sskel, nm_sskel, kd_perk, nm_perk, nm_brg,spesifikasi, satuan from transaksi_masuk where kd_brg='$kd_brg' and kd_lokasi = '$kd_lokasi' ";
         $result_perk = $this->query($query_perk);
         $data_perk = $this->fetch_array($result_perk);
         $kd_sskel = $data_perk['kd_sskel'];
@@ -491,6 +491,7 @@ class modelOpsik extends mysql_db
         $kd_perk = $data_perk['kd_perk'];
         $nm_perk = $data_perk['nm_perk'];
         $nm_brg = $data_perk['nm_brg'];
+        $spesifikasi = $data_perk['spesifikasi'];
         $satuan = $data_perk['satuan'];
 
 
@@ -529,6 +530,7 @@ class modelOpsik extends mysql_db
                     nm_brg='$nm_brg',
                     kd_perk='$kd_perk',
                     nm_perk='$nm_perk',
+                    spesifikasi='$spesifikasi',
                     satuan='$satuan',
                     qty='$kuantitas',
                     harga_sat='$hrg_sat',
@@ -588,6 +590,7 @@ class modelOpsik extends mysql_db
                     nm_sskel='$nm_sskel',
                     kd_brg='$kd_brg',
                     nm_brg='$nm_brg',
+                    spesifikasi='$spesifikasi',
                     kd_perk='$kd_perk',
                     nm_perk='$nm_perk',
                     satuan='$satuan',
@@ -623,6 +626,7 @@ class modelOpsik extends mysql_db
                     nm_sskel='$nm_sskel',
                     kd_brg='$kd_brg',
                     nm_brg='$nm_brg',
+                    spesifikasi='$spesifikasi',
                     kd_perk='$kd_perk',
                     nm_perk='$nm_perk',
                     satuan='$satuan',
@@ -682,6 +686,7 @@ class modelOpsik extends mysql_db
                                         nm_perk='$nm_perk',                                    
                                         kd_brg='$kd_brg',
                                         nm_brg='$nm_brg',
+                                        spesifikasi='$spesifikasi',
                                         satuan='$satuan',
                                         qty=-1*'$selisih',
                                         harga_sat='$hrg_sat',
@@ -724,6 +729,7 @@ class modelOpsik extends mysql_db
                                     nm_perk='$nm_perk',
                                     kd_brg='$kd_brg',
                                     nm_brg='$nm_brg',
+                                    spesifikasi='$spesifikasi',
                                     satuan='$satuan',
                                     qty='$minus_qty',
                                     harga_sat='$minus_hrg',
@@ -765,6 +771,7 @@ class modelOpsik extends mysql_db
                                     nm_perk='$nm_perk',
                                     kd_brg='$kd_brg',
                                     nm_brg='$nm_brg',
+                                    spesifikasi='$spesifikasi',
                                     satuan='$satuan',
                                     qty=-1*'$qty_akhir',
                                     harga_sat='$hrg_sat',
@@ -806,6 +813,7 @@ class modelOpsik extends mysql_db
                                     nm_perk='$nm_perk',
                                     kd_brg='$kd_brg',
                                     nm_brg='$nm_brg',
+                                    spesifikasi='$spesifikasi',
                                     satuan='$satuan',
                                     qty='$minus_qty',
                                     harga_sat='$minus_hrg',

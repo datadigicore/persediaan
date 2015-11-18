@@ -27,10 +27,21 @@ class modelTransaksi extends mysql_db
         $kd_brg = $data['kd_brg'];
         $tgl_dok = $data['tgl_dok'];
 
-        $query ="select nm_brg,spesifikasi, status from transaksi_masuk where kd_lokasi = '$kd_lokasi' and tgl_dok <= '$tgl_dok' and kd_brg = '$kd_brg' and thn_ang = '$thn_ang' and status=1 limit 1";
+        $query ="select nm_brg,spesifikasi, status from transaksi_masuk where kd_lokasi = '$kd_lokasi' and tgl_dok > '$tgl_dok' and kd_brg = '$kd_brg' and thn_ang = '$thn_ang' order by tgl_dok ASC limit 1";
         $hasil = $this->query($query);
         $row_brg = $this->fetch_array($hasil);
-        echo json_encode(array("status"=>$row_brg["status"],"nm_brg"=>$row_brg["nm_brg"], "spesifikasi"=>$row_brg["spesifikasi"]));
+        echo json_encode(array("st_op"=>$row_brg["status"],"nm_brg"=>$row_brg["nm_brg"], "spesifikasi"=>$row_brg["spesifikasi"]));
+    }
+    public function cek_opname_thn_lalu($data){
+        $kd_lokasi = $data['kd_lokasi'];
+        $thn_ang = $data['thn_ang'];
+        $thn_ang_lalu = $thn_ang-1;
+        
+
+        $query ="select id, kd_brg, nm_brg, spesifikasi, status from transaksi_masuk where kd_lokasi = '$kd_lokasi' and thn_ang = '$thn_ang_lalu' and status=0 and kd_brg!='' order by tgl_dok ASC limit 1";
+        $hasil = $this->query($query);
+        $row_brg = $this->fetch_array($hasil);
+        echo json_encode(array("id"=>$row_brg["id"],"kd_brg"=>$row_brg["kd_brg"],"nm_brg"=>$row_brg["nm_brg"],"st_op"=>$row_brg["status"], "spesifikasi"=>$row_brg["spesifikasi"]));
     }
 
     public function tutup_tahun($data)
@@ -53,7 +64,7 @@ class modelTransaksi extends mysql_db
 
                     $kd_lokasi = $data['kd_lokasi'];
                     $nm_satker = $data['nm_satker'];
-                    $no_dok = $kd_lokasi."SA".$thn_ang_now;
+                    $no_dok = $kd_lokasi.".SA".$thn_ang_now;
                     $tgl_dok = $thn_ang_now."-01-01";
                     $tgl_buku = $thn_ang_now."-01-01";
                     $no_bukti = $data['no_bukti'];
@@ -454,7 +465,7 @@ class modelTransaksi extends mysql_db
     public function trnsaksi_keluar($data)
     {
         // $kd_lokasi = $data['kd_lokasi'];
-        $kd_lok_msk = $data['kd_lokasi'];
+        
         $nm_satker = $data['nm_satker'];
 
         $thn_ang = $data['thn_ang'];
@@ -465,6 +476,7 @@ class modelTransaksi extends mysql_db
         $dok = $this->fetch_array($result_dok);
 
         $kd_lokasi = $dok['kd_lokasi'];
+        $kd_lok_msk = $dok['kd_lokasi'];
         $tgl_dok = $dok['tgl_dok'];
         $tgl_buku = $dok['tgl_buku'];
         $no_bukti = $dok['no_bukti'];

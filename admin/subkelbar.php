@@ -36,13 +36,13 @@
                         <input type="hidden" name="manage" value="addsubbarang">
                       </div>
                       <div class="col-sm-2">
-                        <input type="text" name="kdbarang" class="form-control" id="kdbarang" placeholder="Kode Barang">
+                        <input type="text" name="kdbarang" class="form-control" id="kdbarang" placeholder="Kode Barang"  required>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Uraian Barang</label>
+                      <label class="col-sm-2 control-label">Nama Barang</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nmbarang" class="form-control" id="nmbarang" placeholder="Masukkan Uraian Barang">
+                        <input type="text" name="nmbarang" class="form-control" id="nmbarang" placeholder="Masukkan Nama Barang">
                       </div>
                     </div>
                     <div class="form-group" style="margin-top:15px;">
@@ -94,7 +94,29 @@
     <?php include("include/loadjs.php"); ?>
     <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="../dist/js/jquery.mask.js" ></script>
     <script type="text/javascript">
+      function cek_kode() {
+      
+        var kdsskel = $('#kdbarang_no').val();
+        var kodebarang = $('#kdbarang').val();
+
+          $.ajax({
+            url: '../core/barang/prosesbarang',
+            type: 'POST',
+            data: {kdsskel:kdsskel, kodebarang:kodebarang, manage:'cekkode'},
+            dataType: "json",
+            success:function(data){
+              if(data.kd_brg!=null)
+              {
+                alert("Kode Barang "+kdsskel+"."+kodebarang+" sudah digunakan oleh barang "+data.nm_brg);
+                $('#kodebarang').val('');
+                return false;
+              }
+            }
+          });
+      }
+      $('#kdbarang').mask('999',{placeholder:"____"});
       var table;
       function myTable() {
       table = $("#example1").DataTable({
@@ -112,7 +134,7 @@
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
+                                  // '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                   '<button id="btnhps" class="btn btn-danger btn-xs btn-flat pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
              "targets": [5],"targets": 5 }
@@ -314,30 +336,31 @@
           backdrop: 'static',
           keyboard: false
         });
+        cek_kode();
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "1000";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
-        $.ajax({
-          type: "post",
-          data: addData,
-          url : formURL,
-          contentType: false,
-          cache: false,  
-          processData: false,
-          success: function(data)
-          {
-            $("#success-alert").alert();
-            $("#success-alert").fadeTo(500, 500).slideUp(500, function(){
-            $("#success-alert").alert('close');
-            });
-            setTimeout("$('#myModal').modal('hide');",redirectTime);
-            $("#example1").DataTable().destroy();
-            $("#example1 tbody").empty();
-            myTable();
-          }
-        });
+        // $.ajax({
+        //   type: "post",
+        //   data: addData,
+        //   url : formURL,
+        //   contentType: false,
+        //   cache: false,  
+        //   processData: false,
+        //   success: function(data)
+        //   {
+        //     $("#success-alert").alert();
+        //     $("#success-alert").fadeTo(500, 500).slideUp(500, function(){
+        //     $("#success-alert").alert('close');
+        //     });
+        //     setTimeout("$('#myModal').modal('hide');",redirectTime);
+        //     $("#example1").DataTable().destroy();
+        //     $("#example1 tbody").empty();
+        //     myTable();
+        //   }
+        // });
         return false;
         }
       });

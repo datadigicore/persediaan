@@ -31,7 +31,7 @@
                     <div class="box-body">
                       <label class="col-sm-2 control-label">Kode Satker</label>
                       <div class="col-sm-4">
-                        <select name="satker" id="satker" class="form-control">
+                        <select name="satker" id="satker" class="form-control select2">
                         </select>
                       </div>
                     </div> 
@@ -108,6 +108,7 @@
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(".treeview").addClass("active");
+      $(".select2").select2();
       $("li#buku_brg").addClass("active");
       var table;
       $(function () {
@@ -156,15 +157,23 @@
           $('#tgl_akhir').removeAttr('required');
       });
 
-       $.ajax({
-          type: "post",
-          url: '../core/report/prosesreport',
-          data: {manage:'readbrg'},
-          success: function (output) {     
-            $('#kd_brg').html(output);
-          }
-       });
-
+      $('#satker').change(function(){
+        if ($(this).val()=='') {
+          // $('#satuan').val('');
+          
+        }
+        else {
+         var kode_satker =  $('#satker').val(); 
+         $.ajax({
+            type: "post",
+            url: '../core/report/prosesreport',
+            data: {manage:'readbrg',satker:kode_satker},
+            success: function (output) {     
+              $('#kd_brg').html(output);
+            }
+         });
+        }
+      });
        $.ajax({
           type: "post",
           url: '../core/report/prosesreport',

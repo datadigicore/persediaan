@@ -17,6 +17,7 @@ $columns = array(
     array( 'db' => 'user_email', 'dt' => 2 ),
     array( 'db' => 'kd_lokasi', 'dt' => 3 ),
     array( 'db' => 'nm_satker', 'dt' => 4 ),
+    array( 'db' => 'tahun', 'dt' => 5 ),
 );
 
 // Settingan Koneksi Datatable

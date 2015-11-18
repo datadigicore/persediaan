@@ -43,6 +43,17 @@ else
 				"kd_brg" => $kd_brg
 				);
 		$Transaksi->cek_status_opname($data);
+		break;		
+
+		case 'cek_opname_thn_lalu':
+		$kd_lokasi = $purifier->purify($_POST['kd_lokasi']);
+		$thn_ang = $_SESSION['thn_ang'];
+		
+		$data = array(
+				"kd_lokasi" => $kd_lokasi,
+				"thn_ang" => $thn_ang
+				);
+		$Transaksi->cek_opname_thn_lalu($data);
 		break;
 
 		case 'cek_rangkap_brg_msk':

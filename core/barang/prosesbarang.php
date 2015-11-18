@@ -15,7 +15,7 @@ else
 		case 'cekkode':
 			$kdbarang = $purifier->purify($_POST['kdsskel']);
 			$kd_jbrg = $purifier->purify($_POST['kodebarang']);
-			$kd_brg = $kdbarang.''.$kd_jbrg;
+			$kd_brg = $kdbarang.'.'.$kd_jbrg;
 			$kd_lokasi = $_SESSION['kd_lok'];
 			$data = array(
 				"kd_brg" => $kd_brg,
