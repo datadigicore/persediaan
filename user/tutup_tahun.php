@@ -54,6 +54,30 @@
                 </form>
             </section>
           </div>
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Hasil Import Saldo Awal</h3>
+                </div>
+                <div class="box-body">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>No Dok</th>
+                        <th>Kode Barang</th>
+                        <th>Nama Barang</th>
+                        <th>Spesifikasi</th>
+                        <th>Jumlah</th>
+                        <th>Harga Satuan</th>
+                        <th>Total Harga</th>  
+                        <th>Keterangan</th>
+                        <th width="8%">Kode Satker</th>
+           
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
         </section>
       </div>
       <?php include("include/footer.php"); ?>
@@ -64,6 +88,30 @@
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">
+
+          table = $("#example1").DataTable({
+          "processing": false,
+          "serverSide": true,
+          "ajax": "../core/loadtable/saldo_awal",
+          "columnDefs":
+          [
+            {"targets": 0,
+             "visible": false },
+            {"targets": 1,
+             "visible": false  },
+            {"targets": 2 },
+            {"targets": 3 },
+            {"targets": 4 },
+            {"targets": 5 },
+            {"targets": 6 },
+            {"targets": 7 },
+            {"targets": 8,
+             "visible": false },
+            {"targets": 9,
+             "visible": true },
+
+          ],
+        });
       $(".treeview").addClass("active");
       $("li#tutup_tahun").addClass("active");
        $.ajax({
