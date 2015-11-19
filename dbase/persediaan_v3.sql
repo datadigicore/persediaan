@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 15 Nov 2015 pada 21.29
+-- Generation Time: 19 Nov 2015 pada 09.52
 -- Versi Server: 5.6.25
 -- PHP Version: 5.6.11
 
@@ -216,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `log_history` (
   `ket_nmsatker` text NOT NULL,
   `keterangan` text NOT NULL,
   `tanggal` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `log_history`
@@ -226,7 +226,11 @@ INSERT INTO `log_history` (`id`, `kodesatker`, `namasatker`, `thnanggaran`, `use
 (1, NULL, NULL, 2015, 'masteradmin', 'T-Sektor', '67', 'KARANG TARUNA', 'Tahun Anggaran 2015', '2015-09-10 03:05:38'),
 (2, NULL, NULL, 2015, 'masteradmin', 'T-Sektor', '23', 'ka', 'Tahun Anggaran 2015', '2015-09-10 03:06:21'),
 (3, NULL, NULL, 2015, 'masteradmin', 'U-Sektor', '01', 'Sekwan/DPRD', 'Tahun Anggaran 2015', '2015-11-13 03:30:06'),
-(4, NULL, NULL, 2015, 'masteradmin', 'U-Sektor', '01', 'Sekwan / DPRD', 'Tahun Anggaran 2015', '2015-11-13 04:16:21');
+(4, NULL, NULL, 2015, 'masteradmin', 'U-Sektor', '01', 'Sekwan / DPRD', 'Tahun Anggaran 2015', '2015-11-13 04:16:21'),
+(5, NULL, NULL, 2015, 'masteradmin', 'U-Sektor', '67', 'Bidang Pelatihan ', 'Tahun Anggaran 2015', '2015-11-18 03:57:02'),
+(6, NULL, NULL, 2015, 'masteradmin', 'T-Satker', '67.01', 'Pusat Pelatihan dan Pengembangan', 'Tahun Anggaran 2015', '2015-11-18 03:58:14'),
+(7, NULL, NULL, 2015, 'masteradmin', 'T-Unit', '67.01.01', 'Pusat Pelatihan dan Pengembangan', 'Tahun Anggaran 2015', '2015-11-18 03:58:40'),
+(8, NULL, NULL, 2015, 'masteradmin', 'T-Gudang', '67.01.01.01', 'Pusat Pelatihan dan Pengembangan', 'Tahun Anggaran 2015', '2015-11-18 03:59:04');
 
 -- --------------------------------------------------------
 
@@ -332,7 +336,7 @@ CREATE TABLE IF NOT EXISTS `log_trans_masuk` (
   `jns_trans` varchar(5) NOT NULL,
   `keterangan` varchar(100) NOT NULL,
   `tgl_update` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=667 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=826 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -372,7 +376,7 @@ CREATE TABLE IF NOT EXISTS `opname` (
   `selisih` tinyint(1) DEFAULT NULL,
   `tgl_update` date DEFAULT NULL,
   `user_id` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -535,15 +539,15 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (66, '01', '01', '07', '01', '01', '01', '96', NULL, NULL, '01.01.07.01.01.01.96', 'Stampel', '', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 504000),
 (67, '01', '01', '07', '01', '01', '01', '102', NULL, NULL, '01.01.07.01.01.01.102', 'Staples', 'Kecil', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 69300),
 (68, '01', '01', '07', '01', '01', '01', '103', NULL, NULL, '01.01.07.01.01.01.103', 'Staples', ' Seang ', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 107100),
-(69, '01', '01', '07', '01', '01', '01', '103', NULL, NULL, '01.01.07.01.01.01.103', 'Staples', ' Besar ', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 107100),
+(69, '01', '01', '07', '01', '01', '01', '109', NULL, NULL, '01.01.07.01.01.01.109', 'Staples', ' Besar ', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 107100),
 (70, '01', '01', '07', '01', '01', '01', '104', NULL, NULL, '01.01.07.01.01.01.104', 'Tinta Pyramid', '', 'botol', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 24150),
 (71, '01', '01', '07', '01', '01', '01', '105', NULL, NULL, '01.01.07.01.01.01.105', 'Tinta Stempel', 'Botolan', 'botol', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 22050),
 (72, '01', '01', '07', '01', '01', '01', '108', NULL, NULL, '01.01.07.01.01.01.108', 'Tip - EX', 'Kocok, Satuan', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 86100),
 (73, '01', '01', '07', '01', '01', '02', '', NULL, NULL, '01.01.07.01.01.02', 'Perlengkapan Kantor', '', '', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 0),
-(74, '01', '01', '07', '01', '01', '02', '01', NULL, NULL, '01.01.07.01.01.02.01', 'Album ', '', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 178500),
-(75, '01', '01', '07', '01', '01', '02', '02', NULL, NULL, '01.01.07.01.01.02.02', 'Bantalan Penghitung Uang', '', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 7350),
-(76, '01', '01', '07', '01', '01', '02', '03', NULL, NULL, '01.01.07.01.01.02.03', 'Bare Drum ', 'IR 330/400 ', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 484050),
-(77, '01', '01', '07', '01', '01', '02', '04', NULL, NULL, '01.01.07.01.01.02.04', 'Bare Drum ', 'NP 6030/6230/6035 ', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 436800),
+(74, '01', '01', '07', '01', '01', '02', '170', NULL, NULL, '01.01.07.01.01.02.170', 'Album ', '', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 178500),
+(75, '01', '01', '07', '01', '01', '02', '171', NULL, NULL, '01.01.07.01.01.02.171', 'Bantalan Penghitung Uang', '', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 7350),
+(76, '01', '01', '07', '01', '01', '02', '172', NULL, NULL, '01.01.07.01.01.02.172', 'Bare Drum ', 'IR 330/400 ', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 484050),
+(77, '01', '01', '07', '01', '01', '02', '173', NULL, NULL, '01.01.07.01.01.02.173', 'Bare Drum ', 'NP 6030/6230/6035 ', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 436800),
 (78, '01', '01', '07', '01', '01', '02', '05', NULL, NULL, '01.01.07.01.01.02.05', 'Batu Baterai', 'Besar', 'Buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 22050),
 (79, '01', '01', '07', '01', '01', '02', '06', NULL, NULL, '01.01.07.01.01.02.06', 'Batu Baterai', 'Kecil', 'Buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 8400),
 (80, '01', '01', '07', '01', '01', '02', '07', NULL, NULL, '01.01.07.01.01.02.07', 'Batu Baterai', 'Kotak, 9 volt', 'Buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 64050),
@@ -583,14 +587,14 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (114, '01', '01', '07', '01', '01', '02', '53', NULL, NULL, '01.01.07.01.01.02.53', 'Buku Kwarto ', 'Isi 100 lembar', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 15750),
 (115, '01', '01', '07', '01', '01', '02', '56', NULL, NULL, '01.01.07.01.01.02.56', 'Buku Kwitansi ', 'Panjang', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 27300),
 (116, '01', '01', '07', '01', '01', '02', '59', NULL, NULL, '01.01.07.01.01.02.59', 'Buku Nota', '909', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 21000),
-(117, '01', '01', '07', '01', '01', '02', '67', NULL, NULL, '01.01.07.01.01.02.67', 'Buku Tulis', 'Isi 80 lembar', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 4200),
+(117, '01', '01', '07', '01', '01', '02', '64', NULL, NULL, '01.01.07.01.01.02.64', 'Buku Tulis', 'Isi 80 lembar', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 4200),
 (118, '01', '01', '07', '01', '01', '02', '68', NULL, NULL, '01.01.07.01.01.02.68', 'Kertas  Karton', 'Manila', 'lembar', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 4200),
 (119, '01', '01', '07', '01', '01', '02', '69', NULL, NULL, '01.01.07.01.01.02.69', 'Kertas A0 Biasa', '', 'rol', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 392700),
 (120, '01', '01', '07', '01', '01', '02', '70', NULL, NULL, '01.01.07.01.01.02.70', 'Kertas A1 Kalkir', '', 'rol', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 1188600),
-(121, '01', '01', '07', '01', '01', '02', '71', NULL, NULL, '01.01.07.01.01.02.71', 'Kertas AO Glossy', '', 'rol', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 941850),
+(121, '01', '01', '07', '01', '01', '02', '65', NULL, NULL, '01.01.07.01.01.02.65', 'Kertas AO Glossy', '', 'rol', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 941850),
 (122, '01', '01', '07', '01', '01', '02', '72', NULL, NULL, '01.01.07.01.01.02.72', 'Kertas Asturo', '', 'lembar', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 3150),
 (123, '01', '01', '07', '01', '01', '02', '73', NULL, NULL, '01.01.07.01.01.02.73', 'Kertas Buffalo', 'F4', 'lembar', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 1050),
-(124, '01', '01', '07', '01', '01', '02', '74', NULL, NULL, '01.01.07.01.01.02.74', 'Kertas Cassing', 'Samson', 'lembar', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 4200),
+(124, '01', '01', '07', '01', '01', '02', '66', NULL, NULL, '01.01.07.01.01.02.66', 'Kertas Cassing', 'Samson', 'lembar', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 4200),
 (125, '01', '01', '07', '01', '01', '02', '82', NULL, NULL, '01.01.07.01.01.02.82', 'Kertas Continuous Form ', '9 1/2 x 11"4 ply', 'box', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 408450),
 (126, '01', '01', '07', '01', '01', '02', '84', NULL, NULL, '01.01.07.01.01.02.84', 'Kertas Doorslag ', 'Kuarto, putih', 'rim', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 29400),
 (127, '01', '01', '07', '01', '01', '02', '85', NULL, NULL, '01.01.07.01.01.02.85', 'Kertas Duplikator', '', 'rim', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 59850),
@@ -626,7 +630,7 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (157, '01', '01', '07', '01', '01', '03', '01', NULL, NULL, '01.01.07.01.01.03.01', 'CD / DVD Blank Disc', '', 'Pak', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 159600),
 (158, '01', '01', '07', '01', '01', '03', '18', NULL, NULL, '01.01.07.01.01.03.18', 'Ink Jet Cartridge ', 'Black', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 3229800),
 (159, '01', '01', '07', '01', '01', '03', '19', NULL, NULL, '01.01.07.01.01.03.19', 'Ink Jet Cartridge ', 'Color', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 3229800),
-(160, '01', '01', '07', '01', '01', '03', '34', NULL, NULL, '01.01.07.01.01.03.34', 'Ink Jet Refil (Tinta Isi Ulang)', 'Hitam ', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 1373400),
+(160, '01', '01', '07', '01', '01', '03', '33', NULL, NULL, '01.01.07.01.01.03.33', 'Ink Jet Refil (Tinta Isi Ulang)', 'Hitam ', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 1373400),
 (161, '01', '01', '07', '01', '01', '03', '34', NULL, NULL, '01.01.07.01.01.03.34', 'Ink Jet Refil (Tinta Isi Ulang)', 'Warna', 'Buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 0),
 (162, '01', '01', '07', '01', '01', '03', '39', NULL, NULL, '01.01.07.01.01.03.39', 'Pita Facsimili', 'Untuk Facsimili', 'roll', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 978600),
 (163, '01', '01', '07', '01', '01', '03', '43', NULL, NULL, '01.01.07.01.01.03.43', 'Ribbon Cartridge (Dot Matrix', '', 'buah', '1170101', 'Persediaan Perlenkapa dan Alat Tulis Kantor', 847350),
@@ -752,12 +756,12 @@ INSERT INTO `persediaan` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `kd_sskel`, `
 (282, '01', '01', '07', '01', '03', '02', '21', NULL, NULL, '01.01.07.01.03.02.21', 'Accu Motor', '', 'buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 822150),
 (283, '01', '01', '07', '01', '03', '02', '22', NULL, NULL, '01.01.07.01.03.02.22', 'Accu Mobil', 'YB5L-B 12V', 'buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 184800),
 (284, '01', '01', '07', '01', '03', '02', '23', NULL, NULL, '01.01.07.01.03.02.23', 'Accu Truck/Bus', '12V 10AH', 'buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 302400),
-(285, '01', '01', '07', '01', '03', '02', '25', NULL, NULL, '01.01.07.01.03.02.25', 'Air Accu', '', 'botol', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 23100),
+(285, '01', '01', '07', '01', '03', '02', '24', NULL, NULL, '01.01.07.01.03.02.24', 'Air Accu', '', 'botol', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 23100),
 (286, '01', '01', '07', '01', '03', '02', '25', NULL, NULL, '01.01.07.01.03.02.25', 'Batery AAA', '', 'Buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 0),
 (287, '01', '01', '07', '01', '03', '02', '27', NULL, NULL, '01.01.07.01.03.02.27', 'Batery Ukuran Kecil', '12V/5Ah', 'buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 192150),
 (288, '01', '01', '07', '01', '03', '02', '28', NULL, NULL, '01.01.07.01.03.02.28', 'Battery Ukuran Sedang', 'Kering, 200 Ah, 12 V', 'buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 5392800),
 (289, '01', '01', '07', '01', '03', '02', '29', NULL, NULL, '01.01.07.01.03.02.29', 'Battery Ukuran Besar', '12 N2 3', 'buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 698250),
-(290, '01', '01', '07', '01', '03', '02', '29', NULL, NULL, '01.01.07.01.03.02.29', 'Battery Kotak', '', 'Buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 0),
+(290, '01', '01', '07', '01', '03', '02', '26', NULL, NULL, '01.01.07.01.03.02.26', 'Battery Kotak', '', 'Buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 0),
 (291, '01', '01', '07', '01', '03', '02', '72', NULL, NULL, '01.01.07.01.03.02.72', 'Battery Charger Ukuran Kecil', 'Quick Battery Charger  BC-20CR for BT-24Q/24QW/30Q', 'buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 6438600),
 (292, '01', '01', '07', '01', '03', '02', '73', NULL, NULL, '01.01.07.01.03.02.73', 'Battery Charger Ukuran Sedang', 'Quick Battery Charger  BC-27MC', 'buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 6115200),
 (293, '01', '01', '07', '01', '03', '02', '74', NULL, NULL, '01.01.07.01.03.02.74', 'Battery Charger Ukuran Besar', 'Solar Panel Charger for Battery Pack BT-20Q/23Q/32Q/24Q/24QW/30Q', 'buah', '1170103', 'Persediaan Alat Listrik dan Elektronik (Lampu Pijar, battery kering)', 45198300),
@@ -4546,7 +4550,7 @@ CREATE TABLE IF NOT EXISTS `satker` (
   `kode` varchar(50) DEFAULT NULL,
   `NamaSatker` varchar(255) DEFAULT NULL,
   `tahun` int(6) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=467 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=470 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `satker`
@@ -5013,12 +5017,15 @@ INSERT INTO `satker` (`Satker_ID`, `KodeSektor`, `KodeSatker`, `KodeUnit`, `Guda
 (458, '21', '03', NULL, NULL, '21.03', 'Kantor Riset Teknologi dan Inovasi', NULL),
 (459, '21', '03', '01', NULL, '21.03.01', 'Kantor Riset Teknologi dan Inovasi', NULL),
 (460, '21', '03', '01', '01', '21.03.01.01', 'Kantor Riset Teknologi dan Inovasi', NULL),
-(461, '67', NULL, NULL, NULL, '67', 'KARANG TARUNA', 2015),
+(461, '67', NULL, NULL, NULL, '67', 'Bidang Pelatihan ', 2015),
 (462, '23', NULL, NULL, NULL, '23', 'ka', 2015),
 (463, '67', NULL, NULL, NULL, '67', 'KARANG TARUNA', 2016),
 (464, '23', NULL, NULL, NULL, '23', 'ka', 2016),
 (465, '67', NULL, NULL, NULL, '67', 'KARANG TARUNA', 2016),
-(466, '23', NULL, NULL, NULL, '23', 'ka', 2016);
+(466, '23', NULL, NULL, NULL, '23', 'ka', 2016),
+(467, '67', '01', NULL, NULL, '67.01', 'Pusat Pelatihan dan Pengembangan', 2015),
+(468, '67', '01', '01', NULL, '67.01.01', 'Pusat Pelatihan dan Pengembangan', 2015),
+(469, '67', '01', '01', '01', '67.01.01.01', 'Pusat Pelatihan dan Pengembangan', 2015);
 
 -- --------------------------------------------------------
 
@@ -5480,7 +5487,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_full` (
   `status_ambil` tinyint(1) NOT NULL DEFAULT '0',
   `tgl_update` datetime DEFAULT NULL,
   `user_id` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=491 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=772 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -5521,7 +5528,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_keluar` (
   `status_ambil` tinyint(1) NOT NULL DEFAULT '0',
   `tgl_update` date DEFAULT NULL,
   `user_id` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -5562,7 +5569,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_masuk` (
   `status_ambil` tinyint(1) NOT NULL DEFAULT '0',
   `tgl_update` date DEFAULT NULL,
   `user_id` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=123 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -5612,7 +5619,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `nm_satker` varchar(40) DEFAULT NULL,
   `tahun` year(4) DEFAULT NULL,
   `tutup_tahun` char(1) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `user`
@@ -5627,7 +5634,12 @@ INSERT INTO `user` (`user_id`, `user_name`, `user_pass`, `user_email`, `user_lev
 (22, 'ffstm', 'c4ca4238a0b923820dcc509a6f75849b', 'fikri.fadlillah@yahoo.com', 2, '08.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, NULL),
 (23, 'ffd', 'c4ca4238a0b923820dcc509a6f75849b', 'fikri.fadlillah@yahoo.com', 2, '21.01', 'KANTOR PERPUSTAKAAN  DAN ARSIP DAERAH', 2016, NULL),
 (27, 'ffst', 'c4ca4238a0b923820dcc509a6f75849b', 'sss@yahoo.com', 2, '08', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2016, NULL),
-(28, 'ffstm', 'c4ca4238a0b923820dcc509a6f75849b', 'fikri.fadlillah@yahoo.com', 2, '08.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2016, NULL);
+(28, 'ffstm', 'c4ca4238a0b923820dcc509a6f75849b', 'fikri.fadlillah@yahoo.com', 2, '08.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2016, NULL),
+(29, 'user01', '9383b6a71f6ad7974f0bd7ea6583c72e', 'pelatihan@yahoo.com', 2, '08.01.01.01', 'DINAS PENDIDIKAN, PEMUDA DAN OLAHRAGA', 2015, NULL),
+(30, 'user02', '9383b6a71f6ad7974f0bd7ea6583c72e', 'pelatihan@yahoo.com', 2, '08.01.01.02', 'UPTD Pendidikan Kec. Pekalongan Barat', 2015, NULL),
+(31, 'user03', '9383b6a71f6ad7974f0bd7ea6583c72e', 'pelatihan@yahoo.com', 2, '08.01.01.03', 'SDN Kraton Kidul', 2015, NULL),
+(32, 'user04', '9383b6a71f6ad7974f0bd7ea6583c72e', 'pelatihan@yahoo.com', 2, '08.01.01.04', 'SDN Kramatsari 01', 2015, NULL),
+(33, 'user05', '9383b6a71f6ad7974f0bd7ea6583c72e', 'pelatihan@yahoo.com', 2, '08.01.01.05', 'SDN Kramatsari 02', 2015, NULL);
 
 -- --------------------------------------------------------
 
@@ -6499,7 +6511,7 @@ ALTER TABLE `kel`
 -- AUTO_INCREMENT for table `log_history`
 --
 ALTER TABLE `log_history`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `log_opname`
 --
@@ -6519,12 +6531,12 @@ ALTER TABLE `log_trans_keluar`
 -- AUTO_INCREMENT for table `log_trans_masuk`
 --
 ALTER TABLE `log_trans_masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=667;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=826;
 --
 -- AUTO_INCREMENT for table `opname`
 --
 ALTER TABLE `opname`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT for table `perk`
 --
@@ -6539,7 +6551,7 @@ ALTER TABLE `persediaan`
 -- AUTO_INCREMENT for table `satker`
 --
 ALTER TABLE `satker`
-  MODIFY `Satker_ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=467;
+  MODIFY `Satker_ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=470;
 --
 -- AUTO_INCREMENT for table `skel`
 --
@@ -6559,17 +6571,17 @@ ALTER TABLE `thn_aktif`
 -- AUTO_INCREMENT for table `transaksi_full`
 --
 ALTER TABLE `transaksi_full`
-  MODIFY `id_history` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=491;
+  MODIFY `id_history` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=772;
 --
 -- AUTO_INCREMENT for table `transaksi_keluar`
 --
 ALTER TABLE `transaksi_keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=85;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=125;
 --
 -- AUTO_INCREMENT for table `transaksi_masuk`
 --
 ALTER TABLE `transaksi_masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=80;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=123;
 --
 -- AUTO_INCREMENT for table `ttd`
 --
@@ -6579,7 +6591,7 @@ ALTER TABLE `ttd`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(32) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
+  MODIFY `user_id` int(32) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT for table `wilayah`
 --

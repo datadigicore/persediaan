@@ -2372,7 +2372,7 @@ class modelReport extends mysql_db
             
         }
         elseif($jenis=="tanggal"){
-            $kriteria = "and tgl_dok >= '$tgl_awal' AND tgl_dok < '$tgl_akhir' ";
+            $kriteria = "and tgl_dok >= '$tgl_awal' AND tgl_dok <= '$tgl_akhir' ";
             $sblm_kriteria = "and tgl_dok < '$tgl_awal' ";
             $sql2 = "SELECT ".$nm_kolom." as jml from ".$nm_tabel." where kd_lokasi = '$kd_lokasi' and thn_ang='$thn_ang' ".$jns_trans." ".$kd_perk." ".$sblm_kriteria;
         
