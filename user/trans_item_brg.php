@@ -584,7 +584,7 @@ else {
             data: {manage:'cek_status_opname',kd_brg:kd_brg, tgl_dok:tgl_dok, kd_lokasi:'<?php echo $_POST["kd_satker"];?>'},
             dataType: "json",
             success: function (output) {
-              if(output.st_op=='1') {
+              if(output.st_op!==null) {
                 alert(output.nm_brg+" "+output.spesifikasi+" Sudah Dilakukan Opname, Untuk menambahkan barang, Hapus Opname Terlebih Dahulu.");
                 $("#kd_brg").select2("val", "");
                 $("#jml_msk").val('');
@@ -872,25 +872,10 @@ else {
           $('#satuan').val('');
         }
         else {
-          var kd_brg = $('#kd_brg').val();
+          var kd_brg = $('#kd_brg').val(); 
           var no_dok = $('#no_dok').val();
           var tgl_dok = $("#tgl_dok").val();
-          // $.ajax({
-          //   type: "post",
-          //   url: '../core/transaksi/prosestransaksi',
-          //   data: {manage:'cek_status_opname',kd_brg:kd_brg, tgl_dok:tgl_dok, kd_lokasi:'<?php echo $_POST["kd_satker"];?>'},
-          //   dataType: "json",
-          //   success: function (output) {
-          //     if(output.status!=null) {
-          //       alert(output.nm_brg+" "+output.spesifikasi+" Sudah Dilakukan Opname, Untuk Mengeluarkan barang, Hapus Opname Terlebih Dahulu.");
-          //       $("#kd_brg").select2("val", "");
-          //       $("#jml_msk").val('');
-          //       $("#satuan").val('');
-          //       $("#rph_sat").val('');
-          //       $("#keterangan").val('');
-          //     }
-          //   }
-          // }); 
+ 
           $.ajax({
             type: "post",
             url: '../core/transaksi/prosestransaksi',
@@ -902,6 +887,22 @@ else {
 
             document.getElementById("jml_msk").setAttribute("max",output.sisa);
 
+            }
+          });
+          $.ajax({
+            type: "post",
+            url: '../core/transaksi/prosestransaksi',
+            data: {manage:'cek_status_opname',kd_brg:kd_brg, tgl_dok:tgl_dok, kd_lokasi:'<?php echo $_POST["kd_satker"];?>'},
+            dataType: "json",
+            success: function (output) {
+              if(output.st_op!==null) {
+                alert(output.nm_brg+" "+output.spesifikasi+" Sudah Dilakukan Opname, Untuk mengeluarkan barang, Hapus Opname Terlebih Dahulu.");
+                $("#kd_brg").select2("val", "");
+                $("#jml_msk").val('');
+                $("#satuan").val('');
+                $("#rph_sat").val('');
+                $("#keterangan").val('');
+              }
             }
           });
         }

@@ -27,7 +27,7 @@ class modelTransaksi extends mysql_db
         $kd_brg = $data['kd_brg'];
         $tgl_dok = $data['tgl_dok'];
 
-        $query ="select nm_brg,spesifikasi, status from transaksi_masuk where kd_lokasi = '$kd_lokasi' and tgl_dok > '$tgl_dok' and kd_brg = '$kd_brg' and thn_ang = '$thn_ang' order by tgl_dok ASC limit 1";
+        $query ="select nm_brg,spesifikasi, status from opname where kd_lokasi = '$kd_lokasi' and tgl_dok > '$tgl_dok' and kd_brg = '$kd_brg' and thn_ang = '$thn_ang' order by tgl_dok ASC limit 1";
         $hasil = $this->query($query);
         $row_brg = $this->fetch_array($hasil);
         echo json_encode(array("st_op"=>$row_brg["status"],"nm_brg"=>$row_brg["nm_brg"], "spesifikasi"=>$row_brg["spesifikasi"]));
