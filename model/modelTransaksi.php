@@ -14,7 +14,7 @@ class modelTransaksi extends mysql_db
         $kd_lokasi = $data['kd_lokasi'];
         $thn_ang = $data['thn_ang'];
 
-        $query = "select no_dok, tgl_dok, jns_trans  from transaksi_masuk where kd_lokasi='$kd_lokasi' and thn_ang = '$thn_ang' and jns_trans in ('M01', 'M1-I') ";
+        $query = "select no_dok, tgl_dok, jns_trans  from transaksi_masuk where kd_lokasi='$kd_lokasi' and thn_ang = '$thn_ang' and jns_trans in ('M01', 'M01I') ";
         $hasil = $this->query($query);
        
         $row_brg = $this->fetch_array($hasil);
@@ -92,7 +92,7 @@ class modelTransaksi extends mysql_db
                             tgl_dok='$tgl_dok',
                             tgl_buku='$tgl_buku',
                             no_bukti='$no_bukti',
-                            jns_trans='M1-I',
+                            jns_trans='M01I',
                             kd_sskel='$kd_sskel',
                             nm_sskel='$nm_sskel',
                             kd_brg='$kd_brg',
@@ -128,7 +128,7 @@ class modelTransaksi extends mysql_db
                                 tgl_dok='$tgl_dok',
                                 tgl_buku='$tgl_buku',
                                 no_bukti='$no_bukti',
-                                jns_trans='M1-I',
+                                jns_trans='M01I',
                                 kd_sskel='$kd_sskel',
                                 nm_sskel='$nm_sskel',
                                 kd_brg='$kd_brg',
