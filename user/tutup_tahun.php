@@ -13,7 +13,7 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Tutup Tahun Persediaan
+            Import Saldo Awal
           </h1>
           <ol class="breadcrumb">
             <li class="active"><a href="#"><i class="fa fa-table"></i></a></li>
@@ -24,19 +24,16 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Detail Tutup Tahun Persediaan </h3>
                 </div>  
                 <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="addtransmsk" >
                    <input type="hidden" name="manage" value="tutup_tahun">  
                   <div class="box-body">
                       <p>
-                        Proses tutup tahun dilakukan untuk menjumlahkan data-data persediaan tahun sebelumnya
-                      </p>
-                      <p>
+                        Import saldo awal dilakukan untuk menjumlahkan data-data persediaan tahun sebelumnya
+                      
                         Setelah proses tutup tahun, data-data persediaan tahun sebelumnya tidak dapat dibuka lagi.
-                      </p>
-                      <p>
-                       Untuk melakukan proses tutup tahun, pilih kode satker yang akan dilakukan tutup tahun, kemudian klik proses.
+                     
+                       Untuk melakukan proses tutup tahun, pilih kode satker yang akan dilakukan import saldo awal, kemudian klik proses.
                       </p>
                     </div>                   
                     <div class="box-body">
@@ -68,6 +65,7 @@
                         <th>Nama Barang</th>
                         <th>Spesifikasi</th>
                         <th>Jumlah</th>
+                        <th>Satuan</th>
                         <th>Harga Satuan</th>
                         <th>Total Harga</th>  
                         <th>Keterangan</th>
@@ -108,6 +106,8 @@
             {"targets": 8,
              "visible": false },
             {"targets": 9,
+             "visible": true },
+             {"targets": 10,
              "visible": true },
 
           ],

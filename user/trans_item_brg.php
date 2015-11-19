@@ -68,7 +68,7 @@ else {
                           </div>
                         </div>                  
                         <div class="form-group">
-                          <label class="col-sm-5 control-label">Tgl. Buku</label>
+                          <label class="col-sm-5 control-label">Tgl. Pembukuan</label>
                           <div class="col-sm-7">
                             <input type="text" id="tgl_buku" name="tgl_buku" class="form-control" readonly>
                           </div>
@@ -103,7 +103,7 @@ else {
                           </div>
                         </div>  
                         <div class="form-group">
-                          <label class="col-sm-3 control-label">Kode Barang</label>
+                          <label class="col-sm-3 control-label">Kode / Nama Barang</label>
                           <div class="col-sm-8">
                             <select name="kd_brg" id="kd_brg" class="form-control select2">
                             </select>
@@ -120,7 +120,7 @@ else {
                           </div>                            
                         </div>                  
                         <div class="form-group">
-                          <label class="col-sm-3 control-label">Harga Beli Satuan</label>
+                          <label class="col-sm-3 control-label">Harga Satuan</label>
                           <div class="col-sm-8">
                             <input type="number" min="1" name="rph_sat" class="form-control" id="rph_sat" placeholder="Masukkan Harga ">
                           </div>
@@ -146,14 +146,14 @@ else {
                             </div>
                           </div>
                           <div class="form-group">
-                            <label class="col-sm-3 control-label">Kode Barang</label>
+                            <label class="col-sm-3 control-label">Kode / Nama Barang</label>
                             <div class="col-sm-8">
                               <select name="kd_brg" id="kd_brg" class="form-control">
                               </select>
                             </div>
                           </div>
                           <div class="form-group">
-                            <label class="col-sm-3 control-label">Jml dikeluarkan</label>
+                            <label class="col-sm-3 control-label">Jumlah Keluar</label>
                             <div class="col-sm-4">
                               <input type="number" min="1" max name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah">
                             </div>
@@ -162,7 +162,7 @@ else {
                             </div> 
                           </div>                  
                           <div class="form-group">
-                            <label class="col-sm-3 control-label">Saldo Barang</label>
+                            <label class="col-sm-3 control-label">Sisa Barang</label>
                             <div class="col-sm-8">
                               <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="Saldo Barang" readonly >
                             </div>
@@ -193,6 +193,7 @@ else {
                         <th>Nama Barang</th>
                         <th>Spesifikasi</th>
                         <th>Jumlah</th>
+                        <th>Satuan</th>
                         <th>Harga Satuan</th>
                         <th>Total Harga</th>  
                         <th>Keterangan</th>
@@ -219,6 +220,7 @@ else {
                         <th>Nama Barang</th>
                         <th>Spesifikasi</th>
                         <th>Jumlah</th>
+                        <th>Satuan</th>
                         <th>Harga Satuan</th>
                         <th>Total Harga</th>  
                         <th>Keterangan</th>
@@ -304,7 +306,8 @@ else {
             {"targets": 6 },
             {"targets": 7 },
             {"targets": 8 },
-            {"targets": 9,
+            {"targets": 9 },
+            {"targets": 10,
              "visible": true },
             {"orderable": false,
              "data": null,
@@ -312,7 +315,7 @@ else {
                                   '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
                                   '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                 '</div>',
-             "targets": [10],"targets": 10 },
+             "targets": [11],"targets": 11 },
           ],
         });
         // $('#example1 tbody').on('click', 'tr', function () {
@@ -404,7 +407,7 @@ else {
               '<td width="10%"><input style="width:97%" id="spesifikasi'+d[0]+'" name="nodok_baru" class="form-control" type="text" readonly></td>'+
               '<td width="8%"><input style="width:97%" id="qty'+d[0]+'" name="jumlah_baru" class="form-control" type="number" min="'+qty_akhir+'" required ></td>'+
               '<td width="13%"><input style="width:99%" id="total_harga'+d[0]+'" name="ket_baru" class="form-control" type="text" readonly ></td>'+
-              '<td width="11%"><input style="width:98%" id="harga_sat'+d[0]+'" name="harga_baru" class="form-control" type="number" required ></td>'+
+              '<td width="11%"><input style="width:98%" id="harga_sat'+d[0]+'" name="harga_baru" min="1" class="form-control" type="number" required ></td>'+
               
               '<td style="vertical-align:middle; width:7%;">'+
                 '<div class="box-tools">'+
@@ -456,7 +459,8 @@ else {
                   {"targets": 6 },
                   {"targets": 7 },
                   {"targets": 8 },
-                  {"targets": 9,
+                  {"targets": 9 },
+                  {"targets": 10,
                    "visible": true },
                   {"orderable": false,
                    "data": null,
@@ -464,7 +468,7 @@ else {
                                         '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
                                         '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                       '</div>',
-                   "targets": [10],"targets": 10 },
+                   "targets": [11],"targets": 11 },
                 ],
               });
           }
@@ -533,7 +537,8 @@ else {
                       [
                         {"targets": 0,
                          "visible": false },
-                        {"targets": 1 },
+                        {"targets": 1,
+                         "visible": false  },
                         {"targets": 2 },
                         {"targets": 3 },
                         {"targets": 4 },
@@ -541,14 +546,16 @@ else {
                         {"targets": 6 },
                         {"targets": 7 },
                         {"targets": 8 },
-                        {"targets": 9,
-                         "visible": false },
+                        {"targets": 9 },
+                        {"targets": 10,
+                         "visible": true },
                         {"orderable": false,
                          "data": null,
                          "defaultContent":  '<div class="box-tools">'+
                                               '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
+                                              '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                             '</div>',
-                         "targets": [10],"targets": 10 },
+                         "targets": [11],"targets": 11 },
                       ],
                       "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
                     });
@@ -664,7 +671,8 @@ else {
                 [
                   {"targets": 0,
                    "visible": false },
-                  {"targets": 1 },
+                  {"targets": 1,
+                   "visible": false  },
                   {"targets": 2 },
                   {"targets": 3 },
                   {"targets": 4 },
@@ -672,14 +680,16 @@ else {
                   {"targets": 6 },
                   {"targets": 7 },
                   {"targets": 8 },
-                  {"targets": 9,
-                   "visible": false },
+                  {"targets": 9 },
+                  {"targets": 10,
+                   "visible": true },
                   {"orderable": false,
                    "data": null,
                    "defaultContent":  '<div class="box-tools">'+
                                         '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
+                                        '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                       '</div>',
-                   "targets": [10],"targets": 10 },
+                   "targets": [11],"targets": 11 },
                 ],
                 "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
               });
@@ -744,12 +754,13 @@ else {
             {"targets": 6 },
             {"targets": 7 },
             {"targets": 8 },
+            {"targets": 9 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                   '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
-             "targets": [9],"targets": 9 },
+             "targets": [10],"targets": 10 },
           ],
         });
         // $('#example1 tbody').on('click', 'tr', function () {
@@ -849,12 +860,13 @@ else {
                       {"targets": 6 },
                       {"targets": 7 },
                       {"targets": 8 },
+                      {"targets": 9 },
                       {"orderable": false,
                        "data": null,
                        "defaultContent":  '<div class="box-tools">'+
                                             '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
                                           '</div>',
-                       "targets": [9],"targets": 9 },
+                       "targets": [10],"targets": 10 },
                     ],
                   });
                 }

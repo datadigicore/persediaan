@@ -48,7 +48,7 @@
                             </select>
                           </div>
                           <div class="col-sm-4">
-                            <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="Masukkan No. Dokumen">
+                            <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="Masukkan No. Faktur / Bon / SP">
                             <input type="hidden" name="manage" value="tbh_transaksi_klr">  
                             <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>  
                           </div>
@@ -66,7 +66,7 @@
                           </div>
                         </div>                    
                         <div class="form-group">
-                          <label class="col-sm-2 control-label">Tanggal Buku</label>
+                          <label class="col-sm-2 control-label">Tanggal Pembukuan</label>
                           <div class="col-sm-9">
                             <input type="text" name="tgl_buku" max="10" class="form-control" id="tgl_buku" >
                           </div> 
@@ -97,7 +97,7 @@
                         <th width="18%">No Dokumen</th>
                         <th width="18%">No Bukti</th>
                         <th>Tanggal Dokumen</th>
-                        <th>Tanggal Buku</th>
+                        <th>Tanggal Pembukuan</th>
                         <th>Keterangan</th>
                         <th width="5%">Aksi</th>
                       </tr>
