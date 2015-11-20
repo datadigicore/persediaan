@@ -749,8 +749,10 @@ class modelTransaksi extends mysql_db
         $tgl_dok= $data['tgl_dok'];
         $tgl_buku = $data['tgl_buku'];
         $no_dok = $data['no_dok'];
+        $no_bukti = $data['no_bukti'];
         $no_dok_lama = $data['no_dok_lama'];
         $keterangan = $data['keterangan'];
+        $user_id = $data['user_id'];
 
         $query = "SELECT * from transaksi_masuk where no_dok = '$no_dok_lama' and kd_lokasi = '$kd_lokasi' and thn_ang='$thn_ang' ";
         $result = $this->query($query);
@@ -807,7 +809,7 @@ class modelTransaksi extends mysql_db
         $result_log = $this->query($query_log);
 
 
-        $query = "UPDATE transaksi_masuk set no_dok = '$no_dok', tgl_dok='$tgl_dok', tgl_buku = '$tgl_buku', keterangan = '$keterangan' 
+        $query = "UPDATE transaksi_masuk set no_dok = '$no_dok', no_bukti='$no_bukti', tgl_dok='$tgl_dok', tgl_buku = '$tgl_buku', keterangan = '$keterangan' 
                         where no_dok = '$no_dok_lama' and kd_lokasi = '$kd_lokasi' and thn_ang='$thn_ang' ";
                         $result = $this->query($query);
 
