@@ -55,7 +55,7 @@ class modelTransaksi extends mysql_db
         $tgl_buku = "";
         $no_bukti = "";
         $nm_satker = "";
-
+        $this->query("BEGIN");
         $query = "select kd_lokasi, nm_satker, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, jns_trans, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, satuan, sum(qty_akhir) as qty_akhir, harga_sat, keterangan, untuk, kd_perk, nm_perk   from transaksi_masuk where kd_lokasi='$kd_lokasi' and qty_akhir>0 and status_ambil=0 and thn_ang = '$thn_ang_lalu' group by kd_brg, harga_sat";
         $hasil = $this->query($query);
 
@@ -178,6 +178,7 @@ class modelTransaksi extends mysql_db
                         tgl_update=NOW(),
                         user_id='$user_id'";   
                 $this->query($query_log);
+                $this->query("COMMIT");
 
 
     }
@@ -470,7 +471,7 @@ class modelTransaksi extends mysql_db
 
         $thn_ang = $data['thn_ang'];
         $no_dok = $data['no_dok'];
-
+        $this->query("BEGIN");
         $query_dok = "select kd_lokasi, tgl_dok, tgl_buku, no_bukti, jns_trans, keterangan from transaksi_keluar where no_dok='$no_dok'";
         $result_dok = $this->query($query_dok);
         $dok = $this->fetch_array($result_dok);
@@ -737,7 +738,8 @@ class modelTransaksi extends mysql_db
             $result_hps = $this->query($query_hps);  
 
             $query_hps_full = "delete from transaksi_full where kd_brg like '' and kd_lokasi='$kd_lokasi' ";
-            $result_hps_full = $this->query($query_hps_full);   
+            $result_hps_full = $this->query($query_hps_full);
+            $this->query("COMMIT");   
 
     }
 
@@ -895,7 +897,7 @@ class modelTransaksi extends mysql_db
         $thn_ang = $data['thn_ang'];
         $kuantitas = $data['kuantitas'];
         $harga_baru = $data['harga_sat'];
-
+        $this->query("BEGIN");
         $query_qty_awal ="SELECT  id,nm_satker, no_dok, tgl_dok, tgl_buku, no_bukti, kd_sskel, nm_sskel, kd_perk, nm_perk,jns_trans, kd_brg, nm_brg, spesifikasi, satuan, qty,qty_akhir, harga_sat, total_harga from transaksi_masuk where id='$kd_trans'";
         $result_qty_awal = $this->query($query_qty_awal);
         $row_qty = $this->fetch_array($result_qty_awal);
@@ -919,6 +921,7 @@ class modelTransaksi extends mysql_db
 
 
         $qty = $row_qty['qty'];
+        $jml_awal = $row_qty['qty']; 
         $harga = $row_qty['harga_sat'];
         
         $selisih_qty = $kuantitas - $qty;
@@ -1070,7 +1073,7 @@ class modelTransaksi extends mysql_db
                                         $koreksi = 'Koreksi ';
 
                 if($qty!==$kuantitas){
-                    $koreksi .= 'qty '.$qty.', ';
+                    $koreksi .= 'qty '.$jml_awal.', ';
                 }
                 if($harga!==$harga_baru){
                     $koreksi .= 'Harga Rp. '.$harga.', ';
@@ -1096,6 +1099,7 @@ class modelTransaksi extends mysql_db
                                 tgl_update=NOW(),
                                 user_id='$user_id'";   
                             $this->query($query_log);
+                            $this->query("COMMIT");
     }
 
     public function transaksi_keluar($data)
