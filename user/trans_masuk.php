@@ -86,14 +86,14 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th width="5%">ID</th>
-                        <th width="14%">Jenis Transaksi</th>
+                        <th width="1%">ID</th>
+                        <th width="5%">Jenis Transaksi</th>
                         <th width="18%">Nomor Dokumen</th>
                         <th width="18%">No Bukti</th>
-                        <th>Tanggal Dokumen</th>
-                        <th>Tanggal Pembukuan</th>
-                        <th>Keterangan</th>
-                        <th width="8.5%">Aksi</th>
+                        <th width="12%">Tanggal Dokumen</th>
+                        <th width="12%">Tanggal Pembukuan</th>
+                        <th >Keterangan</th>
+                        <th  width="12%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -335,15 +335,16 @@
           $('div.slider', row.child()).slideDown();
           $("#jns_trans"+id_row +"").val(jns_trans_row);
           $("#kd_satker"+id_row +"").val(kdsatker_row);
-          $("#nodok"+id_row +"").val(nodok_row);
-          $("#tgl_dok"+id_row +"").val(tgl_dok_row);
-          $("#tgl_buku"+id_row +"").val(tgl_buku_row);
-          $('#tgl_dok'+id_row +"").mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
-          $('#tgl_buku'+id_row +"").mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
-          $('#tgl_dok'+id_row +"").datepicker({
+          $("#nodok_new").val(nodok_row);
+          $("#tgl_dok_new").val(tgl_dok_row);
+          $("#tgl_buku_new").val(tgl_buku_row);
+          $("#keterangannew").val(keterangan_row);
+          $('#tgl_dok_new').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
+          $('#tgl_buku_new').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
+          $('#tgl_dok_new').datepicker({
             format: "dd-mm-yyyy"
           });
-          $('#tgl_buku'+id_row +"").datepicker({
+          $('#tgl_buku_new').datepicker({
             format: "dd-mm-yyyy"
           }); 
         }
@@ -357,10 +358,10 @@
               '<input type="hidden" name="no_dok_lama" value="'+d[2]+'">'+
               '<td width="7%"><input style="width:90%" id="jns_trans'+d[0]+'" name="jns_trans_baru" class="form-control" type="text" readonly></td>'+
               '<td width="11%"><input style="width:98%" id="kd_satker'+d[0]+'" name="kd_satker" class="form-control" type="text" readonly></td>'+
-              '<td><input style="width:98%" id="nodok'+d[0]+'" name="nodok_baru" class="form-control" type="text" ></td>'+
-              '<td><input style="width:98%" id="tgl_dok'+d[0]+'" name="tgl_dok_baru" class="form-control" type="text" ></td>'+
-              '<td><input style="width:98%" id="tgl_buku'+d[0]+'" name="tgl_buku_baru" class="form-control" type="text" ></td>'+
-              '<td><input style="width:98%" id="keterangan'+d[0]+'" name="ket_baru" class="form-control" type="text" ></td>'+
+              '<td><input style="width:98%" id="nodok_new" name="nodok_baru" class="form-control" type="text" ></td>'+
+              '<td><input style="width:98%" id="tgl_dok_new" name="tgl_dok_baru" class="form-control" type="text" ></td>'+
+              '<td><input style="width:98%" id="tgl_buku_new" name="tgl_buku_baru" class="form-control" type="text" ></td>'+
+              '<td><input style="width:98%" id="keterangannew" name="ket_baru" class="form-control" type="text" ></td>'+
               '<td style="vertical-align:middle; width:7%;">'+
                 '<div class="box-tools">'+
                   // '<button id="btnrst" class="btn btn-warning btn-xs pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
@@ -372,12 +373,30 @@
         '</form></div>';
       }
       $(document).on('submit', '#upd_dok_masuk', function (e) {
-        // $('#myModal').modal({
-        //   backdrop: 'static',
-        //   keyboard: false
-        // });
-        // $('#myModal').modal('show');
-        
+        var tahun_ang = $("#tahun_ang").val();
+        var tgl_dok_new = $("#tgl_dok_new").val();
+        var tgl_buku_new = $("#tgl_buku_new").val();
+        var nodok_new = $("#nodok_new").val();
+          if(nodok_new==""){
+            alert("Silahkan Isi Nomor Dokumen Yang Baru");
+            return false;
+          }          
+          if(tgl_dok_new==""){
+            alert("Silahkan Isi Tanggal Dokumen Yang Baru");
+            return false;
+          }          
+          if(tgl_buku_new==""){
+            alert("Silahkan Isi Tanggal Pembukuan Yang Baru");
+            return false;
+          }
+          if(tgl_dok_new.substring(6,10)!=tahun_ang){
+            alert("Tahun Dokumen Tidak Sesuai Dengan Tahun Anggaran");
+            return false;
+          }
+          if(tgl_buku_new.substring(6,10)!=tahun_ang){
+            alert("Tahun Bukti Tidak Sesuai Dengan Tahun Anggaran");
+            return false;
+          }
         e.preventDefault();
         redirectTime = "2600";
         redirectURL = "trans_masuk";
