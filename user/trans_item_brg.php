@@ -208,7 +208,7 @@ else {
               <?php if ($_POST['manage']=="trans_keluar") { ?>
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Daftar Transaksi Keluar/h3>
+                  <h3 class="box-title">Daftar Transaksi Keluar</h3>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
@@ -353,10 +353,10 @@ else {
         nm_brg_row = row.data()[3];
         spesifikasi_row = row.data()[4];
         qty_row = row.data()[5];
-        harga_sat_row = row.data()[6];
-        total_harga_row = row.data()[7];
+        harga_sat_row = row.data()[7];
+        total_harga_row = row.data()[8];
         ket_row = row.data()[8];
-        qty_akhir = row.data()[5]-row.data()[9];
+        qty_akhir = row.data()[5]-row.data()[10];
         if(qty_akhir==0) qty_akhir=1;
 
         $.ajax({
@@ -1004,12 +1004,13 @@ else {
                   {"targets": 6 },
                   {"targets": 7 },
                   {"targets": 8 },
+                  {"targets": 9 },
                   {"orderable": false,
                    "data": null,
                    "defaultContent":  '<div class="box-tools">'+
                                         '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
                                       '</div>',
-                   "targets": [9],"targets": 9 },
+                   "targets": [10],"targets": 10 },
                 ],
               });
             }
