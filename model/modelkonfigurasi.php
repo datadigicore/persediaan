@@ -147,7 +147,7 @@ class modelKonfigurasi extends mysql_db
                 while($kuantitas > 0)
                 {   
                         echo " kuantitas tersisa : ".$kuantitas; 
-                        $query_id = "select id, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, satuan, kd_perk, nm_perk, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and qty_akhir>0 and thn_ang='$thn_ang' and status_edit=0 order by tgl_dok asc limit 1";     
+                        $query_id = "select id, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, satuan, kd_perk, nm_perk, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and qty_akhir>0 and thn_ang='$thn_ang' and status_edit=0 order by tgl_dok asc, id asc limit 1";     
                         $result_id = $this->query($query_id);
                         $row_id = $this->fetch_array($result_id);
                         $id_trans_m = $row_id['id'];   
@@ -246,7 +246,7 @@ class modelKonfigurasi extends mysql_db
                         // else
                         // {
                         $minus_qty = -$qty_akhir;
-                            $query_id = "select id, kd_brg, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and qty_akhir>0 and thn_ang='$thn_ang' and status_edit=0 order by tgl_dok asc limit 1"; 
+                            $query_id = "select id, kd_brg, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and qty_akhir>0 and thn_ang='$thn_ang' and status_edit=0 order by tgl_dok asc, id asc limit 1"; 
                             $result_id = $this->query($query_id);
                             $row_id = $this->fetch_array($result_id);
                             $id_trans = $row_id['id'];   
