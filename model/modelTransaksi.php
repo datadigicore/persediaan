@@ -158,6 +158,8 @@ class modelTransaksi extends mysql_db
                     $result_ttp_klr = $this->query($query_ttp_klr);
                     $result_set_user = $this->query($query_set_user);
 
+                    $this->query("UPDATE opname set status_ambil=1 where thn_ang = '$thn_ang_lalu' and kd_lokasi='$kd_lokasi' ");
+
                 $query_log = "Insert into log_trans_masuk
                         set 
                         kd_lokasi='$kd_lokasi',
