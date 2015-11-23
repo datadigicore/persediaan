@@ -196,6 +196,16 @@
         tgl_dok_row = row.data()[4];
         tgl_buku_row = row.data()[5];
         keterangan_row = row.data()[6];
+          $.ajax({
+            type: "post",
+            url: '../core/transaksi/validasi',
+            data: {manage:'cek_dok_keluar',kd_lokasi:kdsatker_row, no_dok:gab_row},
+            dataType: "json",
+            success: function (output) {
+              if(output.st_op==1) {
+                alert("Tidak Dapat Mengedit Dokumen karena terdapat barang yang telah diopname : "+output.nm_brg+" "+output.spesifikasi);
+                return false;
+              }
         if ( row.child.isShown() ) {
           $('div.slider', row.child()).slideUp( function () {
             row.child.hide();
@@ -221,6 +231,8 @@
             format: "dd-mm-yyyy"
           }); 
         }
+        }
+          });
       });
       function format ( d ) {
         return '<div class="slider">'+

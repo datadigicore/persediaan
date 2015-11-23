@@ -174,7 +174,7 @@ else {
                     </div>
                   </div> <!-- </div class="box-body">  -->
                   <div class="box-footer">
-                      <button type="reset" id="btn_resets" class="btn btn-default">Reset</button>
+                      <!-- <button type="reset" id="btn_resets" class="btn btn-default">Reset</button> -->
                       <button type="submit" class="btn btn-info pull-right">Submit</button>
                     </div>
                 </form>

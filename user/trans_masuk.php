@@ -323,31 +323,49 @@
         tgl_dok_row = row.data()[4];
         tgl_buku_row = row.data()[5];
         keterangan_row = row.data()[6];
-        if ( row.child.isShown() ) {
-          $('div.slider', row.child()).slideUp( function () {
-            row.child.hide();
-            tr.removeClass('shown');
-          });
-        }
-        else {
-          row.child( format(row.data())).show();
-          tr.addClass('shown');
-          $('div.slider', row.child()).slideDown();
-          $("#jns_trans"+id_row +"").val(jns_trans_row);
-          $("#kd_satker"+id_row +"").val(kdsatker_row);
-          $("#nodok_new").val(nodok_row);
-          $("#tgl_dok_new").val(tgl_dok_row);
-          $("#tgl_buku_new").val(tgl_buku_row);
-          $("#keterangannew").val(keterangan_row);
-          $('#tgl_dok_new').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
-          $('#tgl_buku_new').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
-          $('#tgl_dok_new').datepicker({
-            format: "dd-mm-yyyy"
-          });
-          $('#tgl_buku_new').datepicker({
-            format: "dd-mm-yyyy"
+
+          $.ajax({
+            type: "post",
+            url: '../core/transaksi/validasi',
+            data: {manage:'cek_dok_masuk',kd_lokasi:kdsatker_row, no_dok:gab_row},
+            dataType: "json",
+            success: function (output) {
+              if(output.st_op==1) {
+                alert("Tidak Dapat Mengedit Dokumen karena terdapat barang yang telah diopname : "+output.nm_brg+" "+output.spesifikasi);
+                return false;
+              }
+              else {
+                if ( row.child.isShown() ) {
+                  $('div.slider', row.child()).slideUp( function () {
+                    row.child.hide();
+                    tr.removeClass('shown');
+                  });
+                }
+                else {
+                  row.child( format(row.data())).show();
+                  tr.addClass('shown');
+                  $('div.slider', row.child()).slideDown();
+                  $("#jns_trans"+id_row +"").val(jns_trans_row);
+                  $("#kd_satker"+id_row +"").val(kdsatker_row);
+                  $("#nodok_new").val(nodok_row);
+                  $("#tgl_dok_new").val(tgl_dok_row);
+                  $("#tgl_buku_new").val(tgl_buku_row);
+                  $("#keterangannew").val(keterangan_row);
+                  $('#tgl_dok_new').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
+                  $('#tgl_buku_new').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
+                  $('#tgl_dok_new').datepicker({
+                    format: "dd-mm-yyyy"
+                  });
+                  $('#tgl_buku_new').datepicker({
+                    format: "dd-mm-yyyy"
+                  }); 
+                }
+
+              }
+            }
           }); 
-        }
+
+
       });
       function format ( d ) {
         return '<div class="slider">'+
