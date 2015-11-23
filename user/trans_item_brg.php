@@ -10,6 +10,7 @@ else {
     <?php include("include/loadcss.php"); ?>
     <link href="../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="../dist/css/datepicker.css" rel="stylesheet" type="text/css" />
+    
   </head>
   <body class="skin-blue layout-boxed">
     <div class="wrapper">
@@ -242,6 +243,7 @@ else {
     <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
+    <script src="../dist/js/notify.js"></script>
     <?php if ($_POST['manage']=="trans_masuk") { ?>
     <script type="text/javascript">
     $('form').on('focus', 'input[type=number]', function (e) {
@@ -592,7 +594,8 @@ else {
             dataType: "json",
             success: function (output) {
               if(output.st_op!==null) {
-                alert(output.nm_brg+" "+output.spesifikasi+" Sudah Dilakukan Opname, Untuk menambahkan barang, Hapus Opname Terlebih Dahulu.");
+                // alert(output.nm_brg+" "+output.spesifikasi+" Sudah Dilakukan Opname, Untuk menambahkan barang, Hapus Opname Terlebih Dahulu.");
+                 $.notify(output.nm_brg+" "+output.spesifikasi+" Sudah Dilakukan Opname, Untuk menambahkan barang, Hapus Opname Terlebih Dahulu.", "error");
                 $("#kd_brg").select2("val", "");
                 $("#jml_msk").val('');
                 $("#satuan").val('');
@@ -696,8 +699,10 @@ else {
                 ],
                 "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
               });
+            $.notify("Data Berhasil Ditambahkan", "success");
             }
           });
+          
           return false;
       
       });
