@@ -39,6 +39,17 @@ else
 		$Validasi->cek_dok_masuk($data);
 		break;
 
+		case 'cek_opname_thn_lalu':
+		$kd_lokasi = $purifier->purify($_POST['kd_lokasi']);
+		$thn_ang = $_SESSION['thn_ang'];
+		
+		$data = array(
+				"kd_lokasi" => $kd_lokasi,
+				"thn_ang" => $thn_ang
+				);
+		$Validasi->cek_opname_thn_lalu($data);
+		break;		
+
 		case 'cek_tutup_tahun':
 		$kd_lokasi = $purifier->purify($_POST['kd_lokasi']);
 		$thn_ang = $_SESSION['thn_ang'];

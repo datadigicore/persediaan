@@ -563,6 +563,7 @@ else {
                     });
                 }
               });
+            $.notify("Penghapusan Barang Berhasil","success");
             return false;
             }
           }
@@ -600,10 +601,23 @@ else {
                 $("#jml_msk").val('');
                 $("#satuan").val('');
                 $("#rph_sat").val('');
-                $("#keterangan").val('');
+
               }
             }
-          }); 
+          });
+          $.ajax({
+            type: "post",
+            url: '../core/transaksi/validasi',
+            data: {manage:'cek_tutup_tahun',kd_lokasi:"<?php echo $_POST['kd_satker'];?>"},
+            dataType: "json",
+            success: function (output) {        
+              if(output.st_amb=="1"){
+                $.notify("Tidak Dapat Menambah Transaski Setelah Import Saldo Awal di Tahun Anggaran Setelahnya","error");
+                $('button:submit').attr("disabled", true); 
+                return false;
+              }
+            }
+            }); 
           $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
@@ -891,7 +905,19 @@ else {
           var kd_brg = $('#kd_brg').val(); 
           var no_dok = $('#no_dok').val();
           var tgl_dok = $("#tgl_dok").val();
- 
+           $.ajax({
+            type: "post",
+            url: '../core/transaksi/validasi',
+            data: {manage:'cek_tutup_tahun',kd_lokasi:"<?php echo $_POST['kd_satker'];?>"},
+            dataType: "json",
+            success: function (output) {        
+              if(output.st_amb=="1"){
+                $.notify("Tidak Dapat Menambah Transaski Setelah Import Saldo Awal di Tahun Anggaran Setelahnya","error");
+                $('button:submit').attr("disabled", true); 
+                return false;
+              }
+            }
+            }); 
           $.ajax({
             type: "post",
             url: '../core/transaksi/prosestransaksi',
