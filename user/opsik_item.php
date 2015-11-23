@@ -203,12 +203,13 @@ else {
             {"targets": 8 },
             {"targets": 9 },
             {"targets": 10 },
-            {"orderable": false,
-             "data": null,
-             "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
-                                '</div>',
-             "targets": [11],"targets": 11 },
+            {"targets": 11 },
+            // {"orderable": false,
+            //  "data": null,
+            //  "defaultContent":  '<div class="box-tools">'+
+            //                       '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
+            //                     '</div>',
+            //  "targets": [11],"targets": 11 },
           ],
         });
         // $('#example1 tbody').on('click', 'tr', function () {
@@ -296,12 +297,13 @@ else {
                         {"targets": 8 },
                         {"targets": 9 },
                         {"targets": 10 },
-                        {"orderable": false,
-                         "data": null,
-                         "defaultContent":  '<div class="box-tools">'+
-                                              '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
-                                            '</div>',
-                         "targets": [11],"targets": 11 },
+                        {"targets": 11 },
+                        // {"orderable": false,
+                        //  "data": null,
+                        //  "defaultContent":  '<div class="box-tools">'+
+                        //                       '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
+                        //                     '</div>',
+                        //  "targets": [11],"targets": 11 },
                       ],
                     });
                 }

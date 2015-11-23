@@ -29,6 +29,7 @@ $columns = array(
     array( 'db' => 'harga_sat', 'dt' => 8 ),
     array( 'db' => 'total_harga', 'dt' => 9),
     array( 'db' => 'keterangan', 'dt' => 10 ),
+    array( 'db' => 'status_ambil', 'dt' => 11, 'formatter' => function($d,$row){ if($d==0) return '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>';}),
    
 
 );
