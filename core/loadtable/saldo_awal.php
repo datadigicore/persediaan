@@ -47,16 +47,16 @@ $sql_details = $config->sql_details();
 
 $str = $kd_satker;
 if (substr_count($str,".") == 0) {
-    $where = "kd_lokasi like '$kd_satker.%.%.%' and status_hapus=0 and thn_ang='$thn_ang'  and jns_trans ='M01I'  group by no_dok";   
+    $where = "kd_lokasi like '$kd_satker.%.%.%' and status_hapus=0 and thn_ang='$thn_ang'  and jns_trans ='M01I'  ";   
 }
 else if (substr_count($str,".") == 1) {
-    $where = "kd_lokasi like '$kd_satker.%.%' and status_hapus=0 and thn_ang='$thn_ang'  and jns_trans ='M01I'  group by no_dok";   
+    $where = "kd_lokasi like '$kd_satker.%.%' and status_hapus=0 and thn_ang='$thn_ang'  and jns_trans ='M01I'  ";   
 }
 else if (substr_count($str,".") == 2) {
-    $where = "kd_lokasi like '$kd_satker.%' and status_hapus=0 and thn_ang='$thn_ang'  and jns_trans ='M01I'  group by no_dok";
+    $where = "kd_lokasi like '$kd_satker.%' and status_hapus=0 and thn_ang='$thn_ang'  and jns_trans ='M01I'  ";
 }
 else{
-    $where = "kd_lokasi='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang' and jns_trans ='M01I'  group by no_dok";
+    $where = "kd_lokasi='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang' and jns_trans ='M01I'  ";
 }
  
 // Pengaturan Output Server Side Processing

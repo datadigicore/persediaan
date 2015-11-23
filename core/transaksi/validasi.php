@@ -37,8 +37,18 @@ else
 				"no_dok" => $no_dok
 				);
 		$Validasi->cek_dok_masuk($data);
-		break;	
+		break;
+
+		case 'cek_tutup_tahun':
+		$kd_lokasi = $purifier->purify($_POST['kd_lokasi']);
+		$thn_ang = $_SESSION['thn_ang'];
 		
+		$data = array(
+				"kd_lokasi" => $kd_lokasi,
+				"thn_ang" => $thn_ang
+				);
+		$Validasi->cek_tutup_tahun($data);
+		break;
 
 		default:
 			echo "Error Data Tidak Tersedia";

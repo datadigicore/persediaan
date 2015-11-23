@@ -17,10 +17,17 @@ class modelValidasi extends mysql_db
         echo json_encode(array("st_op"=>$row_brg["status"],"nm_brg"=>$row_brg["nm_brg"],"spesifikasi"=>$row_brg["spesifikasi"]));
 	}	
 
-	public function cek_dok_keluar($data)
-	{
+    public function cek_tutup_tahun($data){
+        $kd_lokasi = $data['kd_lokasi'];
+        $thn_ang = $data['thn_ang'];
 
-	}	
+        
+
+        $query ="select  status_ambil from transaksi_masuk where kd_lokasi = '$kd_lokasi' and thn_ang = '$thn_ang' order by status_ambil desc limit 1";
+        $hasil = $this->query($query);
+        $row_brg = $this->fetch_array($hasil);
+        echo json_encode(array("id"=>$row_brg["id"],"kd_brg"=>$row_brg["kd_brg"],"nm_brg"=>$row_brg["nm_brg"],"st_op"=>$row_brg["status_ambil"], "spesifikasi"=>$row_brg["spesifikasi"]));
+    }
 
 }
 ?>

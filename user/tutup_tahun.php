@@ -124,33 +124,50 @@
        });
 
     $('#addtransmsk').submit(function(e){
-        $('#myModal').modal({
-          backdrop: 'static',
-          keyboard: false
-        });
-        $('#myModal').modal('show');
+
         e.preventDefault();
         redirectTime = "2600";
         redirectURL = "tutup_tahun";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
-        $.ajax({
-          type: "post",
-          data: addData,
-          url : formURL,
-          contentType: false,
-          cache: false,  
-          processData: false,
-          success: function(data)
-          {
-            $("#success-alert").alert();
-            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-            $("#success-alert").alert('close');
-            });
-            setTimeout("location.href = redirectURL;",redirectTime); 
-          }
-        });
-        return false;
+        var kd_lokasi = $('#satker').val();
+          $.ajax({
+            type: "post",
+            url: '../core/transaksi/validasi',
+            data: {manage:'cek_opname_thn_lalu',kd_lokasi:kd_lokasi},
+            dataType: "json",
+            success: function (output) {
+              if(output.st_op=="0"){
+                alert("Sebelum Melakukan Import Saldo Awal, Lakukan Stock Opname untuk seluruh barang di tahun anggaran Sebelumnya!");
+                return false;
+              }
+              else {
+                $('#myModal').modal({
+                  backdrop: 'static',
+                  keyboard: false
+                });
+                $('#myModal').modal('show');
+                $.ajax({
+                  type: "post",
+                  data: addData,
+                  url : formURL,
+                  contentType: false,
+                  cache: false,  
+                  processData: false,
+                  success: function(data)
+                  {
+                    $("#success-alert").alert();
+                    $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+                    $("#success-alert").alert('close');
+                    });
+                    setTimeout("location.href = redirectURL;",redirectTime); 
+                  }
+                });
+                return false;
+              }
+            }
+          });
+
       });
     </script>
   </body>
