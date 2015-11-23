@@ -625,9 +625,12 @@ else {
       }});
       $('#addtransmsk').submit(function(e){
         
-        var kd_brg = $("#kd_brg").val();
+      
 
-        if(kd_brg!=""){
+          if($('#kd_brg').select2('data')== "") {
+            alert("Kode Barang persediaan Belum Dipilih");
+            return false;
+          }
           if ($('#jml_msk').val() == "") {
             alert("Masukkan Jumlah");
             return false;
@@ -696,11 +699,7 @@ else {
             }
           });
           return false;
-        }
-        else{
-          alert("Harap Masukkan Data Terlebih Dahulu");
-          return false;
-        }       
+      
       });
     </script>
 
@@ -957,7 +956,7 @@ else {
             return false;
           };
           if ($('#rph_sat').val() == "") {
-            alert("Masukkan Harga Beli Satuan");
+            alert("Kode Persediaan Barang Belum Dipilh");
             return false;
           };
           $('button:submit').attr("disabled", true);
@@ -1018,7 +1017,7 @@ else {
           return false;
         }
         else{
-          alert("Harap Masukkan Data Terlebih Dahulu");
+          alert("Kode Persediaan Barang Belum Dipilih");
           return false;
         }       
       });
