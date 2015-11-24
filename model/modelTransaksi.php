@@ -183,8 +183,14 @@ class modelTransaksi extends mysql_db
         $thn_ang = $data['thn_ang'];
         $no_dok = $data['no_dok'];
 
-        $query_dok = "select kd_lokasi, tgl_dok, tgl_buku, no_bukti, jns_trans, keterangan from transaksi_masuk where no_dok='$no_dok'";
+        $query_dok = "select kd_lokasi, tgl_dok, tgl_buku, no_bukti, jns_trans, keterangan from transaksi_masuk where no_dok='$no_dok' ";
         $result_dok = $this->query($query_dok);
+        if($this->num_rows($result_dok)==0)
+        {
+            $this->query("ROLLBACK");
+            echo "Tidak Dapat Menambah Barang Setelah Opname / Seluruh Item Telah Dihapus, buat Dokumen Baru!";
+            exit();
+        }
         $dok = $this->fetch_array($result_dok);
 
         $kd_lokasi = $dok['kd_lokasi'];
@@ -466,6 +472,12 @@ class modelTransaksi extends mysql_db
         $this->query("BEGIN");
         $query_dok = "select kd_lokasi, tgl_dok, tgl_buku, no_bukti, jns_trans, keterangan from transaksi_keluar where no_dok='$no_dok'";
         $result_dok = $this->query($query_dok);
+        if($this->num_rows($result_dok)==0)
+        {
+            $this->query("ROLLBACK");
+            echo "Tidak Dapat Menambah Barang Setelah Opname / Seluruh Item Telah Dihapus, buat Dokumen Baru!";
+            exit();
+        }
         $dok = $this->fetch_array($result_dok);
 
         $kd_lokasi = $dok['kd_lokasi'];
@@ -748,8 +760,14 @@ class modelTransaksi extends mysql_db
         $keterangan = $data['keterangan'];
         $user_id = $data['user_id'];
 
-        $query = "SELECT * from transaksi_masuk where no_dok = '$no_dok_lama' and kd_lokasi = '$kd_lokasi' and thn_ang='$thn_ang' ";
+        $query = "SELECT * from transaksi_masuk where no_dok = '$no_dok_lama' and kd_lokasi = '$kd_lokasi' and thn_ang='$thn_ang' and status='0' and status_ambil='0' ";
         $result = $this->query($query);
+        if($this->num_rows($result)==0)
+        {
+            $this->query("ROLLBACK");
+            echo "Tidak Dapat Mengedit Barang yang telah diopname / telah Import Saldo Awal";
+            exit();
+        }
 
         while($dok = $this->fetch_array($result)){
                 $kd_lokasi = $dok['kd_lokasi'];
@@ -819,9 +837,14 @@ class modelTransaksi extends mysql_db
         $no_dok_lama = $data['no_dok_lama'];
         $keterangan = $data['keterangan'];
 
-        $query = "SELECT * from transaksi_keluar where no_dok = '$no_dok_lama' and kd_lokasi = '$kd_lokasi' and thn_ang='$thn_ang' ";
+        $query = "SELECT * from transaksi_keluar where no_dok = '$no_dok_lama' and kd_lokasi = '$kd_lokasi' and thn_ang='$thn_ang' and status='0' and status_ambil='0' ";
         $result = $this->query($query);
-
+        if($this->num_rows($result)==0)
+        {
+            $this->query("ROLLBACK");
+            echo "Tidak Dapat Mengubah data yang telah diopname / telah Import Saldo Awal";
+            exit();
+        }
         while($dok = $this->fetch_array($result)){
                 $kd_lokasi = $dok['kd_lokasi'];
                 $nm_satker = $dok['nm_satker'];
@@ -890,8 +913,14 @@ class modelTransaksi extends mysql_db
         $kuantitas = $data['kuantitas'];
         $harga_baru = $data['harga_sat'];
         $this->query("BEGIN");
-        $query_qty_awal ="SELECT  id,nm_satker, no_dok, tgl_dok, tgl_buku, no_bukti, kd_sskel, nm_sskel, kd_perk, nm_perk,jns_trans, kd_brg, nm_brg, spesifikasi, satuan, qty,qty_akhir, harga_sat, total_harga from transaksi_masuk where id='$kd_trans'";
+        $query_qty_awal ="SELECT  id,nm_satker, no_dok, tgl_dok, tgl_buku, no_bukti, kd_sskel, nm_sskel, kd_perk, nm_perk,jns_trans, kd_brg, nm_brg, spesifikasi, satuan, qty,qty_akhir, harga_sat, total_harga from transaksi_masuk where id='$kd_trans' and status='0' and status_ambil='0' ";
         $result_qty_awal = $this->query($query_qty_awal);
+        if($this->num_rows($result_qty_awal)==0)
+        {
+            $this->query("ROLLBACK");
+            echo "Tidak Dapat Mengedit Barang yang telah diopname / telah Import Saldo Awal";
+            exit();
+        }
         $row_qty = $this->fetch_array($result_qty_awal);
        
         $no_dok = $row_qty['no_dok'];
@@ -1145,8 +1174,14 @@ class modelTransaksi extends mysql_db
         $id_masuk = $data['id'];
         $thn_ang = $data['thn_ang'];
 
-        $query_id = "select id,  kd_sskel, nm_sskel, kd_perk, nm_perk, kd_brg, satuan,  kd_lokasi, nm_satker, thn_ang, no_dok, jns_trans, tgl_dok, tgl_buku, no_bukti,kd_brg, nm_brg, qty, harga_sat, total_harga  from transaksi_masuk WHERE id='$id_masuk'";
+        $query_id = "select id,  kd_sskel, nm_sskel, kd_perk, nm_perk, kd_brg, satuan,  kd_lokasi, nm_satker, thn_ang, no_dok, jns_trans, tgl_dok, tgl_buku, no_bukti,kd_brg, nm_brg, qty, harga_sat, total_harga  from transaksi_masuk WHERE id='$id_masuk' and status='0' and status_ambil='0' and qty_akhir=qty ";
         $result_id = $this->query($query_id);
+        if($this->num_rows($result_id)==0)
+        {
+            $this->query("ROLLBACK");
+            echo "Tidak Dapat Menghapus Barang yang telah diopname / telah Import Saldo Awal";
+            exit();
+        }
         $row_id = $this->fetch_array($result_id);
         $kd_lokasi=$row_id['kd_lokasi'];
         $nm_satker = $row_id['nm_satker'];
@@ -1212,8 +1247,14 @@ class modelTransaksi extends mysql_db
         $user_id = $data['user_id'];
         $thn_ang = $data['thn_ang'];
 
-        $query_id = "select id, id_masuk, kd_lokasi, tgl_dok, tgl_buku, no_bukti, kd_sskel, nm_sskel, kd_perk, nm_perk, kd_brg, satuan, kd_brg, nm_brg, qty, harga_sat, total_harga  from transaksi_keluar WHERE id='$id'";
+        $query_id = "select id, id_masuk, kd_lokasi, tgl_dok, tgl_buku, no_bukti, kd_sskel, nm_sskel, kd_perk, nm_perk, kd_brg, satuan, kd_brg, nm_brg, qty, harga_sat, total_harga  from transaksi_keluar WHERE id='$id' and status='0' and status_ambil='0' ";
         $result_id = $this->query($query_id);
+        if($this->num_rows($result_id)==0)
+        {
+            $this->query("ROLLBACK");
+            echo "Tidak Dapat Menghapus Barang yang telah diopname / telah Import Saldo Awal";
+            exit();
+        }
         $row_id = $this->fetch_array($result_id);
         $id_trans = $row_id['id'];
 
