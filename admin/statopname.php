@@ -78,12 +78,7 @@
             {"targets": 6 },
             {"targets": 7 },
             {"targets": 8 },
-            {"orderable": false,
-             "data": null,
-             "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
-                                '</div>',
-             "targets": [9],"targets": 9 }
+            {"targets": 9 }
           ],
           "order": [[ 1, "asc" ]]
         });
@@ -125,34 +120,54 @@
       var tr = $(this).closest('tr');
       var row = table.row( tr );
       redirectTime = "2600";
-      redirectURL = "konfig";
+      redirectURL = "opsik_item";
       id_row = row.data()[0];
-      managedata = "delkonfig";
-      job=confirm("Anda yakin ingin menghapus data ini?");
-        if(job!=true){
-          return false;
-        }
-        else{
-          $('#myModal').modal({
-            backdrop: 'static',
-            keyboard: false
-          });
-          $('#myModal').modal('show');
-          $.ajax({
-            type: "post",
-            url : "../core/konfig/proseskonfigurasi",
-            data: {manage:managedata,id:id_row},
-            success: function(data)
+      managedata = "hapusOpname";
+            job=confirm("Anda yakin ingin mencabut status opname? ");
+            if(job!=true)
             {
-              $("#success-alert").alert();
-              $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-              $("#success-alert").alert('close');
-              });
-              setTimeout("location.href = redirectURL;",redirectTime); 
+              return false;
             }
-          });
-          return false;
-        }
+            else
+            {
+              $.ajax({
+                type: "post",
+                url : "../core/opsik/prosesopsik",
+                data: {manage:managedata,id:id_row},
+                success: function(data)
+                {
+                    $("#example1").DataTable().destroy();
+                    $("#example1 tbody").empty();
+                    table = $("#example1").DataTable({
+                      "oLanguage": {
+                        "sInfoFiltered": ""
+                      },
+                      "processing": false,
+                      "serverSide": true,
+                      "ajax": "../core/loadtable/tablestatopname",
+                      "columnDefs":
+                      [
+                        {"targets": 0,
+                         "visible": false },
+                        {"targets": 1 },
+                        {"targets": 2 },
+                        {"targets": 3 },
+                        {"targets": 4 },
+                        {"targets": 5 },
+                        {"targets": 6 },
+                        {"targets": 7 },
+                        {"targets": 8 },
+                        {"targets": 9 },
+
+                      ],
+                      "order": [[ 1, "asc" ]]
+                    });
+                }
+              });
+            return false;
+            }
+          
+        
       });
       $(document).on('submit', '#updkonfig', function (e) {
         $('#myModal').modal({

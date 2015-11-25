@@ -21,6 +21,7 @@ $columns = array(
     array( 'db' => 'qty', 'dt' => 6 ),
     array( 'db' => 'satuan', 'dt' => 7 ),
     array( 'db' => 'keterangan', 'dt' => 8 ),
+    array( 'db' => 'status_ambil', 'dt' => 9, 'formatter' => function($d,$row){ if($d==0) return '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>';} ),
 );
  
 // Settingan Koneksi Datatable
