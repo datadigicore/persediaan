@@ -46,7 +46,13 @@ class modelTransaksi extends mysql_db
         $no_bukti = "";
         $nm_satker = "";
         $this->query("BEGIN");
-        $query = "select kd_lokasi, nm_satker, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, jns_trans, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, satuan, sum(qty_akhir) as qty_akhir, harga_sat, keterangan, untuk, kd_perk, nm_perk   from transaksi_masuk where kd_lokasi='$kd_lokasi' and qty_akhir>0 and status_ambil=0 and thn_ang = '$thn_ang_lalu' group by kd_brg, harga_sat";
+        $query = "select kd_lokasi, nm_satker, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, jns_trans, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, satuan, sum(qty_akhir) as qty_akhir, harga_sat, keterangan, untuk, kd_perk, nm_perk   from transaksi_masuk where kd_lokasi='$kd_lokasi' and qty_akhir>0 and status_ambil=0 and thn_ang = '$thn_ang_lalu' and status=1 group by kd_brg, harga_sat";
+        if($this->num_rows($query)==0)
+        {
+            $this->query("ROLLBACK");
+            echo "Lakukan Opname Dahulu sebelum Import Saldo Awal";
+            exit();
+        }
         $hasil = $this->query($query);
 
         while ($data = $this->fetch_array($hasil))

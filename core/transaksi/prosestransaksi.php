@@ -174,7 +174,7 @@ else
 				"thn_ang_lalu" => $thn_ang_lalu,
 				"user_id" => $user_id
 				);
-			print_r($data);
+			//print_r($data);
 			$Transaksi->tutup_tahun($data);
 		break;
 
@@ -217,7 +217,7 @@ else
 
 				);
 				echo "transa ident";
-				print_r($data);
+				//print_r($data);
 				$Transaksi->transaksi_keluar_ident($data);
 			}
 			else{
@@ -242,7 +242,7 @@ else
 					"harga_sat" => $hrg_sat,
 					"keterangan" => $keterangan
 				);
-				print_r($data);
+				//print_r($data);
 				
 				$Transaksi->trnsaksi_keluar($data);
 			//========= Log History =========//
@@ -328,7 +328,7 @@ else
 					// "harga_sat" => $hrg_sat,
 					// "keterangan" => $keterangan,
 				);
-				print_r($data);
+				//print_r($data);
 				echo 'masuk ident';
 				$Transaksi->transaksi_masuk_ident($data);
 			}
@@ -354,7 +354,7 @@ else
 					"harga_sat" => $hrg_sat,
 					"keterangan" => $keterangan
 				);
-				print_r($data);
+				//print_r($data);
 				$Transaksi->transaksi_masuk($data);
 			}
 			//========= Log History =========//
@@ -426,7 +426,7 @@ else
 				"keterangan" => $keterangan,
 				"user_id" => $user_id
 			);
-			print_r($data);
+			//print_r($data);
 			$Transaksi->ubah_dok_masuk($data);
 		break;		
 
@@ -453,7 +453,7 @@ else
 				"keterangan" => $keterangan,
 				"user_id" => $user_id
 			);
-			print_r($data);
+			//print_r($data);
 			$Transaksi->ubah_dok_keluar($data);
 		break;
 
@@ -482,7 +482,7 @@ else
 
 				"user_id" => $user_id
 			);
-			print_r($data);
+			//print_r($data);
 			$Transaksi->ubah_transaksi_masuk($data);
 		break;		
 
