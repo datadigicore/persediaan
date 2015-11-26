@@ -21,13 +21,22 @@ class modelBarang extends mysql_db
 
 	public function tambahsubbrg($data)
 	{
-		$kd_brg = $data['kdbrg'];
+		$kode_rekening = $data['kode_rekening'];
 		$nm_brg = $data['nmbrg'];
+		$kd_brg = $data['kdbrg'];
 		$spesifikasi = $data['spesifikasi'];
 		$satuan = $data['satuan'];
+
+		$hsl = $this->query("select kd_perk, nm_perk from persediaan where kd_brg = '$kode_rekening' ");
+		$kd_rek = $this->fetch_array($hsl);
+		$kd_perk = $kd_rek['kd_perk'];
+		$nm_perk = $kd_rek['nm_perk'];
+
 		$query = "Insert into persediaan
         			set kd_brg='$kd_brg',
         			nm_brg='$nm_brg',
+        			kd_perk='$kd_perk',
+        			nm_perk='$nm_perk',
                     spesifikasi='$spesifikasi',
                     satuan='$satuan'";
         $result = $this->query($query);

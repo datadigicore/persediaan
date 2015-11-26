@@ -96,26 +96,26 @@
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script src="../dist/js/jquery.mask.js" ></script>
     <script type="text/javascript">
-      function cek_kode() {
+      // function cek_kode() {
       
-        var kdsskel = $('#kdbarang_no').val();
-        var kodebarang = $('#kdbarang').val();
+      //   var kdsskel = $('#kdbarang_no').val();
+      //   var kodebarang = $('#kdbarang').val();
 
-          $.ajax({
-            url: '../core/barang/prosesbarang',
-            type: 'POST',
-            data: {kdsskel:kdsskel, kodebarang:kodebarang, manage:'cekkode'},
-            dataType: "json",
-            success:function(data){
-              if(data.kd_brg!=null)
-              {
-                alert("Kode Barang "+kdsskel+"."+kodebarang+" sudah digunakan oleh barang "+data.nm_brg);
-                $('#kodebarang').val('');
-                return false;
-              }
-            }
-          });
-      }
+      //     $.ajax({
+      //       url: '../core/barang/prosesbarang',
+      //       type: 'POST',
+      //       data: {kdsskel:kdsskel, kodebarang:kodebarang, manage:'cekkode'},
+      //       dataType: "json",
+      //       success:function(data){
+      //         if(data.kd_brg!=null)
+      //         {
+      //           alert("Kode Barang "+kdsskel+"."+kodebarang+" sudah digunakan oleh barang "+data.nm_brg);
+      //           $('#kodebarang').val('');
+      //           return false;
+      //         }
+      //       }
+      //     });
+      // }
       $('#kdbarang').mask('999',{placeholder:"____"});
       var table;
       function myTable() {
@@ -342,25 +342,25 @@
         redirectTime = "1000";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
-        // $.ajax({
-        //   type: "post",
-        //   data: addData,
-        //   url : formURL,
-        //   contentType: false,
-        //   cache: false,  
-        //   processData: false,
-        //   success: function(data)
-        //   {
-        //     $("#success-alert").alert();
-        //     $("#success-alert").fadeTo(500, 500).slideUp(500, function(){
-        //     $("#success-alert").alert('close');
-        //     });
-        //     setTimeout("$('#myModal').modal('hide');",redirectTime);
-        //     $("#example1").DataTable().destroy();
-        //     $("#example1 tbody").empty();
-        //     myTable();
-        //   }
-        // });
+        $.ajax({
+          type: "post",
+          data: addData,
+          url : formURL,
+          contentType: false,
+          cache: false,  
+          processData: false,
+          success: function(data)
+          {
+            $("#success-alert").alert();
+            $("#success-alert").fadeTo(500, 500).slideUp(500, function(){
+            $("#success-alert").alert('close');
+            });
+            setTimeout("$('#myModal').modal('hide');",redirectTime);
+            $("#example1").DataTable().destroy();
+            $("#example1 tbody").empty();
+            myTable();
+          }
+        });
         return false;
         }
       });

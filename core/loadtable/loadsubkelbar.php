@@ -27,5 +27,5 @@ $sql_details = $config->sql_details();
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp.class.php' );
 echo json_encode(
-    SSP::simplewhere( $_GET, $sql_details, $table, $primaryKey, $columns, "g!='' ")
+    SSP::simplewhere( $_GET, $sql_details, $table, $primaryKey, $columns, "char_length(kd_brg)>17 ")
 ); 

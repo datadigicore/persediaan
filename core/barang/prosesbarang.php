@@ -59,6 +59,7 @@ else
 			$satuan = $purifier->purify($_POST['satuan']);
 			$data = array(
 				"kdbrg" => $kdbarang,
+				"kode_rekening" => $nokdbarang,
 				"nmbrg" => $nmbarang,
 				"spesifikasi" => $spesifikasi,
 				"satuan" => $satuan,
