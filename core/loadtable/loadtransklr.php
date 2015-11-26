@@ -17,7 +17,7 @@ $primaryKey = 'id';
 // Load Data berdasarkan nama table nya
 $columns = array(
     array( 'db' => 'id', 'dt' => 0 ),
-    array( 'db' => 'jns_trans', 'dt' => 1 ),
+    array( 'db' => 'jns_trans', 'dt' => 1,'formatter' => function($d,$row){if($d=="K01"){return "Habis Pakai";}elseif($d=="K02"){return "Transfer Keluar";}elseif($d=="K03"){return "Hibah Keluar";}elseif($d=="K04"){return "Usang";}else{return "Rusak";}} ),
     array( 'db' => 'no_dok', 'dt' => 2),
     array( 'db' => 'no_bukti', 'dt' => 3 ),
     array( 'db' => 'tgl_dok', 'dt' => 4, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),

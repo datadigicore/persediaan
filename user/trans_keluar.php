@@ -34,7 +34,7 @@
                             <select name="jenis_trans" id="jenis_trans" class="form-control">
                               <option value="">Pilih Jenis Transaksi</option>
                               <option value="K01">Habis Pakai</option>
-                              <option value="K02">Transfer Keluar</option>
+                              <!-- <option value="K02">Transfer Keluar</option> -->
                               <option value="K03">Hibah Keluar</option>
                               <option value="K04">Usang</option>
                               <option value="K05">Rusak</option>
