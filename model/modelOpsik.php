@@ -471,6 +471,12 @@ class modelOpsik extends mysql_db
         $this->query("BEGIN");
         $query_dok = "select kd_lokasi, tgl_dok, tgl_buku, no_dok, no_bukti, keterangan, jns_trans, keterangan from opname where no_dok='$no_dok'";
         $result_dok = $this->query($query_dok);
+        if($this->num_rows($result_dok)==0)
+        {
+            $this->query("ROLLBACK");
+            echo "Tidak Dapat Menambah  Opname / Seluruh Item Telah Dihapus, buat Dokumen Baru!";
+            exit();
+        }
         $dok = $this->fetch_array($result_dok);
 
         $kd_lokasi = $dok['kd_lokasi'];
