@@ -58,31 +58,30 @@
     <script type="text/javascript" src="dist/js/jquery-validate.bootstrap-tooltip.min.js"></script>
     <script src="plugins/select2/select2.full.min.js" type="text/javascript"></script>
     <script type="text/javascript">
+      var keyword = $('#username').val();
+      if ($('#username').val() != null) {
+        $.ajax({
+          url: 'core/login/proseslogin',
+          type: 'POST',
+          data: {keyword:keyword,manage:'check_tahun'},
+          success:function(data){
+             $('#thn_ang').html(data);
+          }
+        });
+      }
       function searchuser() {
-      
-        var keyword = $('#username').val();
-    
-          $.ajax({
-            url: 'core/login/proseslogin',
-            type: 'POST',
-            data: {keyword:keyword,manage:'check_tahun'},
-            success:function(data){
-               $('#thn_ang').html(data);
-            }
-          });
-         
+        $.ajax({
+          url: 'core/login/proseslogin',
+          type: 'POST',
+          data: {keyword:keyword,manage:'check_tahun'},
+          success:function(data){
+             $('#thn_ang').html(data);
+          }
+        });   
       }
       $(function () {
         $(".select2").select2();
       });
-      // $.ajax({
-      //     type: "post",
-      //     url: 'core/login/proseslogin',
-      //     data: {manage:'readtahun'},
-      //     success: function (output) {     
-      //       $('#thn_ang').html(output);
-      //     }
-      //   });
       (function($,W,D){
         var JQUERY4U = {};
         JQUERY4U.UTIL = {
