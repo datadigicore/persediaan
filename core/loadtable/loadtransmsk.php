@@ -17,7 +17,7 @@ $primaryKey = 'id';
 // Load Data berdasarkan nama table nya
 $columns = array(
     array( 'db' => 'id', 'dt' => 0 ),
-    array( 'db' => 'jns_trans', 'dt' => 1,'formatter' => function($d,$row){if($d=="M02"){return "Pembelian";}elseif($d=="M03"){return "Hibah Masuk";}elseif($d=="M04"){return "Perolehan Lainnya";}} ),
+    array( 'db' => 'jns_trans', 'dt' => 1,'formatter' => function($d,$row){if($d=="M01"){return "Saldo Awal";}elseif($d=="M02"){return "Pembelian";}elseif($d=="M03"){return "Hibah Masuk";}elseif($d=="M04"){return "Perolehan Lainnya";}} ),
     array( 'db' => 'no_dok', 'dt' => 2 ),
     array( 'db' => 'no_bukti', 'dt' => 3 ),
     array( 'db' => 'tgl_dok', 'dt' => 4, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
