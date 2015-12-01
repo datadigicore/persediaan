@@ -58,8 +58,8 @@
     <script type="text/javascript" src="dist/js/jquery-validate.bootstrap-tooltip.min.js"></script>
     <script src="plugins/select2/select2.full.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-      var keyword = $('#username').val();
       if ($('#username').val() != null) {
+        var keyword = $('#username').val();
         $.ajax({
           url: 'core/login/proseslogin',
           type: 'POST',
@@ -70,6 +70,7 @@
         });
       }
       function searchuser() {
+        var keyword = $('#username').val();
         $.ajax({
           url: 'core/login/proseslogin',
           type: 'POST',
