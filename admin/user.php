@@ -68,7 +68,7 @@
                 </div>  
                   <div class="box-body">
                     <div class="form-group" style="margin-top:15px;">
-                      <label class="col-sm-2 control-label">Kode Unit Satker</label>
+                      <label class="col-sm-2 control-label">Kode Satker</label>
                       <div class="col-sm-9">
                         <select name="kdunitgudang" id="kdunitgudang" class="form-control select2">
                           <option value="">-- Pilih Kode Satker--</option>
@@ -76,40 +76,40 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode Sektor</label>
+                      <label class="col-sm-2 control-label">Kode Bidang</label>
                       <div class="col-sm-2">
-                        <input type="text" name="kdsektor" class="form-control" id="kdsektor" placeholder="Kode Sektor" disabled>
+                        <input type="text" name="kdsektor" class="form-control" id="kdsektor" placeholder="Kode Bidang" disabled>
                         <input type="hidden" name="manage" value="adduser">
                       </div>
                       <div class="col-sm-7">
-                        <input type="text" name="ursektor" class="form-control" id="ursektor" placeholder="Uraian Kode Sektor" disabled>
+                        <input type="text" name="ursektor" class="form-control" id="ursektor" placeholder="Uraian Kode Bidang" disabled>
                       </div>
                     </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode Satker</label>
-                      <div class="col-sm-2">
-                        <input type="text" name="kdsatker" class="form-control" id="kdsatker" placeholder="Kode Satker" disabled>
-                      </div>
-                      <div class="col-sm-7">
-                        <input type="text" name="ursatker" class="form-control" id="ursatker" placeholder="Uraian Kode Satker" disabled>
-                      </div>
-                    </div>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode Unit</label>
                       <div class="col-sm-2">
-                        <input type="text" name="kdunit" class="form-control" id="kdunit" placeholder="Kode Unit" disabled>
+                        <input type="text" name="kdsatker" class="form-control" id="kdsatker" placeholder="Kode Unit" disabled>
                       </div>
                       <div class="col-sm-7">
-                        <input type="text" name="urunit" class="form-control" id="urunit" placeholder="Uraian Kode Unit" disabled>
+                        <input type="text" name="ursatker" class="form-control" id="ursatker" placeholder="Uraian Kode Unit" disabled>
+                      </div>
+                    </div>                    
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Kode Sub Unit</label>
+                      <div class="col-sm-2">
+                        <input type="text" name="kdunit" class="form-control" id="kdunit" placeholder="Kode Sub Unit" disabled>
+                      </div>
+                      <div class="col-sm-7">
+                        <input type="text" name="urunit" class="form-control" id="urunit" placeholder="Uraian Kode Sub Unit" disabled>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Gudang</label>
+                      <label class="col-sm-2 control-label">Kode UPB</label>
                       <div class="col-sm-2">
-                        <input type="text" name="kdgudang" class="form-control" id="kdgudang" placeholder="Kode Gudang" disabled>
+                        <input type="text" name="kdgudang" class="form-control" id="kdgudang" placeholder="Kode UPB" disabled>
                       </div>
                       <div class="col-sm-7">
-                        <input type="text" name="urgudang" class="form-control" id="urgudang" placeholder="Uraian Kode Gudang" disabled>
+                        <input type="text" name="urgudang" class="form-control" id="urgudang" placeholder="Uraian Kode UPB" disabled>
                         <input type="hidden" name="urgudangh" class="form-control" id="urgudangh">
                       </div>
                     </div>                    
