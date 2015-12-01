@@ -4,7 +4,7 @@
     <?php include("include/loadcss.php"); ?>
     <link href="../plugins/morris/morris.css" rel="stylesheet" type="text/css" />
   </head>
-  <body class="skin-blue layout-boxed">
+  <body class="skin-blue">
     <div class="wrapper">
       <?php include("include/header.php"); ?>
       <?php include("include/sidebar.php"); ?>

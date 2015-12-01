@@ -12,7 +12,7 @@ else {
     <link href="../dist/css/datepicker.css" rel="stylesheet" type="text/css" />
     
   </head>
-  <body class="skin-blue layout-boxed">
+  <body class="skin-blue">
     <div class="wrapper">
       <?php include("include/header.php"); ?>
       <?php include("include/sidebar.php"); ?>
