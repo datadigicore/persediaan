@@ -25,7 +25,7 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-success">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Export Konfigurasi SKPD</h3>
+                  <h3 class="box-title">Export Konfigurasi</h3>
                 </div>  
                 <form action="../core/konfig/proseskonfigurasi" method="post" class="form-horizontal" id="addkonfig">
                   <div class="box-body">
@@ -42,6 +42,31 @@
                       </div>
                       <div class="col-sm-3">
                         <select name="thntujuan" id="thntujuan" class="form-control select2">
+                          <option selected="selected">-- Pilih Tahun Tujuan --</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="box-footer">
+                    <button type="submit" class="btn btn-success pull-right">Export</button>
+                  </div>
+                </form>                
+
+                <form action="../core/konfig/proseskonfigurasi" method="post" class="form-horizontal" id="addkonfig2">
+                  <div class="box-body">
+                    <div class="form-group" style="margin-top:15px;">
+                      <label class="col-sm-3 control-label">Export User</label>
+                      <div class="col-sm-3">
+                        <input type="hidden" name="manage" value="exporttahun_user">
+                        <select name="thnawal" id="thnawal2" class="form-control select2">
+                          <option selected="selected">-- Pilih Tahun Awal --</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-1 control-label" style="margin-left:-42px;">
+                        <i class="fa fa-arrow-circle-right"></i>
+                      </div>
+                      <div class="col-sm-3">
+                        <select name="thntujuan" id="thntujuan2" class="form-control select2">
                           <option selected="selected">-- Pilih Tahun Tujuan --</option>
                         </select>
                       </div>
@@ -75,6 +100,8 @@
           success: function (output) {     
             $('#thnawal').html(output);
             $('#thntujuan').html(output);
+            $('#thnawal2').html(output);
+            $('#thntujuan2').html(output);
           }
         });
       });
@@ -165,6 +192,35 @@
         return false;
       });
       $('#addkonfig').submit(function(e){
+        $('#myModal').modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+        $('#myModal').modal('show');
+        e.preventDefault();
+        redirectTime = "2600";
+        redirectURL = "konfig";
+        var formURL = $(this).attr("action");
+        var addData = new FormData(this);
+        $.ajax({
+          type: "post",
+          data: addData,
+          url : formURL,
+          contentType: false,
+          cache: false,  
+          processData: false,
+          success: function(data)
+          {
+            $("#success-alert").alert();
+            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+            $("#success-alert").alert('close');
+            });
+            setTimeout("location.href = redirectURL;",redirectTime); 
+          }
+        });
+        return false;
+      });      
+      $('#addkonfig2').submit(function(e){
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
