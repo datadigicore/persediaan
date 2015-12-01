@@ -51,6 +51,15 @@ else
 				"thntujuan" => $thntujuan
 	    	);
 			$Konfig->exportkonfig($data);
+		break;		
+		case 'exporttahun_user':
+			$thnawal = $purifier->purify($_POST['thnawal']);
+			$thntujuan = $purifier->purify($_POST['thntujuan']);
+			$data = array(
+				"thnawal" => $thnawal,
+				"thntujuan" => $thntujuan
+	    	);
+			$Konfig->exportkonfig_user($data);
 		break;
 		case 'delkonfig':
 			$id = $purifier->purify($_POST['id']);

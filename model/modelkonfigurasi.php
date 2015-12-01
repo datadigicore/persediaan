@@ -94,7 +94,19 @@ class modelKonfigurasi extends mysql_db
         $result = $this->multi_query($query);
         return $result;
     }
-
+    public function exportkonfig_user($data)
+    {
+        $thnawal = $data['thnawal'];
+        $thntujuan = $data['thntujuan'];
+        $query = "CREATE TEMPORARY TABLE temporary_table SELECT * FROM user WHERE tahun = '$thnawal';";
+        $query1 = "UPDATE temporary_table SET tahun = '$thntujuan';";
+        $query2 = "INSERT INTO user SELECT null, user_name, user_pass, user_email, user_level, kd_lokasi, nm_satker, tahun,tutup_tahun FROM temporary_table;";
+        $query3 = "DROP TEMPORARY TABLE IF EXISTS temporary_table;";
+        $this->query($query);
+        $this->query($query1);
+        $this->query($query2);
+        $this->query($query3);
+    } 
     public function hapustahun($data)
     {
         $query = "delete from thn_aktif where id='$data'";
