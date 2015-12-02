@@ -336,6 +336,7 @@ else {
             $('#tgl_buku').val(output.tglbuku);
             $('#dissatker').val(output.satker);
             $('#distottrans').val(output.total);
+            $('#keterangan').val(output.keterangan);
           }
         });
         $.ajax({
