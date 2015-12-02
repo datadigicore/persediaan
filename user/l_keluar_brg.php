@@ -24,7 +24,7 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Laporan Buku Penerimaan Barang </h3>
+                  <h3 class="box-title">Laporan Buku Pengeluaran Barang </h3>
                 </div>  
                 <form action="../core/report/prosesreport" method="post" class="form-horizontal" >
                    <input type="hidden" name="manage" value="l_keluar_brg">  
