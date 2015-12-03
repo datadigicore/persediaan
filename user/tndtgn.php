@@ -23,7 +23,7 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Atasan Langsung </h3>
+                  <h3 class="box-title">Atasan Langsung Penyimpan Barang</h3>
                 </div>  
                 <form action="../core/tandatgn/prosestndatgn" method="post" class="form-horizontal" id="addtndatgn">
                   <div class="box-body">

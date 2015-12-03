@@ -109,7 +109,7 @@ class modelReport extends mysql_db
             $this->cetak_header($data,"buku_persediaan",$kd_lokasi,$kode_brg['kd_brg'],"");
             $this->get_query($data,"buku_persediaan",$kd_lokasi,$kode_brg['kd_brg'],"","");
             echo '<pagebreak />';
-            // $this->cetak_nama_pj($satker_asal);
+            // $this->cetak_nama_pj($kd_lokasi);
         }
         $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
         ob_end_clean();
@@ -150,7 +150,7 @@ class modelReport extends mysql_db
           $this->get_query($data_lp,"laporan_persediaan",$kd_lokasi2,"",$nm_satker,$no_urut);
         }
         echo '</table>';            
-        $this->cetak_nama_pj($satker_asal);
+        $this->cetak_nama_pj($kd_lokasi);
 
         $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
         ob_end_clean();
@@ -337,7 +337,7 @@ class modelReport extends mysql_db
                 {
                 echo '<pagebreak />';
                 }
-                $this->cetak_nama_pj($satker_asal);
+                $this->cetak_nama_pj($kd_lokasi);
 
                 // $this->hitung_brg_rusak($kd_lokasi);
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
@@ -389,7 +389,7 @@ class modelReport extends mysql_db
                 }
                 echo '</table>';
                    
-                $this->cetak_nama_pj($satker_asal);
+                $this->cetak_nama_pj($kd_lokasi);
                 $html = ob_get_contents();
                 ob_end_clean();
                 if($format=="excel"){
@@ -428,7 +428,7 @@ class modelReport extends mysql_db
                   // echo '<pagebreak />'; 
         }
         echo '</table>';
-        $this->cetak_nama_pj($satker_asal);
+        $this->cetak_nama_pj($kd_lokasi);
         $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
         ob_end_clean();
         if($format=="excel"){
@@ -468,7 +468,7 @@ class modelReport extends mysql_db
                 }
                 echo '</table>';
 
-                $this->cetak_nama_pj($satker_asal);
+                $this->cetak_nama_pj($kd_lokasi);
 
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
                 ob_end_clean();
@@ -527,7 +527,7 @@ class modelReport extends mysql_db
 
         $this->cetak_header($data,"penerimaan_brg",$kd_lokasi,"","");
         $this->get_query($data,"penerimaan_brg",$kd_lokasi,"",$nm_satker,"");
-        $this->cetak_nama_pj($satker_asal);
+        $this->cetak_nama_pj($kd_lokasi);
 
         $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
         ob_end_clean();
@@ -560,7 +560,7 @@ class modelReport extends mysql_db
 
         $this->cetak_header($data,"pengeluaran_brg",$kd_lokasi,"","");
         $this->get_query($data,"pengeluaran_brg",$kd_lokasi,"",$nm_satker,"");
-        $this->cetak_nama_pj($satker_asal);
+        $this->cetak_nama_pj($kd_lokasi);
         $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
         ob_end_clean();
         if($format=="excel") {
@@ -592,7 +592,7 @@ class modelReport extends mysql_db
         
         $this->cetak_header($data,"buku_brg_pakai_habis",$kd_lokasi,"","");
         $this->get_query($data,"buku_brg_pakai_habis",$kd_lokasi,"",$nm_satker,"");       
-        $this->cetak_nama_pj($satker_asal);
+        $this->cetak_nama_pj($kd_lokasi);
 
         $html = ob_get_contents(); 
         ob_end_clean();
@@ -663,7 +663,7 @@ class modelReport extends mysql_db
             echo '<pagebreak />';  
         }
 
-                $this->cetak_nama_pj($satker_asal);
+                $this->cetak_nama_pj($kd_lokasi);
 
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
                 ob_end_clean();
