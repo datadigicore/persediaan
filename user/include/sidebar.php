@@ -25,7 +25,8 @@
                 <li id="l_kartu_p_brg"><a href="l_kartu_p_brg"><span>Kartu Persediaan Barang</span></a></li>
                 <li id="l_pp_bph"><a href="l_pp_bph"><span>Penerimaan & Pengeluaran</span></a></li>
               </ul>
-            </li>           
+            </li>
+            <li id="opname"><a href="../documentation/PETUNJUK_PENGGUNAAN.pdf" download><i class="fa fa-download"></i> <span> Petunjuk Penggunaan</span></a></li>           
           </ul>
         </section>
       </aside>
