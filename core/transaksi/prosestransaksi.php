@@ -199,7 +199,7 @@ else
 			$user_id = $_SESSION['username'];
 			if ($kd_brg=="") 
 			{
-				$no_dok = $kd_lokasi.'.'.$purifier->purify($_POST['no_dok']);
+				$no_dok = $kd_lokasi.' - '.$purifier->purify($_POST['no_dok']);
 
 				$data = array(
 					"kd_lokasi" => $kd_lokasi,
@@ -306,7 +306,7 @@ else
 			$status = 0;
 			$user_id = $_SESSION['username'];
 			if ($kd_brg == "") {
-			$no_dok	= $satkernodok.'.'.$purifier->purify($_POST['no_dok']);
+			$no_dok	= $satkernodok.' - '.$purifier->purify($_POST['no_dok']);
 				$data = array(
 					"kd_lokasi" => $kd_lokasi,
 					// "kd_lok_msk" => $kd_lok_msk,

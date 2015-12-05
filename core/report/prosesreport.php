@@ -389,6 +389,7 @@ else
 						"kd_brg" => $kd_brg,
 						"tgl_akhir" => $tgl_akhir,
 						"kd_lokasi" => $kd_lokasi,
+						"semester" => $bln_akhir,
 						"satker_asal" => $satker_asal,
 						"user_id" => $user_id);
 			$Report->l_pp_bph($data);

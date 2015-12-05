@@ -87,7 +87,7 @@ class modelReport extends mysql_db
         if($kd_brg!=="all"){
             $where = " and kd_brg='$kd_brg' ";
         }
-        $list_brg = "SELECT kd_brg from transaksi_masuk where kd_lokasi='$kd_lokasi' ".$where." group by kd_brg";
+        $list_brg = "SELECT kd_brg from transaksi_masuk where kd_lokasi='$kd_lokasi' ".$where." group by kd_brg order by nm_brg asc";
         $kode = $this->query($list_brg);
         return $kode;
     }
@@ -687,6 +687,7 @@ class modelReport extends mysql_db
         ob_start(); 
         $this->cetak_header($data,"pp_brg_pakai_habis",$kd_lokasi,"","");
         $this->get_query($data,"pp_brg_pakai_habis",$kd_lokasi,"",$nm_satker,"");
+        $this->cetak_nama_pj($kd_lokasi);
         $mpdf=new mPDF('utf-8', 'A4-L');
         $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
         ob_end_clean(); 
@@ -881,7 +882,7 @@ class modelReport extends mysql_db
                         <td style= "vertical-align: centers;">BUKU PENERIMAAN BARANG</td>
                     </tr>
                     </table>';
-            $this->getsatker($kd_lokasi);
+            $this->getupb($kd_lokasi);
             echo '<table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90%; " border=1 align="center">
                     <tr >
                         <td rowspan="2" >No</td>
@@ -917,7 +918,7 @@ class modelReport extends mysql_db
                     </table>
 
                     ';  
-            $this->getsatker($kd_lokasi);
+            $this->getupb($kd_lokasi);
             
             echo '   
                     <table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% " border=1 align="center">
@@ -949,7 +950,7 @@ class modelReport extends mysql_db
                     </table>
 
                     ';   
-            $this->getsatker($kd_lokasi);               
+            $this->getupb($kd_lokasi);               
            
             echo  '<table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% " border=1 align="center">
                    <tr>
@@ -999,7 +1000,7 @@ class modelReport extends mysql_db
 
                     ';   
         
-            $this->getsatker($kd_lokasi);
+            $this->getupb($kd_lokasi);
             
             echo '  <table style="width: 100%; font-size:90%;"  >               
                     <tr>
@@ -1036,22 +1037,27 @@ class modelReport extends mysql_db
                             </table>
 
                             ';   
-                    $this->getsatker($kd_lokasi);
+                    $this->getupb($kd_lokasi);
                     $detail_brg = "SELECT nm_sskel, nm_brg, satuan,spesifikasi from persediaan where  kd_brg='$kd_brg' ";
                     $result_detail = $this->query($detail_brg);
                     $brg = $this->fetch_array($result_detail);
                     echo '        <table style=" width: 100%; font-size:90%;"  >               
                             <tr>
-                                <td align="left">Gudang :'.'............'.'</td>
+                                <td align="left">Gudang </td>
+                                <td  align="left">'.' : '.'</td>
                             </tr>                   
                             <tr>
-                                <td align="left">Nama Barang :'.$brg['nm_brg'].'</td>
-                                <td align="right">Kartu No: '.'............'.'</td>
+                                <td align="left">Nama Barang</td>
+                                <td align="left">:'.$brg['nm_brg'].'</td>
+                                <td align="right">Kartu No</td>
+                                <td align="left">: '.''.'</td>
                             </tr>                
                             <tr>
                                
-                                <td align="left">Satuan :'.$brg['satuan'].'</td>
-                                <td align="right">Spesifikasi :'.$brg['spesifikasi'].'</td>
+                                <td align="left">Satuan </td>
+                                <td align="left">:'.$brg['satuan'].'</td>
+                                <td align="right">Spesifikasi </td>
+                                <td align="left">:'.$brg['spesifikasi'].'</td>
                             </tr>
                             </table>';
                         echo    '<table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% " border=1 align="center">
@@ -1078,18 +1084,19 @@ class modelReport extends mysql_db
          
         }
         elseif($nm_lap=="pp_brg_pakai_habis"){
+            if($data['semester']=="06"){ $smt="I"; } else{ $smt="II"; }
             echo '<table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-weight:bold; font-size:0.9em; "  align="center">
                 <tr>
                     <td rowspan="2" width="5%"><img src="../../dist/img/pekalongan2.png" alt="Pekalongan" height="8%" /></td>
-                    <td style= "vertical-align: bottom;">LAPORAN SEMESTER TTG PENERIMAAN DAN PENGELUARAN BARANG PAKAI HABIS</td>
+                    <td style= "vertical-align: bottom;">LAPORAN SEMESTER TENTANG PENERIMAAN DAN PENGELUARAN BARANG PAKAI HABIS</td>
                 </tr>
                 <tr>
-                    <td style= "vertical-align: top;">SEMESTER '.'..... TAHUN '.$thn_ang.'</td>
+                    <td style= "vertical-align: top;">SEMESTER '.$smt.' TAHUN '.$thn_ang.'</td>
                 </tr>
 
                 </table>
                 ';   
-            $this->getsatker($kd_lokasi);
+            $this->getupb($kd_lokasi);
             echo '<table style="text-align:center;  white-space: nowrap; border-collapse: collapse; margin-left: word-break:break-all; auto; margin-right: auto; width: 100%; font-size:80%;" border=1 align="center" >
                         <tr>
                             <td rowspan="3" >NO</td>
@@ -1155,7 +1162,7 @@ class modelReport extends mysql_db
 
             }
             elseif($jenis=="tanggal"){
-                $kriteria = "and tgl_dok >= '$tgl_awal' AND tgl_dok < '$tgl_akhir' ";
+                $kriteria = "and tgl_dok >= '$tgl_awal' AND tgl_dok <= '$tgl_akhir' ";
                 $sblm_kriteria = "and tgl_dok < '$tgl_awal' ";
             
             }        
@@ -1318,14 +1325,14 @@ class modelReport extends mysql_db
 
             }   
             elseif($nm_lap=="kartu_p_brg"){
-                    $sql="SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                    $sql="SELECT id,no_bukti, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
                                     FROM transaksi_masuk 
                                     where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
                                      AND kd_brg='$kd_brg' 
                                      and kd_lokasi ='$kd_lokasi'   
                                      AND thn_ang='$thn_ang'
                                      union all 
-                                     SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
+                                     SELECT id, no_bukti, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
                                      FROM transaksi_keluar 
                                      where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
                                      AND kd_brg='$kd_brg' 
@@ -1977,7 +1984,7 @@ class modelReport extends mysql_db
                         $saldo +=  ($data[qty]*$data[harga_sat]);
                         echo'<tr>
                         <center><td  align="center">'.$no.'</td></center>
-                        <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_dok]).'</td></center>
+                        <center><td  align="center">'.$data[no_bukti]." / ".$this->tgl_buku_sedia($data[tgl_dok]).'</td></center>
                         <center><td  align="center">'.$data[keterangan].'</td></center>
 
                         ';
@@ -2143,6 +2150,30 @@ class modelReport extends mysql_db
                     </xml><![endif]-->'; 
                 echo $html;
          }
+public function getupb($kd_lokasi){
+    $query_upb = "SELECT NamaSatker from satker where kode='$kd_lokasi'";
+    $result_upb = $this->query($query_upb);
+    $data_upb = $this->fetch_array($result_upb);
+    $nama_upb = $data_upb['NamaSatker'];
+        echo '<table style="text-align: left; width: 70%; font-size:80%;" >';
+        echo  '<tr>
+                    <td style="font-weight:bold">SKPD</td>
+                    <td>'.':  '.$nama_upb.'</td>
+               </tr>';
+        echo  '<tr>
+                    <td style="font-weight:bold">Provinsi</td>
+                    <td>'.':  '.'PROVINSI JAWA TENGAH'.'</td>
+               </tr>';
+        echo  ' 
+                    <tr>
+                        <td style="font-weight:bold">Kabupaten / Kota</td>
+                        <td>'.':  '.' '.'KOTA PEKALONGAN'.'</td>
+                    </tr>'; 
+        
+        echo '</table>';
+        echo '<br></br>';
+
+}
 
     public function getsatker($kd_lokasi)
     {

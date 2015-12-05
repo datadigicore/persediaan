@@ -48,7 +48,7 @@ else
 			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
 
-			$no_dok = $kd_lokasi.$purifier->purify($_POST['no_dok']);
+			$no_dok = $kd_lokasi.' - '.$purifier->purify($_POST['no_dok']);
 			$no_bukti = null;
 			// $tgl_dok = $Opsik->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
 			// $tgl_buku = $Opsik->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
