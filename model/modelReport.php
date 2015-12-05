@@ -353,7 +353,7 @@ class modelReport extends mysql_db
                 return "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' and char_length(kode)=11 order by kode asc";
             }
             else if($lingkup=="skpd"){
-                return "SELECT kode, NamaSatker FROM satker group by KodeSektor order by kode asc";
+                return "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' and char_length(kode)=5 order by kode asc";
             }
             else if($lingkup=="kota"){
                 return "SELECT kd_lokasi from user where kd_lokasi is null limit 1";
