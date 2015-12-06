@@ -319,7 +319,7 @@
         jns_trans_row = row.data()[1];
         gab_row = row.data()[2];
         kdsatker_row = gab_row.substring(0,11);
-        nodok_row = gab_row.substring(12,20);
+        nodok_row = gab_row.substring(14,20);
         tgl_dok_row = row.data()[4];
         tgl_buku_row = row.data()[5];
         keterangan_row = row.data()[6];

@@ -319,25 +319,12 @@ class modelTransaksi extends mysql_db
         $tgl_buku = $data['tgl_buku'];
         $no_bukti = $data['no_bukti'];
         $jns_trans = $data['jns_trans'];
-        // $kd_brg = $data['kd_brg'];
-        // $nm_brg = $data['nm_brg'];
-        // $satuan = $data['satuan'];
-        // $kuantitas = $data['kuantitas'];
-        // $harga_sat = $data['harga_sat'];
-        // $total_harga = $kuantitas*$harga_sat;
+
         $keterangan = $data['keterangan'];
         $status = $data['status'];
         $user_id = $data['user_id'];
 
-        // $query_perk = "SELECT nm_sskel, kd_perk, nm_perk from persediaan where kd_brg='$kd_brg' and kd_lokasi like '$kd_lokasi%' ";
-        
-        // $result_perk = $this->query($query_perk);
-        // $data_perk = $this->fetch_array($result_perk);
-        // $kd_sskel = $data_perk['kd_brg'];
-        // $nm_sskel = $data_perk['nm_sskel'];
-        // $kd_perk = $data_perk['kd_perk'];
-        // $nm_perk = $data_perk['nm_perk'];
-
+       if($no_dok=="" || $kd_lokasi=="") exit;
 // Memasukan Data Transaksi Masuk ke tabel Transaksi Masuk        
         $query = "Insert into transaksi_masuk
                     set kd_lokasi='$kd_lokasi',
@@ -433,6 +420,8 @@ class modelTransaksi extends mysql_db
 
         $status = $data['status'];
         $user_id = $data['user_id'];
+
+        if($no_dok=="" || $kd_lokasi=="") exit;
 
         // $query_perk = "SELECT nm_sskel, kd_perk, nm_perk from persediaan where kd_brg='$kd_brg' ";
         

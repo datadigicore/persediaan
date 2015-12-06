@@ -407,7 +407,7 @@ else
 			$kd_lokasi = $purifier->purify($_POST['kd_satker']);
 			$kd_trans = $purifier->purify($_POST['jns_trans_baru']);
 			$thn_ang = $_SESSION['thn_ang'];
-			$no_dok = $kd_lokasi.'.'.$purifier->purify($_POST['nodok_baru']);
+			$no_dok = $kd_lokasi.' - '.$purifier->purify($_POST['nodok_baru']);
 			$no_dok_lama = $purifier->purify($_POST['no_dok_lama']);
 			$no_bukti = $purifier->purify($_POST['nodok_baru']);
 			$keterangan = $purifier->purify($_POST['ket_baru']);
@@ -434,7 +434,7 @@ else
 			$kd_lokasi = $purifier->purify($_POST['kd_satker']);
 			$kd_trans = $purifier->purify($_POST['jns_trans_baru']);
 			$thn_ang = $_SESSION['thn_ang'];
-			$no_dok = $kd_lokasi.'.'.$purifier->purify($_POST['nodok_baru']);
+			$no_dok = $kd_lokasi.' - '.$purifier->purify($_POST['nodok_baru']);
 			$no_dok_lama = $purifier->purify($_POST['no_dok_lama']);
 			$no_bukti = $purifier->purify($_POST['nodok_baru']);
 			$keterangan = $purifier->purify($_POST['ket_baru']);

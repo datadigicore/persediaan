@@ -13,10 +13,9 @@ class modelOpsik extends mysql_db
         //mnghapus hasil opname di transaksi masuk
         $query_msk = "select * from transaksi_masuk WHERE id_opname='$id_opname' and jns_trans='P01' ";
         $result_msk = $this->query($query_msk);
-        $row_id = $this->fetch_array($result_msk);
         if (mysqli_num_rows($result_msk) != 0)
         {
-           
+            while($row_id = $this->fetch_array($result_msk)){
             $kd_lokasi=$row_id['kd_lokasi'];
             $nm_satker = $row_id['nm_satker'];
             $thn_ang = $row_id['thn_ang'];
@@ -40,14 +39,6 @@ class modelOpsik extends mysql_db
             $total_harga = -1 * $row_id['total_harga'];
 
             echo "Masuk kesini";
-            $query_hps_msk = "delete from transaksi_masuk where id_opname='$id_opname' and jns_trans='P01' ";
-            $result_hps_msk = $this->query($query_hps_msk);
-
-            $query_ubah_msk = "update transaksi_masuk set status=0, id_opname=null where  id_opname='$id_opname' and status=1 ";
-            $result_ubah = $this->query($query_ubah_msk);
-
-            $query_ubah_klr = "update transaksi_keluar set status=0, id_opname=0 where  id_opname='$id_opname' and status=1 ";
-            $result_ubah_klr = $this->query($query_ubah_klr);
 
 
 
@@ -84,10 +75,18 @@ class modelOpsik extends mysql_db
                     status='0',
                     tgl_update=NOW(),
                     user_id='$user_id'";   
-                $result_full = $this->query($query_full);   
+                    $this->query($query_full);   
 
 
+            }
+            $query_hps_msk = "delete from transaksi_masuk where id_opname='$id_opname' and jns_trans='P01' ";
+            $this->query($query_hps_msk);
 
+            $query_ubah_msk = "update transaksi_masuk set status=0, id_opname=null where  id_opname='$id_opname' and status=1 ";
+            $this->query($query_ubah_msk);
+
+            $query_ubah_klr = "update transaksi_keluar set status=0, id_opname=0 where  id_opname='$id_opname' and status=1 ";
+            $this->query($query_ubah_klr);
         }        
         else
         {
@@ -229,7 +228,7 @@ class modelOpsik extends mysql_db
         $status = $data['status'];
         $user_id = $data['user_id'];
 
-
+         if($no_dok=="" || $kd_lokasi=="") exit;
         // Memasukan Data Transaksi Masuk ke tabel Transaksi Masuk        
         $query = "Insert into opname
                     set kd_lokasi='$kd_lokasi',
@@ -434,71 +433,215 @@ class modelOpsik extends mysql_db
         if($selisih>0)
         {
             
-            $query_masuk = "Insert into transaksi_masuk
-                    set 
-                    kd_lokasi='$kd_lokasi',
-                    kd_lok_msk='',
-                    id_opname='$id_opname',
-                    nm_satker='$nm_satker',
-                    thn_ang='$thn_ang',
-                    no_dok='$no_dok',
-                    tgl_dok='$tgl_dok',
-                    tgl_buku='$tgl_buku',
-                    no_bukti='$no_bukti',
-                    jns_trans='P01',
-                    kd_sskel='$kd_sskel',
-                    nm_sskel='$nm_sskel',
-                    kd_brg='$kd_brg',
-                    nm_brg='$nm_brg',
-                    spesifikasi='$spesifikasi',
-                    kd_perk='$kd_perk',
-                    nm_perk='$nm_perk',
-                    satuan='$satuan',
-                    qty='$selisih',
-                    qty_akhir='$selisih',
-                    harga_sat='$hrg_sat',
-                    total_harga='$selisih_total_harga',
-                    keterangan='$keterangan',
-                    status='1',
-                    tgl_update=CURDATE(),
-                    user_id='$user_id'";   
-            $result_masuk = $this->query($query_masuk);
-        
-        // $query_id = "select id from transaksi_masuk WHERE kd_brg='$kd_brg' and qty='$selisih' and kd_lokasi='$kd_lokasi' and no_dok='$no_dok' order by ID DESC LIMIT 1";
-        // $result_id = $this->query($query_id);
-        // $row_id = $this->fetch_array($result_id);
-        $id_trans = $this->insert_id();
-        
-            $query_full = "Insert into transaksi_full
-                    set 
-                    kd_lokasi='$kd_lokasi',
-                    kd_lok_msk='',
-                    id_opname='$id_opname',
-                    id_masuk='$id_trans',
-                    nm_satker='$nm_satker',
-                    thn_ang='$thn_ang',
-                    no_dok='$no_dok',
-                    tgl_dok='$tgl_dok',
-                    tgl_buku='$tgl_buku',
-                    no_bukti='$no_bukti',
-                    jns_trans='P01',
-                    kd_sskel='$kd_sskel',
-                    nm_sskel='$nm_sskel',
-                    kd_brg='$kd_brg',
-                    nm_brg='$nm_brg',
-                    spesifikasi='$spesifikasi',
-                    kd_perk='$kd_perk',
-                    nm_perk='$nm_perk',
-                    satuan='$satuan',
-                    qty='$selisih',
-                    
-                    harga_sat='$hrg_sat',
-                    total_harga='$selisih_total_harga',
-                    keterangan='$keterangan',
-                    status='1',
-                    tgl_update=NOW(),
-                    user_id='$user_id'";   
-            $result_full = $this->query($query_full);
+                $qty_lebih = $selisih;
+                $query_id = "select id, id_opname, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, satuan, kd_perk, nm_perk, qty, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang'  order by tgl_dok asc,id asc ";     
+                $result_id = $this->query($query_id);
+                while($row_id = $this->fetch_array($result_id))
+                {
+                    $id_trans_m = $row_id['id'];   
+                    $qty_akhir = $row_id['qty'];      
+                    $harga_sat = $row_id['harga_sat'];
+                    if($qty_lebih<=$qty_akhir) 
+                    {
+                        $total_harga = $qty_lebih * $harga_sat;
+                        $query_masuk = "Insert into transaksi_masuk
+                                            set 
+                                            kd_lokasi='$kd_lokasi',
+                                            kd_lok_msk='',
+                                            id_opname='$id_opname',
+                                            nm_satker='$nm_satker',
+                                            thn_ang='$thn_ang',
+                                            no_dok='$no_dok',
+                                            tgl_dok='$tgl_dok',
+                                            tgl_buku='$tgl_buku',
+                                            no_bukti='$no_bukti',
+                                            jns_trans='P01',
+                                            kd_sskel='$kd_sskel',
+                                            nm_sskel='$nm_sskel',
+                                            kd_brg='$kd_brg',
+                                            nm_brg='$nm_brg',
+                                            spesifikasi='$spesifikasi',
+                                            kd_perk='$kd_perk',
+                                            nm_perk='$nm_perk',
+                                            satuan='$satuan',
+                                            qty='$qty_lebih',
+                                            qty_akhir='$qty_lebih',
+                                            harga_sat='$harga_sat',
+                                            total_harga='$total_harga',
+                                            keterangan='jika kurang dari DB',
+                                            status='1',
+                                            tgl_update=CURDATE(),
+                                            user_id='$user_id'";   
+                            $result_masuk = $this->query($query_masuk);
+                                
+                            $id_trans = $this->insert_id();
+                                
+                            $query_full = "Insert into transaksi_full
+                                            set 
+                                            kd_lokasi='$kd_lokasi',
+                                            kd_lok_msk='',
+                                            id_opname='$id_opname',
+                                            id_masuk='$id_trans',
+                                            nm_satker='$nm_satker',
+                                            thn_ang='$thn_ang',
+                                            no_dok='$no_dok',
+                                            tgl_dok='$tgl_dok',
+                                            tgl_buku='$tgl_buku',
+                                            no_bukti='$no_bukti',
+                                            jns_trans='P01',
+                                            kd_sskel='$kd_sskel',
+                                            nm_sskel='$nm_sskel',
+                                            kd_brg='$kd_brg',
+                                            nm_brg='$nm_brg',
+                                            spesifikasi='$spesifikasi',
+                                            kd_perk='$kd_perk',
+                                            nm_perk='$nm_perk',
+                                            satuan='$satuan',
+                                            qty='$qty_lebih',
+                                            
+                                            harga_sat='$harga_sat',
+                                            total_harga='$total_harga',
+                                            keterangan='$keterangan',
+                                            status='1',
+                                            tgl_update=NOW(),
+                                            user_id='$user_id'";   
+                                    $result_full = $this->query($query_full);
+                                    $qty_lebih = 0;
+                                    break;
+                    }
+                        $total_harga = $qty_akhir * $harga_sat;
+                        $query_masuk = "Insert into transaksi_masuk
+                                            set 
+                                            kd_lokasi='$kd_lokasi',
+                                            kd_lok_msk='',
+                                            id_opname='$id_opname',
+                                            nm_satker='$nm_satker',
+                                            thn_ang='$thn_ang',
+                                            no_dok='$no_dok',
+                                            tgl_dok='$tgl_dok',
+                                            tgl_buku='$tgl_buku',
+                                            no_bukti='$no_bukti',
+                                            jns_trans='P01',
+                                            kd_sskel='$kd_sskel',
+                                            nm_sskel='$nm_sskel',
+                                            kd_brg='$kd_brg',
+                                            nm_brg='$nm_brg',
+                                            spesifikasi='$spesifikasi',
+                                            kd_perk='$kd_perk',
+                                            nm_perk='$nm_perk',
+                                            satuan='$satuan',
+                                            qty='$qty_akhir',
+                                            qty_akhir='$qty_akhir',
+                                            harga_sat='$harga_sat',
+                                            total_harga='$total_harga',
+                                            keterangan='Leboh dari qty',
+                                            status='1',
+                                            tgl_update=CURDATE(),
+                                            user_id='$user_id'";   
+                            $result_masuk = $this->query($query_masuk);
+                                
+                            $id_trans = $this->insert_id();
+                                
+                            $query_full = "Insert into transaksi_full
+                                            set 
+                                            kd_lokasi='$kd_lokasi',
+                                            kd_lok_msk='',
+                                            id_opname='$id_opname',
+                                            id_masuk='$id_trans',
+                                            nm_satker='$nm_satker',
+                                            thn_ang='$thn_ang',
+                                            no_dok='$no_dok',
+                                            tgl_dok='$tgl_dok',
+                                            tgl_buku='$tgl_buku',
+                                            no_bukti='$no_bukti',
+                                            jns_trans='P01',
+                                            kd_sskel='$kd_sskel',
+                                            nm_sskel='$nm_sskel',
+                                            kd_brg='$kd_brg',
+                                            nm_brg='$nm_brg',
+                                            spesifikasi='$spesifikasi',
+                                            kd_perk='$kd_perk',
+                                            nm_perk='$nm_perk',
+                                            satuan='$satuan',
+                                            qty='$qty_akhir',
+                                            
+                                            harga_sat='$harga_sat',
+                                            total_harga='$total_harga',
+                                            keterangan='$keterangan',
+                                            status='1',
+                                            tgl_update=NOW(),
+                                            user_id='$user_id'";   
+                                    $result_full = $this->query($query_full);
+                                    $qty_lebih = $qty_lebih-$qty_akhir;
+                                    continue;
+                        }
+                if($qty_lebih>0){
+                    $total_harga = $qty_lebih * $harga_sat;
+                        $query_masuk = "Insert into transaksi_masuk
+                                            set 
+                                            kd_lokasi='$kd_lokasi',
+                                            kd_lok_msk='',
+                                            id_opname='$id_opname',
+                                            nm_satker='$nm_satker',
+                                            thn_ang='$thn_ang',
+                                            no_dok='$no_dok',
+                                            tgl_dok='$tgl_dok',
+                                            tgl_buku='$tgl_buku',
+                                            no_bukti='$no_bukti',
+                                            jns_trans='P01',
+                                            kd_sskel='$kd_sskel',
+                                            nm_sskel='$nm_sskel',
+                                            kd_brg='$kd_brg',
+                                            nm_brg='$nm_brg',
+                                            spesifikasi='$spesifikasi',
+                                            kd_perk='$kd_perk',
+                                            nm_perk='$nm_perk',
+                                            satuan='$satuan',
+                                            qty='$qty_lebih',
+                                            qty_akhir='$qty_lebih',
+                                            harga_sat='$harga_sat',
+                                            total_harga='$total_harga',
+                                            keterangan='Lewat Dari Query',
+                                            status='1',
+                                            tgl_update=CURDATE(),
+                                            user_id='$user_id'";   
+                            $result_masuk = $this->query($query_masuk);
+                                
+                            $id_trans = $this->insert_id();
+                                
+                            $query_full = "Insert into transaksi_full
+                                            set 
+                                            kd_lokasi='$kd_lokasi',
+                                            kd_lok_msk='',
+                                            id_opname='$id_opname',
+                                            id_masuk='$id_trans',
+                                            nm_satker='$nm_satker',
+                                            thn_ang='$thn_ang',
+                                            no_dok='$no_dok',
+                                            tgl_dok='$tgl_dok',
+                                            tgl_buku='$tgl_buku',
+                                            no_bukti='$no_bukti',
+                                            jns_trans='P01',
+                                            kd_sskel='$kd_sskel',
+                                            nm_sskel='$nm_sskel',
+                                            kd_brg='$kd_brg',
+                                            nm_brg='$nm_brg',
+                                            spesifikasi='$spesifikasi',
+                                            kd_perk='$kd_perk',
+                                            nm_perk='$nm_perk',
+                                            satuan='$satuan',
+                                            qty='$qty_lebih',
+                                            
+                                            harga_sat='$harga_sat',
+                                            total_harga='$total_harga',
+                                            keterangan='$keterangan',
+                                            status='1',
+                                            tgl_update=NOW(),
+                                            user_id='$user_id'";   
+                                    $result_full = $this->query($query_full);
+
+
+                }
         }
         if($selisih<0) 
         {
