@@ -468,7 +468,7 @@ class modelOpsik extends mysql_db
                                             qty_akhir='$qty_lebih',
                                             harga_sat='$harga_sat',
                                             total_harga='$total_harga',
-                                            keterangan='jika kurang dari DB',
+                                            keterangan='$keterangan',
                                             status='1',
                                             tgl_update=CURDATE(),
                                             user_id='$user_id'";   
@@ -534,7 +534,7 @@ class modelOpsik extends mysql_db
                                             qty_akhir='$qty_akhir',
                                             harga_sat='$harga_sat',
                                             total_harga='$total_harga',
-                                            keterangan='Leboh dari qty',
+                                            keterangan='$keterangan',
                                             status='1',
                                             tgl_update=CURDATE(),
                                             user_id='$user_id'";   
@@ -601,7 +601,7 @@ class modelOpsik extends mysql_db
                                             qty_akhir='$qty_lebih',
                                             harga_sat='$harga_sat',
                                             total_harga='$total_harga',
-                                            keterangan='Lewat Dari Query',
+                                            keterangan='$keterangan',
                                             status='1',
                                             tgl_update=CURDATE(),
                                             user_id='$user_id'";   

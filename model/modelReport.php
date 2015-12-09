@@ -697,6 +697,119 @@ class modelReport extends mysql_db
 
     }
 
+    public function ba_opname($data){
+
+        $jenis = $data['jenis'];
+        $thn_ang = $data['thn_ang'];
+        $kd_lokasi = $data['kd_lokasi'];
+        $bln_awal = $data['bln_awal'];
+        $bln_akhir = $data['bln_akhir'];
+        $date = $this->cek_periode($data);
+        $satker_asal = $data['satker_asal'];
+        $query = "SELECT kd_sskel,nm_sskel, satuan, avg(harga_sat) as harga_sat, concat(nm_brg,' ',spesifikasi) as nm_brg, 
+                    sum(case WHEN jns_trans in('M01','M01I') THEN qty else 0 end)  as qty_awal,
+                    sum(case WHEN jns_trans in('M01','M01I') THEN total_harga else 0 end)  as saldo_awal,
+                    sum(case WHEN jns_trans not in('M01','M01I') THEN qty else 0 end)  as qty_masuk,
+                    sum(case WHEN jns_trans not in('M01','M01I') THEN total_harga else 0 end)  as nilai_masuk,
+                    sum(qty-qty_akhir)  as qty_keluar,
+                    sum((qty-qty_akhir)*harga_sat)  as nilai_keuar
+                    from transaksi_masuk 
+                    where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir'
+                    group by kd_brg ORDER BY kd_sskel asc, nm_brg asc";
+
+      
+
+        ob_start(); 
+        echo '<table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border=1 align="center">
+          <tr>
+            <th rowspan="2">NO</th>
+            <th rowspan="2">JENIS BARANG</th>
+            <th rowspan="2">SATUAN</th>
+            <th colspan="3">SALDO AWAL</th>
+            <th colspan="3">JUMLAH PENERIMAAN/PENGADAAN BARANG</th>
+            <th colspan="3">JUMLAH PENGELUARAN BARANG</th>
+            <th colspan="3">SALDO AKHIR / SISA</th>
+          </tr>
+          <tr>
+            <td>Banyaknya</td>
+            <td>Harga Satuan</td>
+            <td>Jumlah Harga</td>
+            <td>Banyaknya</td>
+            <td>Harga Satuan</td>
+            <td>Jumlah Harga</td>
+            <td>Banyaknya</td>
+            <td>Harga Satuan</td>
+            <td>Jumlah Harga</td>
+            <td>Banyaknya</td>
+            <td>Harga Satuan</td>
+            <td>Jumlah Harga</td>
+          </tr>
+        ';
+        $result = $this->query($query);
+            $no=0;
+            $total_thn_lalu=0;
+            $total_akumulasi=0;
+            $prev_sskel=null;
+            $prev_sskel_jml=null;
+            $kd_rek=null;
+
+            while($data=$this->fetch_assoc($result)){
+                $jumlah_saldo_awal = $data[qty_awal];
+                $jumlah_masuk = $data[qty_masuk];
+                $jumlah_keluar = $data[qty_keluar];
+
+                $nilai_saldo_awal = $data[saldo_awal];
+                $nilai_masuk = $data[nilai_masuk];
+                $nilai_keluar = $data[nilai_keuar];
+                $kd_sskel = substr($data['kd_sskel'],0,14);
+                $qty_sisa = $jumlah_saldo_awal+$jumlah_masuk-$jumlah_keluar;
+                $nilai_sisa = $nilai_saldo_awal+$nilai_masuk-$nilai_keluar;
+                if($prev_sskel!==substr($data['kd_sskel'],0,14)){
+                    $no+=1;
+                   echo '<tr>
+                            <td>'.$no.'</td>
+                            <td colspan="14">s</td>
+                        </tr>'; 
+                        $prev_sskel=$kd_sskel;
+                }
+                echo '<tr>
+                        <td></td>
+                        <td>'.$data['nm_brg'].'</td>
+                        <td>'.$data['satuan'].'</td>
+                        <td>'.$data['qty_awal'].'</td>
+                        <td>'.number_format($data['harga_sat'],0,",",".").'</td>
+                        <td>'.number_format($data['saldo_awal'],0,",",".").'</td>
+                        <td>'.$data['qty_masuk'].'</td>
+                        <td>'.number_format($data['harga_sat'],0,",",".").'</td>
+                        <td>'.number_format($data['nilai_masuk'],0,",",".").'</td>
+                         <td>'.$data['qty_keluar'].'</td>
+                        <td>'.number_format($data['harga_sat'],0,",",".").'</td>
+                        <td>'.number_format($data['nilai_keuar'],0,",",".").'</td>
+                         <td>'.$qty_sisa.'</td>
+                        <td>'.number_format($data['harga_sat'],0,",",".").'</td>
+                        <td>'.number_format($nilai_sisa,0,",",".").'</td>
+                        </tr>';
+                if($prev_sskel_jml==substr($data['kd_sskel'],0,14)&&$prev_sskel==substr($data['kd_sskel'],0,14)){
+                    continue;
+                }
+                                echo '<tr>
+                            <td>'."JUMLAH".'</td>
+                            <td colspan="14">s</td>
+                            </tr>'; 
+                $prev_sskel_jml=substr($data['kd_sskel'],0,14);
+        }
+          echo '</table>';
+
+        $mpdf=new mPDF('utf-8', 'A4-L');
+        $html = ob_get_contents();
+        ob_end_clean(); 
+        $mpdf->WriteHTML(utf8_encode($html));
+        $mpdf->Output("BA_OPNAME" ,'I');
+        exit;
+
+
+    }
+
     public function cetak_header($data,$nm_lap,$kd_lokasi,$kd_brg, $inc){
             // $kd_lokasi = $data['kd_lokasi'];
             $thn_ang = $data['thn_ang'];
