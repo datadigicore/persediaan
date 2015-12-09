@@ -706,7 +706,7 @@ class modelReport extends mysql_db
         $bln_akhir = $data['bln_akhir'];
         $date = $this->cek_periode($data);
         $satker_asal = $data['satker_asal'];
-        $query = "SELECT kd_sskel,nm_sskel, satuan, avg(harga_sat) as harga_sat, concat(nm_brg,' ',spesifikasi) as nm_brg, 
+        $query = "SELECT kd_perk,nm_perk, satuan, avg(harga_sat) as harga_sat, concat(nm_brg,' ',spesifikasi) as nm_brg, 
                     sum(case WHEN jns_trans in('M01','M01I') THEN qty else 0 end)  as qty_awal,
                     sum(case WHEN jns_trans in('M01','M01I') THEN total_harga else 0 end)  as saldo_awal,
                     sum(case WHEN jns_trans not in('M01','M01I') THEN qty else 0 end)  as qty_masuk,
@@ -715,15 +715,30 @@ class modelReport extends mysql_db
                     sum((qty-qty_akhir)*harga_sat)  as nilai_keuar
                     from transaksi_masuk 
                     where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir'
-                    group by kd_brg ORDER BY kd_sskel asc, nm_brg asc";
+                    group by kd_brg ORDER BY kd_sskel asc, nm_brg asc, jns_trans asc";
+        if($data['semester']=="06"){ $smt="I"; } else{ $smt="II"; }     
+        ob_start();
+            $this->getupb($kd_lokasi);
+            echo '<table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-weight:bold; font-size:0.9em; "  align="center">
+                <tr>
+                    <td rowspan="3" width="5%"><img src="../../dist/img/pekalongan2.png" alt="Pekalongan" height="8%" /></td>
+                    <td style= "vertical-align: bottom;">LAMPIRAN BERITA ACARA</td>
+                    
+                </tr>
+                <tr>
+                    <td style= "vertical-align: bottom;">STOK OPNAME PERSEDIAAN</td>
+                </tr>
+                <tr>
+                    <td style= "vertical-align: bottom;">SEMESTER : '.$smt.'</td>
+                </tr>
 
-      
-
-        ob_start(); 
-        echo '<table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border=1 align="center">
+                </table>
+                <p></p>
+                ';   
+        echo '<table style="text-align: left; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border=1 >
           <tr>
-            <th rowspan="2">NO</th>
-            <th rowspan="2">JENIS BARANG</th>
+            <th rowspan="2" align="center">NO</th>
+            <th rowspan="2" width="23%">JENIS BARANG</th>
             <th rowspan="2">SATUAN</th>
             <th colspan="3">SALDO AWAL</th>
             <th colspan="3">JUMLAH PENERIMAAN/PENGADAAN BARANG</th>
@@ -761,14 +776,14 @@ class modelReport extends mysql_db
                 $nilai_saldo_awal = $data[saldo_awal];
                 $nilai_masuk = $data[nilai_masuk];
                 $nilai_keluar = $data[nilai_keuar];
-                $kd_sskel = substr($data['kd_sskel'],0,14);
+                $kd_sskel = $data['kd_perk'];
                 $qty_sisa = $jumlah_saldo_awal+$jumlah_masuk-$jumlah_keluar;
                 $nilai_sisa = $nilai_saldo_awal+$nilai_masuk-$nilai_keluar;
-                if($prev_sskel!==substr($data['kd_sskel'],0,14)){
+                if($prev_sskel!==$data['kd_perk']){
                     $no+=1;
                    echo '<tr>
                             <td>'.$no.'</td>
-                            <td colspan="14">s</td>
+                            <td colspan="14">'.$data['nm_perk'].'</td>
                         </tr>'; 
                         $prev_sskel=$kd_sskel;
                 }
@@ -789,14 +804,15 @@ class modelReport extends mysql_db
                         <td>'.number_format($data['harga_sat'],0,",",".").'</td>
                         <td>'.number_format($nilai_sisa,0,",",".").'</td>
                         </tr>';
-                if($prev_sskel_jml==substr($data['kd_sskel'],0,14)&&$prev_sskel==substr($data['kd_sskel'],0,14)){
-                    continue;
-                }
-                                echo '<tr>
+                if($prev_sskel!==$data['kd_perk']){
+                    echo '<tr>
                             <td>'."JUMLAH".'</td>
                             <td colspan="14">s</td>
-                            </tr>'; 
-                $prev_sskel_jml=substr($data['kd_sskel'],0,14);
+                            </tr>';
+                    
+                }
+                                 
+                
         }
           echo '</table>';
 
@@ -1151,24 +1167,25 @@ class modelReport extends mysql_db
 
                             ';   
                     $this->getupb($kd_lokasi);
-                    $detail_brg = "SELECT nm_sskel, nm_brg, satuan,spesifikasi from persediaan where  kd_brg='$kd_brg' ";
+                    $detail_brg = "SELECT nm_sskel, kd_brg, nm_brg, satuan,spesifikasi from persediaan where  kd_brg='$kd_brg' ";
                     $result_detail = $this->query($detail_brg);
                     $brg = $this->fetch_array($result_detail);
                     echo '        <table style=" width: 100%; font-size:90%;"  >               
-                            <tr>
-                                <td align="left">Gudang </td>
-                                <td  align="left">'.' : '.'</td>
-                            </tr>                   
+                   
                             <tr>
                                 <td align="left">Nama Barang</td>
                                 <td align="left">:'.$brg['nm_brg'].'</td>
+                                <td width="30%"></td>
+
                                 <td align="right">Kartu No</td>
-                                <td align="left">: '.''.'</td>
+                                <td align="left">: '.$brg['kd_brg'].'</td>
                             </tr>                
                             <tr>
                                
                                 <td align="left">Satuan </td>
                                 <td align="left">:'.$brg['satuan'].'</td>
+                                <td width="30%"></td>
+
                                 <td align="right">Spesifikasi </td>
                                 <td align="left">:'.$brg['spesifikasi'].'</td>
                             </tr>
@@ -1176,7 +1193,7 @@ class modelReport extends mysql_db
                         echo    '<table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:90% " border=1 align="center">
                                 <tr>
                                     <td rowspan="2">No</td>
-                                    <td rowspan="2" width="10%">No./Tgl Surat Dasar Penerimaan / Pengeluaran</td>
+                                    <td rowspan="2" width="30%">No./Tgl Surat Dasar Penerimaan / Pengeluaran</td>
                                     <td rowspan="2" >Uraian</td>
                                     <td colspan="3" >Barang-barang</td>
                                     <td <td rowspan="2" >Uraian</td>>Harga Satuan</td>
@@ -1955,8 +1972,8 @@ class modelReport extends mysql_db
                     <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_dok]).'</td></center>
                     <center><td  align="left">'.$data[nm_brg].'</td></center>
                     <center><td  align="center">'.$data[qty].'</td></center>
-                    <center><td  align="right">'.$data[harga_sat].'</td></center>
-                    <center><td  align="right">'.$data[total_harga].'</td></center>
+                    <center><td  align="right">'.number_format($data[harga_sat],2,",",".").'</td></center>
+                    <center><td  align="right">'.number_format($data[total_harga],2,",",".").'</td></center>
                     
                     <center><td  align="left">'.$data[no_bukti].'</td></center>
                     <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_buku]).'</td></center>
@@ -1984,8 +2001,8 @@ class modelReport extends mysql_db
                     <center><td  align="center">'.$no.'</td></center>
                     <center><td  align="left">'.$data[nm_brg].'</td></center>
                     <center><td  align="center">'.abs($data[qty]).'</td></center>
-                    <center><td  align="center">'.$data[harga_sat].'</td></center>
-                    <center><td  align="center">'.abs($data[total_harga]).'</td></center>
+                    <center><td  align="center">'.number_format($data[harga_sat],2,",",".").'</td></center>
+                    <center><td  align="center">'.number_format(abs($data[total_harga]),2,",",".").'</td></center>
                     <center><td  align="center">'.$data[keterangan].'</td></center>
                     
                     <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_buku]).'</td></center>
@@ -2014,7 +2031,7 @@ class modelReport extends mysql_db
                         <center><td  align="center">'.$data[spesifikasi].'</td></center>
                         <center><td  align="center">'.''.'</td></center>
                         <center><td  align="center">'.$data[qty].' '.$data[satuan].'</td></center>
-                        <center><td  align="center">'.$data[harga_sat].'</td></center>
+                        <center><td  align="center">'.number_format($data[harga_sat],2,",",".").'</td></center>
                         <center><td  align="center">'.$this->konversi_tanggal($data[tgl_dok]).'</td></center>
                         <center><td  align="center">'.$data[no_bukti].'</td></center>
                         <td>'.''.'</td>
@@ -2160,7 +2177,7 @@ class modelReport extends mysql_db
                                 <center><td  align="center">'.'......'.'</td></center>
                                 <center><td  align="center">'.$data[qty].'</td></center>
                                 <center><td  align="center">'.$data[nm_brg].'</td></center>
-                                <center><td  align="center">'.$data[harga_sat].'</td></center>
+                                <center><td  align="center">'.number_format($data[harga_sat],2,",",".").'</td></center>
                                 <center><td  align="center">'.$data[no_bukti].'</td></center>
                                 <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
                                 <center><td  align="center">'.$data[keterangan].'</td></center>
@@ -2200,7 +2217,7 @@ class modelReport extends mysql_db
                                 <center><td  align="center">'.$data[untuk].'</td></center>
                                 <center><td  align="center">'.abs($data[qty]).'</td></center>
                                 <center><td  align="center">'.$data[nm_brg].'</td></center>
-                                <center><td  align="center">'.$data[harga_sat].'</td></center>
+                                <center><td  align="center">'.number_format($data[harga_sat],2,",",".").'</td></center>
                                 <center><td  align="center">'.$subtotal.'</td></center>
                                 <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
                                 <center><td  align="center">'.$data[keterangan].'</td></center>

@@ -330,7 +330,7 @@ class modelTransaksi extends mysql_db
             $result_hps_full = $this->query($query_hps_full);       
             return $result;
             return $result2;
-
+            echo json_encode(array("pesan"=>"Data Berhasil Ditambahkan"));
             
             
     }       
