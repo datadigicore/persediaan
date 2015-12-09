@@ -228,6 +228,14 @@ class modelTransaksi extends mysql_db
         $spesifikasi = $data_perk['spesifikasi'];
         $satuan = $data['satuan'];
         
+        $query_op ="select * from transaksi_masuk where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and kd_brg='$kd_brg' and tgl_dok>'$tgl_dok' and status=1 order by tgl_dok asc limit 1";
+        $hasil_op = $this->query($query_op);
+        if($this->num_rows($hasil_op)==1)
+        {
+            exit();
+        }
+
+
         $cek_slip = "select tgl_dok from transaksi_keluar where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and kd_brg='$kd_brg' and tgl_dok>='$tgl_dok' order by tgl_dok asc limit 1";
         $result_slip = $this->query($cek_slip);
         $data_slip = $this->fetch_array($result_slip);
