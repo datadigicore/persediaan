@@ -336,7 +336,6 @@
           backdrop: 'static',
           keyboard: false
         });
-        cek_kode();
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "1000";
