@@ -48,8 +48,8 @@ else
 			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
 
-			$no_dok = $kd_lokasi.$purifier->purify($_POST['no_dok']);
-			$no_bukti = null;
+			$no_dok = $kd_lokasi.' - '.$purifier->purify($_POST['no_dok']);
+			$no_bukti = $purifier->purify($_POST['no_dok']);
 			// $tgl_dok = $Opsik->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
 			// $tgl_buku = $Opsik->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
 
@@ -71,6 +71,7 @@ else
 					"thn_ang" => $thn_ang,
 					"jns_trans" => $jns_trans,
 					"no_dok" => $no_dok,
+					"no_bukti" => $no_dok,
 					"tgl_dok" => $tgl_dok,
 					"tgl_buku" => $tgl_buku,
 					"keterangan" => $keterangan,

@@ -32,6 +32,14 @@ class modelBarang extends mysql_db
 		$kd_perk = $kd_rek['kd_perk'];
 		$nm_perk = $kd_rek['nm_perk'];
 
+		$query_brg = "select kd_brg, nm_brg from persediaan where kd_brg='$kd_brg' limit 1";
+		$result_brg = $this->query($query_brg);
+		if($this->num_rows($result_brg)==1)
+        {
+        	exit();
+        }
+
+
 		$query = "Insert into persediaan
         			set kd_brg='$kd_brg',
         			nm_brg='$nm_brg',
@@ -143,7 +151,7 @@ class modelBarang extends mysql_db
 
 	public function bacabarang($data)
 	{
-		$query = "select kd_brg, nm_brg from persediaan where CONCAT(kd_brg,' ',nm_brg) like '%$data%' and char_length(kd_brg)>14 order by kd_brg asc";
+		$query = "select kd_brg, nm_brg from persediaan where CONCAT(kd_brg,' ',nm_brg) like '%$data%' and g='' and f!='' order by kd_brg asc";
         $result = $this->query($query);
         $json = array();
         while ($row = $this->fetch_array($result))

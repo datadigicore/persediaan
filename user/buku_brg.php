@@ -132,8 +132,8 @@
           $("#bln").hide();
           $("#awal").show();
           $("#akhir").show();
-          $('#tgl_awal').prop('required',true);
-          $('#tgl_akhir').prop('required',true);
+          // $('#tgl_awal').prop('required',true);
+          // $('#tgl_akhir').prop('required',true);
 
       });
       $("input[id=bulan]").click(function()

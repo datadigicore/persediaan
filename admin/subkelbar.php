@@ -29,12 +29,15 @@
                 <form action="../core/barang/prosesbarang" method="post" class="form-horizontal" id="addbarang">
                   <div class="box-body">
                     <div class="form-group" style="margin-top:15px;">
-                      <label class="col-sm-2 control-label">Kode Barang </label>
-                      <div class="col-sm-7">
+                      <label class="col-sm-2 control-label">Jenis Barang </label>
+                      <div class="col-sm-5">
                         <select name="kdbarang_no" id="kdbarang_no" class="form-control select2">
                         </select>
                         <input type="hidden" name="manage" value="addsubbarang">
                       </div>
+                      <div class="col-sm-2">
+                        <label class="control-label">Kode Barang Persediaan </label>
+                      </div>                      
                       <div class="col-sm-2">
                         <input type="text" name="kdbarang" class="form-control" id="kdbarang" placeholder="Kode Barang"  required>
                       </div>
@@ -48,7 +51,7 @@
                     <div class="form-group" style="margin-top:15px;">
                       <label class="col-sm-2 control-label">Spesifikasi </label>
                       <div class="col-sm-9">
-                        <input type="text" name="spesifikasi" class="form-control" id="spesifikasi" placeholder="Masukkan Kode Barang">
+                        <input type="text" name="spesifikasi" class="form-control" id="spesifikasi" placeholder="Masukkan Spesifikasi : Mis. Warna, Ukuran, Tebal, dsb">
                       </div>
                     </div>
                     <div class="form-group">
@@ -336,7 +339,6 @@
           backdrop: 'static',
           keyboard: false
         });
-        cek_kode();
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "1000";

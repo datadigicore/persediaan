@@ -17,13 +17,13 @@
                 <li id="rincian_persediaan"><a href="rincian_persediaan"><span>Rincian Persediaan</span></a></li>
                 <li id="neraca"><a href="neraca"><span>Posisi Persediaan</span></a></li>
                 <li id="mutasi_prsedia"><a href="mutasi_prsedia"><span>Mutasi Persediaan</span></a></li>
-                <li id="transaksi_persediaan"><a href="transaksi_persediaan"><span>Daftar Transaksi Persediaan</span></a></li>
                 <li id="l_terima_brg"><a href="l_terima_brg"><span>Buku Penerimaan Barang</span></a></li>
                 <li id="l_keluar_brg"><a href="l_keluar_brg"><span>Buku Pengeluaran Barang</span></a></li>
                 <li id="l_buku_bph"><a href="l_buku_bph"><span>Buku Barang Pakai Habis</span></a></li>
                 <li id="l_kartu_brg"><a href="l_kartu_brg"><span>Kartu Barang</span></a></li>
                 <li id="l_kartu_p_brg"><a href="l_kartu_p_brg"><span>Kartu Persediaan Barang</span></a></li>
                 <li id="l_pp_bph"><a href="l_pp_bph"><span>Penerimaan & Pengeluaran</span></a></li>
+                <li id="ba_opname"><a href="ba_opname"><span>Berita Acara Stock Opname</span></a></li>
               </ul>
             </li>
             <li id="opname"><a href="../documentation/PETUNJUK_PENGGUNAAN.pdf" download><i class="fa fa-download"></i> <span> Petunjuk Penggunaan</span></a></li>           

@@ -64,7 +64,7 @@ else
 				"spesifikasi" => $spesifikasi,
 				"satuan" => $satuan,
 		    );
-		    print_r($data);
+		    // print_r($data);
 			$Barang->tambahsubbrg($data);
 			$datalog = array(
 				"kd_brg" => $kdbarang,

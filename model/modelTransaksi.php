@@ -207,11 +207,8 @@ class modelTransaksi extends mysql_db
         $no_bukti = $dok['no_bukti'];
         $jns_trans = $dok['jns_trans'];
         $keterangan = $dok['keterangan'];
-        
 
         $kd_brg = $data['kd_brg'];
-        
-        
         $kuantitas = $data['kuantitas'];
         $harga_sat = $data['harga_sat'];
         $total_harga = $kuantitas*$harga_sat;
@@ -230,6 +227,44 @@ class modelTransaksi extends mysql_db
         $nm_brg = $data_perk['nm_brg'];
         $spesifikasi = $data_perk['spesifikasi'];
         $satuan = $data['satuan'];
+        
+        $query_op ="select * from transaksi_masuk where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and kd_brg='$kd_brg' and tgl_dok>'$tgl_dok' and status=1 order by tgl_dok asc limit 1";
+        $hasil_op = $this->query($query_op);
+        if($this->num_rows($hasil_op)==1)
+        {
+            exit();
+        }
+
+
+        $cek_slip = "select tgl_dok from transaksi_keluar where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and kd_brg='$kd_brg' and tgl_dok>='$tgl_dok' order by tgl_dok asc limit 1";
+        $result_slip = $this->query($cek_slip);
+        $data_slip = $this->fetch_array($result_slip);
+        if($this->num_rows($result_slip)==1)
+        {
+            $tgl_slip = $data_slip['tgl_dok'];
+            $insert_slip = "INSERT INTO log_slip 
+                 set    kd_lokasi='$kd_lokasi',
+                        nm_satker='$nm_satker',
+                        thn_ang='$thn_ang',
+                        user_id='$user_id',
+                        tgl_dok='$tgl_dok',
+                        tgl_buku='$tgl_buku',
+                        kd_brg='$kd_brg',
+                        nm_brg='$nm_brg',
+                        spesifikasi='$spesifikasi',
+                        satuan='$satuan',
+                        qty='$kuantitas',
+                        harga_sat='$harga_sat',
+                        tgl_slip='$tgl_slip',
+                        status=1,
+                        tgl_update=NOW()
+                        ";
+                $this->query($insert_slip);
+                echo "TERDAPAT TERSELIP";   
+            
+            
+            
+        }
 
 // Memasukan Data Transaksi Masuk ke tabel Transaksi Masuk        
         $query = "Insert into transaksi_masuk
@@ -303,7 +338,7 @@ class modelTransaksi extends mysql_db
             $result_hps_full = $this->query($query_hps_full);       
             return $result;
             return $result2;
-
+            echo json_encode(array("pesan"=>"Data Berhasil Ditambahkan"));
             
             
     }       
@@ -319,25 +354,12 @@ class modelTransaksi extends mysql_db
         $tgl_buku = $data['tgl_buku'];
         $no_bukti = $data['no_bukti'];
         $jns_trans = $data['jns_trans'];
-        // $kd_brg = $data['kd_brg'];
-        // $nm_brg = $data['nm_brg'];
-        // $satuan = $data['satuan'];
-        // $kuantitas = $data['kuantitas'];
-        // $harga_sat = $data['harga_sat'];
-        // $total_harga = $kuantitas*$harga_sat;
+
         $keterangan = $data['keterangan'];
         $status = $data['status'];
         $user_id = $data['user_id'];
 
-        // $query_perk = "SELECT nm_sskel, kd_perk, nm_perk from persediaan where kd_brg='$kd_brg' and kd_lokasi like '$kd_lokasi%' ";
-        
-        // $result_perk = $this->query($query_perk);
-        // $data_perk = $this->fetch_array($result_perk);
-        // $kd_sskel = $data_perk['kd_brg'];
-        // $nm_sskel = $data_perk['nm_sskel'];
-        // $kd_perk = $data_perk['kd_perk'];
-        // $nm_perk = $data_perk['nm_perk'];
-
+       if($no_dok=="" || $kd_lokasi=="") exit;
 // Memasukan Data Transaksi Masuk ke tabel Transaksi Masuk        
         $query = "Insert into transaksi_masuk
                     set kd_lokasi='$kd_lokasi',
@@ -434,6 +456,8 @@ class modelTransaksi extends mysql_db
         $status = $data['status'];
         $user_id = $data['user_id'];
 
+        if($no_dok=="" || $kd_lokasi=="") exit;
+
         // $query_perk = "SELECT nm_sskel, kd_perk, nm_perk from persediaan where kd_brg='$kd_brg' ";
         
         // $result_perk = $this->query($query_perk);
@@ -501,11 +525,38 @@ class modelTransaksi extends mysql_db
         $satuan = $data['satuan'];
         $kuantitas = $data['kuantitas'];
         $harga_sat = $data['harga_sat'];
-        
-       
-        
         $status = $data['status'];
         $user_id = $data['user_id'];
+
+        $cek_slip = "select nm_brg, spesifikasi, tgl_dok from transaksi_keluar where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and kd_brg='$kd_brg' and tgl_dok>'$tgl_dok' order by tgl_dok asc limit 1";
+        $result_slip = $this->query($cek_slip);
+        $data_slip = $this->fetch_array($result_slip);
+        if($this->num_rows($result_slip)==1)
+        {
+            $tgl_slip = $data_slip['tgl_dok'];
+            $nm_brg = $data_slip['nm_brg'];
+            $spesifikasi = $data_slip['spesifikasi'];
+            $insert_slip = "INSERT INTO log_slip 
+                 set    kd_lokasi='$kd_lokasi',
+                        nm_satker='$nm_satker',
+                        thn_ang='$thn_ang',
+                        user_id='$user_id',
+                        tgl_dok='$tgl_dok',
+                        tgl_buku='$tgl_buku',
+                        kd_brg='$kd_brg',
+                        nm_brg='$nm_brg',
+                        spesifikasi='$spesifikasi',
+                        satuan='$satuan',
+                        qty='$kuantitas',
+                        harga_sat='$harga_sat',
+                        tgl_slip='$tgl_slip',
+                        status=1,
+                        tgl_update=NOW()
+                        ";
+                $this->query($insert_slip);
+                echo "TERDAPAT TERSELIP";   
+               
+        }
 
 
         while($kuantitas > 0)
