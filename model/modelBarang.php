@@ -151,7 +151,7 @@ class modelBarang extends mysql_db
 
 	public function bacabarang($data)
 	{
-		$query = "select kd_brg, nm_brg from persediaan where CONCAT(kd_brg,' ',nm_brg) like '%$data%' and char_length(kd_brg)>14 order by kd_brg asc";
+		$query = "select kd_brg, nm_brg from persediaan where CONCAT(kd_brg,' ',nm_brg) like '%$data%' and g='' and f!='' order by kd_brg asc";
         $result = $this->query($query);
         $json = array();
         while ($row = $this->fetch_array($result))

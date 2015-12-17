@@ -625,8 +625,10 @@ class modelReport extends mysql_db
         {
             $this->cetak_header($data,"kartu_brg",$kd_lokasi,$kode_brg['kd_brg'],"");
             $this->get_query($data,"kartu_brg",$kd_lokasi,$kode_brg['kd_brg'],$nm_satker,"");
+            $this->cetak_nama_pj($kd_lokasi);
             echo '<pagebreak />';
         }
+
         $html = ob_get_contents(); 
         ob_end_clean();
         if($format=="excel") {
@@ -2123,10 +2125,10 @@ class modelReport extends mysql_db
                             echo '<center><td  align="center">'.$data[qty].'</td></center> 
                                     <center><td  align="center">'.''.'</td></center>
                                     <center><td  align="center">'.$sisa.'</td></center>
-                                    <center><td  align="center">'.$data[harga_sat].'</td></center>
-                                    <center><td  align="center">'.$subtotal.'</td></center>
+                                    <center><td  align="center">'.number_format($data[harga_sat],0,",",".").'</td></center>
+                                    <center><td  align="center">'.number_format($subtotal,0,",",".").'</td></center>
                                     <center><td  align="center">'.''.'</td></center>
-                                    <center><td  align="center">'.$saldo.'</td></center>
+                                    <center><td  align="center">'.number_format($saldo,0,",",".").'</td></center>
                                     <center><td  align="center">'.''.'</td></center>';
                         }
                         else 
@@ -2173,8 +2175,8 @@ class modelReport extends mysql_db
                                 <center><td  align="center">'.$data[untuk].'</td></center>
                                 <center><td  align="center">'.$data[no_bukti].'</td></center> 
                                 <center><td  align="center">'.$this->konversi_tanggal($data[tgl_dok]).'</td></center>
-                                <center><td  align="center">'.'BAST'.'</td></center>
-                                <center><td  align="center">'.'......'.'</td></center>
+                                <center><td  align="center">'.''.'</td></center>
+                                <center><td  align="center">'.''.'</td></center>
                                 <center><td  align="center">'.$data[qty].'</td></center>
                                 <center><td  align="center">'.$data[nm_brg].'</td></center>
                                 <center><td  align="center">'.number_format($data[harga_sat],2,",",".").'</td></center>
