@@ -21,10 +21,8 @@
           </ol>
         </section>
         <section class="content">
-        <div class="row">
-          <section class="col-lg-12 connectedSortable">
-              <div class="box box-success">
-                <div class="box-header with-border">
+
+
                   <ul class="nav nav-tabs">
               <li><a href="#lap_persediaan" data-toggle="tab">Laporan Persediaan<i class="fa"></i></a></li>
               <li><a href="#rincian_persediaan" data-toggle="tab">Rincian Persediaan<i class="fa"></i></a></li>
@@ -37,9 +35,8 @@
               <li><a href="#terima_keluar_brg" data-toggle="tab">Penerimaan & pengeluaran Barang Pakai Habis Per UPB<i class="fa"></i></a></li>
 
           </ul>
-                </div>
-              </div> 
-            </section>
+
+
           
 
           <form action="../core/report/prosesreport" method="post" class="form-horizontal" >
@@ -152,7 +149,7 @@
           </form>
         </div>
         </section>
-      </div>
+      
       <?php include("include/footer.php"); ?>
       <?php include("include/success.php"); ?>
     </div>

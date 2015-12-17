@@ -31,8 +31,10 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th width="20%">Kode UPB</th>
-                        <th width="40%">Nama UPB</th>
+                        <th width="10%">Kode UPB</th>
+                        <th width="20%">Nama UPB</th>
+                        <th width="15%">Kode Barang</th>
+                        <th width="15%">Nama Barang</th>
                         <th>Tanggal Input Selisip</th>
                         <th>Tahun Aktif</th>
                         <th width="7%">Aksi</th>
@@ -69,7 +71,9 @@
           {"targets": 2 },
           {"targets": 3 },
           {"targets": 4 },
-          {"targets": 5 }
+          {"targets": 5 },
+          {"targets": 6 },
+          {"targets": 7 }
         ],
         "order": [[ 1, "asc" ]]
       });
