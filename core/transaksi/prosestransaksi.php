@@ -158,6 +158,7 @@ else
 			$data = array(
 				"kd_lokasi" => $kd_lokasi,
 				"thn_ang" => $thn_ang,
+				"no_dok" => $no_dok,
 				"kd_brg" => $kd_brg
 				);
 			$Transaksi->sisa_barang($data);
