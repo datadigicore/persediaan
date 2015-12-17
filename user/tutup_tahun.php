@@ -112,7 +112,6 @@
 
           ],
         });
-      $(".treeview").addClass("active");
       $("li#tutup_tahun").addClass("active");
        $.ajax({
           type: "post",

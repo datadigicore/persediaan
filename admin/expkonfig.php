@@ -25,7 +25,7 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-success">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Export Konfigurasi</h3>
+                  <h3 class="box-title">Export Konfigurasi SKPD</h3>
                 </div>  
                 <form action="../core/konfig/proseskonfigurasi" method="post" class="form-horizontal" id="addkonfig">
                   <div class="box-body">
@@ -50,8 +50,14 @@
                   <div class="box-footer">
                     <button type="submit" class="btn btn-success pull-right">Export</button>
                   </div>
-                </form>                
-
+                </form> 
+              </div>
+            </section>               
+          <section class="col-lg-12 connectedSortable">
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Export Konfigurasi User</h3>
+                </div>  
                 <form action="../core/konfig/proseskonfigurasi" method="post" class="form-horizontal" id="addkonfig2">
                   <div class="box-body">
                     <div class="form-group" style="margin-top:15px;">

@@ -93,7 +93,7 @@
                         <th width="12%">Tanggal Dokumen</th>
                         <th width="12%">Tanggal Pembukuan</th>
                         <th >Keterangan</th>
-                        <th  width="12%">Aksi</th>
+                        <th style="width:100px; max-width:100px;">Aksi</th>
                       </tr>
                     </thead>
                   </table>
