@@ -2,6 +2,37 @@
 include('../../utility/mysql_db.php');
 class modelOpsik extends mysql_db
 {
+
+    public function sisa_barang($data)
+    {
+        $kd_lokasi = $data['kd_lokasi'];
+        $kd_brg = $data['kd_brg'];
+        $thn_ang = $data['thn_ang'];
+        $no_dok = $data['no_dok'];
+
+        $query_tgl = "select tgl_dok from opname where no_dok='$no_dok' limit 1 ";  
+        $result_tgl = $this->query($query_tgl);
+        $tgl_brg = $this->fetch_array($result_tgl);
+        $tgl_dok = $tgl_brg['tgl_dok'];
+
+        //and tgl_dok<='$tgl_dok'
+
+        $query = "select sum(qty_akhir) as sisa,satuan from transaksi_masuk  where kd_brg = '$kd_brg' and kd_lokasi = '$kd_lokasi'  and thn_ang='$thn_ang'";  
+        $result = $this->query($query);
+        $sisa_brg = $this->fetch_array($result);
+
+        $saldo = $sisa_brg["sisa"];
+
+        if(empty($saldo))
+        {
+            $saldo = 0;
+        }
+        
+        echo json_encode(array("sisa"=>$saldo, "satuan"=>$sisa_brg["satuan"]));
+      
+        
+    }
+
     public function hapus_opname($data)
     {
         $id_opname = $data['id'];

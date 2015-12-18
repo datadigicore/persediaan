@@ -527,7 +527,7 @@ class modelReport extends mysql_db
 
         $this->cetak_header($data,"penerimaan_brg",$kd_lokasi,"","");
         $this->get_query($data,"penerimaan_brg",$kd_lokasi,"",$nm_satker,"");
-        $this->cetak_nama_pj($kd_lokasi);
+        
 
         $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
         ob_end_clean();
@@ -1962,6 +1962,7 @@ class modelReport extends mysql_db
                 $no=0;
                 $jumlah=0;
                 $saldo=0;
+                $header = 7;
 
                 while($data=$this->fetch_assoc($result))
                 {
@@ -1986,6 +1987,9 @@ class modelReport extends mysql_db
                 
 
                 echo '</table>';
+                $line_acc = $header+$no;
+                if($line_acc>=23) echo '<pagebreak />';
+                $this->cetak_nama_pj($kd_lokasi);
            
 
         }
@@ -1993,7 +1997,7 @@ class modelReport extends mysql_db
                 $no=0;
                 $jumlah=0;
                 $saldo=0;
-
+                $header = 7;
                 while($data=$this->fetch_assoc($result))
                 {
                     $no+=1;
@@ -2012,7 +2016,9 @@ class modelReport extends mysql_db
                     echo '</tr>';
                 } 
                 
-                echo '</table>';   
+                echo '</table>';
+                $line_acc = $header + $no;
+                if($line_acc>=23) echo '<pagebreak />';   
 
         }
         elseif($nm_lap=="buku_brg_pakai_habis"){
@@ -2157,6 +2163,7 @@ class modelReport extends mysql_db
             $jumlah=0;
             $sisa=0;
             $subtotal=0;
+            $header = 7;
 
             while($data=$this->fetch_assoc($result))
             {
@@ -2230,6 +2237,8 @@ class modelReport extends mysql_db
                 }
 
             echo   '</table>';
+            $line_acc = $header + $no;
+            if($line_acc>=23) echo '<pagebreak />';
 
         }
         else {
@@ -2733,7 +2742,7 @@ public function getupb($kd_lokasi){
         $pj = $this->fetch_array($result);
 
 
-        echo '<br></br>
+        echo '
               <table style="text-align: center; width: 100%; font-size:84% "  >
               <tr>
                 <td style="text-align: center;"></td>

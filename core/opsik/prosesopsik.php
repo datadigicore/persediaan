@@ -148,6 +148,19 @@ else
 			);
 			// print_r($data);
 			$Opsik->hapus_opname($data);
+		break;
+		case 'sisabarang':
+			$kd_brg = $purifier->purify($_POST['kd_brg']);
+			$no_dok = $purifier->purify($_POST['nodok']);
+			$kd_lokasi = substr($no_dok, 0, 11);
+			$thn_ang = $_SESSION['thn_ang'];
+			$data = array(
+				"kd_lokasi" => $kd_lokasi,
+				"thn_ang" => $thn_ang,
+				"no_dok" => $no_dok,
+				"kd_brg" => $kd_brg
+				);
+			$Opsik->sisa_barang($data);
 		break;	
 		default:
 			echo "Error Data Tidak Tersedia";

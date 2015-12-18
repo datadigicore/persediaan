@@ -77,6 +77,62 @@
         ],
         "order": [[ 1, "asc" ]]
       });
+
+            $(document).on('click', '#btnrefresh', function () {
+            var tr = $(this).closest('tr');
+            var row = table.row( tr );
+            redirectTime = "2600";
+            redirectURL = "refresh_new";
+            satker = row.data()[1];
+            managedata = "refresh";
+
+
+            job=confirm("Anda yakin ingin merefresh Transaksi?");
+            if(job!=true)
+            {
+              return false;
+            }
+            else
+            {
+              $.ajax({
+                type: "post",
+                url : "../core/konfig/proseskonfigurasi",
+                data: {manage:managedata,satker:satker},
+                success: function(data)
+                {
+
+                  $("#example1").DataTable().destroy();
+                  $("#example1 tbody").empty();
+                  table = $("#example1").DataTable({
+                    "oLanguage": {
+                      "sInfoFiltered": ""
+                    },
+                    "processing": false,
+                    "serverSide": true,
+                    "ajax": "../core/loadtable/tableselisip",
+                    "columnDefs":
+                    [
+                      {"targets": 0,
+                       "visible": false },
+                      {"targets": 1 },
+                      {"targets": 2 },
+                      {"targets": 3 },
+                      {"targets": 4 },
+                      {"targets": 5 },
+                      {"targets": 6 },
+                      {"targets": 7 }
+                    ],
+                    "order": [[ 1, "asc" ]]
+                  });
+                            }
+              });
+
+            return false;
+            }
+          
+        
+
+    });
     </script>
   </body>
 </html>

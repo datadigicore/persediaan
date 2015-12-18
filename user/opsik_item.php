@@ -323,7 +323,7 @@ else {
           var kd_brg = $('#kd_brg').val(); 
           $.ajax({
             type: "post",
-            url: '../core/transaksi/prosestransaksi',
+            url: '../core/opsik/prosesopsik',
             data: {manage:'sisabarang',kd_brg:kd_brg, nodok:'<?php echo $_POST["satker"];?>'},
             dataType: "json",
             success: function (output) {

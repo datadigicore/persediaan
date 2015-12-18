@@ -135,7 +135,7 @@ class modelKonfigurasi extends mysql_db
             $result = $this->query($sql);
      
 
-            $sql = "SELECT id_opname, kd_lokasi, nm_satker, no_dok, no_bukti, tgl_dok, tgl_buku, jns_trans, kd_brg, nm_brg, sum(qty) as qty, harga_sat,keterangan, status FROM transaksi_keluar where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' group by no_dok, kd_brg";
+            $sql = "SELECT id_opname, kd_lokasi, nm_satker, no_dok, no_bukti, tgl_dok, tgl_buku, jns_trans, kd_brg, nm_brg, sum(qty) as qty, harga_sat,keterangan, status FROM transaksi_keluar where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' group by no_dok, kd_brg order by tgl_dok asc";
             $result = $this->query($sql);
 
             while($data = $this->fetch_array($result))
@@ -352,6 +352,7 @@ class modelKonfigurasi extends mysql_db
             $query = "INSERT INTO transaksi_keluar(id_masuk, id_opname, kd_lokasi, kd_lok_msk, nm_satker, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, kd_sskel,nm_sskel,kd_brg,nm_brg,spesifikasi,kd_perk,nm_perk,satuan, qty,harga_sat,total_harga,jns_trans,keterangan,untuk,status,status_edit,status_hapus,status_ambil,tgl_update,user_id) select id_masuk, id_opname,   kd_lokasi, kd_lok_msk, nm_satker, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, kd_sskel,nm_sskel,kd_brg,nm_brg,spesifikasi,kd_perk,nm_perk,satuan, qty,harga_sat,total_harga,jns_trans,keterangan,untuk,status,status_edit,status_hapus,status_ambil,tgl_update,user_id from transaksi_keluarTemp ";
             $result = $this->query($query);
 
+            $this->query("UPDATE log_slip set status=0 where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' ");
 
             $query_log = "Insert into log_trans_masuk
                                     set 
