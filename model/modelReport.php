@@ -2,6 +2,7 @@
 include('../../utility/mysql_db.php');
 define('_MPDF_PATH','../../plugins/mPDF/');
 require(_MPDF_PATH."mpdf.php");
+session_start();
 
 class modelReport extends mysql_db
 {
@@ -737,7 +738,7 @@ class modelReport extends mysql_db
                 </table>
                 <p></p>
                 ';   
-        echo '<table style="text-align: left; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border=1 >
+        echo '<table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border=1 >
           <tr>
             <th rowspan="2" align="center">NO</th>
             <th rowspan="2" width="23%">JENIS BARANG</th>
@@ -817,8 +818,9 @@ class modelReport extends mysql_db
                 
         }
           echo '</table>';
+          $this->cetak_nama_pj($satker_asal);
 
-        $mpdf=new mPDF('utf-8', 'A4-L');
+        $mpdf=new mPDF('utf-8', 'A4');
         $html = ob_get_contents();
         ob_end_clean(); 
         $mpdf->WriteHTML(utf8_encode($html));
@@ -1988,7 +1990,7 @@ class modelReport extends mysql_db
 
                 echo '</table>';
                 $line_acc = $header+$no;
-                if($line_acc>=23) echo '<pagebreak />';
+                if($line_acc>=20) echo '<pagebreak />';
                 $this->cetak_nama_pj($kd_lokasi);
            
 
@@ -2018,7 +2020,7 @@ class modelReport extends mysql_db
                 
                 echo '</table>';
                 $line_acc = $header + $no;
-                if($line_acc>=23) echo '<pagebreak />';   
+                if($line_acc>=20) echo '<pagebreak />';   
 
         }
         elseif($nm_lap=="buku_brg_pakai_habis"){
@@ -2742,19 +2744,23 @@ public function getupb($kd_lokasi){
         $pj = $this->fetch_array($result);
 
 
-        echo '
+        echo '<br></br>
               <table style="text-align: center; width: 100%; font-size:84% "  >
               <tr>
                 <td style="text-align: center;"></td>
-                <td style="text-align: center;"> '.$pj['kota'].',................................... </td>
+                <td style="text-align: center;"> '.'Kota Pekalongan'.',............................................. </td>
               </tr>            
               <tr>
                 <td style="text-align: center;"> ATASAN LANGSUNG, </td>
                 <td style="text-align: center;"> PENYIMPAN BARANG, </td>
               </tr>
               <tr>
-                <td><br></br> <br></br> <br></br></td>
-                <td><br></br> <br></br> <br></br></td>
+                <td>'.'(Kasubbag. Umum/Sekretaris Keluarahan)'.'</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><br></br><br></br><br></br><br></br></td>
+                <td><br></br><br></br><br></br><br></br></td>
               </tr>
               <tr>
                 <td style="text-align: center;">'.$pj['nama'].'</td>
