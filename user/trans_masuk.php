@@ -29,21 +29,23 @@
                 <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal"  id="addtransmsk" >
                   <div class="box-body" style="padding-top:15px;">
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Nomor Dokumen</label>
-                      <div class="col-sm-5">
+                      <label class="col-sm-2 control-label">SKPD</label>
+                      <div class="col-sm-8">
                         <select name="read_no_dok" id="read_no_dok" class="form-control">
                         </select>
                       </div>
-                      <div class="col-sm-4">
+                      
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Nomor Dokumen</label>
+                      <div class="col-sm-3">
                         <input type="text" name="no_dok" class="form-control"  id="no_dok" placeholder="Masukkan No. SP / BASTP / dsb">
                         <input type="hidden" name="manage" value="tbh_transaksi_msk">
                         <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>
                         <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>    
                       </div>
-                    </div>
-                    <div class="form-group">
                       <label class="col-sm-2 control-label">Jenis Transaksi</label>
-                      <div class="col-sm-9">
+                      <div class="col-sm-3">
                         <select name="jenis_trans" id="jenis_trans" class="form-control">
                           <option value="">Pilih Jenis Transaksi</option>
                           <option value="M01">Saldo Awal</option>
@@ -55,20 +57,19 @@
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Dokumen</label>
-                      <div class="col-sm-9">
+                      <div class="col-sm-3">
                         <input type="text" name="tgl_dok" class="form-control" id="tgl_dok"  onchange="masuk_tanggal()" >
                       </div>
-                    </div>                    
-                    <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Pembukuan</label>
-                      <div class="col-sm-9">
+                      <div class="col-sm-3">
                         <input type="text" name="tgl_buku" class="form-control" id="tgl_buku"  >
                       </div> 
                     </div>                    
+                                        
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Keterangan</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Uraian / keterangan" >
+                      <div class="col-sm-8">
+                        <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Mis. Nama Pihak / Sumber pengirim barang" >
                       </div> 
                     </div>
                   </div>
