@@ -140,6 +140,7 @@
         });        
         $("li#saldo_awal").addClass("active");
         table = $("#example1").DataTable({
+          "aaSorting": [[ 0, 'desc' ]], 
           "processing": false,
           "serverSide": true,
           "ajax": "../core/loadtable/loadtransklr",
@@ -302,6 +303,7 @@
               $("#example1 tbody").empty();
               $('button:submit').attr("disabled", false); 
               table = $("#example1").DataTable({
+                 "aaSorting": [[ 0, 'desc' ]], 
                 "processing": false,
                 "serverSide": true,
                 "ajax": "../core/loadtable/loadtransklr",
@@ -485,6 +487,7 @@
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
               table = $("#example1").DataTable({
+                 "aaSorting": [[ 0, 'desc' ]], 
                 "processing": false,
                 "serverSide": true,
                 "ajax": "../core/loadtable/loadtransklr",
