@@ -109,7 +109,7 @@
     <script type="text/javascript">
       $(".treeview").addClass("active");
       $(".select2").select2();
-      $("li#buku_brg").addClass("active");
+      
       var table;
       $(function () {
       // $("#bln").hide();

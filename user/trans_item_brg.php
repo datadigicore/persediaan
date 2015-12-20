@@ -765,7 +765,8 @@ else {
           [
             {"targets": 0,
              "visible": false },
-            {"targets": 1 },
+            {"targets": 1,
+             "visible": false  },
             {"targets": 2 },
             {"targets": 3 },
             {"targets": 4 },
@@ -871,7 +872,8 @@ else {
                     [
                       {"targets": 0,
                        "visible": false },
-                      {"targets": 1 },
+                      {"targets": 1,
+                        "visible": false  },
                       {"targets": 2 },
                       {"targets": 3 },
                       {"targets": 4 },
@@ -1027,7 +1029,8 @@ else {
                 [
                   {"targets": 0,
                    "visible": false },
-                  {"targets": 1 },
+                  {"targets": 1,
+                    "visible": false  },
                   {"targets": 2 },
                   {"targets": 3 },
                   {"targets": 4 },

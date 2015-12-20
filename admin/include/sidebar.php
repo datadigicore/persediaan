@@ -12,7 +12,7 @@
               <a href="#"><i class="fa fa-link"></i> <span>Lain-Lain</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
                 <li id="subkelbar"><a href="subkelbar">Tabel Sub Kelompok Barang</a></li>
-                <li id="transaksi"><a href="transaksi">Tabel Jenis Transaksi</a></li>
+                <!-- <li id="transaksi"><a href="transaksi">Tabel Jenis Transaksi</a></li> -->
               </ul>
             </li>
           </ul>

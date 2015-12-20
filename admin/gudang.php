@@ -65,8 +65,8 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th width="14%">Kode Sektor</th>
-                        <th width="14%">Kode Satker</th>
+                        <th width="14%">Kode Bidang</th>
+                        <th width="14%">Kode Unit</th>
                         <th width="14%">Kode Sub Unit</th>
                         <th width="14%">Kode UPB</th>
                         <th>Uraian UPB</th>

@@ -23,7 +23,7 @@ class modelBarang extends mysql_db
 	{
 		$kode_rekening = $data['kode_rekening'];
 		$nm_brg = $data['nmbrg'];
-		$kd_brg = $data['kdbrg'];
+		// $kd_brg = $data['kdbrg'];
 		$spesifikasi = $data['spesifikasi'];
 		$satuan = $data['satuan'];
 
@@ -31,6 +31,13 @@ class modelBarang extends mysql_db
 		$kd_rek = $this->fetch_array($hsl);
 		$kd_perk = $kd_rek['kd_perk'];
 		$nm_perk = $kd_rek['nm_perk'];
+
+		$hsl_noreg = $this->query("SELECT g FROM persediaan where kd_brg like '$kode_rekening%' ORDER BY g DESC limit 1");
+		$data_noreg = $this->fetch_array($hsl_noreg);
+		$noreg = $data_noreg['g'];
+		$no_urut = $noreg+1;
+
+		$kd_brg=$kode_rekening.'.'.$no_urut;
 
 		$query_brg = "select kd_brg, nm_brg from persediaan where kd_brg='$kd_brg' limit 1";
 		$result_brg = $this->query($query_brg);
@@ -154,18 +161,20 @@ class modelBarang extends mysql_db
 		$query = "select kd_brg, nm_brg from persediaan where CONCAT(kd_brg,' ',nm_brg) like '%$data%' and g='' and f!='' order by kd_brg asc";
         $result = $this->query($query);
         $json = array();
+
         while ($row = $this->fetch_array($result))
         {
-        	if ((substr_count($row['kd_brg'],".") >= 3 and (substr_count($row['kd_brg'],".") <= 5))) {
-        		$dynamic = array(
-	                'id' => $row['kd_brg'],
-	                'text' => $row['kd_brg']." ".$row['nm_brg']
-	            );
-	            array_push($json, $dynamic);
-        	}
+        	echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg']."</option>";
+        	// if ((substr_count($row['kd_brg'],".") >= 3 and (substr_count($row['kd_brg'],".") <= 5))) {
+        	// 	$dynamic = array(
+	        //         'id' => $row['kd_brg'],
+	        //         'text' => $row['kd_brg']." ".$row['nm_brg']
+	        //     );
+	        //     array_push($json, $dynamic);
+        	// }
             
         }   
-        echo json_encode($json);
+        // echo json_encode($json);
 	}
 
 	public function bacassatuan($data)

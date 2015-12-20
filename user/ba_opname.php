@@ -76,14 +76,14 @@
     var table;
       $(function () {
         $(".treeview").addClass("active");
-        $("li#lap_sedia").addClass("active");
+        $("li#ba_opname").addClass("active");
         $('#tgl_awal').datepicker({
           format: "dd-mm-yyyy"
         });         
         $('#tgl_akhir').datepicker({
           format: "dd-mm-yyyy"
         });             
-        $("li#saldo_awal").addClass("active");
+      
 
         $("input[id=tanggal]").click(function()
         {

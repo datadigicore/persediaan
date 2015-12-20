@@ -129,7 +129,7 @@ else {
                         <th>Kode Lokasi</th>
                         <th>Nama Satker</th>
                         <th>No Dok</th>
-                        <th>Tgl Dokumen</th>
+                        <th>Kode Barang</th>
                         <th>Nama Barang</th>
                         <th>Spesifikasi</th>
                         <th>Jumlah</th>

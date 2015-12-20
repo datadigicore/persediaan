@@ -65,7 +65,7 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th width="14%">Kode Sektor</th>
+                        <th width="14%">Kode Bidang</th>
                         <th width="14%">Kode Unit</th>
                         <th width="14%">Kode Sub Unit</th>
                         <th>Uraian Sub Unit</th>

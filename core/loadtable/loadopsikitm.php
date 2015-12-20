@@ -22,7 +22,7 @@ $columns = array(
     array( 'db' => 'kd_lokasi', 'dt' => 1 ),
     array( 'db' => 'nm_satker', 'dt' => 2 ),
     array( 'db' => 'no_dok', 'dt' => 3 ),
-    array( 'db' => 'tgl_dok', 'dt' => 4, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
+    array( 'db' => 'kd_brg', 'dt' => 4),
     array( 'db' => 'nm_brg', 'dt' => 5 ),
     array( 'db' => 'spesifikasi', 'dt' => 6 ),
     array( 'db' => 'qty', 'dt' => 7 ),

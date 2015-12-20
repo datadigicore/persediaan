@@ -87,14 +87,13 @@
     var table;
       $(function () {
         $(".treeview").addClass("active");
-        $("li#lap_sedia").addClass("active");
+        $("li#l_pp_bph").addClass("active");
         $('#tgl_awal').datepicker({
           format: "dd-mm-yyyy"
         });         
         $('#tgl_akhir').datepicker({
           format: "dd-mm-yyyy"
         });             
-        $("li#saldo_awal").addClass("active");
 
         $("input[id=tanggal]").click(function()
         {

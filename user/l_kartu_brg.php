@@ -111,13 +111,13 @@
       $(".treeview").addClass("active");
       $(".select2").select2();
       $("#satker").select2("val", "");
-      $("li#buku_brg").addClass("active");
+      $("li#l_kartu_brg").addClass("active");
       var table;
       $(function () {
       // $("#bln").hide();
       // $("#awal").hide();
       // $("#akhir").hide();
-      $("li#buku_brg").addClass("active");
+     
       $('#tgl_awal').datepicker({
           format: "dd-mm-yyyy"
       });         

@@ -108,13 +108,12 @@
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(".treeview").addClass("active");
-      $("li#buku_brg").addClass("active");
+      $("li#l_terima_brg").addClass("active");
       var table;
       $(function () {
       // $("#bln").hide();
       // $("#awal").hide();
       // $("#akhir").hide();
-      $("li#buku_brg").addClass("active");
       $('#tgl_awal').datepicker({
           format: "dd-mm-yyyy"
       });         
