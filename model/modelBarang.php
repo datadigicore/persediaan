@@ -27,10 +27,11 @@ class modelBarang extends mysql_db
 		$spesifikasi = $data['spesifikasi'];
 		$satuan = $data['satuan'];
 
-		$hsl = $this->query("select kd_perk, nm_perk from persediaan where kd_brg = '$kode_rekening' ");
+		$hsl = $this->query("select kd_perk, nm_perk,nm_sskel from persediaan where kd_brg = '$kode_rekening' ");
 		$kd_rek = $this->fetch_array($hsl);
 		$kd_perk = $kd_rek['kd_perk'];
 		$nm_perk = $kd_rek['nm_perk'];
+		$nm_sskel = $kd_rek['nm_sskel'];
 
 		$hsl_noreg = $this->query("SELECT g FROM persediaan where kd_brg like '$kode_rekening%' ORDER BY g DESC limit 1");
 		$data_noreg = $this->fetch_array($hsl_noreg);
@@ -50,6 +51,8 @@ class modelBarang extends mysql_db
 		$query = "Insert into persediaan
         			set kd_brg='$kd_brg',
         			nm_brg='$nm_brg',
+        			kd_sskel='$kode_rekening',
+        			nm_sskel='$nm_sskel',
         			kd_perk='$kd_perk',
         			nm_perk='$nm_perk',
                     spesifikasi='$spesifikasi',
