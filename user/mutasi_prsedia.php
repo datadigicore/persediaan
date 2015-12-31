@@ -39,7 +39,7 @@
                     <div class="box-body" id="awal">
                       <label class="col-sm-2 control-label">Tanggal Awal</label>
                       <div class="col-sm-4">
-                        <input type="text" name="tgl_awal" class="form-control" id="tgl_awal" placeholder="" required>
+                        <input type="text" name="tgl_awal" class="form-control" id="tgl_awal" placeholder="" >
                         </select>
                       </div>
                     </div>   

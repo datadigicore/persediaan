@@ -2742,20 +2742,37 @@ public function getupb($kd_lokasi){
         $query = "SELECT * from ttd where kd_lokasi='$satker_asal' ";
         $result = $this->query($query);
         $pj = $this->fetch_array($result);
-
+        if(count($pj)>0){
+            $jabatan_1="ATASAN LANGSUNG,";
+            $jabatan_1b="(Kasubbag. Umum/Sekretaris Keluarahan)";
+            $jabatan_2="PENYIMPAN BARANG,";
+            $atasan_PB = $pj['nama'];
+            $nip_atasan_PB = $pj['nip'];
+            $penyimpan_brg = $pj['nama2'];
+            $nip_penyimpan_brg = $pj['nip2'];
+        }
+        else {
+            $jabatan_1="SEKDA,";
+            $jabatan_1b="";
+            $jabatan_2="PENYIMPAN BARANG DAERAH";
+            $atasan_PB = "";
+            $nip_atasan_PB = "";
+            $penyimpan_brg = "";
+            $nip_penyimpan_brg = "";
+        }
 
         echo '<br></br>
               <table style="text-align: center; width: 100%; font-size:84% "  >
               <tr>
                 <td style="text-align: center;"></td>
-                <td style="text-align: center;"> '.'Kota Pekalongan'.',............................................. </td>
+                <td style="text-align: center;"> '.'Kota Pekalongan,'.date("d-m-Y").'</td>
               </tr>            
               <tr>
-                <td style="text-align: center;"> ATASAN LANGSUNG, </td>
-                <td style="text-align: center;"> PENYIMPAN BARANG, </td>
+                <td style="text-align: center;">'.$jabatan_1.'</td>
+                <td style="text-align: center;">'.$jabatan_2.'</td>
               </tr>
               <tr>
-                <td>'.'(Kasubbag. Umum/Sekretaris Keluarahan)'.'</td>
+                <td>'.$jabatan_1b.'</td>
                 <td></td>
               </tr>
               <tr>
@@ -2763,18 +2780,19 @@ public function getupb($kd_lokasi){
                 <td><br></br><br></br><br></br><br></br></td>
               </tr>
               <tr>
-                <td style="text-align: center;">'.$pj['nama'].'</td>
-                <td style="text-align: center;">'.$pj['nama2'].'</td>
+                <td style="text-align: center;">'.$atasan_PB.'</td>
+                <td style="text-align: center;">'.$penyimpan_brg.'</td>
               </tr>              
 
               <tr>
-                <td style="text-align: center;">NIP'." ".$pj['nip'].'</td>
-                <td style="text-align: center;">NIP'." ".$pj['nip2'].'</td>
+                <td style="text-align: center;">NIP'." ".$nip_atasan_PB.'</td>
+                <td style="text-align: center;">NIP'." ".$nip_penyimpan_brg.'</td>
               </tr>
               </table>';
 
 
     }
+
 
 public function refresh($kd_lokasi, $thn_ang)
     {

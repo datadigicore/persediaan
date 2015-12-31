@@ -86,7 +86,7 @@ else
 
 		case 'lap_persediaan':
 			$kd_lokasi = $purifier->purify($_POST['satker']);
-			$satker_asal = $purifier->purify($_POST['satker']);
+			$satker_asal = $_SESSION['kd_lok'];
 			$jenis = $purifier->purify($_POST['jenis']);
 			$semester = explode("-",$purifier->purify($_POST['smt']));
 			$bln_awal = $semester[0];
@@ -231,7 +231,7 @@ else
 
 		case 'l_terima_brg':
 			$kd_lokasi = $purifier->purify($_POST['satker']);
-			// $satker_asal = $_SESSION['kd_lok'];
+			$satker_asal = $_SESSION['kd_lok'];
 			// $jenis = $purifier->purify($_POST['jenis']);
 			// $semester = explode("-",$purifier->purify($_POST['smt']));
 			// $bln_awal = $semester[0];
@@ -259,7 +259,7 @@ else
 		
 		case 'l_keluar_brg':
 			$kd_lokasi = $purifier->purify($_POST['satker']);
-			// $satker_asal = $_SESSION['kd_lok'];
+			$satker_asal = $_SESSION['kd_lok'];
 			// $jenis = $purifier->purify($_POST['jenis']);
 			// $semester = explode("-",$purifier->purify($_POST['smt']));
 			// $bln_awal = $semester[0];
@@ -287,7 +287,7 @@ else
 
 		case 'l_buku_bph':
 			$kd_lokasi = $purifier->purify($_POST['satker']);
-			// $satker_asal = $_SESSION['kd_lok'];
+			$satker_asal = $_SESSION['kd_lok'];
 			// $jenis = $purifier->purify($_POST['jenis']);
 			// $semester = explode("-",$purifier->purify($_POST['smt']));
 			// $bln_awal = $semester[0];
@@ -315,7 +315,7 @@ else
 
 		case 'l_kartu_brg':
 			$kd_lokasi = $purifier->purify($_POST['satker']);
-			// $satker_asal = $_SESSION['kd_lok'];
+			$satker_asal = $_SESSION['kd_lok'];
 			// $jenis = $purifier->purify($_POST['jenis']);
 			// $semester = explode("-",$purifier->purify($_POST['smt']));
 			// $bln_awal = $semester[0];
@@ -343,7 +343,7 @@ else
 
 		case 'l_kartu_p_brg':
 			$kd_lokasi = $purifier->purify($_POST['satker']);
-			// $satker_asal = $_SESSION['kd_lok'];
+			$satker_asal = $_SESSION['kd_lok'];
 			// $jenis = $purifier->purify($_POST['jenis']);
 			// $semester = explode("-",$purifier->purify($_POST['smt']));
 			// $bln_awal = $semester[0];
