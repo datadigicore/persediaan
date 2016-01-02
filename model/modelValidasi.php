@@ -38,6 +38,19 @@ class modelValidasi extends mysql_db
         $row_brg = $this->fetch_array($hasil);
         echo json_encode(array("st_amb"=>$row_brg["status_ambil"]));
     }
+    public function ubah_pwd($data)
+        {
+            $user_name = $data['user_name'];
+            $old_pwd = $data['old_pwd'];
+            $new_pwd = $data['new_pwd'];
+            $kd_lokasi = $data['kd_lokasi'];
+            $query = "update user
+                        set 
+                        user_pass='$new_pwd' 
+                        where user_name='$user_name' and user_pass='$old_pwd' and kd_lokasi='$kd_lokasi' ";
+            $result = $this->query($query);
+            return $result;
+        }
 
 }
 ?>

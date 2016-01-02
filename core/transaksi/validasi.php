@@ -11,6 +11,21 @@ else
 	$manage = $_POST['manage'];
 	switch ($manage)
 	{
+		case 'ubah_pwd';
+		$user_name = $_SESSION['username'];
+		$old_pwd = $purifier->purify(md5($_POST['old_password']));
+		$new_pwd = $purifier->purify(md5($_POST['password']));
+		$kd_lokasi = $purifier->purify($_POST['kd_lokasi']);
+		$data = array(
+				"user_name" => $user_name,
+				"old_pwd" => $old_pwd,
+				"new_pwd" => $new_pwd,
+				"kd_lokasi" => $kd_lokasi
+			);
+		print_r($data);
+		$Validasi->ubah_pwd($data);
+		break;
+
 		case 'cek_dok_masuk':
 		$kd_lokasi = $purifier->purify($_POST['kd_lokasi']);
 		$thn_ang = $_SESSION['thn_ang'];
