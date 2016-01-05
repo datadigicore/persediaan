@@ -2181,7 +2181,7 @@ class modelReport extends mysql_db
                 if($data[qty]>0) 
                 {
                         echo '  <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
-                                <center><td  align="center">'.$data[untuk].'</td></center>
+                                <center><td  align="center">'.$data[keterangan].'</td></center>
                                 <center><td  align="center">'.$data[no_bukti].'</td></center> 
                                 <center><td  align="center">'.$this->konversi_tanggal($data[tgl_dok]).'</td></center>
                                 <center><td  align="center">'.''.'</td></center>
@@ -2191,7 +2191,7 @@ class modelReport extends mysql_db
                                 <center><td  align="center">'.number_format($data[harga_sat],2,",",".").'</td></center>
                                 <center><td  align="center">'.$data[no_bukti].'</td></center>
                                 <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
-                                <center><td  align="center">'.$data[keterangan].'</td></center>
+                                <center><td  align="center">'.''.'</td></center>
                                 <center><td  align="center">'.$no.'</td></center>
                                 <center><td  align="center"></td></center>
                                 <center><td  align="center"></td></center>
@@ -2225,13 +2225,13 @@ class modelReport extends mysql_db
                                 <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
                                 <center><td  align="center">'.$data[no_bukti].'</td></center>
                                 <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
-                                <center><td  align="center">'.$data[untuk].'</td></center>
+                                <center><td  align="center">'.$data[keterangan].'</td></center>
                                 <center><td  align="center">'.abs($data[qty]).'</td></center>
                                 <center><td  align="center">'.$data[nm_brg].'</td></center>
                                 <center><td  align="center">'.number_format($data[harga_sat],2,",",".").'</td></center>
                                 <center><td  align="center">'.$subtotal.'</td></center>
                                 <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
-                                <center><td  align="center">'.$data[keterangan].'</td></center>
+                                <center><td  align="center">'.''.'</td></center>
                                 ';
                            
                 }
