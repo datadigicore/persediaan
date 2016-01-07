@@ -1578,13 +1578,31 @@ class modelTransaksi extends mysql_db
     {
         $kd_brg = $data['kd_brg'];
         $kd_lokasi = $data['kd_lokasi'];
-        $query_brg = "select * from persediaan where kd_brg = '$kd_brg' ";
-        $result_brg = $this->query($query_brg);
-        $row_brg = $this->fetch_array($result_brg);
+        $query_brg = "select satuan from persediaan where kd_brg = '$kd_brg' ";
+        // $result_brg = $this->query($query_brg);
+        $result_satker = $this->query("select * from transaksi_masuk where kd_brg = '$kd_brg' and kd_lokasi='$kd_lokasi' limit 1 ");
+        
+        if($this->num_rows($result_satker)==1)
+        {
+            $row_brg = $this->fetch_array($result_satker);
+            echo '<option value="'.$row_brg['satuan'].'">'.$row_brg['satuan']."</option>";
+           
+        }
+        else{
+            $result_brg = $this->query("SELECT DISTINCT satuan from persediaan");
+            // $row_brg = $this->fetch_array($result_brg);
+            // echo json_encode(array("satuan"=>$row_brg["satuan"]));
+             while ($row_brg = $this->fetch_array($result_brg))
+            { 
+                echo '<option value="'.$row_brg['satuan'].'">'.$row_brg['satuan']."</option>";
+            } 
+            
+
+        }
         // echo '<input type="hidden" name="nm_brg" value="'.$row_brg['nm_brg'].'">';
         // echo '<input type="hidden" name="satuan" value="'.$row_brg['satuan'].'">';      
         // echo $row_brg['nm_brg'].'  '.$row_brg['satuan'];
-        echo json_encode(array("satuan"=>$row_brg["satuan"]));
+        
     }
 
     public function harga_terakhir($data)

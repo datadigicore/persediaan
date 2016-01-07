@@ -116,8 +116,13 @@ else {
                           <div class="col-sm-4">
                             <input type="number" min="1" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah">
                           </div>                             
-                          <div class="col-sm-4">
-                            <input type="text" name="satuan" id="satuan" class="form-control"  readonly>
+                          <div class="col-sm-1" >
+                            <label class="control-label">Satuan</label>
+                          </div> 
+                          <div class="col-sm-3">
+                            <!-- <input type="text" name="satuan" id="satuan" class="form-control"  readonly> -->
+                            <select name="satuan" id="satuan" class="form-control select2">
+                            </select>
                           </div>                            
                         </div>                  
                         <div class="form-group">
@@ -623,9 +628,13 @@ else {
           type: "post",
           url: '../core/transaksi/prosestransaksi',
           data: {manage:'baca_detil_trans',kd_brg:kd_brg,no_dok:no_dok},
-          dataType: "json",
+          // dataType: "json",
           success: function (output) {     
-            $('#satuan').val(output.satuan);
+            $('#satuan').html(output);
+            $("#satuan").select2({
+           placeholder: "Masukkan Satuan Barang",
+           allowClear: false
+          });
           }
        });
         }
@@ -646,15 +655,21 @@ else {
       
 
           if($('#kd_brg').select2('data')== "") {
-            alert("Kode Barang persediaan Belum Dipilih");
+            // alert("Kode Barang persediaan Belum Dipilih");
+            $("#kd_brg").notify("Kode Persediaan Barang Belum Dipilih","error");
             return false;
           }
           if ($('#jml_msk').val() == "") {
-            alert("Masukkan Jumlah");
+            $("#jml_msk").notify("Masukkan Jumlah Barang yang Diterima","error");
+            return false;
+          };
+          if ($('#satuan').val() == "") {
+            // alert("Satuan Barang Belum Dipilih Atau Dimasukkan");
+            $("#satuan").notify("Satuan Barang Belum Dimasukkan","error");
             return false;
           };
           if ($('#rph_sat').val() == "") {
-            alert("Masukkan Harga Beli Satuan");
+            $("#rph_sat").notify("Masukkan Harga Beli / Perolehan Satuan","error");
             return false;
           };
           $('button:submit').attr("disabled", true);
