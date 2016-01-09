@@ -47,29 +47,30 @@ class modelOpsik extends mysql_db
         if (mysqli_num_rows($result_msk) != 0)
         {
             while($row_id = $this->fetch_array($result_msk)){
-            $kd_lokasi=$row_id['kd_lokasi'];
-            $nm_satker = $row_id['nm_satker'];
-            $thn_ang = $row_id['thn_ang'];
-            $no_dok = $row_id['no_dok'];
-            $tgl_dok = $row_id['tgl_dok'];
-            $tgl_buku = $row_id['tgl_buku'];
-            $no_bukti = $row_id['no_bukti'];
+                $id_brg = $row_id['id'];
+                $kd_lokasi=$row_id['kd_lokasi'];
+                $nm_satker = $row_id['nm_satker'];
+                $thn_ang = $row_id['thn_ang'];
+                $no_dok = $row_id['no_dok'];
+                $tgl_dok = $row_id['tgl_dok'];
+                $tgl_buku = $row_id['tgl_buku'];
+                $no_bukti = $row_id['no_bukti'];
 
-            $kd_sskel = $row_id['kd_sskel'];
-            $nm_sskel = $row_id['nm_sskel'];
-            $kd_perk = $row_id['kd_perk'];
-            $nm_perk = $row_id['nm_perk'];
-            $satuan = $row_id['satuan'];
+                $kd_sskel = $row_id['kd_sskel'];
+                $nm_sskel = $row_id['nm_sskel'];
+                $kd_perk = $row_id['kd_perk'];
+                $nm_perk = $row_id['nm_perk'];
+                $satuan = $row_id['satuan'];
 
-            $kd_brg = $row_id['kd_brg'];
-            $nm_brg = $row_id['nm_brg'];
-            $keterangan = 'Hapus Opname : '.$row_id['keterangan'];
-            $id_trans = $row_id['id'];
-            $qty_awal = -1 * $row_id['qty'];
-            $harga_sat = $row_id['harga_sat'];
-            $total_harga = -1 * $row_id['total_harga'];
+                $kd_brg = $row_id['kd_brg'];
+                $nm_brg = $row_id['nm_brg'];
+                $keterangan = 'Hapus Opname : '.$row_id['keterangan'];
+                $id_trans = $row_id['id'];
+                $qty_awal = -1 * $row_id['qty'];
+                $harga_sat = $row_id['harga_sat'];
+                $total_harga = -1 * $row_id['total_harga'];
 
-            echo "Masuk kesini";
+                echo "Masuk kesini";
 
 
 
@@ -106,10 +107,58 @@ class modelOpsik extends mysql_db
                     status='0',
                     tgl_update=NOW(),
                     user_id='$user_id'";   
-                    $this->query($query_full);   
+                    $this->query($query_full);
+
+                    $result_brg_klr = $this->query("select * from transaksi_keluar where id_masuk='$id_brg'");
+                    if (mysqli_num_rows($result_brg_klr) != 0)
+                    {
+                        while($brg_klr = $this->fetch_array($result_brg_klr)){
+                    
+                            $qty_klr = abs($brg_klr['qty']);
+                            $ket = 'Hapus Opname Selisih Lebih: '.$row['keterangan'];
+                            $id_trans = $row['id'];
+                            $harga_klr = abs($brg_klr['harga_sat']);
+                            $total_harga_klr = abs($brg_klr['total_harga']);
+
+                            $query_full = "Insert into transaksi_full
+                                            set 
+                                            kd_lokasi='$kd_lokasi',
+                                            kd_lok_msk='',
+                                            id_opname='$id_opname',
+                                            id_masuk='$id_trans',
+                                            nm_satker='$nm_satker',
+                                            thn_ang='$thn_ang',
+                                            no_dok='$no_dok',
+                                            tgl_dok='$tgl_dok',
+                                            tgl_buku='$tgl_buku',
+                                            no_bukti='$no_bukti',
+                                            jns_trans='P01-K',
+                                            kd_sskel='$kd_sskel',
+                                            nm_sskel='$nm_sskel',
+                                            kd_brg='kd_brg',
+                                            nm_brg='$nm_brg',
+                                            kd_perk='$kd_perk',
+                                            nm_perk='$nm_perk',
+                                            satuan='$satuan',
+                                            qty='$qty_klr',
+                                            harga_sat='$harga_klr',
+                                            total_harga='$total_harga_klr',
+                                            keterangan='$ket',
+                                            status='0',
+                                            tgl_update=NOW(),
+                                            user_id='$user_id'";   
+                                        $result_full = $this->query($query_full);
+
+                        }
+                        $this->query("delete from transaksi_keluar where id_masuk='$id_brg' ");   
+                    }   
 
 
             }
+
+
+
+
             $query_hps_msk = "delete from transaksi_masuk where id_opname='$id_opname' and jns_trans='P01' ";
             $this->query($query_hps_msk);
 
