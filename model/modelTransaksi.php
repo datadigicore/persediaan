@@ -1589,9 +1589,10 @@ class modelTransaksi extends mysql_db
            
         }
         else{
-            $result_brg = $this->query("SELECT DISTINCT satuan from persediaan");
+            $result_brg = $this->query("SELECT DISTINCT satuan from satuan");
             // $row_brg = $this->fetch_array($result_brg);
             // echo json_encode(array("satuan"=>$row_brg["satuan"]));
+            echo '<option value="">'."Pilih Satuan"."</option>";
              while ($row_brg = $this->fetch_array($result_brg))
             { 
                 echo '<option value="'.$row_brg['satuan'].'">'.$row_brg['satuan']."</option>";

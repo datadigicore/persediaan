@@ -161,7 +161,7 @@ class modelBarang extends mysql_db
 
 	public function bacabarang($data)
 	{
-		$query = "select kd_brg, nm_brg from persediaan where CONCAT(kd_brg,' ',nm_brg) like '%$data%' and g='' and f!='' order by kd_brg asc";
+		$query = "select kd_brg, nm_brg from persediaan where CONCAT(kd_brg,' ',nm_brg) like '%$data%' and char_length(kd_brg)=18 order by kd_brg asc";
         $result = $this->query($query);
         $json = array();
 
@@ -182,7 +182,7 @@ class modelBarang extends mysql_db
 
 	public function bacassatuan($data)
 	{
-		$query = "select satuan from persediaan where satuan like '%$data%' group by satuan asc";
+		$query = "select satuan from satuan where satuan like '%$data%' group by satuan asc";
         $result = $this->query($query);
         $json = array();
         while ($row = $this->fetch_array($result))

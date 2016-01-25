@@ -632,7 +632,7 @@ else {
           success: function (output) {     
             $('#satuan').html(output);
             $("#satuan").select2({
-           placeholder: "Masukkan Satuan Barang",
+           placeholder: "Pilih Satuan Barang",
            allowClear: false
           });
           }
