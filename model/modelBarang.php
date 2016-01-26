@@ -27,7 +27,7 @@ class modelBarang extends mysql_db
 		$spesifikasi = $data['spesifikasi'];
 		$satuan = $data['satuan'];
 
-		$hsl = $this->query("select kd_perk, nm_perk,nm_sskel from persediaan where kd_brg = '$kode_rekening' ");
+		$hsl = $this->query("select kd_perk, nm_perk,nm_sskel from persediaan where kd_sskel = '$kode_rekening' ");
 		$kd_rek = $this->fetch_array($hsl);
 		$kd_perk = $kd_rek['kd_perk'];
 		$nm_perk = $kd_rek['nm_perk'];
@@ -37,6 +37,7 @@ class modelBarang extends mysql_db
 		$data_noreg = $this->fetch_array($hsl_noreg);
 		$noreg = $data_noreg['g'];
 		$no_urut = $noreg+1;
+		if($no_urut<10) $no_urut = '0'.$no_urut;
 
 		$kd_brg=$kode_rekening.'.'.$no_urut;
 
@@ -50,6 +51,7 @@ class modelBarang extends mysql_db
 
 		$query = "Insert into persediaan
         			set kd_brg='$kd_brg',
+        			g = '$no_urut',
         			nm_brg='$nm_brg',
         			kd_sskel='$kode_rekening',
         			nm_sskel='$nm_sskel',
@@ -161,13 +163,13 @@ class modelBarang extends mysql_db
 
 	public function bacabarang($data)
 	{
-		$query = "select kd_brg, nm_brg from persediaan where CONCAT(kd_brg,' ',nm_brg) like '%$data%' and char_length(kd_brg)=18 order by kd_brg asc";
+		$query = "select kd_sskel, nm_brg from persediaan where CONCAT(kd_brg,' ',nm_brg) like '%$data%' and char_length(kd_brg)=18 order by kd_brg asc";
         $result = $this->query($query);
         $json = array();
 
         while ($row = $this->fetch_array($result))
         {
-        	echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg']."</option>";
+        	echo '<option value="'.$row['kd_sskel'].'">'.$row['kd_sskel'].' '.$row['nm_brg']."</option>";
         	// if ((substr_count($row['kd_brg'],".") >= 3 and (substr_count($row['kd_brg'],".") <= 5))) {
         	// 	$dynamic = array(
 	        //         'id' => $row['kd_brg'],
