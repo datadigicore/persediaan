@@ -65,7 +65,7 @@
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">    
       $("li#ubah_pwd").addClass("active");
-      $('#addtndatg').submit(function(e){
+      $('#addtndatgn').submit(function(e){
         var pass1 = $("#password").val();
         var pass2 = $("#confirm_password").val();
         if(pass1!==pass2)
