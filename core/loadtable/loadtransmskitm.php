@@ -26,8 +26,8 @@ $columns = array(
     array( 'db' => 'spesifikasi', 'dt' => 4 ),
     array( 'db' => 'qty', 'dt' => 5 ),
     array( 'db' => 'satuan', 'dt' => 6 ),
-    array( 'db' => 'harga_sat', 'dt' => 7 ),
-    array( 'db' => 'total_harga', 'dt' => 8),
+    array( 'db' => 'harga_sat', 'dt' => 7, 'formatter' => function($d,$row){return number_format($d,0,",",".");} ),
+    array( 'db' => 'total_harga', 'dt' => 8, 'formatter' => function($d,$row){return number_format($d,0,",",".");}),
     
     array( 'db' => 'keterangan', 'dt' => 9 ),
     array( 'db' => 'qty_akhir', 'dt' => 10 ),
