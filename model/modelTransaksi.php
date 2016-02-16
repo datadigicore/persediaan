@@ -1435,7 +1435,7 @@ class modelTransaksi extends mysql_db
   
     public function bacabrg($data)
     {
-        $query = "select kd_brg, nm_brg, spesifikasi from persediaan where CONCAT(kd_brg,' ',nm_brg,' ',spesifikasi) like '%$data%' and char_length(kd_brg)>17 ";
+        $query = "select kd_brg, nm_brg, spesifikasi from persediaan where CONCAT(kd_brg,' ',nm_brg,' ',spesifikasi) like '%$data%' and char_length(kd_brg)>18 ";
         $result = $this->query($query);
         $json = array();
         while ($row = $this->fetch_array($result))
