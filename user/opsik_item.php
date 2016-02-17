@@ -90,7 +90,7 @@ else {
                           <div class="form-group">
                             <label class="col-sm-3 control-label">Jumlah Hasil Opname</label>
                             <div class="col-sm-4">
-                              <input type="number" min="0"  name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah">
+                              <input type="number" min="0.1" step="any"  name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah">
                             </div>
                             <div class="col-sm-4">
                               <input type="text" name="satuan" id="satuan" class="form-control"  readonly>

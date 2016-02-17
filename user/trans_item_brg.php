@@ -114,7 +114,7 @@ else {
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Jumlah Masuk</label>
                           <div class="col-sm-4">
-                            <input type="number" min="1" name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah">
+                            <input type="number" min="1" name="jml_msk" class="form-control" id="jml_msk" step="any" placeholder="Masukkan Jumlah">
                           </div>                             
                           <div class="col-sm-1" >
                             <label class="control-label">Satuan</label>
@@ -128,7 +128,7 @@ else {
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Harga Satuan</label>
                           <div class="col-sm-8">
-                            <input type="number" min="1" name="rph_sat" class="form-control" id="rph_sat" placeholder="Masukkan Harga ">
+                            <input type="number" min="1" name="rph_sat" class="form-control" id="rph_sat" step="any" placeholder="Masukkan Harga ">
                           </div>
                         </div>                  
                         <div name="detil_transaksi" id="detil_transaksi">
@@ -161,7 +161,7 @@ else {
                           <div class="form-group">
                             <label class="col-sm-3 control-label">Jumlah Keluar</label>
                             <div class="col-sm-4">
-                              <input type="number" min="1" max name="jml_msk" class="form-control" id="jml_msk" placeholder="Masukkan Jumlah">
+                              <input type="number" min="0.01" max name="jml_msk" class="form-control" id="jml_msk" step="any" placeholder="Masukkan Jumlah">
                             </div>
                             <div class="col-sm-4">
                               <input type="text" name="satuan" id="satuan" class="form-control"  readonly>
@@ -360,8 +360,13 @@ else {
         kd_brg_row = row.data()[2];
         nm_brg_row = row.data()[3];
         spesifikasi_row = row.data()[4];
-        qty_row = row.data()[5];
-        harga_sat_row = row.data()[7];
+        var qty_rw = row.data()[5];
+        var qty_rw2 = qty_rw.replace(",",".");
+        qty_row = qty_rw2;
+        var harga_satuan = row.data()[7];
+        var harga_satuan2 = harga_satuan.replace(".","");
+        harga_sat_row = parseFloat(harga_satuan2.replace(",","."));
+        // alert(harga_sat_row);
         total_harga_row = row.data()[8];
         ket_row = row.data()[8];
         qty_akhir = row.data()[5]-row.data()[10];
@@ -413,9 +418,9 @@ else {
               '<td width="14%"><input style="width:97%" id="kd_brg'+d[0]+'" name="jns_trans_baru" class="form-control" type="text" readonly></td>'+
               '<td width="11%"><input style="width:97%" id="nm_brg'+d[0]+'" name="kd_satker" class="form-control" type="text" readonly></td>'+
               '<td width="10%"><input style="width:97%" id="spesifikasi'+d[0]+'" name="nodok_baru" class="form-control" type="text" readonly></td>'+
-              '<td width="8%"><input style="width:97%" id="qty'+d[0]+'" name="jumlah_baru" class="form-control" type="number" min="'+qty_akhir+'" required ></td>'+
+              '<td width="8%"><input style="width:97%" step="any" id="qty'+d[0]+'" name="jumlah_baru" class="form-control" type="number" min="'+qty_akhir+'" required ></td>'+
               '<td width="13%"><input style="width:99%" id="total_harga'+d[0]+'" name="ket_baru" class="form-control" type="text" readonly ></td>'+
-              '<td width="11%"><input style="width:98%" id="harga_sat'+d[0]+'" name="harga_baru" min="1" class="form-control" type="number" required ></td>'+
+              '<td width="11%"><input style="width:98%" step="any" id="harga_sat'+d[0]+'" name="harga_baru" min="1" class="form-control" type="number" required ></td>'+
               
               '<td style="vertical-align:middle; width:7%;">'+
                 '<div class="box-tools">'+

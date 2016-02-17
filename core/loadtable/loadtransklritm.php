@@ -23,10 +23,10 @@ $columns = array(
     array( 'db' => 'kd_brg', 'dt' => 2, ),
     array( 'db' => 'nm_brg', 'dt' => 3 ),
     array( 'db' => 'spesifikasi', 'dt' => 4 ),
-    array( 'db' => 'qty', 'dt' => 5, 'formatter' => function($d,$row){return abs($d);} ),
+    array( 'db' => 'qty', 'dt' => 5, 'formatter' => function($d,$row){if(ceil($d)!=$d or floor($d)!=$d) {return number_format(abs($d),2,",",".");} else { return number_format(abs($d),0,",",".");} } ),
     array( 'db' => 'satuan', 'dt' => 6 ),
-    array( 'db' => 'harga_sat', 'dt' => 7, 'formatter' => function($d,$row){return number_format($d,0,",",".");} ),
-    array( 'db' => 'total_harga', 'dt' => 8, 'formatter' => function($d,$row){return number_format(abs($d),0,",",".");} ),
+    array( 'db' => 'harga_sat', 'dt' => 7, 'formatter' => function($d,$row){return number_format($d,2,",",".");} ),
+    array( 'db' => 'total_harga', 'dt' => 8, 'formatter' => function($d,$row){if(ceil($d)!=$d or floor($d)!=$d) {return number_format(abs($d),2,",",".");} else { return number_format(abs($d),0,",",".");} } ),
     array( 'db' => 'keterangan', 'dt' => 9 ),
 
 
