@@ -51,7 +51,8 @@
                           <option value="M01">Saldo Awal</option>
                           <option value="M02">Pembelian</option>
                           <option value="M03">Hibah Masuk</option>
-                          <option value="M04">Perolehan Lainnya</option>
+                          <option value="M04">Pengadaan</option>
+                          <option value="M05">Perolehan Lainnya</option>
                         </select>
                       </div>
                     </div>
