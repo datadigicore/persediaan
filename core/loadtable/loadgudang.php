@@ -27,12 +27,17 @@ $sql_details = $config->sql_details();
 $tahun = $_SESSION['thn_ang'];
 
 // Kondisi Where
+// $where = "	kodesektor is not null and
+// 			kodesatker is not null and
+// 			kodeunit is not null and
+// 			gudang is not null and 
+// 			tahun is null or
+// 			tahun = '$tahun' and 
+// 			CHAR_LENGTH(kode) = 11" ;
 $where = "	kodesektor is not null and
 			kodesatker is not null and
 			kodeunit is not null and
 			gudang is not null and 
-			tahun is null or
-			tahun = '$tahun' and 
 			CHAR_LENGTH(kode) = 11" ;
 
 // Pengaturan Output Server Side Processing

@@ -30,8 +30,6 @@ $where = "	kodesektor is not null and
 			kodesatker is not null and
 			kodeunit is not null and
 			gudang is null and 
-			tahun is null or
-			tahun = '$tahun' and 
 			CHAR_LENGTH(kode) = 8" ; 
 
 // Pengaturan Output Server Side Processing

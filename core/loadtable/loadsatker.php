@@ -28,9 +28,7 @@ $tahun = $_SESSION['thn_ang'];
 $where = "	kodesektor is not null and
 			kodesatker is not null and
 			kodeunit is null and
-			gudang is null and 
-			tahun is null or
-			tahun = '$tahun' and 
+			gudang is null and  
 			CHAR_LENGTH(kode) = 5" ;
 
 // Pengaturan Output Server Side Processing
