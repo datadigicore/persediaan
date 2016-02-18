@@ -14,9 +14,10 @@ $primaryKey = 'id';
 $columns = array(
     array( 'db' => 'id', 'dt' => 0 ),
     array( 'db' => 'kd_brg', 'dt' => 1 ),
-    array( 'db' => 'nm_brg', 'dt' => 2 ),
-    array( 'db' => 'spesifikasi', 'dt' => 3 ),
-    array( 'db' => 'satuan', 'dt' => 4 )
+    array( 'db' => 'nm_sskel', 'dt' => 2 ),
+    array( 'db' => 'nm_brg', 'dt' => 3 ),
+    array( 'db' => 'spesifikasi', 'dt' => 4 ),
+    array( 'db' => 'satuan', 'dt' => 5 ),
 );
  
 // Settingan Koneksi Datatable

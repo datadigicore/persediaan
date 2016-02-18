@@ -62,6 +62,55 @@ class modelBarang extends mysql_db
         $result = $this->query($query);
 		return $result;
 	}
+
+	public function ubahjenisbrg($data)
+	{
+		$id = $data['id'];
+		$kode_rekening = $data['kdbaru'];
+		$kdlama= $data['kdlama'];
+		$nm_brg = $data['nmbrg'];
+		// $kd_brg = $data['kdbrg'];
+		$spesifikasi = $data['spesifikasi'];
+		$satuan = $data['satuan'];
+		// $id = $_POST['id'];
+		$hsl = $this->query("select kd_perk, nm_perk,nm_sskel from persediaan where kd_sskel = '$kode_rekening' ");
+		$kd_rek = $this->fetch_array($hsl);
+		$kd_perk = $kd_rek['kd_perk'];
+		$nm_perk = $kd_rek['nm_perk'];
+		$nm_sskel = $kd_rek['nm_sskel'];
+
+		$hsl_noreg = $this->query("SELECT g FROM persediaan where kd_brg like '$kode_rekening%' ORDER BY g DESC limit 1");
+		$data_noreg = $this->fetch_array($hsl_noreg);
+		$noreg = $data_noreg['g'];
+		$no_urut = $noreg+1;
+		if($no_urut<10) $no_urut = '0'.$no_urut;
+		$aksi = "Ubah Jenis dari Kode ".$kdlama;
+		$kd_brg=$kode_rekening.'.'.$no_urut;
+
+		$query_brg = "select kd_brg, nm_brg from persediaan where kd_brg='$kd_brg' limit 1";
+		$result_brg = $this->query($query_brg);
+		if($this->num_rows($result_brg)==1)
+        {
+        	exit();
+        }
+
+
+		$query_log = "Insert into log_persediaan
+        			set idbrg='$id',
+        			aksi = '$aksi',
+        			nm_brg='$nm_brg',
+        			kd_sskel='$kode_rekening',
+        			kd_brg='$kd_brg',
+        			nm_sskel='$nm_sskel',
+                    spesifikasi='$spesifikasi',
+                    satuan='$satuan'";
+        $query = "UPDATE persediaan set kd_brg='$kd_brg', kd_perk='$kd_perk', nm_perk='$nm_perk', kd_sskel='$kode_rekening', nm_sskel='$nm_sskel' where id='$id' ";
+        $result = $this->query($query);
+        return $this->query($query_log);
+		return $result;
+
+		// $this->query("DELETE from persediaan where id='$id' ");
+	}
 	public function ubahsubbrg($data)
 	{
 		$id = $data['id'];

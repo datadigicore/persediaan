@@ -23,7 +23,25 @@ else
 		    );
 			$Barang->cek_kd_barang($data);
 		break;
-
+		case 'updjenisbrg':
+			
+			$id = $purifier->purify($_POST['id']);
+			$kdlama = $purifier->purify($_POST['kodebarang']);
+			$nmbrg = $purifier->purify($_POST['namabarang']);
+			$spesifikasi = $purifier->purify($_POST['spesifikasi']);
+			$satuan = $purifier->purify($_POST['satuan']);
+			$kdbaru = $purifier->purify($_POST['kdbaru']);
+			$data = array(
+				"id" => $id,
+				"kdlama" => $kdlama,
+				"nmbrg" => $nmbrg,
+				"spesifikasi" => $spesifikasi,
+				"satuan" => $satuan,
+		    	"kdbaru" => $kdbaru
+		    );
+		    print_r($data);
+			$Barang->ubahjenisbrg($data);
+		break;
 		case 'readsskel':
 			$Barang->bacasskel();
 		break;

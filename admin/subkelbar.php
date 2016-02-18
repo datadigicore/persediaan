@@ -78,6 +78,7 @@
                       <tr>
                         <th>ID</th>
                         <th width="16%">Kode Barang</th>
+                        <th width="16%">Jenis Barang</th>
                         <th>Uraian Barang</th>
                         <th>Spesifikasi</th>
                         <th width="16%">Satuan</th>
@@ -134,13 +135,15 @@
             {"targets": 2 },
             {"targets": 3 },
             {"targets": 4 },
+            {"targets": 5 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                   // '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                   '<button id="btnhps" class="btn btn-danger btn-xs btn-flat pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
+                                  '<button id="btnalih" class="btn btn-warning btn-xs btn-flat pull-right"><i class="fa fa-forward"></i> Ubah Jenis</button>'+
                                 '</div>',
-             "targets": [5],"targets": 5 }
+             "targets": [6],"targets": 6 }
           ],
           "order": [[ 0, "desc" ]],
           "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
@@ -228,6 +231,44 @@
             $("#satuan"+id_row+"").val(satuan_row);
           }
         });
+
+        $(document).on("click", "#btnalih", function(){
+          var tr = $(this).closest('tr');
+          var row = table.row( tr );
+          id_row = row.data()[0];
+          kdbarang_row = row.data()[1];
+          urbarang_row  = row.data()[2];
+          spesifikasi_row  = row.data()[3];
+          satuan_row  = row.data()[4];
+          if ( row.child.isShown() ) {
+            $('div.slider', row.child()).slideUp( function () {
+              row.child.hide();
+              tr.removeClass('shown');
+            });
+          }
+          else {
+            $.ajax({
+                type: "post",
+                url: '../core/barang/prosesbarang',
+                data: {manage:'readbarang'},
+                success: function (output) {     
+                  $('#kdbaru').html(output);
+                }
+             });
+            
+            row.child( ubh_jns(row.data())).show();
+            tr.addClass('shown');
+            $('div.slider', row.child()).slideDown();
+            $("#kdbarang"+id_row+"").val(kdbarang_row);
+            $("#urbarang"+id_row+"").val(urbarang_row);
+            $("#spesifikasi"+id_row+"").val(spesifikasi_row);
+            $("#satuan"+id_row+"").val(satuan_row);
+            $("#kdbaru").select2({
+             placeholder: "Pilih Jenis Barang Persediaan",
+             allowClear: false
+            });
+          }
+        });
         $(document).on('click', '#btnhps', function () {
           var tr = $(this).closest('tr');
           var row = table.row( tr );
@@ -295,6 +336,68 @@
         '</table>'+
         '</form></div>';  
       }
+
+      function ubh_jns ( d ) {
+        return '<div class="slider">'+
+        '<form action="../core/barang/prosesbarang" method="post" class="form-horizontal" id="updjenis">'+
+        '<table width="100%">'+
+           '<tr>'+
+              '<input type="hidden" name="manage" value="updjenisbrg">'+
+              '<input type="hidden" name="id" value="'+d[0]+'">'+
+              '<input type="hidden" name="kodebarang" value="'+d[1]+'">'+
+              '<input type="hidden" name="namabarang" value="'+d[3]+'">'+
+              '<input type="hidden" name="spesifikasi" value="'+d[4]+'">'+
+              '<input type="hidden" name="satuan" value="'+d[5]+'">'+
+
+              '<td width="5%">Jenis Awal</td>'+
+              '<td width="25.8%"><input style="width:94%" id="satuan'+d[2]+'" name=jns_lama"updsatuan" class="form-control" type="text" value="'+d[2]+'" readonly></td>'+
+              '<td width="5%">Jenis Baru</td>'+
+              '<td width="50%"><select style="width:100%" name="kdbaru" id="kdbaru" class="form-control select2" ></select></td>'+
+              // '<td width="20.2%"><input style="width:98.2%" id="urbarang'+d[0]+'" name="updurbarang" class="form-control" type="text" placeholder="Uraian Barang"></td>'+
+              // '<td><input style="width:94%" id="spesifikasi'+d[0]+'" name="updspesifikasi" class="form-control" type="text" placeholder="Spesifikasi"></td>'+
+              // '<td><input style="width:94%" id="satuan'+d[0]+'" name="updsatuan" class="form-control" type="text" placeholder="Satuan"></td>'+
+              '<td style="vertical-align:middle; width:15%;">'+
+                '<div class="box-tools">'+
+                  // '<button id="btnrst" class="btn btn-flat btn-sm btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
+                  '<button id="btnupd" class="btn btn-flat btn-sm btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
+                '</div>'
+              '</td>'+
+           '</tr>'+
+        '</table>'+
+        '</form></div>';  
+      }
+      $(document).on('submit', '#updjenis', function (e) {
+        // $('#myModal').modal({
+        //   backdrop: 'static',
+        //   keyboard: false
+        // });
+        // $('#myModal').modal('show');
+        // e.preventDefault();
+        redirectTime = "1000";
+        var formURL = $(this).attr("action");
+        var addData = new FormData(this);
+        $.ajax({
+          type: "post",
+          data: addData,
+          url : formURL,
+          contentType: false,
+          cache: false,  
+          processData: false,
+          success: function(data)
+          {
+            $("#success-alert").alert();
+            $("#success-alert").fadeTo(500, 500).slideUp(500, function(){
+            $("#success-alert").alert('close');
+            });
+            setTimeout("$('#myModal').modal('hide');",redirectTime);
+            $("#example1").DataTable().destroy();
+            $("#example1 tbody").empty();
+            myTable();
+          }
+        });
+        return false;
+      });
+
       $(document).on('submit', '#updbarang', function (e) {
         $('#myModal').modal({
           backdrop: 'static',
