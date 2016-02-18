@@ -113,12 +113,12 @@ class modelBarang extends mysql_db
         $query5 = "UPDATE opname set kd_brg='$kd_brg', kd_perk='$kd_perk', nm_perk='$nm_perk', kd_sskel='$kode_rekening', nm_sskel='$nm_sskel' where kd_brg='$kdlama' ";
         $query6 = "UPDATE log_trans_masuk set kd_brg='$kd_brg' where kd_brg='$kdlama' ";
         $query7 = "UPDATE log_slip set kd_brg='$kd_brg' where kd_brg='$kdlama' ";
-        echo $query2."<br>";
-        echo $query3."<br>";
-        echo $query4."<br>";
-        echo $query5."<br>";
-        echo $query6."<br>";
-        echo $query7."<br>";
+        // echo $query2."<br>";
+        // echo $query3."<br>";
+        // echo $query4."<br>";
+        // echo $query5."<br>";
+        // echo $query6."<br>";
+        // echo $query7."<br>";
         $this->query($query1);
         
         $this->query($query2);
