@@ -476,6 +476,7 @@ else
 
 				"kd_trans" => $kd_trans,
 				"kd_lok_msk" => $kd_lok_msk,
+				"kd_lok" => $kd_lok_msk,
 				"nm_satker" => $nm_satker,
 				"thn_ang" => $thn_ang,
 				"kuantitas" => $kuantitas,

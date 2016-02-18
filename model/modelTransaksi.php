@@ -964,8 +964,8 @@ class modelTransaksi extends mysql_db
     public function ubah_transaksi_masuk($data)
     {
         $kd_trans = $data['kd_trans']; // id transaksi masuk
-        $kd_lokasi = $data['kd_lokasi'];
-        $kd_lok_msk = $data['kd_lokasi'];
+        $kd_lokasi = $data['kd_lok_msk'];
+        $kd_lok_msk = $data['kd_lok_msk'];
         
         $thn_ang = $data['thn_ang'];
         $kuantitas = $data['kuantitas'];
