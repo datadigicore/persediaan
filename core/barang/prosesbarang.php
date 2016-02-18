@@ -39,7 +39,7 @@ else
 				"satuan" => $satuan,
 		    	"kdbaru" => $kdbaru
 		    );
-		    print_r($data);
+		    // print_r($data);
 			$Barang->ubahjenisbrg($data);
 		break;
 		case 'readsskel':
