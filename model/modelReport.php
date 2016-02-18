@@ -1971,7 +1971,7 @@ class modelReport extends mysql_db
                     $no+=1;
                     echo'<tr >
                     <center><td style="height:25px"  align="center">'.$no.'</td></center>
-                    <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_buku]).'</td></center>
+                    <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_dok]).'</td></center>
                     <center><td  align="center">'.'-'.'</td></center>
                     <center><td  align="left">'.$data[no_bukti].'</td></center>
                     <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_dok]).'</td></center>
@@ -1981,7 +1981,7 @@ class modelReport extends mysql_db
                     <center><td  align="right">'.number_format($data[total_harga],2,",",".").'</td></center>
                     
                     <center><td  align="left">'.$data[no_bukti].'</td></center>
-                    <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_buku]).'</td></center>
+                    <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_dok]).'</td></center>
                     <center><td  align="left">'.$data[keterangan].'</td></center>';
 
                     echo '</tr>';
@@ -2036,7 +2036,7 @@ class modelReport extends mysql_db
                 {
                     echo'<tr>
                         <center><td  align="center">'.$no.'</td></center>
-                        <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
+                        <center><td  align="center">'.$this->konversi_tanggal($data[tgl_dok]).'</td></center>
                         <center><td  align="center">'.$data[nm_brg].'</td></center>
                         <center><td  align="center">'.$data[spesifikasi].'</td></center>
                         <center><td  align="center">'.''.'</td></center>
@@ -2063,7 +2063,7 @@ class modelReport extends mysql_db
                             <td>'.''.'</td>
                             <td>'.''.'</td>
                             <td>'.''.'</td>
-                            <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
+                            <center><td  align="center">'.$this->konversi_tanggal($data[tgl_dok]).'</td></center>
                             <center><td  align="center">'.''.'</td></center>
                             <center><td  align="center">'.abs($data[qty]).' '.$data[satuan].'</td></center>
                             <center><td  align="center">'.$data[no_bukti].'</td></center>
@@ -2180,7 +2180,7 @@ class modelReport extends mysql_db
                     ';
                 if($data[qty]>0) 
                 {
-                        echo '  <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
+                        echo '  <center><td  align="center">'.$this->konversi_tanggal($data[tgl_dok]).'</td></center>
                                 <center><td  align="center">'.$data[keterangan].'</td></center>
                                 <center><td  align="center">'.$data[no_bukti].'</td></center> 
                                 <center><td  align="center">'.$this->konversi_tanggal($data[tgl_dok]).'</td></center>
@@ -2190,7 +2190,7 @@ class modelReport extends mysql_db
                                 <center><td  align="center">'.$data[nm_brg].'</td></center>
                                 <center><td  align="center">'.number_format($data[harga_sat],2,",",".").'</td></center>
                                 <center><td  align="center">'.$data[no_bukti].'</td></center>
-                                <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
+                                <center><td  align="center">'.$this->konversi_tanggal($data[tgl_dok]).'</td></center>
                                 <center><td  align="center">'.''.'</td></center>
                                 <center><td  align="center">'.$no.'</td></center>
                                 <center><td  align="center"></td></center>
@@ -2222,15 +2222,15 @@ class modelReport extends mysql_db
                                 <center><td  align="center"></td></center>
                                 <center><td  align="center"></td></center>
                                 <center><td  align="center">'.$no.'</td></center>
-                                <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
+                                <center><td  align="center">'.$this->konversi_tanggal($data[tgl_dok]).'</td></center>
                                 <center><td  align="center">'.$data[no_bukti].'</td></center>
-                                <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
+                                <center><td  align="center">'.$this->konversi_tanggal($data[tgl_dok]).'</td></center>
                                 <center><td  align="center">'.$data[keterangan].'</td></center>
                                 <center><td  align="center">'.abs($data[qty]).'</td></center>
                                 <center><td  align="center">'.$data[nm_brg].'</td></center>
                                 <center><td  align="center">'.number_format($data[harga_sat],2,",",".").'</td></center>
                                 <center><td  align="center">'.$subtotal.'</td></center>
-                                <center><td  align="center">'.$this->konversi_tanggal($data[tgl_buku]).'</td></center>
+                                <center><td  align="center">'.$this->konversi_tanggal($data[tgl_dok]).'</td></center>
                                 <center><td  align="center">'.''.'</td></center>
                                 ';
                            
