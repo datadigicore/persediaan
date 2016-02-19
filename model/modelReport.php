@@ -319,19 +319,19 @@ class modelReport extends mysql_db
                              <td  align="center" style="font-size:90%;">'.$data[kd_brg].'</td> 
                              <td  align="left" style="font-size:90%;">'.$data[nm_brg].' '.$data[spesifikasi].'</td> 
                              <td  align="center" style="font-size:90%;">'.$data[brg_thn_lalu].'</td> 
-                             <td  align="right" style="font-size:90%;">'.number_format($data[hrg_thn_lalu],0,",",".").'</td> 
+                             <td  align="right" style="font-size:90%;">'.number_format($data[hrg_thn_lalu],2,",",".").'</td> 
                              <td align="center" style="font-size:90%;">'.$jml_msk.'</td> 
                              <td align="center" style="font-size:90%;">'.abs($jml_klr).'</td> 
                              <td align="center" style="font-size:90%;">'.$jumlah.'</td> 
                              <td align="center" style="font-size:90%;">'.$jml_selisih.'</td> 
-                             <td align="right" style="font-size:90%;">'.number_format($hrg_selisih,0,",",".").'</td> 
+                             <td align="right" style="font-size:90%;">'.number_format($hrg_selisih,2,",",".").'</td> 
                         </tr>';
                 }
                 echo '<tr>
                             <td colspan="2">JUMLAH</td>  
-                            <td colspan="2" align="right">'.number_format($total_thn_lalu,0,",",".").'</td> 
+                            <td colspan="2" align="right">'.number_format($total_thn_lalu,2,",",".").'</td> 
                             <td colspan="3"></td>  
-                            <td colspan="2" align="right">'.number_format($total_akumulasi,0,",",".").'</td>  
+                            <td colspan="2" align="right">'.number_format($total_akumulasi,2,",",".").'</td>  
                         </tr>';
                 echo '</table>';
                 if($no>=6)
@@ -795,17 +795,17 @@ class modelReport extends mysql_db
                         <td>'.$data['nm_brg'].'</td>
                         <td>'.$data['satuan'].'</td>
                         <td>'.$data['qty_awal'].'</td>
-                        <td>'.number_format($data['harga_sat'],0,",",".").'</td>
-                        <td>'.number_format($data['saldo_awal'],0,",",".").'</td>
+                        <td>'.number_format($data['harga_sat'],2,",",".").'</td>
+                        <td>'.number_format($data['saldo_awal'],2,",",".").'</td>
                         <td>'.$data['qty_masuk'].'</td>
-                        <td>'.number_format($data['harga_sat'],0,",",".").'</td>
-                        <td>'.number_format($data['nilai_masuk'],0,",",".").'</td>
+                        <td>'.number_format($data['harga_sat'],2,",",".").'</td>
+                        <td>'.number_format($data['nilai_masuk'],2,",",".").'</td>
                          <td>'.$data['qty_keluar'].'</td>
-                        <td>'.number_format($data['harga_sat'],0,",",".").'</td>
-                        <td>'.number_format($data['nilai_keuar'],0,",",".").'</td>
+                        <td>'.number_format($data['harga_sat'],2,",",".").'</td>
+                        <td>'.number_format($data['nilai_keuar'],2,",",".").'</td>
                          <td>'.$qty_sisa.'</td>
-                        <td>'.number_format($data['harga_sat'],0,",",".").'</td>
-                        <td>'.number_format($nilai_sisa,0,",",".").'</td>
+                        <td>'.number_format($data['harga_sat'],2,",",".").'</td>
+                        <td>'.number_format($nilai_sisa,2,",",".").'</td>
                         </tr>';
                 if($prev_sskel!==$data['kd_perk']){
                     echo '<tr>
@@ -913,14 +913,14 @@ class modelReport extends mysql_db
                             <td rowspan="2" style="font-weight:bold;">KODE</td>
                             <td  width="35%" rowspan="2" style="font-weight:bold;" >URAIAN</td>
                             <td  width="10%" colspan="2" style="font-weight:bold;"  >SALDO AWAL 1 JANUARI '.$thn_ang.'</td>
-                            <td colspan="3" style="font-weight:bold;">MUTASI</td>
+                            <td colspan="2" style="font-weight:bold;">MUTASI</td>
                             <td colspan="2" style="font-weight:bold;">NILAI</td>
                             <tr>
                                 <td width="7%">JUMLAH</td>
                                 <td width="10%">RUPIAH</td>
                                 <td style="font-size:90%; ">TAMBAH</td>
                                 <td style="font-size:90%;">KURANG</td>
-                                <td style="font-size:90%;">JUMLAH</td>
+                                
                                 <td style="font-size:90%;">JUMLAH</td>
                                 <td width="10%" style="font-size:90%;">RUPIAH</td>
                             </tr> 
@@ -1517,21 +1517,21 @@ class modelReport extends mysql_db
                         if($data[qty]>0) 
                         {
                             echo '<center><td  align="center">'.$data[qty].'</td></center> 
-                                    <center><td  align="right">'.number_format($data[harga_sat],0,",",".").'</td></center>
+                                    <center><td  align="right">'.number_format($data[harga_sat],2,",",".").'</td></center>
                                     <center><td  align="center">'.'</td></center>';
                         }
                     else 
                         {
                         
                         echo '<center><td  align="center">'.'</td></center>
-                                    <center><td  align="right">'.number_format(abs($data[harga_sat]),0,",",".").'</td></center>
+                                    <center><td  align="right">'.number_format(abs($data[harga_sat]),2,",",".").'</td></center>
                                     <center><td  align="center">'.abs($data[qty]).'</td></center>';
                         }
 
                         $saldo +=$data[qty]*abs($data[harga_sat]);
                         $jumlah+=$data[qty];
                         echo '<td>'.$jumlah.'</td>
-                        <center><td align="right">'.number_format($saldo,0,",",".").'</td></center>
+                        <center><td align="right">'.number_format($saldo,2,",",".").'</td></center>
                         </tr>';
                     }
                     echo '</table>';
@@ -1650,7 +1650,7 @@ class modelReport extends mysql_db
             if($qty_msk!==0||$qty_SA!==0){
             echo '<tr>
                   <td colspan style="font-weight:bold; background-color:#EFEFEF;">'.$no_urut.'</td>
-                  <td colspan="9" align="left" style="font-weight:bold; background-color:#EFEFEF;">'.$nm_satker.'</td>
+                  <td colspan="8" align="left" style="font-weight:bold; background-color:#EFEFEF;">'.$nm_satker.'</td>
                   </tr>';
             echo '  <tr>
                       <td align="right" style="font-size:90%; "></td>
@@ -1660,7 +1660,7 @@ class modelReport extends mysql_db
                       <td align="center"  style="font-size:90%; "><b>'.number_format($hrg_SA,2,",",".").'</b></td>
                       <td align="center"  style="font-size:90%; "><b>'.$qty_msk.'</b></td>
                       <td align="center"  style="font-size:90%; "><b>'.$qty_klr.'</b></td>
-                      <td align="center"  style="font-size:90%; "><b>'.$sisa.'</b></td>
+
                       <td align="center"  style="font-size:90%; "><b>'.$sisa_acc.'</b></td>
                       <td align="center"  style="font-size:90%; "><b>'.number_format($saldo,2,",",".").'</b></td>
                     </tr>';
@@ -1703,7 +1703,7 @@ class modelReport extends mysql_db
                                         <td align="center"  style="font-size:90%; "><b>'.number_format($hrg_SA,2,",",".").'</b></td>
                                         <td align="center"  style="font-size:90%; "><b>'.$qty_msk.'</b></td>
                                         <td align="center"  style="font-size:90%; "><b>'.$qty_klr.'</b></td>
-                                        <td align="center"  style="font-size:90%; "><b>'.$sisa.'</b></td>
+
                                         <td align="center"  style="font-size:90%; "><b>'.$sisa_acc.'</b></td>
                                         <td align="center"  style="font-size:90%; "><b>'.number_format($saldo,2,",",".").'</b></td>
 
@@ -1729,7 +1729,7 @@ class modelReport extends mysql_db
                                         <td align="right"  style="font-size:90%; ">'.number_format($hrg_SA,2,",",".").'</td>
                                         <td align="right"  style="font-size:90%; ">'.$qty_msk.'</td>
                                         <td align="right"  style="font-size:90%; ">'.$qty_klr.'</td>
-                                        <td align="right"  style="font-size:90%; ">'.$sisa.'</td>
+
                                         <td align="right"  style="font-size:90%; ">'.$sisa_acc.'</td>
                                         <td align="right"  style="font-size:90%; ">'.number_format($saldo,2,",",".").'</td>
                                       </tr> ';
@@ -2133,10 +2133,10 @@ class modelReport extends mysql_db
                             echo '<center><td  align="center">'.$data[qty].'</td></center> 
                                     <center><td  align="center">'.''.'</td></center>
                                     <center><td  align="center">'.$sisa.'</td></center>
-                                    <center><td  align="center">'.number_format($data[harga_sat],0,",",".").'</td></center>
-                                    <center><td  align="center">'.number_format($subtotal,0,",",".").'</td></center>
+                                    <center><td  align="center">'.number_format($data[harga_sat],2,",",".").'</td></center>
+                                    <center><td  align="center">'.number_format($subtotal,2,",",".").'</td></center>
                                     <center><td  align="center">'.''.'</td></center>
-                                    <center><td  align="center">'.number_format($saldo,0,",",".").'</td></center>
+                                    <center><td  align="center">'.number_format($saldo,2,",",".").'</td></center>
                                     <center><td  align="center">'.''.'</td></center>';
                         }
                         else 
@@ -2411,7 +2411,7 @@ public function getupb($kd_lokasi){
         if($kode=="117"&&$nilai=="qty_SA")
         {
             $nm_kolom = " sum(qty) ";
-            $nm_tabel = " transaksi_full ";
+            $nm_tabel = " transaksi_masuk ";
             $jns_trans= " and jns_trans like 'M01%' ";
             $kd_perk  = "";
             
@@ -2419,7 +2419,7 @@ public function getupb($kd_lokasi){
         elseif($kode=="117"&&$nilai=="hrg_SA")
         {
             $nm_kolom = " sum(total_harga) ";
-            $nm_tabel = " transaksi_full";
+            $nm_tabel = " transaksi_masuk";
             $jns_trans= " and jns_trans like 'M01%' ";
             $kd_perk  = "";
             
@@ -2452,7 +2452,7 @@ public function getupb($kd_lokasi){
         elseif($kode=="11701" && $nilai=="qty_SA")
         {
             $nm_kolom = " sum(qty) ";
-            $nm_tabel = " transaksi_full ";
+            $nm_tabel = " transaksi_masuk";
             $jns_trans= " and jns_trans like 'M01%' ";
             $kd_perk  = " and kd_perk like '11701%' ";
             $sql = "SELECT sum(qty) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and jns_trans like 'M01%' and thn_ang='$thn_ang' and kd_perk like '11701%'   ";
@@ -2460,7 +2460,7 @@ public function getupb($kd_lokasi){
         elseif($kode=="11701" && $nilai=="hrg_SA")
         {
             $nm_kolom = " sum(total_harga) ";
-            $nm_tabel = " transaksi_full ";
+            $nm_tabel = " transaksi_masuk ";
             $jns_trans= " and jns_trans like 'M01%' ";
             $kd_perk  = " and kd_perk like '11701%' ";
             $sql = "SELECT sum(qty_akhir*harga_sat) as jml from transaksi_masuk where kd_lokasi like '$kd_lokasi%' and jns_trans like 'M01%'  and thn_ang='$thn_ang' and kd_perk like '11701%'  ";
@@ -2492,7 +2492,7 @@ public function getupb($kd_lokasi){
         elseif($kode!=="11701" && $nilai=="qty_SA")
         {
             $nm_kolom = " sum(qty) ";
-            $nm_tabel = " transaksi_full ";
+            $nm_tabel = " transaksi_masuk";
             $jns_trans= " and jns_trans like 'M01%' ";
             $kd_perk  = " and kd_perk like '$kode%' ";
             $sql = "SELECT sum(qty) as jml from transaksi_full where kd_lokasi like '$kd_lokasi%' and jns_trans like 'M01%'  and thn_ang='$thn_ang' and kd_perk like '$kode%'  ";
@@ -2752,7 +2752,7 @@ public function getupb($kd_lokasi){
             $nip_penyimpan_brg = $pj['nip2'];
         }
         else {
-            $jabatan_1="SEKDA,";
+            $jabatan_1="SETDA,";
             $jabatan_1b="";
             $jabatan_2="PENYIMPAN BARANG DAERAH";
             $atasan_PB = "";

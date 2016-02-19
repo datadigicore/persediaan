@@ -138,7 +138,7 @@ else
 			"lingkup" => $lingkup,
 			"format" => $format,
 			"user_id" => $user_id);
-		print_r($data);
+		// print_r($data);
 		$Report->rincian_persediaan2($data);
 		break;		
 
