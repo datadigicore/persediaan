@@ -24,7 +24,7 @@
               <div class="small-box bg-aqua">
                 <div class="inner">
                   <h3 id="totalsektor">0</h3>
-                  <p>Data Sektor</p>
+                  <p>Data Bidang</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-calendar"></i>
@@ -36,7 +36,7 @@
               <div class="small-box bg-green">
                 <div class="inner">
                   <h3 id="totalsatker">0</h3>
-                  <p>Data Satker</p>
+                  <p>Data Unit</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-calendar"></i>
@@ -48,7 +48,7 @@
               <div class="small-box bg-yellow">
                 <div class="inner">
                   <h3 id="totalunit">0</h3>
-                  <p>Data Unit</p>
+                  <p>Data Sub Unit</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-calendar"></i>
@@ -60,7 +60,7 @@
               <div class="small-box bg-red">
                 <div class="inner">
                   <h3 id="totalgudang">0</h3>
-                  <p>Data Gudang</p>
+                  <p>Data UPB</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-calendar"></i>
