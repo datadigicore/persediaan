@@ -92,7 +92,6 @@
                         <th width="5%">SKPD</th>
                         <th width="5%">Jenis Transaksi</th>
                         <th width="18%">Nomor Dokumen</th>
-                        <th width="18%">No Bukti</th>
                         <th width="12%">Tanggal Dokumen</th>
                         <th width="12%">Tanggal Pembukuan</th>
                         <th >Keterangan</th>
@@ -154,8 +153,7 @@
              "visible": false },
             {"targets": 1 },
             {"targets": 2 },
-            {"targets": 3,
-             "visible": false },
+            {"targets": 3,},
             {"targets": 4 },
             {"targets": 5 },
             {"targets": 6 },
@@ -176,7 +174,7 @@
         manage = "trans_masuk";
         id_row = row.data()[0];
         jns_trans = row.data()[1];
-        satker = row.data()[2];
+        satker = row.data()[3];
         tgl_dok = row.data()[4];
         tgl_buku = row.data()[5];
         kd_satker = satker.substring(0,11);
