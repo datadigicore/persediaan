@@ -100,7 +100,7 @@
                         <th>Tanggal Dokumen</th>
                         <th>Tanggal Pembukuan</th>
                         <th>Keterangan</th>
-                        <th width="5%">Aksi</th>
+                        <th width="15%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -157,9 +157,9 @@
             {"targets": 6 },
             {"orderable": false,
              "data": null,
-             "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btntmbh" class="btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
-                                  '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
+             "defaultContent":  '<div class="row-fluid">'+
+                                  '<button id="btntmbh" class="col-xs-6 btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
+                                  '<button id="btnedt" class="col-xs-6 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                 '</div>',
              "targets": [7],"targets": 7 }         
 
@@ -250,9 +250,9 @@
               '<td><input style="width:98%" id="tgl_buku_new" name="tgl_buku_baru" class="form-control" type="text" ></td>'+
               '<td><input style="width:98%" id="keterangannew" name="ket_baru" class="form-control" type="text" ></td>'+
               '<td style="vertical-align:middle; width:7%;">'+
-                '<div class="box-tools">'+
-                  // '<button id="btnrst" class="btn btn-warning btn-xs pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
-                  '<button id="btnupd" class="btn btn-primary btn-xs pull-right"><i class="fa fa-upload"></i> Update</button>'+
+                '<div class="row-fluid">'+
+                  // '<button id="btnrst" class="col-xs-6 btn btn-warning btn-xs pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
+                  '<button id="btnupd" class="col-xs-6 btn btn-primary btn-xs pull-right"><i class="fa fa-upload"></i> Update</button>'+
                 '</div>'
               '</td>'+
            '</tr>'+
@@ -320,10 +320,10 @@
                   {"targets": 6 },
                   {"orderable": false,
                    "data": null,
-                   "defaultContent":  '<div class="box-tools">'+
+                   "defaultContent":  '<div class="row-fluid">'+
                                         
-                                        '<button id="btntmbh" class="btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
-                                        '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
+                                        '<button id="btntmbh" class="col-xs-6 btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
+                                        '<button id="btnedt" class="col-xs-6 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                       '</div>',
                    "targets": [7],"targets": 7 },
                 ],
@@ -504,9 +504,9 @@
                   {"targets": 6 },
                   {"orderable": false,
                    "data": null,
-                   "defaultContent":  '<div class="box-tools">'+
-                                        '<button id="btntmbh" class="btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
-                                        '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
+                   "defaultContent":  '<div class="row-fluid">'+
+                                        '<button id="btntmbh" class="col-xs-6 btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
+                                        '<button id="btnedt" class="col-xs-6 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                       '</div>',
                    "targets": [7],"targets": 7 }         
 
