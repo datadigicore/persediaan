@@ -133,8 +133,8 @@
                         <th>Email</th>
                         <th width="14%">Kode Satker</th>
                         <th width="26%">Nama Satker</th>
-                        <th width="26%">Tahun</th>
-                        <th width="12.5%">Aksi</th>
+                        <th width="10%">Tahun</th>
+                        <th width="13%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -181,9 +181,9 @@
             {"targets": 5 },
             {"orderable": false,
              "data": null,
-             "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                  '<button id="btnhps" class="btn btn-danger btn-xs btn-flat pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
+             "defaultContent":  '<div class="row-fluid">'+
+                                  '<button id="btnedt" class="col-xs-6 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
+                                  '<button id="btnhps" class="col-xs-6 btn btn-danger btn-xs btn-flat pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
              "targets": [6],"targets": 6 }
           ],

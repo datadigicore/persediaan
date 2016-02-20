@@ -80,7 +80,7 @@
       $(function () {
         $("li#skpd").addClass("active");
         $("li.sektor").addClass("active1");
-        $("li.sektor>a").append('<i class="fa fa-angle-right pull-right" style="margin-top:3px;"></i>');
+        $("li.sektor>a").append('<i class="fa fa-angle-down pull-right" style="margin-top:3px;"></i>');
         table = $("#example1").DataTable({
           "oLanguage": {
             "sInfoFiltered": ""
@@ -96,9 +96,9 @@
             {"targets": 2 },
             {"orderable": false,
              "data": null,
-             "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                  '<button id="btnhps" class="btn btn-danger btn-xs btn-flat pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
+             "defaultContent":  '<div class="row-fluid">'+
+                                  '<button id="btnedt" class="col-xs-6 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
+                                  '<button id="btnhps" class="col-xs-6 btn btn-danger btn-xs btn-flat pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
              "targets": [3],"targets": 3 },
           ],

@@ -22,14 +22,14 @@
           <div class="row">
             <?php include("include/navtab.php"); ?>
             <section class="col-lg-12 connectedSortable">
-              <div class="box box-danger">
+              <div class="box box-primary">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tambah Data UPB</h3>
+                  <h3 class="box-title">Tambah Data Sub Bagian</h3>
                 </div>
                 <form action="../core/gudang/prosesgudang" method="post" class="form-horizontal" id="addgudang">
                   <div class="box-body">
                     <div class="form-group" style="margin-top:15px;">
-                      <label class="col-sm-2 control-label">Kode Sub Unit</label>
+                      <label class="col-sm-2 control-label">Kode UPB</label>
                       <div class="col-sm-9">
                         <input type="hidden" name="manage" value="addgudang">
                         <select name="kdunit" id="kdunit" class="form-control select2">
@@ -38,15 +38,15 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Kode UPB</label>
+                      <label class="col-sm-2 control-label">Kode Sub Bagian</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kdgudang" class="form-control" id="kdgudang" placeholder="Masukkan Kode UPB">
+                        <input type="text" name="kdgudang" class="form-control" id="kdgudang" placeholder="Masukkan Kode Sub Bagian">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Uraian UPB</label>
+                      <label class="col-sm-2 control-label">Uraian Sub Bagian</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nmgudang" class="form-control" id="nmgudang" placeholder="Masukkan Uraian UPB">
+                        <input type="text" name="nmgudang" class="form-control" id="nmgudang" placeholder="Masukkan Uraian Sub Bagian">
                       </div>
                     </div>
                   </div>
@@ -56,7 +56,7 @@
                   </div>
                 </form> 
               </div>
-              <div class="box box-danger">
+              <div class="box box-primary">
                 <div class="box-header with-border">
                   <h3 class="box-title">Tabel Data UPB</h3>
                 </div>
@@ -65,12 +65,13 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th width="14%">Kode Bidang</th>
-                        <th width="14%">Kode Unit</th>
-                        <th width="14%">Kode Sub Unit</th>
-                        <th width="14%">Kode UPB</th>
-                        <th>Uraian UPB</th>
-                        <th width="12.5%">Aksi</th>
+                        <th width="12%">Kode Bidang</th>
+                        <th width="12%">Kode Unit</th>
+                        <th width="12%">Kode Sub Unit</th>
+                        <th width="12%">Kode UPB</th>
+                        <th width="12%">Kode Sub Bag</th>
+                        <th>Uraian Sub Bagian</th>
+                        <th width="13%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -90,13 +91,13 @@
       var table;
       $(function () {
         $("li#skpd").addClass("active");
-        $("li.gudang").addClass("active4");
-        $("li.gudang>a").append('<i class="fa fa-angle-down pull-right" style="margin-top:3px;"></i>');
+        $("li.ruang").addClass("active5");
+        $("li.ruang>a").append('<i class="fa fa-angle-down pull-right" style="margin-top:3px;"></i>');
         $(".select2").select2();
         $.ajax({
           type: "post",
-          url: '../core/gudang/prosesgudang',
-          data: {manage:'readunit'},
+          url: '../core/ruang/prosessubbag',
+          data: {manage:'readupb'},
           success: function (output) {     
             $('#kdunit').html(output);
           }
@@ -107,7 +108,7 @@
           },
           "processing": false,
           "serverSide": true,
-          "ajax": "../core/loadtable/loadgudang",
+          "ajax": "../core/loadtable/loadsubbag",
           "columnDefs":
           [
             {"targets": 0,
@@ -116,14 +117,15 @@
       			{"targets": 2 },
       			{"targets": 3 },
       			{"targets": 4 },
-      			{"targets": 5 },
+            {"targets": 5 },
+      			{"targets": 6 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="row-fluid">'+
                                   '<button id="btnedt" class="col-xs-6 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                   '<button id="btnhps" class="col-xs-6 btn btn-danger btn-xs btn-flat pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
-             "targets": [6],"targets": 6 }
+             "targets": [7],"targets": 7 }
           ],
           "order": [[ 1, "asc" ]]
         });

@@ -90,7 +90,7 @@
       $(function () {
         $("li#skpd").addClass("active");
         $("li.unit").addClass("active3");
-        $("li.unit>a").append('<i class="fa fa-angle-right pull-right" style="margin-top:3px;"></i>');
+        $("li.unit>a").append('<i class="fa fa-angle-down pull-right" style="margin-top:3px;"></i>');
         $(".select2").select2();
         $.ajax({
           type: "post",
@@ -117,9 +117,9 @@
             {"targets": 4 },
             {"orderable": false,
              "data": null,
-             "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                  '<button id="btnhps" class="btn btn-danger btn-xs btn-flat pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
+             "defaultContent":  '<div class="row-fluid">'+
+                                  '<button id="btnedt" class="col-xs-6 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
+                                  '<button id="btnhps" class="col-xs-6 btn btn-danger btn-xs btn-flat pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
              "targets": [5],"targets": 5 }
           ],

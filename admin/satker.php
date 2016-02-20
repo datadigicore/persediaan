@@ -89,7 +89,7 @@
       $(function () {
         $("li#skpd").addClass("active");
         $("li.satker").addClass("active2");
-        $("li.satker>a").append('<i class="fa fa-angle-right pull-right" style="margin-top:3px;"></i>');
+        $("li.satker>a").append('<i class="fa fa-angle-down pull-right" style="margin-top:3px;"></i>');
         $(".select2").select2();
         $.ajax({
           type: "post",
@@ -115,9 +115,9 @@
             {"targets": 3 },
             {"orderable": false,
              "data": null,
-             "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                  '<button id="btnhps" class="btn btn-danger btn-xs btn-flat pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
+             "defaultContent":  '<div class="row-fluid">'+
+                                  '<button id="btnedt" class="col-xs-6 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
+                                  '<button id="btnhps" class="col-xs-6 btn btn-danger btn-xs btn-flat pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
              "targets": [4],"targets": 4 }
           ],

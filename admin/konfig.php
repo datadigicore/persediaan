@@ -115,9 +115,9 @@
             {"targets": 3 },
             {"orderable": false,
              "data": null,
-             "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btnakt" class="btn btn-flat btn-info btn-xs pull-left"><i class="fa fa-check-square-o"></i> Aktif</button>'+
-                                  '<button id="btnhps" class="btn btn-flat btn-danger btn-xs pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
+             "defaultContent":  '<div class="row-fluid">'+
+                                  '<button id="btnakt" class="col-xs-6 btn btn-flat btn-info btn-xs pull-left"><i class="fa fa-check-square-o"></i> Aktif</button>'+
+                                  '<button id="btnhps" class="col-xs-6 btn btn-flat btn-danger btn-xs pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
              "targets": [4],"targets": 4 }
           ],

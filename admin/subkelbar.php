@@ -138,10 +138,10 @@
             {"targets": 5 },
             {"orderable": false,
              "data": null,
-             "defaultContent":  '<div class="box-tools">'+
+             "defaultContent":  '<div class="row-fluid">'+
                                   // '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                  '<button id="btnhps" class="btn btn-danger btn-xs btn-flat pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
-                                  '<button id="btnalih" class="btn btn-warning btn-xs btn-flat pull-right"><i class="fa fa-forward"></i> Ubah Jenis</button>'+
+                                  '<button id="btnalih" class="col-xs-12 btn btn-edit btn-xs btn-flat"><i class="fa fa-edit"></i> Ubah Jenis</button>'+
+                                  '<button id="btnhps" class="col-xs-12 btn btn-danger btn-xs btn-flat"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
              "targets": [6],"targets": 6 }
           ],
