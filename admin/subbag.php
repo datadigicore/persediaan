@@ -26,13 +26,13 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Data Sub Bagian</h3>
                 </div>
-                <form action="../core/gudang/prosesgudang" method="post" class="form-horizontal" id="addgudang">
+                <form action="../core/ruang/prosessubbag" method="post" class="form-horizontal" id="createsubbag">
                   <div class="box-body">
                     <div class="form-group" style="margin-top:15px;">
                       <label class="col-sm-2 control-label">Kode UPB</label>
                       <div class="col-sm-9">
-                        <input type="hidden" name="manage" value="addgudang">
-                        <select name="kdunit" id="kdunit" class="form-control select2">
+                        <input type="hidden" name="manage" value="createsubbag">
+                        <select name="kdupb" id="kdupb" class="form-control select2">
                           <option value="">-- Pilih Kode Sub Unit --</option>
                         </select>
                       </div>
@@ -40,18 +40,18 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode Sub Bagian</label>
                       <div class="col-sm-9">
-                        <input type="text" name="kdgudang" class="form-control" id="kdgudang" placeholder="Masukkan Kode Sub Bagian">
+                        <input type="text" name="kdsubbag" class="form-control" id="kdsubbag" placeholder="Masukkan Kode Sub Bagian">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Uraian Sub Bagian</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nmgudang" class="form-control" id="nmgudang" placeholder="Masukkan Uraian Sub Bagian">
+                        <input type="text" name="nmsubbag" class="form-control" id="nmsubbag" placeholder="Masukkan Uraian Sub Bagian">
                       </div>
                     </div>
                   </div>
                   <div class="box-footer">
-                    <button type="Reset" class="btn btn-default">Reset</button>
+                    <button type="reset" class="btn btn-default">Reset</button>
                     <button type="submit" class="btn btn-info pull-right">Submit</button>
                   </div>
                 </form> 
@@ -65,12 +65,13 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th width="12%">Kode Bidang</th>
-                        <th width="12%">Kode Unit</th>
-                        <th width="12%">Kode Sub Unit</th>
-                        <th width="12%">Kode UPB</th>
-                        <th width="12%">Kode Sub Bag</th>
-                        <th>Uraian Sub Bagian</th>
+                        <th width="9.5%">Kode<br>Bidang</th>
+                        <th width="9.5%">Kode<br>Unit</th>
+                        <th width="9.5%">Kode<br>Sub Unit</th>
+                        <th width="9.5%">Kode<br>UPB</th>
+                        <th width="9.5%">Kode<br>Sub Bag</th>
+                        <th width="10%">Kode<br>Satker</th>
+                        <th>Uraian<br>Sub Bagian</th>
                         <th width="13%">Aksi</th>
                       </tr>
                     </thead>
@@ -99,7 +100,7 @@
           url: '../core/ruang/prosessubbag',
           data: {manage:'readupb'},
           success: function (output) {     
-            $('#kdunit').html(output);
+            $('#kdupb').html(output);
           }
         });
         table = $("#example1").DataTable({
@@ -118,14 +119,15 @@
       			{"targets": 3 },
       			{"targets": 4 },
             {"targets": 5 },
-      			{"targets": 6 },
+            {"targets": 6 },
+      			{"targets": 7 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="row-fluid">'+
                                   '<button id="btnedt" class="col-xs-6 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                   '<button id="btnhps" class="col-xs-6 btn btn-danger btn-xs btn-flat pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
-             "targets": [7],"targets": 7 }
+             "targets": [8],"targets": 8 }
           ],
           "order": [[ 1, "asc" ]]
         });
@@ -138,7 +140,8 @@
         kdsatker_row  = row.data()[2];
         kdunit_row  = row.data()[3];
         kdgudang_row  = row.data()[4];
-        nmgudang_row  = row.data()[5];
+        kdsubbag_row  = row.data()[5];
+        nmsubbag_row  = row.data()[7];
         if ( row.child.isShown() ) {
           $('div.slider', row.child()).slideUp( function () {
             row.child.hide();
@@ -153,18 +156,17 @@
           $("#kdsatker"+id_row+"").val(kdsatker_row);
           $("#kdunit"+id_row+"").val(kdunit_row);
           $("#kdgudang"+id_row+"").val(kdgudang_row);
-          $("#nmgudang"+id_row+"").val(nmgudang_row);
+          $("#kdsubbag"+id_row+"").val(kdsubbag_row);
+          $("#nmsubbag"+id_row+"").val(nmsubbag_row);
         }
       });
       $(document).on('click', '#btnhps', function () {
       var tr = $(this).closest('tr');
       var row = table.row( tr );
       redirectTime = "2600";
-      redirectURL = "gudang";
+      redirectURL = "subbag";
       id_row = row.data()[0];
-      id_gudang = row.data()[1]+'.'+row.data()[2]+'.'+row.data()[3]+'.'+row.data()[4];
-      nm_gudang = row.data()[5];
-      managedata = "delgudang";
+      managedata = "deletesubbag";
       job=confirm("Anda yakin ingin menghapus data ini?");
         if(job!=true){
           return false;
@@ -177,8 +179,8 @@
           $('#myModal').modal('show');
           $.ajax({
             type: "post",
-            url : "../core/gudang/prosesgudang",
-            data: {manage:managedata,id:id_row,idgudang:id_gudang,nmgudang:nm_gudang},
+            url : "../core/ruang/prosessubbag",
+            data: {manage:managedata,id:id_row},
             success: function(data)
             {
               $("#success-alert").alert();
@@ -193,27 +195,28 @@
       });
       function format ( d ) {
         return '<div class="slider">'+
-        '<form action="../core/gudang/prosesgudang" method="post" class="form-horizontal" id="updgudang">'+
+        '<form action="../core/ruang/prosessubbag" method="post" class="form-horizontal" id="updatesubbag">'+
         '<table width="100%">'+
            '<tr>'+
-              '<input type="hidden" name="manage" value="updgudang">'+
+              '<input type="hidden" name="manage" value="updatesubbag">'+
               '<input type="hidden" name="id" value="'+d[0]+'">'+
-              '<td width="14.15%"><input style="width:90%" id="kdsektor'+d[0]+'" name="updkdsektor" class="form-control" type="text" placeholder="Kode Sektor"></td>'+
-              '<td width="14.15%"><input style="width:90%" id="kdsatker'+d[0]+'" name="updkdsatker" class="form-control" type="text" placeholder="Kode Satker"></td>'+
-              '<td width="14.2%"><input style="width:90%" id="kdunit'+d[0]+'" name="updkdunit" class="form-control" type="text" placeholder="Kode Sub Unit"></td>'+
-              '<td width="14.2%"><input style="width:90%" id="kdgudang'+d[0]+'" name="updkdgudang" class="form-control" type="text" placeholder="Kode UPB"></td>'+
-              '<td><input style="width:97%" id="nmgudang'+d[0]+'" name="updnmgudang" class="form-control" type="text" placeholder="Uraian UPB"></td>'+
+              '<td width="9.6%"><input style="width:90%" id="kdsektor'+d[0]+'" name="updkdsektor" class="form-control" type="text" placeholder="Kode Sektor"></td>'+
+              '<td width="9.6%"><input style="width:90%" id="kdsatker'+d[0]+'" name="updkdsatker" class="form-control" type="text" placeholder="Kode Satker"></td>'+
+              '<td width="9.6%"><input style="width:90%" id="kdunit'+d[0]+'" name="updkdunit" class="form-control" type="text" placeholder="Kode Sub Unit"></td>'+
+              '<td width="9.6%"><input style="width:90%" id="kdgudang'+d[0]+'" name="updkdgudang" class="form-control" type="text" placeholder="Kode UPB"></td>'+
+              '<td width="9.6%"><input style="width:90%" id="kdsubbag'+d[0]+'" name="updkdsubbag" class="form-control" type="text" placeholder="Kode Sub Bag"></td>'+
+              '<td><input style="width:97%" id="nmsubbag'+d[0]+'" name="updnmsubbag" class="form-control" type="text" placeholder="Uraian Sub Bag"></td>'+
               '<td style="vertical-align:middle; width:15%;">'+
                 '<div class="box-tools">'+
-                  '<button id="btnrst" class="btn btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
-                  '<button id="btnupd" class="btn btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
+                  '<button id="btnrst" class="col-xs-6 btn btn-flat btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
+                  '<button id="btnupd" class="col-xs-6 btn btn-flat btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
                 '</div>'
               '</td>'+
            '</tr>'+
         '</table>'+
         '</form></div>';
       }
-      $(document).on('submit', '#updgudang', function (e) {
+      $(document).on('submit', '#updatesubbag', function (e) {
         $('#myModal').modal({
           backdrop: 'static',
           keyboard: false
@@ -221,7 +224,7 @@
         $('#myModal').modal('show');
         e.preventDefault();
         redirectTime = "2600";
-        redirectURL = "gudang";
+        redirectURL = "subbag";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({
@@ -233,11 +236,11 @@
           processData: false,
           success: function(data)
           {
-            $("#success-alert").alert();
-            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-            $("#success-alert").alert('close');
-            });
-            setTimeout("location.href = redirectURL;",redirectTime); 
+            // $("#success-alert").alert();
+            // $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+            // $("#success-alert").alert('close');
+            // });
+            // setTimeout("location.href = redirectURL;",redirectTime); 
           }
         });
         return false;
@@ -247,26 +250,22 @@
         JQUERY4U.UTIL = {
           setupFormValidation: function()
           {
-            $("#addgudang").validate({
+            $("#createsubbag").validate({
               rules: {
-                kdunit : "required",
-                kdgudang   : {required  : true,
-                            number    : true,
-                            maxlength : 2,
-                            minlength : 2
+                kdupb : "required",
+                kdsubbag   : {required  : true,
+                            number    : true
                            },
-                nmgudang   : "required"
+                nmsubbag   : "required"
               },
               messages: {
-                  kdunit: { required  : "Masukkan Kode Satker" },
-                  kdgudang  : { required  : "Masukkan Kode UPB",
-                              number    : "Masukkan Angka",
-                              maxlength : "Maksimal 2 digit",
-                              minlength : "Minimal 2 digit"},
-                  nmgudang  : { required  : "Masukkan Nama UPB" }
+                  kdupb: { required  : "Masukkan Kode Satker" },
+                  kdsubbag  : { required  : "Masukkan Kode Sub Bagian",
+                              number    : "Masukkan Angka"},
+                  nmsubbag  : { required  : "Masukkan Nama Sub Bagian" }
               },
               submitHandler: function(form) {
-                $('#addgudang').submit(function(e){
+                $('#createsubbag').submit(function(e){
                   $('#myModal').modal({
                     backdrop: 'static',
                     keyboard: false

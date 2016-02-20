@@ -63,66 +63,37 @@ class modelUpb extends mysql_db
       }
     }
   } 
-	public function tambahgudang($data)
+	public function tambahsubbag($data)
 	{
-		$kodesektor = $data['kodesektor'];
-		$kodesatker = $data['kodesatker'];
-		$kodeunit = $data['kodeunit'];
-		$gudang = $data['gudang'];
-		$namagudang = $data['namagudang'];
-		$tahun = $data['tahun'];
-		$query = "insert into satker
-        			set kodesektor='$kodesektor',
-        				kodesatker='$kodesatker',
-        				kodeunit='$kodeunit',
-        				gudang='$gudang',
-        				namasatker='$namagudang',
-        				tahun='$tahun',
-                    	kode='$kodesektor.$kodesatker.$kodeunit.$gudang'";
+        $query = "insert into satker
+            set kodesektor ='$data[kodesektor]',
+            kodesatker     ='$data[kodesatker]',
+            kodeunit       ='$data[kodeunit]',
+            gudang         ='$data[kodeupb]',
+            kd_ruang       ='$data[kdsubbag]',
+            namasatker     ='$data[nmsubbag]',
+            tahun          ='$data[tahun]',
+            kode           ='$data[kodesektor].$data[kodesatker].$data[kodeunit].$data[kodeupb]'";
         $result = $this->query($query);
 		return $result;
 	} 	
-	public function ubahgudang($data)
+	public function ubahunit($data)
 	{
-		$id = $data['id'];
-		$kodesektor = $data['kodesektor'];
-		$kodesatker = $data['kodesatker'];
-		$kodeunit = $data['kodeunit'];
-		$kodegudang = $data['kodegudang'];
-		$namagudang = $data['namagudang'];
 		$query = "update satker
-        			set kodesektor='$kodesektor',
-        				kodesatker='$kodesatker',
-        				kodeunit='$kodeunit',
-        				gudang='$kodegudang',
-        				namasatker='$namagudang',
-        				kode='$kodesektor.$kodesatker.$kodeunit.$kodegudang'
-                    where satker_id='$id'";
+            set kodesektor  ='$data[updkdsektor]',
+            kodesatker      ='$data[updkdsatker]',
+            kodeunit        ='$data[updkdunit]',
+            gudang          ='$data[updkdgudang]',
+            kd_ruang        ='$data[updkdsubbag]',
+            namasatker      ='$data[updnmsubbag]',
+            kode            ='$data[updkdsektor].$data[updkdsatker].$data[updkdunit].$data[updkdgudang]'
+            where satker_id ='$data[id]'";
         $result = $this->query($query);
 		return $result;
 	}	
-	public function hapusgudang($data)
+	public function hapusunit($data)
 	{
 		$query = "delete from satker where satker_id='$data'";
-        $result = $this->query($query);
-		return $result;
-	}
-	public function loghistory($data)
-	{
-		$kodesektor = $data['kd_sektor'];
-		$namasektor = $data['nm_sektor'];
-		$username = $data['username'];
-		$tanggal = $data['tanggal'];
-		$aksi = $data['aksi'];
-		$tahun = $data['tahun'];
-		$query = "INSERT into log_history
-        			set username='$username',
-                    	aksi='$aksi',
-                    	ket_kdsatker='$kodesektor',
-                    	ket_nmsatker='$namasektor',
-                    	keterangan='Tahun Anggaran $tahun',
-                    	thnanggaran='$tahun',
-                    	tanggal='$tanggal'";
         $result = $this->query($query);
 		return $result;
 	}
