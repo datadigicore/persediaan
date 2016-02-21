@@ -22,7 +22,7 @@ class modelReport extends mysql_db
 
     public function baca_satker($kd_lokasi)
     {
-        $query = "select kode, NamaSatker from satker where kode like '{$kd_lokasi}%' order by kode asc";
+        $query = "select kode, NamaSatker from satker where kode like '{$kd_lokasi}%' and kd_ruang is null order by kode asc";
         $result = $this->query($query);
         // echo '<option value="">-- Pilih Kode Satker --</option>';
 
@@ -53,7 +53,7 @@ class modelReport extends mysql_db
 
     public function baca_upb_admin($kd_lokasi)
     {
-        $query = "SELECT kode, NamaSatker FROM satker where  concat(kode,' ',NamaSatker) like '%$kd_lokasi%' and char_length(kode)=11  order by kode asc";
+        $query = "SELECT kode, NamaSatker FROM satker where  concat(kode,' ',NamaSatker) like '%$kd_lokasi%' and char_length(kode)=11  and kd_ruang is null  order by kode asc";
         $result = $this->query($query);
         $json = array();
         while ($row = $this->fetch_array($result))
@@ -70,7 +70,7 @@ class modelReport extends mysql_db
     public function baca_upb($kd_lokasi)
     {
 
-        $query = "select kode, NamaSatker from satker where kode like '$kd_lokasi%' and char_length(kode)=11 order by kode asc";
+        $query = "select kode, NamaSatker from satker where kode like '$kd_lokasi%' and char_length(kode)=11  and kd_ruang is null order by kode asc";
         $result = $this->query($query);
         $json = array();
         echo '<option value="">-- Pilih Kode Satker --</option>';
@@ -351,7 +351,7 @@ class modelReport extends mysql_db
 
         public function query_bidang($lingkup,$kd_lokasi) {
             if($lingkup=="upb") {
-                return "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' and char_length(kode)=11 order by kode asc";
+                return "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' and char_length(kode)=11 and kd_ruang is null order by kode asc";
             }
             else if($lingkup=="skpd"){
                 return "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' and char_length(kode)=5 order by kode asc";
