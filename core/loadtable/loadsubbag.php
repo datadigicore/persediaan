@@ -18,7 +18,12 @@ $columns = array(
 	array( 'db' => 'kodeunit', 'dt' => 3 ),
 	array( 'db' => 'gudang', 'dt' => 4 ),
 	array( 'db' => 'kd_ruang', 'dt' => 5 ),
-    array( 'db' => 'namasatker', 'dt' => 6 )
+	array( 'db' => 'kd_ruang', 'dt' => 6,
+        'formatter' => function( $d, $row ) {
+            return $row[1].'.'.$row[2].'.'.$row[3].'.'.$row[4]/*.'-'.$row[5]*/;
+        }
+    ),
+    array( 'db' => 'namasatker', 'dt' => 7 )
 );
  
 // Settingan Koneksi Datatable
