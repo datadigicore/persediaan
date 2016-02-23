@@ -306,7 +306,9 @@ class modelTransaksi extends mysql_db
 
 // Memasukkan Data Transaksi Masuk ke Tabel Transaksi Full
         $query_full = "Insert into transaksi_full
-                        set kd_lokasi='$kd_lokasi',
+                        set 
+                        kd_lokasi='$kd_lokasi',
+                        kd_ruang='$kd_ruang',
                         id_masuk='$id_trans',
                         kd_lok_msk='$kd_lok_msk',
                         nm_satker='$nm_satker',
