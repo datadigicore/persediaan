@@ -170,8 +170,6 @@ class modelUser extends mysql_db
                 $resultArray = rtrim($newArray, ',');
                 $query       = "update user
                                 set $resultArray where kd_lokasi = '$kd_lama'";
-                print_r('else');
-                print_r($query);
                 $result = $this->query($query);
                 return $result;
             }
@@ -184,8 +182,6 @@ class modelUser extends mysql_db
             $resultArray = rtrim($newArray, ',');
             $query       = "update user
                             set $resultArray where kd_lokasi = '$kd_lama'";
-            print_r('else');
-            print_r($query);
             $result = $this->query($query);
             return $result;
         }
