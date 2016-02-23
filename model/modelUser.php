@@ -146,19 +146,22 @@ class modelUser extends mysql_db
             echo "error";
         }
         else {
-            $arrayTransaksi = array('transaksi_full','transaksi_masuk','transaksi_keluar','opname','log_trans_masuk','log_slip','log_opname');
-            print_r($arrayTransaksi);
-            for ($i=0; $i < count($arrayTransaksi); $i++) { 
-                $updateTransaksi = "UPDATE $arrayTransaksi[$i]
-                    SET kd_lokasi    = '$data[kd_lokasi]',
-                    nm_satker        = '$object->namasatker',
-                    user_id          = '$data[user_name]',
-                    no_dok           =  REPLACE(no_dok, '$kd_lama', '$data[kd_lokasi]')
-                    WHERE kd_lokasi  = '$kd_lama'";
-                $resultTransaksi = $this->query($updateTransaksi);    
+            if (isset($data['user_pass'])) {
+                $data['user_pass'] = md5($data['user_pass']);
             }
-            if (isset($data['user_pass'])) { $data['user_pass'] = md5($data['user_pass']); }
-            else if (isset($data['kd_lokasi'])) { $data['nm_satker'] = $object->namasatker; }
+            else if (isset($data['kd_lokasi'])) {
+                $data['nm_satker'] = $object->namasatker;
+                $arrayTransaksi = array('transaksi_full','transaksi_masuk','transaksi_keluar','opname','log_trans_masuk','log_slip','log_opname');
+                for ($i=0; $i < count($arrayTransaksi); $i++) { 
+                    $updateTransaksi = "UPDATE $arrayTransaksi[$i]
+                        SET kd_lokasi    = '$data[kd_lokasi]',
+                        nm_satker        = '$object->namasatker',
+                        user_id          = '$data[user_name]',
+                        no_dok           =  REPLACE(no_dok, '$kd_lama', '$data[kd_lokasi]')
+                        WHERE kd_lokasi  = '$kd_lama'";
+                    $resultTransaksi = $this->query($updateTransaksi);    
+                }
+            }
             foreach ($data as $key => $value) {
                 $dataArray[] = $key."='".$value."',";
             }
