@@ -36,7 +36,7 @@ else
 				"nm_sektor"    => $purifier->purify($_POST['nmgudang']),
 				"tahun"        => $_SESSION['thn_ang'],
 				"aksi"         => "T-Gudang",
-				"tanggal"      => date("Y-m-d h:i:sa");
+				"tanggal"      => date("Y-m-d h:i:sa")
 		    );
 			$Gudang->loghistory($datalog);
 			//========= Log History =========//
