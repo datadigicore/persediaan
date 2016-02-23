@@ -136,12 +136,7 @@ class modelUser extends mysql_db
         unset($data['kd_lama']);
         unset($data['manage']);
         unset($data['user_id']);
-        $readNamaSatker   = "select namasatker from satker where kode = '$data[kd_lokasi]' and kd_ruang is null";
-        $resultNamaSatker = $this->query($readNamaSatker);
-        $object           = $this->fetch_object($resultNamaSatker);
-        $checkTrans       = "select * from transaksi_full where kd_lokasi = '$data[kd_lokasi]'";
-        $resultCheckTrans = $this->query($checkTrans);
-        $objectCheckTrans = $this->fetch_object($resultCheckTrans);
+        
         if (!empty($objectCheckTrans)) {
             echo "error";
         }
@@ -150,6 +145,12 @@ class modelUser extends mysql_db
                 $data['user_pass'] = md5($data['user_pass']);
             }
             else if (isset($data['kd_lokasi'])) {
+                $readNamaSatker   = "select namasatker from satker where kode = '$data[kd_lokasi]' and kd_ruang is null";
+                $resultNamaSatker = $this->query($readNamaSatker);
+                $object           = $this->fetch_object($resultNamaSatker);
+                $checkTrans       = "select * from transaksi_full where kd_lokasi = '$data[kd_lokasi]'";
+                $resultCheckTrans = $this->query($checkTrans);
+                $objectCheckTrans = $this->fetch_object($resultCheckTrans);
                 $data['nm_satker'] = $object->namasatker;
                 $arrayTransaksi = array('transaksi_full','transaksi_masuk','transaksi_keluar','opname','log_trans_masuk','log_slip','log_opname');
                 for ($i=0; $i < count($arrayTransaksi); $i++) { 
