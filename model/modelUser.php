@@ -146,7 +146,7 @@ class modelUser extends mysql_db
             echo "error";
         }
         else {
-            $arrayTransaksi = array('transaksi_full','transaksi_masuk','transaksi_keluar','log_trans_masuk','log_slip','log_opname');
+            $arrayTransaksi = array('transaksi_full','transaksi_masuk','transaksi_keluar','opname','log_trans_masuk','log_slip','log_opname');
             print_r($arrayTransaksi);
             for ($i=0; $i < count($arrayTransaksi); $i++) { 
                 $updateTransaksi = "UPDATE $arrayTransaksi[$i]
