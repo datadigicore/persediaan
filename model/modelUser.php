@@ -56,64 +56,6 @@ class modelUser extends mysql_db
             }
         }
     }
-    // public function bacaunitsatker()
-    // {
-    //     $query = "select kodesektor, namasatker from satker
-    //                     where kodesektor is not null and
-    //                           kodesatker is null and
-    //                           kodeunit is null and
-    //                           gudang is null
-    //                     order by kodesektor asc";
-    //     $result = $this->query($query);
-    //     echo '<option value="">-- Pilih Kode Unit --</option>';
-    //     while ($row = $this->fetch_array($result))
-    //     {
-    //         if (!empty($row)) {
-    //             echo '<optgroup label="'.$row['kodesektor'].' '.$row['namasatker'].'">';
-    //             $query2 = "select kodesektor, kodesatker, namasatker from satker
-    //                     where kodesektor ='$row[kodesektor]' and
-    //                           kodesatker is not null and
-    //                           kodeunit is null and
-    //                           gudang is null
-    //                     order by kodesektor asc";
-    //             $result2 = $this->query($query2);
-    //             while ($row2 = $this->fetch_array($result2))
-    //             {
-    //                 if (!empty($row2)) {
-    //                     echo '<optgroup label="&nbsp;&nbsp;'.$row2['kodesektor'].'.'.$row2['kodesatker'].' '.$row2['namasatker'].'">';
-    //                     $query3 = "select kodesektor, kodesatker, kodeunit, namasatker from satker
-    //                             where kodesektor ='$row2[kodesektor]' and
-    //                                   kodesatker ='$row2[kodesatker]' and
-    //                                   kodeunit is not null and
-    //                                   gudang is null
-    //                             order by kodesektor asc";
-    //                     $result3 = $this->query($query3);
-    //                     while ($row3 = $this->fetch_array($result3))
-    //                     {
-    //                         if (!empty($row3)) {
-    //                             echo '<optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;'.$row3['kodesektor'].'.'.$row3['kodesatker'].'.'.$row3['kodeunit'].' '.$row3['namasatker'].'">';
-    //                             $query4 = "select kodesektor, kodesatker, kodeunit, gudang, namasatker from satker
-    //                                     where kodesektor ='$row3[kodesektor]' and
-    //                                           kodesatker ='$row3[kodesatker]' and
-    //                                           kodeunit ='$row3[kodeunit]' and
-    //                                           gudang is not null
-    //                                     order by kodesektor asc";
-    //                             $result4 = $this->query($query4);
-    //                             while ($row4 = $this->fetch_array($result4))
-    //                             {
-    //                                 echo '<option value="'.$row4['kodesektor'].'.'.$row4['kodesatker'].'.'.$row4['kodeunit'].'.'.$row4['gudang'].'">&nbsp;&nbsp;&nbsp;&nbsp;'.$row4['kodesektor'].'.'.$row4['kodesatker'].'.'.$row4['kodeunit'].'.'.$row4['gudang'].' '.$row4['namasatker']."</option>";
-    //                             }
-    //                             echo '</optgroup>';
-    //                         }
-
-    //                     }
-    //                     echo '</optgroup>';
-    //                 }
-    //             }
-    //             echo '</optgroup>';
-    //         }
-    //     }
-    // }
     public function bacadata($data)
     {
         $sql1="select kodesektor from satker
@@ -190,44 +132,46 @@ class modelUser extends mysql_db
 
     public function ubahuser($data)
     {
-
-        $id = $data['id'];
-        $user_name = $data['user_name'];
-        $user_email = $data['user_email'];
-        $kd_lokasi = $data['kd_lokasi'];
-        $nm_lokasi = $data['nm_lokasi'];
-        $query = "update user
-                    set user_name='$user_name',
-                    user_email='$user_email',
-                    kd_lokasi='$kd_lokasi',
-                    nm_satker='$nm_lokasi'
-                    where user_id='$id'";
-        $result = $this->query($query);
-        return $result;
+        $kd_lama = $data['kd_lama'];
+        unset($data['kd_lama']);
+        unset($data['manage']);
+        unset($data['user_id']);
+        $readNamaSatker   = "select namasatker from satker where kode = '$data[kd_lokasi]' and kd_ruang is null";
+        $resultNamaSatker = $this->query($readNamaSatker);
+        $object           = $this->fetch_object($resultNamaSatker);
+        $checkTrans       = "select * from transaksi_full where kd_lokasi = '$data[kd_lokasi]'";
+        $resultCheckTrans = $this->query($checkTrans);
+        $objectCheckTrans = $this->fetch_object($resultCheckTrans);
+        if (!empty($objectCheckTrans)) {
+            echo "error";
+        }
+        else {
+            $arrayTransaksi = array('transaksi_full','transaksi_masuk','transaksi_keluar','log_trans_masuk','log_slip','log_opname');
+            print_r($arrayTransaksi);
+            for ($i=0; $i < count($arrayTransaksi); $i++) { 
+                $updateTransaksi = "UPDATE $arrayTransaksi[$i]
+                    SET kd_lokasi    = '$data[kd_lokasi]',
+                    nm_satker        = '$object->namasatker',
+                    user_id          = '$data[user_name]',
+                    no_dok           =  REPLACE(no_dok, '$kd_lama', '$data[kd_lokasi]')
+                    WHERE kd_lokasi  = '$kd_lama'";
+                $resultTransaksi = $this->query($updateTransaksi);    
+            }
+            if (isset($data['user_pass'])) { $data['user_pass'] = md5($data['user_pass']); }
+            else if (isset($data['kd_lokasi'])) { $data['nm_satker'] = $object->namasatker; }
+            foreach ($data as $key => $value) {
+                $dataArray[] = $key."='".$value."',";
+            }
+            $newArray    = implode("", $dataArray);
+            $resultArray = rtrim($newArray, ',');
+            $query       = "update user
+                            set $resultArray where kd_lokasi = '$kd_lama'";
+            $result = $this->query($query);
+            return $result;
+        }
     }
 
-    public function ubahuserpass($data)
-    {
-        $id = $data['id'];
-        $user_name = $data['user_name'];
-        $user_pass = $data['user_pass'];
-        $user_email = $data['user_email'];
-        $kd_lokasi = $data['kd_lokasi'];
-        $nm_lokasi = $data['nm_lokasi'];
-        $query = "update user
-                    set user_name='$user_name',
-                    user_pass='$user_pass',
-                    user_email='$user_email',
-                    kd_lokasi='$kd_lokasi',
-                    nm_satker='$nm_lokasi'
-                    where user_id='$id'";
-        $result = $this->query($query);
-        return $result;
-    }
-
-    public function hapususer($data)
-    {
-
+    public function hapususer($data) {
         $query = "delete from user where user_id='$data'";
         $result = $this->query($query);
         return $result;

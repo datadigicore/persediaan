@@ -12,6 +12,10 @@
                 <strong>Berhasil! </strong>
                 Data berhasil ditambahkan
             </div>
+            <div class="alert alert-danger" id="error-alert" style="margin:8px 0 0 0;padding:4px 4px 4px 4px; text-align:center;" hidden>
+                <strong>Kesalahan! </strong>
+                Data Transaksi Satker Tujuan Sudah Ada.
+            </div>
             </div>
           </div>
         </div>
@@ -62,9 +66,9 @@
                 Mohon Tunggu Sejenak
               </div>
             <div class="modal-footer">
-            <div class="alert alert-success" id="success-alert" style="margin:8px 0 0 0;padding:4px 4px 4px 4px; text-align:center;" hidden>
-                <strong>Berhasil! </strong>
-                Data berhasil ditambahkan
+            <div class="alert alert-danger" id="success-alert" style="margin:8px 0 0 0;padding:4px 4px 4px 4px; text-align:center;" hidden>
+                <strong>Maaf! </strong>
+                Terjadi
             </div>
             </div>
           </div>

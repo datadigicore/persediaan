@@ -198,6 +198,14 @@
         email_row  = row.data()[2];
         kdsatker_row  = row.data()[3];
         nmsatker_row  = row.data()[4];
+        $.ajax({
+          type: "post",
+          url: '../core/user/prosesuser',
+          data: {manage:'readsatker'},
+          success: function (output) {     
+            $('#updkdunitgudang').html(output);
+          }
+        });
         if ( row.child.isShown() ) {
           $('div.slider', row.child()).slideUp( function () {
             row.child.hide();
@@ -212,6 +220,10 @@
           $("#email"+id_row+"").val(email_row);
           $("#kdsatker"+id_row+"").val(kdsatker_row);
           $("#nmsatker"+id_row+"").val(nmsatker_row);
+          $("#updkdunitgudang").select2({
+             placeholder: "Ganti Kode Satker",
+             allowClear: false
+            });
         }
       });
       $(document).on('click', '#btnhps', function () {
@@ -302,16 +314,16 @@
         '<table width="100%">'+
            '<tr>'+
               '<input type="hidden" name="manage" value="upduser">'+
-              '<input type="hidden" name="id" value="'+d[0]+'">'+
-              '<td width="16.2%"><input style="width:90%" id="username'+d[0]+'" name="updusername" class="form-control" type="text" placeholder="Username"></td>'+
-              '<td width="18.2%"><input style="width:90%" id="email'+d[0]+'" name="updemail" class="form-control" type="text" placeholder="Email"></td>'+
-              '<td width="17.7%"><input type="checkbox" id="checkpass" style="margin-top:11px;margin-left:-5px;position:absolute;"><input style="width:90%" id="updpassword" name="updpassword" class="form-control" type="password" placeholder="Password" disabled></td>'+
-              '<td width="14.2%"><input style="width:90%" id="kdsatker'+d[0]+'" name="updkdsatker" class="form-control" type="text" placeholder="Kode Satker"></td>'+
-              '<td><input style="width:97%" id="nmsatker'+d[0]+'" name="updnmsatker" class="form-control" type="text" placeholder="Uraian Satker"></td>'+
-              '<td style="vertical-align:middle; width:15%;">'+
-                '<div class="box-tools">'+
-                  '<button id="btnrst" class="btn btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
-                  '<button id="btnupd" class="btn btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
+              '<input type="hidden" name="user_id" value="'+d[0]+'">'+
+              '<input type="hidden" id="kdsatker'+d[0]+'" name="kd_lama">'+
+              '<td width="16.2%"><input style="width:90%" id="username'+d[0]+'" name="user_name" class="form-control" type="text" placeholder="Username"></td>'+
+              '<td width="18.2%"><input style="width:90%" id="email'+d[0]+'" name="user_email" class="form-control" type="text" placeholder="Email"></td>'+
+              '<td width="17.7%"><input type="checkbox" id="checkpass" style="margin-top:11px;margin-left:-5px;position:absolute;"><input style="width:90%" id="updpassword" name="user_pass" class="form-control" type="password" placeholder="Password" disabled></td>'+
+              '<td width="24.2%"><input type="checkbox" id="checktrans" style="margin-top:11px;margin-left:-5px;position:absolute;z-index:1"><select name="kd_lokasi" id="updkdunitgudang" class="form-control select2" style="width:95%;" disabled><option value="">-- Pilih Kode Satker--</option></select></td>'+
+              '<td style="vertical-align:middle; width:14%;">'+
+                '<div class="row-fluid">'+
+                  '<button id="btnrst" class="col-sm-6 btn btn-flat btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
+                  '<button id="btnupd" class="col-sm-6 btn btn-flat btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
                 '</div>'
               '</td>'+
            '</tr>'+
@@ -338,11 +350,20 @@
           processData: false,
           success: function(data)
           {
-            $("#success-alert").alert();
-            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-            $("#success-alert").alert('close');
-            });
-            setTimeout("location.href = redirectURL;",redirectTime); 
+            if (data == 'error') {
+              $("#error-alert").alert();
+              $("#error-alert").fadeTo(2000, 500).slideUp(500, function(){
+              $("#error-alert").alert('close');
+              });
+              setTimeout("location.href = redirectURL;",redirectTime); 
+            }
+            else{
+              $("#success-alert").alert();
+              $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+              $("#success-alert").alert('close');
+              });
+              setTimeout("location.href = redirectURL;",redirectTime); 
+            }
           }
         });
         return false;
@@ -354,6 +375,15 @@
         }
         else {
           document.getElementById("updpassword").setAttribute("disabled","disabled");
+        }
+      });
+      $(document).on("change", "#checktrans", function(){
+        var kdunitgudangcheck = document.getElementById("#updkdunitgudang");
+        if(this.checked){
+          document.getElementById("updkdunitgudang").removeAttribute("disabled");
+        }
+        else {
+          document.getElementById("updkdunitgudang").setAttribute("disabled","disabled");
         }
       });
       $('#adduser').submit(function(e){

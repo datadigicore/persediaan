@@ -16,36 +16,27 @@ else
 			$Gudang->bacaunit($tahun);
 		break;
 		case 'addgudang':
-			$kdsektor = $purifier->purify(substr($_POST['kdunit'], 0, 2));
-			$kdsatker = $purifier->purify(substr($_POST['kdunit'], 3, 2));
-			$kdunit = $purifier->purify(substr($_POST['kdunit'], -2));
-			$kdgudang = $purifier->purify($_POST['kdgudang']);
-			$nmgudang = $purifier->purify($_POST['nmgudang']);
+			$row      = explode('.', $_POST['kdunit']);
 			$tahun = $_SESSION['thn_ang'];
 			$data = array(
-				"kodesektor" => $kdsektor,
-				"kodesatker" => $kdsatker,
-				"kodeunit" => $kdunit,
-				"gudang" => $kdgudang,
-				"namagudang" => $nmgudang,
-				"tahun" => $tahun
+				"kodesektor" => $row[0],
+				"kodesatker" => $row[1],
+				"kodeunit"   => $row[2],
+				"gudang"     => $purifier->purify($_POST['kdgudang']),
+				"namagudang" => $purifier->purify($_POST['nmgudang']),
+				"tahun"      => $_SESSION['thn_ang']
 			);
 			$Gudang->tambahgudang($data);
 			//========= Log History =========//
-			$kdlokasiuser = $_SESSION['kd_lok'];
-			$nmsatkeruser = $_SESSION['nama_satker'];
-			$username = $_SESSION['username'];
-			$aksi = "T-Gudang";
-			$tanggal = date("Y-m-d h:i:sa");
 			$datalog = array(
-				"kdlokasiuser" => $kdlokasiuser,
-				"nmsatkeruser" => $nmsatkeruser,
-				"username" => $username,
-				"kd_sektor" => $kdsektor.".".$kdsatker.".".$kdunit.".".$kdgudang,
-		    	"nm_sektor" => $nmgudang,
-		    	"tahun" => $tahun,
-		    	"aksi" => $aksi,
-		    	"tanggal" => $tanggal
+				"kdlokasiuser" => $_SESSION['kd_lok'],
+				"nmsatkeruser" => $_SESSION['nama_satker'],
+				"username"     => $_SESSION['username'],
+				"kd_sektor"    => $row[0].".".$row[1].".".$row[2].".".$purifier->purify($_POST['kdgudang']),
+				"nm_sektor"    => $purifier->purify($_POST['nmgudang']),
+				"tahun"        => $_SESSION['thn_ang'],
+				"aksi"         => "T-Gudang",
+				"tanggal"      => date("Y-m-d h:i:sa");
 		    );
 			$Gudang->loghistory($datalog);
 			//========= Log History =========//

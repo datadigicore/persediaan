@@ -36,38 +36,8 @@ else
 			$User->tambahuser($data);
 		break;
 		case 'upduser':
-			if ($_POST['updpassword'] == "") {
-				$id = $purifier->purify($_POST['id']);
-				$user_name = $purifier->purify($_POST['updusername']);
-				$email = $purifier->purify($_POST['updemail']);
-				$kd_lokasi = $purifier->purify($_POST['updkdsatker']);
-				$nm_lokasi = $purifier->purify($_POST['updnmsatker']);
-				$data = array(
-					"id" => $id,
-					"user_name" => $user_name,
-					"user_email" => $email,
-			    	"kd_lokasi" => $kd_lokasi,
-			    	"nm_lokasi" => $nm_lokasi
-			    );
-			    $User->ubahuser($data);
-			}
-			else{
-				$id = $purifier->purify($_POST['id']);
-				$user_name = $purifier->purify($_POST['updusername']);
-				$email = $purifier->purify($_POST['updemail']);
-				$user_pass = $purifier->purify(md5($_POST['updpassword']));
-				$kd_lokasi = $purifier->purify($_POST['updkdsatker']);
-				$nm_lokasi = $purifier->purify($_POST['updnmsatker']);
-				$data = array(
-					"id" => $id,
-					"user_name" => $user_name,
-					"user_pass" => $user_pass,
-					"user_email" => $email,
-			    	"kd_lokasi" => $kd_lokasi,
-			    	"nm_lokasi" => $nm_lokasi
-			    );
-			    $User->ubahuserpass($data);
-			}
+			$data = $purifier->purifyArray($_POST);
+			$User->ubahuser($data);
 		break;
 		case 'deluser':
 			$id = $purifier->purify($_POST['id']);
