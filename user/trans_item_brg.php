@@ -102,9 +102,11 @@ else {
                           <div class="col-sm-8">
                             <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="" readonly>
                           </div>
-                        </div>  
+                        </div> 
+                        <?php if($_POST['jenistrans']!="Transfer ") { ?> 
                         <div class="form-group">
-                          <label class="col-sm-3 control-label">Kode / Nama Barang</label>
+
+                          <label class="col-sm-3 control-label">Kode / Nama Barang</label> 
                           <div class="col-sm-8">
                             <select name="kd_brg" id="kd_brg" class="form-control select2">
                             </select>
@@ -130,7 +132,8 @@ else {
                           <div class="col-sm-8">
                             <input type="number" min="1" name="rph_sat" class="form-control" id="rph_sat" step="any" placeholder="Masukkan Harga ">
                           </div>
-                        </div>                  
+                        </div> 
+                         <?php }  ?>                  
                         <div name="detil_transaksi" id="detil_transaksi">
                         </div>
                       </div>  
@@ -178,9 +181,11 @@ else {
                       
                     </div>
                   </div> <!-- </div class="box-body">  -->
+                  <?php if($_POST['jenistrans']!="Transfer ") { ?> 
                   <div class="box-footer">
                       <!-- <button type="reset" id="btn_resets" class="btn btn-default">Reset</button> -->
                       <button type="submit" class="btn btn-info pull-right">Submit</button>
+                  <?php } ?>
                     </div>
                 </form>
               </div>
@@ -317,13 +322,8 @@ else {
             {"targets": 9 },
             {"targets": 10,
              "visible": true },
-            {"orderable": false,
-             "data": null,
-             "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
-                                  '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                '</div>',
-             "targets": [11],"targets": 11 },
+            {"targets": 11 },
+
           ],
         });
         // $('#example1 tbody').on('click', 'tr', function () {
@@ -477,13 +477,7 @@ else {
                   {"targets": 9 },
                   {"targets": 10,
                    "visible": true },
-                  {"orderable": false,
-                   "data": null,
-                   "defaultContent":  '<div class="box-tools">'+
-                                        '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
-                                        '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                      '</div>',
-                   "targets": [11],"targets": 11 },
+                  {"targets": 11 },
                 ],
               });
           }
@@ -564,13 +558,7 @@ else {
                         {"targets": 9 },
                         {"targets": 10,
                          "visible": true },
-                        {"orderable": false,
-                         "data": null,
-                         "defaultContent":  '<div class="box-tools">'+
-                                              '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
-                                              '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                            '</div>',
-                         "targets": [11],"targets": 11 },
+                        {"targets": 11 },
                       ],
                       "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
                     });
@@ -727,13 +715,7 @@ else {
                   {"targets": 9 },
                   {"targets": 10,
                    "visible": true },
-                  {"orderable": false,
-                   "data": null,
-                   "defaultContent":  '<div class="box-tools">'+
-                                        '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
-                                        '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                      '</div>',
-                   "targets": [11],"targets": 11 },
+                  {"targets": 11 },
                 ],
                 "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
               });
@@ -798,12 +780,8 @@ else {
             {"targets": 7 },
             {"targets": 8 },
             {"targets": 9 },
-            {"orderable": false,
-             "data": null,
-             "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
-                                '</div>',
-             "targets": [10],"targets": 10 },
+            {"targets": 10 },
+            
           ],
         });
         // $('#example1 tbody').on('click', 'tr', function () {
@@ -822,6 +800,7 @@ else {
             $('#tgl_buku').val(output.tglbuku);
             $('#dissatker').val(output.satker);
             $('#distottrans').val(output.total);
+            $('#keterangan').val(output.keterangan);
           }
         });
         $.ajax({
@@ -905,12 +884,7 @@ else {
                       {"targets": 7 },
                       {"targets": 8 },
                       {"targets": 9 },
-                      {"orderable": false,
-                       "data": null,
-                       "defaultContent":  '<div class="box-tools">'+
-                                            '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
-                                          '</div>',
-                       "targets": [10],"targets": 10 },
+                      {"targets": 10 },
                     ],
                   });
                 }
@@ -1062,12 +1036,7 @@ else {
                   {"targets": 7 },
                   {"targets": 8 },
                   {"targets": 9 },
-                  {"orderable": false,
-                   "data": null,
-                   "defaultContent":  '<div class="box-tools">'+
-                                        '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'+
-                                      '</div>',
-                   "targets": [10],"targets": 10 },
+                  {"targets": 10 },
                 ],
               });
             }

@@ -30,8 +30,10 @@ $query = mysqli_query($connect,$sql);
 $data = mysqli_fetch_assoc($query);
 if (mysqli_num_rows($query) == 1) {
 	$_SESSION['kd_lok'] = $data['kd_lokasi'];
+	$_SESSION['kd_ruang'] = $data['kd_ruang'];
 	$_SESSION['username'] = $data['user_name'];
 	$_SESSION['nama_satker'] = $data['nm_satker'];
+	$_SESSION['transfer'] = $data['transfer'];
 	$_SESSION['thn_ang'] = $purifier->purify($_POST['thn_ang']);
 	$_SESSION['level'] = $data['user_level'];
 	$_SESSION['start'] = time();

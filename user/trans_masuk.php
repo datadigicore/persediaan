@@ -158,13 +158,8 @@
             {"targets": 4 },
             {"targets": 5 },
             {"targets": 6 },
-            {"orderable": false,
-             "data": null,
-             "defaultContent":  '<div class="row-fluid">'+
-                                  '<button id="btntmbh" class="col-xs-6 btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
-                                  '<button id="btnedt" class="col-xs-6 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                '</div>',
-             "targets": [7],"targets": 7 },
+            {"targets": 7 },
+            
           ],
         });
       });
@@ -297,13 +292,7 @@
                   {"targets": 4 },
                   {"targets": 5 },
                   {"targets": 6 },
-                  {"orderable": false,
-                   "data": null,
-                   "defaultContent":  '<div class="row-fluid">'+
-                                        '<button id="btnedt" class="col-xs-6 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                        '<button id="btntmbh" class="col-xs-6 btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
-                                      '</div>',
-                   "targets": [7],"targets": 7 },
+                  {"targets": 7 },
                 ],
                 "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
               });
@@ -452,14 +441,7 @@
                   {"targets": 4 },
                   {"targets": 5 },
                   {"targets": 6 },
-                  {"orderable": false,
-                   "data": null,
-                   "defaultContent":  '<div class="box-tools">'+
-                                        
-                                        '<button id="btntmbh" class="btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
-                                        '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                      '</div>',
-                   "targets": [7],"targets": 7 },
+                  {"targets": 7 },
                 ],
                 "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
               });

@@ -5,7 +5,7 @@
             <li id="index"><a href="index"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
             <li id="skpd"><a href="sektor"><i class="fa fa-table"></i> <span>Tabel SKPD</span></a></li>
             <li id="konfig"><a href="konfig"><i class="fa fa-gear"></i> <span>Konfigurasi SKPD</span></a></li>
-            <li id="refresh"><a href="refresh_new"><i class="fa fa-gear"></i> <span>Refresh</span></a></li>
+            <!-- <li id="refresh"><a href="refresh_new"><i class="fa fa-gear"></i> <span>Refresh</span></a></li> -->
             <li id="user"><a href="user"><i class="fa fa-user"></i> <span>Tambah Pengelola</span></a></li>
             <li id="laporan"><a href="report"><i class="fa fa-file-text-o"></i> <span>Laporan SKPD</span></a></li>
             <li class="treeview">

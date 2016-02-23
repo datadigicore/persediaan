@@ -6,8 +6,9 @@
 //Mendapatkan Data Sesi Username dan kode satker
 session_start();
 $user_id=$_SESSION['username'];
-$kd_satker=$_SESSION['kd_lok'];
+$kd_satker=$_SESSION['kd_lok'].$_SESSION['kd_ruang'];
 $thn_ang=$_SESSION['thn_ang'];
+$kd_ruang=$_SESSION['kd_ruang'];
 // Table yang di load
 $table = 'transaksi_keluar';
  
@@ -24,7 +25,7 @@ $columns = array(
     array( 'db' => 'tgl_buku', 'dt' => 5, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
     array( 'db' => 'keterangan', 'dt' => 6 ),
 );
- 
+if($kd_ruang!=""){ $query_ruang="and kd_ruang='$kd_ruang'"; } else $query_ruang="and (kd_ruang is null or kd_ruang='') ";
 // Settingan Koneksi Datatable
 require('../../config/dbconf.php');
 $config = new config();
@@ -41,7 +42,7 @@ else if (substr_count($str,".") == 2) {
     $where = "kd_lokasi like '$kd_satker.%' and status_hapus=0 and thn_ang='$thn_ang' and jns_trans not like 'P%'  group by no_dok";
 }
 else{
-    $where = "kd_lokasi='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang' and jns_trans not like 'P%'  group by no_dok"; 
+    $where = "concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang' and jns_trans not  in('P01','K06')  group by no_dok"; 
 }
 
 // Pengaturan Output Server Side Processing

@@ -80,6 +80,19 @@ else
 				);
 			$Transaksi->bacasatkerdok($data);
 		break;
+
+		case 'readbidang':
+			$satker_tujuan= $_SESSION['kd_lok'];
+			$kd_lokasi = $_SESSION['kd_lok'];
+			$thn_ang = $_SESSION['thn_ang'];
+			$data = array(
+				"satker_tujuan" => $satker_tujuan,
+				"kd_lokasi" => $kd_lokasi,
+				"thn_ang" => $thn_ang
+				);
+			$Transaksi->baca_ruang($data);
+			echo "Read Bidang";
+		break;
 		case 'readsatkerdoks':
 			$no_dok = $purifier->purify($_POST['no_dok']);
 			$kd_lokasi = $_SESSION['kd_lok'];
@@ -104,17 +117,21 @@ else
 		break;
 		case 'readidenttrans':
 			$idtrans = $purifier->purify($_POST['idtrans']);
-			$Transaksi->bacaidenttrans($idtrans);
+			$kd_ruang = $_SESSION['kd_ruang'];
+			$Transaksi->bacaidenttrans($idtrans,$kd_ruang);
 		break;
 		case 'readidenttransklr':
 			$idtrans = $purifier->purify($_POST['idtrans']);
-			$Transaksi->bacaidenttrans_klr($idtrans);
+			$kd_ruang = $_SESSION['kd_ruang'];
+			$Transaksi->bacaidenttrans_klr($idtrans,$kd_ruang);
 		break;
 		case 'readbrgmsk':
 			$kd_lokasi = $purifier->purify($_POST['kd_satker']);
 			$thn_ang = $_SESSION['thn_ang'];
+			$kd_ruang = $_SESSION['kd_ruang'];
 			$data = array(
 				"kd_lokasi" => $kd_lokasi,
+				"kd_ruang" => $kd_ruang,
 				"thn_ang" => $thn_ang
 				);
 			$Transaksi->baca_persediaan_masuk($data);
@@ -143,8 +160,10 @@ else
 		case 'baca_detil_trans':
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			$kd_lokasi = $_SESSION['kd_lok'];
+			$kd_ruang = $_SESSION['kd_ruang'];
 			$data = array(
 				"kd_brg" => $kd_brg,
+				"kd_ruang" => $kd_ruang,
 				"kd_lokasi" => $kd_lokasi
 				);
 			$Transaksi->baca_detil_trans($data);
@@ -155,8 +174,10 @@ else
 			$no_dok = $purifier->purify($_POST['nodok']);
 			$kd_lokasi = substr($no_dok, 0, 11);
 			$thn_ang = $_SESSION['thn_ang'];
+			$kd_ruang = $_SESSION['kd_ruang'];
 			$data = array(
 				"kd_lokasi" => $kd_lokasi,
+				"kd_ruang" => $kd_ruang,
 				"thn_ang" => $thn_ang,
 				"no_dok" => $no_dok,
 				"kd_brg" => $kd_brg
@@ -180,15 +201,19 @@ else
 		break;
 
 		case 'tbh_transaksi_klr':
+			$kd_ruang=null;
+			$nm_ruang=null;
+			$kd_tujuan=null;
 			$kd_lokasi = $purifier->purify($_POST['read_no_dok']);
 			$satkernodok = $purifier->purify($_POST['read_no_dok']);
 			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
-			
+			$ruang_asal = $_SESSION['kd_ruang'];
 			$no_bukti = $purifier->purify($_POST['no_dok']);
 			$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
 			$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
 			$jns_trans = $_POST['jenis_trans'];
+
 			
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			
@@ -198,13 +223,24 @@ else
 			$hrg_sat = $purifier->purify($_POST['rph_sat']);
 			$status = 0;
 			$user_id = $_SESSION['username'];
+			if($_POST['bidang_tujuan']!=""){
+				$data = explode("-", $purifier->purify($_POST['bidang_tujuan']));
+				$kd_ruang = $data[0];
+				$nm_ruang = $data[1];
+				$kd_tujuan = $purifier->purify($_POST['satker_tujuan']);
+			 	$jns_trans="K06";
+
+			}
 			if ($kd_brg=="") 
 			{
 				$no_dok = $kd_lokasi.' - '.$purifier->purify($_POST['no_dok']);
 
 				$data = array(
 					"kd_lokasi" => $kd_lokasi,
-					// "kd_lok_msk" => $kd_lok_msk,
+					"kd_lok_msk" => $kd_tujuan,
+					"kd_ruang" => $kd_ruang,
+					"ruang_asal" => $ruang_asal,
+					"nm_ruang" => $nm_ruang,
 					"nm_satker" => $nm_satker,
 					"thn_ang" => $thn_ang,
 					"jns_trans" => $jns_trans,
@@ -218,13 +254,14 @@ else
 
 				);
 				echo "transa ident";
-				//print_r($data);
+				print_r($data);
 				$Transaksi->transaksi_keluar_ident($data);
 			}
 			else{
 				$no_dok = $purifier->purify($_POST['no_dok_item']);
 				$data = array(
-					"kd_lokasi" => $kd_lokasi,
+					"kd_lokasi" => $_SESSION['kd_lok'],
+					"ruang_asal" => $ruang_asal,
 					"kd_lok_msk" => $kd_lok_msk,
 					"nm_satker" => $nm_satker,
 					"thn_ang" => $thn_ang,
@@ -243,7 +280,7 @@ else
 					"harga_sat" => $hrg_sat,
 					"keterangan" => $keterangan
 				);
-				//print_r($data);
+				print_r($data);
 				
 				$Transaksi->trnsaksi_keluar($data);
 			//========= Log History =========//
@@ -289,6 +326,7 @@ else
 
 		case 'tbh_transaksi_msk':
 			$kd_lokasi = $purifier->purify($_POST['read_no_dok']);
+			$kd_ruang = $_SESSION['kd_ruang'];
 			$satkernodok = $purifier->purify($_POST['read_no_dok']);
 			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
@@ -310,6 +348,7 @@ else
 			$no_dok	= $satkernodok.' - '.$purifier->purify($_POST['no_dok']);
 				$data = array(
 					"kd_lokasi" => $kd_lokasi,
+					"kd_ruang" => $kd_ruang,
 					// "kd_lok_msk" => $kd_lok_msk,
 					"nm_satker" => $nm_satker,
 					"thn_ang" => $thn_ang,
@@ -415,8 +454,10 @@ else
 			$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok_baru']));
 			$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_buku_baru']));
 			$user_id = $_SESSION['username'];
+			$kd_ruang = $_SESSION['kd_ruang'];
 			$data = array(
 				"kd_lokasi" => $kd_lokasi,
+				"kd_ruang" => $kd_ruang,
 				"kd_trans" => $kd_trans,
 				"thn_ang" => $thn_ang,
 				"no_dok" => $no_dok,
@@ -427,7 +468,7 @@ else
 				"keterangan" => $keterangan,
 				"user_id" => $user_id
 			);
-			//print_r($data);
+			print_r($data);
 			$Transaksi->ubah_dok_masuk($data);
 		break;		
 
@@ -442,8 +483,10 @@ else
 			$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok_baru']));
 			$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_buku_baru']));
 			$user_id = $_SESSION['username'];
+			$kd_ruang = $_SESSION['kd_ruang'];
 			$data = array(
 				"kd_lokasi" => $kd_lokasi,
+				"kd_ruang" => $kd_ruang,
 				"kd_trans" => $kd_trans,
 				"thn_ang" => $thn_ang,
 				"no_dok" => $no_dok,
@@ -454,7 +497,7 @@ else
 				"keterangan" => $keterangan,
 				"user_id" => $user_id
 			);
-			//print_r($data);
+			print_r($data);
 			$Transaksi->ubah_dok_keluar($data);
 		break;
 
@@ -470,12 +513,13 @@ else
 
 
 			$user_id = $_SESSION['username'];
+			$kd_ruang = $_SESSION['kd_ruang'];
 			
 			
 			$data = array(
 
 				"kd_trans" => $kd_trans,
-				"kd_lok_msk" => $kd_lok_msk,
+				"kd_ruang" => $kd_ruang,
 				"kd_lok" => $kd_lok_msk,
 				"nm_satker" => $nm_satker,
 				"thn_ang" => $thn_ang,
@@ -484,7 +528,7 @@ else
 
 				"user_id" => $user_id
 			);
-			//print_r($data);
+			print_r($data);
 			$Transaksi->ubah_transaksi_masuk($data);
 		break;		
 

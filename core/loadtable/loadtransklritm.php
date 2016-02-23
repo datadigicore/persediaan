@@ -8,6 +8,7 @@ session_start();
 $user_id=$_SESSION['username'];
 $kd_satker=$_SESSION['kd_lok'];
 $thn_ang=$_SESSION['thn_ang'];
+$kd_ruang=$_SESSION['kd_ruang'];
 
 $no_dok = urldecode($_GET['no_dok']);
 // Table yang di load
@@ -28,6 +29,15 @@ $columns = array(
     array( 'db' => 'harga_sat', 'dt' => 7, 'formatter' => function($d,$row){return number_format($d,2,",",".");} ),
     array( 'db' => 'total_harga', 'dt' => 8, 'formatter' => function($d,$row){if(ceil($d)!=$d or floor($d)!=$d) {return number_format(abs($d),2,",",".");} else { return number_format(abs($d),0,",",".");} } ),
     array( 'db' => 'keterangan', 'dt' => 9 ),
+    array( 'db' => 'jns_trans', 'dt' => 10,'formatter' => function($d,$row){if($d!="K06"){ return '<div class="row-fluid">'.
+                                                                                                    '<button id="btnhps" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Hapus</button>'.
+                                                                                                    
+                                                                                                '</div>'; 
+                                                                                        }
+                                                                                        else{
+                                                                                            return '-';
+                                                                                        }
+                                                                                                 }  ),
 
 
     
@@ -35,7 +45,7 @@ $columns = array(
     
 
 );
- 
+ if($kd_ruang!="") $query_ruang="and kd_ruang='$kd_ruang' "; 
 // Settingan Koneksi Datatable
 require('../../config/dbconf.php');
 $config = new config();
@@ -52,7 +62,7 @@ else if (substr_count($str,".") == 2) {
     $where = "kd_lokasi like '$kd_satker.%' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and qty<0";
 }
 else{
-    $where = "kd_lokasi='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and qty<0";
+    $where = "kd_lokasi='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' ".$query_ruang."and qty<0";
 }
  
 // Pengaturan Output Server Side Processing
