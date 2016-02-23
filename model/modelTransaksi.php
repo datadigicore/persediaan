@@ -310,7 +310,6 @@ class modelTransaksi extends mysql_db
                         kd_lokasi='$kd_lokasi',
                         kd_ruang='$kd_ruang',
                         id_masuk='$id_trans',
-                        kd_lok_msk='$kd_lok_msk',
                         nm_satker='$nm_satker',
                         thn_ang='$thn_ang',
                         no_dok='$no_dok',
