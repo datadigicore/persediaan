@@ -117,12 +117,12 @@ else
 		break;
 		case 'readidenttrans':
 			$idtrans = $purifier->purify($_POST['idtrans']);
-			$kd_ruang = $_SESSION['kd_ruang'];
+			$kd_ruang = $_SESSION['kd_lok'].$_SESSION['kd_ruang'];
 			$Transaksi->bacaidenttrans($idtrans,$kd_ruang);
 		break;
 		case 'readidenttransklr':
 			$idtrans = $purifier->purify($_POST['idtrans']);
-			$kd_ruang = $_SESSION['kd_ruang'];
+			$kd_ruang = $_SESSION['kd_lok'].$_SESSION['kd_ruang'];
 			$Transaksi->bacaidenttrans_klr($idtrans,$kd_ruang);
 		break;
 		case 'readbrgmsk':
