@@ -175,6 +175,9 @@ class modelUser extends mysql_db
             }
         }
         else {
+            if (isset($data['user_pass'])) {
+                $data['user_pass'] = md5($data['user_pass']);
+            }
             foreach ($data as $key => $value) {
                 $dataArray[] = $key."='".$value."',";
             }

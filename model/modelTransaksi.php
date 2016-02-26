@@ -10,6 +10,69 @@ class modelTransaksi extends mysql_db
 
     }
 
+    public function cekAllTrans($data){
+        $query = "select * from transaksi_masuk where kd_lokasi='$data'";
+        $hasil = $this->query($query);   
+        $result = $this->fetch_array($hasil);
+        return $result;
+    }
+
+    public function importSaldoAwal($data){
+        $arrayCount     = count($data);
+        $USERNAME       = $_SESSION['username'];
+        $KODELOKASI     = $_SESSION['kd_lok'];
+        $NAMASATKER     = $_SESSION['nama_satker'];
+        $NOMORBUKTI     = trim($data[2]["A"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+        $NOMORDOKUMEN   = $KODELOKASI.' - '.$NOMORBUKTI;
+        $TANGGALDOKUMEN = date('Y').'-01-01';
+        $DATENOW        = date('Y-m-d H:i:s');
+        $JENISTRANSAKSI = 'M01';
+        $KETERANGAN     = "HASIL OPNAME ";
+        $KETERANGAN     .= date('Y')-1;
+        $string1 = "INSERT INTO transaksi_full (kd_lokasi, nm_satker, thn_ang, no_dok, no_bukti, tgl_dok, tgl_buku, kd_brg, kd_sskel, nm_sskel, kd_perk, nm_perk, nm_brg, spesifikasi, satuan, qty, harga_sat, total_harga, jns_trans, user_id, status, tgl_update, keterangan) VALUES ";
+        $string2 = "INSERT INTO transaksi_masuk (kd_lokasi, nm_satker, thn_ang, no_dok, no_bukti, tgl_dok, tgl_buku, kd_brg, kd_sskel, nm_sskel, kd_perk, nm_perk, nm_brg, spesifikasi, satuan, qty, qty_akhir, harga_sat, total_harga, jns_trans, user_id, status, tgl_update, keterangan) VALUES ";
+        for ($i=2; $i < $arrayCount; $i++) {
+        if (trim($data[$i]["B"]," \t\n\r\0\x0B\xA0\x0D\x0A")!="") {
+            $KDLOK = $KODELOKASI;
+            $NMSAT = $NAMASATKER;
+            $THANG = date('Y');
+            $NODOK = $NOMORDOKUMEN;
+            $NOBKT = $NOMORBUKTI;
+            $TGDOK = $TANGGALDOKUMEN;
+            $TGBUK = $DATENOW;
+            $KDBAR = trim($data[$i]["B"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+            if ($KDBAR != '') {
+                $query  ="select kd_sskel, nm_sskel, kd_perk, nm_perk from persediaan where kd_brg = '$KDBAR'";
+                $result = $this->query($query);
+                $object = $this->fetch_object($result);
+                $KDSSK  = $object->kd_sskel;
+                $NMSSK  = $object->nm_sskel;
+                $KDPRK  = $object->kd_perk;
+                $NMPRK  = $object->nm_perk;
+            }
+            $NMBAR = trim($data[$i]["C"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+            $SPESI = trim($data[$i]["D"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+            $JNSAT = trim($data[$i]["E"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+            $JMBAR = trim($data[$i]["F"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+            $JMAKH = $JMBAR;
+            $HRSAT = trim($data[$i]["G"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+            $TOTHR = $JMBAR*$HRSAT;
+            $JNTRN = $JENISTRANSAKSI;
+            $USRNM = $USERNAME;
+            $STATS = 0;
+            $TGLUP = $DATENOW;
+            $KTRGN = $KETERANGAN;
+            $string1 .= "('".$KDLOK."','".$NMSAT."','".$THANG."','".$NODOK."','".$NOBKT."','".$TGDOK."','".$TGBUK."','".$KDBAR."','".$KDSSK."','".$NMSSK."','".$KDPRK."','".$NMPRK."','".$NMBAR."','".$SPESI."','".$JNSAT."','".$JMBAR."','".$HRSAT."','".$TOTHR."','".$JNTRN."','".$USRNM."','".$STATS."','".$TGLUP."','".$KTRGN."'),";
+            $string2 .= "('".$KDLOK."','".$NMSAT."','".$THANG."','".$NODOK."','".$NOBKT."','".$TGDOK."','".$TGBUK."','".$KDBAR."','".$KDSSK."','".$NMSSK."','".$KDPRK."','".$NMPRK."','".$NMBAR."','".$SPESI."','".$JNSAT."','".$JMBAR."','".$JMAKH."','".$HRSAT."','".$TOTHR."','".$JNTRN."','".$USRNM."','".$STATS."','".$TGLUP."','".$KTRGN."'),";
+          }
+        }
+        $query1  = substr($string1,0,-1);
+        $query2  = substr($string2,0,-1);
+        $result  = $this->query($query1);
+        $results = $this->query($query2);
+        return $results;
+    }
+
     public function cek_saldo_awal($data){
         $kd_lokasi = $data['kd_lokasi'];
         $thn_ang = $data['thn_ang'];
