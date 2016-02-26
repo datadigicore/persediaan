@@ -35,12 +35,12 @@
       </aside>
       <script src="../plugins/jQuery/jQuery-2.1.4.min.js" type="text/javascript"></script>
       <script type="text/javascript">
-          $.ajax({
-            type: "post",
-            url: '../core/import/prosesimport',
-            data: {manage:'cekTransaksi'},
-            success: function (output) {   
-              $(output).insertAfter("#tnda_tangan");
-            }
-          });
+        $.ajax({
+          type: "post",
+          url: '../core/import/prosesimport',
+          data: {manage:'cekTransaksi'},
+          success: function (output) {   
+            $(output).insertAfter("#tnda_tangan");
+          }
+        });
       </script>

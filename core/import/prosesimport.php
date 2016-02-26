@@ -17,7 +17,7 @@ else
   {
     case 'cekTransaksi':
       $result = $Transaksi->cekAllTrans($_SESSION['kd_lok']);
-      if (empty($result)) {
+      if (empty($result) && $_SESSION['kd_lok'] == '08.01.01.01') {
         echo '<li id="file_import"><a href="importSaldoAwal"><i class="fa fa-file-excel-o"></i> <span>Import File Saldo Awal</span></a></li>';
       }
     break;
