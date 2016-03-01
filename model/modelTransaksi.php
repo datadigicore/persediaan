@@ -50,6 +50,7 @@ class modelTransaksi extends mysql_db
                 $KDPRK  = $object->kd_perk;
                 $NMPRK  = $object->nm_perk;
             }
+            if($NMPRK=='') continue;
             $NMBAR = trim($data[$i]["C"]," \t\n\r\0\x0B\xA0\x0D\x0A");
             $SPESI = trim($data[$i]["D"]," \t\n\r\0\x0B\xA0\x0D\x0A");
             $JNSAT = trim($data[$i]["E"]," \t\n\r\0\x0B\xA0\x0D\x0A");
