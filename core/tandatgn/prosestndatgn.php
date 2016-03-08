@@ -27,6 +27,7 @@ else
 			
 			$data = array(
 				"kd_lokasi" => $kdlokasi,
+				"kd_ruang" => $_SESSION['kd_ruang'],
 				"kota" => $kota,
 				"tanggal" => $tanggal,
 				"nip" => $nip,
@@ -48,7 +49,7 @@ else
 		break;		
 
 		case 'baca_data_awal':
-		$data = $_SESSION['kd_lok'];
+		$data = $_SESSION['kd_lok'].$_SESSION['kd_ruang'];
 		$Tndatgn->baca_data_awal($data);
 		break;
 

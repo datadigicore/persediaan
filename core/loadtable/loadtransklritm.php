@@ -9,7 +9,7 @@ $user_id=$_SESSION['username'];
 $kd_satker=$_SESSION['kd_lok'];
 $thn_ang=$_SESSION['thn_ang'];
 $kd_ruang=$_SESSION['kd_ruang'];
-
+$query_ruang="";
 $no_dok = urldecode($_GET['no_dok']);
 // Table yang di load
 $table = 'transaksi_keluar';

@@ -4,7 +4,8 @@ class modelTndtgn extends mysql_db
 {
 	public function tambahttd($data)
 	{
-		$kd_lokasi = $data['kd_lokasi'];
+		$kd_lokasi = $data['kd_lokasi'].$data['kd_ruang'];
+
 		$kota = $data['kota'];
 		$tanggal = $data['tanggal'];
 		$nip = $data['nip'];
@@ -17,7 +18,7 @@ class modelTndtgn extends mysql_db
 		$tgl_setuju = $data['tgl_setuju'];
 		$unit = $data['unit'];
 
-		$query_cek = "SELECT kd_lokasi from ttd where kd_lokasi='$kd_lokasi'";
+		$query_cek = "SELECT kd_lokasi from ttd where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_lokasi' ";
 		$result_cek = $this->query($query_cek);
 		$cek= $this->fetch_array($result_cek);
 		if($cek=="")
@@ -42,7 +43,8 @@ class modelTndtgn extends mysql_db
 		else 
 		{
 			$query_upd = "update ttd
-        				set kd_lokasi='$kd_lokasi',
+        				set 
+        				
         			    kota='$kota',
         			    tanggal='$tanggal',
         			    nip='$nip',
@@ -51,7 +53,7 @@ class modelTndtgn extends mysql_db
                     	nip2='$nip2',
                     	nama2='$nama2',
                     	jabatan2='$jabatan2',
-                    	unit='$unit' where kd_lokasi='$kd_lokasi'
+                    	unit='$unit' where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_lokasi'
                     	";
         	$result_upd = $this->query($query_upd);
 			return $result_upd;	
@@ -75,7 +77,7 @@ class modelTndtgn extends mysql_db
 
 	public function baca_data_awal($data)
 	{
-		$query = "select * from ttd where kd_lokasi like '$data%' order by kd_lokasi asc limit 1";
+		$query = "select * from ttd where concat(kd_lokasi,IFNULL(kd_ruang,''))='$data' order by kd_lokasi asc limit 1";
         $result = $this->query($query);
 
         $data_pj = $this->fetch_array($result);

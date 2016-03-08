@@ -9,7 +9,7 @@ $user_id=$_SESSION['username'];
 $kd_satker=$_SESSION['kd_lok'];
 $kd_ruang=$_SESSION['kd_ruang'];
 $thn_ang=$_SESSION['thn_ang'];
-
+$query_ruang="";
 $no_dok = $_GET['no_dok'];
 // echo $no_dok;
 // Table yang di load
@@ -49,6 +49,7 @@ $columns = array(
     
 
 );
+
 if($kd_ruang!="") $query_ruang="and kd_ruang='$kd_ruang' "; 
 // Settingan Koneksi Datatable
 require('../../config/dbconf.php');

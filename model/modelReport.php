@@ -8,9 +8,11 @@ class modelReport extends mysql_db
 {
     public function bacabrg($data)
     {
-        $kd_lokasi = $data['kd_lokasi'];
+        $kd_lokasi = $data['kd_lokasi'].$data['kd_ruang'];
         $thn_ang = $data['thn_ang'];
-        $query = "select kd_brg, nm_brg FROM transaksi_masuk where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' and kd_brg not like '' GROUP BY kd_brg ORDER BY nm_brg ASC ";
+        $query_satker = " kd_lokasi like '$kd_lokasi%' ";
+        if($data['kd_ruang']!='') $query_satker = " concat(kd_lokasi, IFNULL(kd_ruang,''))='$kd_lokasi' ";
+        $query = "select kd_brg, nm_brg FROM transaksi_masuk where ".$query_satker." and thn_ang='$thn_ang' and kd_brg not like '' GROUP BY kd_brg ORDER BY nm_brg ASC ";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         echo '<option value="all">Semua Barang</option>';
@@ -84,11 +86,12 @@ class modelReport extends mysql_db
     }
 
     public function query_brg($kd_brg,$kd_lokasi){
+        $kd_lokasi.=$_SESSION['kd_ruang'];
         $where = "";
         if($kd_brg!=="all"){
             $where = " and kd_brg='$kd_brg' ";
         }
-        $list_brg = "SELECT kd_brg from transaksi_masuk where kd_lokasi='$kd_lokasi' ".$where." group by kd_brg order by nm_brg asc";
+        $list_brg = "SELECT kd_brg from transaksi_masuk where concat(kd_lokasi,IFNULL(kd_ruang,'')='$kd_lokasi') ".$where." group by kd_brg order by nm_brg asc";
         $kode = $this->query($list_brg);
         return $kode;
     }
@@ -2739,7 +2742,8 @@ public function getupb($kd_lokasi){
 
     public function cetak_nama_pj($satker_asal)
     {
-        $query = "SELECT * from ttd where kd_lokasi='$satker_asal' ";
+        $satker_asal.=$_SESSION['kd_ruang'];
+        $query = "SELECT * from ttd where concat(kd_lokasi,IFNULL(kd_ruang,''))='$satker_asal' ";
         $result = $this->query($query);
         $pj = $this->fetch_array($result);
         if(count($pj)>0){

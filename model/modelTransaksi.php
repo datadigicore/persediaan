@@ -1985,6 +1985,7 @@ class modelTransaksi extends mysql_db
             $hsltglbuku = date_format($datebuku,"d-m-Y");
             $hslsatker = $row["nm_satker"];
             $hsltottrans = $row["total_harga"];
+            $hslket = $row["keterangan"];
             if($hsltottrans=="")
             {
                 $hsltottrans=0;

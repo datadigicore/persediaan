@@ -14,9 +14,11 @@ else
 	{
 		case 'readbrg':
 			$kd_lokasi = $purifier->purify($_POST['satker']);
+			$kd_ruang = $_SESSION['kd_ruang'];
 			$thn_ang = $_SESSION['thn_ang'];
 			$data = array(
 				"kd_lokasi"=>$kd_lokasi,
+				"kd_ruang"=>$kd_ruang,
 				"thn_ang" => $thn_ang
 			   );
 			$Report->bacabrg($data);
