@@ -32,6 +32,7 @@
                       <tr>
                         <th>ID</th>
                         <th width="10%">Kode UPB</th>
+                        <th width="10%">Kode Ruang</th>
                         <th width="20%">Nama UPB</th>
                         <th width="15%">Kode Barang</th>
                         <th width="15%">Nama Barang</th>
@@ -73,7 +74,8 @@
           {"targets": 4 },
           {"targets": 5 },
           {"targets": 6 },
-          {"targets": 7 }
+          {"targets": 7 },
+          {"targets": 8 }
         ],
         "order": [[ 1, "asc" ]]
       });
@@ -84,6 +86,7 @@
             redirectTime = "2600";
             redirectURL = "refresh_new";
             satker = row.data()[1];
+            kd_ruang = row.data()[2];
             managedata = "refresh";
 
 
@@ -97,7 +100,7 @@
               $.ajax({
                 type: "post",
                 url : "../core/konfig/proseskonfigurasi",
-                data: {manage:managedata,satker:satker},
+                data: {manage:managedata,satker:satker,kd_ruang:kd_ruang},
                 success: function(data)
                 {
 
@@ -120,7 +123,8 @@
                       {"targets": 4 },
                       {"targets": 5 },
                       {"targets": 6 },
-                      {"targets": 7 }
+                      {"targets": 7 },
+                      {"targets": 8 }
                     ],
                     "order": [[ 1, "asc" ]]
                   });
