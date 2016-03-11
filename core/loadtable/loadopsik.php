@@ -6,7 +6,7 @@
 //Mendapatkan Data Sesi Username dan kode satker
 session_start();
 $user_id=$_SESSION['username'];
-$kd_satker=$_SESSION['kd_lok'];
+$kd_satker=$_SESSION['kd_lok'].$_SESSION['kd_ruang'];
 $thn_ang=$_SESSION['thn_ang'];
 // Table yang di load
 $table = 'opname';
@@ -39,7 +39,7 @@ else if (substr_count($str,".") == 2) {
     $where = "kd_lokasi like '$kd_satker.%' and status_hapus=0 and thn_ang='$thn_ang' group by no_dok ";
 }
 else{
-    $where = "kd_lokasi='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang' group by no_dok ";
+    $where = "concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and thn_ang='$thn_ang' group by no_dok ";
 }
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp.class.php' );

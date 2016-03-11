@@ -5,19 +5,19 @@ class modelOpsik extends mysql_db
 
     public function sisa_barang($data)
     {
-        $kd_lokasi = $data['kd_lokasi'];
+        $kd_lokasi = $data['kd_lokasi'].$_SESSION['kd_ruang'];
         $kd_brg = $data['kd_brg'];
         $thn_ang = $data['thn_ang'];
-        $no_dok = $data['no_dok'];
+        $no_dok = $data['no_dok'].$_SESSION['kd_ruang'];
 
-        $query_tgl = "select tgl_dok from opname where no_dok='$no_dok' limit 1 ";  
+        $query_tgl = "select tgl_dok from opname where concat(no_dok,IFNULL(kd_ruang,''))='$no_dok' limit 1 ";  
         $result_tgl = $this->query($query_tgl);
         $tgl_brg = $this->fetch_array($result_tgl);
         $tgl_dok = $tgl_brg['tgl_dok'];
 
         //and tgl_dok<='$tgl_dok'
 
-        $query = "select sum(qty_akhir) as sisa,satuan from transaksi_masuk  where kd_brg = '$kd_brg' and kd_lokasi = '$kd_lokasi'  and thn_ang='$thn_ang'";  
+        $query = "select sum(qty_akhir) as sisa,satuan from transaksi_masuk  where kd_brg = '$kd_brg' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_lokasi' and thn_ang='$thn_ang'";  
         $result = $this->query($query);
         $sisa_brg = $this->fetch_array($result);
 
@@ -49,6 +49,7 @@ class modelOpsik extends mysql_db
             while($row_id = $this->fetch_array($result_msk)){
                 $id_brg = $row_id['id'];
                 $kd_lokasi=$row_id['kd_lokasi'];
+                $kd_ruang=$row_id['kd_ruang'];
                 $nm_satker = $row_id['nm_satker'];
                 $thn_ang = $row_id['thn_ang'];
                 $no_dok = $row_id['no_dok'];
@@ -82,6 +83,7 @@ class modelOpsik extends mysql_db
                 $query_full = "Insert into transaksi_full
                     set 
                     kd_lokasi='$kd_lokasi',
+                    kd_ruang='$kd_ruang',
                     kd_lok_msk='',
                     id_opname='$id_opname',
                     id_masuk='$id_trans',
@@ -123,6 +125,7 @@ class modelOpsik extends mysql_db
                             $query_full = "Insert into transaksi_full
                                             set 
                                             kd_lokasi='$kd_lokasi',
+                                            kd_ruang='$kd_ruang',
                                             kd_lok_msk='',
                                             id_opname='$id_opname',
                                             id_masuk='$id_trans',
@@ -296,6 +299,7 @@ class modelOpsik extends mysql_db
     public function tbh_opname_ident($data)
     {
         $kd_lokasi = $data['kd_lokasi'];
+        $kd_ruang = $data['kd_ruang'];
         $kd_lok_msk = $data['kd_lokasi'];
         $nm_satker = $data['nm_satker'];
         $thn_ang = $data['thn_ang'];
@@ -312,6 +316,7 @@ class modelOpsik extends mysql_db
         // Memasukan Data Transaksi Masuk ke tabel Transaksi Masuk        
         $query = "Insert into opname
                     set kd_lokasi='$kd_lokasi',
+                    kd_ruang='$kd_ruang',
                     kd_lok_msk='$kd_lok_msk',
                     nm_satker='$nm_satker',
                     thn_ang='$thn_ang',
@@ -339,9 +344,9 @@ class modelOpsik extends mysql_db
     }
     public function baca_persediaan_masuk($data)
     {
-        $kd_lokasi = $data['kd_lokasi'];
+        $kd_lokasi = $data['kd_lokasi'].$_SESSION['kd_ruang'];
         $thn_ang = $data['thn_ang'];
-        $query = "select kd_brg, nm_brg, spesifikasi FROM transaksi_masuk where kd_lokasi = '$kd_lokasi' and qty>0  and thn_ang = '$thn_ang' and status=0 GROUP BY kd_brg ORDER BY nm_brg ASC ";
+        $query = "select kd_brg, nm_brg, spesifikasi FROM transaksi_masuk where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_lokasi' and qty>0  and thn_ang = '$thn_ang' and status=0 GROUP BY kd_brg ORDER BY nm_brg ASC ";
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         while ($row = $this->fetch_array($result))
@@ -392,7 +397,7 @@ class modelOpsik extends mysql_db
     {
 
         $nm_satker = $data['nm_satker'];
-        $no_dok = $data['no_dok'];
+        $no_dok = $data['no_dok'].$_SESSION['kd_ruang'];
         $thn_ang = $data['thn_ang'];
         $kd_brg = $data['kd_brg'];
         $kuantitas = $data['kuantitas'];
@@ -401,7 +406,7 @@ class modelOpsik extends mysql_db
         $status = $data['status'];
         $user_id = $data['user_id'];
         $this->query("BEGIN");
-        $query_dok = "select kd_lokasi, tgl_dok, tgl_buku, no_dok, no_bukti, keterangan, jns_trans, keterangan from opname where no_dok='$no_dok'";
+        $query_dok = "select kd_lokasi, kd_lok_msk, kd_ruang, tgl_dok, tgl_buku, no_dok, no_bukti, keterangan, jns_trans, keterangan from opname where concat(no_dok,IFNULL(kd_ruang,''))='$no_dok'";
         $result_dok = $this->query($query_dok);
         if($this->num_rows($result_dok)==0)
         {
@@ -412,7 +417,9 @@ class modelOpsik extends mysql_db
         $dok = $this->fetch_array($result_dok);
 
         $kd_lokasi = $dok['kd_lokasi'];
-        $kd_lok_msk = $dok['kd_lokasi'];
+        $kd_satker = $dok['kd_lokasi'].$dok['kd_ruang'];
+        $kd_ruang = $dok['kd_ruang'];
+        $kd_lok_msk = $dok['kd_lok_msk'];
         $tgl_dok = $dok['tgl_dok'];
         $tgl_buku = $dok['tgl_buku'];
         $no_dok = $dok['no_dok'];
@@ -421,7 +428,7 @@ class modelOpsik extends mysql_db
         // $keterangan = $dok['keterangan'];
         
 
-        $query_perk = "SELECT kd_sskel, nm_sskel, kd_perk, nm_perk, nm_brg,spesifikasi, satuan from transaksi_masuk where kd_brg='$kd_brg' and kd_lokasi = '$kd_lokasi' ";
+        $query_perk = "SELECT kd_sskel, nm_sskel, kd_perk, nm_perk, nm_brg,spesifikasi, satuan from transaksi_masuk where kd_brg='$kd_brg' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' ";
         $result_perk = $this->query($query_perk);
         $data_perk = $this->fetch_array($result_perk);
         $kd_sskel = $data_perk['kd_sskel'];
@@ -435,10 +442,10 @@ class modelOpsik extends mysql_db
 
         $query_hrg = "SELECT  harga_sat
                          from transaksi_masuk
-                         where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and kd_brg='$kd_brg' and status_hapus=0 order by tgl_dok desc limit 1";
+                         where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and thn_ang='$thn_ang' and kd_brg='$kd_brg' and status_hapus=0 order by tgl_dok desc limit 1";
         $query_jml = "SELECT  sum(qty_akhir) as qty
                          from transaksi_masuk
-                         where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and kd_brg='$kd_brg' and status_hapus=0 and qty_akhir>0 order by tgl_dok desc limit 1";
+                         where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and thn_ang='$thn_ang' and kd_brg='$kd_brg' and status_hapus=0 and qty_akhir>0 order by tgl_dok desc limit 1";
         $result_hrg = $this->query($query_hrg);
         $result_jml = $this->query($query_jml);
         $data_hrg = $this->fetch_array($result_hrg);
@@ -454,6 +461,7 @@ class modelOpsik extends mysql_db
         $query = "Insert into opname
                     set 
                     kd_lokasi='$kd_lokasi',
+                    kd_ruang='$kd_ruang',
                     kd_lok_msk='$kd_lok_msk',
                     nm_satker='$nm_satker',
                     thn_ang='$thn_ang',
@@ -514,7 +522,7 @@ class modelOpsik extends mysql_db
         {
             
                 $qty_lebih = $selisih;
-                $query_id = "select id, id_opname, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, satuan, kd_perk, nm_perk, qty, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang'  order by tgl_dok asc,id asc ";     
+                $query_id = "select id, id_opname, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, satuan, kd_perk, nm_perk, qty, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and thn_ang='$thn_ang'  order by tgl_dok asc,id asc ";     
                 $result_id = $this->query($query_id);
                 while($row_id = $this->fetch_array($result_id))
                 {
@@ -527,6 +535,7 @@ class modelOpsik extends mysql_db
                         $query_masuk = "Insert into transaksi_masuk
                                             set 
                                             kd_lokasi='$kd_lokasi',
+                                            kd_ruang='$kd_ruang',
                                             kd_lok_msk='',
                                             id_opname='$id_opname',
                                             nm_satker='$nm_satker',
@@ -559,6 +568,7 @@ class modelOpsik extends mysql_db
                             $query_full = "Insert into transaksi_full
                                             set 
                                             kd_lokasi='$kd_lokasi',
+                                            kd_ruang='$kd_ruang',
                                             kd_lok_msk='',
                                             id_opname='$id_opname',
                                             id_masuk='$id_trans',
@@ -593,6 +603,7 @@ class modelOpsik extends mysql_db
                         $query_masuk = "Insert into transaksi_masuk
                                             set 
                                             kd_lokasi='$kd_lokasi',
+                                            kd_ruang='$kd_ruang',
                                             kd_lok_msk='',
                                             id_opname='$id_opname',
                                             nm_satker='$nm_satker',
@@ -625,6 +636,7 @@ class modelOpsik extends mysql_db
                             $query_full = "Insert into transaksi_full
                                             set 
                                             kd_lokasi='$kd_lokasi',
+                                            kd_ruang='$kd_ruang',
                                             kd_lok_msk='',
                                             id_opname='$id_opname',
                                             id_masuk='$id_trans',
@@ -660,6 +672,7 @@ class modelOpsik extends mysql_db
                         $query_masuk = "Insert into transaksi_masuk
                                             set 
                                             kd_lokasi='$kd_lokasi',
+                                            kd_ruang='$kd_ruang',
                                             kd_lok_msk='',
                                             id_opname='$id_opname',
                                             nm_satker='$nm_satker',
@@ -692,6 +705,7 @@ class modelOpsik extends mysql_db
                             $query_full = "Insert into transaksi_full
                                             set 
                                             kd_lokasi='$kd_lokasi',
+                                            kd_ruang='$kd_ruang',
                                             kd_lok_msk='',
                                             id_opname='$id_opname',
                                             id_masuk='$id_trans',
@@ -730,10 +744,12 @@ class modelOpsik extends mysql_db
             {   
                 echo " kuantitas tersisa : ".$selisih; 
                 // $query_id = "select id, kd_sskel, nm_sskel, kd_brg, kd_perk, nm_perk, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and qty_akhir>0 and status_hapus=0 and status_edit=0 order by tgl_dok asc limit 1";     
-                $query_id = "select id, id_opname, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, satuan, kd_perk, nm_perk, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and qty_akhir>0 and thn_ang='$thn_ang' and status_edit=0 order by tgl_dok asc,id asc limit 1";     
+                $query_id = "select id, id_brg_trf,  id_opname, kd_ruang, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, satuan, kd_perk, nm_perk, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and qty_akhir>0 and thn_ang='$thn_ang' and status_edit=0 order by tgl_dok asc,id asc limit 1";     
                 $result_id = $this->query($query_id);
                 $row_id = $this->fetch_array($result_id);
-                $id_trans_m = $row_id['id'];   
+                $id_trans_m = $row_id['id'];
+                $kd_ruang = $row_id['kd_ruang'];
+                $id_brg_trf = $row_id['id_brg_trf'];   
                 $qty_akhir = $row_id['qty_akhir'];      
                 $harga_sat = $row_id['harga_sat'];  
                 $total_harga = $selisih*$harga_sat;  
@@ -753,7 +769,10 @@ class modelOpsik extends mysql_db
                     echo '<br>';
 
                     $query_keluar = "Insert into transaksi_keluar
-                                        set kd_lokasi='$kd_lokasi',
+                                        set 
+                                        kd_lokasi='$kd_lokasi',
+                                        id_brg_trf='$id_brg_trf', 
+                                        kd_ruang='$kd_ruang',
                                         id_masuk = '$id_trans_m',
                                         kd_lok_msk='$kd_lok_msk',
                                         id_opname='$id_opname',
@@ -782,7 +801,7 @@ class modelOpsik extends mysql_db
                     $result_keluar = $this->query($query_keluar);
                     $id_transk = $this->insert_id();
 
-                    $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $selisih where kd_lokasi='$kd_lokasi' and id='$id_trans_m'";
+                    $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $selisih where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and id='$id_trans_m'";
                     $result_upd_masuk = $this->query($query_upd_masuk);
 
                     // $query_idk = "select id from transaksi_keluar WHERE kd_brg='$kd_brg' and user_id='$user_id' order by id DESC";
@@ -796,7 +815,10 @@ class modelOpsik extends mysql_db
                     echo '<br>';
 
                     $query_full = "Insert into transaksi_full
-                                    set kd_lokasi='$kd_lokasi',
+                                    set 
+                                    kd_lokasi='$kd_lokasi',
+                                    id_brg_trf='$id_brg_trf', 
+                                    kd_ruang='$kd_ruang',
                                     id_keluar='$id_transk',
                                     kd_lok_msk='$kd_lok_msk',
                                     id_opname='$id_opname',
@@ -827,10 +849,12 @@ class modelOpsik extends mysql_db
                     break;
                 }
                     // $query_id = "select id,kd_brg,qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and qty_akhir>0 and status_hapus=0 and status_edit=0 order by tgl_dok asc limit 1"; 
-                    $query_id = "select id, id_opname, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, satuan, kd_perk, nm_perk, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and qty_akhir>0 and thn_ang='$thn_ang' and status_edit=0 order by tgl_dok asc,id asc limit 1";     
+                    $query_id = "select id, id_brg_trf, id_opname,kd_ruang, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, satuan, kd_perk, nm_perk, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and qty_akhir>0 and thn_ang='$thn_ang' and status_edit=0 order by tgl_dok asc,id asc limit 1";     
                     $result_id = $this->query($query_id);
                     $row_id = $this->fetch_array($result_id);
-                    $id_trans = $row_id['id'];   
+                    $id_trans = $row_id['id'];
+                    $kd_ruang = $row_id['kd_ruang'];
+                    $id_brg_trf = $row_id['id_brg_trf'];    
                     $qty_akhir = $row_id['qty_akhir'];      
                     $harga_sat = $row_id['harga_sat'];   
                     $total_harga = $qty_akhir * $harga_sat; 
@@ -840,6 +864,8 @@ class modelOpsik extends mysql_db
                     $query_keluar = "Insert into transaksi_keluar
                                     set 
                                     kd_lokasi='$kd_lokasi',
+                                    id_brg_trf='$id_brg_trf', 
+                                    kd_ruang='$kd_ruang',
                                     id_masuk = '$id_trans',
                                     id_opname='$id_opname',
                                     kd_lok_msk='$kd_lok_msk',
@@ -868,7 +894,7 @@ class modelOpsik extends mysql_db
                     $result_keluar = $this->query($query_keluar);
                     $row_idk = $this->insert_id();
 
-                    $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $qty_akhir where kd_lokasi='$kd_lokasi' and id='$id_trans'";
+                    $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $qty_akhir where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and id='$id_trans'";
                     $result_upd_masuk = $this->query($query_upd_masuk);
 
                     // $query_idk = "select id from transaksi_keluar WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' order by id DESC";
@@ -880,7 +906,10 @@ class modelOpsik extends mysql_db
                     $minus_total = -$total_harga;
 
                     $query_full = "Insert into transaksi_full
-                                    set kd_lokasi='$kd_lokasi',
+                                    set 
+                                    kd_lokasi='$kd_lokasi',
+                                    id_brg_trf='$id_brg_trf', 
+                                    kd_ruang='$kd_ruang',
                                     id_trans='$id_transk',
                                     id_keluar='$row_idk',
                                     id_opname='$id_opname',
@@ -916,14 +945,14 @@ class modelOpsik extends mysql_db
         }
      
 
-        $update_brg = "update transaksi_masuk set  status=1, id_opname='$id_opname' where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0  and status=0 ";
+        $update_brg = "update transaksi_masuk set  status=1, id_opname='$id_opname' where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and kd_brg='$kd_brg' and status_hapus=0  and status=0 ";
         $result_upd = $this->query($update_brg);
-        $update_brg_klr = "update transaksi_keluar set  status=1, id_opname='$id_opname' where kd_lokasi='$kd_lokasi' and kd_brg='$kd_brg' and status_hapus=0 and status=0 ";
+        $update_brg_klr = "update transaksi_keluar set  status=1, id_opname='$id_opname' where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and kd_brg='$kd_brg' and status_hapus=0 and status=0 ";
         $result_upd_klr = $this->query($update_brg_klr);
 
   
 
-            $query_hps_dok = "delete from opname where nm_brg is null and kd_lokasi='$kd_lokasi' ";
+            $query_hps_dok = "delete from opname where nm_brg is null and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' ";
             $result_hps_dok = $this->query($query_hps_dok); 
 
             $this->query("COMMIT");

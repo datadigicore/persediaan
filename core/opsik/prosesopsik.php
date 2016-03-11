@@ -43,7 +43,8 @@ else
 			$Opsik->bacaidentopsik($idtrans);
 		break;
 		case 'tbh_opname':
-			$kd_lokasi = $purifier->purify($_POST['read_no_dok']);;
+			$kd_lokasi = $purifier->purify($_POST['read_no_dok']);
+			$kd_ruang = $_SESSION['kd_ruang'];
 			$kd_lok_msk = $_SESSION['kd_lok'];
 			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
@@ -66,6 +67,7 @@ else
 			if ($kd_brg=="") {
 				$data = array(
 					"kd_lokasi" => $kd_lokasi,
+					"kd_ruang" => $kd_ruang,
 					// "kd_lok_msk" => $kd_lok_msk,
 					"nm_satker" => $nm_satker,
 					"thn_ang" => $thn_ang,
