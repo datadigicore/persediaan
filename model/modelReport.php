@@ -1972,6 +1972,7 @@ class modelReport extends mysql_db
                 while($data=$this->fetch_assoc($result))
                 {
                     $no+=1;
+                    $saldo+=$data[total_harga];
                     echo'<tr >
                     <center><td style="height:25px"  align="center">'.$no.'</td></center>
                     <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_dok]).'</td></center>
@@ -1980,16 +1981,23 @@ class modelReport extends mysql_db
                     <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_dok]).'</td></center>
                     <center><td  align="left">'.$data[nm_brg].'</td></center>
                     <center><td  align="center">'.$data[qty].'</td></center>
-                    <center><td  align="right">'.number_format($data[harga_sat],2,",",".").'</td></center>
-                    <center><td  align="right">'.number_format($data[total_harga],2,",",".").'</td></center>
+                    <center><td  style="text-align:right">'.number_format($data[harga_sat],2,",",".").'</td></center>
+                    <center><td  style="text-align:right">'.number_format(abs($data[total_harga]),2,",",".").'</td></center>
                     
                     <center><td  align="left">'.$data[no_bukti].'</td></center>
                     <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_dok]).'</td></center>
                     <center><td  align="left">'.$data[keterangan].'</td></center>';
 
                     echo '</tr>';
+                   
                 }
-                
+                 echo '<tr>
+                            <td colspan="8" style="align:center; font-weight:bold">TOTAL</td>
+                            <td style="text-align:right">'.number_format($saldo,2,",",".").'</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>';
 
                 echo '</table>';
                 $line_acc = $header+$no;
@@ -2006,20 +2014,27 @@ class modelReport extends mysql_db
                 while($data=$this->fetch_assoc($result))
                 {
                     $no+=1;
+                    $saldo+=abs($data[total_harga]);
                     echo'<tr>
                     <center><td  align="center">'.$no.'</td></center>
                     <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_dok]).'</td></center>
                     <center><td  align="center">'.$no.'</td></center>
                     <center><td  align="left">'.$data[nm_brg].'</td></center>
                     <center><td  align="center">'.abs($data[qty]).'</td></center>
-                    <center><td  align="center">'.number_format($data[harga_sat],2,",",".").'</td></center>
-                    <center><td  align="center">'.number_format(abs($data[total_harga]),2,",",".").'</td></center>
+                    <center><td  style="text-align:right">'.number_format($data[harga_sat],2,",",".").'</td></center>
+                    <center><td  style="text-align:right">'.number_format(abs($data[total_harga]),2,",",".").'</td></center>
                     <center><td  align="center">'.$data[keterangan].'</td></center>
                     
                     <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_dok]).'</td></center>
                     <center><td  align="center">'.''.'</td></center>';
                     echo '</tr>';
-                } 
+                }
+                echo '<tr>
+                            <td colspan="6" style="align:center; font-weight:bold">TOTAL</td>
+                            <td style="text-align:right">'.number_format($saldo,2,",",".").'</td>
+                            <td></td>
+                            <td></td>
+                          </tr>'; 
                 
                 echo '</table>';
                 $line_acc = $header + $no;
