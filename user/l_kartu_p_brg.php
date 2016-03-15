@@ -38,7 +38,7 @@
                     <div class="box-body">
                       <label class="col-sm-2 control-label">Kode Persediaan</label>
                       <div class="col-sm-4">
-                        <select name="kd_brg" id="kd_brg" class="form-control">
+                        <select name="kd_brg" id="kd_brg" class="form-control select2">
                         </select>
                       </div>
                     </div> 
