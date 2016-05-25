@@ -838,7 +838,7 @@ class modelReport extends mysql_db
             $thn_ang = $data['thn_ang'];
             
             if($nm_lap=="buku_persediaan"){
-                $detail_brg = "SELECT nm_brg, satuan from persediaan where  kd_brg like '$kd_brg' ";
+                $detail_brg = "SELECT nm_sskel, kd_brg, nm_brg, satuan,spesifikasi from transaksi_masuk where  kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' ";;
                 $result_detail = $this->query($detail_brg);
                 $brg = $this->fetch_array($result_detail);
                 //echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
@@ -1120,7 +1120,7 @@ class modelReport extends mysql_db
                         $this->label_nomor(14);       
         }
         elseif($nm_lap=="kartu_brg"){
-            $detail_brg = "SELECT nm_sskel, nm_brg, satuan,spesifikasi from persediaan where  kd_brg='$kd_brg' ";
+            $detail_brg = "SELECT nm_sskel, kd_brg, nm_brg, satuan,spesifikasi from transaksi_masuk where  kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' ";;
             $result_detail = $this->query($detail_brg);
             $brg = $this->fetch_array($result_detail);
             echo '<table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-weight:bold; font-size:0.9em; "  align="center">
@@ -1174,7 +1174,8 @@ class modelReport extends mysql_db
 
                             ';   
                     $this->getupb($kd_lokasi);
-                    $detail_brg = "SELECT nm_sskel, kd_brg, nm_brg, satuan,spesifikasi from persediaan where  kd_brg='$kd_brg' ";
+                    $detail_brg = "SELECT nm_sskel, kd_brg, nm_brg, satuan,spesifikasi from transaksi_masuk where  kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' ";
+                    // print_r($detail_brg);
                     $result_detail = $this->query($detail_brg);
                     $brg = $this->fetch_array($result_detail);
                     echo '        <table style=" width: 100%; font-size:90%;"  >               
