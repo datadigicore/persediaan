@@ -57,6 +57,21 @@
                   <div class="box-footer" style="padding:0;">
                   </div>
                 <div class="box-header with-border">
+                  <h3 class="box-title">Kepala Sub. Bagian Keuangan</h3>
+                </div>
+                <div class="form-group">
+                      <label class="col-sm-2 control-label">Nama</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="nama-kasubkeu" class="form-control" id="nama-kasubkeu" placeholder="Masukkan Nama">
+                      </div>
+                </div>
+                <div class="form-group">
+                      <label class="col-sm-2 control-label">NIP</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="nip-kasubkeu" class="form-control" id="nip-kasubkeu" placeholder="Masukkan NIP">
+                      </div>
+                    </div>
+                <div class="box-header with-border">
                   <h3 class="box-title">Penyimpan Barang</h3>
                 </div>  
                   <div class="box-body">
@@ -123,6 +138,8 @@
           $('#nama').val(output.nama);
           $('#nip').val(output.nip);
           $('#jabatan').val(output.jabatan);            
+          $('#nama-kasubkeu').val(output.namakasubkeu);
+          $('#nip-kasubkeu').val(output.nipkasubkeu);
           $('#nama2').val(output.nama2);
           $('#nip2').val(output.nip2);
           $('#jabatan2').val(output.jabatan2);

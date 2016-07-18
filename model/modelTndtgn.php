@@ -14,6 +14,8 @@ class modelTndtgn extends mysql_db
 		$nip2 = $data['nip2'];
 		$nama2 = $data['nama2'];
 		$jabatan2 = $data['jabatan2'];
+		$nama_kasubkeu = $data['nama_kasubkeu'];
+		$nip_kasubkeu = $data['nip_kasubkeu'];
 		$tgl_isi = $data['tgl_isi'];
 		$tgl_setuju = $data['tgl_setuju'];
 		$unit = $data['unit'];
@@ -32,6 +34,8 @@ class modelTndtgn extends mysql_db
                     	jabatan='$jabatan',
                     	nip2='$nip2',
                     	nama2='$nama2',
+                    	nama_kasubkeu='$nama_kasubkeu',
+                    	nip_kasubkeu='$nip_kasubkeu',
                     	jabatan2='$jabatan2',
 
                     	unit='$unit'
@@ -53,6 +57,8 @@ class modelTndtgn extends mysql_db
                     	nip2='$nip2',
                     	nama2='$nama2',
                     	jabatan2='$jabatan2',
+                    	nama_kasubkeu='$nama_kasubkeu',
+                    	nip_kasubkeu='$nip_kasubkeu',
                     	unit='$unit' where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_lokasi'
                     	";
         	$result_upd = $this->query($query_upd);
@@ -68,7 +74,7 @@ class modelTndtgn extends mysql_db
 
         $data_pj = $this->fetch_array($result);
 
-        echo json_encode(array("nip"=>$data_pj["nip"], "nama"=>$data_pj["nama"], "jabatan"=>$data_pj["jabatan"], "nip2"=>$data_pj["nip2"], "nama2"=>$data_pj["nama2"], "jabatan2"=>$data_pj["jabatan2"], "kota"=>$data_pj["kota"]));
+        echo json_encode(array("nip"=>$data_pj["nip"], "nama"=>$data_pj["nama"], "jabatan"=>$data_pj["jabatan"], "nip2"=>$data_pj["nip2"], "nama2"=>$data_pj["nama2"], "jabatan2"=>$data_pj["jabatan2"], "nama-kasubkeu"=>$data_pj["nama_kasubkeu"], "nip-kasubkeu"=>$data_pj["nip_kasubkeu"], "kota"=>$data_pj["kota"]));
 
 	
 
@@ -82,7 +88,7 @@ class modelTndtgn extends mysql_db
 
         $data_pj = $this->fetch_array($result);
 
-        echo json_encode(array("nip"=>$data_pj["nip"], "nama"=>$data_pj["nama"], "jabatan"=>$data_pj["jabatan"], "nip2"=>$data_pj["nip2"], "nama2"=>$data_pj["nama2"], "jabatan2"=>$data_pj["jabatan2"], "kota"=>$data_pj["kota"]));
+        echo json_encode(array("nip"=>$data_pj["nip"], "nama"=>$data_pj["nama"], "jabatan"=>$data_pj["jabatan"], "nip2"=>$data_pj["nip2"], "nama2"=>$data_pj["nama2"], "jabatan2"=>$data_pj["jabatan2"], "namakasubkeu"=>$data_pj["nama_kasubkeu"], "nipkasubkeu"=>$data_pj["nip_kasubkeu"], "kota"=>$data_pj["kota"]));
 
 	
 
