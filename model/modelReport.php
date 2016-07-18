@@ -2766,10 +2766,13 @@ public function getupb($kd_lokasi){
             $jabatan_1="ATASAN LANGSUNG,";
             $jabatan_1b="(Kasubbag. Umum/Sekretaris Keluarahan)";
             $jabatan_2="PENYIMPAN BARANG,";
+            $jabatan_3="Kasubbag Keuangan";
             $atasan_PB = $pj['nama'];
             $nip_atasan_PB = $pj['nip'];
             $penyimpan_brg = $pj['nama2'];
             $nip_penyimpan_brg = $pj['nip2'];
+            $nama_kasubkeu = $pj['nama_kasubkeu'];
+            $nip_kasubkeu = $pj['nip_kasubkeu'];
         }
         else {
             $jabatan_1="SETDA,";
@@ -2785,10 +2788,12 @@ public function getupb($kd_lokasi){
               <table style="text-align: center; width: 100%; font-size:84% "  >
               <tr>
                 <td style="text-align: center;"></td>
+                <td style="text-align: center;"></td>
                 <td style="text-align: center;"> '.'Kota Pekalongan,'.date("d-m-Y").'</td>
               </tr>            
               <tr>
                 <td style="text-align: center;">'.$jabatan_1.'</td>
+                <td style="text-align: center;">'.$jabatan_3.'</td>
                 <td style="text-align: center;">'.$jabatan_2.'</td>
               </tr>
               <tr>
@@ -2801,11 +2806,13 @@ public function getupb($kd_lokasi){
               </tr>
               <tr>
                 <td style="text-align: center;">'.$atasan_PB.'</td>
+                <td style="text-align: center;">'.$nama_kasubkeu.'</td>
                 <td style="text-align: center;">'.$penyimpan_brg.'</td>
               </tr>              
 
               <tr>
                 <td style="text-align: center;">NIP'." ".$nip_atasan_PB.'</td>
+                <td style="text-align: center;">NIP'." ".$nip_kasubkeu.'</td>
                 <td style="text-align: center;">NIP'." ".$nip_penyimpan_brg.'</td>
               </tr>
               </table>';
