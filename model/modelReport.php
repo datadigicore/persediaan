@@ -16,6 +16,7 @@ class modelReport extends mysql_db
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         echo '<option value="all">Semua Barang</option>';
+        
         while ($row = $this->fetch_array($result))
         {
             echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg']."</option>";
@@ -774,6 +775,15 @@ class modelReport extends mysql_db
             $prev_sskel_jml=null;
             $kd_rek=null;
 
+            $tot_saldo_per_kategori=0;
+            $tot_masuk_per_kategori=0;
+            $tot_keluar_per_kategori=0;
+            $tot_sisa_per_kategori=0;
+            $grand_tot_saldo=0;
+            $grand_tot_masuk=0;
+            $grand_tot_keluar=0;
+            $grand_tot_sisa=0;            
+
             while($data=$this->fetch_assoc($result)){
                 $jumlah_saldo_awal = $data[qty_awal];
                 $jumlah_masuk = $data[qty_masuk];
@@ -785,14 +795,43 @@ class modelReport extends mysql_db
                 $kd_sskel = $data['kd_perk'];
                 $qty_sisa = $jumlah_saldo_awal+$jumlah_masuk-$jumlah_keluar;
                 $nilai_sisa = $nilai_saldo_awal+$nilai_masuk-$nilai_keluar;
+                $grand_tot_saldo+=$nilai_saldo_awal;
+                $grand_tot_masuk+=$nilai_masuk;
+                $grand_tot_keluar+=$nilai_keluar;
+                $grand_tot_sisa+= $nilai_sisa;  
                 if($prev_sskel!==$data['kd_perk']){
+                    if($no>0){
+                        echo '<tr>
+                        <td colspan=5>TOTAL</td>
+                        <td>'.number_format($tot_saldo_per_kategori,2,",",".").'</td>
+                        <td colspan=2></td>
+                        <td>'.number_format($tot_masuk_per_kategori,2,",",".").'</td>
+                         <td colspan=2></td>
+                        <td>'.number_format($tot_keluar_per_kategori,2,",",".").'</td>
+                         <td colspan=2></td>
+                        <td>'.number_format($tot_sisa_per_kategori,2,",",".").'</td>
+                        </tr>';
+                    }
                     $no+=1;
-                   echo '<tr>
+                    echo '<tr>
                             <td>'.$no.'</td>
                             <td colspan="14">'.$data['nm_perk'].'</td>
-                        </tr>'; 
+                        </tr>';
+                    
+
                         $prev_sskel=$kd_sskel;
+                        $tot_saldo_per_kategori=0;
+                        $tot_masuk_per_kategori=0;
+                        $tot_keluar_per_kategori=0;
+                        $tot_sisa_per_kategori=0;
+
                 }
+                $tot_saldo_per_kategori+=$nilai_saldo_awal;
+                $tot_masuk_per_kategori+=$nilai_masuk;
+                $tot_keluar_per_kategori+=$nilai_keluar;
+                $tot_sisa_per_kategori+=$nilai_sisa;
+
+                
                 echo '<tr>
                         <td></td>
                         <td>'.$data['nm_brg'].'</td>
@@ -810,16 +849,37 @@ class modelReport extends mysql_db
                         <td>'.number_format($data['harga_sat'],2,",",".").'</td>
                         <td>'.number_format($nilai_sisa,2,",",".").'</td>
                         </tr>';
-                if($prev_sskel!==$data['kd_perk']){
-                    echo '<tr>
-                            <td>'."JUMLAH".'</td>
-                            <td colspan="14">s</td>
-                            </tr>';
+                // if($prev_sskel!==$data['kd_perk']){
+                //     echo '<tr>
+                //             <td>'."JUMLAH".'</td>
+                //             <td colspan="14">s</td>
+                //             </tr>';
                     
-                }
+                // }
+
                                  
                 
         }
+        echo '<tr>
+                        <td colspan=5>TOTAL</td>
+                        <td>'.number_format($tot_saldo_per_kategori,2,",",".").'</td>
+                        <td colspan=2></td>
+                        <td>'.number_format($tot_masuk_per_kategori,2,",",".").'</td>
+                         <td colspan=2></td>
+                        <td>'.number_format($tot_keluar_per_kategori,2,",",".").'</td>
+                         <td colspan=2></td>
+                        <td>'.number_format($tot_sisa_per_kategori,2,",",".").'</td>
+                        </tr>';
+        echo '<tr>
+                        <td colspan=5>GRAND TOTAL</td>
+                        <td>'.number_format($grand_tot_saldo,2,",",".").'</td>
+                        <td colspan=2></td>
+                        <td>'.number_format($grand_tot_masuk,2,",",".").'</td>
+                         <td colspan=2></td>
+                        <td>'.number_format($grand_tot_keluar,2,",",".").'</td>
+                         <td colspan=2></td>
+                        <td>'.number_format($grand_tot_sisa,2,",",".").'</td>
+                        </tr>';
           echo '</table>';
           $this->cetak_nama_pj($satker_asal);
 
@@ -2764,7 +2824,7 @@ public function getupb($kd_lokasi){
         $pj = $this->fetch_array($result);
         if(count($pj)>0){
             $jabatan_1="ATASAN LANGSUNG,";
-            $jabatan_1b="(Kasubbag. Umum/Sekretaris Keluarahan)";
+            $jabatan_1b="(Kasubbag. Umum/ Keuangan /Sekretaris Keluarahan )";
             $jabatan_2="PENYIMPAN BARANG,";
             $jabatan_3="Kasubbag Keuangan";
             $atasan_PB = $pj['nama'];
@@ -2788,12 +2848,12 @@ public function getupb($kd_lokasi){
               <table style="text-align: center; width: 100%; font-size:84% "  >
               <tr>
                 <td style="text-align: center;"></td>
-                <td style="text-align: center;"></td>
+
                 <td style="text-align: center;"> '.'Kota Pekalongan,'.date("d-m-Y").'</td>
               </tr>            
               <tr>
                 <td style="text-align: center;">'.$jabatan_1.'</td>
-                <td style="text-align: center;">'.$jabatan_3.'</td>
+                
                 <td style="text-align: center;">'.$jabatan_2.'</td>
               </tr>
               <tr>
@@ -2806,13 +2866,12 @@ public function getupb($kd_lokasi){
               </tr>
               <tr>
                 <td style="text-align: center;">'.$atasan_PB.'</td>
-                <td style="text-align: center;">'.$nama_kasubkeu.'</td>
+
                 <td style="text-align: center;">'.$penyimpan_brg.'</td>
               </tr>              
 
               <tr>
                 <td style="text-align: center;">NIP'." ".$nip_atasan_PB.'</td>
-                <td style="text-align: center;">NIP'." ".$nip_kasubkeu.'</td>
                 <td style="text-align: center;">NIP'." ".$nip_penyimpan_brg.'</td>
               </tr>
               </table>';

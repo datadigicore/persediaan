@@ -10,6 +10,27 @@ class modelTransaksi extends mysql_db
 
     }
 
+    public function baca_semua_skpd($kdlokasi){
+        
+        $sql = "SELECT kode, NamaSatker FROM `satker` where length(kode)>10 and kode!='$kdlokasi' ";
+        $result = $this->query($sql);
+        while($row=$this->fetch_assoc($result)){
+            echo '<option value="'.$row['kode'].'">'.$row["kode"]." - ".$row['NamaSatker']."</option>";
+        }
+    }
+    public function baca_bidang($kdlokasi){
+        
+        $sql = "SELECT kd_ruang,kode, NamaSatker FROM `satker` where kode='$kdlokasi' ";
+        $result = $this->query($sql);
+        while($row=$this->fetch_assoc($result)){
+            $kode_ruang = $row['kd_ruang'];
+            if($kode_ruang="") $kode_ruang="";
+           echo '<option value="'.$row['kd_ruang']."-".$row['NamaSatker'].'">'.$row['kd_ruang'].'  -  '.$row['NamaSatker']."</option>";
+        }
+    }
+
+    
+
     public function cekAllTrans($data){
         $query = "select * from transaksi_masuk where kd_lokasi='$data'";
         $hasil = $this->query($query);   

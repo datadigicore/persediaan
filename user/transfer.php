@@ -39,7 +39,7 @@
                           <label class="col-sm-2 control-label">Nomor Dokumen</label>
                           
                           <div class="col-sm-3">
-                            <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="Masukkan No. Faktur / Bon / SP">
+                            <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="Masukkan No. Faktur / Bon / SP" required>
                             <input type="hidden" name="manage" value="tbh_transaksi_klr">  
                             <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>  
                           </div>
@@ -419,21 +419,44 @@
           data: {manage:'readsatkerdok',no_dok:"<?php echo($_SESSION['kd_lok']);?>"},
           success: function (output) {     
             $('#read_no_dok').html(output);
-            $('#satker_tujuan').html(output);
           }
         });
-       // $('#satker_tujuan').change(function(){
+        var skpd_asal = $("#satker_tujuan").val();
+        $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'baca_bidang_skpd',satker_tujuan:skpd_asal},
+          success: function (output) {     
+            $('#bidang_tujuan').html(output);
+          }
+        });
+      
+        $.ajax({
+
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'baca_semua_skpd',kd_lokasi:skpd_asal},
+          success: function (output) { 
+            $(".select2").select2();    
+            $('#satker_tujuan').html(output);
+            $('#satker_tujuan').val('');
+            $("#satker_tujuan").select2({
+          placeholder: "-- Pilih Kode Satker Tujuan --",
+        });
+          }
+        });
+       $('#satker_tujuan').change(function(){
           var kdsatker_tujuan = $('#satker_tujuan').val(); 
           $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
-          data: {manage:'readbidang',satker_tujuan:"<?php echo($_SESSION['kd_lok']);?>"},
+          data: {manage:'baca_bidang_skpd',satker_tujuan:kdsatker_tujuan},
           success: function (output) {     
             $('#bidang_tujuan').html(output);
           }
         });
 
-      // });
+      });
       $.ajax({
         type: "post",
         url: '../core/transaksi/prosestransaksi',
