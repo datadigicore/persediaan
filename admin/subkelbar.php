@@ -35,12 +35,13 @@
                         </select>
                         <input type="hidden" name="manage" value="addsubbarang">
                       </div>
-                      <!-- <div class="col-sm-2">
-                        <label class="control-label">Kode Barang Persediaan </label>
-                      </div>                      
+                      <label class="col-sm-2 control-label">Import </label>
                       <div class="col-sm-2">
-                        <input type="text" name="kdbarang" class="form-control" id="kdbarang" placeholder="Kode Barang"  required>
-                      </div> -->
+                        <a href="#importModal" data-toggle="modal" class="col-sm-12 btn btn-flat btn-primary">Import Barang</a> 
+                        <!-- <input type="file" id="fileimport" name="fileimport" style="display:none;">
+                        <a id="selectbtn" class="btn btn-flat btn-primary" style="position:absolute;right:16px;">Pilih File</a>
+                        <input type="text" id="filename" class="form-control" placeholder="Import File Excel" readonly> -->
+                      </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nama Barang</label>
@@ -95,31 +96,65 @@
       <?php include("include/footer.php"); ?>
       <?php include("include/success.php"); ?>
     </div>
+    <style type="text/css">
+      .modal {
+        text-align: center;
+        padding: 0!important;
+      }
+      .modal:before {
+        content: '';
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+        margin-right: -4px;
+      }
+      .modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+      }
+    </style>
+    <div class="modal fade" id="importModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form action="../core/import/prosesimport" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="manage" value="importBarang">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" style="color:white">×</span></button>
+              <h4 class="modal-title">Import File Barang</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <input type="file" id="fileimport" name="fileimport" style="display:none;">
+                <a id="selectbtn" class="col-sm-2 btn btn-flat btn-primary" style="position:absolute;right:16px;">Pilih File</a>
+                <input type="text" id="filename" class="form-control" placeholder="Pilih File .xls / .xlsx" readonly>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="col-sm-2 pull-right btn btn-flat btn-success">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
     <?php include("include/loadjs.php"); ?>
     <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script src="../dist/js/jquery.mask.js" ></script>
     <script type="text/javascript">
-      // function cek_kode() {
-      
-      //   var kdsskel = $('#kdbarang_no').val();
-      //   var kodebarang = $('#kdbarang').val();
-
-      //     $.ajax({
-      //       url: '../core/barang/prosesbarang',
-      //       type: 'POST',
-      //       data: {kdsskel:kdsskel, kodebarang:kodebarang, manage:'cekkode'},
-      //       dataType: "json",
-      //       success:function(data){
-      //         if(data.kd_brg!=null)
-      //         {
-      //           alert("Kode Barang "+kdsskel+"."+kodebarang+" sudah digunakan oleh barang "+data.nm_brg);
-      //           $('#kodebarang').val('');
-      //           return false;
-      //         }
-      //       }
-      //     });
-      // }
+      $('#selectbtn').click(function () {
+        $("#fileimport").trigger('click');
+      });
+      $("#fileimport").change(function(){
+        $("#filename").attr('value', $(this).val().replace(/C:\\fakepath\\/i, ''));
+      });
+      $('#selectbtn-revisi').click(function () {
+        $("#fileimport-revisi").trigger('click');
+      });
+      $("#fileimport-revisi").change(function(){
+        $("#filename-revisi").attr('value', $(this).val().replace(/C:\\fakepath\\/i, ''));
+      });
       $('#kdbarang').mask('999',{placeholder:"____"});
       var table;
       function myTable() {

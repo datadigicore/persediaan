@@ -95,6 +95,54 @@ class modelTransaksi extends mysql_db
         return $results;
     }
 
+    public function importBarang($data){
+        // error_reporting(0);
+        $arrayCount = count($data);
+        $replace = "REPLACE INTO persediaan (a, b, c, d, e, f, g, kd_perk, nm_perk, kd_sskel, nm_sskel, kd_brg, nm_brg, satuan) VALUES ";
+        $kodeperk   = "";
+        $namaperk   = "";
+        $kodesubkel = "";
+        $namasubkel = "";
+        $values     = "";
+        $fullname   = "";
+        for ($i=2; $i <= $arrayCount; $i++) {
+          if (trim($data[$i]["A"]," \t\n\r\0\x0B\xA0\x0D\x0A")!="") {
+            $kodebarang  = str_replace("'", "", $data[$i]["B"]);
+            $break       = explode('.', str_replace("'", "", $data[$i]["B"]));
+            $spesifikasi = trim($data[$i]["D"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+            $satuan      = trim($data[$i]["E"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+            for ($j=0; $j < 7 ; $j++) {
+                if (!empty($break[$j])) {
+                    $variable[$j] = $break[$j];
+                    if (count($break) == 4) {
+                        $namaperk = trim($data[$i]["C"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+                        $kodeperk = $variable[0].$variable[1].$variable[2].$variable[3].$variable[4];
+                    }
+                    else if (count($break) == 5) {
+                        $kodesubkel = "";
+                        $namasubkel = "";
+                        $fullname   = "";
+                        $namasubkel = trim($data[$i]["C"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+                        $kodesubkel = $variable[0].$variable[1].$variable[2].$variable[3].$variable[4];
+                    }
+                    else if (count($break) == 6) {
+                        $namabarang = trim($data[$i]["C"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+                        $fullname   = $namabarang." ".$spesifikasi;
+                    }
+                }
+                else {
+                    $variable[$j] = NULL;
+                }
+            }
+            $values .= "('".$variable[0]."','".$variable[1]."','".$variable[2]."','".$variable[3]."','".$variable[4]."','".$variable[5]."','".$variable[6]."','".$kodeperk."','".$namaperk."','".$kodesubkel."','".$namasubkel."','".$kodebarang."','".$fullname."','".$satuan."'),";
+          }
+        }
+        $query  = str_replace("''", "NULL", $replace.$values);;
+        $query  = substr($query,0,-1);
+        $result = $this->query($query1);
+        return $result;
+    }
+
     public function cek_saldo_awal($data){
         $kd_lokasi = $data['kd_lokasi'];
         $thn_ang = $data['thn_ang'];

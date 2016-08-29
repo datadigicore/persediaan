@@ -6,6 +6,7 @@ include('../../config/purifier.php');
 include('../../config/user.php');
 $Transaksi = new modelTransaksi();
 $path_upload = "/srv/www/htdocs/persediaan/dist/uploads/";
+$path_upload = "/var/www/html/persediaan/dist/uploads/";
 // $path_upload = "C:/xampp/htdocs/persediaan/dist/uploads/";
 if (empty($_POST['manage'])) {
   echo "Error Data Tidak Tersedia";
@@ -57,6 +58,38 @@ else
         }
         else {
           header('location:../../user/importSaldoAwal');
+        }
+      }
+      else {
+        header('location:../../user/importSaldoAwal');
+      }
+    break;
+    case 'importBarang':
+      if(isset($_POST) && !empty($_FILES['fileimport']['name'])) {
+        $path = $_FILES['fileimport']['name'];
+        $ext  = pathinfo($path, PATHINFO_EXTENSION);
+        if($ext != 'xls' && $ext != 'xlsx') {
+          echo "Kesalahan File yang di Upload Tidak Sesuai";
+          header('location:../../admin/subkelbar');
+        }
+        else {
+          $time        = time();
+          $target_dir  = $path_upload;
+          $target_name = basename(date("Ymd-His-\I\M\P\O\R\T.",$time).$ext);
+          $target_file = $target_dir . $target_name;
+          $response    = move_uploaded_file($_FILES['fileimport']['tmp_name'],$target_file);
+          // die();
+          if($response) {
+            try {
+              $objPHPExcel = PHPExcel_IOFactory::load($target_file);
+            }
+            catch(Exception $e) {
+              die('Kesalahan! Gagal dalam mengupload file : "'.pathinfo($_FILES['excelupload']['name'],PATHINFO_BASENAME).'": '.$e->getMessage());
+            }
+            $allDataInSheet = $objPHPExcel->getActiveSheet()->toArray(NULL,TRUE,FALSE,TRUE);
+            $Transaksi->importBarang($allDataInSheet);
+            header('location:../../user/trans_masuk');
+          }
         }
       }
       else {
