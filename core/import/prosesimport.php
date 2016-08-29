@@ -88,12 +88,12 @@ else
             }
             $allDataInSheet = $objPHPExcel->getActiveSheet()->toArray(NULL,TRUE,FALSE,TRUE);
             $Transaksi->importBarang($allDataInSheet);
-            header('location:../../user/trans_masuk');
+            header('location:../../admin/subkelbar');
           }
         }
       }
       else {
-        header('location:../../user/importSaldoAwal');
+        header('location:../../admin/subkelbar');
       }
     break;
     case 'read':
