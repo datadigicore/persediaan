@@ -45,7 +45,7 @@ else
 				"lingkup" 		=> $lingkup,
 				"format" 		=> $format,
 				"user_id" 		=> $user_id);
-				print_r($data);
+				// print_r($data);
 			$Report->laporan_per_rekening($data);
 		break;
 
