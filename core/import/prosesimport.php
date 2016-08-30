@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../utility/PHPExcel/IOFactory.php';
 require_once __DIR__ . '/../../utility/ExcelReader.php';
 include('../../model/modelTransaksi.php');
 include('../../config/purifier.php');
-include('../../config/user.php');
+// include('../../config/user.php');
 $Transaksi = new modelTransaksi();
 $path_upload = "/srv/www/htdocs/persediaan/dist/uploads/";
 $path_upload = "/var/www/html/persediaan/dist/uploads/";
@@ -94,6 +94,37 @@ else
       }
       else {
         header('location:../../admin/subkelbar');
+      }
+    break;
+    case 'importRekening':
+      if(isset($_POST) && !empty($_FILES['fileimport']['name'])) {
+        $path = $_FILES['fileimport']['name'];
+        $ext  = pathinfo($path, PATHINFO_EXTENSION);
+        if($ext != 'xls' && $ext != 'xlsx') {
+          echo "Kesalahan File yang di Upload Tidak Sesuai";
+          header('location:../../admin/subkelbar');
+        }
+        else {
+          $time        = time();
+          $target_dir  = $path_upload;
+          $target_name = basename(date("Ymd-His-\R\E\K\E\N\I\N\G.",$time).$ext);
+          $target_file = $target_dir . $target_name;
+          $response    = move_uploaded_file($_FILES['fileimport']['tmp_name'],$target_file);
+          if($response) {
+            try {
+              $objPHPExcel = PHPExcel_IOFactory::load($target_file);
+            }
+            catch(Exception $e) {
+              die('Kesalahan! Gagal dalam mengupload file : "'.pathinfo($_FILES['excelupload']['name'],PATHINFO_BASENAME).'": '.$e->getMessage());
+            }
+            $allDataInSheet = $objPHPExcel->getActiveSheet()->toArray(NULL,TRUE,FALSE,TRUE);
+            $Transaksi->importRekening($allDataInSheet);
+            header('location:../../admin/koderek');
+          }
+        }
+      }
+      else {
+        header('location:../../admin/koderek');
       }
     break;
     case 'read':

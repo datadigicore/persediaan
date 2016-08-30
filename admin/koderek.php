@@ -11,12 +11,12 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Sub Kelompok Barang Persediaan
+            Kode Rekening Akuntansi
             <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           <ol class="breadcrumb">
             <li><i class="fa fa-link"></i> Lain - lain</li>
-            <li class="active"><a href="#"><i class="fa fa-table"></i> Sub Kelompok Barang</a></li>
+            <li class="active"><a href="#"><i class="fa fa-table"></i> Kode Rekening Akuntansi</a></li>
           </ol>
         </section>
         <section class="content">
@@ -24,29 +24,29 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-primary">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tambah Data Sub Kelompok Barang</h3>
+                  <h3 class="box-title">Tambah Kode Rekening Akuntansi</h3>
                 </div>  
-                <form action="../core/barang/prosesbarang" method="post" class="form-horizontal" id="addbarang">
+                <form action="../core/barang/prosesrekening" method="post" class="form-horizontal" id="addbarang">
                   <div class="box-body">
                     <div class="form-group" style="margin-top:15px;">
-                      <label class="col-sm-2 control-label">Jenis Barang </label>
+                      <label class="col-sm-2 control-label">Jenis Rekening </label>
                       <div class="col-sm-5">
                         <select name="kdbarang_no" id="kdbarang_no" class="form-control select2" placeholder="Kode Barang">
                         </select>
                         <input type="hidden" name="manage" value="addsubbarang">
                       </div>
-                      <label class="col-sm-2 control-label">Import Barang</label>
+                      <label class="col-sm-2 control-label">Import Rekening</label>
                       <div class="col-sm-2">
                         <a href="#importModal" data-toggle="modal" class="col-sm-12 btn btn-primary">Import File</a>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Nama Barang</label>
+                      <label class="col-sm-2 control-label">Nama Rekening</label>
                       <div class="col-sm-9">
                         <input type="text" name="nmbarang" class="form-control" id="nmbarang" placeholder="Masukkan Nama Barang">
                       </div>
                     </div>
-                    <div class="form-group" style="margin-top:15px;">
+                    <!-- <div class="form-group" style="margin-top:15px;">
                       <label class="col-sm-2 control-label">Spesifikasi </label>
                       <div class="col-sm-9">
                         <input type="text" name="spesifikasi" class="form-control" id="spesifikasi" placeholder="Masukkan Spesifikasi : Mis. Warna, Ukuran, Tebal, dsb">
@@ -58,7 +58,7 @@
                         <select name="satuan" id="satuan" class="form-control select2">
                         </select>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                   <div class="box-footer">
                     <button type="reset" class="btn btn-default">Reset</button>
@@ -75,11 +75,9 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th width="16%">Kode Barang</th>
-                        <th width="16%">Jenis Barang</th>
-                        <th>Uraian Barang</th>
-                        <th>Spesifikasi</th>
-                        <th width="16%">Satuan</th>
+                        <th width="16%">Kode Rekening</th>
+                        <th>Uraian Rekening Belanja</th>
+                        <th width="12.5%">Tahun</th>
                         <th width="12.5%">Aksi</th>
                       </tr>
                     </thead>
@@ -93,7 +91,7 @@
       <?php include("include/footer.php"); ?>
       <?php include("include/success.php"); ?>
     </div>
-    <style type="text/css"> 
+    <style type="text/css">
       .modal {
         text-align: center;
         padding: 0!important;
@@ -115,11 +113,11 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <form action="../core/import/prosesimport" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="manage" value="importBarang">
+            <input type="hidden" name="manage" value="importRekening">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true" style="color:white">×</span></button>
-              <h4 class="modal-title">Import File Barang</h4>
+              <h4 class="modal-title">Import File Rekening Belanja</h4>
             </div>
             <div class="modal-body">
               <div class="form-group">
@@ -158,7 +156,7 @@
       table = $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
-          "ajax": "../core/loadtable/loadsubkelbar",
+          "ajax": "../core/loadtable/loadkoderek",
           "columnDefs":
           [
             {"targets": 0,
@@ -166,26 +164,25 @@
             {"targets": 1 },
             {"targets": 2 },
             {"targets": 3 },
-            {"targets": 4 },
-            {"targets": 5 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="row-fluid">'+
+                                  // '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                   '<button id="btnalih" class="col-xs-12 btn btn-edit btn-xs btn-flat"><i class="fa fa-edit"></i> Ubah Jenis</button>'+
                                   '<button id="btnhps" class="col-xs-12 btn btn-danger btn-xs btn-flat"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
-             "targets": [6],"targets": 6 }
+             "targets": [4],"targets": 4 }
           ],
-          "order": [[ 0, "desc" ]],
+          "order": [[ 0, "asc" ]],
           "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
         });
       }
       $(function () {
-        $(".select2").select2();
-         $("#kdbarang_no").select2({
-           placeholder: "Pilih Jenis Barang Persediaan",
-           allowClear: true
-          });
+       $(".select2").select2();
+       $("#kdbarang_no").select2({
+         placeholder: "Pilih Jenis Barang Persediaan",
+         allowClear: true
+        });
         $("#satuan").select2({
           placeholder: "-- Pilih Satuan Barang --",
           ajax: {
@@ -211,7 +208,7 @@
           minimumInputLength: 1,
         });
         $(".treeview").addClass("active");
-        $("li#subkelbar").addClass("active");
+        $("li#koderek").addClass("active");
         myTable();
         $(document).on("click", "#btnedt", function(){
           var tr = $(this).closest('tr');
@@ -359,8 +356,12 @@
               '<td width="25.8%"><input style="width:94%" id="satuan'+d[2]+'" name=jns_lama"updsatuan" class="form-control" type="text" value="'+d[2]+'" readonly></td>'+
               '<td width="5%">Jenis Baru</td>'+
               '<td width="50%"><select style="width:100%" name="kdbaru" id="kdbaru" class="form-control select2" ></select></td>'+
+              // '<td width="20.2%"><input style="width:98.2%" id="urbarang'+d[0]+'" name="updurbarang" class="form-control" type="text" placeholder="Uraian Barang"></td>'+
+              // '<td><input style="width:94%" id="spesifikasi'+d[0]+'" name="updspesifikasi" class="form-control" type="text" placeholder="Spesifikasi"></td>'+
+              // '<td><input style="width:94%" id="satuan'+d[0]+'" name="updsatuan" class="form-control" type="text" placeholder="Satuan"></td>'+
               '<td style="vertical-align:middle; width:15%;">'+
                 '<div class="box-tools">'+
+                  // '<button id="btnrst" class="btn btn-flat btn-sm btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
                   '<button id="btnupd" class="btn btn-flat btn-sm btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
                 '</div>'
               '</td>'+
@@ -369,6 +370,12 @@
         '</form></div>';  
       }
       $(document).on('submit', '#updjenis', function (e) {
+        // $('#myModal').modal({
+        //   backdrop: 'static',
+        //   keyboard: false
+        // });
+        // $('#myModal').modal('show');
+        // e.preventDefault();
         redirectTime = "1000";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);

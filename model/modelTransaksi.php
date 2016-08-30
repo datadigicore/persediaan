@@ -106,6 +106,7 @@ class modelTransaksi extends mysql_db
     }
 
     public function importBarang($data){
+        error_reporting(0);
         $kodeperk    = "";$namaperk    = "";$kodesubkel  = "";$namasubkel  = "";
         $values      = "";$spesifikasi = "";$satuan      = "";$namabarang  = "";
         $fullname    = "";
@@ -131,7 +132,9 @@ class modelTransaksi extends mysql_db
                         $fullname    = "";
                         $namaperk    = trim($data[$i]["C"]," \t\n\r\0\x0B\xA0\x0D\x0A");
                         $namaperk    = str_replace("'", "", $namaperk);
-                        $kodeperk    = $variable[0].".".$variable[1].".".$variable[2].".".$variable[3].".".$variable[4];
+                        $kodeperk    = ltrim($variable[0], '0').ltrim($variable[1], '0').ltrim($variable[2], '0').$variable[3].$variable[4];
+                        // print_r($kodeperk);
+                        // die();
                     }
                     else if (count($break) == 6) {
                         $spesifikasi = "";
@@ -157,8 +160,26 @@ class modelTransaksi extends mysql_db
         }
         $query  = str_replace("''", "NULL", $replace.$values);;
         $query  = substr($query,0,-1);
-        // print_r($query);
-        // die();
+        $result = $this->query($query);
+        return $result;
+    }
+
+    public function importRekening($data){
+        $values     = "";
+        $arrayCount = count($data);
+        $tahun      = date("Y");
+        $replace    = "REPLACE INTO rekening (kode_rekening, nama_rekening, tahun) VALUES ";
+        for ($i=2; $i <= $arrayCount; $i++) {
+          if (is_numeric(trim($data[$i]["B"]," \t\n\r\0\x0B\xA0\x0D\x0A")) && trim($data[$i]["B"]," \t\n\r\0\x0B\xA0\x0D\x0A")!="") {
+            $koderek  = trim($data[$i]["B"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+            $namarek  = trim($data[$i]["E"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+            $namarek  = str_replace("'", "", $namarek);
+            if (substr($koderek, 0, 3) == "522" || substr($koderek, 0, 3) == "523") {
+                $values .= "('".$koderek."','".$namarek."','".$tahun."'),";
+            }
+          }
+        }
+        $query  = substr($replace.$values,0,-1);
         $result = $this->query($query);
         return $result;
     }
