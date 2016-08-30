@@ -234,13 +234,13 @@ class modelBarang extends mysql_db
 
 	public function bacabarang($data)
 	{
-		$query = "select kd_sskel, nm_brg from persediaan where CONCAT(kd_brg,' ',nm_brg) like '%$data%' and char_length(kd_brg)=18 order by kd_brg asc";
+		$query = "select kd_sskel, nm_sskel from persediaan where CONCAT(kd_brg,' ',nm_sskel) like '%$data%' group by kd_sskel order by kd_brg asc";
         $result = $this->query($query);
         $json = array();
 
         while ($row = $this->fetch_array($result))
         {
-        	echo '<option value="'.$row['kd_sskel'].'">'.$row['kd_sskel'].' '.$row['nm_brg']."</option>";
+        	echo '<option value="'.$row['kd_sskel'].'">'.$row['kd_sskel'].' '.$row['nm_sskel']."</option>";
         	// if ((substr_count($row['kd_brg'],".") >= 3 and (substr_count($row['kd_brg'],".") <= 5))) {
         	// 	$dynamic = array(
 	        //         'id' => $row['kd_brg'],
