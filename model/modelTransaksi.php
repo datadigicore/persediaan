@@ -166,7 +166,9 @@ class modelTransaksi extends mysql_db
             $koderek  = trim($data[$i]["B"]," \t\n\r\0\x0B\xA0\x0D\x0A");
             $namarek  = trim($data[$i]["E"]," \t\n\r\0\x0B\xA0\x0D\x0A");
             $namarek  = str_replace("'", "", $namarek);
-            $values .= "('".$koderek."','".$namarek."','".$tahun."'),";
+            if (substr($koderek, 0, 3) == "522" || substr($koderek, 0, 3) == "523") {
+                $values .= "('".$koderek."','".$namarek."','".$tahun."'),";
+            }
           }
         }
         $query  = substr($replace.$values,0,-1);
