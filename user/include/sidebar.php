@@ -27,6 +27,7 @@
                 <li id="rincian_persediaan"><a href="rincian_persediaan"><span>Rincian Persediaan</span></a></li>
                 <li id="neraca"><a href="neraca"><span>Posisi Persediaan</span></a></li>
                 <li id="mutasi_prsedia"><a href="mutasi_prsedia"><span>Mutasi Persediaan</span></a></li>
+                <li id="mutasi_prsedia"><a href="rekap_rekening"><span>Rekap Persediaan Per Rekening</span></a></li>
               </ul>
             </li>
             <li id="opname"><a href="../documentation/PETUNJUK_PENGGUNAAN.pdf" download><i class="fa fa-download"></i> <span> Petunjuk Penggunaan</span></a></li>           

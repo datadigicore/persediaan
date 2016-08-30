@@ -2,6 +2,15 @@
 include('../../utility/mysql_db.php');
 class modelTransaksi extends mysql_db
 {
+    public function baca_rekening(){
+        $sql = "SELECT * from rekening where length(kode_rekening)>6 ";
+        $result = $this->query($sql);
+         echo '<option></option>';
+        while($row=$this->fetch_assoc($result)){
+
+          echo '<option value="'.$row['kode_rekening']."-".$row['nama_rekening'].'">'.$row['kode_rekening'].'  -  '.$row['nama_rekening']."</option>";
+        }
+    }
     public function cek_tahun_aktif($thn_ang){
         $sql = "SELECT status FROM thn_aktif where tahun='$thn_ang'";
         $hasil = $this->query($sql);
@@ -274,6 +283,8 @@ class modelTransaksi extends mysql_db
         $nm_satker = $data['nm_satker'];
         $thn_ang = $data['thn_ang'];
         $no_dok = $data['no_dok'];
+        $kode_rek =$data['kode_rek'];
+        $nama_rek =$data['nama_rek'];
 
         $query_dok = "select kd_lokasi,kd_ruang, tgl_dok, tgl_buku, no_bukti, jns_trans, keterangan from transaksi_masuk where no_dok='$no_dok' and status_ambil=0 ";
         $result_dok = $this->query($query_dok);
@@ -373,6 +384,8 @@ class modelTransaksi extends mysql_db
                     spesifikasi='$spesifikasi',
                     kd_perk='$kd_perk',
                     nm_perk='$nm_perk',
+                    kode_rekening='$kode_rek',                           
+                    nama_rekening='$nama_rek',
                     satuan='$satuan',
                     qty='$kuantitas',
                     qty_akhir='$kuantitas',
@@ -1929,7 +1942,7 @@ class modelTransaksi extends mysql_db
         // $satker = $data['no_dok'];
         $kd_satker = $data['satker_tujuan'];
         $thnang = $data['thn_ang'];
-        $query = "select Kd_Ruang, kode, NamaSatker from satker where kode like '$kd_satker%' and Kd_Ruang is not null";
+        $query = "select Kd_Ruang, kode, NamaSatker from satker where kode = '$kd_satker' and kd_ruang is not null";
         $result = $this->query($query);
         while ($row = $this->fetch_array($result))
         {

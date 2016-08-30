@@ -56,6 +56,7 @@
                         </select>
                       </div>
                     </div>
+
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Tanggal Dokumen</label>
                       <div class="col-sm-3">
@@ -194,6 +195,19 @@
         data: {manage:'readsatkerdok',no_dok:"<?php echo($_SESSION['kd_lok']);?>"},
         success: function (output) {     
           $('#read_no_dok').html(output);
+        }
+      });
+
+      $.ajax({
+        type: "post",
+        url: '../core/transaksi/prosestransaksi',
+        data: {manage:'baca_rekening'},
+        success: function (output) {
+          $(".select2").select2();     
+          $('#kode_rek').html(output);
+          $("#kode_rek").select2({
+          placeholder: "-- Pilih Rekening --"
+        });
         }
       });
 

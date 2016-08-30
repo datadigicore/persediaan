@@ -112,7 +112,13 @@ else {
                             </select>
                           </div>
                         </div>
-
+                        <div class="form-group">
+                          <label class="col-sm-3 control-label">Kode Rekening</label>
+                          <div class="col-sm-8">
+                            <select name="kode_rek" class="form-control select2" id="kode_rek" required >
+                            </select>
+                          </div>
+                        </div> 
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Jumlah Masuk</label>
                           <div class="col-sm-4">
@@ -331,6 +337,17 @@ else {
         //     alert( 'You clicked on '+data[0]+'\'s row' );
         // } );
         $.ajax({
+            type: "post",
+            url: '../core/transaksi/prosestransaksi',
+            data: {manage:'baca_rekening'},
+            success: function (output) { 
+              $('#kode_rek').html(output);
+              $("#kode_rek").select2({
+              placeholder: "-- Pilih Rekening --"
+            });
+          }
+      });
+        $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
           data: {manage:'readidenttrans',idtrans:"<?php echo $_POST['satker']?>"},
@@ -354,6 +371,7 @@ else {
           }
         });
       });
+
       $(document).on('click', '#btnedt', function () {
         var tr = $(this).closest('tr');
         var row = table.row( tr );
@@ -606,6 +624,7 @@ else {
           //     }
           //   }
           // });
+
           $.ajax({
             type: "post",
             url: '../core/transaksi/validasi',

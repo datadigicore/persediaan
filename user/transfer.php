@@ -43,6 +43,12 @@
                             <input type="hidden" name="manage" value="tbh_transaksi_klr">  
                             <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>  
                           </div>
+                          <label class="col-sm-2 control-label">Unit Kerja Tujuan</label>
+                          <div class="col-sm-3">
+                            <select name="bidang_tujuan" id="bidang_tujuan" class="form-control">
+                            </select>
+
+                          </div>
 
                         </div>
                         <!-- <div class="form-group">                     
@@ -51,22 +57,17 @@
                             <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor Bukti">
                           </div>
                         </div> -->
-                        <div class="form-group">
-                          <label class="col-sm-2 control-label">Kode Satker Tujuan</label>
+                        <!-- <div class="form-group"> -->
+                         <!--  <label class="col-sm-2 control-label">Kode Satker Tujuan</label>
                           <div class="col-sm-3">
                             <select name="satker_tujuan" id="satker_tujuan" class="form-control">
                             </select>
 
-                          </div>
+                          </div> -->
 
-                          <label class="col-sm-2 control-label">Kode Bidang Tujuan</label>
-                          <div class="col-sm-3">
-                            <select name="bidang_tujuan" id="bidang_tujuan" class="form-control">
-                            </select>
+                          
 
-                          </div>
-
-                        </div>
+                        <!-- </div> -->
                         <div class="form-group">
                           <label class="col-sm-2 control-label">Tanggal Dokumen</label>
                           <div class="col-sm-3">
@@ -426,33 +427,48 @@
           type: "post",
           url: '../core/transaksi/prosestransaksi',
           data: {manage:'baca_bidang_skpd',satker_tujuan:skpd_asal},
-          success: function (output) {     
+          success: function (output) {
+
             $('#bidang_tujuan').html(output);
           }
         });
       
         $.ajax({
-
           type: "post",
           url: '../core/transaksi/prosestransaksi',
-          data: {manage:'baca_semua_skpd',kd_lokasi:skpd_asal},
-          success: function (output) { 
-            $(".select2").select2();    
-            $('#satker_tujuan').html(output);
-            $('#satker_tujuan').val('');
-            $("#satker_tujuan").select2({
-          placeholder: "-- Pilih Kode Satker Tujuan --",
-        });
+          data: {manage:'readbidang'},
+          success: function (output) {
+            $(".select2").select2();   
+            $('#bidang_tujuan').html(output);
+            $("#bidang_tujuan").select2({
+           placeholder: "-- Pilih Unit Kerja Tujuan --",
+         });
           }
+
+        //   type: "post",
+        //   url: '../core/transaksi/prosestransaksi',
+        //   data: {manage:'baca_semua_skpd',kd_lokasi:skpd_asal},
+        //   success: function (output) { 
+        //     $(".select2").select2();    
+        //     $('#satker_tujuan').html(output);
+        //     $('#satker_tujuan').val('');
+        //     $("#satker_tujuan").select2({
+        //   placeholder: "-- Pilih Kode Satker Tujuan --",
+        // });
+        //   }
         });
        $('#satker_tujuan').change(function(){
-          var kdsatker_tujuan = $('#satker_tujuan').val(); 
+          var kdsatker_tujuan = "<?php echo $_SESSION['kd_lok']; ?> "; 
           $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
-          data: {manage:'baca_bidang_skpd',satker_tujuan:kdsatker_tujuan},
+          data: {manage:'readbidang',satker_tujuan:kdsatker_tujuan},
           success: function (output) {     
+            $(".select2").select2();
             $('#bidang_tujuan').html(output);
+            $("#bidang_tujuan").select2({
+           placeholder: "-- Pilih Unit Kerja Tujuan --",
+         });
           }
         });
 

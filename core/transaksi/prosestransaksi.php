@@ -11,6 +11,9 @@ else
 	$manage = $_POST['manage'];
 	switch ($manage)
 	{
+		case 'baca_rekening':
+			$Transaksi->baca_rekening();
+		break;
 		case 'readbrg':
 			$search = $_POST['q'];
 			$Transaksi->bacabrg($search);
@@ -337,7 +340,10 @@ else
 			
 			$jns_trans = $_POST['jenis_trans'];
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
-			
+			$detail_rek = explode("-", $_POST['kode_rek']);
+
+			$kode_rek = $detail_rek[0];
+			$nama_rek = $detail_rek[1];
 			$kuantitas = $purifier->purify($_POST['jml_msk']);
 			$satuan = $purifier->purify($_POST['satuan']);
 			$keterangan = $purifier->purify($_POST['keterangan']);
@@ -369,7 +375,7 @@ else
 					// "keterangan" => $keterangan,
 				);
 				//print_r($data);
-				echo 'masuk ident';
+				// echo 'masuk ident';
 				$Transaksi->transaksi_masuk_ident($data);
 			}
 			else{
@@ -392,9 +398,12 @@ else
 					"kuantitas" => $kuantitas,
 					"keterangan" => $keterangan,
 					"harga_sat" => $hrg_sat,
+					"kode_rek" => $kode_rek,
+					"nama_rek" => $nama_rek,
 					"keterangan" => $keterangan
 				);
-				//print_r($data);
+				// print_r($data);
+				// echo "Pemasukkan Barang";
 				$Transaksi->transaksi_masuk($data);
 			}
 			//========= Log History =========//
