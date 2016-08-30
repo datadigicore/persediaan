@@ -43,12 +43,7 @@
                             <input type="hidden" name="manage" value="tbh_transaksi_klr">  
                             <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>  
                           </div>
-                          <label class="col-sm-2 control-label">Unit Kerja Tujuan</label>
-                          <div class="col-sm-3">
-                            <select name="bidang_tujuan" id="bidang_tujuan" class="form-control">
-                            </select>
-
-                          </div>
+                          
 
                         </div>
                         <!-- <div class="form-group">                     
@@ -58,14 +53,23 @@
                           </div>
                         </div> -->
                         <!-- <div class="form-group"> -->
-                         <!--  <label class="col-sm-2 control-label">Kode Satker Tujuan</label>
+                          
+
+                          <div class="form-group">
+                          <label class="col-sm-2 control-label">Kode Satker Tujuan</label>
                           <div class="col-sm-3">
                             <select name="satker_tujuan" id="satker_tujuan" class="form-control">
                             </select>
 
-                          </div> -->
+                          </div>
+                          <label class="col-sm-2 control-label">Unit Kerja Tujuan</label>
+                          <div class="col-sm-3">
+                            <select name="bidang_tujuan" id="bidang_tujuan" class="form-control">
+                            </select>
 
-                          
+                          </div>
+                           
+                        </div> 
 
                         <!-- </div> -->
                         <div class="form-group">
@@ -442,20 +446,23 @@
             $('#bidang_tujuan').html(output);
             $("#bidang_tujuan").select2({
            placeholder: "-- Pilih Unit Kerja Tujuan --",
+           allowClear:true
          });
           }
 
-        //   type: "post",
-        //   url: '../core/transaksi/prosestransaksi',
-        //   data: {manage:'baca_semua_skpd',kd_lokasi:skpd_asal},
-        //   success: function (output) { 
-        //     $(".select2").select2();    
-        //     $('#satker_tujuan').html(output);
+        });
+        $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'baca_skpd'},
+          success: function (output) { 
+            // $(".select2").select2();    
+            $('#satker_tujuan').html(output);
         //     $('#satker_tujuan').val('');
         //     $("#satker_tujuan").select2({
         //   placeholder: "-- Pilih Kode Satker Tujuan --",
         // });
-        //   }
+          }
         });
        $('#satker_tujuan').change(function(){
           var kdsatker_tujuan = "<?php echo $_SESSION['kd_lok']; ?> "; 

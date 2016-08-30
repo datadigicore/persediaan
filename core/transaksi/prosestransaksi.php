@@ -10,7 +10,11 @@ else
 {
 	$manage = $_POST['manage'];
 	switch ($manage)
-	{
+	{ 
+		case 'baca_skpd':
+			$kd_lokasi = $_SESSION['kd_lok'];
+			$Transaksi->baca_skpd($kd_lokasi);
+		break;
 		case 'baca_rekening':
 			$Transaksi->baca_rekening();
 		break;

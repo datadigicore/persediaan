@@ -25,6 +25,14 @@ class modelTransaksi extends mysql_db
             echo '<option value="'.$row['kode'].'">'.$row["kode"]." - ".$row['NamaSatker']."</option>";
         }
     }
+    public function baca_skpd($kdlokasi){
+        $sql = "SELECT kode, NamaSatker FROM satker where kode='$kdlokasi' and kd_ruang is null";
+        print_r($sql);
+        $result = $this->query($sql);
+        while($row=$this->fetch_assoc($result)){
+            echo '<option value="'.$row['kode'].'">'.$row["kode"]." - ".$row['NamaSatker']."</option>";
+        }
+    }
     public function baca_bidang($kdlokasi){        
         $sql = "SELECT kd_ruang,kode, NamaSatker FROM `satker` where kode='$kdlokasi' ";
         $result = $this->query($sql);

@@ -44,15 +44,23 @@
                         <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>
                         <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>    
                       </div>
-                      <label class="col-sm-2 control-label">Jenis Transaksi</label>
+                      <label class="col-sm-2 control-label">Sumber Dana</label>
                       <div class="col-sm-3">
                         <select name="jenis_trans" id="jenis_trans" class="form-control">
                           <option value="">Pilih Jenis Transaksi</option>
                           <option value="M01">Saldo Awal</option>
-                          <option value="M02">Pembelian</option>
+                          <!-- <option value="M02">Pembelian</option>
                           <option value="M03">Hibah Masuk</option>
-                          <option value="M04">Pengadaan</option>
-                          <option value="M05">Perolehan Lainnya</option>
+                          <option value="M04">Pengadaan</option> -->
+                          <option value="M06">APBD (Belanja Barang dan Jasa</option>
+                          <option value="M05">APBD(Belanja Modal)</option>
+                          
+                          <option value="M07">Bantuan Pemerintah Pusat</option>
+                          <option value="M08">Bantuan Pemerintah Provinsi</option>
+                          <option value="M09">BOS</option>
+                          <option value="M10">BLUD</option>
+                          <option value="M10">Lainnya</option>
+                          
                         </select>
                       </div>
                     </div>

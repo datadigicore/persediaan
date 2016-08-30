@@ -104,21 +104,22 @@ else {
                           </div>
                         </div> 
                         <?php if($_POST['jenistrans']!="Transfer ") { ?> 
-                        <div class="form-group">
-
-                          <label class="col-sm-3 control-label">Kode / Nama Barang</label> 
-                          <div class="col-sm-8">
-                            <select name="kd_brg" id="kd_brg" class="form-control select2">
-                            </select>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label class="col-sm-3 control-label">Kode Rekening</label>
+                          <div class="form-group">
+                          <label class="col-sm-3 control-label">Kode Rekening Belanja</label>
                           <div class="col-sm-8">
                             <select name="kode_rek" class="form-control select2" id="kode_rek" required >
                             </select>
                           </div>
                         </div> 
+                        <div class="form-group">
+
+                          <label class="col-sm-3 control-label">Kode / Nama Persediaan</label> 
+                          <div class="col-sm-8">
+                            <select name="kd_brg" id="kd_brg" class="form-control select2">
+                            </select>
+                          </div>
+                        </div>
+                        
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Jumlah Masuk</label>
                           <div class="col-sm-4">
