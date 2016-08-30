@@ -18,17 +18,14 @@ class modelTransaksi extends mysql_db
         echo json_encode(array("tahun"=>$tahun["status"]));
 
     }
-
     public function baca_semua_skpd($kdlokasi){
-        
         $sql = "SELECT kode, NamaSatker FROM `satker` where length(kode)>10 and kode!='$kdlokasi' ";
         $result = $this->query($sql);
         while($row=$this->fetch_assoc($result)){
             echo '<option value="'.$row['kode'].'">'.$row["kode"]." - ".$row['NamaSatker']."</option>";
         }
     }
-    public function baca_bidang($kdlokasi){
-        
+    public function baca_bidang($kdlokasi){        
         $sql = "SELECT kd_ruang,kode, NamaSatker FROM `satker` where kode='$kdlokasi' ";
         $result = $this->query($sql);
         while($row=$this->fetch_assoc($result)){
@@ -37,16 +34,12 @@ class modelTransaksi extends mysql_db
            echo '<option value="'.$row['kd_ruang']."-".$row['NamaSatker'].'">'.$row['kd_ruang'].'  -  '.$row['NamaSatker']."</option>";
         }
     }
-
-    
-
     public function cekAllTrans($data){
         $query = "select * from transaksi_masuk where kd_lokasi='$data'";
         $hasil = $this->query($query);   
         $result = $this->fetch_array($hasil);
         return $result;
     }
-
     public function importSaldoAwal($data){
         $arrayCount     = count($data);
         $USERNAME       = $_SESSION['username'];
@@ -102,6 +95,64 @@ class modelTransaksi extends mysql_db
         $result  = $this->query($query1);
         $results = $this->query($query2);
         return $results;
+    }
+
+    public function importBarang($data){
+        $kodeperk    = "";$namaperk    = "";$kodesubkel  = "";$namasubkel  = "";
+        $values      = "";$spesifikasi = "";$satuan      = "";$namabarang  = "";
+        $fullname    = "";
+        $arrayCount = count($data);
+        $replace = "REPLACE INTO persediaan (id, a, b, c, d, e, f, g, kd_perk, nm_perk, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, satuan) VALUES ";
+        for ($i=2; $i <= $arrayCount; $i++) {
+          if (trim($data[$i]["A"]," \t\n\r\0\x0B\xA0\x0D\x0A")!="") {
+            $kodebarang  = str_replace("'", "", $data[$i]["B"]);
+            $break       = explode('.', str_replace("'", "", $data[$i]["B"]));
+            $spesifikasi = trim($data[$i]["D"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+            $spesifikasi = str_replace("'", "", $spesifikasi);
+            $satuan      = trim($data[$i]["E"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+            $satuan      = str_replace("'", "", $satuan);
+            for ($j=0; $j < 7 ; $j++) {
+                if (!empty($break[$j])) {
+                    $variable[$j] = $break[$j];
+                    if (count($break) == 5) {
+                        $kodesubkel  = "";
+                        $namasubkel  = "";
+                        $spesifikasi = "";
+                        $satuan      = "";
+                        $namabarang  = "";
+                        $fullname    = "";
+                        $namaperk    = trim($data[$i]["C"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+                        $namaperk    = str_replace("'", "", $namaperk);
+                        $kodeperk    = $variable[0].".".$variable[1].".".$variable[2].".".$variable[3].".".$variable[4];
+                    }
+                    else if (count($break) == 6) {
+                        $spesifikasi = "";
+                        $satuan      = "";
+                        $namabarang  = "";
+                        $fullname    = "";
+                        $namasubkel = trim($data[$i]["C"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+                        $namasubkel = str_replace("'", "", $namasubkel);
+                        $kodesubkel = $variable[0].".".$variable[1].".".$variable[2].".".$variable[3].".".$variable[4].".".$variable[5];
+                    }
+                    else if (count($break) == 7) {
+                        $namabarang = trim($data[$i]["C"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+                        $namabarang = str_replace("'", "", $namabarang);
+                        $fullname   = $namabarang." ".$spesifikasi;
+                    }
+                }
+                else {
+                    $variable[$j] = NULL;
+                }
+            }
+            $values .= "('".$kodebarang."','".$variable[0]."','".$variable[1]."','".$variable[2]."','".$variable[3]."','".$variable[4]."','".$variable[5]."','".$variable[6]."','".$kodeperk."','".$namaperk."','".$kodesubkel."','".$namasubkel."','".$kodebarang."','".$fullname."','".$spesifikasi."','".$satuan."'),";
+          }
+        }
+        $query  = str_replace("''", "NULL", $replace.$values);;
+        $query  = substr($query,0,-1);
+        // print_r($query);
+        // die();
+        $result = $this->query($query);
+        return $result;
     }
 
     public function cek_saldo_awal($data){
