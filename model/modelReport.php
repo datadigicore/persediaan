@@ -118,8 +118,8 @@ class modelReport extends mysql_db
                               <td><b>NILAI PERSEDIAN</b></td>
                               <td><b>NILAI NON PERSEDIAN</b></td>
                           </tr>';
-            $sql    = "SELECT kd_perk, nm_perk, kode_rekening, nama_rekening, sum(total_harga) from transaksi_masuk   where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_lokasi' and thn_ang='$thn_ang' and tgl_dok>'$tgl_dok' order by kd_perk asc";
-            print_r($sql);
+            $sql    = "SELECT kd_perk, nm_perk, kode_rekening, nama_rekening, sum(total_harga) as total_harga from transaksi_masuk   where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_lokasi' and thn_ang='$thn_ang' and tgl_dok>'$tgl_dok' group by kd_perk, kode_rekening order by kd_perk asc";
+            // print_r($sql);
             $no=1;
             $rek_persediaan="";
             $rek_keuangan="";
@@ -133,7 +133,7 @@ class modelReport extends mysql_db
                             <td>'.$val['nm_perk'].'</td>
                             <td>'.$val['kode_rekening'].'</td>
                             <td>'.$val['nama_rekening'].'</td>
-                            <td>'.$val['total_harga'].'</td>    
+                            <td>'.number_format($val['total_harga'],2,",",".").'</td>    
                             <td>'.'0'.'</td>
                            </tr>';
                 }
@@ -150,7 +150,7 @@ class modelReport extends mysql_db
                             <td>'.$val['nm_perk'].'</td>
                             <td>'.$val['kode_rekening'].'</td>
                             <td>'.$val['nama_rekening'].'</td>
-                            <td>'.$val['total_harga'].'</td>    
+                            <td>'.number_format($val['total_harga'],2,",",".").'</td>    
                             <td>'.'0'.'</td>
                            </tr>';
                 }
@@ -161,7 +161,7 @@ class modelReport extends mysql_db
                             <td>'.''.'</td>
                             <td>'.$val['kode_rekening'].'</td>
                             <td>'.$val['nama_rekening'].'</td>
-                            <td>'.$val['total_harga'].'</td>    
+                            <td>'.number_format($val['total_harga'],2,",",".").'</td>    
                             <td>'.'0'.'</td>
                            </tr>';
                 }
