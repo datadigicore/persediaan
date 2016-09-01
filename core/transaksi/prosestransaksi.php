@@ -15,6 +15,11 @@ else
 			$kd_lokasi = $_SESSION['kd_lok'];
 			$Transaksi->baca_skpd($kd_lokasi);
 		break;
+		case 'baca_skpd_luar':
+			$kd_lokasi = substr($_SESSION['kd_lok'], 0,2);
+
+			$Transaksi->baca_skpd_luar($kd_lokasi);
+		break;
 		case 'baca_rekening':
 			$Transaksi->baca_rekening();
 		break;
@@ -89,16 +94,17 @@ else
 		break;
 
 		case 'readbidang':
-			$satker_tujuan= $_SESSION['kd_lok'];
-			$kd_lokasi = $_SESSION['kd_lok'];
+			$satker_tujuan= $purifier->purify($_POST['satker_tujuan']);;
+			$kd_lokasi = $purifier->purify($_POST['satker_tujuan']);;
 			$thn_ang = $_SESSION['thn_ang'];
 			$data = array(
 				"satker_tujuan" => $satker_tujuan,
 				"kd_lokasi" => $kd_lokasi,
 				"thn_ang" => $thn_ang
 				);
+			// print_r($data);
 			$Transaksi->baca_ruang($data);
-			echo "Read Bidang";
+			// echo "Read Bidang";
 		break;
 		case 'readsatkerdoks':
 			$no_dok = $purifier->purify($_POST['no_dok']);
@@ -208,9 +214,9 @@ else
 		break;
 
 		case 'tbh_transaksi_klr':
-			$kd_ruang=null;
-			$nm_ruang=null;
-			$kd_tujuan=null;
+			$kd_ruang="";
+			$nm_ruang="";
+			$kd_tujuan="";
 			$kd_lokasi = $purifier->purify($_POST['read_no_dok']);
 			$satkernodok = $purifier->purify($_POST['read_no_dok']);
 			$nm_satker = $_SESSION['nama_satker'];
@@ -230,12 +236,13 @@ else
 			$hrg_sat = $purifier->purify($_POST['rph_sat']);
 			$status = 0;
 			$user_id = $_SESSION['username'];
-			if($_POST['bidang_tujuan']!=""){
+			if($_POST['satker_tujuan']!=""){
 				$data = explode("-", $purifier->purify($_POST['bidang_tujuan']));
 				$kd_ruang = $data[0];
 				$nm_ruang = $data[1];
 				$kd_tujuan = $purifier->purify($_POST['satker_tujuan']);
 			 	$jns_trans="K06";
+			 	// echo "Transfer Mode<br>";
 
 			}
 			if ($kd_brg=="") 
@@ -260,8 +267,8 @@ else
 					"user_id" => $user_id
 
 				);
-				echo "transa ident";
-				print_r($data);
+				// echo "transa ident<br>";
+				// print_r($data);
 				$Transaksi->transaksi_keluar_ident($data);
 			}
 			else{

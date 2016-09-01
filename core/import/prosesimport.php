@@ -4,6 +4,7 @@ require_once __DIR__ . '/../../utility/ExcelReader.php';
 include('../../model/modelTransaksi.php');
 include('../../config/purifier.php');
 // include('../../config/user.php');
+session_start();
 $Transaksi = new modelTransaksi();
 $path_upload = "/srv/www/htdocs/persediaan/dist/uploads/";
 $path_upload = "/var/www/html/persediaan/dist/uploads/";

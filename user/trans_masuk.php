@@ -52,14 +52,12 @@
                           <!-- <option value="M02">Pembelian</option>
                           <option value="M03">Hibah Masuk</option>
                           <option value="M04">Pengadaan</option> -->
-                          <option value="M06">APBD (Belanja Barang dan Jasa</option>
-                          <option value="M05">APBD(Belanja Modal)</option>
-                          
-                          <option value="M07">Bantuan Pemerintah Pusat</option>
-                          <option value="M08">Bantuan Pemerintah Provinsi</option>
-                          <option value="M09">BOS</option>
-                          <option value="M10">BLUD</option>
-                          <option value="M10">Lainnya</option>
+                          <option value="M07">APBD</option>
+                          <option value="M08">Bantuan Pemerintah Pusat</option>
+                          <option value="M09">Bantuan Pemerintah Provinsi</option>
+                          <option value="M10">BOS</option>
+                          <option value="M11">BLUD</option>
+                          <option value="M12">Lainnya</option>
                           
                         </select>
                       </div>

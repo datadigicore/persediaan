@@ -33,6 +33,16 @@ class modelTransaksi extends mysql_db
             echo '<option value="'.$row['kode'].'">'.$row["kode"]." - ".$row['NamaSatker']."</option>";
         }
     }
+
+    public function baca_skpd_luar($kdlokasi){
+        $sql = "SELECT kode, NamaSatker FROM satker where kode not like '$kdlokasi%' and length(kode)>=11 and kd_ruang is null order by kode asc";
+        print_r($sql);
+        $result = $this->query($sql);
+        while($row=$this->fetch_assoc($result)){
+            echo '<option value="'.$row['kode'].'">'.$row["kode"]." - ".$row['NamaSatker']."</option>";
+        }
+    }
+
     public function baca_bidang($kdlokasi){        
         $sql = "SELECT kd_ruang,kode, NamaSatker FROM `satker` where kode='$kdlokasi' ";
         $result = $this->query($sql);
@@ -2020,17 +2030,18 @@ class modelTransaksi extends mysql_db
     public function baca_ruang($data)
     {
         // $satker = $data['no_dok'];
-        $kd_satker = $data['satker_tujuan'];
+        $kd_satker = $data['kd_lokasi'];
         $thnang = $data['thn_ang'];
         $query = "select Kd_Ruang, kode, NamaSatker from satker where kode = '$kd_satker' and kd_ruang is not null";
+        echo $query;
         $result = $this->query($query);
         while ($row = $this->fetch_array($result))
         {
             $str = $row['kode'];
 
-            if (substr_count($str,".") == 3) {
+            // if (substr_count($str,".") == 3) {
                 echo '<option value="'.$row['Kd_Ruang']."-".$row['NamaSatker'].'">'.$row['Kd_Ruang'].'  -  '.$row['NamaSatker']."</option>";
-            }
+            // }
         }   
     }
 
@@ -2088,13 +2099,14 @@ class modelTransaksi extends mysql_db
 
     public function bacaidenttrans_klr($data,$kd_ruang)
     {
-        $query = "select no_bukti, tgl_dok, tgl_buku, jns_trans, nm_satker,keterangan, sum(total_harga) as total_harga from transaksi_keluar where no_dok = '$data' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_ruang' group by no_dok";
+        $query = "select nm_satker_msk, no_bukti, tgl_dok, tgl_buku, jns_trans, nm_satker,keterangan, sum(total_harga) as total_harga from transaksi_keluar where no_dok = '$data' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_ruang' group by no_dok";
         $result = $this->query($query);
         if ($row = $this->fetch_assoc($result))
         {
             $datedok = date_create($row["tgl_dok"]);
             $datebuku = date_create($row["tgl_buku"]);
             $hslnobukti = $row["no_bukti"];
+            $satkertujuan = $row["nm_satker_msk"];
             $hsljenistrans = $row["jns_trans"];
             $hsltgldok = date_format($datedok,"d-m-Y");
             $hsltglbuku = date_format($datebuku,"d-m-Y");
@@ -2109,7 +2121,7 @@ class modelTransaksi extends mysql_db
             {
                 $hsltottrans = abs($row["total_harga"]);
             }
-            echo json_encode(array("nobukti"=>$hslnobukti,"jenistrans"=>$hsljenistrans,"tgldok"=>$hsltgldok,"tglbuku"=>$hsltglbuku,"satker"=>$hslsatker,"total"=>$hsltottrans,"keterangan"=>$hslket));
+            echo json_encode(array("satkertujuan"=>$satkertujuan,"nobukti"=>$hslnobukti,"jenistrans"=>$hsljenistrans,"tgldok"=>$hsltgldok,"tglbuku"=>$hsltglbuku,"satker"=>$hslsatker,"total"=>$hsltottrans,"keterangan"=>$hslket));
         }   
     }    
 

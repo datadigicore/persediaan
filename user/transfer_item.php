@@ -265,6 +265,7 @@ else {
           dataType: "json",
           success: function (output) {
             $('#disnobukti').val(output.nobukti);
+            $('#dissatker').val(output.satkertujuan);
             $('#tgl_dok').val(output.tgldok);
             $('#tgl_buku').val(output.tglbuku);
             $('#distottrans').val(output.total);

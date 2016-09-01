@@ -43,11 +43,11 @@
                             <input type="hidden" name="manage" value="tbh_transaksi_klr">  
                             <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>  
                           </div>
-                          <label class="col-sm-2 control-label">Jenis Transfer</label>
+                           <label class="col-sm-2 control-label">Jenis Transfer</label>
                           
                           <div class="col-sm-3">
-                            <select name="jenis_transfer" id="jenis_transfer" class="form-control" required>
-                            <option>Pilih Jenis Transfer</option>
+                            <select name="jenis_transfer" id="jenis_transfer" class="form-control" >
+                            <option value="">Pilih Jenis Transfer</option>
                               <option value="bagian">Transfer ke bagian dalam</option>
                               <option value="skpd">Transfer ke SKPD Luar</option>
                             </select>
@@ -63,17 +63,17 @@
                         </div> -->
                         <!-- <div class="form-group"> -->
                           
-                          <div style="display:none" id="detail_transfer">
+
                           <div class="form-group">
                           <label class="col-sm-2 control-label">Kode Satker Tujuan</label>
                           <div class="col-sm-3">
-                            <select name="satker_tujuan" id="satker_tujuan" class="form-control select2">
+                            <select name="satker_tujuan" id="satker_tujuan" class="form-control">
                             </select>
 
                           </div>
                           <label class="col-sm-2 control-label">Unit Kerja Tujuan</label>
                           <div class="col-sm-3">
-                            <select name="bidang_tujuan" id="bidang_tujuan" class="form-control select2" required>
+                            <select name="bidang_tujuan" id="bidang_tujuan" class="form-control">
                             </select>
 
                           </div>
@@ -103,7 +103,6 @@
                     <button type="submit" class="btn btn-info pull-right">Submit</button>
                   </div>
                 </form>
-              </div>
               </div>
               <div class="box box-info">
                 <div class="box-header with-border">
@@ -139,9 +138,26 @@
     <script src="../dist/js/jquery.mask.js" ></script>
     <script type="text/javascript">
     var table;
-
-    function baca_tabel(){
-      table = $("#example1").DataTable({
+      $(function () {
+        $(".select2").select2();
+        $("li#transfer").addClass("active");
+        $('#tgl_dok').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
+        $('#tgl_buku').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
+        $('#tgl_dok').datepicker({
+          format: "dd-mm-yyyy"
+        });         
+        $('#tgl_dok').datepicker().on("changeDate", function(e) {
+          $('#tgl_buku').val($(this).val());
+          $(this).datepicker('hide');
+        });
+        $('#tgl_buku').datepicker({
+          format: "dd-mm-yyyy"
+        });
+        $('#tgl_buku').datepicker().on("changeDate", function(e) {
+          $(this).datepicker('hide');
+        });        
+        $("li#saldo_awal").addClass("active");
+        table = $("#example1").DataTable({
           "aaSorting": [[ 0, 'desc' ]], 
           "processing": false,
           "serverSide": true,
@@ -165,27 +181,6 @@
 
           ],
         });
-    }
-      $(function () {
-        $(".select2").select2();
-        $("li#transfer").addClass("active");
-        $('#tgl_dok').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
-        $('#tgl_buku').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
-        $('#tgl_dok').datepicker({
-          format: "dd-mm-yyyy"
-        });         
-        $('#tgl_dok').datepicker().on("changeDate", function(e) {
-          $('#tgl_buku').val($(this).val());
-          $(this).datepicker('hide');
-        });
-        $('#tgl_buku').datepicker({
-          format: "dd-mm-yyyy"
-        });
-        $('#tgl_buku').datepicker().on("changeDate", function(e) {
-          $(this).datepicker('hide');
-        });        
-        $("li#saldo_awal").addClass("active");
-        baca_tabel();
         $(document).on('click', '#btntmbh', function () {
           var tr = $(this).closest('tr');
           var row = table.row( tr );
@@ -323,7 +318,30 @@
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
               $('button:submit').attr("disabled", false); 
-              baca_tabel();
+              table = $("#example1").DataTable({
+                 "aaSorting": [[ 0, 'desc' ]], 
+                "processing": false,
+                "serverSide": true,
+                "ajax": "../core/loadtable/dok_transfer",
+                "columnDefs":
+                [
+                   {"targets": 0,
+             "visible": false },
+            {"targets": 1 },
+            {"targets": 2 },
+            {"targets": 3 },
+            {"targets": 4 },
+            {"targets": 5 },
+            {"orderable": false,
+             "data": null,
+             "defaultContent":  '<div class="box-tools">'+
+                                  '<button id="btntmbh" class="btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
+                                  '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
+                                '</div>',
+             "targets": [6],"targets": 6 }         
+                ],
+                "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
+              });
           }
         });
         return false;
@@ -358,67 +376,57 @@
           $('#jml_msk').prop('required', false);
         });
       });
- 
-        $('#jenis_transfer').change(function(){
-          var pilihan = $("#jenis_transfer").val();
-          if(pilihan=="bagian"){
-            $("#satker_tujuan").select2('val','');
-            $("#satker_tujuan").select2('data',null);
-            $("#bidang_tujuan").select2('data',null);
-            $("#detail_transfer").show();
-            $.ajax({
-              type: "post",
-              url: '../core/transaksi/prosestransaksi',
-              data: {manage:'baca_skpd'},
-              success: function (output) {    
-                $('#satker_tujuan').html(output);
-                $("#satker_tujuan").select2({
+      $(document).on('click', '#btnhps', function () {
+      var tr = $(this).closest('tr');
+      var row = table.row( tr );
+      redirectTime = "2600";
+      redirectURL = "trans_keluar";
+      id_row = row.data()[0];
+      managedata = "hapusTransKeluar";
+      $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'cek_brg_keluar',id_row:id_row},
+          dataType: "json",
+          success: function (output)
+          {
+            if(output.st_op==1)
+            {
+              alert("Tidak Dapat Menghapus Barang yang sudah diopname !");
+              return false;
+            }
+            else
+            {
+            job=confirm("Anda yakin ingin menghapus data ini?");
+              if(job!=true){
+                return false;
+              }
+              else{
+                $('#myModal').modal({
+                  backdrop: 'static',
+                  keyboard: false
                 });
-
-              }
-
-            });
-            var skpd_asal = $("#satker_tujuan").val();
-            $.ajax({
-              type: "post",
-              url: '../core/transaksi/prosestransaksi',
-              data: {manage:'readbidang',satker_tujuan:"<?php echo $_SESSION['kd_lok']; ?>"},
-              success: function (output) {
-                $('#bidang_tujuan').html(output);
-                $("#bidang_tujuan").select2({
+                $('#myModal').modal('show');
+                $.ajax({
+                  type: "post",
+                  url : "../core/transaksi/prosestransaksi",
+                  data: {manage:managedata,id:id_row},
+                  success: function(data)
+                  {
+                    $("#success-alert").alert();
+                    $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+                    $("#success-alert").alert('close');
+                    });
+                    setTimeout("location.href = redirectURL;",redirectTime); 
+                  }
                 });
+                return false;
               }
-            });
+            }
           }
-          else if(pilihan=="skpd"){
-            $("#satker_tujuan").select2('val','');
-            $("#satker_tujuan").select2('data',null);
-            $("#bidang_tujuan").select2('data',null);
-            $("#detail_transfer").show();
-            $("#bidang_tujuan").val('');
-
-            $.ajax({
-              type: "post",
-              url: '../core/transaksi/prosestransaksi',
-              data: {manage:'baca_skpd_luar'},
-              success: function (output) {    
-                  $('#satker_tujuan').html(output);
-                 // $(".select2").select2();  
-                  $("#satker_tujuan").select2({
-        //    placeholder: "-- Pilih Unit Kerja Tujuan --",
-        //    allowClear:true
-      });
-              }
-            });
-          }
-          else{
-            $("#detail_transfer").hide();
-             $("#satker_tujuan").select2('val','');
-            $("#satker_tujuan").select2('data',null);
-            $("#bidang_tujuan").select2('data',null);
-          }
-
         });
+      });
+
         $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
@@ -427,24 +435,55 @@
             $('#read_no_dok').html(output);
           }
         });
+        var skpd_asal = $("#satker_tujuan").val();
+        $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'baca_bidang_skpd',satker_tujuan:skpd_asal},
+          success: function (output) {
 
+            $('#bidang_tujuan').html(output);
+          }
+        });
+      
+        $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'readbidang'},
+          success: function (output) {
+            $(".select2").select2();   
+            $('#bidang_tujuan').html(output);
+            $("#bidang_tujuan").select2({
+           placeholder: "-- Pilih Unit Kerja Tujuan --",
+           allowClear:true
+         });
+          }
+
+        });
         $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
           data: {manage:'baca_skpd'},
-          success: function (output) {  
+          success: function (output) { 
+            // $(".select2").select2();    
             $('#satker_tujuan').html(output);
+        //     $('#satker_tujuan').val('');
+        //     $("#satker_tujuan").select2({
+        //   placeholder: "-- Pilih Kode Satker Tujuan --",
+        // });
           }
         });
        $('#satker_tujuan').change(function(){
-          var kdsatker_tujuan =$("#satker_tujuan").val(); 
+          var kdsatker_tujuan = "<?php echo $_SESSION['kd_lok']; ?> "; 
           $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
           data: {manage:'readbidang',satker_tujuan:kdsatker_tujuan},
-          success: function (output) {   
+          success: function (output) {     
+            $(".select2").select2();
             $('#bidang_tujuan').html(output);
             $("#bidang_tujuan").select2({
+           placeholder: "-- Pilih Unit Kerja Tujuan --",
          });
           }
         });
