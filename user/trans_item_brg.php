@@ -104,10 +104,10 @@ else {
                           </div>
                         </div> 
                         <?php if($_POST['jenistrans']!="Transfer ") { ?> 
-                          <div class="form-group">
+                          <div class="form-group" id="pilihan_kode">
                           <label class="col-sm-3 control-label">Kode Rekening Belanja</label>
                           <div class="col-sm-8">
-                            <select name="kode_rek" class="form-control select2" id="kode_rek" required >
+                            <select name="kode_rek" class="form-control select2" id="kode_rek" >
                             </select>
                           </div>
                         </div> 
@@ -337,17 +337,24 @@ else {
         //     var data = table.row( this ).data();
         //     alert( 'You clicked on '+data[0]+'\'s row' );
         // } );
-        $.ajax({
-            type: "post",
-            url: '../core/transaksi/prosestransaksi',
-            data: {manage:'baca_rekening'},
-            success: function (output) { 
-              $('#kode_rek').html(output);
-              $("#kode_rek").select2({
-              placeholder: "-- Pilih Rekening --"
-            });
-          }
-      });
+        var sumber_dana = "<?php echo $_POST['jenistrans']?>";
+        
+        if(sumber_dana=="APBD"){
+          $.ajax({
+              type: "post",
+              url: '../core/transaksi/prosestransaksi',
+              data: {manage:'baca_rekening'},
+              success: function (output) { 
+                $('#kode_rek').html(output);
+                $("#kode_rek").select2({
+                placeholder: "-- Pilih Rekening --"
+              });
+            }
+          });
+        }
+        else{
+          $('#pilihan_kode').hide();
+        }
         $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',

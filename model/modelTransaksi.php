@@ -207,11 +207,13 @@ class modelTransaksi extends mysql_db
 
     public function cek_status_opname($data){
         $kd_lokasi = $data['kd_lokasi'];
+        $kd_ruang = $data['kd_ruang'];
         $thn_ang = $data['thn_ang'];
         $kd_brg = $data['kd_brg'];
         $tgl_dok = $data['tgl_dok'];
+        $kd_satker=$kd_lokasi.$kd_ruang;
 
-        $query ="select nm_brg,spesifikasi, status from opname where kd_lokasi = '$kd_lokasi' and tgl_dok > '$tgl_dok' and kd_brg = '$kd_brg' and thn_ang = '$thn_ang' order by tgl_dok ASC limit 1";
+        $query ="select nm_brg,spesifikasi, status from opname where concat(kd_lokasi,IFNULL(kd_ruang,'')) = '$kd_satker' and tgl_dok > '$tgl_dok' and kd_brg = '$kd_brg' and thn_ang = '$thn_ang' order by tgl_dok ASC limit 1";
         $hasil = $this->query($query);
         $row_brg = $this->fetch_array($hasil);
         echo json_encode(array("st_op"=>$row_brg["status"],"nm_brg"=>$row_brg["nm_brg"], "spesifikasi"=>$row_brg["spesifikasi"]));
