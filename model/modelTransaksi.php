@@ -130,6 +130,9 @@ class modelTransaksi extends mysql_db
             $spesifikasi = str_replace("'", "", $spesifikasi);
             $satuan      = trim($data[$i]["E"]," \t\n\r\0\x0B\xA0\x0D\x0A");
             $satuan      = str_replace("'", "", $satuan);
+            if (!empty($satuan)) {
+                $unikSatuan[] = $satuan;
+            }
             for ($j=0; $j < 7 ; $j++) {
                 if (!empty($break[$j])) {
                     $variable[$j] = $break[$j];
@@ -168,7 +171,14 @@ class modelTransaksi extends mysql_db
             $values .= "('".$kodebarang."','".$variable[0]."','".$variable[1]."','".$variable[2]."','".$variable[3]."','".$variable[4]."','".$variable[5]."','".$variable[6]."','".$kodeperk."','".$namaperk."','".$kodesubkel."','".$namasubkel."','".$kodebarang."','".$fullname."','".$spesifikasi."','".$satuan."'),";
           }
         }
-        $query  = str_replace("''", "NULL", $replace.$values);;
+        $insertSatuan = "INSERT INTO satuan (satuan) VALUES ";
+        foreach (array_unique($unikSatuan) as $key => $value) {
+            $valueSatuan .= "('".$value."'),";
+        }
+        $querySatuan  = $insertSatuan.$valueSatuan;
+        $querySatuan  = substr($querySatuan,0,-1);
+        $this->query($querySatuan);
+        $query  = str_replace("''", "NULL", $replace.$values);
         $query  = substr($query,0,-1);
         $result = $this->query($query);
         return $result;
