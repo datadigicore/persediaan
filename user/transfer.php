@@ -40,7 +40,7 @@
                           
                           <div class="col-sm-3">
                             <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="Masukkan No. Faktur / Bon / SP" required>
-                            <input type="hidden" name="manage" value="tbh_transaksi_klr">  
+                            <input type="hidden" name="manage" value="tbh_transfer">  
                             <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>  
                           </div>
                           <label class="col-sm-2 control-label">Jenis Transfer</label>
@@ -48,8 +48,8 @@
                           <div class="col-sm-3">
                             <select name="jenis_transfer" id="jenis_transfer" class="form-control" required>
                             <option>Pilih Jenis Transfer</option>
-                              <option value="bagian">Transfer ke bagian dalam</option>
-                              <option value="skpd">Transfer ke SKPD Luar</option>
+                              <option value="K06">Transfer ke bagian dalam</option>
+                              <option value="K07">Transfer ke SKPD Luar</option>
                             </select>
                           </div>
                           
@@ -361,7 +361,7 @@
  
         $('#jenis_transfer').change(function(){
           var pilihan = $("#jenis_transfer").val();
-          if(pilihan=="bagian"){
+          if(pilihan=="K06"){
             $("#satker_tujuan").select2('val','');
             $("#satker_tujuan").select2('data',null);
             $("#bidang_tujuan").select2('data',null);
@@ -390,7 +390,7 @@
               }
             });
           }
-          else if(pilihan=="skpd"){
+          else if(pilihan=="K07"){
             $("#satker_tujuan").select2('val','');
             $("#satker_tujuan").select2('data',null);
             $("#bidang_tujuan").select2('data',null);
@@ -462,7 +462,7 @@
             $("#addtransmsk").css("display","none");
         }
       }});
-      
+
       $('#addtransmsk').submit(function(e){
         var jns_trans = $("#jenis_trans").val();
         var tahun_ang = $("#tahun_ang").val();

@@ -11,6 +11,26 @@ else
 	$manage = $_POST['manage'];
 	switch ($manage)
 	{ 
+		case 'konfirmasi_transfer':
+			$id = $purifier->purify($_POST['id']);
+			$trf = $Transaksi->get_transfer_detail($id);
+			// print_r($trf);
+			$data = array(
+					"kd_lokasi" => $trf['kd_lokasi'],
+					"ruang_asal"=> $_SESSION['kd_ruang'],
+					"kd_lok_msk"=> $trf['kd_lok_msk'],
+					"nm_satker" => $trf['nm_satker'],
+					"thn_ang" 	=> $trf['thn_ang'],
+					"no_dok" 	=> $trf['no_dok'],
+					"user_id" 	=> $_SESSION['username'],
+					"kd_brg" 	=> $trf['kd_brg'],
+					"satuan" 	=> $trf['satuan'],
+					"kuantitas" => $trf['qty'],
+					"trf"=>$trf['id']
+				);
+			print_r($data);
+			$Transaksi->trnsaksi_keluar($data);
+		break;
 		case 'baca_skpd':
 			$kd_lokasi = $_SESSION['kd_lok'];
 			$Transaksi->baca_skpd($kd_lokasi);
@@ -96,15 +116,15 @@ else
 		break;
 
 		case 'readbidang':
-			$satker_tujuan= $purifier->purify($_POST['satker_tujuan']);;
-			$kd_lokasi = $purifier->purify($_POST['satker_tujuan']);;
+			$satker_tujuan= substr($purifier->purify($_POST['satker_tujuan']), 0,11);
+			$kd_lokasi = substr($purifier->purify($_POST['satker_tujuan']), 0,11);
 			$thn_ang = $_SESSION['thn_ang'];
 			$data = array(
 				"satker_tujuan" => $satker_tujuan,
 				"kd_lokasi" => $kd_lokasi,
 				"thn_ang" => $thn_ang
 				);
-			// print_r($data);
+			print_r($data);
 			$Transaksi->baca_ruang($data);
 			// echo "Read Bidang";
 		break;
@@ -138,7 +158,12 @@ else
 		case 'readidenttransklr':
 			$idtrans = $purifier->purify($_POST['idtrans']);
 			$kd_ruang = $_SESSION['kd_lok'].$_SESSION['kd_ruang'];
-			$Transaksi->bacaidenttrans_klr($idtrans,$kd_ruang);
+			$Transaksi->bacaidenttrans_klr($idtrans,$kd_ruang,1);
+		break;
+		case 'read_detail_transfer':
+			$idtrans = $purifier->purify($_POST['idtrans']);
+			$kd_ruang = $_SESSION['kd_lok'].$_SESSION['kd_ruang'];
+			$Transaksi->bacaidenttrans_klr($idtrans,$kd_ruang,2);
 		break;
 		case 'readbrgmsk':
 			$kd_lokasi = $purifier->purify($_POST['kd_satker']);
@@ -197,7 +222,23 @@ else
 				"no_dok" => $no_dok,
 				"kd_brg" => $kd_brg
 				);
-			$Transaksi->sisa_barang($data);
+			$Transaksi->sisa_barang($data,1);
+		break;
+
+		case 'sisabarang_trf':
+			$kd_brg = $purifier->purify($_POST['kd_brg']);
+			$no_dok = $purifier->purify($_POST['nodok']);
+			$kd_lokasi = substr($no_dok, 0, 11);
+			$thn_ang = $_SESSION['thn_ang'];
+			$kd_ruang = $_SESSION['kd_ruang'];
+			$data = array(
+				"kd_lokasi" => $kd_lokasi,
+				"kd_ruang" => $kd_ruang,
+				"thn_ang" => $thn_ang,
+				"no_dok" => $no_dok,
+				"kd_brg" => $kd_brg
+				);
+			$Transaksi->sisa_barang($data,2);
 		break;
 		
 		case 'tutup_tahun':
@@ -213,6 +254,103 @@ else
 				);
 			//print_r($data);
 			$Transaksi->tutup_tahun($data);
+		break;
+
+		case 'tbh_transfer':
+			$kd_ruang="";
+			$kd_brg="";
+			$nm_ruang="";
+			$kd_tujuan="";
+			$kd_lokasi = $purifier->purify($_POST['read_no_dok']);
+			$satkernodok = $purifier->purify($_POST['read_no_dok']);
+			$nm_satker = $_SESSION['nama_satker'];
+			$thn_ang = $_SESSION['thn_ang'];
+			$ruang_asal = $_SESSION['kd_ruang'];
+			$no_bukti = $purifier->purify($_POST['no_dok']);
+			$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
+			$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
+			$jns_trans="K06";
+			$keterangan = $purifier->purify($_POST['keterangan']);
+			$status = 0;
+			$kd_brg = $purifier->purify($_POST['kd_brg']);
+			$user_id = $_SESSION['username'];
+
+
+			if($kd_brg==""){
+				$instansi="";
+				$data = explode("-", $purifier->purify($_POST['bidang_tujuan']));
+				$kd_ruang = $data[0];
+				$nm_ruang = $data[1];
+				$data_tujuan = explode("-", $purifier->purify($_POST['satker_tujuan']));
+				$kd_tujuan = $data_tujuan[0];
+				$nm_tujuan = $data_tujuan[1];
+				$jns_trans=$purifier->purify($_POST['jenis_transfer']);;
+
+				$no_dok = $kd_lokasi.' - '.$purifier->purify($_POST['no_dok']);
+				if($nm_ruang!=""){
+					$instansi=$nm_ruang;
+				}
+				else{
+					$instansi=$nm_satker;
+				}
+				$data = array(
+					"kd_lokasi" => $kd_lokasi,
+					"kd_lok_msk" => $kd_tujuan,
+					"kd_ruang" => $kd_ruang,
+					"ruang_asal" => $ruang_asal,
+					"nm_ruang" => $nm_ruang,
+					"nm_satker" => $nm_satker,
+					"nm_satker_msk" => $nm_tujuan,
+					"thn_ang" => $thn_ang,
+					"jns_trans" => $jns_trans,
+					"no_dok" => $no_dok,
+					"tgl_dok" => $tgl_dok,
+					"tgl_buku" => $tgl_buku,
+					"no_bukti" => $no_bukti,
+					"keterangan" => $keterangan,
+					"status" => $status,
+					"user_id" => $user_id
+
+				);
+				// print_r($data);
+				// echo "<br>Masuk Dokumen";
+
+				$Transaksi->tbh_transfer($data,1);
+				
+			}
+			else{
+				
+				$kuantitas = $purifier->purify($_POST['jml_msk']);
+				$satuan = $purifier->purify($_POST['satuan']);
+				$hrg_sat = $purifier->purify($_POST['rph_sat']);
+
+				$no_dok = $purifier->purify($_POST['no_dok_item']);
+				$data = array(
+					"kd_lokasi" => $_SESSION['kd_lok'],
+					"ruang_asal" => $ruang_asal,
+					"nm_satker" => $nm_satker,
+					"thn_ang" => $thn_ang,
+					"jns_trans" => $jns_trans,
+					"no_dok" => $no_dok,
+					"tgl_dok" => $tgl_dok,
+					"tgl_buku" => $tgl_buku,
+					"no_bukti" => $no_bukti,
+					"status" => $status,
+					"user_id" => $user_id,
+					"kd_brg" => $kd_brg,
+					"satuan" => $satuan,
+					"kuantitas" => $kuantitas,
+					"keterangan" => $keterangan,
+					"harga_sat" => $hrg_sat,
+					"keterangan" => $keterangan
+				);
+				// print_r($data);
+				// echo "<br>Masuk Item";
+				
+				$Transaksi->tbh_transfer($data,2);
+
+
+			}
 		break;
 
 		case 'tbh_transaksi_klr':

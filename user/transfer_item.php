@@ -35,7 +35,7 @@ else {
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tambah Dokumen Transaksi </h3>
+                  <h3 class="box-title">Tambah Dokumen Transfer </h3>
                 </div>
                 <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal"  id="addtransmsk" >
                   <div class="box-body" style="padding-top:15px;">
@@ -88,7 +88,7 @@ else {
                             <label class="col-sm-3 control-label">No. Dokumen</label>
                             <div class="col-sm-8">
                               <input type="text" name="no_dok_item" id="no_dok_item" class="form-control" style="width:100%;" readonly value="<?php echo $_POST['satker'];?>">
-                              <input type="hidden" name="manage" value="tbh_transaksi_klr">
+                              <input type="hidden" name="manage" value="tbh_transfer">
                             <input type="hidden" id="read_no_dok" name="read_no_dok">
                             </div>
                           </div>  
@@ -131,37 +131,12 @@ else {
                     </div>
                 </form>
               </div>
-              <?php if ($_POST['manage']=="trans_masuk") { ?>
-              <div class="box box-info">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Daftar Transaksi Masuk</h3>
-                </div>
-                <div class="box-body">
-                  <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>No Dok</th>
-                        <th>Kode Barang</th>
-                        <th>Nama Barang</th>
-                        <th>Spesifikasi</th>
-                        <th>Jumlah</th>
-                        <th>Satuan</th>
-                        <th>Harga Satuan</th>
-                        <th>Total Harga</th>  
-                        <th>Keterangan</th>
-                        <th width="8%">Sisa</th>
-                        <th width="8%">Aksi</th>
-                      </tr>
-                    </thead>
-                  </table>
-                </div>
-              </div>
-              <?php } ?>              
+             
               <?php if ($_POST['manage']=="trans_keluar") { ?>
               <div class="box box-info">
+                
                 <div class="box-header with-border">
-                  <h3 class="box-title">Daftar Transaksi Keluar</h3>
+                  <h6 class="box-title">Periksa kebenaran data sebelum mengusulkan transfer</h6>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
@@ -178,6 +153,16 @@ else {
                         <th>Total Harga</th>  
                         <th>Keterangan</th>
                         <th width="8%">Aksi</th>
+                        <th> kd_lokasi </th>
+                        <th> kd_lok_msk </th>
+                        <th> kd_ruang_msk </th>
+                        <th> nm_satker </th>
+                        <th> nm_satker_msk </th>
+                        <th> kd_brg </th>
+                        <th> nm_brg </th>
+                        <th> satuan </th>
+                        <th> qty </th>
+    
                       </tr>
                     </thead>
                   </table>
@@ -213,26 +198,15 @@ else {
       $(this).off('mousewheel.disableScroll')
     });
     var table;
-      $(function () {
-        $(".select2").select2();
-        $("#kd_brg").select2({
-          placeholder: "-- Pilih Kode Item Barang --",
-        });
-        $("li#trans_keluar").addClass("active");
-        $('#tgl_dok').datepicker({
-          format: "dd-mm-yyyy"
-        });         
-        $('#tgl_buku').datepicker({
-          format: "dd-mm-yyyy"
-        });             
-        $("li#saldo_awal").addClass("active");
-        table = $("#example1").DataTable({
+    function baca_tabel(){
+      
+      table = $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
           "ajax":
           {
             'type': 'GET',
-            'url': '../core/loadtable/loadtransklritm',
+            'url': '../core/loadtable/load_item_transfer',
             'data': {
                no_dok: '<?php echo $_POST["satker"]?>',
             },
@@ -252,8 +226,41 @@ else {
             {"targets": 8 },
             {"targets": 9 },
             {"targets": 10 },
+            {"targets": 11,
+             "visible": false },
+            {"targets": 12,
+             "visible": false },
+            {"targets": 13,
+             "visible": false },
+            {"targets": 14,
+             "visible": false },
+            {"targets": 15,
+             "visible": false },
+            {"targets": 16,
+             "visible": false },
+            {"targets": 17,
+             "visible": false },
+            {"targets": 18,
+             "visible": false },
+            {"targets": 19,
+             "visible": false },
           ],
         });
+    }
+      $(function () {
+        $(".select2").select2();
+        $("#kd_brg").select2({
+          placeholder: "-- Pilih Kode Item Barang --",
+        });
+        $("li#trans_keluar").addClass("active");
+        $('#tgl_dok').datepicker({
+          format: "dd-mm-yyyy"
+        });         
+        $('#tgl_buku').datepicker({
+          format: "dd-mm-yyyy"
+        });             
+        $("li#saldo_awal").addClass("active");
+        baca_tabel();
         // $('#example1 tbody').on('click', 'tr', function () {
         //     var data = table.row( this ).data();
         //     alert( 'You clicked on '+data[0]+'\'s row' );
@@ -261,7 +268,7 @@ else {
         $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
-          data: {manage:'readidenttransklr',idtrans:"<?php echo $_POST['satker']?>"},
+          data: {manage:'read_detail_transfer',idtrans:"<?php echo $_POST['satker']?>"},
           dataType: "json",
           success: function (output) {
             $('#disnobukti').val(output.nobukti);
@@ -280,7 +287,76 @@ else {
           }
         });
       });
+      $(document).on('click', '#btnkonfirm', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+        redirectTime = "2600";
+        redirectURL = "transfer";
+        id_row = row.data()[0];
+          kd_lok_msk  =  row.data()[12];
+          nm_satker   =  row.data()[14];
+          no_dok      =  row.data()[1];
+          kd_brg      = row.data()[2];
+          kuantitas   = row.data()[5];
+          managedata    = "konfirmasi_transfer";
+        // alert(kd_lok_msk+nm_satker+no_dok+kd_brg+kuantitas);
+        
+      });
+                    $(document).on('click', '#btnusul', function () {
+          var tr = $(this).closest('tr');
+          var row = table.row( tr );
+          manage = "usulkan_transfer";
+          id_row = row.data()[0];
+          $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'usulkan_transfer',id:id_row},
+          dataType: "json",
+          success: function (output) {
+            alert("Telah Diajukan");
+            $("#example1").DataTable().destroy();
+            $("#example1 tbody").empty();
+            baca_tabel();
+          }
+        });
+          
+        });
 
+        $(document).on('click', '#btnbatal', function () {
+          var tr = $(this).closest('tr');
+          var row = table.row( tr );
+          manage = "batalkan_transfer";
+          id_row = row.data()[0];
+          $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'batalkan_transfer',id:id_row},
+          dataType: "json",
+          success: function (output) {
+            alert("Telah Dibatalkan");
+            $("#example1").DataTable().destroy();
+            $("#example1 tbody").empty();
+            baca_tabel();
+          }
+        });
+          
+        });
+      $(document).on('click', '#btnkonfirm', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+        id_row = row.data()[0];
+        managedata = "konfirmasi_transfer";
+        $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'konfirmasi_transfer',id:id_row},
+          dataType: "json",
+          success: function (output) {
+           alert("Success");
+
+          }
+        });
+      });
       $(document).on('click', '#btnhps', function () {
       var tr = $(this).closest('tr');
       var row = table.row( tr );
@@ -327,34 +403,7 @@ else {
                   $("#keterangan").val('');
                   $("#example1").DataTable().destroy();
                   $("#example1 tbody").empty();
-                  table = $("#example1").DataTable({
-                    "processing": false,
-                    "serverSide": true,
-                    "ajax":
-                    {
-                      'type': 'GET',
-                      'url': '../core/loadtable/loadtransklritm',
-                      'data': {
-                         no_dok: '<?php echo $_POST["satker"]?>',
-                      },
-                    },
-                    "columnDefs":
-                    [
-                      {"targets": 0,
-                       "visible": false },
-                      {"targets": 1,
-                        "visible": false  },
-                      {"targets": 2 },
-                      {"targets": 3 },
-                      {"targets": 4 },
-                      {"targets": 5 },
-                      {"targets": 6 },
-                      {"targets": 7 },
-                      {"targets": 8 },
-                      {"targets": 9 },
-                      {"targets": 10 },
-                    ],
-                  });
+                  baca_tabel();
                 }
               });
 
@@ -389,7 +438,7 @@ else {
           $.ajax({
             type: "post",
             url: '../core/transaksi/prosestransaksi',
-            data: {manage:'sisabarang',kd_brg:kd_brg, nodok:'<?php echo $_POST["satker"];?>'},
+            data: {manage:'sisabarang_trf',kd_brg:kd_brg, nodok:'<?php echo $_POST["satker"];?>'},
             dataType: "json",
             success: function (output) {
             $('#rph_sat').val(output.sisa);
@@ -479,34 +528,7 @@ else {
               $('button:submit').attr("disabled", false);
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
-              table = $("#example1").DataTable({
-                "processing": false,
-                "serverSide": true,
-                "ajax":
-                {
-                  'type': 'GET',
-                  'url': '../core/loadtable/loadtransklritm',
-                  'data': {
-                     no_dok: '<?php echo $_POST["satker"]?>',
-                  },
-                },
-                "columnDefs":
-                [
-                  {"targets": 0,
-                   "visible": false },
-                  {"targets": 1,
-                    "visible": false  },
-                  {"targets": 2 },
-                  {"targets": 3 },
-                  {"targets": 4 },
-                  {"targets": 5 },
-                  {"targets": 6 },
-                  {"targets": 7 },
-                  {"targets": 8 },
-                  {"targets": 9 },
-                  {"targets": 10 },
-                ],
-              });
+              baca_tabel();
             }
           });
           return false;
