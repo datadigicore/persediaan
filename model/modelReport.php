@@ -104,6 +104,7 @@ class modelReport extends mysql_db
             $lingkup = $data['lingkup'];
 
             $date = $this->cek_periode($data);
+            ob_start();
             echo '<p align="center" style="margin:0px; padding:0px; font-weight:bold;">LAPORAN POSISI PERSEDIAAN DI NERACA PER REKENING</p>
                 <p align="center" style="margin:0px; padding:0px; font-weight:bold;">UNTUK PERIODE YANG BERAKHIR PADA '.$date.'</p>
                 <p align="center" style="margin:0px; padding:0px; font-weight:bold;">TAHUN ANGGARAN '.$thn_ang.'</p><br></br>';
@@ -119,7 +120,8 @@ class modelReport extends mysql_db
             //                   <td><b>NILAI NON PERSEDIAN</b></td>
             //                   <td><b>TOTAL</b></td>
             //               </tr>';
-            echo '<table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border=1 align="center">
+
+            echo '<table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border="1" align="center">
                           <tr>
                               <td width="5%"><b>NO</b></td>
                               <td width="9%"><b>REK. BELANJA</b></td>
@@ -129,6 +131,7 @@ class modelReport extends mysql_db
                               <td><b>BLUD</b></td>
                               <td><b>Bantuan Pem.Pusat / Prov.</b></td>
                           </tr>';
+
             $sql    = "SELECT kd_perk, nm_perk, kode_rekening, nama_rekening, jns_trans, sum(total_harga) as total_harga from transaksi_masuk   where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_lokasi' and thn_ang='$thn_ang' and tgl_dok>'$tgl_dok' group by kd_perk, kode_rekening order by kd_perk asc";
             // print_r($sql);
             $no=1;
@@ -172,6 +175,7 @@ class modelReport extends mysql_db
                            </tr>';
 
                 }
+
                 // if($rek_persediaan!=$val['kd_perk'] and $no==1){
 
                 //     echo '<tr>
@@ -216,10 +220,17 @@ class modelReport extends mysql_db
                 //             <td>'.'0'.'</td>
                 //            </tr>';
                 // }
-                // $rek_persediaan         = $val['kd_perk'];
-                // $nilai_rek_persediaan   += $val['total_harga']; 
+                $rek_persediaan         = $val['kd_perk'];
+                $nilai_rek_persediaan   += $val['total_harga']; 
                 $no++;
             }
+            echo "</table>";
+            $html = ob_get_contents(); 
+            ob_end_clean();
+            $mpdf=new mPDF('utf-8', 'A4-L');
+            $mpdf->WriteHTML(utf8_encode($html));
+            $mpdf->Output("rekap_per_rekening.pdf" ,'I');
+            exit;
         }
 
     public function buku_persediaan($data)
