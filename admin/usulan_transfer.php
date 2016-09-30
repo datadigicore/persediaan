@@ -108,7 +108,24 @@
           $form.submit();
         });
 
-
+      $(document).on('click', '#btnkonfirm', function () {
+          var tr = $(this).closest('tr');
+          var row = table.row( tr );
+          manage = "konfirmasi_transfer";
+          id_row = row.data()[0];
+          $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'konfirmasi_transfer',id:id_row},
+          dataType: "json",
+          success: function (output) {
+            alert("Telah Diajukan");
+            $("#example1").DataTable().destroy();
+            $("#example1 tbody").empty();
+            baca_tabel();
+          }
+        });   
+      });
        
       });
  

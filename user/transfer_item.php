@@ -136,7 +136,7 @@ else {
               <div class="box box-info">
                 
                 <div class="box-header with-border">
-                  <h6 class="box-title">Periksa kebenaran data sebelum mengusulkan transfer</h6>
+                  <h6 class="box-title">Periksa kebenaran data sebelum mengusulkan transfer. Transfer Barang tidak dapat dibatalkan / dihapus</h6>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
@@ -302,7 +302,7 @@ else {
         // alert(kd_lok_msk+nm_satker+no_dok+kd_brg+kuantitas);
         
       });
-                    $(document).on('click', '#btnusul', function () {
+      $(document).on('click', '#btnusul', function () {
           var tr = $(this).closest('tr');
           var row = table.row( tr );
           manage = "usulkan_transfer";

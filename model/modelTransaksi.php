@@ -654,6 +654,13 @@ class modelTransaksi extends mysql_db
             return $result2;
     }    
 
+    public function usulkan_transfer($data){
+        return $this->query("UPDATE transfer set status=1 where id='$data' ");
+    }
+
+    public function hapus_transfer($data){
+        return $this->query("UPDATE transfer set status=3 where id='$data' ");      
+    }
 
   public function tbh_transfer($data,$jenis)
     {

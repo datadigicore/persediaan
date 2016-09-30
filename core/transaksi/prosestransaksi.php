@@ -10,7 +10,19 @@ else
 {
 	$manage = $_POST['manage'];
 	switch ($manage)
-	{ 
+	{
+		case 'batalkan_transfer':
+			$id = $purifier->purify($_POST['id']);
+			print_r($id);
+			$Transaksi->batalkan_transfer($id);
+		break;
+
+		case 'usulkan_transfer':
+			$id = $purifier->purify($_POST['id']);
+			print_r($id);
+			$Transaksi->usulkan_transfer($id);
+		break;
+
 		case 'konfirmasi_transfer':
 			$id = $purifier->purify($_POST['id']);
 			$trf = $Transaksi->get_transfer_detail($id);
