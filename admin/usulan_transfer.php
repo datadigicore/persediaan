@@ -119,12 +119,12 @@
           data: {manage:'konfirmasi_transfer',id:id_row},
           dataType: "json",
           success: function (output) {
-            alert("Telah Diajukan");
-            $("#example1").DataTable().destroy();
-            $("#example1 tbody").empty();
-            baca_tabel();
+            
           }
-        });   
+        });
+        $("#example1").DataTable().destroy();
+        $("#example1 tbody").empty();
+        baca_tabel();   
       });
        
       });
