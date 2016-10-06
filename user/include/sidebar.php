@@ -22,12 +22,13 @@
                 <li id="l_kartu_p_brg"><a href="l_kartu_p_brg"><span>Kartu Persediaan Barang</span></a></li>
                 <li id="l_pp_bph"><a href="l_pp_bph"><span>Penerimaan & Pengeluaran</span></a></li>
                 <li id="ba_opname"><a href="ba_opname"><span>Berita Acara Stock Opname</span></a></li>
-                <li id="buku_brg"><a href="buku_brg"><span>Buku Persediaan</span></a></li>
+               
                 <li id="lap_sedia"><a href="lap_persediaan"><span>Laporan Persediaan</span></a></li>
                 <li id="rincian_persediaan"><a href="rincian_persediaan"><span>Rincian Persediaan</span></a></li>
                 <li id="neraca"><a href="neraca"><span>Posisi Persediaan</span></a></li>
-                <li id="mutasi_prsedia"><a href="mutasi_prsedia"><span>Mutasi Persediaan</span></a></li>
+                <!-- <li id="mutasi_prsedia"><a href="mutasi_prsedia"><span>Mutasi Persediaan</span></a></li> -->
                 <li id="mutasi_prsedia"><a href="rekap_rekening"><span>Rekap Persediaan Per Rekening</span></a></li>
+                <li id="mutasi_prsedia"><a href="rekap_rekening2"><span>Belanja Persediaan 2</span></a></li>
               </ul>
             </li>
             <li id="opname"><a href="../documentation/PETUNJUK_PENGGUNAAN.pdf" download><i class="fa fa-download"></i> <span> Petunjuk Penggunaan</span></a></li>           
