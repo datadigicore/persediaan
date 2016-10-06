@@ -49,6 +49,31 @@ else
 			$Report->laporan_per_rekening($data);
 		break;
 
+		case 'laporan_per_rekening2':
+			$kd_lokasi = $purifier->purify($_POST['satker']);
+			$satker_asal = $_SESSION['kd_lok'];
+			$thn_ang = $purifier->purify($_SESSION['thn_ang']);
+			$kd_brg = $purifier->purify($_POST['kd_brg']);
+			$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
+			$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
+			$lingkup = $purifier->purify($_POST['lingkup']);
+			$format = $purifier->purify($_POST['format']);
+			$user_id= $_SESSION['username'];
+			$data = array(
+				"jenis"			=>"tanggal",
+				"kd_brg" 		=> $kd_brg,
+				"thn_ang" 		=> $thn_ang,
+				"tgl_awal" 		=> $tgl_awal,
+				"tgl_akhir" 	=> $tgl_akhir,
+				"kd_lokasi" 	=> $kd_lokasi,
+				"satker_asal" 	=> $satker_asal,
+				"lingkup" 		=> $lingkup,
+				"format" 		=> $format,
+				"user_id" 		=> $user_id);
+				// print_r($data);
+			$Report->laporan_belanja_persediaan($data);
+		break;
+
 		case 'baca_satker':
 		$kd_lokasi= $_SESSION['kd_lok'];
 		$Report->baca_satker($kd_lokasi);
