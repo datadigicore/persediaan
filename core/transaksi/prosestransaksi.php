@@ -496,7 +496,7 @@ else
 			$satkernodok = $purifier->purify($_POST['read_no_dok']);
 			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
-			
+			$nilai_kontrak = $_POST['nilai_kontrak'];
 			$no_bukti = $purifier->purify($_POST['no_dok']);
 			$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
 			$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
@@ -527,8 +527,10 @@ else
 					"tgl_buku" => $tgl_buku,
 					"no_bukti" => $no_bukti,
 					"keterangan" => $keterangan,
+					"nilai_kontrak" =>$nilai_kontrak,
 					"status" => $status,
 					"user_id" => $user_id
+					
 					// "kd_brg" => $kd_brg,
 					// "nm_brg" => $nm_brg,
 					// "satuan" => $satuan,
@@ -537,7 +539,7 @@ else
 					// "harga_sat" => $hrg_sat,
 					// "keterangan" => $keterangan,
 				);
-				//print_r($data);
+				// print_r($data);
 				// echo 'masuk ident';
 				$Transaksi->transaksi_masuk_ident($data);
 			}

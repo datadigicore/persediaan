@@ -18,7 +18,31 @@ $primaryKey = 'id';
 // Load Data berdasarkan nama table nya
 $columns = array(
     array( 'db' => 'id', 'dt' => 0 ),
-    array( 'db' => 'jns_trans', 'dt' => 1,'formatter' => function($d,$row){if($d=="M01"){return "Saldo Awal";}elseif($d=="M02"){return "Pembelian";}elseif($d=="M03"){return "Hibah Masuk";}elseif($d=="M04"){return "Perolehan Lainnya";}elseif($d=="M06"){return "Transfer ";} elseif ($d=="M07"){ return "APBD"; }{
+    array( 'db' => 'jns_trans', 'dt' => 1,
+        'formatter' => function($d,$row){
+            if($d=="M01"){
+                return "Saldo Awal";}
+            elseif($d=="M02"){
+                return "Pembelian";}
+            elseif($d=="M03"){
+                return "Hibah Masuk";}
+            elseif($d=="M04"){
+                return "Perolehan Lainnya";}
+            elseif($d=="M06"){
+                return "Transfer ";} 
+            elseif ($d=="M07"){ 
+                return "APBD"; }
+            elseif ($d=="M08"){ 
+                return "Bantuan Pem. Pusat"; }
+            elseif ($d=="M09"){ 
+                return "Bantuan Pem. Prov."; }
+            elseif ($d=="M10"){ 
+                return "BOS"; }
+            elseif ($d=="M11"){ 
+                return "BLUD"; }
+            elseif ($d=="M12"){ 
+                return "Lainnya"; }
+                {
         # code...
     }} ),
     array( 'db' => 'no_dok', 'dt' => 2 ),
@@ -26,7 +50,8 @@ $columns = array(
     array( 'db' => 'tgl_dok', 'dt' => 4, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
     array( 'db' => 'tgl_buku', 'dt' => 5, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
     array( 'db' => 'keterangan', 'dt' => 6 ),
-    array( 'db' => 'jns_trans', 'dt' => 7,'formatter' => function($d,$row){if($d!="M06"){ return '<div class="row-fluid">'.
+    array( 'db' => 'nilai_kontrak', 'dt' => 7 ),
+    array( 'db' => 'jns_trans', 'dt' => 8,'formatter' => function($d,$row){if($d!="M06"){ return '<div class="row-fluid">'.
                                                                                                   '<button id="btntmbh" class="col-xs-6 btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'.
                                                                                                   '<button id="btnedt" class="col-xs-6 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'.
                                                                                                 '</div>'; 

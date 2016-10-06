@@ -395,8 +395,9 @@ class modelTransaksi extends mysql_db
         $no_dok = $data['no_dok'];
         $kode_rek =$data['kode_rek'];
         $nama_rek =$data['nama_rek'];
+        
 
-        $query_dok = "select kd_lokasi,kd_ruang, tgl_dok, tgl_buku, no_bukti, jns_trans, keterangan from transaksi_masuk where no_dok='$no_dok' and status_ambil=0 ";
+        $query_dok = "select kd_lokasi,kd_ruang, tgl_dok, tgl_buku, no_bukti, jns_trans, keterangan,nilai_kontrak from transaksi_masuk where no_dok='$no_dok' and status_ambil=0 ";
         $result_dok = $this->query($query_dok);
         if($this->num_rows($result_dok)==0)
         {
@@ -416,6 +417,7 @@ class modelTransaksi extends mysql_db
         $no_bukti = $dok['no_bukti'];
         $jns_trans = $dok['jns_trans'];
         $keterangan = $dok['keterangan'];
+        $nilai_kontrak =$dok['nilai_kontrak'];
 
         $kd_brg = $data['kd_brg'];
         $kuantitas = $data['kuantitas'];
@@ -502,6 +504,7 @@ class modelTransaksi extends mysql_db
                     harga_sat='$harga_sat',
                     total_harga='$total_harga',
                     keterangan='$keterangan',
+                    nilai_kontrak='$nilai_kontrak',
                     status=0,
                     tgl_update=CURDATE(),
                     user_id='$user_id'";   
@@ -559,6 +562,7 @@ class modelTransaksi extends mysql_db
     public function transaksi_masuk_ident($data)
     {
         $kd_lokasi = $data['kd_lokasi'];
+        $nilai_kontrak = $data['nilai_kontrak'];
         $kd_ruang = $data['kd_ruang'];
         $kd_lok_msk = $data['kd_lokasi'];
         $nm_satker = $data['nm_satker'];
@@ -586,6 +590,7 @@ class modelTransaksi extends mysql_db
                     no_bukti='$no_bukti',
                     jns_trans='$jns_trans',
                     keterangan='$keterangan',
+                    nilai_kontrak='$nilai_kontrak',
                     status=0,
                     tgl_update=CURDATE(),
                     user_id='$user_id'"; 
