@@ -28,7 +28,7 @@ else{
 }
 $query = mysqli_query($connect,$sql);
 $data  = mysqli_fetch_assoc($query);
-if (mysqli_num_rows($query) == 1) {
+if (mysqli_num_rows($query) == 1 AND $data['user_name'] == $username) {
 	$_SESSION['kd_lok']      = $data['kd_lokasi'];
 	$_SESSION['kd_ruang']    = $data['kd_ruang'];
 	$_SESSION['username']    = $data['user_name'];
