@@ -76,8 +76,12 @@
                                         
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Keterangan</label>
-                      <div class="col-sm-8">
+                      <div class="col-sm-3">
                         <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Mis. Nama Pihak / Sumber pengirim barang" >
+                      </div> 
+                      <label class="col-sm-2 control-label">Nilai Non Persediaan / Kontrak (Rp.)</label>
+                      <div class="col-sm-3">
+                        <input type="number" min="1" name="nilai_kontrak" class="form-control" id="nilai_kontrak" placeholder="Masukkan Niali Kontrak Dokumen" >
                       </div> 
                     </div>
                   </div>
@@ -96,12 +100,13 @@
                     <thead>
                       <tr>
                         <th width="1%">ID</th>
-                        <th width="5%">Jenis Transaksi</th>
-                        <th width="18%">Nomor Dokumen</th>
+                        <th width="5%">Sumber Dana</th>
+                        <th width="18%">No. Dokumen</th>
                         <th width="18%">No Bukti</th>
                         <th width="12%">Tanggal Dokumen</th>
                         <th width="12%">Tanggal Pembukuan</th>
                         <th >Keterangan</th>
+                        <th >Nilai Non-Persediaan</th>
                         <th width="15%">Aksi</th>
                       </tr>
                     </thead>
@@ -121,6 +126,7 @@
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script src="../dist/js/jquery.mask.js" ></script>
     <script type="text/javascript">
+      
       function masuk_tanggal() {
       
         var tgl_dok = $('#tgl_dok').val();
@@ -166,6 +172,7 @@
             {"targets": 5 },
             {"targets": 6 },
             {"targets": 7 },
+            {"targets": 8 },
             
           ],
         });
@@ -313,6 +320,7 @@
                   {"targets": 5 },
                   {"targets": 6 },
                   {"targets": 7 },
+                  {"targets": 8 },
                 ],
                 "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
               });
@@ -462,6 +470,7 @@
                   {"targets": 5 },
                   {"targets": 6 },
                   {"targets": 7 },
+                  {"targets": 8 },
                 ],
                 "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
               });

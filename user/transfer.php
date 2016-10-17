@@ -396,20 +396,26 @@
             $("#bidang_tujuan").select2('data',null);
             $("#detail_transfer").show();
             $("#bidang_tujuan").val('');
-
+            var skpd_asal;
             $.ajax({
               type: "post",
               url: '../core/transaksi/prosestransaksi',
               data: {manage:'baca_skpd_luar'},
               success: function (output) {    
                   $('#satker_tujuan').html(output);
-                 // $(".select2").select2();  
-                  $("#satker_tujuan").select2({
-        //    placeholder: "-- Pilih Unit Kerja Tujuan --",
-        //    allowClear:true
-      });
+                  skpd_asal = $("#satker_tujuan").val();
+                  $("#satker_tujuan").select2({});
+                  $.ajax({
+                    type: "post",
+                    url: '../core/transaksi/prosestransaksi',
+                    data: {manage:'readbidang',satker_tujuan:skpd_asal},
+                    success: function (output) {
+                      $('#bidang_tujuan').html(output);
+                      $("#bidang_tujuan").select2({});
+                    }
+                  });
               }
-            });
+            });            
           }
           else{
             $("#detail_transfer").hide();

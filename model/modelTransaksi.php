@@ -143,7 +143,6 @@ class modelTransaksi extends mysql_db
             }
             for ($j=0; $j < 7 ; $j++) {
                 if (!empty($break[$j])) {
-                    $variable[$j] = $break[$j];
                     if (count($break) == 5) {
                         $kodesubkel  = "";
                         $namasubkel  = "";
@@ -153,9 +152,8 @@ class modelTransaksi extends mysql_db
                         $fullname    = "";
                         $namaperk    = trim($data[$i]["C"]," \t\n\r\0\x0B\xA0\x0D\x0A");
                         $namaperk    = str_replace("'", "", $namaperk);
-                        $kodeperk    = ltrim($variable[0], '0').ltrim($variable[1], '0').ltrim($variable[2], '0').$variable[3].$variable[4];
-                        // print_r($kodeperk);
-                        // die();
+                        $kodeperk    = ltrim($break[0], '0').ltrim($break[1], '0').ltrim($break[2], '0').$break[3].$break[4];
+                        $unikPerk[$kodeperk]  = $namaperk;
                     }
                     else if (count($break) == 6) {
                         $spesifikasi = "";
@@ -164,7 +162,7 @@ class modelTransaksi extends mysql_db
                         $fullname    = "";
                         $namasubkel = trim($data[$i]["C"]," \t\n\r\0\x0B\xA0\x0D\x0A");
                         $namasubkel = str_replace("'", "", $namasubkel);
-                        $kodesubkel = $variable[0].".".$variable[1].".".$variable[2].".".$variable[3].".".$variable[4].".".$variable[5];
+                        $kodesubkel = $break[0].".".$break[1].".".$break[2].".".$break[3].".".$break[4].".".$break[5];
                     }
                     else if (count($break) == 7) {
                         $namabarang = trim($data[$i]["C"]," \t\n\r\0\x0B\xA0\x0D\x0A");
@@ -172,13 +170,17 @@ class modelTransaksi extends mysql_db
                         $fullname   = $namabarang." ".$spesifikasi;
                     }
                 }
-                else {
-                    $variable[$j] = NULL;
-                }
             }
-            $values .= "('".$kodebarang."','".$variable[0]."','".$variable[1]."','".$variable[2]."','".$variable[3]."','".$variable[4]."','".$variable[5]."','".$variable[6]."','".$kodeperk."','".$namaperk."','".$kodesubkel."','".$namasubkel."','".$kodebarang."','".$fullname."','".$spesifikasi."','".$satuan."'),";
+            $values .= "('".$kodebarang."','".$break[0]."','".$break[1]."','".$break[2]."','".$break[3]."','".$break[4]."','".$break[5]."','".$break[6]."','".$kodeperk."','".$namaperk."','".$kodesubkel."','".$namasubkel."','".$kodebarang."','".$fullname."','".$spesifikasi."','".$satuan."'),";
           }
         }
+        $insertPerk = "INSERT INTO perk (kd_perk,nm_perk) VALUES ";
+        foreach (array_unique($unikPerk) as $key => $value) {
+            $valuePerk .= "('".$key."','".$value."'),";
+        }
+        $queryPerk  = $insertPerk.$valuePerk;
+        $queryPerk  = substr($queryPerk,0,-1);
+        $this->query($queryPerk);
         $insertSatuan = "INSERT INTO satuan (satuan) VALUES ";
         foreach (array_unique($unikSatuan) as $key => $value) {
             $valueSatuan .= "('".$value."'),";
@@ -190,6 +192,60 @@ class modelTransaksi extends mysql_db
         $query  = substr($query,0,-1);
         $result = $this->query($query);
         return $result;
+    }
+
+    public function importTransMasuk($data){
+        error_reporting(0);
+        // print_r('<pre>');
+        $value['kd_lokasi']      = $data[1][B];
+        $cekkdlokasi        = "SELECT NamaSatker FROM satker WHERE kode = '$value[kd_lokasi]'";
+        $result             = $this->query($cekkdlokasi);
+        $assocResult        = $this->fetch_assoc($result);
+        $value['nm_satker'] = $assocResult['NamaSatker'];
+        $value['user_id']   = $_SESSION['username'];
+        $value['thn_ang']   = $_SESSION['thn_ang'];
+        $value['no_dok']    = $data[1][B].' - '.$data[2][B];
+        $tgldok             = split('-', $data[4][B]);
+        $value['tgl_dok']   = $tgldok[2].'-'.$tgldok[1].'-'.$tgldok[0];
+        $tglbuku            = split('-', $data[5][B]);
+        $value['tgl_buku']  = $tglbuku[2].'-'.$tglbuku[1].'-'.$tglbuku[0];
+        $value['no_bukti']  = $data[2][B];
+        $value['jns_trans'] = $data[3][B];
+        if ($value['tgl_dok'] > $value['tgl_buku']) {
+            echo "Melebihi";
+        }
+        $value['nilai_kontrak'] = $data[6][B];
+        $value['keterangan']    = $data[7][B];
+        $arrayCount             = count($data);
+        $replace                = "INSERT INTO transaksi_masuk (kd_lokasi, nm_satker, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, kd_perk, nm_perk, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, satuan, qty, qty_akhir, harga_sat, total_harga, jns_trans, nilai_kontrak, keterangan, tgl_update, user_id) VALUES ";
+        for ($i=10; $i <= $arrayCount; $i++) {
+          $value['kd_brg'] = trim($data[$i]["A"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+          $cekbarang       = "SELECT kd_brg, nm_brg, kd_perk, nm_perk, kd_sskel, nm_sskel, spesifikasi, satuan FROM persediaan WHERE kd_brg = '$value[kd_brg]' LIMIT 1";
+          $result          = $this->query($cekbarang);
+          if (!empty($result->num_rows)) {
+              $arrayResult = $this->fetch_assoc($result);
+              $value['nm_brg'] = $arrayResult['nm_brg'];
+              $value['kd_perk'] = $arrayResult['kd_perk'];
+              $value['nm_perk'] = $arrayResult['nm_perk'];
+              $value['kd_sskel'] = $arrayResult['kd_sskel'];
+              $value['nm_sskel'] = $arrayResult['nm_sskel'];
+              $value['spesifikasi'] = $arrayResult['spesifikasi'];
+              $value['satuan'] = trim($data[$i]["C"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+              $value['qty'] = trim($data[$i]["D"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+              $value['qty_akhir'] = trim($data[$i]["D"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+              $value['harga_sat'] = trim($data[$i]["E"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+              $value['total_harga'] = $value['qty']*$value['harga_sat'];
+              if (!empty($data[$i]["F"])) {
+                  $value['kd_belanja'] = trim($data[$i]["F"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+                  $value['nm_belanja'] = trim($data[$i]["G"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+              }
+          }
+          $replace = "INSERT INTO transaksi_masuk (kd_lokasi, nm_satker, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, kd_perk, nm_perk, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, satuan, qty, qty_akhir, harga_sat, total_harga, jns_trans, nilai_kontrak, keterangan, tgl_update, user_id) VALUES ";
+          $values .= "('".$value['kd_lokasi']."','".$value['nm_satker']."','".$value['thn_ang']."','".$value['no_dok']."','".$value['tgl_dok']."','".$value['tgl_buku']."','".$value['no_bukti']."','".$value['kd_perk']."','".$value['nm_perk']."','".$value['kd_sskel']."','".$value['nm_sskel']."','".$value['kd_brg']."','".$value['nm_brg']."','".$value['spesifikasi']."','".$value['satuan']."','".$value['qty']."','".$value['qty_akhir']."','".$value['harga_sat']."','".$value['total_harga']."','".$value['jns_trans']."','".$value['nilai_kontrak']."','".$value['keterangan']."',NOW(),'".$value['keterangan']."'),";
+        }
+        $query  = str_replace("''", "NULL", $replace.$values);
+        $query  = substr($query,0,-1);
+        $result = $this->query($query);
     }
 
     public function importRekening($data){
@@ -395,8 +451,9 @@ class modelTransaksi extends mysql_db
         $no_dok = $data['no_dok'];
         $kode_rek =$data['kode_rek'];
         $nama_rek =$data['nama_rek'];
+        
 
-        $query_dok = "select kd_lokasi,kd_ruang, tgl_dok, tgl_buku, no_bukti, jns_trans, keterangan from transaksi_masuk where no_dok='$no_dok' and status_ambil=0 ";
+        $query_dok = "select kd_lokasi,kd_ruang, tgl_dok, tgl_buku, no_bukti, jns_trans, keterangan,nilai_kontrak from transaksi_masuk where no_dok='$no_dok' and status_ambil=0 ";
         $result_dok = $this->query($query_dok);
         if($this->num_rows($result_dok)==0)
         {
@@ -416,6 +473,7 @@ class modelTransaksi extends mysql_db
         $no_bukti = $dok['no_bukti'];
         $jns_trans = $dok['jns_trans'];
         $keterangan = $dok['keterangan'];
+        $nilai_kontrak =$dok['nilai_kontrak'];
 
         $kd_brg = $data['kd_brg'];
         $kuantitas = $data['kuantitas'];
@@ -502,6 +560,7 @@ class modelTransaksi extends mysql_db
                     harga_sat='$harga_sat',
                     total_harga='$total_harga',
                     keterangan='$keterangan',
+                    nilai_kontrak='$nilai_kontrak',
                     status=0,
                     tgl_update=CURDATE(),
                     user_id='$user_id'";   
@@ -559,6 +618,7 @@ class modelTransaksi extends mysql_db
     public function transaksi_masuk_ident($data)
     {
         $kd_lokasi = $data['kd_lokasi'];
+        $nilai_kontrak = $data['nilai_kontrak'];
         $kd_ruang = $data['kd_ruang'];
         $kd_lok_msk = $data['kd_lokasi'];
         $nm_satker = $data['nm_satker'];
@@ -586,6 +646,7 @@ class modelTransaksi extends mysql_db
                     no_bukti='$no_bukti',
                     jns_trans='$jns_trans',
                     keterangan='$keterangan',
+                    nilai_kontrak='$nilai_kontrak',
                     status=0,
                     tgl_update=CURDATE(),
                     user_id='$user_id'"; 
@@ -2144,7 +2205,7 @@ class modelTransaksi extends mysql_db
   
     public function bacabrg($data)
     {
-        $query = "select kd_brg, nm_brg, spesifikasi from persediaan where CONCAT(kd_brg,' ',nm_brg,' ',spesifikasi) like '%$data%' and char_length(kd_brg)>18 ";
+        $query = "select kd_brg, nm_brg, spesifikasi from persediaan where CONCAT(kd_brg,' ',nm_brg) like '%$data%' and char_length(kd_brg)>18 ";
         $result = $this->query($query);
         $json = array();
         while ($row = $this->fetch_array($result))

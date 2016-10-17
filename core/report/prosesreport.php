@@ -27,6 +27,7 @@ else
 		case 'laporan_per_rekening':
 			$kd_lokasi = $purifier->purify($_POST['satker']);
 			$satker_asal = $_SESSION['kd_lok'];
+			$kd_ruang = $_SESSION['kd_ruang'];
 			$thn_ang = $purifier->purify($_SESSION['thn_ang']);
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
@@ -37,6 +38,7 @@ else
 			$data = array(
 				"jenis"			=>"tanggal",
 				"kd_brg" 		=> $kd_brg,
+				"kd_ruang" 		=> $kd_ruang,
 				"thn_ang" 		=> $thn_ang,
 				"tgl_awal" 		=> $tgl_awal,
 				"tgl_akhir" 	=> $tgl_akhir,
@@ -52,6 +54,7 @@ else
 		case 'laporan_per_rekening2':
 			$kd_lokasi = $purifier->purify($_POST['satker']);
 			$satker_asal = $_SESSION['kd_lok'];
+			$kd_ruang = $_SESSION['kd_ruang'];
 			$thn_ang = $purifier->purify($_SESSION['thn_ang']);
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
@@ -62,6 +65,7 @@ else
 			$data = array(
 				"jenis"			=>"tanggal",
 				"kd_brg" 		=> $kd_brg,
+				"kd_ruang" 		=> $kd_ruang,
 				"thn_ang" 		=> $thn_ang,
 				"tgl_awal" 		=> $tgl_awal,
 				"tgl_akhir" 	=> $tgl_akhir,

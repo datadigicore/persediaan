@@ -99,13 +99,17 @@ class modelReport extends mysql_db
 
     public function laporan_belanja_persediaan($data){
         $kd_lokasi  = $data['kd_lokasi'];
+        $kd_ruang   = $data['kd_ruang'];
         $satker_asal= $data['satker_asal'];
         $thn_ang    = $data['thn_ang'];
         $lingkup    = $data['lingkup'];
+        $tgl_awal = $data['tgl_awal'];
+        $tgl_akhir = $data['tgl_akhir'];
         $date       = $this->cek_periode($data);
         ob_start();
         $this->getsatker($kd_lokasi);
-        $sql        = "SELECT kd_perk, nm_perk, kode_rekening, nama_rekening, jns_trans, sum(total_harga) as total_harga from transaksi_masuk   where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_lokasi' and thn_ang='$thn_ang' and tgl_dok>'$tgl_dok' group by kd_perk, kode_rekening order by kd_perk asc";
+        $sql        = "SELECT kd_perk, nilai_kontrak, nm_perk, kode_rekening, nama_rekening, jns_trans, sum(total_harga),nilai_kontrak as total_harga from transaksi_masuk   where kd_lokasi='$kd_lokasi' and IFNULL(kd_ruang,'')='$kd_ruang' and thn_ang='$thn_ang' and tgl_dok<='$tgl_akhir'  order by kd_perk,no_dok asc";
+        // print_r($sql);
         $result     = $this->query($sql);
         $no                     =1;
         $rek_persediaan         ="";
@@ -136,7 +140,7 @@ class modelReport extends mysql_db
                             <td style="align:left;">'.$val['kode_rekening'].'</td>
                             <td style="align:left;">'.$val['nama_rekening'].'</td>
                             <td>'.number_format($val['total_harga'],2,",",".").'</td>    
-                            <td>'.'0'.'</td>
+                            <td>'.number_format($val['nilai_kontrak'],2,",",".").'</td>
                             <td>'.'0'.'</td>
                            </tr>';
                 }
@@ -187,7 +191,7 @@ class modelReport extends mysql_db
     }
      public function laporan_per_rekening($data){
             
-            $kd_lokasi = $data['kd_lokasi'];
+            $kd_lokasi = $data['kd_lokasi'].$data['kd_ruang'];
             $satker_asal = $data['satker_asal'];
             $thn_ang = $data['thn_ang'];
             $lingkup = $data['lingkup'];
