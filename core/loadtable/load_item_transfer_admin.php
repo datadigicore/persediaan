@@ -31,29 +31,12 @@ $columns = array(
     array( 'db' => 'total_harga', 'dt' => 8, 'formatter' => function($d,$row){if(ceil($d)!=$d or floor($d)!=$d) {return number_format(abs($d),2,",",".");} else { return number_format(abs($d),0,",",".");} } ),
     array( 'db' => 'keterangan', 'dt' => 9 ),
     array( 'db' => 'status', 'dt' => 10,'formatter' => function($d,$row){
-        if($d==0){
-           if($_SESSION['level']==2 && $row['jns_trans']=="K07"){  
-                return  '<div class="row-fluid">'.'<button id="btnbatal" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> Batalkan Transfer</button>'. '</div>'.
-                    '<div class="row-fluid">'.'<button id="btnusul" class="btn btn-flat btn-warning btn-xs"><i class="fa fa-level-up"></i> Usulkan Transfer</button>'. '</div>';
-                    
-            }
-            elseif($_SESSION['level']==2 && $row['jns_trans']=="K06"){  
-                return  '<div class="row-fluid">'.'<button id="btnkonfirm" class="btn btn-flat btn-success btn-xs"><i class="fa fa-remove"></i> Konfirmasi Transfer</button>'. '</div>';
-                    
-            }
-            else{
-                return 'Belum Diusulkan';
-            } 
+        if($d==0){           
+            return 'Belum Diusulkan';          
         }
         elseif($d==1)
         {
-            if($_SESSION['level']==2){
-                return 'Telah Diajukan';  
-            }
-            else{
-                return '<div class="row-fluid">'.'<button id="btnkonfirm" class="btn btn-flat btn-success btn-xs"><i class="fa fa-remove"></i> Konfirmasi Transfer</button>'. '</div>';
-            }
-            
+            return '<div class="row-fluid">'.'<button id="btnkonfirm" class="btn btn-flat btn-success btn-xs"><i class="fa fa-remove"></i> Konfirmasi Transfer</button>'. '</div>';
         }
         elseif($d==2)
         {

@@ -395,6 +395,7 @@ class modelTransaksi extends mysql_db
         $no_dok = $data['no_dok'];
         $kode_rek =$data['kode_rek'];
         $nama_rek =$data['nama_rek'];
+        $nilai_kontrak =$data['nilai_kontrak'];
         
 
         $query_dok = "select kd_lokasi,kd_ruang, tgl_dok, tgl_buku, no_bukti, jns_trans, keterangan,nilai_kontrak from transaksi_masuk where no_dok='$no_dok' and status_ambil=0 ";
@@ -417,7 +418,7 @@ class modelTransaksi extends mysql_db
         $no_bukti = $dok['no_bukti'];
         $jns_trans = $dok['jns_trans'];
         $keterangan = $dok['keterangan'];
-        $nilai_kontrak =$dok['nilai_kontrak'];
+        
 
         $kd_brg = $data['kd_brg'];
         $kuantitas = $data['kuantitas'];
@@ -498,13 +499,13 @@ class modelTransaksi extends mysql_db
                     nm_perk='$nm_perk',
                     kode_rekening='$kode_rek',                           
                     nama_rekening='$nama_rek',
+                    nilai_kontrak='$nilai_kontrak',
                     satuan='$satuan',
                     qty='$kuantitas',
                     qty_akhir='$kuantitas',
                     harga_sat='$harga_sat',
                     total_harga='$total_harga',
                     keterangan='$keterangan',
-                    nilai_kontrak='$nilai_kontrak',
                     status=0,
                     tgl_update=CURDATE(),
                     user_id='$user_id'";   
@@ -590,7 +591,6 @@ class modelTransaksi extends mysql_db
                     no_bukti='$no_bukti',
                     jns_trans='$jns_trans',
                     keterangan='$keterangan',
-                    nilai_kontrak='$nilai_kontrak',
                     status=0,
                     tgl_update=CURDATE(),
                     user_id='$user_id'"; 
