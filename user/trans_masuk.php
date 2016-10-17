@@ -123,6 +123,7 @@
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script src="../dist/js/jquery.mask.js" ></script>
     <script type="text/javascript">
+      
       function masuk_tanggal() {
       
         var tgl_dok = $('#tgl_dok').val();

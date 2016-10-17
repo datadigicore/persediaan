@@ -19,6 +19,13 @@ class modelBarang extends mysql_db
 
 	}
 
+	public function addrekbarang($data)
+	{
+		$query = "INSERT INTO perk SET kd_perk = '$data[kdrekening]', nm_perk = '$data[nmrekening]'";
+		$result = $this->query($query);
+       	return $result;
+	}
+
 	public function tambahsubbrg($data)
 	{
 		$kode_rekening = $data['kode_rekening'];
@@ -135,17 +142,15 @@ class modelBarang extends mysql_db
 	}
 	public function ubahsubbrg($data)
 	{
-		$id = $data['id'];
-		$kd_brg = $data['kdbrg'];
-		$nm_brg = $data['nmbrg'];
-		$spesifikasi = $data['spesifikasi'];
-		$satuan = $data['satuan'];
 		$query = "UPDATE persediaan
-        			set kd_brg='$kd_brg',
-        			nm_brg='$nm_brg',
-                    spesifikasi='$spesifikasi',
-                    satuan='$satuan'
-                    where id = '$id'";
+        			SET";
+        foreach ($data as $key => $value) {
+        	if (!empty($value)) {
+        		$query .= " ".$key." = '".$value."',";
+        	}
+        }
+        $query  = substr($query,0,-1);
+        $query .= " WHERE id = '$data[id]'";
         $result = $this->query($query);
 		return $result;
 	}
@@ -237,20 +242,11 @@ class modelBarang extends mysql_db
 		$query = "select kd_sskel, nm_sskel from persediaan where CONCAT(kd_brg,' ',nm_sskel) like '%$data%' group by kd_sskel order by kd_brg asc";
         $result = $this->query($query);
         $json = array();
-
+        echo '<option value=""></option>';
         while ($row = $this->fetch_array($result))
         {
         	echo '<option value="'.$row['kd_sskel'].'">'.$row['kd_sskel'].' '.$row['nm_sskel']."</option>";
-        	// if ((substr_count($row['kd_brg'],".") >= 3 and (substr_count($row['kd_brg'],".") <= 5))) {
-        	// 	$dynamic = array(
-	        //         'id' => $row['kd_brg'],
-	        //         'text' => $row['kd_brg']." ".$row['nm_brg']
-	        //     );
-	        //     array_push($json, $dynamic);
-        	// }
-            
         }   
-        // echo json_encode($json);
 	}
 
 	public function bacassatuan($data)
@@ -302,19 +298,36 @@ public function hapusbarang($data)
 		return $result;
 	}
 
-public function cek_barang($data)
-{
+public function delrekbarang($data)
+	{
+		$query = "delete from perk
+					 where id='$data'";
+		$result = $this->query($query);
+		return $result;
+	}
 
-	$kd_lokasi = $data['kd_lokasi'];
-	$kd_brg = $data['kd_brg'];
-	$query = "select kd_brg from transaksi_masuk where kd_brg='$kd_brg' and kd_lokasi like '$kd_lokasi%' ";
-	$result = $this->query($query);
-	$data = $this->fetch_array($result);
-	$kdbrg = $data['kd_brg'];
+	public function cek_barang($data)
+	{
 
-	echo json_encode(array("kdbrg"=>$data));
+		$kd_lokasi = $data['kd_lokasi'];
+		$kd_brg = $data['kd_brg'];
+		$query = "select kd_brg from transaksi_masuk where kd_brg='$kd_brg' and kd_lokasi like '$kd_lokasi%' ";
+		$result = $this->query($query);
+		$data = $this->fetch_array($result);
+		$kdbrg = $data['kd_brg'];
 
-}
+		echo json_encode(array("kdbrg"=>$data));
+
+	}
+	public function updrekbarang($data){
+		$query = "UPDATE perk
+				  SET 
+	    			kd_perk='$data[kd_perk]',
+	    			nm_perk='$data[nm_perk]'
+				  WHERE id='$data[id]'";
+		$result = $this->query($query);
+		return $result;
+	}
 
 }
 ?>

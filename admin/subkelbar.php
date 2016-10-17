@@ -213,30 +213,6 @@
         $(".treeview").addClass("active");
         $("li#subkelbar").addClass("active");
         myTable();
-        $(document).on("click", "#btnedt", function(){
-          var tr = $(this).closest('tr');
-          var row = table.row( tr );
-          id_row = row.data()[0];
-          kdbarang_row = row.data()[1];
-          urbarang_row  = row.data()[2];
-          spesifikasi_row  = row.data()[3];
-          satuan_row  = row.data()[4];
-          if ( row.child.isShown() ) {
-            $('div.slider', row.child()).slideUp( function () {
-              row.child.hide();
-              tr.removeClass('shown');
-            });
-          }
-          else {
-            row.child( format(row.data())).show();
-            tr.addClass('shown');
-            $('div.slider', row.child()).slideDown();
-            $("#kdbarang"+id_row+"").val(kdbarang_row);
-            $("#urbarang"+id_row+"").val(urbarang_row);
-            $("#spesifikasi"+id_row+"").val(spesifikasi_row);
-            $("#satuan"+id_row+"").val(satuan_row);
-          }
-        });
 
         $(document).on("click", "#btnalih", function(){
           var tr = $(this).closest('tr');
@@ -265,13 +241,13 @@
             row.child( ubh_jns(row.data())).show();
             tr.addClass('shown');
             $('div.slider', row.child()).slideDown();
-            $("#kdbarang"+id_row+"").val(kdbarang_row);
-            $("#urbarang"+id_row+"").val(urbarang_row);
-            $("#spesifikasi"+id_row+"").val(spesifikasi_row);
-            $("#satuan"+id_row+"").val(satuan_row);
+            $("#kdbarang"+id_row).val(kdbarang_row);
+            $("#urbarang"+id_row).val(urbarang_row);
+            $("#spesifikasi"+id_row).val(spesifikasi_row);
+            $("#satuan"+id_row).val(satuan_row);
             $("#kdbaru").select2({
              placeholder: "Pilih Jenis Barang Persediaan",
-             allowClear: false
+             allowClear: true
             });
           }
         });
@@ -321,53 +297,59 @@
             $('#kdbarang_no').html(output);
           }
        });
-      function format ( d ) {
+      function ubh_jns(d) {
         return '<div class="slider">'+
         '<form action="../core/barang/prosesbarang" method="post" class="form-horizontal" id="updbarang">'+
-        '<table width="100%">'+
-           '<tr>'+
+        '<table cellpadding="5" cellspacing="0" border="0" width="100%">'+
+            '<tr>'+
               '<input type="hidden" name="manage" value="updsubbarang">'+
               '<input type="hidden" name="id" value="'+d[0]+'">'+
-              '<td width="15.8%"><input style="width:95%" id="kdbarang'+d[0]+'" name="updkdbarang" class="form-control" type="text" placeholder="Kode Barang"></td>'+
-              '<td width="44.2%"><input style="width:98.2%" id="urbarang'+d[0]+'" name="updurbarang" class="form-control" type="text" placeholder="Uraian Barang"></td>'+
-              '<td><input style="width:94%" id="spesifikasi'+d[0]+'" name="updspesifikasi" class="form-control" type="text" placeholder="Spesifikasi"></td>'+
-              '<td><input style="width:94%" id="satuan'+d[0]+'" name="updsatuan" class="form-control" type="text" placeholder="Satuan"></td>'+
-              '<td style="vertical-align:middle; width:15%;">'+
-                '<div class="box-tools">'+
-                  '<button id="btnrst" class="btn btn-flat btn-sm btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
-                  '<button id="btnupd" class="btn btn-flat btn-sm btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
-                '</div>'
+              '<td style="padding:0 12px;"><input style="width:100%" id="kdbarang'+d[0]+'" name="kd_brg" class="form-control" type="text" placeholder="Kode Barang" value="'+d[1]+'"></td>'+
+              '<td style="padding:0 12px;" colspan="2"><input style="width:100%" id="urbarang'+d[0]+'" name="nm_brg" class="form-control" type="text" placeholder="Uraian Barang" value="'+d[3]+'"></td>'+
+              '<td style="padding:0 12px;"><input style="width:100%" id="spesifikasi'+d[0]+'" name="spesifikasi" class="form-control" type="text" placeholder="Spesifikasi"value="'+d[4]+'"></td>'+
+              '<td style="padding:0 12px;"><input style="width:100%" id="satuan'+d[0]+'" name="satuan" class="form-control" type="text" placeholder="Satuan"value="'+d[5]+'"></td>'+
+            '</tr>'+
+            '<tr>'+
+              '<td style="padding:0 12px;"><input style="width:100%" id="satuan'+d[0]+'" class="form-control" type="text" value="'+d[2]+'" readonly></td>'+
+              '<td style="padding:0 12px;"><select style="width:100%" name="kd_sskel" id="kdbaru" class="form-control select2" ></select></td>'+
+              '<td></td><td></td><td>'+
+              '<div class="box-tools">'+
+                '<button id="btnupd" class="btn btn-flat btn-sm btn-primary btn-sm pull-right" style="margin-right:12px"><i class="fa fa-upload"></i> Update</button>'+
+              '</div>'
               '</td>'+
-           '</tr>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Extra info:</td>'+
+                '<td>And any further details here (images etc)...</td>'+
+            '</tr>'+
         '</table>'+
-        '</form></div>';  
+        '</form></div>';
       }
+      // function ubh_jns ( d ) {
+      //   return '<div class="slider">'+
+      //   '<form action="../core/barang/prosesbarang" method="post" class="form-horizontal" id="updjenis">'+
+      //   '<table width="100%">'+
+      //      '<tr>'+
+      //         '<input type="hidden" name="manage" value="updjenisbrg">'+
+      //         '<input type="hidden" name="id" value="'+d[0]+'">'+
+      //         '<input type="hidden" name="kodebarang" value="'+d[1]+'">'+
+      //         '<input type="hidden" name="namabarang" value="'+d[3]+'">'+
+      //         '<input type="hidden" name="spesifikasi" value="'+d[4]+'">'+
+      //         '<input type="hidden" name="satuan" value="'+d[5]+'">'+
 
-      function ubh_jns ( d ) {
-        return '<div class="slider">'+
-        '<form action="../core/barang/prosesbarang" method="post" class="form-horizontal" id="updjenis">'+
-        '<table width="100%">'+
-           '<tr>'+
-              '<input type="hidden" name="manage" value="updjenisbrg">'+
-              '<input type="hidden" name="id" value="'+d[0]+'">'+
-              '<input type="hidden" name="kodebarang" value="'+d[1]+'">'+
-              '<input type="hidden" name="namabarang" value="'+d[3]+'">'+
-              '<input type="hidden" name="spesifikasi" value="'+d[4]+'">'+
-              '<input type="hidden" name="satuan" value="'+d[5]+'">'+
-
-              '<td width="5%">Jenis Awal</td>'+
-              '<td width="25.8%"><input style="width:94%" id="satuan'+d[2]+'" name=jns_lama"updsatuan" class="form-control" type="text" value="'+d[2]+'" readonly></td>'+
-              '<td width="5%">Jenis Baru</td>'+
-              '<td width="50%"><select style="width:100%" name="kdbaru" id="kdbaru" class="form-control select2" ></select></td>'+
-              '<td style="vertical-align:middle; width:15%;">'+
-                '<div class="box-tools">'+
-                  '<button id="btnupd" class="btn btn-flat btn-sm btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
-                '</div>'
-              '</td>'+
-           '</tr>'+
-        '</table>'+
-        '</form></div>';  
-      }
+      //         '<td width="5%">Jenis Awal</td>'+
+      //         '<td width="25.8%"><input style="width:94%" id="satuan'+d[2]+'" name=jns_lama"updsatuan" class="form-control" type="text" value="'+d[2]+'" readonly></td>'+
+      //         '<td width="5%">Jenis Baru</td>'+
+      //         '<td width="50%"><select style="width:100%" name="kdbaru" id="kdbaru" class="form-control select2" ></select></td>'+
+      //         '<td style="vertical-align:middle; width:15%;">'+
+      //           '<div class="box-tools">'+
+      //             '<button id="btnupd" class="btn btn-flat btn-sm btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
+      //           '</div>'
+      //         '</td>'+
+      //      '</tr>'+
+      //   '</table>'+
+      //   '</form></div>';  
+      // }
       $(document).on('submit', '#updjenis', function (e) {
         redirectTime = "1000";
         var formURL = $(this).attr("action");
