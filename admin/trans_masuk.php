@@ -22,80 +22,22 @@
         <section class="content">
           <div class="row">
             <section class="col-lg-12 connectedSortable">
-              <!-- <div class="box box-info">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Tambah Dokumen Transaksi </h3>
-                </div>
-                <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal"  id="addtransmsk" >
-                  <div class="box-body" style="padding-top:15px;">
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">SKPD</label>
-                      <div class="col-sm-8">
-                        <select name="read_no_dok" id="read_no_dok" class="form-control">
-                        </select>
-                      </div>
-                      
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Nomor Dokumen</label>
-                      <div class="col-sm-3">
-                        <input type="text" name="no_dok" class="form-control"  id="no_dok" placeholder="Masukkan No. SP / BASTP / dsb">
-                        <input type="hidden" name="manage" value="tbh_transaksi_msk">
-                        <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>
-                        <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>    
-                      </div>
-                      <label class="col-sm-2 control-label">Jenis Transaksi</label>
-                      <div class="col-sm-3">
-                        <select name="jenis_trans" id="jenis_trans" class="form-control">
-                          <option value="">Pilih Jenis Transaksi</option>
-                          <option value="M01">Saldo Awal</option>
-                          <option value="M02">Pembelian</option>
-                          <option value="M03">Hibah Masuk</option>
-                          <option value="M04">Pengadaan</option>
-                          <option value="M05">Perolehan Lainnya</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Tanggal Dokumen</label>
-                      <div class="col-sm-3">
-                        <input type="text" name="tgl_dok" class="form-control" id="tgl_dok"  onchange="masuk_tanggal()" >
-                      </div>
-                      <label class="col-sm-2 control-label">Tanggal Pembukuan</label>
-                      <div class="col-sm-3">
-                        <input type="text" name="tgl_buku" class="form-control" id="tgl_buku"  >
-                      </div> 
-                    </div>                    
-                                        
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Keterangan</label>
-                      <div class="col-sm-8">
-                        <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Mis. Nama Pihak / Sumber pengirim barang" >
-                      </div> 
-                    </div>
-                  </div>
-                  <div class="box-footer">
-                    <button type="Reset" class="btn btn-default">Reset</button>
-                    <button type="submit" class="btn btn-info pull-right">Submit</button>
-                  </div>
-                </form>
-              </div> -->
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Daftar Transaksi Masuk</h3>
+                  <h3 class="box-title">Daftar Transaksi Masuk</h3> <a href="#importModal" data-toggle="modal" class="btn btn-sm btn-success pull-right" style="margin-right: 12px;padding: 4px 25px">Import</a>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th width="1%">ID</th>
-                        <th width="5%">SKPD</th>
-                        <th width="5%">Jenis Transaksi</th>
-                        <th width="18%">Nomor Dokumen</th>
-                        <th width="12%">Tanggal Dokumen</th>
-                        <th width="12%">Tanggal Pembukuan</th>
+                        <th >ID</th>
+                        <th >SKPD</th>
+                        <th >Jenis Transaksi</th>
+                        <th >Nomor Dokumen</th>
+                        <th >Tanggal Dokumen</th>
+                        <th >Tanggal Pembukuan</th>
                         <th >Keterangan</th>
-                        <th style="width:100px; max-width:100px;">Aksi</th>
+                        <th >Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -108,12 +50,66 @@
       <?php include("include/footer.php"); ?>
       <?php include("include/success.php"); ?>
     </div>
+    <style type="text/css"> 
+      .modal {
+        text-align: center;
+        padding: 0!important;
+      }
+      .modal:before {
+        content: '';
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+        margin-right: -4px;
+      }
+      .modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+      }
+    </style>
+    <div class="modal fade" id="importModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form action="../core/import/prosesimport" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="manage" value="importTransMasuk">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" style="color:white">×</span></button>
+              <h4 class="modal-title">Import Transaksi Masuk</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <input type="file" id="fileimport" name="fileimport" style="display:none;">
+                <a id="selectbtn" class="col-sm-2 btn btn-flat btn-primary" style="position:absolute;right:16px;">Pilih File</a>
+                <input type="text" id="filename" class="form-control" placeholder="Pilih File .xls / .xlsx" readonly>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="col-sm-2 pull-right btn btn-flat btn-success">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
     <?php include("include/loadjs.php"); ?>
     <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script src="../dist/js/jquery.mask.js" ></script>
     <script type="text/javascript">
+    $('#selectbtn').click(function () {
+        $("#fileimport").trigger('click');
+      });
+      $("#fileimport").change(function(){
+        $("#filename").attr('value', $(this).val().replace(/C:\\fakepath\\/i, ''));
+      });
+      $('#selectbtn-revisi').click(function () {
+        $("#fileimport-revisi").trigger('click');
+      });
+      $("#fileimport-revisi").change(function(){
+        $("#filename-revisi").attr('value', $(this).val().replace(/C:\\fakepath\\/i, ''));
+      });
       function masuk_tanggal() {
       
         var tgl_dok = $('#tgl_dok').val();
@@ -160,7 +156,7 @@
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btntmbh" class="btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Lihat item</button>'+
+                                  '<button id="btntmbh" class="btn btn-info btn-flat btn-xs"><i class="fa fa-plus"></i> Lihat item</button>'+
                                   // '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                 '</div>',
              "targets": [7],"targets": 7 },

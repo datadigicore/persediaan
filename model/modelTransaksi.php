@@ -196,33 +196,32 @@ class modelTransaksi extends mysql_db
 
     public function importTransMasuk($data){
         error_reporting(0);
-        print_r('<pre>');
-        $value['kd_lokasi']      = $data[1][B];  
-        $value['kd_ruang']       = $_SESSION['kd_ruang'];  
-        if ($value['kd_lokasi'] != $_SESSION['kd_lok']) {
-            echo "Tidak Sesuai";
-        }
-        $value['user_id']        = $_SESSION['username'];
-        $value['nm_satker']      = $_SESSION['nama_satker'];
-        $value['thn_ang']        = $_SESSION['thn_ang'];
-        $value['no_dok']         = $data[1][B].' - '.$data[2][B];
-        $tgldok                  = split('-', $data[4][B]);
-        $value['tgl_dok']        = $tgldok[2].'-'.$tgldok[1].'-'.$tgldok[0];
-        $tglbuku                 = split('-', $data[5][B]);
-        $value['tgl_buku']       = $tglbuku[2].'-'.$tglbuku[1].'-'.$tglbuku[0];
-        $value['no_bukti']       = $data[2][B];
-        $value['jns_trans']      = $data[3][B];
+        // print_r('<pre>');
+        $value['kd_lokasi']      = $data[1][B];
+        $cekkdlokasi        = "SELECT NamaSatker FROM satker WHERE kode = '$value[kd_lokasi]'";
+        $result             = $this->query($cekkdlokasi);
+        $assocResult        = $this->fetch_assoc($result);
+        $value['nm_satker'] = $assocResult['NamaSatker'];
+        $value['user_id']   = $_SESSION['username'];
+        $value['thn_ang']   = $_SESSION['thn_ang'];
+        $value['no_dok']    = $data[1][B].' - '.$data[2][B];
+        $tgldok             = split('-', $data[4][B]);
+        $value['tgl_dok']   = $tgldok[2].'-'.$tgldok[1].'-'.$tgldok[0];
+        $tglbuku            = split('-', $data[5][B]);
+        $value['tgl_buku']  = $tglbuku[2].'-'.$tglbuku[1].'-'.$tglbuku[0];
+        $value['no_bukti']  = $data[2][B];
+        $value['jns_trans'] = $data[3][B];
         if ($value['tgl_dok'] > $value['tgl_buku']) {
             echo "Melebihi";
         }
         $value['nilai_kontrak'] = $data[6][B];
-        $value['keterangan'] = $data[7][B];
-        $arrayCount = count($data);
-        $replace = "INSERT INTO transaksi_masuk (kd_lokasi, nm_satker, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, kd_perk, nm_perk, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, satuan, qty, qty_akhir, harga_sat, total_harga, jns_trans, nilai_kontrak, keterangan, tgl_update, user_id) VALUES ";
+        $value['keterangan']    = $data[7][B];
+        $arrayCount             = count($data);
+        $replace                = "INSERT INTO transaksi_masuk (kd_lokasi, nm_satker, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, kd_perk, nm_perk, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, satuan, qty, qty_akhir, harga_sat, total_harga, jns_trans, nilai_kontrak, keterangan, tgl_update, user_id) VALUES ";
         for ($i=10; $i <= $arrayCount; $i++) {
           $value['kd_brg'] = trim($data[$i]["A"]," \t\n\r\0\x0B\xA0\x0D\x0A");
-          $cekbarang = "SELECT kd_brg, nm_brg, kd_perk, nm_perk, kd_sskel, nm_sskel, spesifikasi, satuan FROM persediaan WHERE kd_brg = '$value[kd_brg]' LIMIT 1";
-          $result = $this->query($cekbarang);
+          $cekbarang       = "SELECT kd_brg, nm_brg, kd_perk, nm_perk, kd_sskel, nm_sskel, spesifikasi, satuan FROM persediaan WHERE kd_brg = '$value[kd_brg]' LIMIT 1";
+          $result          = $this->query($cekbarang);
           if (!empty($result->num_rows)) {
               $arrayResult = $this->fetch_assoc($result);
               $value['nm_brg'] = $arrayResult['nm_brg'];
