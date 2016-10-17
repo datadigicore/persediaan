@@ -15,6 +15,7 @@ else
 
 		case 'check_tahun':
 			$username = $purifier->purify($_POST['keyword']);
+			$username = mysql_escape_string($username);
 			if ($username == "masteradmin" or $username == "adminsimsedia") {
 				$Dashboard->bacatahun();
 			}
