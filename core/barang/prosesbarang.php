@@ -195,28 +195,9 @@ else
 		break;
 
 		case 'updsubbarang':
-			$id = $purifier->purify($_POST['id']);
-			$kdbarang = $purifier->purify($_POST['updkdbarang']);
-			$nmbarang = $purifier->purify($_POST['updurbarang']);
-			$spesifikasi = $purifier->purify($_POST['updspesifikasi']);
-			$satuan = $purifier->purify($_POST['updsatuan']);
-			$data = array(
-				"id" => $id,
-				"kdbrg" => $kdbarang,
-				"nmbrg" => $nmbarang,
-				"spesifikasi" => $spesifikasi,
-				"satuan" => $satuan,
-		    );
-		    // print_r($data);
-			$Barang->ubahsubbrg($data);
-			$datalog = array(
-				"kdbrg" => $kdbarang,
-				"nmbrg" => $nmbarang,
-				"spesifikasi" => $spesifikasi,
-				"satuan" => $satuan,
-				"aksi" => "U-Persediaan"
-		    );
-			$Barang->loghistory($datalog);
+			unset($_POST['manage']);
+			$_POST = $purifier->purifyArray($_POST);
+			$Barang->ubahsubbrg($_POST);
 		break;
 
 		case 'hapusbarang':

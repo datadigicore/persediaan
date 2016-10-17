@@ -142,17 +142,15 @@ class modelBarang extends mysql_db
 	}
 	public function ubahsubbrg($data)
 	{
-		$id = $data['id'];
-		$kd_brg = $data['kdbrg'];
-		$nm_brg = $data['nmbrg'];
-		$spesifikasi = $data['spesifikasi'];
-		$satuan = $data['satuan'];
 		$query = "UPDATE persediaan
-        			set kd_brg='$kd_brg',
-        			nm_brg='$nm_brg',
-                    spesifikasi='$spesifikasi',
-                    satuan='$satuan'
-                    where id = '$id'";
+        			SET";
+        foreach ($data as $key => $value) {
+        	if (!empty($value)) {
+        		$query .= " ".$key." = '".$value."',";
+        	}
+        }
+        $query  = substr($query,0,-1);
+        $query .= " WHERE id = '$data[id]'";
         $result = $this->query($query);
 		return $result;
 	}
@@ -244,20 +242,11 @@ class modelBarang extends mysql_db
 		$query = "select kd_sskel, nm_sskel from persediaan where CONCAT(kd_brg,' ',nm_sskel) like '%$data%' group by kd_sskel order by kd_brg asc";
         $result = $this->query($query);
         $json = array();
-
+        echo '<option value=""></option>';
         while ($row = $this->fetch_array($result))
         {
         	echo '<option value="'.$row['kd_sskel'].'">'.$row['kd_sskel'].' '.$row['nm_sskel']."</option>";
-        	// if ((substr_count($row['kd_brg'],".") >= 3 and (substr_count($row['kd_brg'],".") <= 5))) {
-        	// 	$dynamic = array(
-	        //         'id' => $row['kd_brg'],
-	        //         'text' => $row['kd_brg']." ".$row['nm_brg']
-	        //     );
-	        //     array_push($json, $dynamic);
-        	// }
-            
         }   
-        // echo json_encode($json);
 	}
 
 	public function bacassatuan($data)
