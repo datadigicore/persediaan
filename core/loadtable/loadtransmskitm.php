@@ -20,19 +20,19 @@ $primaryKey = 'id';
  
 // Load Data berdasarkan nama table nya
 $columns = array(
-    array( 'db' => 'id', 'dt' => 0 ),
-    array( 'db' => 'no_dok', 'dt' => 1 ),
-    array( 'db' => 'kd_brg', 'dt' => 2, ),
-    array( 'db' => 'nm_brg', 'dt' => 3 ),
-    array( 'db' => 'spesifikasi', 'dt' => 4 ),
-    array( 'db' => 'qty', 'dt' => 5, 'formatter' => function($d,$row){if(ceil($d)!=$d or floor($d)!=$d) {return number_format($d,2,",",".");} else { return number_format($d,0,",",".");} } ),
-    array( 'db' => 'satuan', 'dt' => 6 ),
-    array( 'db' => 'harga_sat', 'dt' => 7, 'formatter' => function($d,$row){return number_format($d,2,",",".");} ),
-    array( 'db' => 'total_harga', 'dt' => 8, 'formatter' => function($d,$row){return number_format($d,2,",",".");}),
+    array( 'db' => 'id', 'dt' => 0, 'field' => 'id'  ),
+    array( 'db' => 'no_dok', 'dt' => 1, 'field' => 'no_dok'  ),
+    array( 'db' => 'concat(`kode_rekening`,"-", `nama_rekening`)', 'dt' => 2, 'field' => 'kode_rekening' , 'as' => 'kode_rekening' ),
+    array( 'db' => 'nm_brg', 'dt' => 3, 'field' => 'nm_brg'  ),
+    array( 'db' => 'spesifikasi', 'dt' => 4, 'field' => 'spesifikasi'  ),
+    array( 'db' => 'qty', 'dt' => 5, 'field' => 'qty' , 'formatter' => function($d,$row){if(ceil($d)!=$d or floor($d)!=$d) {return number_format($d,2,",",".");} else { return number_format($d,0,",",".");} } ),
+    array( 'db' => 'satuan', 'dt' => 6, 'field' => 'satuan'  ),
+    array( 'db' => 'harga_sat', 'dt' => 7, 'field' => 'harga_sat' , 'formatter' => function($d,$row){return number_format($d,2,",",".");} ),
+    array( 'db' => 'total_harga', 'dt' => 8, 'field' => 'total_harga' , 'formatter' => function($d,$row){return number_format($d,2,",",".");}),
     
-    array( 'db' => 'keterangan', 'dt' => 9 ),
-    array( 'db' => 'qty_akhir', 'dt' => 10, 'formatter' => function($d,$row){if(ceil($d)!=$d or floor($d)!=$d) {return number_format($d,2,",",".");} else { return number_format($d,0,",",".");} }  ),
-    array( 'db' => 'jns_trans', 'dt' => 11,'formatter' => function($d,$row){if($d!="M06"){ return '<div class="row-fluid">'.'<button id="btnhps" class="btn btn-flat btn-danger btn-xs col-xs-12"><i class="fa fa-remove"></i> Hapus</button>'.'<button id="btnedt" class="btn btn-success btn-xs btn-flat col-xs-12"><i class="fa fa-edit"></i> Edit</button>'.
+    array( 'db' => 'keterangan', 'dt' => 9, 'field' => 'keterangan'  ),
+    array( 'db' => 'qty_akhir', 'dt' => 10, 'field' => 'qty_akhir' , 'formatter' => function($d,$row){if(ceil($d)!=$d or floor($d)!=$d) {return number_format($d,2,",",".");} else { return number_format($d,0,",",".");} }  ),
+    array( 'db' => 'jns_trans', 'dt' => 11, 'field' => 'jns_trans' ,'formatter' => function($d,$row){if($d!="M06"){ return '<div class="row-fluid">'.'<button id="btnhps" class="btn btn-flat btn-danger btn-xs col-xs-12"><i class="fa fa-remove"></i> Hapus</button>'.'<button id="btnedt" class="btn btn-success btn-xs btn-flat col-xs-12"><i class="fa fa-edit"></i> Edit</button>'.
             '</div>'; 
     }
     else{
@@ -69,7 +69,7 @@ else{
 }
  
 // Pengaturan Output Server Side Processing
-require( '../../config/ssp.class.php' );
+require( '../../config/ssp-join.php' );
 echo json_encode(
-    SSP::simplewhere($_GET, $sql_details, $table, $primaryKey, $columns, $where )
+    SSP::simple($_GET, $sql_details, $table, $primaryKey, $columns, "FROM {$table}", $where )
 ); 

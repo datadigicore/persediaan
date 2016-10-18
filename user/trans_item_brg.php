@@ -213,7 +213,7 @@ else {
                       <tr>
                         <th>ID</th>
                         <th>No Dok</th>
-                        <th>Kode Barang</th>
+                        <th width="10%">Rekening</th>
                         <th>Nama Barang</th>
                         <th>Spesifikasi</th>
                         <th>Jumlah</th>
