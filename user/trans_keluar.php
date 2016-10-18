@@ -100,6 +100,7 @@
                         <th>Tanggal Dokumen</th>
                         <th>Tanggal Pembukuan</th>
                         <th>Keterangan</th>
+                        <th>Total Transaksi</th>
                         <th width="15%">Aksi</th>
                       </tr>
                     </thead>
@@ -155,13 +156,14 @@
             {"targets": 4 },
             {"targets": 5 },
             {"targets": 6 },
+            {"targets": 7 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="row-fluid">'+
                                   '<button id="btntmbh" class="col-xs-6 btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
                                   '<button id="btnedt" class="col-xs-6 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                 '</div>',
-             "targets": [7],"targets": 7 }         
+             "targets": [8],"targets": 8 }         
 
           ],
         });
@@ -318,6 +320,7 @@
                   {"targets": 4 },
                   {"targets": 5 },
                   {"targets": 6 },
+                  {"targets": 7 },
                   {"orderable": false,
                    "data": null,
                    "defaultContent":  '<div class="row-fluid">'+
@@ -325,7 +328,7 @@
                                         '<button id="btntmbh" class="col-xs-6 btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
                                         '<button id="btnedt" class="col-xs-6 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                       '</div>',
-                   "targets": [7],"targets": 7 },
+                   "targets": [8],"targets": 8 },
                 ],
                 "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
               });
@@ -502,13 +505,14 @@
                   {"targets": 4 },
                   {"targets": 5 },
                   {"targets": 6 },
+                  {"targets": 7 },
                   {"orderable": false,
                    "data": null,
                    "defaultContent":  '<div class="row-fluid">'+
                                         '<button id="btntmbh" class="col-xs-6 btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
                                         '<button id="btnedt" class="col-xs-6 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                       '</div>',
-                   "targets": [7],"targets": 7 }         
+                   "targets": [8],"targets": 8 }         
 
                 ],
               });

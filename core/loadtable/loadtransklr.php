@@ -17,13 +17,16 @@ $primaryKey = 'id';
  
 // Load Data berdasarkan nama table nya
 $columns = array(
-    array( 'db' => 'id', 'dt' => 0 ),
-    array( 'db' => 'jns_trans', 'dt' => 1,'formatter' => function($d,$row){if($d=="K01"){return "Habis Pakai";}elseif($d=="K02"){return "Transfer Keluar";}elseif($d=="K03"){return "Hibah Keluar";}elseif($d=="K04"){return "Usang";}else{return "Rusak";}} ),
-    array( 'db' => 'no_dok', 'dt' => 2),
-    array( 'db' => 'no_bukti', 'dt' => 3 ),
-    array( 'db' => 'tgl_dok', 'dt' => 4, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
-    array( 'db' => 'tgl_buku', 'dt' => 5, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
-    array( 'db' => 'keterangan', 'dt' => 6 ),
+    array( 'db' => 'id', 'dt' => 0, 'field' => 'id'  ),
+    array( 'db' => 'jns_trans', 'dt' => 1, 'field' => 'jns_trans', 'formatter' => function($d,$row){if($d=="K01"){return "Habis Pakai";}elseif($d=="K02"){return "Transfer Keluar";}elseif($d=="K03"){return "Hibah Keluar";}elseif($d=="K04"){return "Usang";}else{return "Rusak";}} ),
+    array( 'db' => 'no_dok', 'dt' => 2, 'field' => 'no_dok' ),
+    array( 'db' => 'no_bukti', 'dt' => 3, 'field' => 'no_bukti' ),
+    array( 'db' => 'tgl_dok', 'dt' => 4,'field' => 'tgl_dok' , 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
+    array( 'db' => 'tgl_buku', 'dt' => 5,'field' => 'tgl_buku', 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
+    array( 'db' => 'keterangan', 'dt' => 6, 'field' => 'keterangan' ),
+    array( 'db' => 'SUM(`total_harga`)', 'dt' => 7, 'field' => 'total_harga', 'as' => 'total_harga', 'formatter' => function($d, $row){
+            return number_format(abs($d), 2, ",",".");
+    } ),
 );
 if($kd_ruang!=""){ $query_ruang="and kd_ruang='$kd_ruang'"; } else $query_ruang="and (kd_ruang is null or kd_ruang='') ";
 // Settingan Koneksi Datatable
@@ -46,7 +49,7 @@ else{
 }
 
 // Pengaturan Output Server Side Processing
-require( '../../config/ssp.class.php' );
+require( '../../config/ssp-join.php' );
 echo json_encode(
-    SSP::simplewhere( $_GET, $sql_details, $table, $primaryKey, $columns, $where)
+    SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns, "FROM {$table}", $where)
 ); 
