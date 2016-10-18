@@ -6,8 +6,8 @@ include('../../config/purifier.php');
 // include('../../config/user.php');
 session_start();
 $Transaksi = new modelTransaksi();
-// $path_upload = "/srv/www/htdocs/persediaan/dist/uploads/";
-$path_upload = "/var/www/html/persediaan/dist/uploads/";
+$path_upload = "/srv/www/htdocs/persediaan2016/dist/uploads/";
+// $path_upload = "/var/www/html/persediaan/dist/uploads/";
 // $path_upload = "C:/xampp/htdocs/persediaan/dist/uploads/";
 if (empty($_POST['manage'])) {
   echo "Error Data Tidak Tersedia";
