@@ -6,8 +6,8 @@ include('../../config/purifier.php');
 // include('../../config/user.php');
 session_start();
 $Transaksi = new modelTransaksi();
-// $path_upload = "/srv/www/htdocs/persediaan/dist/uploads/";
-$path_upload = "/var/www/html/persediaan/dist/uploads/";
+ $path_upload = "/srv/www/htdocs/persediaan/dist/uploads/";
+// $path_upload = "/var/www/html/persediaan/dist/uploads/";
 // $path_upload = "C:/xampp/htdocs/persediaan/dist/uploads/";
 if (empty($_POST['manage'])) {
   echo "Error Data Tidak Tersedia";
@@ -120,12 +120,12 @@ else
             }
             $allDataInSheet = $objPHPExcel->getActiveSheet()->toArray(NULL,TRUE,FALSE,TRUE);
             $Transaksi->importTransMasuk($allDataInSheet);
-            header('location:../../user/trans_masuk');
+            header('location:../../admin/trans_masuk');
           }
         }
       }
       else {
-        header('location:../../user/trans_masuk');
+        header('location:../../admin/trans_masuk');
       }
     break;
     case 'importRekening':
