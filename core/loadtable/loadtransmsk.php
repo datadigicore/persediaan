@@ -17,8 +17,8 @@ $primaryKey = 'id';
  
 // Load Data berdasarkan nama table nya
 $columns = array(
-    array( 'db' => 'id', 'dt' => 0 ),
-    array( 'db' => 'jns_trans', 'dt' => 1,
+    array( 'db' => 'id', 'dt' => 0, 'field' => 'id', 'as' => 'id'  ),
+    array( 'db' => 'jns_trans', 'dt' => 1, 'field' => 'jns_trans', 'as' => 'jns_trans',
         'formatter' => function($d,$row){
             if($d=="M01"){
                 return "Saldo Awal";}
@@ -45,13 +45,16 @@ $columns = array(
                 {
         # code...
     }} ),
-    array( 'db' => 'no_dok', 'dt' => 2 ),
-    array( 'db' => 'no_bukti', 'dt' => 3 ),
-    array( 'db' => 'tgl_dok', 'dt' => 4, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
-    array( 'db' => 'tgl_buku', 'dt' => 5, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
-    array( 'db' => 'keterangan', 'dt' => 6 ),
-    array( 'db' => 'nilai_kontrak', 'dt' => 7 ),
-    array( 'db' => 'jns_trans', 'dt' => 8,'formatter' => function($d,$row){if($d!="M06"){ return '<div class="row-fluid">'.
+    array( 'db' => 'no_dok', 'dt' => 2,  'field' => 'no_dok', 'as' => 'no_dok' ),
+    array( 'db' => 'no_bukti', 'dt' => 3,  'field' => 'no_bukti', 'as' => 'no_bukti' ),
+    array( 'db' => 'tgl_dok', 'dt' => 4,  'field' => 'tgl_dok',  'as' => 'tgl_dok', 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
+    array( 'db' => 'tgl_buku', 'dt' => 5,  'field' => 'tgl_buku',  'as' => 'tgl_buku', 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
+    array( 'db' => 'keterangan', 'dt' => 6,  'field' => 'keterangan', 'as' => 'keterangan' ),
+    array( 'db' => 'SUM(`total_harga`)', 'dt' => 7,  'field' => 'total_harga', 'as' => 'total_harga',
+            'formatter'=> function($d,$row){
+                return number_format($d,2,",",".");
+            }),
+    array( 'db' => 'jns_trans', 'dt' => 8, 'field' => 'jns_trans', 'as' => 'jns_trans','formatter' => function($d,$row){if($d!="M06"){ return '<div class="row-fluid">'.
                                                                                                   '<button id="btntmbh" class="col-xs-6 btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'.
                                                                                                   '<button id="btnedt" class="col-xs-6 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'.
                                                                                                 '</div>'; 
@@ -84,7 +87,7 @@ else{
 }
  
 // Pengaturan Output Server Side Processing
-require( '../../config/ssp.class.php' );
+require( '../../config/ssp-join.php' );
 echo json_encode(
-    SSP::simplewhere($_GET, $sql_details, $table, $primaryKey, $columns, $where )
+    SSP::simple($_GET, $sql_details, $table, $primaryKey, $columns, " FROM `{$table}`", $where )
 ); 
