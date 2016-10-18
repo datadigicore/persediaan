@@ -120,12 +120,6 @@ else {
                             </select>
                           </div>
                         </div>
-                      <div class="form-group">
-                        <label class="col-sm-3 control-label">Nilai Non Persediaan / Kontrak (Rp.)</label>
-                        <div class="col-sm-8">
-                          <input type="number" min="0" name="nilai_kontrak" class="form-control" id="nilai_kontrak"  placeholder="Masukkan Nilai Non P.sediaan" >
-                        </div> 
-                      </div>
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Jumlah Masuk</label>
                           <div class="col-sm-4">
@@ -141,11 +135,17 @@ else {
                           </div>                            
                         </div>                  
                         <div class="form-group">
-                          <label class="col-sm-3 control-label">Harga Satuan</label>
+                          <label class="col-sm-3 control-label">Harga Satuan Barang</label>
                           <div class="col-sm-8">
                             <input type="number" min="1" name="rph_sat" class="form-control" id="rph_sat" step="any" placeholder="Masukkan Harga ">
                           </div>
                         </div> 
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">Nilai <b>Non</b> Persediaan</label>
+                        <div class="col-sm-8">
+                          <input type="number" min="0" name="nilai_kontrak" class="form-control" id="nilai_kontrak"  placeholder="Masukkan Nilai Non P.sediaan" >
+                        </div> 
+                      </div>
                          <?php }  ?>                  
                         <div name="detil_transaksi" id="detil_transaksi">
                         </div>
