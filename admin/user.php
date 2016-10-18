@@ -112,6 +112,16 @@
                         <input type="text" name="urgudang" class="form-control" id="urgudang" placeholder="Uraian Kode UPB" disabled>
                         <input type="hidden" name="urgudangh" class="form-control" id="urgudangh">
                       </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Kode Bagian</label>
+                      <div class="col-sm-2">
+                        <input type="text" name="kdgudang" class="form-control" id="kdgudang" placeholder="Kode Bagian" disabled>
+                      </div>
+                      <div class="col-sm-7">
+                        <input type="text" name="urbagian" class="form-control" id="urbagian" placeholder="Uraian Bagian" disabled>
+                        <input type="hidden" name="urbagianh" class="form-control" id="urbagianh">
+                      </div>
                     </div>                    
                   </div>
                   <div class="box-footer">

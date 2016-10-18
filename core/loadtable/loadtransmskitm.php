@@ -6,7 +6,12 @@
 //Mendapatkan Data Sesi Username dan kode satker
 session_start();
 $user_id=$_SESSION['username'];
-$kd_satker=$_SESSION['kd_lok'];
+if ($_SESSION['level'] == 1 AND isset($_GET['kd_sat'])) {
+    $kd_satker = $_GET['kd_sat'];
+}
+else {
+    $kd_satker = $_SESSION['kd_lok'];
+}
 $kd_ruang=$_SESSION['kd_ruang'];
 $thn_ang=$_SESSION['thn_ang'];
 $query_ruang="";
@@ -19,6 +24,25 @@ $table = 'transaksi_masuk';
 $primaryKey = 'id';
  
 // Load Data berdasarkan nama table nya
+if ($_SESSION['level'] == 1) {
+    $columns = array(
+    array( 'db' => 'id', 'dt' => 0 ),
+    array( 'db' => 'no_dok', 'dt' => 1 ),
+    array( 'db' => 'kd_brg', 'dt' => 2, ),
+    array( 'db' => 'nm_brg', 'dt' => 3 ),
+    array( 'db' => 'spesifikasi', 'dt' => 4 ),
+    array( 'db' => 'qty', 'dt' => 5, 'formatter' => function($d,$row){if(ceil($d)!=$d or floor($d)!=$d) {return number_format($d,2,",",".");} else { return number_format($d,0,",",".");} } ),
+    array( 'db' => 'satuan', 'dt' => 6 ),
+    array( 'db' => 'harga_sat', 'dt' => 7, 'formatter' => function($d,$row){return number_format($d,2,",",".");} ),
+    array( 'db' => 'total_harga', 'dt' => 8, 'formatter' => function($d,$row){return number_format($d,2,",",".");}),
+    
+    array( 'db' => 'keterangan', 'dt' => 9 ),
+    array( 'db' => 'qty_akhir', 'dt' => 10, 'formatter' => function($d,$row){if(ceil($d)!=$d or floor($d)!=$d) {return number_format($d,2,",",".");} else { return number_format($d,0,",",".");} }  ),
+    // array( 'db' => 'total_harga', 'dt' => 8 ),
+    // array( 'db' => 'keterangan', 'dt' => 9 ),
+    );
+}
+else {
 $columns = array(
     array( 'db' => 'id', 'dt' => 0 ),
     array( 'db' => 'no_dok', 'dt' => 1 ),
@@ -41,13 +65,8 @@ $columns = array(
              }  ),
     // array( 'db' => 'total_harga', 'dt' => 8 ),
     // array( 'db' => 'keterangan', 'dt' => 9 ),
-
-    
-    
-    
-
-);
-
+    );
+}
 if($kd_ruang!="") $query_ruang="and kd_ruang='$kd_ruang' "; 
 // Settingan Koneksi Datatable
 require('../../config/dbconf.php');
