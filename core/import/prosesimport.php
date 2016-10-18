@@ -120,12 +120,12 @@ else
             }
             $allDataInSheet = $objPHPExcel->getActiveSheet()->toArray(NULL,TRUE,FALSE,TRUE);
             $Transaksi->importTransMasuk($allDataInSheet);
-            header('location:../../user/trans_masuk');
+            header('location:../../admin/trans_masuk');
           }
         }
       }
       else {
-        header('location:../../user/trans_masuk');
+        header('location:../../admin/trans_masuk');
       }
     break;
     case 'importRekening':

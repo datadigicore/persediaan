@@ -6,7 +6,12 @@
 //Mendapatkan Data Sesi Username dan kode satker
 session_start();
 $user_id=$_SESSION['username'];
-$kd_satker=$_SESSION['kd_lok'];
+if ($_SESSION['level'] == 1 AND isset($_GET['kd_sat'])) {
+    $kd_satker = $_GET['kd_sat'];
+}
+else {
+    $kd_satker = $_SESSION['kd_lok'];
+}
 $kd_ruang=$_SESSION['kd_ruang'];
 $thn_ang=$_SESSION['thn_ang'];
 $query_ruang="";
@@ -41,11 +46,6 @@ $columns = array(
              }  ),
     // array( 'db' => 'total_harga', 'dt' => 8 ),
     // array( 'db' => 'keterangan', 'dt' => 9 ),
-
-    
-    
-    
-
 );
 
 if($kd_ruang!="") $query_ruang="and kd_ruang='$kd_ruang' "; 
