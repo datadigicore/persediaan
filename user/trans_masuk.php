@@ -103,7 +103,7 @@
                         <th width="12%">Tanggal Dokumen</th>
                         <th width="12%">Tanggal Pembukuan</th>
                         <th >Keterangan</th>
-                        <th >Nilai Non-Persediaan</th>
+                        <th >Total Transaksi</th>
                         <th width="15%">Aksi</th>
                       </tr>
                     </thead>
