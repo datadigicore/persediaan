@@ -216,39 +216,12 @@ else {
                         <th>Total Harga</th>  
                         <th>Keterangan</th>
                         <th width="8%">Sisa</th>
-                        <th width="8%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
                 </div>
               </div>
               <?php } ?>              
-              <?php if ($_POST['manage']=="trans_keluar") { ?>
-              <div class="box box-info">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Daftar Transaksi Keluar</h3>
-                </div>
-                <div class="box-body">
-                  <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>No Dokumen</th>
-                        <th>Kode Barang</th>
-                        <th>Nama Barang</th>
-                        <th>Spesifikasi</th>
-                        <th>Jumlah</th>
-                        <th>Satuan</th>
-                        <th>Harga Satuan</th>
-                        <th>Total Harga</th>  
-                        <th>Keterangan</th>
-                        <th width="8%">Aksi</th>
-                      </tr>
-                    </thead>
-                  </table>
-                </div>
-              </div>
-              <?php } ?>
             </section>
           </div>
         </section>
@@ -311,6 +284,7 @@ else {
             'url': '../core/loadtable/loadtransmskitm',
             'data': {
                no_dok: '<?php echo $_POST["satker"]?>',
+               kd_sat: '<?php echo $_POST["kd_satker"]?>'
             },
           },
           "columnDefs":
@@ -328,8 +302,7 @@ else {
             {"targets": 8 },
             {"targets": 9 },
             {"targets": 10,
-             "visible": true },
-            {"targets": 11 },
+             "visible": true }
 
           ],
         });
@@ -358,7 +331,7 @@ else {
         $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
-          data: {manage:'readidenttrans',idtrans:"<?php echo $_POST['satker']?>"},
+          data: {manage:'readidenttrans',idtrans:"<?php echo $_POST['satker']?>",kdtrans:"<?php echo $_POST['kd_satker']?>"},
           dataType: "json",
           success: function (output) {
             $('#disnobukti').val(output.nobukti);

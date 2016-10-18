@@ -164,7 +164,12 @@ else
 		break;
 		case 'readidenttrans':
 			$idtrans = $purifier->purify($_POST['idtrans']);
-			$kd_ruang = $_SESSION['kd_lok'].$_SESSION['kd_ruang'];
+			if ($_SESSION['level'] == 1 AND isset($_POST['kdtrans'])) {
+				$kd_ruang = $_POST['kdtrans'];
+			}
+			else {
+				$kd_ruang = $_SESSION['kd_lok'].$_SESSION['kd_ruang'];
+			}
 			$Transaksi->bacaidenttrans($idtrans,$kd_ruang);
 		break;
 		case 'readidenttransklr':

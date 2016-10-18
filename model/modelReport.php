@@ -919,21 +919,17 @@ class modelReport extends mysql_db
         $bln_akhir = $data['bln_akhir'];
         $date = $this->cek_periode($data);
         $satker_asal = $data['satker_asal'];
-        // $query = "SELECT kd_perk,nm_perk, satuan, avg(harga_sat) as harga_sat, concat(nm_brg,' ',spesifikasi) as nm_brg, 
-        //             sum(case WHEN jns_trans in('M01','M01I') THEN qty else 0 end)  as qty_awal,
-        //             sum(case WHEN jns_trans in('M01','M01I') THEN total_harga else 0 end)  as saldo_awal,
-        //             sum(case WHEN jns_trans not in('M01','M01I') THEN qty else 0 end)  as qty_masuk,
-        //             sum(case WHEN jns_trans not in('M01','M01I') THEN total_harga else 0 end)  as nilai_masuk,
-        //             sum(qty-qty_akhir)  as qty_keluar,
-        //             sum((qty-qty_akhir)*harga_sat)  as nilai_keuar
-        //             from transaksi_masuk 
-        //             where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir'
-        //             group by kd_brg ORDER BY kd_sskel asc, nm_brg asc, jns_trans asc";
+        $baca_ruang="";
+        if($_SESSION['kd_ruang']!=''){
+            $kode_bagian=$_SESSION['kd_ruang'];
+            $baca_ruang=" and kd_ruang='$kode_bagian' ";
+        }
         $query = "SELECT kd_perk,nm_perk, satuan, harga_sat, concat(nm_brg,' ',spesifikasi) as nm_brg,jns_trans, 
                     qty, qty_akhir 
                     from transaksi_masuk 
-                    where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' and IFNULL(kd_brg,'')!=''
+                    where kd_lokasi='$kd_lokasi' ".$baca_ruang." and thn_ang='$thn_ang' and month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' and IFNULL(kd_brg,'')!=''
                     order BY kd_sskel asc, nm_brg asc, jns_trans asc";
+                    echo $query;
         if($data['semester']=="06"){ $smt="I"; } else{ $smt="II"; }     
         ob_start();
             $this->getupb($kd_lokasi);
