@@ -557,6 +557,7 @@ else
 					"thn_ang" => $thn_ang,
 					"jns_trans" => $jns_trans,
 					"no_dok" => $no_dok,
+					"nilai_kontrak" =>$nilai_kontrak,
 					"tgl_dok" => $tgl_dok,
 					"tgl_buku" => $tgl_buku,
 					"no_bukti" => $no_bukti,

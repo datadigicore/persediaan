@@ -63,6 +63,20 @@ else {
                           </div>
                         </div>
                         <div class="form-group">
+                          <label class="col-sm-5 control-label">No. Dokumen</label>
+                          <div class="col-sm-7">
+                            <input type="text" name="no_dok_item" id="no_dok_item" class="form-control" style="width:100%;" readonly value="<?php echo $_POST['satker'];?>">
+                            <input type="hidden" name="manage" value="tbh_transaksi_msk">
+                            <input type="hidden" id="read_no_dok" name="read_no_dok">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-5 control-label">Keterangan</label>
+                          <div class="col-sm-7">
+                            <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="" readonly>
+                          </div>
+                        </div> 
+                        <div class="form-group">
                           <label class="col-sm-5 control-label">Tgl. Dokumen</label>
                           <div class="col-sm-7">
                             <input type="text" id="tgl_dok" name="tgl_dok" class="form-control" readonly>
@@ -89,20 +103,7 @@ else {
                       </div>
                       <?php if ($_POST['manage']=="trans_masuk") { ?>
                       <div class="col-sm-7">
-                        <div class="form-group">
-                          <label class="col-sm-3 control-label">No. Dokumen</label>
-                          <div class="col-sm-8">
-                            <input type="text" name="no_dok_item" id="no_dok_item" class="form-control" style="width:100%;" readonly value="<?php echo $_POST['satker'];?>">
-                            <input type="hidden" name="manage" value="tbh_transaksi_msk">
-                            <input type="hidden" id="read_no_dok" name="read_no_dok">
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label class="col-sm-3 control-label">Keterangan</label>
-                          <div class="col-sm-8">
-                            <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="" readonly>
-                          </div>
-                        </div> 
+                        
                         <?php if($_POST['jenistrans']!="Transfer ") { ?> 
                           <div class="form-group" id="pilihan_kode">
                           <label class="col-sm-3 control-label">Kode Rekening Belanja</label>
@@ -119,7 +120,6 @@ else {
                             </select>
                           </div>
                         </div>
-                        
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Jumlah Masuk</label>
                           <div class="col-sm-4">
@@ -135,11 +135,17 @@ else {
                           </div>                            
                         </div>                  
                         <div class="form-group">
-                          <label class="col-sm-3 control-label">Harga Satuan</label>
+                          <label class="col-sm-3 control-label">Harga Satuan Barang</label>
                           <div class="col-sm-8">
                             <input type="number" min="1" name="rph_sat" class="form-control" id="rph_sat" step="any" placeholder="Masukkan Harga ">
                           </div>
                         </div> 
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">Nilai <b>Non</b> Persediaan</label>
+                        <div class="col-sm-8">
+                          <input type="number" min="0" name="nilai_kontrak" class="form-control" id="nilai_kontrak"  placeholder="Masukkan Nilai Non P.sediaan" >
+                        </div> 
+                      </div>
                          <?php }  ?>                  
                         <div name="detil_transaksi" id="detil_transaksi">
                         </div>
@@ -207,7 +213,7 @@ else {
                       <tr>
                         <th>ID</th>
                         <th>No Dok</th>
-                        <th>Kode Barang</th>
+                        <th width="10%">Rekening</th>
                         <th>Nama Barang</th>
                         <th>Spesifikasi</th>
                         <th>Jumlah</th>

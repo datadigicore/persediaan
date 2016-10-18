@@ -79,10 +79,7 @@
                       <div class="col-sm-3">
                         <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Mis. Nama Pihak / Sumber pengirim barang" >
                       </div> 
-                      <label class="col-sm-2 control-label">Nilai Non Persediaan / Kontrak (Rp.)</label>
-                      <div class="col-sm-3">
-                        <input type="number" min="1" name="nilai_kontrak" class="form-control" id="nilai_kontrak" placeholder="Masukkan Niali Kontrak Dokumen" >
-                      </div> 
+                      
                     </div>
                   </div>
                   <div class="box-footer">
@@ -106,7 +103,7 @@
                         <th width="12%">Tanggal Dokumen</th>
                         <th width="12%">Tanggal Pembukuan</th>
                         <th >Keterangan</th>
-                        <th >Nilai Non-Persediaan</th>
+                        <th >Total Transaksi</th>
                         <th width="15%">Aksi</th>
                       </tr>
                     </thead>

@@ -108,7 +108,7 @@ class modelReport extends mysql_db
         $date       = $this->cek_periode($data);
         ob_start();
         $this->getsatker($kd_lokasi);
-        $sql        = "SELECT kd_perk, nilai_kontrak, nm_perk, kode_rekening, nama_rekening, jns_trans, sum(total_harga),nilai_kontrak as total_harga from transaksi_masuk   where kd_lokasi='$kd_lokasi' and IFNULL(kd_ruang,'')='$kd_ruang' and thn_ang='$thn_ang' and tgl_dok<='$tgl_akhir'  order by kd_perk,no_dok asc";
+        $sql        = "SELECT kd_perk, nilai_kontrak, nm_perk, kode_rekening, nama_rekening, jns_trans, total_harga from transaksi_masuk   where kd_lokasi='$kd_lokasi' and IFNULL(kd_ruang,'')='$kd_ruang' and thn_ang='$thn_ang' and tgl_dok<='$tgl_akhir'  order by kode_rekening,no_dok asc";
         // print_r($sql);
         $result     = $this->query($sql);
         $no                     =1;
@@ -119,68 +119,45 @@ class modelReport extends mysql_db
         echo '<p align="center" style="margin:0px; padding:0px; font-weight:bold;">LAPORAN POSISI PERSEDIAAN DI NERACA PER REKENING</p>
                 <p align="center" style="margin:0px; padding:0px; font-weight:bold;">UNTUK PERIODE YANG BERAKHIR PADA '.$date.'</p>
                 <p align="center" style="margin:0px; padding:0px; font-weight:bold;">TAHUN ANGGARAN '.$thn_ang.'</p><br></br>';
-         echo '<table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border=1 align="center">
+         echo '<table style="border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border=1>
                                   <tr>
                                       <td width="5%"><b>NO</b></td>
-                                      <td width="10%"><b>REK. PERSEDIAAN</b></td>
-                                      <td ><b>URAIAN REK. PERSEDIAAN</b></td>
-                                      <td width="10%"><b>REK. BELANJA</b></td>
+                                      <td width="7%"><b>REK. BELANJA</b></td>
                                       <td ><b>URAIAN REK. BELANJA</b></td>
-                                      <td><b>NILAI PERSEDIAN</b></td>
-                                      <td><b>NILAI NON PERSEDIAN</b></td>
+                                      <td width="7%"><b>REK. PERSEDIAAN</b></td>
+                                      <td ><b>URAIAN REK. PERSEDIAAN</b></td>
+                                      <td><b>NILAI PERSEDIAAN</b></td>
+                                      <td><b>NILAI NON PERSEDIAAN</b></td>
                                       <td><b>TOTAL</b></td>
                                   </tr>';
         foreach ($result as $val) {
-            if($rek_persediaan!=$val['kd_perk'] and $no==1){
+          $total = $val['total_harga']+$val['nilai_kontrak'];
+          echo '<tr>
+                  <td style="text-align:center">'.$no.'</td>
+                  <td style="text-align:left;">'.$val['kode_rekening'].'</td>
+                  <td style="text-align:left;">'.$val['nama_rekening'].'</td>
+                  <td style="text-align:left;">'.$val['kd_perk'].'</td>
+                  <td style="text-align:left;">'.$val['nm_perk'].'</td>
+                  <td style="text-align:right">'.number_format($val['total_harga'],2,",",".").'</td>    
+                  <td style="text-align:right">'.number_format($val['nilai_kontrak'],2,",",".").'</td>
+                  <td style="text-align:right">'.number_format($total,2,",",".").'</td>
+                </tr>';
 
-                    echo '<tr>
-                            <td>'.$no.'</td>
-                            <td style="align:left;">'.$val['kd_perk'].'</td>
-                            <td style="align:left;">'.$val['nm_perk'].'</td>
-                            <td style="align:left;">'.$val['kode_rekening'].'</td>
-                            <td style="align:left;">'.$val['nama_rekening'].'</td>
-                            <td>'.number_format($val['total_harga'],2,",",".").'</td>    
-                            <td>'.number_format($val['nilai_kontrak'],2,",",".").'</td>
-                            <td>'.'0'.'</td>
-                           </tr>';
-                }
-                elseif($rek_persediaan!=$val['kd_perk']){
-                    echo '<tr>
-                            <td colspan="5">'.'TOTAL'.'</td>   
-                            <td>'.number_format($nilai_rek_persediaan,2,",",".").'</td>
-                            <td>'.'0'.'</td>
-                            <td>'.'0'.'</td>
-                           </tr>';
-                    $nilai_rek_persediaan = 0;
-                    echo '<tr>
-                            <td>'.$no.'</td>
-                            <td style="align:left;">'.$val['kd_perk'].'</td>
-                            <td style="align:left;">'.$val['nm_perk'].'</td>
-                            <td style="align:left;">'.$val['kode_rekening'].'</td>
-                            <td style="align:left;">'.$val['nama_rekening'].'</td>
-                            <td>'.number_format($val['total_harga'],2,",",".").'</td>    
-                            <td>'.'0'.'</td>
-                            <td>'.'0'.'</td>
-                           </tr>';
-                }
-                else{
-                    echo '<tr>
-                            <td>'.$no.'</td>
-                            <td>'.''.'</td>
-                            <td>'.''.'</td>
-                            <td>'.$val['kode_rekening'].'</td>
-                            <td>'.$val['nama_rekening'].'</td>
-                            <td>'.number_format($val['total_harga'],2,",",".").'</td>    
-                            <td>'.'0'.'</td>
-                            <td>'.'0'.'</td>
-                           </tr>';
-                }
                 $rek_persediaan         = $val['kd_perk'];
                 $nilai_rek_persediaan   += $val['total_harga']; 
+                $nilai_non_persediaan   += $val['nilai_kontrak']; 
+                $nilai_total             += $total; 
                 $no++;
 
         }
+        echo '<tr>
+                  <td style="text-align:center" colspan="5">'."TOTAL".'</td>
+                  <td style="text-align:right">'.number_format($nilai_rek_persediaan,2,",",".").'</td>    
+                  <td style="text-align:right">'.number_format($nilai_non_persediaan,2,",",".").'</td>
+                  <td style="text-align:right">'.number_format($nilai_total,2,",",".").'</td>
+                </tr>';
         echo "</table>";
+        $this->cetak_nama_pj($kd_lokasi);
         $html = ob_get_contents(); 
         ob_end_clean();
         $mpdf=new mPDF('utf-8', 'A4-L');
@@ -942,16 +919,17 @@ class modelReport extends mysql_db
         $bln_akhir = $data['bln_akhir'];
         $date = $this->cek_periode($data);
         $satker_asal = $data['satker_asal'];
-        $query = "SELECT kd_perk,nm_perk, satuan, avg(harga_sat) as harga_sat, concat(nm_brg,' ',spesifikasi) as nm_brg, 
-                    sum(case WHEN jns_trans in('M01','M01I') THEN qty else 0 end)  as qty_awal,
-                    sum(case WHEN jns_trans in('M01','M01I') THEN total_harga else 0 end)  as saldo_awal,
-                    sum(case WHEN jns_trans not in('M01','M01I') THEN qty else 0 end)  as qty_masuk,
-                    sum(case WHEN jns_trans not in('M01','M01I') THEN total_harga else 0 end)  as nilai_masuk,
-                    sum(qty-qty_akhir)  as qty_keluar,
-                    sum((qty-qty_akhir)*harga_sat)  as nilai_keuar
+        $baca_ruang="";
+        if($_SESSION['kd_ruang']!=''){
+            $kode_bagian=$_SESSION['kd_ruang'];
+            $baca_ruang=" and kd_ruang='$kode_bagian' ";
+        }
+        $query = "SELECT kd_perk,nm_perk, satuan, harga_sat, concat(nm_brg,' ',spesifikasi) as nm_brg,jns_trans, 
+                    qty, qty_akhir 
                     from transaksi_masuk 
-                    where kd_lokasi='$kd_lokasi' and thn_ang='$thn_ang' and month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir'
-                    group by kd_brg ORDER BY kd_sskel asc, nm_brg asc, jns_trans asc";
+                    where kd_lokasi='$kd_lokasi' ".$baca_ruang." and thn_ang='$thn_ang' and month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' and IFNULL(kd_brg,'')!=''
+                    order BY kd_sskel asc, nm_brg asc, jns_trans asc";
+                    echo $query;
         if($data['semester']=="06"){ $smt="I"; } else{ $smt="II"; }     
         ob_start();
             $this->getupb($kd_lokasi);
@@ -1003,6 +981,7 @@ class modelReport extends mysql_db
             $prev_sskel=null;
             $prev_sskel_jml=null;
             $kd_rek=null;
+            // $jumlah_saldo_awal; $nilai_saldo_awal; $jumlah_masuk; $jumlah_keluar; $qty_sisa; $nilai_masuk; $nilai_keluar; $nilai_sisa; 
 
             $tot_saldo_per_kategori=0;
             $tot_masuk_per_kategori=0;
@@ -1014,77 +993,98 @@ class modelReport extends mysql_db
             $grand_tot_sisa=0;            
 
             while($data=$this->fetch_assoc($result)){
-                $jumlah_saldo_awal = $data[qty_awal];
-                $jumlah_masuk = $data[qty_masuk];
-                $jumlah_keluar = $data[qty_keluar];
-
-                $nilai_saldo_awal = $data[saldo_awal];
-                $nilai_masuk = $data[nilai_masuk];
-                $nilai_keluar = $data[nilai_keuar];
-                $kd_sskel = $data['kd_perk'];
-                $qty_sisa = $jumlah_saldo_awal+$jumlah_masuk-$jumlah_keluar;
-                $nilai_sisa = $nilai_saldo_awal+$nilai_masuk-$nilai_keluar;
-                $grand_tot_saldo+=$nilai_saldo_awal;
-                $grand_tot_masuk+=$nilai_masuk;
-                $grand_tot_keluar+=$nilai_keluar;
-                $grand_tot_sisa+= $nilai_sisa;  
-                if($prev_sskel!==$data['kd_perk']){
-                    if($no>0){
-                        echo '<tr>
-                        <td colspan=5>TOTAL</td>
-                        <td>'.number_format($tot_saldo_per_kategori,2,",",".").'</td>
-                        <td colspan=2></td>
-                        <td>'.number_format($tot_masuk_per_kategori,2,",",".").'</td>
-                         <td colspan=2></td>
-                        <td>'.number_format($tot_keluar_per_kategori,2,",",".").'</td>
-                         <td colspan=2></td>
-                        <td>'.number_format($tot_sisa_per_kategori,2,",",".").'</td>
-                        </tr>';
+                if($data[jns_trans]=="M01"){
+                    $jumlah_saldo_awal  = $data[qty];
+                    $nilai_saldo_awal   = $data[qty]*$data[harga_sat];
+                    $jumlah_keluar      = $data[qty]-$data[qty_akhir];
+                    $qty_sisa           = $data[qty_akhir];
+                    $nilai_masuk        = 0;
+                    $nilai_keluar       = $jumlah_keluar*$data["harga_sat"];
+                    $nilai_sisa         = $qty_sisa*$data["harga_sat"];
+                    $grand_tot_saldo    +=$nilai_saldo_awal;
+                    $tot_saldo_per_kategori+=$nilai_saldo_awal;
+                    if($prev_sskel!==$data['kd_perk']){
+                      $no+=1;
+                      echo '<tr>
+                              <td>'.$no.'</td>
+                              <td colspan="14">'.$data['nm_perk'].'</td>
+                           </tr>'; 
                     }
-                    $no+=1;
                     echo '<tr>
-                            <td>'.$no.'</td>
-                            <td colspan="14">'.$data['nm_perk'].'</td>
-                        </tr>';
-                    
-
-                        $prev_sskel=$kd_sskel;
-                        $tot_saldo_per_kategori=0;
-                        $tot_masuk_per_kategori=0;
-                        $tot_keluar_per_kategori=0;
-                        $tot_sisa_per_kategori=0;
-
-                }
-                $tot_saldo_per_kategori+=$nilai_saldo_awal;
-                $tot_masuk_per_kategori+=$nilai_masuk;
-                $tot_keluar_per_kategori+=$nilai_keluar;
-                $tot_sisa_per_kategori+=$nilai_sisa;
-
-                
-                echo '<tr>
                         <td></td>
                         <td>'.$data['nm_brg'].'</td>
                         <td>'.$data['satuan'].'</td>
-                        <td>'.$data['qty_awal'].'</td>
+                        <td>'.$jumlah_saldo_awal.'</td>
                         <td>'.number_format($data['harga_sat'],2,",",".").'</td>
-                        <td>'.number_format($data['saldo_awal'],2,",",".").'</td>
-                        <td>'.$data['qty_masuk'].'</td>
+                        <td>'.number_format($nilai_saldo_awal,2,",",".").'</td>
+                        <td>'.'0'.'</td>
+                        <td>'.'0'.'</td>
+                        <td>'.'0'.'</td>
+                         <td>'.$jumlah_keluar.'</td>
                         <td>'.number_format($data['harga_sat'],2,",",".").'</td>
-                        <td>'.number_format($data['nilai_masuk'],2,",",".").'</td>
-                         <td>'.$data['qty_keluar'].'</td>
-                        <td>'.number_format($data['harga_sat'],2,",",".").'</td>
-                        <td>'.number_format($data['nilai_keuar'],2,",",".").'</td>
+                        <td>'.number_format($nilai_keluar,2,",",".").'</td>
                          <td>'.$qty_sisa.'</td>
                         <td>'.number_format($data['harga_sat'],2,",",".").'</td>
                         <td>'.number_format($nilai_sisa,2,",",".").'</td>
                         </tr>';
-                // if($prev_sskel!==$data['kd_perk']){
-                //     echo '<tr>
-                //             <td>'."JUMLAH".'</td>
-                //             <td colspan="14">s</td>
-                //             </tr>';
+                }
+                else{
+                    $jumlah_masuk   = $data["qty"];
+                    $jumlah_keluar  = $data["qty"]-$data["qty_akhir"];
+                    $nilai_masuk    = $jumlah_masuk*$data["harga_sat"];
+                    $nilai_keluar   = $jumlah_keluar*$data["harga_sat"];
                     
-                // }
+                    $qty_sisa       = $data["qty_akhir"];
+                    $nilai_sisa     = $data["qty_akhir"]*$data["harga_sat"];
+
+                    echo '<tr>
+                        <td></td>
+                        <td>'.$data['nm_brg'].'</td>
+                        <td>'.$data['satuan'].'</td>
+                        <td>'.'0'.'</td>
+                        <td>'.'0'.'</td>
+                        <td>'.'0'.'</td>
+                        <td>'.number_format($jumlah_masuk,2,",",".").'</td>
+                        <td>'.number_format($data['harga_sat'],2,",",".").'</td>
+                        <td>'.number_format($nilai_masuk,2,",",".").'</td>
+                        <td>'.$jumlah_keluar.'</td>
+                        <td>'.number_format($data['harga_sat'],2,",",".").'</td>
+                        <td>'.number_format($nilai_keluar,2,",",".").'</td>
+                        <td>'.$qty_sisa.'</td>
+                        <td>'.number_format($data['harga_sat'],2,",",".").'</td>
+                        <td>'.number_format($nilai_sisa,2,",",".").'</td>
+                        </tr>';
+                }
+                 // if($prev_sskel!==$data['kd_perk']){
+                      
+                 //        echo '<tr>
+                 //        <td colspan=5>TOTAL</td>
+                 //        <td>'.number_format($tot_saldo_per_kategori,2,",",".").'</td>
+                 //        <td colspan=2></td>
+                 //        <td>'.number_format($tot_masuk_per_kategori,2,",",".").'</td>
+                 //         <td colspan=2></td>
+                 //        <td>'.number_format($tot_keluar_per_kategori,2,",",".").'</td>
+                 //         <td colspan=2></td>
+                 //        <td>'.number_format($tot_sisa_per_kategori,2,",",".").'</td>
+                 //        </tr>';
+
+                        
+                 //        $tot_saldo_per_kategori=0;
+                 //        $tot_masuk_per_kategori=0;
+                 //        $tot_keluar_per_kategori=0;
+                 //        $tot_sisa_per_kategori=0;
+                      
+                 //    }
+                $kd_sskel       = $data['kd_perk'];                                                
+                $prev_sskel=$kd_sskel;
+                $grand_tot_masuk    +=$nilai_masuk;
+                $grand_tot_keluar   +=$nilai_keluar;
+                $grand_tot_sisa     += $nilai_sisa;  
+                 
+                $tot_masuk_per_kategori+=$nilai_masuk;
+                $tot_keluar_per_kategori+=$nilai_keluar;
+                $tot_sisa_per_kategori+=$nilai_sisa;
+
 
                                  
                 

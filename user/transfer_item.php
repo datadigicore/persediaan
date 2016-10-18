@@ -287,21 +287,7 @@ else {
           }
         });
       });
-      $(document).on('click', '#btnkonfirm', function () {
-        var tr = $(this).closest('tr');
-        var row = table.row( tr );
-        redirectTime = "2600";
-        redirectURL = "transfer";
-        id_row = row.data()[0];
-          kd_lok_msk  =  row.data()[12];
-          nm_satker   =  row.data()[14];
-          no_dok      =  row.data()[1];
-          kd_brg      = row.data()[2];
-          kuantitas   = row.data()[5];
-          managedata    = "konfirmasi_transfer";
-        // alert(kd_lok_msk+nm_satker+no_dok+kd_brg+kuantitas);
-        
-      });
+
       $(document).on('click', '#btnusul', function () {
           var tr = $(this).closest('tr');
           var row = table.row( tr );
@@ -342,20 +328,22 @@ else {
           
         });
       $(document).on('click', '#btnkonfirm', function () {
-        var tr = $(this).closest('tr');
-        var row = table.row( tr );
-        id_row = row.data()[0];
-        managedata = "konfirmasi_transfer";
-        $.ajax({
+          var tr = $(this).closest('tr');
+          var row = table.row( tr );
+          manage = "konfirmasi_transfer";
+          id_row = row.data()[0];
+          $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
           data: {manage:'konfirmasi_transfer',id:id_row},
           dataType: "json",
           success: function (output) {
-           alert("Success");
-
+            
           }
         });
+        $("#example1").DataTable().destroy();
+        $("#example1 tbody").empty();
+        baca_tabel();   
       });
       $(document).on('click', '#btnhps', function () {
       var tr = $(this).closest('tr');
