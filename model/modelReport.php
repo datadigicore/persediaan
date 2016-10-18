@@ -108,7 +108,7 @@ class modelReport extends mysql_db
         $date       = $this->cek_periode($data);
         ob_start();
         $this->getsatker($kd_lokasi);
-        $sql        = "SELECT kd_perk, nilai_kontrak, nm_perk, kode_rekening, nama_rekening, jns_trans, total_harga from transaksi_masuk   where kd_lokasi='$kd_lokasi' and IFNULL(kd_ruang,'')='$kd_ruang' and thn_ang='$thn_ang' and tgl_dok<='$tgl_akhir'  order by kode_rekening,no_dok asc";
+        $sql        = "SELECT kd_perk, nilai_kontrak, nm_perk, kode_rekening, nama_rekening, jns_trans, total_harga from transaksi_masuk   where kd_lokasi='$kd_lokasi' and IFNULL(kd_ruang,'')='$kd_ruang' and thn_ang='$thn_ang' and tgl_dok<='$tgl_akhir' and jns_trans='M07'  order by kode_rekening,no_dok asc";
         // print_r($sql);
         $result     = $this->query($sql);
         $no                     =1;
@@ -202,7 +202,7 @@ class modelReport extends mysql_db
                               <td><b>Bantuan Pem.Pusat / Prov.</b></td>
                           </tr>';
 
-            $sql    = "SELECT kd_perk, nm_perk, kode_rekening, nama_rekening, jns_trans, sum(total_harga) as total_harga from transaksi_masuk   where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_lokasi' and thn_ang='$thn_ang' and tgl_dok>'$tgl_dok' group by kd_perk, kode_rekening order by kd_perk asc";
+            $sql    = "SELECT kd_perk, nm_perk, kode_rekening, nama_rekening, jns_trans, sum(total_harga) as total_harga from transaksi_masuk   where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_lokasi' and thn_ang='$thn_ang' and tgl_dok>'$tgl_dok'  group by kd_perk, kode_rekening order by kd_perk asc";
             // print_r($sql);
             $no=1;
             $rek_persediaan="";

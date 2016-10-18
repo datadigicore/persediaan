@@ -105,6 +105,17 @@ else {
                       <div class="col-sm-7">
                         
                         <?php if($_POST['jenistrans']!="Transfer ") { ?> 
+                        <div class="form-group" id="jns_masuk">
+                        <label class="col-sm-3 control-label">Jenis Pemasukan</label>
+                          <div class="col-sm-8">
+                            <select name="jenis_pemasukan" id="jenis_pemasukan" class="form-control" required>
+                            <option>Pilih Jenis Pemasukkan</option>
+                              <option value="persediaan">Input Persediaan</option>
+                              <option value="non_persediaan">Input Non Persediaan</option>
+                            </select>
+                          </div>
+                        </div>
+
                           <div class="form-group" id="pilihan_kode">
                           <label class="col-sm-3 control-label">Kode Rekening Belanja</label>
                           <div class="col-sm-8">
@@ -112,7 +123,7 @@ else {
                             </select>
                           </div>
                         </div> 
-                        <div class="form-group">
+                        <div class="form-group" id="field_kode_persediaan">
 
                           <label class="col-sm-3 control-label">Kode / Nama Persediaan</label> 
                           <div class="col-sm-8">
@@ -120,12 +131,12 @@ else {
                             </select>
                           </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id="field_jumlah_masuk" >
                           <label class="col-sm-3 control-label">Jumlah Masuk</label>
                           <div class="col-sm-4">
                             <input type="number" min="0,1" name="jml_msk" class="form-control" id="jml_msk" step="any" placeholder="Masukkan Jumlah">
                           </div>                             
-                          <div class="col-sm-1" >
+                          <div class="col-sm-1" id="field_satuan">
                             <label class="control-label">Satuan</label>
                           </div> 
                           <div class="col-sm-3">
@@ -134,16 +145,22 @@ else {
                             </select>
                           </div>                            
                         </div>                  
-                        <div class="form-group">
+                        <div class="form-group" id="field_harga_satuan">
                           <label class="col-sm-3 control-label">Harga Satuan Barang</label>
                           <div class="col-sm-8">
                             <input type="number" min="1" name="rph_sat" class="form-control" id="rph_sat" step="any" placeholder="Masukkan Harga ">
                           </div>
                         </div> 
-                      <div class="form-group">
+                      <div class="form-group" id="field_nilai_non_persediaan">
                         <label class="col-sm-3 control-label">Nilai <b>Non</b> Persediaan</label>
                         <div class="col-sm-8">
-                          <input type="number" min="0" name="nilai_kontrak" class="form-control" id="nilai_kontrak"  placeholder="Masukkan Nilai Non P.sediaan" >
+                          <input type="number" min="0" name="nilai_kontrak" class="form-control" id="nilai_kontrak"  placeholder="Masukkan Nilai Non Persediaan" >
+                        </div> 
+                      </div>
+                      <div class="form-group" id="ket_non_persediaan">
+                        <label class="col-sm-3 control-label">Keterangan</label>
+                        <div class="col-sm-8">
+                          <input type="text"  name="ket_non_persediaan" class="form-control" id="ket_non_persediaan"  placeholder="Masukkan Keterangan Non Persediaan" >
                         </div> 
                       </div>
                          <?php }  ?>                  
@@ -269,6 +286,14 @@ else {
     <script src="../dist/js/notify.js"></script>
     <?php if ($_POST['manage']=="trans_masuk") { ?>
     <script type="text/javascript">
+    $("#field_satuan").hide();
+    $("#field_pilihan_kode").hide();
+    $("#field_harga_satuan").hide();
+    $("#field_jumlah_masuk").hide();
+    $("#field_kode_persediaan").hide();
+    $("#field_nilai_non_persediaan").hide();
+    $("#ket_non_persediaan").hide();
+    $("#pilihan_kode").hide();
     $('form').on('focus', 'input[type=number]', function (e) {
       $(this).on('mousewheel.disableScroll', function (e) {
         e.preventDefault()
@@ -343,7 +368,53 @@ else {
         //     var data = table.row( this ).data();
         //     alert( 'You clicked on '+data[0]+'\'s row' );
         // } );
-        var sumber_dana = "<?php echo $_POST['jenistrans']?>";
+              var sumber_dana = "<?php echo $_POST['jenistrans']?>";
+         $('#jenis_pemasukan').change(function(){
+          var jns_pemasukan = $("#jenis_pemasukan").val();
+          // alert(jns_pemasukan);
+          if(jns_pemasukan=="persediaan" && sumber_dana=="APBD"){
+            $("#field_satuan").show();
+            $("#pilihan_kode").show();
+            $("#field_harga_satuan").show();
+            $("#field_jumlah_masuk").show();
+            $("#field_kode_persediaan").show();
+            $("#field_nilai_non_persediaan").prop('required',false);
+          }
+          else if(jns_pemasukan=="non_persediaan" && sumber_dana=="APBD"){
+            $("#field_satuan").prop('required',false);
+            $("#field_harga_satuan").prop('required',false);
+            $("#field_jumlah_masuk").prop('required',false);
+            $("#field_kode_persediaan").prop('required',false);
+            $("#field_satuan").hide();
+            $("#field_harga_satuan").hide();
+            $("#field_jumlah_masuk").hide();
+            $("#field_kode_persediaan").hide();
+            $("#pilihan_kode").show();
+            $("#field_nilai_non_persediaan").show();
+            $("#ket_non_persediaan").show();
+
+          }
+          else if(jns_pemasukan=="persediaan" && sumber_dana!="APBD"){
+            $("#field_satuan").show();
+            $("#pilihan_kode").hide();
+            $("#field_harga_satuan").show();
+            $("#field_jumlah_masuk").show();
+            $("#field_kode_persediaan").show();
+            $("#field_nilai_non_persediaan").hide();
+            $("#field_nilai_non_persediaan").prop('required',false);
+          }
+          else{
+            $("#field_satuan").hide();
+            $("#pilihan_kode").hide();
+            $("#field_harga_satuan").hide();
+            $("#field_jumlah_masuk").hide();
+            $("#field_kode_persediaan").hide();
+            $("#field_nilai_non_persediaan").hide();
+            $("#ket_non_persediaans").hide();
+          }
+          });
+
+  
         
         if(sumber_dana=="APBD"){
           $.ajax({
@@ -360,6 +431,13 @@ else {
         }
         else{
           $('#pilihan_kode').hide();
+          $('#field_nilai_non_persediaan').hide();
+          $('#jns_masuk').hide();
+          $('#field_kode_persediaan').show();
+          $('#field_jumlah_masuk').show();
+          $('#field_harga_satuan').show();
+          $('#field_satuan').show();
+          $('#jenis_pemasukan').hide();
         }
         $.ajax({
           type: "post",
