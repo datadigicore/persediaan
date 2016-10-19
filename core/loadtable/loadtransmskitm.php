@@ -46,6 +46,11 @@ $columns = array(
              }  ),
     // array( 'db' => 'total_harga', 'dt' => 8 ),
     // array( 'db' => 'keterangan', 'dt' => 9 ),
+
+    
+    
+    
+
 );
 
 if($kd_ruang!="") $query_ruang="and kd_ruang='$kd_ruang' "; 

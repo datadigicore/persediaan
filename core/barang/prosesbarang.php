@@ -70,25 +70,14 @@ else
 		break;
 
 		case 'addsubbarang':
-			$nokdbarang = $purifier->purify($_POST['kdbarang_no']);
-			$kdbarang = $nokdbarang.'.'.$purifier->purify($_POST['kdbarang']);
-			$nmbarang = $purifier->purify($_POST['nmbarang']);
-			$spesifikasi = $purifier->purify($_POST['spesifikasi']);
-			$satuan = $purifier->purify($_POST['satuan']);
-			$data = array(
-				"kdbrg" => $kdbarang,
-				"kode_rekening" => $nokdbarang,
-				"nmbrg" => $nmbarang,
-				"spesifikasi" => $spesifikasi,
-				"satuan" => $satuan,
-		    );
-		    // print_r($data);
-			$Barang->tambahsubbrg($data);
+			unset($_POST['manage']);
+			$_POST = $purifier->purifyArray($_POST);
+			$data = $Barang->tambahsubbrg($_POST);
 			$datalog = array(
-				"kd_brg" => $kdbarang,
-				"nm_brg" => $nmbarang,
-				"spesifikasi" => $spesifikasi,
-				"satuan" => $satuan,
+				"kd_brg" => $data['kd_brg'],
+				"nm_brg" => $data['nm_brg'],
+				"spesifikasi" => $data['spesifikasi'],
+				"satuan" => $data['satuan'],
 				"aksi" => "T-Persediaan"
 		    );
 			$Barang->loghistory($datalog);			
