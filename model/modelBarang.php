@@ -28,46 +28,34 @@ class modelBarang extends mysql_db
 
 	public function tambahsubbrg($data)
 	{
-		$kode_rekening = $data['kode_rekening'];
-		$nm_brg = $data['nmbrg'];
-		// $kd_brg = $data['kdbrg'];
-		$spesifikasi = $data['spesifikasi'];
-		$satuan = $data['satuan'];
-
-		$hsl = $this->query("select kd_perk, nm_perk,nm_sskel from persediaan where kd_sskel = '$kode_rekening' ");
-		$kd_rek = $this->fetch_array($hsl);
-		$kd_perk = $kd_rek['kd_perk'];
-		$nm_perk = $kd_rek['nm_perk'];
-		$nm_sskel = $kd_rek['nm_sskel'];
-
-		$hsl_noreg = $this->query("SELECT g FROM persediaan where kd_brg like '$kode_rekening%' ORDER BY g DESC limit 1");
-		$data_noreg = $this->fetch_array($hsl_noreg);
-		$noreg = $data_noreg['g'];
-		$no_urut = $noreg+1;
-		if($no_urut<10) $no_urut = '0'.$no_urut;
-
-		$kd_brg=$kode_rekening.'.'.$no_urut;
-
-		$query_brg = "select kd_brg, nm_brg from persediaan where kd_brg='$kd_brg' limit 1";
-		$result_brg = $this->query($query_brg);
-		if($this->num_rows($result_brg)==1)
-        {
-        	exit();
+		$query = $this->query("select kd_perk, nm_perk,nm_sskel from persediaan where kd_sskel = '$data[kd_sskel]' ");
+		$result = $this->fetch_assoc($query);
+		$data['kd_perk'] = $result['kd_perk'];
+		$data['nm_perk'] = $result['nm_perk'];
+		$data['nm_sskel'] = $result['nm_sskel'];
+		$query = $this->query("SELECT g FROM persediaan where kd_brg like '$data[kd_sskel].%' ORDER BY g DESC limit 1");
+		$result = $this->fetch_assoc($query);
+		$noreg = $result['g'];
+		$data['g'] = $noreg+1;
+		if ($data['g']<10) {
+			$data['g'] = '0'.$data['g'];
+		}
+		$data['kd_brg']=$data['kd_sskel'].'.'.$data['g'];
+		$pecahKode = explode('.', $data['kd_sskel']);
+		$i = 0;
+		foreach (range('a', 'f') as $char) {
+			$data[$char] = $pecahKode[$i];
+			$i++;
+		}
+		unset($i);
+		$data['id'] = $data['kd_brg'];
+		$query = "INSERT INTO persediaan SET ";
+        foreach ($data as $key => $value) {
+            $query .= $key." = '".$value."',";
         }
-
-
-		$query = "Insert into persediaan
-        			set kd_brg='$kd_brg',
-        			g = '$no_urut',
-        			nm_brg='$nm_brg',
-        			kd_sskel='$kode_rekening',
-        			nm_sskel='$nm_sskel',
-        			kd_perk='$kd_perk',
-        			nm_perk='$nm_perk',
-                    spesifikasi='$spesifikasi',
-                    satuan='$satuan'";
-        $result = $this->query($query);
-		return $result;
+        $query  = substr($query,0,-1);
+		$result = $this->query($query);
+		return $data;
 	}
 
 	public function ubahjenisbrg($data)
@@ -195,7 +183,8 @@ class modelBarang extends mysql_db
 	}
 
 	public function loghistory($data)
-	{		
+	{	
+		error_reporting(0);
 		$kd_lokasi = $data['kd_lokasi'];
 		$nm_satker = $data['nm_satker'];
 		$user_id = $data['user_id'];
