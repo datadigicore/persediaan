@@ -31,7 +31,7 @@
                     <div class="form-group" style="margin-top:15px;">
                       <label class="col-sm-2 control-label">Jenis Barang </label>
                       <div class="col-sm-5">
-                        <select name="kdbarang_no" id="kdbarang_no" class="form-control select2" placeholder="Kode Barang">
+                        <select name="kd_sskel" id="kdbarang_no" class="form-control select2" placeholder="Kode Barang">
                         </select>
                         <input type="hidden" name="manage" value="addsubbarang">
                       </div>
@@ -43,7 +43,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nama Barang</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nmbarang" class="form-control" id="nmbarang" placeholder="Masukkan Nama Barang">
+                        <input type="text" name="nm_brg" class="form-control" id="nmbarang" placeholder="Masukkan Nama Barang">
                       </div>
                     </div>
                     <div class="form-group" style="margin-top:15px;">
