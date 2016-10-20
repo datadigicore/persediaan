@@ -126,7 +126,7 @@ else {
                         <div class="form-group" id="field_kode_persediaan">
 
                           <label class="col-sm-3 control-label">Kode / Nama Persediaan</label> 
-                          <div class="col-sm-8">
+                          <div class="col-sm-8" id="lbr_kode_persediaan">
                             <select name="kd_brg" id="kd_brg" class="form-control select2">
                             </select>
                           </div>
@@ -245,6 +245,25 @@ else {
                   </table>
                 </div>
               </div>
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Daftar Nilai Non Persediaan</h3>
+                </div>
+                <div class="box-body">
+                  <table id="example2" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Kode Rekening</th>
+                        <th>Nama Rekening</th>
+                        <th>Nilai Non Persediaan</th>
+                        <th>Keterangan</th>
+                        <th>Aksi</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
               <?php } ?>              
               <?php if ($_POST['manage']=="trans_keluar") { ?>
               <div class="box box-info">
@@ -302,6 +321,33 @@ else {
     $('form').on('blur', 'input[type=number]', function (e) {
       $(this).off('mousewheel.disableScroll')
     });
+
+    function baca_rekening(){
+      table = $("#example2").DataTable({
+          "aaSorting": [[ 0, 'desc' ]], 
+          "processing": false,
+          "serverSide": true,
+          "ajax":
+          {
+            'type': 'GET',
+            'url': '../core/loadtable/load_nilai_kontrak',
+            'data': {
+               no_dok: '<?php echo $_POST["satker"]?>',
+            },
+          },
+          "columnDefs":
+          [
+            {"targets": 0,
+             "visible": false },
+            {"targets": 1 },
+            {"targets": 2 },
+            {"targets": 3 },
+            {"targets": 4 },
+            {"targets": 5 },
+          ],
+        });
+    }
+
     var table;
       $(function () {
         $(".select2").select2();
@@ -332,6 +378,7 @@ else {
         $("li#trans_masuk").addClass("active");
             
         $("li#saldo_awal").addClass("active");
+        baca_rekening();
         table = $("#example1").DataTable({
           "aaSorting": [[ 0, 'desc' ]], 
           "processing": false,
@@ -760,24 +807,24 @@ else {
         
       
 
-          if($('#kd_brg').select2('data')== "") {
-            // alert("Kode Barang persediaan Belum Dipilih");
-            $("#kd_brg").notify("Kode Persediaan Barang Belum Dipilih","error");
-            return false;
-          }
-          if ($('#jml_msk').val() == "") {
-            $("#jml_msk").notify("Masukkan Jumlah Barang yang Diterima","error");
-            return false;
-          };
-          if ($('#satuan').val() == "") {
-            // alert("Satuan Barang Belum Dipilih Atau Dimasukkan");
-            $("#satuan").notify("Satuan Barang Belum Dimasukkan","error");
-            return false;
-          };
-          if ($('#rph_sat').val() == "") {
-            $("#rph_sat").notify("Masukkan Harga Beli / Perolehan Satuan","error");
-            return false;
-          };
+          // if($('#kd_brg').select2('data')== "") {
+          //   // alert("Kode Barang persediaan Belum Dipilih");
+          //   $("#kd_brg").notify("Kode Persediaan Barang Belum Dipilih","error");
+          //   return false;
+          // }
+          // if ($('#jml_msk').val() == "") {
+          //   $("#jml_msk").notify("Masukkan Jumlah Barang yang Diterima","error");
+          //   return false;
+          // };
+          // if ($('#satuan').val() == "") {
+          //   // alert("Satuan Barang Belum Dipilih Atau Dimasukkan");
+          //   $("#satuan").notify("Satuan Barang Belum Dimasukkan","error");
+          //   return false;
+          // };
+          // if ($('#rph_sat').val() == "") {
+          //   $("#rph_sat").notify("Masukkan Harga Beli / Perolehan Satuan","error");
+          //   return false;
+          // };
           $('button:submit').attr("disabled", true);
           e.preventDefault();
           var formURL = $(this).attr("action");
@@ -799,6 +846,9 @@ else {
               $('button:submit').attr("disabled", false); 
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
+              $("#example2").DataTable().destroy();
+              $("#example2 tbody").empty();
+              baca_rekening();
               table = $("#example1").DataTable({
                 "aaSorting": [[ 0, 'desc' ]], 
                 "processing": false,
