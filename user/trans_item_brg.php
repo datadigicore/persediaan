@@ -116,13 +116,7 @@ else {
                           </div>
                         </div>
 
-                          <div class="form-group" id="pilihan_kode">
-                          <label class="col-sm-3 control-label">Kode Rekening Belanja</label>
-                          <div class="col-sm-8">
-                            <select name="kode_rek" class="form-control select2" id="kode_rek" >
-                            </select>
-                          </div>
-                        </div> 
+                          
                         <div class="form-group" id="field_kode_persediaan">
 
                           <label class="col-sm-3 control-label">Kode / Nama Persediaan</label> 
@@ -150,7 +144,14 @@ else {
                           <div class="col-sm-8">
                             <input type="number" min="1" name="rph_sat" class="form-control" id="rph_sat" step="any" placeholder="Masukkan Harga ">
                           </div>
-                        </div> 
+                        </div>
+                        <div class="form-group" id="pilihan_kode">
+                          <label class="col-sm-3 control-label">Kode Rekening Belanja</label>
+                          <div class="col-sm-8">
+                            <select name="kode_rek" class="form-control select2" id="kode_rek" >
+                            </select>
+                          </div>
+                        </div>  
                       <div class="form-group" id="field_nilai_non_persediaan">
                         <label class="col-sm-3 control-label">Nilai <b>Non</b> Persediaan</label>
                         <div class="col-sm-8">
@@ -349,8 +350,8 @@ else {
     }
 
     var table;
-      $(function () {
-        $(".select2").select2();
+    function list_kode_barang(){
+      $(".select2").select2();
         $("#kd_brg").select2({
           placeholder: "-- Pilih Kode Item Barang --",
           ajax: {
@@ -374,7 +375,28 @@ else {
           },
           escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
           minimumInputLength: 1,
+          width:'resolve'
         });
+
+
+
+    }
+      $(function () {
+        function list_kode_rekening() {
+          $.ajax({
+              type: "post",
+              url: '../core/transaksi/prosestransaksi',
+              data: {manage:'baca_rekening'},
+              success: function (output) { 
+                $('#kode_rek').html(output);
+                $("#kode_rek").select2({
+                placeholder: "-- Pilih Kode Rekening --",
+                width:'resolve'
+              });
+            }
+          });
+        }
+        // list_kode_barang();
         $("li#trans_masuk").addClass("active");
             
         $("li#saldo_awal").addClass("active");
@@ -415,6 +437,13 @@ else {
         //     var data = table.row( this ).data();
         //     alert( 'You clicked on '+data[0]+'\'s row' );
         // } );
+        function hapus_input(){
+          $("#kd_brg").select2("val", "");
+          $("#kode_rek").select2("val", "");
+          $("#jml_msk").val('');
+          $("#satuan").val('');
+          $("#rph_sat").val('');
+        }
               var sumber_dana = "<?php echo $_POST['jenistrans']?>";
          $('#jenis_pemasukan').change(function(){
           var jns_pemasukan = $("#jenis_pemasukan").val();
@@ -425,7 +454,10 @@ else {
             $("#field_harga_satuan").show();
             $("#field_jumlah_masuk").show();
             $("#field_kode_persediaan").show();
+            list_kode_barang();
+
             $("#field_nilai_non_persediaan").prop('required',false);
+            hapus_input();
           }
           else if(jns_pemasukan=="non_persediaan" && sumber_dana=="APBD"){
             $("#field_satuan").prop('required',false);
@@ -439,6 +471,8 @@ else {
             $("#pilihan_kode").show();
             $("#field_nilai_non_persediaan").show();
             $("#ket_non_persediaan").show();
+            list_kode_rekening();
+            hapus_input();
 
           }
           else if(jns_pemasukan=="persediaan" && sumber_dana!="APBD"){
@@ -449,6 +483,9 @@ else {
             $("#field_kode_persediaan").show();
             $("#field_nilai_non_persediaan").hide();
             $("#field_nilai_non_persediaan").prop('required',false);
+            $("#ket_non_persediaan").hide();
+            hapus_input();
+
           }
           else{
             $("#field_satuan").hide();
@@ -458,23 +495,14 @@ else {
             $("#field_kode_persediaan").hide();
             $("#field_nilai_non_persediaan").hide();
             $("#ket_non_persediaans").hide();
+            hapus_input();
           }
           });
 
   
         
         if(sumber_dana=="APBD"){
-          $.ajax({
-              type: "post",
-              url: '../core/transaksi/prosestransaksi',
-              data: {manage:'baca_rekening'},
-              success: function (output) { 
-                $('#kode_rek').html(output);
-                $("#kode_rek").select2({
-                placeholder: "-- Pilih Rekening --"
-              });
-            }
-          });
+          list_kode_rekening();
         }
         else{
           $('#pilihan_kode').hide();
@@ -485,6 +513,7 @@ else {
           $('#field_harga_satuan').show();
           $('#field_satuan').show();
           $('#jenis_pemasukan').hide();
+          list_kode_barang();
         }
         $.ajax({
           type: "post",
