@@ -518,7 +518,31 @@ else
 			$hrg_sat = $purifier->purify($_POST['rph_sat']);
 			$status = 0;
 			$user_id = $_SESSION['username'];
-			if ($kd_brg == "") {
+			if($nilai_kontrak > 0){
+				$no_dok = $purifier->purify($_POST['no_dok_item']);
+				$data = array(
+					"kd_lokasi" => $kd_lokasi,
+					"nm_satker" => $nm_satker,
+					"thn_ang" => $thn_ang,
+					"jns_trans" => $jns_trans,
+					"no_dok" => $no_dok,
+					"nilai_kontrak" =>$nilai_kontrak,
+					"tgl_dok" => $tgl_dok,
+					"tgl_buku" => $tgl_buku,
+					"no_bukti" => $no_bukti,
+					"status" => $status,
+					"user_id" => $user_id,
+					"keterangan" => $keterangan,
+					"kode_rek" => $kode_rek,
+					"nama_rek" => $nama_rek,
+					"keterangan" => $keterangan
+				);
+				print_r($data);
+				echo "Pemasukkan Rekening";
+				$Transaksi->transaksi_masuk($data);
+			}
+			
+			elseif ($kd_brg == "") {
 			$no_dok	= $satkernodok.' - '.$purifier->purify($_POST['no_dok']);
 				$data = array(
 					"kd_lokasi" => $kd_lokasi,
@@ -544,9 +568,9 @@ else
 					// "harga_sat" => $hrg_sat,
 					// "keterangan" => $keterangan,
 				);
-				// print_r($data);
-				// echo 'masuk ident';
-				$Transaksi->transaksi_masuk_ident($data);
+				print_r($data);
+				echo 'masuk ident';
+				// $Transaksi->transaksi_masuk_ident($data);
 			}
 			else{
 				$no_dok = $purifier->purify($_POST['no_dok_item']);
@@ -573,9 +597,9 @@ else
 					"nama_rek" => $nama_rek,
 					"keterangan" => $keterangan
 				);
-				// print_r($data);
-				// echo "Pemasukkan Barang";
-				$Transaksi->transaksi_masuk($data);
+				print_r($data);
+				echo "Pemasukkan Barang";
+				// $Transaksi->transaksi_masuk($data);
 			}
 			//========= Log History =========//
 			$kd_lokasi = $_SESSION['kd_lok'];
