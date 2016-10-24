@@ -19,14 +19,14 @@
             <li class="active"><a href="#"><i class="fa fa-compress"></i> Transaksi Masuk</a></li>
           </ol>
         </section>
-        <section class="content">
+        <section class="content" >
           <div class="row">
             <section class="col-lg-12 connectedSortable">
-              <div class="box box-info">
+              <div class="box box-info" id="form_detail_transaksi">
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Dokumen Transaksi </h3>
                 </div>
-                <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal"  id="addtransmsk" >
+                <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal"  id="addtransmsk"  >
                   <div class="box-body" style="padding-top:15px;">
                     <div class="form-group">
                       <label class="col-sm-2 control-label">SKPD</label>
@@ -87,10 +87,14 @@
                     <button type="submit" class="btn btn-info pull-right">Submit</button>
                   </div>
                 </form>
+                <div class="box-footer">
+                  <button type="button" id="hide_field" class="btn btn-default">Sembunyikan Form</button>
+                </div>
               </div>
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Daftar Transaksi Masuk</h3>
+                  <h3 class="box-title col-sm-10">Daftar Transaksi Masuk</h3>
+                  <button type="button"  id="show_field" class="btn btn-primary col-xs-2" >Tambah Dokumen</button>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
@@ -123,7 +127,13 @@
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script src="../dist/js/jquery.mask.js" ></script>
     <script type="text/javascript">
-      
+     $("#form_detail_transaksi").hide();
+    $(document).on('click', '#show_field', function () {
+      $("#form_detail_transaksi").show();
+    }); 
+    $(document).on('click', '#hide_field', function () {
+      $("#form_detail_transaksi").hide();
+    }); 
       function masuk_tanggal() {
       
         var tgl_dok = $('#tgl_dok').val();
