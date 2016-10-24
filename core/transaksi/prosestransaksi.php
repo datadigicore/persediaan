@@ -502,16 +502,15 @@ else
 			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
 			$nilai_kontrak = $_POST['nilai_kontrak'];
-			$no_bukti = $purifier->purify($_POST['no_dok']);
+			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
 			$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
 			
-			$jns_trans = $_POST['jenis_trans'];
-			$kd_brg = $purifier->purify($_POST['kd_brg']);
+			
+			// $kd_brg = $purifier->purify($_POST['kd_brg']);
 			$detail_rek = explode("-", $_POST['kode_rek']);
 
-			$kode_rek = $detail_rek[0];
-			$nama_rek = $detail_rek[1];
+			
 			$kuantitas = $purifier->purify($_POST['jml_msk']);
 			$satuan = $purifier->purify($_POST['satuan']);
 			$keterangan = $purifier->purify($_POST['keterangan']);
@@ -519,17 +518,19 @@ else
 			$status = 0;
 			$user_id = $_SESSION['username'];
 			if($nilai_kontrak > 0){
+				$ket_non_persediaan = $purifier->purify($_POST['ket_non_persediaan']);
 				$no_dok = $purifier->purify($_POST['no_dok_item']);
+				$kode_rek = $detail_rek[0];
+				$nama_rek = $detail_rek[1];
 				$data = array(
 					"kd_lokasi" => $kd_lokasi,
 					"nm_satker" => $nm_satker,
 					"thn_ang" => $thn_ang,
-					"jns_trans" => $jns_trans,
 					"no_dok" => $no_dok,
 					"nilai_kontrak" =>$nilai_kontrak,
+					"ket_non_persediaan" =>$ket_non_persediaan,
 					"tgl_dok" => $tgl_dok,
 					"tgl_buku" => $tgl_buku,
-					"no_bukti" => $no_bukti,
 					"status" => $status,
 					"user_id" => $user_id,
 					"keterangan" => $keterangan,
@@ -537,14 +538,16 @@ else
 					"nama_rek" => $nama_rek,
 					"keterangan" => $keterangan
 				);
-				print_r($data);
+				// print_r($data);
 				echo "Pemasukkan Rekening";
 				$Transaksi->transaksi_masuk($data);
 			}
 			
 			elseif ($kd_brg == "") {
 			$no_dok	= $satkernodok.' - '.$purifier->purify($_POST['no_dok']);
-				$data = array(
+			$no_bukti = $purifier->purify($_POST['no_dok']);
+			$jns_trans = $_POST['jenis_trans'];
+			$data = array(
 					"kd_lokasi" => $kd_lokasi,
 					"kd_ruang" => $kd_ruang,
 					// "kd_lok_msk" => $kd_lok_msk,
@@ -568,27 +571,23 @@ else
 					// "harga_sat" => $hrg_sat,
 					// "keterangan" => $keterangan,
 				);
-				print_r($data);
-				echo 'masuk ident';
-				// $Transaksi->transaksi_masuk_ident($data);
+				// print_r($data);
+				echo 'masuk identITAS Dokumen';
+				$Transaksi->transaksi_masuk_ident($data);
 			}
 			else{
 				$no_dok = $purifier->purify($_POST['no_dok_item']);
+
 				$data = array(
 					"kd_lokasi" => $kd_lokasi,
-					"kd_lok_msk" => $kd_lok_msk,
 					"nm_satker" => $nm_satker,
 					"thn_ang" => $thn_ang,
-					"jns_trans" => $jns_trans,
 					"no_dok" => $no_dok,
-					"nilai_kontrak" =>$nilai_kontrak,
 					"tgl_dok" => $tgl_dok,
 					"tgl_buku" => $tgl_buku,
-					"no_bukti" => $no_bukti,
 					"status" => $status,
 					"user_id" => $user_id,
 					"kd_brg" => $kd_brg,
-					"nm_brg" => $nm_brg,
 					"satuan" => $satuan,
 					"kuantitas" => $kuantitas,
 					"keterangan" => $keterangan,
@@ -597,9 +596,9 @@ else
 					"nama_rek" => $nama_rek,
 					"keterangan" => $keterangan
 				);
-				print_r($data);
+				// print_r($data);
 				echo "Pemasukkan Barang";
-				// $Transaksi->transaksi_masuk($data);
+				$Transaksi->transaksi_masuk($data);
 			}
 			//========= Log History =========//
 			$kd_lokasi = $_SESSION['kd_lok'];
@@ -607,11 +606,9 @@ else
 			$nm_satker = $_SESSION['nama_satker'];
 			$thn_ang = $_SESSION['thn_ang'];
 			
-			$no_bukti = $purifier->purify($_POST['no_bukti']);
 			$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
 			$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
 			
-			$jns_trans = $_POST['jenis_trans'];
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			// $nm_brg = $purifier->purify($_POST['nm_brg']);
 			$kuantitas = $purifier->purify($_POST['jml_msk']);
@@ -622,21 +619,17 @@ else
 			$tanggal = date("Y-m-d h:i:sa");
 			$datalog = array(
 				"kd_lokasi" => $kd_lokasi,
-				"kd_lok_msk" => $kd_lok_msk,
 				"nm_satker" => $nm_satker,
 				"thn_ang" => $thn_ang,
 				"no_dok" => $no_dok,
 				"tgl_dok" => $tgl_dok,
 				"tgl_buku" => $tgl_buku,
-				"no_bukti" => $no_bukti,
 				"kd_brg" => $kd_brg,
-				"nm_brg" => $nm_brg,
 				"satuan" => $satuan,
 				"kuantitas" => $kuantitas,
 				"keterangan" => $keterangan,
 				"aksi" => "T-transaksi masuk",
 		    	"harga_sat" => $hrg_sat,
-		    	"jns_trans" => $jns_trans,
 				"keterangan" => $keterangan,
 				
 				"user_id" => $user_id,

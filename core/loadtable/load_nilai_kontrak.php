@@ -29,7 +29,7 @@ $columns = array(
     array( 'db' => 'kode_rekening', 'dt' => 1 ),
     array( 'db' => 'nama_rekening', 'dt' => 2 ),
     array( 'db' => 'nilai_kontrak', 'dt' => 3 ),
-    array( 'db' => 'ket_brg',       'dt' => 4 ),
+    array( 'db' => 'ket_rek',       'dt' => 4 ),
     array( 'db' => 'status',       'dt' => 5 ),
 );
 
