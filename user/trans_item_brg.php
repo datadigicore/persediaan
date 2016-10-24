@@ -115,11 +115,28 @@ else {
                             </select>
                           </div>
                         </div>
-
-                          
+                        <div class="form-group" id="pilihan_kode">
+                          <label class="col-sm-3 control-label">Kode Rekening Belanja</label>
+                          <div class="col-sm-8">
+                            <select name="kode_rek" class="form-control select2" id="kode_rek" >
+                            </select>
+                          </div>
+                        </div>  
+                      <div class="form-group" id="field_nilai_non_persediaan">
+                        <label class="col-sm-3 control-label">Nilai <b>Non</b> Persediaan</label>
+                        <div class="col-sm-8">
+                          <input type="number" min="0" name="nilai_kontrak" class="form-control" id="nilai_kontrak"  placeholder="Masukkan Nilai Non Persediaan" >
+                        </div> 
+                      </div>
+                      <div class="form-group" id="ket_non_persediaan">
+                        <label class="col-sm-3 control-label">Keterangan Nilai Non Persediaan</label>
+                        <div class="col-sm-8">
+                          <input type="text"  name="ket_non_persediaan" class="form-control" id="ket_non_persediaan"  placeholder="Masukkan Keterangan Non Persediaan" >
+                        </div> 
+                      </div>                          
                         <div class="form-group" id="field_kode_persediaan">
 
-                          <label class="col-sm-3 control-label">Kode / Nama Persediaan</label> 
+                          <label class="col-sm-3 control-label">Kode / Nama Barang</label> 
                           <div class="col-sm-8" id="lbr_kode_persediaan">
                             <select name="kd_brg" id="kd_brg" class="form-control select2">
                             </select>
@@ -145,25 +162,7 @@ else {
                             <input type="number" min="1" name="rph_sat" class="form-control" id="rph_sat" step="any" placeholder="Masukkan Harga ">
                           </div>
                         </div>
-                        <div class="form-group" id="pilihan_kode">
-                          <label class="col-sm-3 control-label">Kode Rekening Belanja</label>
-                          <div class="col-sm-8">
-                            <select name="kode_rek" class="form-control select2" id="kode_rek" >
-                            </select>
-                          </div>
-                        </div>  
-                      <div class="form-group" id="field_nilai_non_persediaan">
-                        <label class="col-sm-3 control-label">Nilai <b>Non</b> Persediaan</label>
-                        <div class="col-sm-8">
-                          <input type="number" min="0" name="nilai_kontrak" class="form-control" id="nilai_kontrak"  placeholder="Masukkan Nilai Non Persediaan" >
-                        </div> 
-                      </div>
-                      <div class="form-group" id="ket_non_persediaan">
-                        <label class="col-sm-3 control-label">Keterangan</label>
-                        <div class="col-sm-8">
-                          <input type="text"  name="ket_non_persediaan" class="form-control" id="ket_non_persediaan"  placeholder="Masukkan Keterangan Non Persediaan" >
-                        </div> 
-                      </div>
+
                          <?php }  ?>                  
                         <div name="detil_transaksi" id="detil_transaksi">
                         </div>
@@ -454,6 +453,9 @@ else {
             $("#field_harga_satuan").show();
             $("#field_jumlah_masuk").show();
             $("#field_kode_persediaan").show();
+            $("#pilihan_kode").hide();
+            $("#field_nilai_non_persediaan").hide();
+            $("#ket_non_persediaan").hide();
             list_kode_barang();
 
             $("#field_nilai_non_persediaan").prop('required',false);

@@ -457,6 +457,7 @@ class modelTransaksi extends mysql_db
         $kode_rek =$data['kode_rek'];
         $nama_rek =$data['nama_rek'];
         $nilai_kontrak =$data['nilai_kontrak'];
+        $ket_non_persediaan =$data['ket_non_persediaan'];
         
 
         $query_dok = "select kd_lokasi,kd_ruang, tgl_dok, tgl_buku, no_bukti, jns_trans, keterangan,nilai_kontrak from transaksi_masuk where no_dok='$no_dok' and status_ambil=0 ";
@@ -561,6 +562,7 @@ class modelTransaksi extends mysql_db
                     kode_rekening='$kode_rek',                           
                     nama_rekening='$nama_rek',
                     nilai_kontrak='$nilai_kontrak',
+                    ket_rek='$ket_non_persediaan',
                     satuan='$satuan',
                     qty='$kuantitas',
                     qty_akhir='$kuantitas',
@@ -2526,7 +2528,6 @@ class modelTransaksi extends mysql_db
         $no_dok = $datalog['no_dok'];
 
         $kd_brg = $datalog['kd_brg'];
-        $nm_brg = $datalog['nm_brg'];
         $qty = $datalog['kuantitas'];
         $kuantitas = $datalog['kuantitas'];
         $harga_sat = $datalog['harga_sat'];
@@ -2544,7 +2545,7 @@ class modelTransaksi extends mysql_db
         $no_bukti = $dok['no_bukti'];
         $jns_trans = $dok['jns_trans'];
         
-        $query_perk = "SELECT nm_sskel, kd_perk, nm_perk, nm_brg from persediaan where kd_brg='$kd_brg' ";
+        $query_perk = "SELECT kd_brg, nm_sskel, kd_perk, nm_perk, nm_brg from persediaan where kd_brg='$kd_brg' ";
         $result_perk = $this->query($query_perk);
         $data_perk = $this->fetch_array($result_perk);
         $kd_sskel = $data_perk['kd_brg'];
