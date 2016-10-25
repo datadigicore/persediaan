@@ -453,9 +453,13 @@ else {
             $("#field_harga_satuan").show();
             $("#field_jumlah_masuk").show();
             $("#field_kode_persediaan").show();
-            $("#pilihan_kode").hide();
-            $("#field_nilai_non_persediaan").hide();
-            $("#ket_non_persediaan").hide();
+            $("#pilihan_kode").show();
+            $("#field_nilai_non_persediaan").show();
+            $("#ket_non_persediaan").show();
+            $("#kd_brg").prop('required',true);
+            $("#satuan").prop('required',true);
+            $("#jml_msk").prop('required',true);
+            $("#harga_sat").prop('required',true);
             list_kode_barang();
 
             $("#field_nilai_non_persediaan").prop('required',false);
@@ -473,6 +477,10 @@ else {
             $("#pilihan_kode").show();
             $("#field_nilai_non_persediaan").show();
             $("#ket_non_persediaan").show();
+            $("#kd_brg").prop('required',false);
+            $("#satuan").prop('required',false);
+            $("#jml_msk").prop('required',false);
+            $("#harga_sat").prop('required',false);
             list_kode_rekening();
             hapus_input();
 
@@ -483,7 +491,7 @@ else {
             $("#field_harga_satuan").show();
             $("#field_jumlah_masuk").show();
             $("#field_kode_persediaan").show();
-            $("#field_nilai_non_persediaan").hide();
+            $("#field_nilai_non_persediaan").show();
             $("#field_nilai_non_persediaan").prop('required',false);
             $("#ket_non_persediaan").hide();
             hapus_input();
