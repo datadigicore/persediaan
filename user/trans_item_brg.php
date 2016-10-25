@@ -454,8 +454,8 @@ else {
             $("#field_jumlah_masuk").show();
             $("#field_kode_persediaan").show();
             $("#pilihan_kode").show();
-            $("#field_nilai_non_persediaan").show();
-            $("#ket_non_persediaan").show();
+            $("#field_nilai_non_persediaan").hide();
+            $("#ket_non_persediaan").hide();
             $("#kd_brg").prop('required',true);
             $("#satuan").prop('required',true);
             $("#jml_msk").prop('required',true);
