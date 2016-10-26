@@ -518,7 +518,7 @@ else
 			$hrg_sat = $purifier->purify($_POST['rph_sat']);
 			$status = 0;
 			$user_id = $_SESSION['username'];
-			if($nilai_kontrak > 0){
+			if($nilai_kontrak > 0 && $kd_brg == ""){
 				$ket_non_persediaan = $purifier->purify($_POST['ket_non_persediaan']);
 				$no_dok = $purifier->purify($_POST['no_dok_item']);
 				$kode_rek = $detail_rek[0];
@@ -577,6 +577,10 @@ else
 				$Transaksi->transaksi_masuk_ident($data);
 			}
 			else{
+				$ket_non_persediaan = $purifier->purify($_POST['ket_non_persediaan']);
+				
+				$kode_rek = $detail_rek[0];
+				$nama_rek = $detail_rek[1];
 				$no_dok = $purifier->purify($_POST['no_dok_item']);
 
 				$data = array(
@@ -596,7 +600,11 @@ else
 					"kode_rek" => $kode_rek,
 					"nama_rek" => $nama_rek,
 					"ket_brg" => $ket_brg,
-					"keterangan" => $keterangan
+					"keterangan" => $keterangan,
+					"nilai_kontrak" =>$nilai_kontrak,
+					"ket_non_persediaan" =>$ket_non_persediaan,
+					"kode_rek" => $kode_rek,
+					"nama_rek" => $nama_rek
 				);
 				// print_r($data);
 				echo "Pemasukkan Barang";
