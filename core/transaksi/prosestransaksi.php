@@ -503,6 +503,7 @@ else
 			$thn_ang = $_SESSION['thn_ang'];
 			$nilai_kontrak = $_POST['nilai_kontrak'];
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
+			$ket_brg = $purifier->purify($_POST['ket_brg']);
 			$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
 			$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
 			
@@ -594,6 +595,7 @@ else
 					"harga_sat" => $hrg_sat,
 					"kode_rek" => $kode_rek,
 					"nama_rek" => $nama_rek,
+					"ket_brg" => $ket_brg,
 					"keterangan" => $keterangan
 				);
 				// print_r($data);

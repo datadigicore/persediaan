@@ -162,6 +162,12 @@ else {
                             <input type="number" min="1" name="rph_sat" class="form-control" id="rph_sat" step="any" placeholder="Masukkan Harga ">
                           </div>
                         </div>
+                        <div class="form-group" id="field_ket_brg">
+                          <label class="col-sm-3 control-label">Keterangan Barang</label>
+                          <div class="col-sm-8">
+                            <input type="text" name="ket_brg" class="form-control" id="ket_brg" step="any" placeholder="Keterangan Barang Jika Diperlukan">
+                          </div>
+                        </div>
 
                          <?php }  ?>                  
                         <div name="detil_transaksi" id="detil_transaksi">
@@ -311,6 +317,7 @@ else {
     $("#field_jumlah_masuk").hide();
     $("#field_kode_persediaan").hide();
     $("#field_nilai_non_persediaan").hide();
+    $("#field_ket_brg").hide();
     $("#ket_non_persediaan").hide();
     $("#pilihan_kode").hide();
     $('form').on('focus', 'input[type=number]', function (e) {
@@ -442,6 +449,7 @@ else {
           $("#jml_msk").val('');
           $("#satuan").val('');
           $("#rph_sat").val('');
+          $("#ket_brg").val('');
         }
               var sumber_dana = "<?php echo $_POST['jenistrans']?>";
          $('#jenis_pemasukan').change(function(){
@@ -452,6 +460,7 @@ else {
             $("#pilihan_kode").show();
             $("#field_harga_satuan").show();
             $("#field_jumlah_masuk").show();
+            $("#field_ket_brg").show();
             $("#field_kode_persediaan").show();
             $("#pilihan_kode").hide();
             $("#field_nilai_non_persediaan").hide();
@@ -470,6 +479,7 @@ else {
             $("#field_harga_satuan").hide();
             $("#field_jumlah_masuk").hide();
             $("#field_kode_persediaan").hide();
+            $("#field_ket_brg").hide();
             $("#pilihan_kode").show();
             $("#field_nilai_non_persediaan").show();
             $("#ket_non_persediaan").show();
@@ -483,6 +493,7 @@ else {
             $("#field_harga_satuan").show();
             $("#field_jumlah_masuk").show();
             $("#field_kode_persediaan").show();
+            $("#field_ket_brg").show();
             $("#field_nilai_non_persediaan").hide();
             $("#field_nilai_non_persediaan").prop('required',false);
             $("#ket_non_persediaan").hide();
@@ -514,6 +525,7 @@ else {
           $('#field_jumlah_masuk').show();
           $('#field_harga_satuan').show();
           $('#field_satuan').show();
+          $("#field_ket_brg").show();
           $('#jenis_pemasukan').hide();
           list_kode_barang();
         }
