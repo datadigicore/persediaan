@@ -311,6 +311,8 @@ else {
     <script src="../dist/js/notify.js"></script>
     <?php if ($_POST['manage']=="trans_masuk") { ?>
     <script type="text/javascript">
+     var jns_pemasukan;
+     var table_rek;
     $("#field_satuan").hide();
     $("#field_pilihan_kode").hide();
     $("#field_harga_satuan").hide();
@@ -328,9 +330,9 @@ else {
     $('form').on('blur', 'input[type=number]', function (e) {
       $(this).off('mousewheel.disableScroll')
     });
-
+    
     function baca_rekening(){
-      table = $("#example2").DataTable({
+      table_rek = $("#example2").DataTable({
           "aaSorting": [[ 0, 'desc' ]], 
           "processing": false,
           "serverSide": true,
@@ -444,16 +446,17 @@ else {
         //     alert( 'You clicked on '+data[0]+'\'s row' );
         // } );
         function hapus_input(){
-          $("#kd_brg").select2("val", "");
-          $("#kode_rek").select2("val", "");
+          if(jns_pemasukan=="persediaan") $("#kd_brg").select2("val", '');
+          $("#kode_rek").select2("val", '');
           $("#jml_msk").val('');
           $("#satuan").val('');
           $("#rph_sat").val('');
           $("#ket_brg").val('');
         }
               var sumber_dana = "<?php echo $_POST['jenistrans']?>";
+             
          $('#jenis_pemasukan').change(function(){
-          var jns_pemasukan = $("#jenis_pemasukan").val();
+          jns_pemasukan = $("#jenis_pemasukan").val();
           // alert(jns_pemasukan);
           if(jns_pemasukan=="persediaan" && sumber_dana=="APBD"){
             $("#field_satuan").show();
@@ -692,6 +695,36 @@ else {
         });
         return false;
       });
+
+
+      $(document).on('click', '#hapus_rek', function () {
+        var tr = $(this).closest('tr');
+        var row = table_rek.row( tr );
+        redirectTime = "2600";
+        redirectURL = "trans_masuk";
+        id_row = row.data()[0];
+        managedata = "hapusTransMasuk";
+        job=confirm("Anda yakin ingin menghapus data ini?");
+        if(job!=true)
+        {
+          return false;
+        }
+          else
+        {
+          $.ajax({
+                type: "post",
+                url : "../core/transaksi/prosestransaksi",
+                data: {manage:managedata,id:id_row},
+                success: function(data)
+                {
+                    $("#example2").DataTable().destroy();
+                    $("#example2 tbody").empty();
+                    baca_rekening();
+                }
+              });
+        }
+      });
+
       $(document).on('click', '#btnhps', function () {
       var tr = $(this).closest('tr');
       var row = table.row( tr );
@@ -738,41 +771,41 @@ else {
                     $("#jml_msk").val('');
                     $("#satuan").val('');
                     $("#rph_sat").val('');
-                    $("#example1").DataTable().destroy();
-                    $("#example1 tbody").empty();
-                    table = $("#example1").DataTable({
-                      "processing": false,
-                      "serverSide": true,
-                      "ajax": {
-                          'type': 'GET',
-                          'url': '../core/loadtable/loadtransmskitm',
-                          'data': {
-                             no_dok: '<?php echo $_POST["satker"]?>',
-                          },
-                      },
-                      "columnDefs":
-                      [
-                        {"targets": 0,
-                         "visible": false },
-                        {"targets": 1,
-                         "visible": false  },
-                        {"targets": 2 },
-                        {"targets": 3 },
-                        {"targets": 4 },
-                        {"targets": 5 },
-                        {"targets": 6 },
-                        {"targets": 7 },
-                        {"targets": 8 },
-                        {"targets": 9 },
-                        {"targets": 10,
-                         "visible": true },
-                        {"targets": 11 },
-                      ],
-                      "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
-                    });
                 }
               });
             $.notify("Penghapusan Barang Berhasil","success");
+            $("#example1").DataTable().destroy();
+            $("#example1 tbody").empty();
+            table = $("#example1").DataTable({
+                     "processing": false,
+                     "serverSide": true,
+                     "ajax": {
+                         'type': 'GET',
+                         'url': '../core/loadtable/loadtransmskitm',
+                         'data': {
+                            no_dok: '<?php echo $_POST["satker"]?>',
+                         },
+                     },
+                     "columnDefs":
+                     [
+                       {"targets": 0,
+                        "visible": false },
+                       {"targets": 1,
+                        "visible": false  },
+                       {"targets": 2 },
+                       {"targets": 3 },
+                       {"targets": 4 },
+                       {"targets": 5 },
+                       {"targets": 6 },
+                       {"targets": 7 },
+                       {"targets": 8 },
+                       {"targets": 9 },
+                       {"targets": 10,
+                        "visible": true },
+                       {"targets": 11 },
+                     ],
+                     "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
+                   });
             return false;
             }
           }
@@ -889,7 +922,7 @@ else {
             processData: false,
             success: function(data)
             {
-              $("#kd_brg").select2("val", "");
+              if(jns_pemasukan=="persediaan") $("#kd_brg").select2("val", "");
               $("#jml_msk").val('');
               $("#satuan").val('');
               $("#rph_sat").val('');
