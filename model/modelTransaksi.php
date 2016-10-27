@@ -452,6 +452,7 @@ class modelTransaksi extends mysql_db
         // $kd_lokasi = $data['kd_lokasi'];
         
         $nm_satker = $data['nm_satker'];
+        $ket_brg = $data['ket_brg'];
         $thn_ang = $data['thn_ang'];
         $no_dok = $data['no_dok'];
         $kode_rek =$data['kode_rek'];
@@ -559,6 +560,7 @@ class modelTransaksi extends mysql_db
                     spesifikasi='$spesifikasi',
                     kd_perk='$kd_perk',
                     nm_perk='$nm_perk',
+                    untuk='$ket_brg',
                     kode_rekening='$kode_rek',                           
                     nama_rekening='$nama_rek',
                     nilai_kontrak='$nilai_kontrak',
