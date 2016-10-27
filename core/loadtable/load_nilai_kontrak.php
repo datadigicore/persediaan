@@ -30,7 +30,12 @@ $columns = array(
     array( 'db' => 'nama_rekening', 'dt' => 2 ),
     array( 'db' => 'nilai_kontrak', 'dt' => 3 ),
     array( 'db' => 'ket_rek',       'dt' => 4 ),
-    array( 'db' => 'status',       'dt' => 5 ),
+    array( 'db' => 'status',       'dt' => 5,
+        'formatter' => function($d,$row){
+            return '<div class="row-fluid">'.'<button id="hapus_rek" class="btn btn-flat btn-danger btn-xs col-xs-12"><i class="fa fa-remove"></i> Hapus</button>'.'<button id="edit_rek" class="btn btn-success btn-xs btn-flat col-xs-12"><i class="fa fa-edit"></i> Edit</button>'.
+            '</div>';  
+}
+            ),
 );
 
 if($kd_ruang!="") $query_ruang="and kd_ruang='$kd_ruang' "; 
@@ -50,7 +55,7 @@ else if (substr_count($str,".") == 2) {
     $where = "kd_lokasi like '$kd_satker.%' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and qty>0";
 }
 else{
-    $where = "kd_lokasi='$kd_satker'  and thn_ang='$thn_ang' and no_dok = '$no_dok' and nilai_kontrak>0 ".$query_ruang." ";
+    $where = "kd_lokasi='$kd_satker'  and thn_ang='$thn_ang' and no_dok = '$no_dok' and nilai_kontrak>0 and kd_brg='' ".$query_ruang." ";
 }
  
 // Pengaturan Output Server Side Processing
