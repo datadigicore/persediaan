@@ -311,8 +311,10 @@ else {
     <script src="../dist/js/notify.js"></script>
     <?php if ($_POST['manage']=="trans_masuk") { ?>
     <script type="text/javascript">
-     var jns_pemasukan;
-     var table_rek;
+    var jns_pemasukan;
+    var table_rek;
+    var table;
+    $("li#trans_masuk").addClass("active");
     $("#field_satuan").hide();
     $("#field_pilihan_kode").hide();
     $("#field_harga_satuan").hide();
@@ -357,7 +359,7 @@ else {
         });
     }
 
-    var table;
+    
     function list_kode_barang(){
       $(".select2").select2();
         $("#kd_brg").select2({
@@ -405,9 +407,7 @@ else {
           });
         }
         // list_kode_barang();
-        $("li#trans_masuk").addClass("active");
             
-        $("li#saldo_awal").addClass("active");
         baca_rekening();
         table = $("#example1").DataTable({
           "aaSorting": [[ 0, 'desc' ]], 
@@ -507,6 +507,10 @@ else {
             $("#field_ket_brg").show();
             $("#field_nilai_non_persediaan").hide();
             $("#field_nilai_non_persediaan").prop('required',false);
+            $("#kd_brg").prop('required',true);
+            $("#satuan").prop('required',true);
+            $("#jml_msk").prop('required',true);
+            $("#harga_sat").prop('required',true);
             $("#ket_non_persediaan").hide();
             hapus_input();
 
