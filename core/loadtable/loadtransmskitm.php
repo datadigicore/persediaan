@@ -35,7 +35,7 @@ $columns = array(
     array( 'db' => 'harga_sat', 'dt' => 7, 'formatter' => function($d,$row){return number_format($d,2,",",".");} ),
     array( 'db' => 'total_harga', 'dt' => 8, 'formatter' => function($d,$row){return number_format($d,2,",",".");}),
     
-    array( 'db' => 'keterangan', 'dt' => 9 ),
+    array( 'db' => 'untuk', 'dt' => 9 ),
     array( 'db' => 'qty_akhir', 'dt' => 10, 'formatter' => function($d,$row){if(ceil($d)!=$d or floor($d)!=$d) {return number_format($d,2,",",".");} else { return number_format($d,0,",",".");} }  ),
     array( 'db' => 'jns_trans', 'dt' => 11,'formatter' => function($d,$row){if($d!="M06"){ return '<div class="row-fluid">'.'<button id="btnhps" class="btn btn-flat btn-danger btn-xs col-xs-12"><i class="fa fa-remove"></i> Hapus</button>'.'<button id="btnedt" class="btn btn-success btn-xs btn-flat col-xs-12"><i class="fa fa-edit"></i> Edit</button>'.
             '</div>'; 
