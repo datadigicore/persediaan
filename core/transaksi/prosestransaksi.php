@@ -11,6 +11,19 @@ else
 	$manage = $_POST['manage'];
 	switch ($manage)
 	{
+		case 'update_rekening':
+			$id 			 = $purifier->purify($_POST['id']);
+			$nilai_baru 	 = $purifier->purify($_POST['nilai_baru']); 
+			$keterangan_baru = $purifier->purify($_POST['keterangan_baru']);
+
+			$data = array(
+				'id' => $id, 
+				'nilai_baru' => $nilai_baru, 
+				'keterangan_baru' => $keterangan_baru 
+				);
+			$Transaksi->update_data_rekening($data);
+		break;
+		
 		case 'batalkan_transfer':
 			$id = $purifier->purify($_POST['id']);
 			print_r($id);
