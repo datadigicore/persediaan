@@ -13,6 +13,47 @@ else {
     
   </head>
   <body class="skin-blue">
+  <div class="container">                       
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" role="dialog">
+                          <div class="modal-dialog">
+                            
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Edit Detail Rekening </h4>
+                              </div>
+                              <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="submit_update_rek">
+                              <div class="form-group">
+                                <input type="hidden" name="update_rekening" >
+                                <input type="hidden" name="id_edit" id="id_edit" >
+                                <label class="col-sm-3 control-label">Kode Rekening </label>
+                                <div class="col-sm-8">
+                                 <input type="text"  name="detail_rek" class="form-control" id="detail_rek" readonly>
+                                </div>
+                              </div>
+                              <div class="form-group" >
+                                <label class="col-sm-3 control-label">Nilai <b>Non</b> Persediaan</label>
+                                <div class="col-sm-8">
+                                  <input type="number" min="0" name="edit_nilai_kontrak" class="form-control" id="edit_nilai_kontrak"  placeholder="Masukkan Nilai Non Persediaan" >
+                                </div> 
+                              </div>
+                              <div class="form-group" >
+                                  <label class="col-sm-3 control-label">Keterangan Nilai Non Persediaan</label>
+                                  <div class="col-sm-8">
+                                   <input type="text"  name="edit_ket_non_persediaan" class="form-control" id="edit_ket_non_persediaan"  placeholder="Masukkan Keterangan Non Persediaan" >
+                                  </div> 
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-info" id="update_rek" data-dismiss="modal">Simpan Data</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                              </div>
+                            </form>
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
     <div class="wrapper">
       <?php include("include/header.php"); ?>
       <?php include("include/sidebar.php"); ?>
@@ -168,50 +209,7 @@ else {
                             <input type="text" name="ket_brg" class="form-control" id="ket_brg" step="any" placeholder="Keterangan Barang Jika Diperlukan">
                           </div>
                         </div>
-                        <div class="container">
                         
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="myModal" role="dialog">
-                          <div class="modal-dialog">
-                            
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Edit Detail Rekening </h4>
-                              </div>
-                              <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="submit_update_rek">
-                              <div class="form-group">
-                                <input type="hidden" name="update_rekening" >
-                                <input type="hidden" name="id_edit" id="id_edit" >
-                                <label class="col-sm-3 control-label">Kode Rekening </label>
-                                <div class="col-sm-8">
-                                 <input type="text"  name="detail_rek" class="form-control" id="detail_rek" readonly>
-                                </div>
-                              </div>
-                              <div class="form-group" >
-                                <label class="col-sm-3 control-label">Nilai <b>Non</b> Persediaan</label>
-                                <div class="col-sm-8">
-                                  <input type="number" min="0" name="edit_nilai_kontrak" class="form-control" id="edit_nilai_kontrak"  placeholder="Masukkan Nilai Non Persediaan" >
-                                </div> 
-                              </div>
-                              <div class="form-group" >
-                                  <label class="col-sm-3 control-label">Keterangan Nilai Non Persediaan</label>
-                                  <div class="col-sm-8">
-                                   <input type="text"  name="edit_ket_non_persediaan" class="form-control" id="edit_ket_non_persediaan"  placeholder="Masukkan Keterangan Non Persediaan" >
-                                  </div> 
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-info" id="update_rek" data-dismiss="modal">Simpan Data</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-                              </div>
-                            </form>
-                            </div>
-                            
-                          </div>
-                        </div>
-                        
-                      </div>
 
                          <?php }  ?>                  
                         <div name="detil_transaksi" id="detil_transaksi">
