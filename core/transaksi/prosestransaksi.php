@@ -176,6 +176,7 @@ else
 			$Transaksi->bacanodok_klr($data);
 		break;
 		case 'readidenttrans':
+			$thn_ang = $_SESSION['thn_ang'];
 			$idtrans = $purifier->purify($_POST['idtrans']);
 			if ($_SESSION['level'] == 1 AND isset($_POST['kdtrans'])) {
 				$kd_ruang = $_POST['kdtrans'];
@@ -183,7 +184,7 @@ else
 			else {
 				$kd_ruang = $_SESSION['kd_lok'].$_SESSION['kd_ruang'];
 			}
-			$Transaksi->bacaidenttrans($idtrans,$kd_ruang);
+			$Transaksi->bacaidenttrans($idtrans,$kd_ruang,$thn_ang);
 		break;
 		case 'readidenttransklr':
 			$idtrans = $purifier->purify($_POST['idtrans']);
