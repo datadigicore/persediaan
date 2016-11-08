@@ -13,6 +13,47 @@ else {
     
   </head>
   <body class="skin-blue">
+  <div class="container">                       
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" role="dialog">
+                          <div class="modal-dialog">
+                            
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Edit Detail Rekening </h4>
+                              </div>
+                              <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="submit_update_rek">
+                              <div class="form-group">
+                                <input type="hidden" name="update_rekening" >
+                                <input type="hidden" name="id_edit" id="id_edit" >
+                                <label class="col-sm-3 control-label">Kode Rekening </label>
+                                <div class="col-sm-8">
+                                 <input type="text"  name="detail_rek" class="form-control" id="detail_rek" readonly>
+                                </div>
+                              </div>
+                              <div class="form-group" >
+                                <label class="col-sm-3 control-label">Nilai <b>Non</b> Persediaan</label>
+                                <div class="col-sm-8">
+                                  <input type="number" min="0" name="edit_nilai_kontrak" class="form-control" id="edit_nilai_kontrak"  placeholder="Masukkan Nilai Non Persediaan" >
+                                </div> 
+                              </div>
+                              <div class="form-group" >
+                                  <label class="col-sm-3 control-label">Keterangan Nilai Non Persediaan</label>
+                                  <div class="col-sm-8">
+                                   <input type="text"  name="edit_ket_non_persediaan" class="form-control" id="edit_ket_non_persediaan"  placeholder="Masukkan Keterangan Non Persediaan" >
+                                  </div> 
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-info" id="update_rek" data-dismiss="modal">Simpan Data</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                              </div>
+                            </form>
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
     <div class="wrapper">
       <?php include("include/header.php"); ?>
       <?php include("include/sidebar.php"); ?>
@@ -168,6 +209,7 @@ else {
                             <input type="text" name="ket_brg" class="form-control" id="ket_brg" step="any" placeholder="Keterangan Barang Jika Diperlukan">
                           </div>
                         </div>
+                        
 
                          <?php }  ?>                  
                         <div name="detil_transaksi" id="detil_transaksi">
@@ -311,6 +353,7 @@ else {
     <script src="../dist/js/notify.js"></script>
     <?php if ($_POST['manage']=="trans_masuk") { ?>
     <script type="text/javascript">
+
     var jns_pemasukan;
     var table_rek;
     var table;
@@ -700,7 +743,38 @@ else {
         return false;
       });
 
-
+      $(document).on('click', '#edit_rek', function () {
+        // alert("Fitur sedang dikembangkan, coba beberapa hari lagi");
+        var tr = $(this).closest('tr');
+        var row = table_rek.row( tr );
+        id = row.data()[0];
+        kode_rek = row.data()[1];
+        nama_rek = row.data()[2];
+        nilai_kontrak = row.data()[3];
+        ket_rek = row.data()[4];
+         $("#myModal").modal();
+         $("#id_edit").val(id);
+         $("#detail_rek").val(+kode_rek+" : "+nama_rek);
+         $("#edit_nilai_kontrak").val(nilai_kontrak);
+         $("#edit_ket_non_persediaan").val(ket_rek);
+      });
+       $(document).on('click', '#update_rek', function (e) {
+          case_menu       = "update_rekening" ;
+          id_row          = $('#id_edit').val();
+          nilai_baru      = $('#edit_nilai_kontrak').val();
+          keterangan_baru = $('#edit_ket_non_persediaan').val();
+          $.ajax({
+                type: "post",
+                url : "../core/transaksi/prosestransaksi",
+                data: {manage:case_menu, id:id_row, nilai_baru:nilai_baru, keterangan_baru:keterangan_baru},
+                success: function(data)
+                {
+                    $("#example2").DataTable().destroy();
+                    $("#example2 tbody").empty();
+                    baca_rekening();
+                }
+              });
+       });  
       $(document).on('click', '#hapus_rek', function () {
         var tr = $(this).closest('tr');
         var row = table_rek.row( tr );

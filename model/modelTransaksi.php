@@ -9,6 +9,19 @@ class modelTransaksi extends mysql_db
         return $this->fetch_array($res);
     }
 
+    public function update_data_rekening($data){
+        $id              = $data['id'];
+        $nilai_baru      = $data['nilai_baru']; 
+        $keterangan_baru = $data['keterangan_baru'];
+        
+        $sql = "UPDATE transaksi_masuk set 
+                    nilai_kontrak='$nilai_baru', 
+                    ket_rek= '$keterangan_baru' 
+                WHERE id= '$id' ";
+
+        $this->query($sql);
+    
+    }
     public function baca_rekening(){
         $sql = "SELECT * from rekening where length(kode_rekening)>6 ";
         $result = $this->query($sql);
@@ -2305,9 +2318,9 @@ class modelTransaksi extends mysql_db
             echo '<option value="'.$row['no_dok'].'">'.$row['no_dok']."</option>";
         }   
     }
-    public function bacaidenttrans($data,$kd_ruang)
+    public function bacaidenttrans($data,$kd_ruang,$thn_ang)
     {
-        $query = "select no_bukti, tgl_dok, tgl_buku, jns_trans, nm_satker, keterangan, sum(total_harga) as total_harga from transaksi_masuk where no_dok = '$data' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_ruang' group by no_dok";
+        $query = "select no_bukti, tgl_dok, tgl_buku, jns_trans, nm_satker, keterangan, sum(total_harga) as total_harga from transaksi_masuk where no_dok = '$data' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_ruang' and thn_ang='$thn_ang' group by no_dok";
         $result = $this->query($query);
         if ($row = $this->fetch_assoc($result))
         {
