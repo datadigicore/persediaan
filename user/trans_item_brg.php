@@ -13,6 +13,47 @@ else {
     
   </head>
   <body class="skin-blue">
+  <div class="container">                       
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" role="dialog">
+                          <div class="modal-dialog">
+                            
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Edit Detail Rekening </h4>
+                              </div>
+                              <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="submit_update_rek">
+                              <div class="form-group">
+                                <input type="hidden" name="update_rekening" >
+                                <input type="hidden" name="id_edit" id="id_edit" >
+                                <label class="col-sm-3 control-label">Kode Rekening </label>
+                                <div class="col-sm-8">
+                                 <input type="text"  name="detail_rek" class="form-control" id="detail_rek" readonly>
+                                </div>
+                              </div>
+                              <div class="form-group" >
+                                <label class="col-sm-3 control-label">Nilai <b>Non</b> Persediaan</label>
+                                <div class="col-sm-8">
+                                  <input type="number" min="0" name="edit_nilai_kontrak" class="form-control" id="edit_nilai_kontrak"  placeholder="Masukkan Nilai Non Persediaan" >
+                                </div> 
+                              </div>
+                              <div class="form-group" >
+                                  <label class="col-sm-3 control-label">Keterangan Nilai Non Persediaan</label>
+                                  <div class="col-sm-8">
+                                   <input type="text"  name="edit_ket_non_persediaan" class="form-control" id="edit_ket_non_persediaan"  placeholder="Masukkan Keterangan Non Persediaan" >
+                                  </div> 
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-info" id="update_rek" data-dismiss="modal">Simpan Data</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                              </div>
+                            </form>
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
     <div class="wrapper">
       <?php include("include/header.php"); ?>
       <?php include("include/sidebar.php"); ?>
@@ -162,6 +203,13 @@ else {
                             <input type="number" min="1" name="rph_sat" class="form-control" id="rph_sat" step="any" placeholder="Masukkan Harga ">
                           </div>
                         </div>
+                        <div class="form-group" id="field_ket_brg">
+                          <label class="col-sm-3 control-label">Keterangan Barang</label>
+                          <div class="col-sm-8">
+                            <input type="text" name="ket_brg" class="form-control" id="ket_brg" step="any" placeholder="Keterangan Barang Jika Diperlukan">
+                          </div>
+                        </div>
+                        
 
                          <?php }  ?>                  
                         <div name="detil_transaksi" id="detil_transaksi">
@@ -305,12 +353,18 @@ else {
     <script src="../dist/js/notify.js"></script>
     <?php if ($_POST['manage']=="trans_masuk") { ?>
     <script type="text/javascript">
+
+    var jns_pemasukan;
+    var table_rek;
+    var table;
+    $("li#trans_masuk").addClass("active");
     $("#field_satuan").hide();
     $("#field_pilihan_kode").hide();
     $("#field_harga_satuan").hide();
     $("#field_jumlah_masuk").hide();
     $("#field_kode_persediaan").hide();
     $("#field_nilai_non_persediaan").hide();
+    $("#field_ket_brg").hide();
     $("#ket_non_persediaan").hide();
     $("#pilihan_kode").hide();
     $('form').on('focus', 'input[type=number]', function (e) {
@@ -321,9 +375,9 @@ else {
     $('form').on('blur', 'input[type=number]', function (e) {
       $(this).off('mousewheel.disableScroll')
     });
-
+    
     function baca_rekening(){
-      table = $("#example2").DataTable({
+      table_rek = $("#example2").DataTable({
           "aaSorting": [[ 0, 'desc' ]], 
           "processing": false,
           "serverSide": true,
@@ -348,7 +402,7 @@ else {
         });
     }
 
-    var table;
+    
     function list_kode_barang(){
       $(".select2").select2();
         $("#kd_brg").select2({
@@ -396,9 +450,7 @@ else {
           });
         }
         // list_kode_barang();
-        $("li#trans_masuk").addClass("active");
             
-        $("li#saldo_awal").addClass("active");
         baca_rekening();
         table = $("#example1").DataTable({
           "aaSorting": [[ 0, 'desc' ]], 
@@ -437,21 +489,24 @@ else {
         //     alert( 'You clicked on '+data[0]+'\'s row' );
         // } );
         function hapus_input(){
-          $("#kd_brg").select2("val", "");
-          $("#kode_rek").select2("val", "");
+          if(jns_pemasukan=="persediaan") $("#kd_brg").select2("val", '');
+          $("#kode_rek").select2("val", '');
           $("#jml_msk").val('');
           $("#satuan").val('');
           $("#rph_sat").val('');
+          $("#ket_brg").val('');
         }
               var sumber_dana = "<?php echo $_POST['jenistrans']?>";
+             
          $('#jenis_pemasukan').change(function(){
-          var jns_pemasukan = $("#jenis_pemasukan").val();
+          jns_pemasukan = $("#jenis_pemasukan").val();
           // alert(jns_pemasukan);
           if(jns_pemasukan=="persediaan" && sumber_dana=="APBD"){
             $("#field_satuan").show();
             $("#pilihan_kode").show();
             $("#field_harga_satuan").show();
             $("#field_jumlah_masuk").show();
+            $("#field_ket_brg").show();
             $("#field_kode_persediaan").show();
             $("#pilihan_kode").show();
             $("#field_nilai_non_persediaan").hide();
@@ -474,6 +529,7 @@ else {
             $("#field_harga_satuan").hide();
             $("#field_jumlah_masuk").hide();
             $("#field_kode_persediaan").hide();
+            $("#field_ket_brg").hide();
             $("#pilihan_kode").show();
             $("#field_nilai_non_persediaan").show();
             $("#ket_non_persediaan").show();
@@ -491,8 +547,13 @@ else {
             $("#field_harga_satuan").show();
             $("#field_jumlah_masuk").show();
             $("#field_kode_persediaan").show();
-            $("#field_nilai_non_persediaan").show();
+            $("#field_ket_brg").show();
+            $("#field_nilai_non_persediaan").hide();
             $("#field_nilai_non_persediaan").prop('required',false);
+            $("#kd_brg").prop('required',true);
+            $("#satuan").prop('required',true);
+            $("#jml_msk").prop('required',true);
+            $("#harga_sat").prop('required',true);
             $("#ket_non_persediaan").hide();
             hapus_input();
 
@@ -522,6 +583,7 @@ else {
           $('#field_jumlah_masuk').show();
           $('#field_harga_satuan').show();
           $('#field_satuan').show();
+          $("#field_ket_brg").show();
           $('#jenis_pemasukan').hide();
           list_kode_barang();
         }
@@ -680,6 +742,67 @@ else {
         });
         return false;
       });
+
+      $(document).on('click', '#edit_rek', function () {
+        // alert("Fitur sedang dikembangkan, coba beberapa hari lagi");
+        var tr = $(this).closest('tr');
+        var row = table_rek.row( tr );
+        id = row.data()[0];
+        kode_rek = row.data()[1];
+        nama_rek = row.data()[2];
+        nilai_kontrak = row.data()[3];
+        ket_rek = row.data()[4];
+         $("#myModal").modal();
+         $("#id_edit").val(id);
+         $("#detail_rek").val(+kode_rek+" : "+nama_rek);
+         $("#edit_nilai_kontrak").val(nilai_kontrak);
+         $("#edit_ket_non_persediaan").val(ket_rek);
+      });
+       $(document).on('click', '#update_rek', function (e) {
+          case_menu       = "update_rekening" ;
+          id_row          = $('#id_edit').val();
+          nilai_baru      = $('#edit_nilai_kontrak').val();
+          keterangan_baru = $('#edit_ket_non_persediaan').val();
+          $.ajax({
+                type: "post",
+                url : "../core/transaksi/prosestransaksi",
+                data: {manage:case_menu, id:id_row, nilai_baru:nilai_baru, keterangan_baru:keterangan_baru},
+                success: function(data)
+                {
+                    $("#example2").DataTable().destroy();
+                    $("#example2 tbody").empty();
+                    baca_rekening();
+                }
+              });
+       });  
+      $(document).on('click', '#hapus_rek', function () {
+        var tr = $(this).closest('tr');
+        var row = table_rek.row( tr );
+        redirectTime = "2600";
+        redirectURL = "trans_masuk";
+        id_row = row.data()[0];
+        managedata = "hapusTransMasuk";
+        job=confirm("Anda yakin ingin menghapus data ini?");
+        if(job!=true)
+        {
+          return false;
+        }
+          else
+        {
+          $.ajax({
+                type: "post",
+                url : "../core/transaksi/prosestransaksi",
+                data: {manage:managedata,id:id_row},
+                success: function(data)
+                {
+                    $("#example2").DataTable().destroy();
+                    $("#example2 tbody").empty();
+                    baca_rekening();
+                }
+              });
+        }
+      });
+
       $(document).on('click', '#btnhps', function () {
       var tr = $(this).closest('tr');
       var row = table.row( tr );
@@ -726,41 +849,41 @@ else {
                     $("#jml_msk").val('');
                     $("#satuan").val('');
                     $("#rph_sat").val('');
-                    $("#example1").DataTable().destroy();
-                    $("#example1 tbody").empty();
-                    table = $("#example1").DataTable({
-                      "processing": false,
-                      "serverSide": true,
-                      "ajax": {
-                          'type': 'GET',
-                          'url': '../core/loadtable/loadtransmskitm',
-                          'data': {
-                             no_dok: '<?php echo $_POST["satker"]?>',
-                          },
-                      },
-                      "columnDefs":
-                      [
-                        {"targets": 0,
-                         "visible": false },
-                        {"targets": 1,
-                         "visible": false  },
-                        {"targets": 2 },
-                        {"targets": 3 },
-                        {"targets": 4 },
-                        {"targets": 5 },
-                        {"targets": 6 },
-                        {"targets": 7 },
-                        {"targets": 8 },
-                        {"targets": 9 },
-                        {"targets": 10,
-                         "visible": true },
-                        {"targets": 11 },
-                      ],
-                      "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
-                    });
                 }
               });
             $.notify("Penghapusan Barang Berhasil","success");
+            $("#example1").DataTable().destroy();
+            $("#example1 tbody").empty();
+            table = $("#example1").DataTable({
+                     "processing": false,
+                     "serverSide": true,
+                     "ajax": {
+                         'type': 'GET',
+                         'url': '../core/loadtable/loadtransmskitm',
+                         'data': {
+                            no_dok: '<?php echo $_POST["satker"]?>',
+                         },
+                     },
+                     "columnDefs":
+                     [
+                       {"targets": 0,
+                        "visible": false },
+                       {"targets": 1,
+                        "visible": false  },
+                       {"targets": 2 },
+                       {"targets": 3 },
+                       {"targets": 4 },
+                       {"targets": 5 },
+                       {"targets": 6 },
+                       {"targets": 7 },
+                       {"targets": 8 },
+                       {"targets": 9 },
+                       {"targets": 10,
+                        "visible": true },
+                       {"targets": 11 },
+                     ],
+                     "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
+                   });
             return false;
             }
           }
@@ -877,7 +1000,7 @@ else {
             processData: false,
             success: function(data)
             {
-              $("#kd_brg").select2("val", "");
+              if(jns_pemasukan=="persediaan") $("#kd_brg").select2("val", "");
               $("#jml_msk").val('');
               $("#satuan").val('');
               $("#rph_sat").val('');

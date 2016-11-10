@@ -107,7 +107,8 @@
                         <th width="12%">Tanggal Dokumen</th>
                         <th width="12%">Tanggal Pembukuan</th>
                         <th >Keterangan</th>
-                        <th >Total Transaksi</th>
+                        <th >Total Transaksi Persediaan</th>
+                        <th >Total Non Persediaan</th>
                         <th width="15%">Aksi</th>
                       </tr>
                     </thead>
@@ -161,6 +162,8 @@
         $('#tgl_buku').datepicker().on("changeDate", function(e) {
           $(this).datepicker('hide');
         });
+
+        
         $("li#saldo_awal").addClass("active");
         table = $("#example1").DataTable({
           "aaSorting": [[ 0, 'desc' ]], 
@@ -180,6 +183,7 @@
             {"targets": 6 },
             {"targets": 7 },
             {"targets": 8 },
+            {"targets": 9 },
             
           ],
         });
@@ -352,6 +356,7 @@
                   {"targets": 6 },
                   {"targets": 7 },
                   {"targets": 8 },
+                  {"targets": 9 },
                 ],
                 "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
               });
@@ -502,6 +507,7 @@
                   {"targets": 6 },
                   {"targets": 7 },
                   {"targets": 8 },
+                  {"targets": 9 },
                 ],
                 "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
               });

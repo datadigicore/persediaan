@@ -11,6 +11,19 @@ else
 	$manage = $_POST['manage'];
 	switch ($manage)
 	{
+		case 'update_rekening':
+			$id 			 = $purifier->purify($_POST['id']);
+			$nilai_baru 	 = $purifier->purify($_POST['nilai_baru']); 
+			$keterangan_baru = $purifier->purify($_POST['keterangan_baru']);
+
+			$data = array(
+				'id' => $id, 
+				'nilai_baru' => $nilai_baru, 
+				'keterangan_baru' => $keterangan_baru 
+				);
+			$Transaksi->update_data_rekening($data);
+		break;
+		
 		case 'batalkan_transfer':
 			$id = $purifier->purify($_POST['id']);
 			print_r($id);
@@ -163,6 +176,7 @@ else
 			$Transaksi->bacanodok_klr($data);
 		break;
 		case 'readidenttrans':
+			$thn_ang = $_SESSION['thn_ang'];
 			$idtrans = $purifier->purify($_POST['idtrans']);
 			if ($_SESSION['level'] == 1 AND isset($_POST['kdtrans'])) {
 				$kd_ruang = $_POST['kdtrans'];
@@ -170,7 +184,7 @@ else
 			else {
 				$kd_ruang = $_SESSION['kd_lok'].$_SESSION['kd_ruang'];
 			}
-			$Transaksi->bacaidenttrans($idtrans,$kd_ruang);
+			$Transaksi->bacaidenttrans($idtrans,$kd_ruang,$thn_ang);
 		break;
 		case 'readidenttransklr':
 			$idtrans = $purifier->purify($_POST['idtrans']);
@@ -503,6 +517,7 @@ else
 			$thn_ang = $_SESSION['thn_ang'];
 			$nilai_kontrak = $_POST['nilai_kontrak'];
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
+			$ket_brg = $purifier->purify($_POST['ket_brg']);
 			$tgl_dok = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_dok']));
 			$tgl_buku = $Transaksi->konversi_tanggal($purifier->purify($_POST['tgl_buku']));
 			
@@ -598,6 +613,7 @@ else
 					"harga_sat" => $hrg_sat,
 					"kode_rek" => $kode_rek,
 					"nama_rek" => $nama_rek,
+					"ket_brg" => $ket_brg,
 					"keterangan" => $keterangan,
 					"nilai_kontrak" =>$nilai_kontrak,
 					"ket_non_persediaan" =>$ket_non_persediaan,
