@@ -272,9 +272,9 @@ class modelTransaksi extends mysql_db
         $tahun      = date("Y");
         $replace    = "REPLACE INTO rekening (kode_rekening, nama_rekening, tahun) VALUES ";
         for ($i=2; $i <= $arrayCount; $i++) {
-          if (is_numeric(trim($data[$i]["B"]," \t\n\r\0\x0B\xA0\x0D\x0A")) && trim($data[$i]["B"]," \t\n\r\0\x0B\xA0\x0D\x0A")!="") {
-            $koderek  = trim($data[$i]["B"]," \t\n\r\0\x0B\xA0\x0D\x0A");
-            $namarek  = trim($data[$i]["E"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+          if (is_numeric(trim($data[$i]["A"]," \t\n\r\0\x0B\xA0\x0D\x0A")) && trim($data[$i]["A"]," \t\n\r\0\x0B\xA0\x0D\x0A")!="") {
+            $koderek  = trim($data[$i]["A"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+            $namarek  = trim($data[$i]["B"]," \t\n\r\0\x0B\xA0\x0D\x0A");
             $namarek  = str_replace("'", "", $namarek);
             if (substr($koderek, 0, 3) == "522" || substr($koderek, 0, 3) == "523") {
                 $values .= "('".$koderek."','".$namarek."','".$tahun."'),";
