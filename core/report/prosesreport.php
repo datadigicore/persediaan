@@ -288,10 +288,7 @@ else
 		case 'l_terima_brg':
 			$kd_lokasi = $purifier->purify($_POST['satker']);
 			$satker_asal = $_SESSION['kd_lok'];
-			// $jenis = $purifier->purify($_POST['jenis']);
-			// $semester = explode("-",$purifier->purify($_POST['smt']));
-			// $bln_awal = $semester[0];
-			// $bln_akhir = $semester[1];
+			$format = $_POST['format'];
 			$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
 			$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
 			$format = $purifier->purify($_POST['format']);
@@ -299,7 +296,7 @@ else
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			$user_id= $_SESSION['username'];
 			$data = array(
-				"jenis"=>$jenis,
+				"format"=>$format,
 				"bln_awal"=>$bln_awal,
 				"bln_akhir"=>$bln_akhir,
 				"thn_ang" => $thn_ang,
@@ -316,10 +313,7 @@ else
 		case 'l_keluar_brg':
 			$kd_lokasi = $purifier->purify($_POST['satker']);
 			$satker_asal = $_SESSION['kd_lok'];
-			// $jenis = $purifier->purify($_POST['jenis']);
-			// $semester = explode("-",$purifier->purify($_POST['smt']));
-			// $bln_awal = $semester[0];
-			// $bln_akhir = $semester[1];
+			$format = $_POST['format'];
 			$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
 			$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
 			$format = $purifier->purify($_POST['format']);
@@ -327,7 +321,7 @@ else
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			$user_id= $_SESSION['username'];
 			$data = array(
-				"jenis"=>$jenis,
+				"format"=>$format,
 				"bln_awal"=>$bln_awal,
 				"bln_akhir"=>$bln_akhir,
 				"thn_ang" => $thn_ang,
@@ -344,6 +338,7 @@ else
 		case 'l_buku_bph':
 			$kd_lokasi = $purifier->purify($_POST['satker']);
 			$satker_asal = $_SESSION['kd_lok'];
+			$format = $_POST['format'];
 			// $jenis = $purifier->purify($_POST['jenis']);
 			// $semester = explode("-",$purifier->purify($_POST['smt']));
 			// $bln_awal = $semester[0];
@@ -355,7 +350,7 @@ else
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			$user_id= $_SESSION['username'];
 			$data = array(
-				"jenis"=>$jenis,
+				"format"=>$format,
 				"bln_awal"=>$bln_awal,
 				"bln_akhir"=>$bln_akhir,
 				"thn_ang" => $thn_ang,
