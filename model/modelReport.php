@@ -1070,6 +1070,9 @@ class modelReport extends mysql_db
         $kd_lokasi = $data['kd_lokasi'];
         $satker_asal = $data['satker_asal'];
         $format = $data['format'];
+        $tgl_awal = $data['tgl_awal'];
+        $tgl_akhir = $data['tgl_akhir'];
+        $thn_ang = $data['thn_ang'];
 
         $hasil = $this->query_brg($kd_brg,$kd_lokasi);
         while($kode_brg=$this->fetch_array($hasil)) 
@@ -1083,7 +1086,111 @@ class modelReport extends mysql_db
         $html = ob_get_contents(); 
         ob_end_clean();
         if($format=="excel") {
-            $this->excel_export($html,"kartu_barang");
+            
+            
+            $TBS = new clsTinyButStrong;  
+            $TBS->Plugin(TBS_INSTALL, OPENTBS_PLUGIN);
+            $template = '../../utility/optbs/template/kartu_barang.xlsx';
+            $TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8); 
+            $no=1;
+            $rekap = array();
+            $identitas_pejabat = array();
+            $detil_barang = array();
+            
+            // $identitas_pejabat = array();
+            $query = "SELECT * from ttd where concat(kd_lokasi,IFNULL(kd_ruang,''))='$satker_asal' ";
+            $result_pj = $this->query($query);
+            
+            $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, kd_brg, nm_brg,  spesifikasi, qty,satuan , keterangan 
+                                            FROM transaksi_masuk 
+                                            where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'
+                                            AND kd_brg='$kd_brg'  
+                                            and kd_lokasi = '$kd_lokasi' 
+                                            AND thn_ang='$thn_ang'
+                    union all
+                    SELECT id, tgl_buku, no_bukti, tgl_dok,kd_brg, nm_brg, spesifikasi,  qty,satuan, keterangan 
+                                            FROM transaksi_keluar 
+                                            where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'
+                                            AND kd_brg='$kd_brg'  
+                                             and kd_lokasi = '$kd_lokasi'  
+                                             AND thn_ang='$thn_ang'
+
+                    ORDER BY tgl_dok ASC,id asc, nm_brg asc";
+            $res = $this->query($sql);
+            $sql = "SELECT NamaSatker from satker where kode= '$kd_lokasi' ";
+            $res_satker = $this->query($sql);
+            $data_sakter = $this->fetch_array($res_satker);                
+
+            foreach ($res as $value) {
+                if($value['qty']>0){
+                    $akumulasi_brg+=$value['qty'];
+                    $rekap[] = array(
+                        'no' => $no,
+                        'tanggal' => $this->konversi_tanggal($value['tgl_dok']),
+                        'jumlah_masuk' => $value['qty'],
+                        'jumlah_keluar' => '',
+                        'sisa' => $akumulasi_brg,
+                        'keterangan' => $value['keterangan'],
+                       
+                    );
+                }
+                else{
+                    $akumulasi_brg-=$value['qty'];
+                      $rekap[] = array(
+                        'no' => $no,
+                        'tanggal' => $this->konversi_tanggal($value['tgl_dok']),
+                        'jumlah_masuk' => '',
+                        'jumlah_keluar' => abs($value['qty']),
+                        'sisa' => $akumulasi_brg,
+                        'keterangan' => $value['keterangan'],
+                        
+                        );
+
+                }
+                $no++;
+            }
+
+            foreach ($res as $value) {
+                $detil_barang[]  = 
+                array('nama_brg' => $value['nm_brg'], 
+                      'spesifikasi_brg' => $value['spesifikasi'], 
+                      'satuan' => $value['satuan'],
+                      'kd_brg' => $value['kd_brg']
+                      );
+
+            }
+            foreach ($result_pj as $pj) {
+                $identitas_pejabat[]  = 
+                array('nama_atasan' => $pj['nama'], 
+                      'nip_atasan' => $pj['nip'], 
+                      'nama_skpd' => $data_sakter['NamaSatker'], 
+                      'tanggal_cetak' => date("d-m-Y"), 
+                      'nama_penyimpan_barang' => $pj['nama2'], 
+                      'nip_penyimpan_barang' => $pj['nip2']
+                      );
+
+            }
+            // echo "<pre>";
+            // print_r($identitas_pejabat);
+            // echo "<pre>";
+            // print_r($detil_barang);
+            // echo "<pre>";
+            // print_r($rekap);
+            $TBS->MergeBlock('a', $rekap);
+            $TBS->MergeBlock('b', $identitas_pejabat);
+            $TBS->MergeBlock('c', $detil_barang);
+
+            $TBS->PlugIn(OPENTBS_DELETE_COMMENTS);
+            $save_as = (isset($_POST['save_as']) && (trim($_POST['save_as'])!=='') && ($_SERVER['SERVER_NAME']=='localhost')) ? trim($_POST['save_as']) : ''; 
+                $output_file_name = str_replace('.',"Kartu Barang".$save_as.'.', $template); 
+            if ($save_as==='') { 
+                $TBS->Show(OPENTBS_DOWNLOAD, $output_file_name);
+                exit(); 
+            } 
+            else { 
+                $TBS->Show(OPENTBS_FILE, $output_file_name);  
+                exit("File [$output_file_name] has been created."); 
+            } 
         }
         else {
             $mpdf=new mPDF('utf-8', 'A4-L');
@@ -1109,22 +1216,142 @@ class modelReport extends mysql_db
         $satker_asal = $data['satker_asal'];
         
         $hasil = $this->query_brg($kd_brg,$kd_lokasi);
-        while($kode_brg=$this->fetch_array($hasil)) 
-        {
-            $this->cetak_header($data,"kartu_p_brg",$kd_lokasi,$kode_brg['kd_brg'],"");
-            $this->get_query($data,"kartu_p_brg",$kd_lokasi,$kode_brg['kd_brg'],$nm_satker,"");
-            echo '<pagebreak />';  
+        if($data['format']=="excel"){
+            $TBS = new clsTinyButStrong;  
+            $TBS->Plugin(TBS_INSTALL, OPENTBS_PLUGIN);
+            $template = '../../utility/optbs/template/kartu_persediaan_barang.xlsx';
+            $TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8); 
+            $no=1;
+            $rekap = array();
+            $akumulasi_brg=0;
+            $akumulasi_hrg=0;
+            $identitas_pejabat = array();
+            $detil_barang = array();
+            
+            // $identitas_pejabat = array();
+            $query = "SELECT * from ttd where concat(kd_lokasi,IFNULL(kd_ruang,''))='$satker_asal' ";
+            $result_pj = $this->query($query);
+            
+            $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, kd_brg, nm_brg,  spesifikasi, qty,satuan , harga_sat, keterangan 
+                                            FROM transaksi_masuk 
+                                            where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'
+                                            AND kd_brg='$kd_brg'  
+                                            and kd_lokasi = '$kd_lokasi' 
+                                            AND thn_ang='$thn_ang'
+                    union all
+                    SELECT id, tgl_buku, no_bukti, tgl_dok,kd_brg, nm_brg, spesifikasi,  qty,satuan, harga_sat, keterangan 
+                                            FROM transaksi_keluar 
+                                            where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'
+                                            AND kd_brg='$kd_brg'  
+                                             and kd_lokasi = '$kd_lokasi'  
+                                             AND thn_ang='$thn_ang'
+
+                    ORDER BY tgl_dok ASC,id asc, nm_brg asc";
+            $res = $this->query($sql);
+            $sql = "SELECT NamaSatker from satker where kode= '$kd_lokasi' ";
+            $res_satker = $this->query($sql);
+            $data_sakter = $this->fetch_array($res_satker);                
+
+            foreach ($res as $value) {
+                if($value['qty']>0){
+                    $akumulasi_brg+=$value['qty'];
+                    $akumulasi_hrg+=$value['qty']*$value['harga_sat'];
+                    $rekap[] = array(
+                        'no' => $no,
+                        'no_dok' => $value['no_bukti'],
+                        'tanggal' => $this->konversi_tanggal($value['tgl_dok']),
+                        'harga_sat' => $value['harga_sat'],
+                        'jumlah_masuk' => $value['qty'],
+                        'jumlah_keluar' => '',
+                        'total_harga_masuk' => $value['qty']*$value['harga_sat'],
+                        'total_harga_keluar' => '',
+                        'sisa' => $akumulasi_brg,
+                        'sisa_harga' => $akumulasi_hrg,
+                        'keterangan' => $value['keterangan'],
+                       
+                    );
+                }
+                else{
+                    $akumulasi_brg-=$value['qty'];
+                    $akumulasi_hrg-=$value['qty']*$value['harga_sat'];
+                      $rekap[] = array(
+                        'no' => $no,
+                        'no_dok' => $value['no_bukti'],
+                        'tanggal' => $this->konversi_tanggal($value['tgl_dok']),
+                        'harga_sat' => $value['harga_sat'],
+                        'jumlah_masuk' => '',
+                        'jumlah_keluar' => abs($value['qty']),
+                        'total_harga_masuk' => '',
+                        'total_harga_keluar' => abs($value['qty'])*$value['harga_sat'],
+                        'sisa' => $akumulasi_brg,
+                        'sisa_harga' => $akumulasi_hrg,
+                        'keterangan' => $value['keterangan'],
+                        );
+
+                }
+                $no++;
+            }
+
+            foreach ($res as $value) {
+                $detil_barang[]  = 
+                array('nama_brg' => $value['nm_brg'], 
+                      'spesifikasi' => $value['spesifikasi'], 
+                      'satuan' => $value['satuan'],
+                      'kd_brg' => $value['kd_brg']
+                      );
+
+            }
+            foreach ($result_pj as $pj) {
+                $identitas_pejabat[]  = 
+                array('nama_atasan' => $pj['nama'], 
+                      'nip_atasan' => $pj['nip'], 
+                      'nama_skpd' => $data_sakter['NamaSatker'], 
+                      'tanggal_cetak' => date("d-m-Y"), 
+                      'nama_penyimpan_barang' => $pj['nama2'], 
+                      'nip_penyimpan_barang' => $pj['nip2']
+                      );
+
+            }
+            // echo "<pre>";
+            // print_r($identitas_pejabat);
+            // echo "<pre>";
+            // print_r($detil_barang);
+            // echo "<pre>";
+            // print_r($rekap);
+            $TBS->MergeBlock('a', $rekap);
+            $TBS->MergeBlock('b', $identitas_pejabat);
+            $TBS->MergeBlock('c', $detil_barang);
+
+            $TBS->PlugIn(OPENTBS_DELETE_COMMENTS);
+            $save_as = (isset($_POST['save_as']) && (trim($_POST['save_as'])!=='') && ($_SERVER['SERVER_NAME']=='localhost')) ? trim($_POST['save_as']) : ''; 
+                $output_file_name = str_replace('.',"Kartu Barang".$save_as.'.', $template); 
+            if ($save_as==='') { 
+                $TBS->Show(OPENTBS_DOWNLOAD, $output_file_name);
+                exit(); 
+            } 
+            else { 
+                $TBS->Show(OPENTBS_FILE, $output_file_name);  
+                exit("File [$output_file_name] has been created."); 
+            }
         }
+        else{    
+            while($kode_brg=$this->fetch_array($hasil)) 
+            {
+                $this->cetak_header($data,"kartu_p_brg",$kd_lokasi,$kode_brg['kd_brg'],"");
+                $this->get_query($data,"kartu_p_brg",$kd_lokasi,$kode_brg['kd_brg'],$nm_satker,"");
+                echo '<pagebreak />';  
+            }
 
-                $this->cetak_nama_pj($kd_lokasi);
+                    $this->cetak_nama_pj($kd_lokasi);
 
-                $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
-                ob_end_clean();
-                //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
-                $mpdf->WriteHTML(utf8_encode($html));
-                $mpdf->Output("buku_persediaan.pdf" ,'I');
-                exit;
-         }
+                    $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
+                    ob_end_clean();
+                    //Here convert the encode for UTF-8, if you prefer the ISO-8859-1 just change for $mpdf->WriteHTML($html);
+                    $mpdf->WriteHTML(utf8_encode($html));
+                    $mpdf->Output("buku_persediaan.pdf" ,'I');
+                    exit;
+                }
+             }
 
     public function l_pp_bph($data)
     {
@@ -1134,19 +1361,134 @@ class modelReport extends mysql_db
         $jenis = $data['jenis'];
         $thn_ang = $data['thn_ang'];
         $kd_lokasi = $data['kd_lokasi'];
+        $thn_ang = $data['thn_ang'];
+        $bln_awal = $data['bln_awal'];
+        $bln_akhir = $data['bln_akhir'];
         $date = $this->cek_periode($data);
         $satker_asal = $data['satker_asal'];
 
-        ob_start(); 
-        $this->cetak_header($data,"pp_brg_pakai_habis",$kd_lokasi,"","");
-        $this->get_query($data,"pp_brg_pakai_habis",$kd_lokasi,"",$nm_satker,"");
-        $this->cetak_nama_pj($kd_lokasi);
-        $mpdf=new mPDF('utf-8', 'A4-L');
-        $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
-        ob_end_clean(); 
-        $mpdf->WriteHTML(utf8_encode($html));
-        $mpdf->Output("pp_bph.pdf" ,'I');
-        exit;
+            
+            $TBS = new clsTinyButStrong;  
+            $TBS->Plugin(TBS_INSTALL, OPENTBS_PLUGIN);
+            $template = '../../utility/optbs/template/laporan_semester_barang_pakai_habis.xlsx';
+            $TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8); 
+            $no=1;
+            $rekap = array();
+            $identitas_pejabat = array();
+
+            // $identitas_pejabat = array();
+            $query = "SELECT * from ttd where concat(kd_lokasi,IFNULL(kd_ruang,''))='$satker_asal' ";
+            $result_pj = $this->query($query);
+            
+            $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, nm_sskel, nm_brg,  spesifikasi, qty, satuan, untuk, harga_sat,total_harga, keterangan 
+                                                    FROM transaksi_masuk 
+                                                    where month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir'
+                                                     and kd_lokasi = '$kd_lokasi'  
+                                                     AND thn_ang='$thn_ang'
+                                                union all
+                    SELECT id, tgl_buku, no_bukti, tgl_dok, nm_sskel, nm_brg, spesifikasi,  qty, satuan, untuk, harga_sat,total_harga, keterangan 
+                                                    FROM transaksi_keluar 
+                                                    where month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir'
+                                                     and kd_lokasi = '$kd_lokasi'  
+                                                     AND thn_ang='$thn_ang'
+
+                                                     ORDER BY tgl_dok ASC,id asc, nm_brg asc;";
+            $res = $this->query($sql);
+            $sql2 = "SELECT NamaSatker from satker where kode= '$kd_lokasi' ";
+            $res_satker = $this->query($sql2);
+            $data_sakter = $this->fetch_array($res_satker);                
+
+
+            foreach ($res as $value) {
+                if($value['qty']>0){
+                    $rekap[] = array(
+                        'no_masuk' => $no,
+                        'no_keluar' => '',
+                        'tanggal_diterima' => $this->konversi_tanggal($value['tgl_dok']),
+                        'nama_barang' => $value['nm_brg'],
+                        'merk' => $value['spesifikasi'],
+                        'no_bap' => $value['no_bukti'],
+                        'jumlah_diterima' => $value['qty'].' '.$value['satuan'],
+                        'tanggal_dokumen' => $this->konversi_tanggal($value['tgl_dok']),
+                        'harga_satuan_masuk' => number_format($value['harga_sat'],2,",","."),
+                        'harga_satuan_keluar' => '',
+                        'no_bon' => '',
+                        'tanggal_bon' => '',
+                        'tanggal_keluar' => '',
+                        'untuk' => '',
+                        'jumlah_keluar' => '',
+                        'jumlah_harga_masuk' => number_format(abs($value['harga_sat']),2,",","."),
+                        'jumlah_harga_keluar' => '',
+                        'dari' => $value['keterangan'],
+                        'untuk' => '',
+                       
+                    );
+                }
+                else{
+                      $rekap[] = array(
+                        'no_masuk' => '',
+                        'no_keluar' => $no,
+                        'tanggal_diterima' => '',
+                        'nama_barang' => $value['nm_brg'],
+                        'merk' => $value['spesifikasi'],
+                        'no_bap' => '',
+                        'jumlah_diterima' => '',
+                        'tanggal_dokumen' => '',
+                        'harga_satuan_masuk' => '',
+                        'harga_satuan_keluar' => number_format(abs($value['harga_sat']),2,",","."),
+                        'no_bon' => '',
+                        'tanggal_bon' => $this->konversi_tanggal($value['tgl_dok']),
+                        'tanggal_keluar' => $this->konversi_tanggal($value['tgl_dok']),
+                        'untuk' => $value['keterangan'],
+                        'jumlah_keluar' => abs($value['qty']),
+                        'jumlah_harga_masuk' => '',
+                        'jumlah_harga_keluar' => number_format(abs($value['harga_sat']),2,",","."),
+                        'dari' => '',
+                        'untuk' => $value['keterangan'],
+                        );
+
+                }
+                $no++;
+            }
+            
+            foreach ($result_pj as $pj) {
+                $identitas_pejabat[]  = 
+                array('nama_atasan' => $pj['nama'], 
+                      'nip_atasan' => $pj['nip'], 
+                      'nama_skpd' => $data_sakter['NamaSatker'], 
+                      'tanggal_cetak' => date("d-m-Y"), 
+                      'nama_penyimpan_barang' => $pj['nama2'], 
+                      'nip_penyimpan_barang' => $pj['nip2']
+                      );
+
+            }
+            // echo "<pre>";
+            // print_r($rekap);
+            $TBS->MergeBlock('a', $rekap);
+            $TBS->MergeBlock('b', $identitas_pejabat);
+
+            $TBS->PlugIn(OPENTBS_DELETE_COMMENTS);
+            $save_as = (isset($_POST['save_as']) && (trim($_POST['save_as'])!=='') && ($_SERVER['SERVER_NAME']=='localhost')) ? trim($_POST['save_as']) : ''; 
+                $output_file_name = "Laporan Semester Barang pakai Habis.xlsx"; 
+            if ($save_as==='') { 
+                $TBS->Show(OPENTBS_DOWNLOAD, $output_file_name);
+                exit(); 
+            } 
+            else { 
+                $TBS->Show(OPENTBS_FILE, $output_file_name);  
+                exit("File [$output_file_name] has been created."); 
+            } 
+                  
+        // ob_start(); 
+        // $this->cetak_header($data,"pp_brg_pakai_habis",$kd_lokasi,"","");
+        // $this->get_query($data,"pp_brg_pakai_habis",$kd_lokasi,"",$nm_satker,"");
+        // $this->cetak_nama_pj($kd_lokasi);
+        // $mpdf=new mPDF('utf-8', 'A4-L');
+        // $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
+        // ob_end_clean(); 
+        // $mpdf->WriteHTML(utf8_encode($html));
+        // $mpdf->Output("pp_bph.pdf" ,'I');
+        // exit;
 
     }
 
