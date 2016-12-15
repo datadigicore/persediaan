@@ -9,6 +9,23 @@ session_start();
 class modelReport extends mysql_db
 {
 
+    public function baca_nomor_dok($data){
+        $kd_lokasi  = $data['kd_lokasi'];
+        $kd_ruang   = $data['kd_ruang'];
+        $thn_ang    = $data['thn_ang'];
+        $cond_ruang;
+        if($kd_ruang!=''){
+            $cond_ruang = " and kd_ruang = '$kd_ruang' ";
+        }
+
+        $sql  = "select no_dok from transaksi_keluar where kd_lokasi='$kd_lokasi' ".$cond_ruang." GROUP BY no_dok asc ";
+        // echo $sql;
+        $result = $this->query($sql);
+         echo '<option value="">-- Pilih Nomor Dokumen --</option>';
+        foreach ($result as $value) {
+             echo '<option value="'.$value['no_dok'].'">'.$value['no_dok']."</option>";
+        }
+    }
     public function save_excel(){
         $save_as = (isset($_POST['save_as']) && (trim($_POST['save_as'])!=='') && ($_SERVER['SERVER_NAME']=='localhost')) ? trim($_POST['save_as']) : ''; 
         $output_file_name = str_replace('.', '_'.date('Y-m-d').$save_as.'.', $template); 
@@ -318,6 +335,163 @@ class modelReport extends mysql_db
             $mpdf->Output("rekap_per_rekening.pdf" ,'I');
             exit;
         }
+
+    public function surat_permintaan_barang($data){
+        $no_dok = $data['no_dok'];
+        $kd_ruang = $data['kd_ruang'];
+        $thn_ang = $data['thn_ang'];
+
+        $sql = "select kd_lokasi, kd_ruang, tgl_dok, kd_brg, nm_brg, qty, satuan, keterangan from transaksi_keluar where no_dok = '$no_dok' and thn_ang='$thn_ang' ";
+        $res = $this->query($sql);
+        // $arr_date = $this->fetch_array($res);
+        $rekap = array();
+        $no= 1;
+        foreach ($res as $value) {
+            $tgl_dok = $value['tgl_dok'];
+            $kd_lokasi = $value['kd_lokasi'].$value['kd_ruang'];
+            $kd_brg = $value['kd_brg'];
+            $sql_out = " select sum(qty) as jumlah from transaksi_keluar where concat(kd_lokasi, IFNULL(kd_ruang,''))= '$kd_lokasi' and kd_brg = '$kd_brg' and thn_ang = '$thn_ang' and tgl_dok<='$tgl_dok' and no_dok!= '$no_dok' ";
+            $res_out=$this->query($sql_out);
+            $data_out = $this->fetch_array($res_out);
+            $sql_in = " select sum(qty) as jumlah from transaksi_masuk where concat(kd_lokasi, IFNULL(kd_ruang,''))= '$kd_lokasi' and kd_brg = '$kd_brg' and thn_ang = '$thn_ang' and tgl_dok<='$tgl_dok'";
+            $res_in=$this->query($sql_in);
+            $data_in = $this->fetch_array($res_in);
+            $sisa_barang = $data_in['jumlah'] + $data_out['jumlah'];
+            $rekap[]=array(
+                        'no' => $no,
+                        'nama_barang' => $value['nm_brg'],
+                        'qty' => abs($value['qty'])." ".$value['satuan'],
+                        'sisa' => $sisa_barang." ".$value['satuan'],
+                        'keterangan' => $value['keterangan']
+                        ); 
+            $no++;
+        }
+           
+            // $this->excel_export($html,"Penerimaan_brg");
+            $TBS = new clsTinyButStrong;  
+            $TBS->Plugin(TBS_INSTALL, OPENTBS_PLUGIN);
+            $template = '../../utility/optbs/template/surat_permintaan_barang.xlsx';
+            $TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8); 
+
+            $TBS->MergeBlock('a', $rekap);
+
+            $TBS->PlugIn(OPENTBS_DELETE_COMMENTS);
+            $save_as = (isset($_POST['save_as']) && (trim($_POST['save_as'])!=='') && ($_SERVER['SERVER_NAME']=='localhost')) ? trim($_POST['save_as']) : ''; 
+                $output_file_name = "surat_permintaan_barang.xlsx"; 
+            if ($save_as==='') { 
+                $TBS->Show(OPENTBS_DOWNLOAD, $output_file_name);
+                exit(); 
+            } 
+            else { 
+                $TBS->Show(OPENTBS_FILE, $output_file_name);  
+                exit("File [$output_file_name] has been created."); 
+            } 
+            
+    } 
+
+    public function surat_penyaluran_barang($data){
+        $no_dok = $data['no_dok'];
+        $kd_ruang = $data['kd_ruang'];
+        $thn_ang = $data['thn_ang'];
+
+        $sql = "select kd_lokasi, kd_ruang, tgl_dok, kd_brg, nm_brg, qty,harga_sat,total_harga, satuan, keterangan from transaksi_keluar where no_dok = '$no_dok' and thn_ang='$thn_ang' ";
+        $res = $this->query($sql);
+        // $arr_date = $this->fetch_array($res);
+        $rekap = array();
+        $no= 1;
+        $identitas[] = array('no_dok'=>$no_dok);
+        foreach ($res as $value) {
+            $tgl_dok = $value['tgl_dok'];
+            $kd_lokasi = $value['kd_lokasi'].$value['kd_ruang'];
+            $kd_brg = $value['kd_brg'];
+            $sql_out = " select sum(qty) as jumlah from transaksi_keluar where no_dok= '$no_dok' ";
+            $res_out = $this->query($sql_out);
+            $rekap[]=array(
+                        'no' => $no,
+                        'nama_barang' => $value['nm_brg'],
+                        'jumlah' => abs($value['qty'])." ".$value['satuan'],
+                        'harga_sat' => number_format($value['harga_sat'],2,",","."),
+                        'total_harga' => number_format(abs($value['total_harga']),2,",","."),
+                        'keterangan' => $value['keterangan']
+                        ); 
+        }
+           
+            // $this->excel_export($html,"Penerimaan_brg");
+            $TBS = new clsTinyButStrong;  
+            $TBS->Plugin(TBS_INSTALL, OPENTBS_PLUGIN);
+            $template = '../../utility/optbs/template/surat_penyaluran_barang.xlsx';
+            $TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8); 
+
+            $TBS->MergeBlock('a', $rekap);
+            $TBS->MergeBlock('c',$identitas);
+
+            $TBS->PlugIn(OPENTBS_DELETE_COMMENTS);
+            $save_as = (isset($_POST['save_as']) && (trim($_POST['save_as'])!=='') && ($_SERVER['SERVER_NAME']=='localhost')) ? trim($_POST['save_as']) : ''; 
+                $output_file_name = "surat_permintaan_barang.xlsx"; 
+            if ($save_as==='') { 
+                $TBS->Show(OPENTBS_DOWNLOAD, $output_file_name);
+                exit(); 
+            } 
+            else { 
+                $TBS->Show(OPENTBS_FILE, $output_file_name);  
+                exit("File [$output_file_name] has been created."); 
+            } 
+            
+    } 
+
+    public function bukti_pengambilan_barang($data){
+        $no_dok = $data['no_dok'];
+        $kd_ruang = $data['kd_ruang'];
+        $thn_ang = $data['thn_ang'];
+
+        $sql = "select kd_lokasi, kd_ruang, tgl_dok, kd_brg, nm_brg, qty,harga_sat,total_harga, satuan, keterangan from transaksi_keluar where no_dok = '$no_dok' and thn_ang='$thn_ang' ";
+        $res = $this->query($sql);
+        // $arr_date = $this->fetch_array($res);
+        $rekap = array();
+        $no= 1;
+        $identitas[] = array('no_dok'=>$no_dok);
+        foreach ($res as $value) {
+            $tgl_dok = $value['tgl_dok'];
+            $kd_lokasi = $value['kd_lokasi'].$value['kd_ruang'];
+            $kd_brg = $value['kd_brg'];
+            $sql_out = " select sum(qty) as jumlah from transaksi_keluar where no_dok= '$no_dok' ";
+            $res_out = $this->query($sql_out);
+            $rekap[]=array(
+                        'no' => $no,
+                        'tanggal' => $value['tgl_dok'],
+                        'kd_brg' => $value['kd_brg'],
+                        'nama_barang' => $value['nm_brg'],
+                        'qty' => abs($value['qty']),
+                        'satuan' => $value['satuan'],
+                        'harga_sat' => number_format($value['harga_sat'],2,",","."),
+                        'total_harga' => number_format(abs($value['total_harga']),2,",","."),
+                        'keterangan' => $value['keterangan']
+                        );
+            $no++; 
+        }
+           
+            // $this->excel_export($html,"Penerimaan_brg");
+            $TBS = new clsTinyButStrong;  
+            $TBS->Plugin(TBS_INSTALL, OPENTBS_PLUGIN);
+            $template = '../../utility/optbs/template/bukti_pengambilan_barang.xlsx';
+            $TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8); 
+
+            $TBS->MergeBlock('a', $rekap);
+            $TBS->MergeBlock('c',$identitas);
+
+            $TBS->PlugIn(OPENTBS_DELETE_COMMENTS);
+            $save_as = (isset($_POST['save_as']) && (trim($_POST['save_as'])!=='') && ($_SERVER['SERVER_NAME']=='localhost')) ? trim($_POST['save_as']) : ''; 
+                $output_file_name = "bukti_pengambilan_barang.xlsx"; 
+            if ($save_as==='') { 
+                $TBS->Show(OPENTBS_DOWNLOAD, $output_file_name);
+                exit(); 
+            } 
+            else { 
+                $TBS->Show(OPENTBS_FILE, $output_file_name);  
+                exit("File [$output_file_name] has been created."); 
+            } 
+            
+    } 
 
     public function buku_persediaan($data)
     {

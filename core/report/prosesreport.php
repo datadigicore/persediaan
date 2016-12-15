@@ -13,6 +13,19 @@ else
 	$manage = $_POST['manage'];
 	switch ($manage)
 	{
+		case 'baca_nomor_dok':
+			$kd_lokasi = $purifier->purify($_POST['satker']);
+			$kd_ruang = $_SESSION['kd_ruang'];
+			$thn_ang = $_SESSION['thn_ang'];
+			$data = array(
+				"kd_lokasi"=>$kd_lokasi,
+				"kd_ruang"=>$kd_ruang,
+				"thn_ang" => $thn_ang
+			   );
+			$Report->baca_nomor_dok($data);
+
+
+		break;
 		case 'readbrg':
 			$kd_lokasi = $purifier->purify($_POST['satker']);
 			$kd_ruang = $_SESSION['kd_ruang'];
@@ -24,6 +37,46 @@ else
 			   );
 			$Report->bacabrg($data);
 		break;
+
+		case 'surat_permintaan_barang':
+			$no_dok = $purifier->purify($_POST['no_dok']);
+			$kd_ruang = $_SESSION['kd_ruang'];
+			$thn_ang = $_SESSION['thn_ang'];
+			$data = array(
+				"no_dok"=>$no_dok,
+				"kd_ruang"=>$kd_ruang,
+				"thn_ang" => $thn_ang
+			   );
+			$Report->surat_permintaan_barang($data);
+
+		break;
+
+		case 'surat_penyaluran_barang':
+			$no_dok = $purifier->purify($_POST['no_dok']);
+			$kd_ruang = $_SESSION['kd_ruang'];
+			$thn_ang = $_SESSION['thn_ang'];
+			$data = array(
+				"no_dok"=>$no_dok,
+				"kd_ruang"=>$kd_ruang,
+				"thn_ang" => $thn_ang
+			   );
+			$Report->surat_penyaluran_barang($data);
+
+		break;
+
+		case 'bukti_pengambilan_barang':
+			$no_dok = $purifier->purify($_POST['no_dok']);
+			$kd_ruang = $_SESSION['kd_ruang'];
+			$thn_ang = $_SESSION['thn_ang'];
+			$data = array(
+				"no_dok"=>$no_dok,
+				"kd_ruang"=>$kd_ruang,
+				"thn_ang" => $thn_ang
+			   );
+			$Report->bukti_pengambilan_barang($data);
+
+		break;
+
 		case 'laporan_per_rekening':
 			$kd_lokasi = $purifier->purify($_POST['satker']);
 			$satker_asal = $_SESSION['kd_lok'];
