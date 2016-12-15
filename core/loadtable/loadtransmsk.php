@@ -58,15 +58,27 @@ $columns = array(
             'formatter'=> function($d,$row){
                 return number_format($d,2,",",".");
             }),
-    array( 'db' => 'jns_trans', 'dt' => 9, 'field' => 'jns_trans', 'as' => 'jns_trans','formatter' => function($d,$row){if($d!="M06"){ return '<div class="row-fluid">'.
+    array( 'db' => 'jns_trans', 'dt' => 9, 'field' => 'jns_trans', 'as' => 'jns_trans','formatter' => function($d,$row){
+        if($row[7]==0){
+            return '<div class="row-fluid">'.
+                    '<button id="del_dok" class="col-xs-12 btn btn-danger btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Hapus Dokumen </button>'.
+                    '<button id="btntmbh" class="col-xs-12 btn btn-primary btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah / Lihat Barang</button>'.
+                    '<button id="btnedt" class="col-xs-12 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit Dokumen</button>';
+        }
+
+        if($d!="M06"){ 
+            return '<div class="row-fluid">'.
                         '<button id="btntmbh" class="col-xs-12 btn btn-primary btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah / Lihat Barang</button>'.
-                        '<button id="btnedt" class="col-xs-12 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit Dokumen</button>'.
-                        '</div>'; 
-                                                                                        }
-                                                                                        else{
-                                                                                            return '<button id="btntmbh" class="col-xs-10 btn btn-info btn-flat btn-xs pull-center"><i class="fa fa-plus"></i> Lihat Item</button>';
-                                                                                        }
-                                                                                                 } 
+                        '<button id="btnedt" class="col-xs-12 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit Dokumen</button>';
+                        
+            
+        }
+        else{
+            return '<button id="btntmbh" class="col-xs-10 btn btn-info btn-flat btn-xs pull-center"><i class="fa fa-plus"></i> Lihat Item</button>';
+        }
+       
+        return '</div>';
+                            } 
         ),
 );
  
