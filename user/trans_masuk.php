@@ -123,6 +123,8 @@
       <?php include("include/success.php"); ?>
     </div>
     <?php include("include/loadjs.php"); ?>
+    <script src="../plugins/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../plugins/sweetalert/dist/sweetalert.css">
     <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
@@ -144,6 +146,32 @@
       }
 
       var table;
+      function baca_tabel(){    
+        table = $("#example1").DataTable({
+              "aaSorting": [[ 0, 'desc' ]], 
+              "processing": false,
+              "serverSide": true,
+              "ajax": "../core/loadtable/loadtransmsk",
+              "columnDefs":
+              [
+                {"targets": 0,
+                 "visible": false },
+                {"targets": 1 },
+                {"targets": 2 },
+                {"targets": 3,
+                 "visible": false },
+                {"targets": 4 },
+                {"targets": 5 },
+                {"targets": 6 },
+                {"targets": 7 },
+                {"targets": 8 },
+                {"targets": 9 },
+                
+              ],
+              "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
+            });
+      }
+      baca_tabel();
       $(function () {
         $(".select2").select2();
         $("li#trans_masuk").addClass("active");
@@ -165,30 +193,47 @@
 
         
         $("li#saldo_awal").addClass("active");
-        table = $("#example1").DataTable({
-          "aaSorting": [[ 0, 'desc' ]], 
-          "processing": false,
-          "serverSide": true,
-          "ajax": "../core/loadtable/loadtransmsk",
-          "columnDefs":
-          [
-            {"targets": 0,
-             "visible": false },
-            {"targets": 1 },
-            {"targets": 2 },
-            {"targets": 3,
-             "visible": false },
-            {"targets": 4 },
-            {"targets": 5 },
-            {"targets": 6 },
-            {"targets": 7 },
-            {"targets": 8 },
-            {"targets": 9 },
-            
-          ],
-        });
+
       });
 
+      $(document).on('click', '#del_dok', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+              redirectTime = "2600";
+              redirectURL = "trans_masuk";
+              no_dok = row.data()[2];
+              managedata = "hapus_dokumen_masuk";
+          swal({
+            title: "Konfirmasi Penghapusan Dokumen",
+            text: "Anda Tidak Dapat Mengembalikan Dokumen Yang Telah Dihapus",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Hapus Dokumen",
+            cancelButtonText: "Batalkan",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          },
+          function(isConfirm){
+            if (isConfirm) {
+              
+              $.ajax({
+                type: "post",
+                url : "../core/transaksi/prosestransaksi",
+                data: {manage:managedata,no_dok:no_dok},
+                success: function(data)
+                {
+                    $("#example1").DataTable().destroy();
+                    $("#example1 tbody").empty();
+                    baca_tabel();
+                }
+              });
+              swal("Deleted!", "Dokumen Berhasil Dihapus", "success");
+            } else {
+              swal("Cancelled", "Penghapusan Dibatalkan", "error");
+            }
+          });
+      }); 
       $(document).on('click', '#btntmbh', function () {
         var tr = $(this).closest('tr');
         var row = table.row( tr );
@@ -338,28 +383,7 @@
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
               $('button:submit').attr("disabled", false); 
-              table = $("#example1").DataTable({
-                "aaSorting": [[ 0, 'desc' ]], 
-                "processing": false,
-                "serverSide": true,
-                "ajax": "../core/loadtable/loadtransmsk",
-                "columnDefs":
-                [
-                  {"targets": 0,
-                   "visible": false },
-                  {"targets": 1 },
-                  {"targets": 2 },
-                  {"targets": 3,
-                   "visible": false },
-                  {"targets": 4 },
-                  {"targets": 5 },
-                  {"targets": 6 },
-                  {"targets": 7 },
-                  {"targets": 8 },
-                  {"targets": 9 },
-                ],
-                "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
-              });
+              baca_tabel();
             }
           });
           return false;

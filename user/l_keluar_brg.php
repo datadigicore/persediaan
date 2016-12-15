@@ -66,7 +66,7 @@
                     <div class="box-body" id="akhir" >
                       <label class="col-sm-2 control-label">Tanggal Akhir</label>
                       <div class="col-sm-4">
-                        <input type="text" name="tgl_akhir" class="form-control" id="tgl_akhir" placeholder="" >
+                        <input type="text" name="tgl_akhir" class="form-control" id="tgl_akhir" placeholder="" required>
                         </select>
                       </div>
                     </div>
@@ -89,6 +89,15 @@
                         </select>
                       </div>
                     </div>  -->
+                    <div class="box-body">
+                      <label class="col-sm-2 control-label">Format laporan</label>
+                      <div class="col-sm-4">
+                        <select name="format" id="format" class="form-control">
+                          <option value="pdf">PDF</option>
+                          <option value="excel">Excel</option>
+                        </select>
+                      </div>
+                    </div> 
                     <div class="box-footer">
                       <!-- <button type="Reset" class="btn btn-default">Reset</button> -->
                       <button type="submit" class="btn btn-info pull-right">Submit</button>
