@@ -29,6 +29,9 @@
                 <!-- <li id="mutasi_prsedia"><a href="mutasi_prsedia"><span>Mutasi Persediaan</span></a></li> -->
                 <li id="mutasi_prsedia"><a href="rekap_rekening"><span>Rekap Persediaan Per Rekening</span></a></li>
                 <li id="mutasi_prsedia"><a href="rekap_rekening2"><span>Belanja Persediaan 2</span></a></li>
+                <li id="surat_permintaan_barang"><a href="surat_permintaan_barang"><span>Surat Permintaan Barang</span></a></li>
+                <li id="surat_penyaluran_barang"><a href="surat_penyaluran_barang"><span>Surat Penyaluran Barang</span></a></li>
+                <li id="bukti_pengambilan_barang"><a href="bukti_pengambilan_barang"><span>Bukti Pengambilan Barang</span></a></li>
               </ul>
             </li>
             <li id="opname"><a href="../documentation/PETUNJUK_PENGGUNAAN.pdf" download><i class="fa fa-download"></i> <span> Petunjuk Penggunaan</span></a></li>           

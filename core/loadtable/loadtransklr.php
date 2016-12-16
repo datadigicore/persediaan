@@ -27,6 +27,23 @@ $columns = array(
     array( 'db' => 'SUM(`total_harga`)', 'dt' => 7, 'field' => 'total_harga', 'as' => 'total_harga', 'formatter' => function($d, $row){
             return number_format(abs($d), 2, ",",".");
     } ),
+    array( 'db' => 'SUM(`total_harga`)', 'dt' => 8, 'field' => 'total_harga', 'as' => 'total_harga', 'formatter' => function($d, $row){
+            if($d==0){
+                return '<div class="row-fluid">'.
+                    '<button id="del_dok" class="col-xs-12 btn btn-danger btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Hapus Dokumen </button>'.
+                    '<button id="btntmbh" class="col-xs-12 btn btn-primary btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah / Lihat Barang</button>'.
+                    '<button id="btnedt" class="col-xs-12 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit Dokumen</button></div>';
+            }
+            elseif($row[1]!="K06" && $row[1]!="K07"){
+                return '<div class="row-fluid">'.
+                    '<button id="btntmbh" class="col-xs-12 btn btn-primary btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah / Lihat Barang</button>'.
+                    '<button id="btnedt" class="col-xs-12 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit Dokumen</button></div>';
+            }
+            else{
+                return "-";
+            }
+
+    } ),
 );
 if($kd_ruang!=""){ $query_ruang="and kd_ruang='$kd_ruang'"; } else $query_ruang="and (kd_ruang is null or kd_ruang='') ";
 // Settingan Koneksi Datatable
@@ -45,7 +62,7 @@ else if (substr_count($str,".") == 2) {
     $where = "kd_lokasi like '$kd_satker.%' and status_hapus=0 and thn_ang='$thn_ang' and jns_trans not like 'P%'  group by no_dok";
 }
 else{
-    $where = "concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang' and jns_trans not  in('P01','K06')  group by no_dok"; 
+    $where = "concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang' and jns_trans not  in('P01','K06','K07')  group by no_dok"; 
 }
 
 // Pengaturan Output Server Side Processing
