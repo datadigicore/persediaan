@@ -119,8 +119,33 @@
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script src="../dist/js/jquery.mask.js" ></script>
+    <script src="../plugins/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../plugins/sweetalert/dist/sweetalert.css">
     <script type="text/javascript">
     var table;
+    var table;
+      function baca_tabel(){
+          table = $("#example1").DataTable({
+            "aaSorting": [[ 0, 'desc' ]], 
+            "processing": false,
+            "serverSide": true,
+            "ajax": "../core/loadtable/loadtransklr",
+            "columnDefs":
+            [
+              {"targets": 0,
+               "visible": false },
+              {"targets": 1 },
+              {"targets": 2 },
+              {"targets": 3,
+               "visible": false },
+              {"targets": 4 },
+              {"targets": 5 },
+              {"targets": 6 },
+              {"targets": 7 },
+              {"targets": 8 },
+              ],
+            });
+          }
       $(function () {
         $(".select2").select2();
         $("li#trans_keluar").addClass("active");
@@ -140,33 +165,8 @@
           $(this).datepicker('hide');
         });        
         $("li#saldo_awal").addClass("active");
-        table = $("#example1").DataTable({
-          "aaSorting": [[ 0, 'desc' ]], 
-          "processing": false,
-          "serverSide": true,
-          "ajax": "../core/loadtable/loadtransklr",
-          "columnDefs":
-          [
-            {"targets": 0,
-             "visible": false },
-            {"targets": 1 },
-            {"targets": 2 },
-            {"targets": 3,
-             "visible": false },
-            {"targets": 4 },
-            {"targets": 5 },
-            {"targets": 6 },
-            {"targets": 7 },
-            {"orderable": false,
-             "data": null,
-             "defaultContent":  '<div class="row-fluid">'+
-                                  '<button id="btntmbh" class="col-xs-6 btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
-                                  '<button id="btnedt" class="col-xs-6 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                '</div>',
-             "targets": [8],"targets": 8 }         
 
-          ],
-        });
+        baca_tabel();
         $(document).on('click', '#btntmbh', function () {
           var tr = $(this).closest('tr');
           var row = table.row( tr );
@@ -189,6 +189,44 @@
           $("body").append($form);
           $form.submit();
         });
+        $(document).on('click', '#del_dok', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+              redirectTime = "2600";
+              redirectURL = "trans_masuk";
+              no_dok = row.data()[2];
+              managedata = "hapus_dokumen_masuk";
+          swal({
+            title: "Konfirmasi Penghapusan Dokumen",
+            text: "Anda Tidak Dapat Mengembalikan Dokumen Yang Telah Dihapus",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Hapus Dokumen",
+            cancelButtonText: "Batalkan",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          },
+          function(isConfirm){
+            if (isConfirm) {
+              
+              $.ajax({
+                type: "post",
+                url : "../core/transaksi/prosestransaksi",
+                data: {manage:managedata,no_dok:no_dok},
+                success: function(data)
+                {
+                    $("#example1").DataTable().destroy();
+                    $("#example1 tbody").empty();
+                    baca_tabel();
+                }
+              });
+              swal("Deleted!", "Dokumen Berhasil Dihapus", "success");
+            } else {
+              swal("Cancelled", "Penghapusan Dibatalkan", "error");
+            }
+          });
+      }); 
         $(document).on('click', '#btnedt', function () {
         var tr = $(this).closest('tr');
         var row = table.row( tr );
@@ -304,34 +342,7 @@
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
               $('button:submit').attr("disabled", false); 
-              table = $("#example1").DataTable({
-                 "aaSorting": [[ 0, 'desc' ]], 
-                "processing": false,
-                "serverSide": true,
-                "ajax": "../core/loadtable/loadtransklr",
-                "columnDefs":
-                [
-                  {"targets": 0,
-                   "visible": false },
-                  {"targets": 1 },
-                  {"targets": 2 },
-                  {"targets": 3,
-                   "visible": false },
-                  {"targets": 4 },
-                  {"targets": 5 },
-                  {"targets": 6 },
-                  {"targets": 7 },
-                  {"orderable": false,
-                   "data": null,
-                   "defaultContent":  '<div class="row-fluid">'+
-                                        
-                                        '<button id="btntmbh" class="col-xs-6 btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
-                                        '<button id="btnedt" class="col-xs-6 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                      '</div>',
-                   "targets": [8],"targets": 8 },
-                ],
-                "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
-              });
+              baca_tabel();
           }
         });
         return false;
@@ -489,33 +500,7 @@
               $('button:submit').attr("disabled", false); 
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
-              table = $("#example1").DataTable({
-                 "aaSorting": [[ 0, 'desc' ]], 
-                "processing": false,
-                "serverSide": true,
-                "ajax": "../core/loadtable/loadtransklr",
-                "columnDefs":
-                [
-                  {"targets": 0,
-                   "visible": false },
-                  {"targets": 1 },
-                  {"targets": 2 },
-                  {"targets": 3,
-                   "visible": false },
-                  {"targets": 4 },
-                  {"targets": 5 },
-                  {"targets": 6 },
-                  {"targets": 7 },
-                  {"orderable": false,
-                   "data": null,
-                   "defaultContent":  '<div class="row-fluid">'+
-                                        '<button id="btntmbh" class="col-xs-6 btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
-                                        '<button id="btnedt" class="col-xs-6 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                      '</div>',
-                   "targets": [8],"targets": 8 }         
-
-                ],
-              });
+              baca_tabel();
             }
           });
           return false;

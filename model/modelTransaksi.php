@@ -7,6 +7,10 @@ class modelTransaksi extends mysql_db
         $sql="DELETE from transaksi_masuk  where no_dok='$no_dok' and qty=0 ";
         $this->query($sql);
     }
+    public function hapus_dokumen_keluar($no_dok){
+        $sql="DELETE from transaksi_keluar  where no_dok='$no_dok' and qty=0 ";
+        $this->query($sql);
+    }
 
     public function get_transfer_detail($data){
         $sql="SELECT id, kd_lokasi,nm_satker, kd_lok_msk, kd_ruang_msk, no_dok, thn_ang, kd_brg, qty, satuan from transfer where id='$data' ";

@@ -14,7 +14,10 @@ else
 
 		case 'hapus_dokumen_masuk':
 			$no_dok= $purifier->purify($_POST['no_dok']);
-			$Transaksi->hapus_dokumen_masuk($no_dok);	
+			
+		case 'hapus_dokumen_keluar':
+			$no_dok= $purifier->purify($_POST['no_dok']);
+			$Transaksi->hapus_dokumen_keluar($no_dok);	
 		break;
 
 		case 'update_rekening':
