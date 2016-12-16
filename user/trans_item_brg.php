@@ -511,6 +511,7 @@ else {
             $("#pilihan_kode").show();
             $("#field_nilai_non_persediaan").hide();
             $("#ket_non_persediaan").hide();
+            $("#kode_rek").prop('required',true);
             $("#kd_brg").prop('required',true);
             $("#satuan").prop('required',true);
             $("#jml_msk").prop('required',true);
@@ -533,6 +534,7 @@ else {
             $("#pilihan_kode").show();
             $("#field_nilai_non_persediaan").show();
             $("#ket_non_persediaan").show();
+            $("#kode_rek").prop('required',true);
             $("#kd_brg").prop('required',false);
             $("#satuan").prop('required',false);
             $("#jml_msk").prop('required',false);
@@ -550,6 +552,7 @@ else {
             $("#field_ket_brg").show();
             $("#field_nilai_non_persediaan").hide();
             $("#field_nilai_non_persediaan").prop('required',false);
+            $("#kode_rek").prop('required',false);
             $("#kd_brg").prop('required',true);
             $("#satuan").prop('required',true);
             $("#jml_msk").prop('required',true);
