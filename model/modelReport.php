@@ -1542,7 +1542,8 @@ class modelReport extends mysql_db
         $satker_asal = $data['satker_asal'];
 
             
-            $TBS = new clsTinyButStrong;  
+        if($data['format']=="excel"){
+                $TBS = new clsTinyButStrong;  
             $TBS->Plugin(TBS_INSTALL, OPENTBS_PLUGIN);
             $template = '../../utility/optbs/template/laporan_semester_barang_pakai_habis.xlsx';
             $TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8); 
@@ -1652,17 +1653,20 @@ class modelReport extends mysql_db
                 $TBS->Show(OPENTBS_FILE, $output_file_name);  
                 exit("File [$output_file_name] has been created."); 
             } 
-                  
-        // ob_start(); 
-        // $this->cetak_header($data,"pp_brg_pakai_habis",$kd_lokasi,"","");
-        // $this->get_query($data,"pp_brg_pakai_habis",$kd_lokasi,"",$nm_satker,"");
-        // $this->cetak_nama_pj($kd_lokasi);
-        // $mpdf=new mPDF('utf-8', 'A4-L');
-        // $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
-        // ob_end_clean(); 
-        // $mpdf->WriteHTML(utf8_encode($html));
-        // $mpdf->Output("pp_bph.pdf" ,'I');
-        // exit;
+        
+        }
+        else{          
+            ob_start(); 
+            $this->cetak_header($data,"pp_brg_pakai_habis",$kd_lokasi,"","");
+            $this->get_query($data,"pp_brg_pakai_habis",$kd_lokasi,"",$nm_satker,"");
+            $this->cetak_nama_pj($kd_lokasi);
+            $mpdf=new mPDF('utf-8', 'A4-L');
+            $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
+            ob_end_clean(); 
+            $mpdf->WriteHTML(utf8_encode($html));
+            $mpdf->Output("pp_bph.pdf" ,'I');
+            exit;
+        }
 
     }
 
