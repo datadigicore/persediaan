@@ -943,7 +943,7 @@ class modelReport extends mysql_db
             $query = "SELECT * from ttd where concat(kd_lokasi,IFNULL(kd_ruang,''))='$satker_asal' ";
             $result_pj = $this->query($query);
             
-            $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
+            $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, concat(nm_brg,' ',spesifikasi) as nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
                                 FROM transaksi_masuk 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'  
                                       and kd_lokasi = '$kd_lokasi'   
@@ -1041,7 +1041,7 @@ class modelReport extends mysql_db
             $query = "SELECT * from ttd where concat(kd_lokasi,IFNULL(kd_ruang,''))='$satker_asal' ";
             $result_pj = $this->query($query);
             
-            $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
+            $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, concat(nm_brg,' ',spesifikasi) as nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
                                 FROM transaksi_keluar 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'  
                                       and kd_lokasi = '$kd_lokasi'
@@ -2457,7 +2457,7 @@ class modelReport extends mysql_db
 
             }
             elseif($nm_lap=="penerimaan_brg"){
-              $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
+              $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, concat(nm_brg,' ',spesifikasi) as nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
                                 FROM transaksi_masuk 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'  
                                       and kd_lokasi = '$kd_lokasi'   
@@ -2467,7 +2467,7 @@ class modelReport extends mysql_db
 
             }
             elseif($nm_lap=="pengeluaran_brg"){
-              $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
+              $sql="SELECT id, tgl_buku, no_bukti, tgl_dok,concat(nm_brg,' ',spesifikasi) as nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
                                 FROM transaksi_keluar 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'  
                                       and kd_lokasi = '$kd_lokasi'
