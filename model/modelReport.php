@@ -1555,13 +1555,13 @@ class modelReport extends mysql_db
             $query = "SELECT * from ttd where concat(kd_lokasi,IFNULL(kd_ruang,''))='$satker_asal' ";
             $result_pj = $this->query($query);
             
-            $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, nm_sskel, nm_brg,  spesifikasi, qty, satuan, untuk, harga_sat,total_harga, keterangan 
+            $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, nm_sskel, concat(nm_brg,' ',spesifikasi) as nm_brg, qty, satuan, untuk, harga_sat,total_harga, keterangan 
                                                     FROM transaksi_masuk 
                                                     where month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir'
                                                      and kd_lokasi = '$kd_lokasi'  
                                                      AND thn_ang='$thn_ang'
                                                 union all
-                    SELECT id, tgl_buku, no_bukti, tgl_dok, nm_sskel, nm_brg, spesifikasi,  qty, satuan, untuk, harga_sat,total_harga, keterangan 
+                    SELECT id, tgl_buku, no_bukti, tgl_dok, nm_sskel, concat(nm_brg,' ',spesifikasi) as nm_brg,  qty, satuan, untuk, harga_sat,total_harga, keterangan 
                                                     FROM transaksi_keluar 
                                                     where month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir'
                                                      and kd_lokasi = '$kd_lokasi'  
@@ -1581,7 +1581,6 @@ class modelReport extends mysql_db
                         'no_keluar' => '',
                         'tanggal_diterima' => $this->konversi_tanggal($value['tgl_dok']),
                         'nama_barang' => $value['nm_brg'],
-                        'merk' => $value['spesifikasi'],
                         'no_bap' => $value['no_bukti'],
                         'jumlah_diterima' => $value['qty'].' '.$value['satuan'],
                         'tanggal_dokumen' => $this->konversi_tanggal($value['tgl_dok']),
@@ -1605,7 +1604,6 @@ class modelReport extends mysql_db
                         'no_keluar' => $no,
                         'tanggal_diterima' => '',
                         'nama_barang' => $value['nm_brg'],
-                        'merk' => $value['spesifikasi'],
                         'no_bap' => '',
                         'jumlah_diterima' => '',
                         'tanggal_dokumen' => '',
@@ -3255,7 +3253,7 @@ class modelReport extends mysql_db
                                 <center><td  align="center">'.''.'</td></center>
                                 <center><td  align="center">'.''.'</td></center>
                                 <center><td  align="center">'.$data[qty].'</td></center>
-                                <center><td  align="center">'.$data[nm_brg].'</td></center>
+                                <center><td  align="center">'.$data[nm_brg].' '.$data[spesifikasi].'</td></center>
                                 <center><td  align="center">'.number_format($data[harga_sat],2,",",".").'</td></center>
                                 <center><td  align="center">'.$data[no_bukti].'</td></center>
                                 <center><td  align="center">'.$this->konversi_tanggal($data[tgl_dok]).'</td></center>
