@@ -3805,15 +3805,15 @@ public function getupb($kd_lokasi){
 
     public function cetak_nama_pj($satker_asal)
     {
-        $satker_asal.=$_SESSION['kd_ruang'];
-        $query = "SELECT * from ttd where concat(kd_lokasi,IFNULL(kd_ruang,''))='$satker_asal' ";
+        $kode_satker = $satker_asal.$_SESSION['kd_ruang'];
+        $query = "SELECT * from ttd where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kode_satker' ";
         $result = $this->query($query);
         $pj = $this->fetch_array($result);
         if(count($pj)>0){
-            $jabatan_1="ATASAN LANGSUNG,";
-            $jabatan_1b="(Kasubbag. Umum/ Keuangan /Sekretaris Kelurahan )";
-            $jabatan_2="PENYIMPAN BARANG,";
-            $jabatan_3="Kasubbag Keuangan";
+            $jabatan_1="An Pengguna / Kuasa Pengguna Barang";
+            $jabatan_1b="Pejabat Penatausahaan Pengguna Barang";
+            $jabatan_2="Pengurus Barang";
+            $jabatan_3="Pembantu Pengurus Barang";
             $atasan_PB = $pj['nama'];
             $nip_atasan_PB = $pj['nip'];
             $penyimpan_brg = $pj['nama2'];
@@ -3835,16 +3835,20 @@ public function getupb($kd_lokasi){
               <table style="text-align: center; width: 100%; font-size:84% "  >
               <tr>
                 <td style="text-align: center;"></td>
-
-                <td style="text-align: center;"> '.'Kota Pekalongan,'.date("d-m-Y").'</td>
-              </tr>            
-              <tr>
-                <td style="text-align: center;">'.$jabatan_1.'</td>
-                
-                <td style="text-align: center;">'.$jabatan_2.'</td>
+                <td style="text-align: center;"></td>
+                <td style="text-align: left;"> '.'Kota Pekalongan,'.date("d-m-Y").'</td>
               </tr>
               <tr>
-                <td>'.$jabatan_1b.'</td>
+              <td style="text-align: left;">Mengetahui</td>
+              <td style="text-align: left;"></td>
+              </tr>            
+              <tr>
+                <td style="text-align: left;">'.$jabatan_1.'</td>
+                <td style="text-align: left;">'.$jabatan_2.'</td>
+                <td style="text-align: left;">'.$jabatan_3.'</td>
+              </tr>
+              <tr>
+                <td style="text-align: left;">'.$jabatan_1b.'</td>
                 <td></td>
               </tr>
               <tr>
@@ -3852,14 +3856,16 @@ public function getupb($kd_lokasi){
                 <td><br></br><br></br><br></br><br></br></td>
               </tr>
               <tr>
-                <td style="text-align: center;">'.$atasan_PB.'</td>
+                <td style="text-align: left">'.$atasan_PB.'</td>
+                <td style="text-align: left">'.'..........................................................'.'</td>
 
-                <td style="text-align: center;">'.$penyimpan_brg.'</td>
+                <td style="text-align: left">'.$penyimpan_brg.'</td>
               </tr>              
 
               <tr>
-                <td style="text-align: center;">NIP'." ".$nip_atasan_PB.'</td>
-                <td style="text-align: center;">NIP'." ".$nip_penyimpan_brg.'</td>
+                <td style="text-align: left;">NIP'." ".$nip_atasan_PB.'</td>
+                <td style="text-align: left;">NIP'." ".'..................................................'.'</td>
+                <td style="text-align: left;">NIP'." ".$nip_penyimpan_brg.'</td>
               </tr>
               </table>';
 
