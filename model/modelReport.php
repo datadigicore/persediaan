@@ -943,7 +943,7 @@ class modelReport extends mysql_db
             $query = "SELECT * from ttd where concat(kd_lokasi,IFNULL(kd_ruang,''))='$satker_asal' ";
             $result_pj = $this->query($query);
             
-            $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
+            $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, concat(nm_brg,' ',spesifikasi) as nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
                                 FROM transaksi_masuk 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'  
                                       and kd_lokasi = '$kd_lokasi'   
@@ -1041,7 +1041,7 @@ class modelReport extends mysql_db
             $query = "SELECT * from ttd where concat(kd_lokasi,IFNULL(kd_ruang,''))='$satker_asal' ";
             $result_pj = $this->query($query);
             
-            $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
+            $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, concat(nm_brg,' ',spesifikasi) as nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
                                 FROM transaksi_keluar 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'  
                                       and kd_lokasi = '$kd_lokasi'
@@ -1542,7 +1542,8 @@ class modelReport extends mysql_db
         $satker_asal = $data['satker_asal'];
 
             
-            $TBS = new clsTinyButStrong;  
+        if($data['format']=="excel"){
+                $TBS = new clsTinyButStrong;  
             $TBS->Plugin(TBS_INSTALL, OPENTBS_PLUGIN);
             $template = '../../utility/optbs/template/laporan_semester_barang_pakai_habis.xlsx';
             $TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8); 
@@ -1554,13 +1555,13 @@ class modelReport extends mysql_db
             $query = "SELECT * from ttd where concat(kd_lokasi,IFNULL(kd_ruang,''))='$satker_asal' ";
             $result_pj = $this->query($query);
             
-            $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, nm_sskel, nm_brg,  spesifikasi, qty, satuan, untuk, harga_sat,total_harga, keterangan 
+            $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, nm_sskel, concat(nm_brg,' ',spesifikasi) as nm_brg, qty, satuan, untuk, harga_sat,total_harga, keterangan 
                                                     FROM transaksi_masuk 
                                                     where month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir'
                                                      and kd_lokasi = '$kd_lokasi'  
                                                      AND thn_ang='$thn_ang'
                                                 union all
-                    SELECT id, tgl_buku, no_bukti, tgl_dok, nm_sskel, nm_brg, spesifikasi,  qty, satuan, untuk, harga_sat,total_harga, keterangan 
+                    SELECT id, tgl_buku, no_bukti, tgl_dok, nm_sskel, concat(nm_brg,' ',spesifikasi) as nm_brg,  qty, satuan, untuk, harga_sat,total_harga, keterangan 
                                                     FROM transaksi_keluar 
                                                     where month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir'
                                                      and kd_lokasi = '$kd_lokasi'  
@@ -1580,7 +1581,6 @@ class modelReport extends mysql_db
                         'no_keluar' => '',
                         'tanggal_diterima' => $this->konversi_tanggal($value['tgl_dok']),
                         'nama_barang' => $value['nm_brg'],
-                        'merk' => $value['spesifikasi'],
                         'no_bap' => $value['no_bukti'],
                         'jumlah_diterima' => $value['qty'].' '.$value['satuan'],
                         'tanggal_dokumen' => $this->konversi_tanggal($value['tgl_dok']),
@@ -1604,7 +1604,6 @@ class modelReport extends mysql_db
                         'no_keluar' => $no,
                         'tanggal_diterima' => '',
                         'nama_barang' => $value['nm_brg'],
-                        'merk' => $value['spesifikasi'],
                         'no_bap' => '',
                         'jumlah_diterima' => '',
                         'tanggal_dokumen' => '',
@@ -1652,17 +1651,20 @@ class modelReport extends mysql_db
                 $TBS->Show(OPENTBS_FILE, $output_file_name);  
                 exit("File [$output_file_name] has been created."); 
             } 
-                  
-        // ob_start(); 
-        // $this->cetak_header($data,"pp_brg_pakai_habis",$kd_lokasi,"","");
-        // $this->get_query($data,"pp_brg_pakai_habis",$kd_lokasi,"",$nm_satker,"");
-        // $this->cetak_nama_pj($kd_lokasi);
-        // $mpdf=new mPDF('utf-8', 'A4-L');
-        // $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
-        // ob_end_clean(); 
-        // $mpdf->WriteHTML(utf8_encode($html));
-        // $mpdf->Output("pp_bph.pdf" ,'I');
-        // exit;
+        
+        }
+        else{          
+            ob_start(); 
+            $this->cetak_header($data,"pp_brg_pakai_habis",$kd_lokasi,"","");
+            $this->get_query($data,"pp_brg_pakai_habis",$kd_lokasi,"",$nm_satker,"");
+            $this->cetak_nama_pj($kd_lokasi);
+            $mpdf=new mPDF('utf-8', 'A4-L');
+            $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
+            ob_end_clean(); 
+            $mpdf->WriteHTML(utf8_encode($html));
+            $mpdf->Output("pp_bph.pdf" ,'I');
+            exit;
+        }
 
     }
 
@@ -2455,7 +2457,7 @@ class modelReport extends mysql_db
 
             }
             elseif($nm_lap=="penerimaan_brg"){
-              $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
+              $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, concat(nm_brg,' ',spesifikasi) as nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
                                 FROM transaksi_masuk 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'  
                                       and kd_lokasi = '$kd_lokasi'   
@@ -2465,7 +2467,7 @@ class modelReport extends mysql_db
 
             }
             elseif($nm_lap=="pengeluaran_brg"){
-              $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
+              $sql="SELECT id, tgl_buku, no_bukti, tgl_dok,concat(nm_brg,' ',spesifikasi) as nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
                                 FROM transaksi_keluar 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'  
                                       and kd_lokasi = '$kd_lokasi'
@@ -3251,7 +3253,7 @@ class modelReport extends mysql_db
                                 <center><td  align="center">'.''.'</td></center>
                                 <center><td  align="center">'.''.'</td></center>
                                 <center><td  align="center">'.$data[qty].'</td></center>
-                                <center><td  align="center">'.$data[nm_brg].'</td></center>
+                                <center><td  align="center">'.$data[nm_brg].' '.$data[spesifikasi].'</td></center>
                                 <center><td  align="center">'.number_format($data[harga_sat],2,",",".").'</td></center>
                                 <center><td  align="center">'.$data[no_bukti].'</td></center>
                                 <center><td  align="center">'.$this->konversi_tanggal($data[tgl_dok]).'</td></center>
@@ -3803,15 +3805,15 @@ public function getupb($kd_lokasi){
 
     public function cetak_nama_pj($satker_asal)
     {
-        $satker_asal.=$_SESSION['kd_ruang'];
-        $query = "SELECT * from ttd where concat(kd_lokasi,IFNULL(kd_ruang,''))='$satker_asal' ";
+        $kode_satker = $satker_asal.$_SESSION['kd_ruang'];
+        $query = "SELECT * from ttd where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kode_satker' ";
         $result = $this->query($query);
         $pj = $this->fetch_array($result);
         if(count($pj)>0){
-            $jabatan_1="ATASAN LANGSUNG,";
-            $jabatan_1b="(Kasubbag. Umum/ Keuangan /Sekretaris Kelurahan )";
-            $jabatan_2="PENYIMPAN BARANG,";
-            $jabatan_3="Kasubbag Keuangan";
+            $jabatan_1="An Pengguna / Kuasa Pengguna Barang";
+            $jabatan_1b="Pejabat Penatausahaan Pengguna Barang";
+            $jabatan_2="Pengurus Barang";
+            $jabatan_3="Pembantu Pengurus Barang";
             $atasan_PB = $pj['nama'];
             $nip_atasan_PB = $pj['nip'];
             $penyimpan_brg = $pj['nama2'];
@@ -3833,16 +3835,20 @@ public function getupb($kd_lokasi){
               <table style="text-align: center; width: 100%; font-size:84% "  >
               <tr>
                 <td style="text-align: center;"></td>
-
-                <td style="text-align: center;"> '.'Kota Pekalongan,'.date("d-m-Y").'</td>
-              </tr>            
-              <tr>
-                <td style="text-align: center;">'.$jabatan_1.'</td>
-                
-                <td style="text-align: center;">'.$jabatan_2.'</td>
+                <td style="text-align: center;"></td>
+                <td style="text-align: left;"> '.'Kota Pekalongan,'.date("d-m-Y").'</td>
               </tr>
               <tr>
-                <td>'.$jabatan_1b.'</td>
+              <td style="text-align: left;">Mengetahui</td>
+              <td style="text-align: left;"></td>
+              </tr>            
+              <tr>
+                <td style="text-align: left;">'.$jabatan_1.'</td>
+                <td style="text-align: left;">'.$jabatan_2.'</td>
+                <td style="text-align: left;">'.$jabatan_3.'</td>
+              </tr>
+              <tr>
+                <td style="text-align: left;">'.$jabatan_1b.'</td>
                 <td></td>
               </tr>
               <tr>
@@ -3850,14 +3856,16 @@ public function getupb($kd_lokasi){
                 <td><br></br><br></br><br></br><br></br></td>
               </tr>
               <tr>
-                <td style="text-align: center;">'.$atasan_PB.'</td>
+                <td style="text-align: left">'.$atasan_PB.'</td>
+                <td style="text-align: left">'.'..........................................................'.'</td>
 
-                <td style="text-align: center;">'.$penyimpan_brg.'</td>
+                <td style="text-align: left">'.$penyimpan_brg.'</td>
               </tr>              
 
               <tr>
-                <td style="text-align: center;">NIP'." ".$nip_atasan_PB.'</td>
-                <td style="text-align: center;">NIP'." ".$nip_penyimpan_brg.'</td>
+                <td style="text-align: left;">NIP'." ".$nip_atasan_PB.'</td>
+                <td style="text-align: left;">NIP'." ".'..................................................'.'</td>
+                <td style="text-align: left;">NIP'." ".$nip_penyimpan_brg.'</td>
               </tr>
               </table>';
 
