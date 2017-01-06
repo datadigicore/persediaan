@@ -1683,6 +1683,7 @@ class modelReport extends mysql_db
         $subtotal_keluar = 0;
         $subtotal_saldo_awal = 0;
         $subtotal_sisa = 0;
+        $semester = array();
         if($_SESSION['kd_ruang']!=''){
             $kode_bagian=$_SESSION['kd_ruang'];
             $baca_ruang=" and kd_ruang='$kode_bagian' ";
@@ -1696,7 +1697,14 @@ class modelReport extends mysql_db
         $query = "SELECT * from ttd where kd_lokasi='$kd_lokasi' ".$baca_ruang;
         $result_pj = $this->query($query);
                     // echo $query;
-        if($data['semester']=="06"){ $smt="I"; } else{ $smt="II"; }
+        if($data['semester']=="06"){ 
+            $smt="I"; 
+            $semester[]= array('semester' =>$smt);
+        } 
+        else{ 
+            $smt="II";
+            $semester[]= array('semester' =>$smt); 
+        }
         
         if($jenis=="excel"){
             $TBS = new clsTinyButStrong;  
@@ -1725,7 +1733,7 @@ class modelReport extends mysql_db
                         'cetak_header'        => 2,
                         'jumlah_saldo_awal'   => 2,
                         'jumlah_diterima'     => 2,
-
+                        'counter'             => ""
                     );
                     
                 }
@@ -1735,8 +1743,8 @@ class modelReport extends mysql_db
                 $rekap[] = array(
                         'jenis_barang'            => $value['nm_perk'],
                         'cetak_header'            => 1,
-                        'cetak_subtotal'          => 0
-
+                        'cetak_subtotal'          => 0,
+                        'counter'                 => ""
                     );
                 if($value[jns_trans]=="M01"){
                     $rekap[] = array(
@@ -1749,7 +1757,7 @@ class modelReport extends mysql_db
                         'jumlah_diterima'         => 0,
                         'jumlah_keluar'           => $value[qty]-$value[qty_akhir],
                         'sisa_barang'             => $value[qty_akhir],
-
+                        'counter'                 => "",
                         'harga_satuan_saldo_awal' => $value[harga_sat],
                         'harga_satuan_masuk'      => 0,
                         'harga_satuan_keluar'     => $value[harga_sat],
@@ -1774,7 +1782,7 @@ class modelReport extends mysql_db
                         'jumlah_diterima'         => $value[qty],
                         'jumlah_keluar'           => $value[qty]-$value[qty_akhir],
                         'sisa_barang'             => $value[qty_akhir],
-
+                        'counter'                 => "",
                         'harga_satuan_saldo_awal' => 0,
                         'harga_satuan_masuk'      => $value[harga_sat],
                         'harga_satuan_keluar'     => $value[harga_sat],
@@ -1802,7 +1810,7 @@ class modelReport extends mysql_db
                         'jumlah_diterima'         => 0,
                         'jumlah_keluar'           => $value[qty]-$value[qty_akhir],
                         'sisa_barang'             => $value[qty_akhir],
-
+                        'counter'                 => "",
                         'harga_satuan_saldo_awal' => $value[harga_sat],
                         'harga_satuan_masuk'      => 0,
                         'harga_satuan_keluar'     => $value[harga_sat],
@@ -1828,7 +1836,7 @@ class modelReport extends mysql_db
                         'jumlah_diterima'         => $value[qty],
                         'jumlah_keluar'           => $value[qty]-$value[qty_akhir],
                         'sisa_barang'             => $value[qty_akhir],
-
+                        'counter'                 => "",
                         'harga_satuan_saldo_awal' => 0,
                         'harga_satuan_masuk'      => $value[harga_sat],
                         'harga_satuan_keluar'     => $value[harga_sat],
@@ -1860,6 +1868,7 @@ class modelReport extends mysql_db
             // print_r($identitas_pejabat);
             $TBS->MergeBlock('a', $rekap);
             $TBS->MergeBlock('b', $identitas_pejabat);
+            $TBS->MergeBlock('c', $semester);
 
             $TBS->PlugIn(OPENTBS_DELETE_COMMENTS);
             $save_as = (isset($_POST['save_as']) && (trim($_POST['save_as'])!=='') && ($_SERVER['SERVER_NAME']=='localhost')) ? trim($_POST['save_as']) : ''; 
