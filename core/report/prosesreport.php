@@ -503,7 +503,7 @@ else
 		case 'ba_opname':
 			$kd_lokasi = $purifier->purify($_POST['satker']);
 			$satker_asal = $_SESSION['kd_lok'];
-			$jenis = $purifier->purify($_POST['jenis']);
+			$format = $_POST['format'];
 			$semester = explode("-",$purifier->purify($_POST['smt']));
 			$bln_awal = $semester[0];
 			$bln_akhir = $semester[1];
@@ -513,7 +513,7 @@ else
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			$user_id= $_SESSION['username'];
 			$data = array(
-						"jenis"=>$jenis,
+						"format"=>$format,
 						"bln_awal"=>$bln_awal,
 						"bln_akhir"=>$bln_akhir,
 						"thn_ang" => $thn_ang,
@@ -523,6 +523,7 @@ else
 						"semester" => $bln_akhir,
 						"satker_asal" => $satker_asal,
 						"user_id" => $user_id);
+			// print_r($data);
 			$Report->ba_opname($data);
 
 		break;
