@@ -1693,8 +1693,10 @@ class modelReport extends mysql_db
                     from transaksi_masuk 
                     where kd_lokasi='$kd_lokasi' ".$baca_ruang." and thn_ang='$thn_ang' and month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' and IFNULL(kd_brg,'')!=''
                     order BY kd_sskel asc, nm_brg asc, jns_trans asc";
+                    // echo $query;
         $result = $this->query($query);
         $query = "SELECT * from ttd where kd_lokasi='$kd_lokasi' ".$baca_ruang;
+
         $result_pj = $this->query($query);
                     // echo $query;
         if($data['semester']=="06"){ 
@@ -1726,8 +1728,8 @@ class modelReport extends mysql_db
                 if($no>1){
                     $rekap[] = array(
                         'subtotal_saldo_awal' => $subtotal_saldo_awal,
-                        'subtotal_masuk'      => $subtotal_keluar,
-                        'subtotal_keluar'     => $subtotal_masuk,
+                        'subtotal_masuk'      => $subtotal_masuk,
+                        'subtotal_keluar'     => $subtotal_keluar,
                         'subtotal_sisa'       => $subtotal_sisa,
                         'cetak_subtotal'      => 1,
                         'cetak_header'        => 2,
@@ -1735,11 +1737,13 @@ class modelReport extends mysql_db
                         'jumlah_diterima'     => 2,
                         'counter'             => ""
                     );
+                    $subtotal_saldo_awal = 0;
+                    $subtotal_keluar    = 0;
+                    $subtotal_masuk  = 0;
+                    $subtotal_sisa    = 0;
                     
                 }
-                $subtotal_saldo_awal = 0;
-                $subtotal_keluar    = 0;
-                $subtotal_sisa    = 0;
+                
                 $rekap[] = array(
                         'jenis_barang'            => $value['nm_perk'],
                         'cetak_header'            => 1,
@@ -1865,7 +1869,8 @@ class modelReport extends mysql_db
                       );
 
             }
-            // print_r($identitas_pejabat);
+            // echo "<pre>";
+            // print_r($rekap);
             $TBS->MergeBlock('a', $rekap);
             $TBS->MergeBlock('b', $identitas_pejabat);
             $TBS->MergeBlock('c', $semester);
