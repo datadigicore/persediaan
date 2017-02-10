@@ -141,7 +141,7 @@ class modelReport extends mysql_db
         $date       = $this->cek_periode($data);
         ob_start();
         $this->getsatker($kd_lokasi);
-        $sql        = "SELECT kd_perk, nilai_kontrak, nm_perk, kode_rekening, nama_rekening, jns_trans, total_harga from transaksi_masuk   where kd_lokasi='$kd_lokasi' and IFNULL(kd_ruang,'')='$kd_ruang' and thn_ang='$thn_ang' and tgl_dok<='$tgl_akhir' and jns_trans='M07'  order by kode_rekening,no_dok asc";
+        $sql        = "SELECT kd_perk, nilai_kontrak, nm_perk, kode_rekening, nama_rekening, jns_trans, total_harga from transaksi_masuk   where kd_lokasi='$kd_lokasi' and IFNULL(kd_ruang,'')='$kd_ruang' and thn_ang='$thn_ang' and tgl_dok<='$tgl_akhir'   order by kode_rekening,no_dok asc";
         // print_r($sql);
         $result     = $this->query($sql);
         $no                     =1;
@@ -149,6 +149,36 @@ class modelReport extends mysql_db
         $rek_keuangan           ="";
         $nilai_rek_persediaan   =0;
         
+        $rekap = array();
+        $rekap2 = array();
+        foreach ($result as $key => $val) {
+            $key = $val['kode_rekening']."-".$val['kd_perk'];
+             if (!isset($rekap[$key])) {
+                $rekap[$key] = 
+                    array('no' => $no, 
+                          'kode_rekening' => $val['kode_rekening'], 
+                          'nama_rekening' => $val['nama_rekening'], 
+                          'kd_perk' => $val['kd_perk'], 
+                          'nm_perk' => $val['nm_perk'], 
+                          'total_harga' => $val['total_harga'], 
+                          'nilai_kontrak' => $val['nilai_kontrak'], 
+                          'total' => ''
+                        );
+            }
+            else{
+                $rekap[$key]['total_harga'] = $rekap[$key]['total_harga'] + $val['total_harga'];
+                $rekap[$key]['nilai_kontrak'] = $rekap[$key]['nilai_kontrak'] + $val['nilai_kontrak'];
+            }
+        }
+        // echo "<pre>";
+        // print_r($rekap);
+        // $nilai_final = 0;
+        // foreach ($rekap as  $value) {
+        //     $nilai_final+=$value['total_harga'];
+
+        // }
+        // print_r($nilai_final);
+        // exit;
         echo '<p align="center" style="margin:0px; padding:0px; font-weight:bold;">LAPORAN POSISI PERSEDIAAN DI NERACA PER REKENING</p>
                 <p align="center" style="margin:0px; padding:0px; font-weight:bold;">UNTUK PERIODE YANG BERAKHIR PADA '.$date.'</p>
                 <p align="center" style="margin:0px; padding:0px; font-weight:bold;">TAHUN ANGGARAN '.$thn_ang.'</p><br></br>';
@@ -163,7 +193,7 @@ class modelReport extends mysql_db
                                       <td><b>NILAI NON PERSEDIAAN</b></td>
                                       <td><b>TOTAL</b></td>
                                   </tr>';
-        foreach ($result as $val) {
+        foreach ($rekap as $val) {
           $total = $val['total_harga']+$val['nilai_kontrak'];
           echo '<tr>
                   <td style="text-align:center">'.$no.'</td>
