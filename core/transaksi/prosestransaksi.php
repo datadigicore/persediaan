@@ -20,6 +20,23 @@ else
 			$Transaksi->hapus_dokumen_keluar($no_dok);	
 		break;
 
+		case 'update_rekening_barang':
+		// echo "masuk";
+		// exit;
+			$id 			 = $purifier->purify($_POST['id']);
+			$kd_rek_brg_baru = $purifier->purify($_POST['kd_rek_brg_baru']); 
+			$keterangan_baru = $purifier->purify($_POST['keterangan_baru']);
+
+			$data = array(
+				'id' => $id, 
+				'kd_rek_brg_baru' => $kd_rek_brg_baru, 
+				'keterangan_baru' => $keterangan_baru 
+				);
+		// print_r($data);
+		// exit;
+			$Transaksi->update_data_rekening_barang($data);
+		break;
+
 		case 'update_rekening':
 			$id 			 = $purifier->purify($_POST['id']);
 			$nilai_baru 	 = $purifier->purify($_POST['nilai_baru']); 

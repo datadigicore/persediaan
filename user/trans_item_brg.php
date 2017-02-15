@@ -53,6 +53,46 @@ else {
                             
                           </div>
                         </div>
+
+                        <div class="modal fade" id="Modal_edit_rek_brg" role="dialog">
+                          <div class="modal-dialog">
+                            
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Edit Rekening Per Barang </h4>
+                              </div>
+                              <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="submit_update_rek_brg">
+                              <div class="form-group">
+                                <input type="hidden" name="update_rekening_barang" >
+                                <input type="hidden" name="id_edit_rek" id="id_edit_rek" >
+                                <label class="col-sm-3 control-label">Kode Rekening Lama</label>
+                                <div class="col-sm-8">
+                                 <input type="text"  name="detail_rek_barang" class="form-control" id="detail_rek_barang" readonly>
+                                </div>
+                              </div>
+                              <div class="form-group" >
+                                <label class="col-sm-3 control-label">Nama Barang</label>
+                                <div class="col-sm-8">
+                                  <input type="text" name="nama_barang" class="form-control" id="nama_barang"  placeholder="Masukkan Nilai Non Persediaan" >
+                                </div> 
+                              </div>
+                              <div class="form-group" >
+                                  <label class="col-sm-3 control-label">Kode Rekening Baru</label>
+                                  <div class="col-sm-8">
+                                   <select name="kd_rek_brg_baru" id="kd_rek_brg_baru" class="form-control select2" required>
+                                 </select>
+                                  </div> 
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-info" id="update_rek_brg" data-dismiss="modal">Simpan Data</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                              </div>
+                            </form>
+                            </div>
+                            
+                          </div>
+                        </div>
                       </div>
     <div class="wrapper">
       <?php include("include/header.php"); ?>
@@ -761,6 +801,35 @@ else {
          $("#edit_nilai_kontrak").val(nilai_kontrak);
          $("#edit_ket_non_persediaan").val(ket_rek);
       });
+        $("#kd_rek_brg_baru").select2({
+               placeholder: "-- Pilih Kode Rekeing --",
+        });
+      $(document).on('click', '#edit_rek_brg', function () {
+        // alert("Fitur sedang dikembangkan, coba beberapa hari lagi");
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+        id = row.data()[0];
+        kode_rek = row.data()[2];
+        nama_rek = row.data()[12];
+        nama_barang = row.data()[3];
+        ket_rek = row.data()[4];
+
+         $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'baca_rekening'},
+          success: function (output) {     
+            $('#kd_rek_brg_baru').html(output);
+             
+          }
+       });
+
+         $("#Modal_edit_rek_brg").modal();
+         $("#id_edit_rek").val(id);
+         $("#detail_rek_barang").val(kode_rek+" : "+nama_rek);
+         $("#nama_barang").val(nama_barang);
+         
+      });
        $(document).on('click', '#update_rek', function (e) {
           case_menu       = "update_rekening" ;
           id_row          = $('#id_edit').val();
@@ -775,6 +844,54 @@ else {
                     $("#example2").DataTable().destroy();
                     $("#example2 tbody").empty();
                     baca_rekening();
+                }
+              });
+       });
+       $(document).on('click', '#update_rek_brg', function (e) {
+          case_menu       = "update_rekening_barang" ;
+          id_row          = $('#id_edit_rek').val();
+          kd_rek_brg_baru   = $('#kd_rek_brg_baru').val();
+          keterangan_baru = $('#edit_ket_non_persediaan').val();
+          $.ajax({
+                type: "post",
+                url : "../core/transaksi/prosestransaksi",
+                data: {manage:case_menu, id:id_row, kd_rek_brg_baru:kd_rek_brg_baru, keterangan_baru:keterangan_baru},
+                success: function(data)
+                {
+                    $("#example1").DataTable().destroy();
+                    $("#example1 tbody").empty();
+                    table = $("#example1").DataTable({
+                "aaSorting": [[ 0, 'desc' ]],
+                "processing": false,
+                "serverSide": true,
+                "ajax":
+                {
+                  'type': 'GET',
+                  'url': '../core/loadtable/loadtransmskitm',
+                  'data': {
+                     no_dok: '<?php echo $_POST["satker"]?>',
+                  },
+                },
+                "columnDefs":
+                [
+                  {"targets": 0,
+                   "visible": false },
+                  {"targets": 1,
+                   "visible": false  },
+                  {"targets": 2 },
+                  {"targets": 3 },
+                  {"targets": 4 },
+                  {"targets": 5 },
+                  {"targets": 6 },
+                  {"targets": 7 },
+                  {"targets": 8 },
+                  {"targets": 9 },
+                  {"targets": 10,
+                   "visible": true },
+                  {"targets": 11 },
+                ],
+              });
+                    // baca_rekening();
                 }
               });
        });  
