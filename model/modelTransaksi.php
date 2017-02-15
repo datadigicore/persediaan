@@ -31,6 +31,21 @@ class modelTransaksi extends mysql_db
         $this->query($sql);
     
     }
+
+    public function update_data_rekening_barang($data){
+        $id              = $data['id'];
+        $nilai_baru      = explode("-",$data['kd_rek_brg_baru']);
+        $kode_rekening                = $nilai_baru[0]; 
+        $nama_rekening                = $nilai_baru[1]; 
+        
+        $sql = "UPDATE transaksi_masuk set 
+                    kode_rekening='$kode_rekening', 
+                    nama_rekening='$nama_rekening' 
+                WHERE id= '$id' ";
+       // print_r($sql);
+        return $this->query($sql);
+    
+    }
     public function baca_rekening(){
         $sql = "SELECT * from rekening where length(kode_rekening)>6 ";
         $result = $this->query($sql);

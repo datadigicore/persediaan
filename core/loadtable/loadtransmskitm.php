@@ -27,7 +27,10 @@ $primaryKey = 'id';
 $columns = array(
     array( 'db' => 'id', 'dt' => 0 ),
     array( 'db' => 'no_dok', 'dt' => 1 ),
-    array( 'db' => 'kd_brg', 'dt' => 2, ),
+    array( 'db' => 'kode_rekening', 'dt' => 2, 
+        'formatter' => function($d,$row){
+            return $d."-".$row[12];
+         } ),
     array( 'db' => 'nm_brg', 'dt' => 3 ),
     array( 'db' => 'spesifikasi', 'dt' => 4 ),
     array( 'db' => 'qty', 'dt' => 5, 'formatter' => function($d,$row){if(ceil($d)!=$d or floor($d)!=$d) {return number_format($d,2,",",".");} else { return number_format($d,0,",",".");} } ),
@@ -37,13 +40,14 @@ $columns = array(
     
     array( 'db' => 'untuk', 'dt' => 9 ),
     array( 'db' => 'qty_akhir', 'dt' => 10, 'formatter' => function($d,$row){if(ceil($d)!=$d or floor($d)!=$d) {return number_format($d,2,",",".");} else { return number_format($d,0,",",".");} }  ),
-    array( 'db' => 'jns_trans', 'dt' => 11,'formatter' => function($d,$row){if($d!="M06"){ return '<div class="row-fluid">'.'<button id="btnhps" class="btn btn-flat btn-danger btn-xs col-xs-12"><i class="fa fa-remove"></i> Hapus</button>'.'<button id="btnedt" class="btn btn-success btn-xs btn-flat col-xs-12"><i class="fa fa-edit"></i> Edit</button>'.
+    array( 'db' => 'jns_trans', 'dt' => 11,'formatter' => function($d,$row){if($d!="M06"){ return '<div class="row-fluid">'.'<button id="btnhps" class="btn btn-flat btn-danger btn-xs col-xs-12"><i class="fa fa-remove"></i> Hapus</button>'.'<button id="btnedt" class="btn btn-success btn-xs btn-flat col-xs-12"><i class="fa fa-edit"></i> Edit</button>'.'<button id="edit_rek_brg" class="btn btn-primary btn-xs btn-flat col-xs-12"><i class="fa fa-edit"></i>Ubah Rekening</button>'.
             '</div>'; 
     }
     else{
         return '-';
     }
              }  ),
+    array( 'db' => 'nama_rekening', 'dt' => 12 )
     // array( 'db' => 'total_harga', 'dt' => 8 ),
     // array( 'db' => 'keterangan', 'dt' => 9 ),
 
