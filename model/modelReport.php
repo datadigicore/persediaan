@@ -136,8 +136,9 @@ class modelReport extends mysql_db
         $satker_asal= $data['satker_asal'];
         $thn_ang    = $data['thn_ang'];
         $lingkup    = $data['lingkup'];
-        $tgl_awal = $data['tgl_awal'];
-        $tgl_akhir = $data['tgl_akhir'];
+        $tgl_awal   = $data['tgl_awal'];
+        $tgl_akhir  = $data['tgl_akhir'];
+        $jenis      = $data['format'];
         $date       = $this->cek_periode($data);
         ob_start();
         $this->getsatker($kd_lokasi);
@@ -153,6 +154,7 @@ class modelReport extends mysql_db
         $rekap2 = array();
         foreach ($result as $key => $val) {
             $key = $val['kode_rekening']."-".$val['kd_perk'];
+            $total = $val['total_harga'] + $val['nilai_kontrak'];
              if (!isset($rekap[$key])) {
                 $rekap[$key] = 
                     array('no' => $no, 
@@ -160,14 +162,15 @@ class modelReport extends mysql_db
                           'nama_rekening' => $val['nama_rekening'], 
                           'kd_perk' => $val['kd_perk'], 
                           'nm_perk' => $val['nm_perk'], 
-                          'total_harga' => $val['total_harga'], 
-                          'nilai_kontrak' => $val['nilai_kontrak'], 
+                          'total_harga' => $val[total_harga], 
+                          'nilai_kontrak' => $val[nilai_kontrak], 
                           'total' => ''
                         );
+                $no++;
             }
             else{
-                $rekap[$key]['total_harga'] = $rekap[$key]['total_harga'] + $val['total_harga'];
-                $rekap[$key]['nilai_kontrak'] = $rekap[$key]['nilai_kontrak'] + $val['nilai_kontrak'];
+                $rekap[$key][total_harga] = $rekap[$key][total_harga] + $val[total_harga];
+                $rekap[$key][nilai_kontrak] = $rekap[$key][nilai_kontrak] + $val[nilai_kontrak];
             }
         }
         // echo "<pre>";
@@ -179,6 +182,49 @@ class modelReport extends mysql_db
         // }
         // print_r($nilai_final);
         // exit;
+
+        if($jenis=="excel"){
+            ob_end_clean();
+            $identitas_pejabat  = array();
+            $query              = "SELECT * FROM ttd 
+                                    WHERE 
+                                    concat(kd_lokasi,IFNULL(kd_ruang,''))='$satker_asal' ";
+            $result_pj = $this->query($query);
+            foreach ($result_pj as $pj) {
+                $identitas_pejabat[]  = 
+                    array('nama_atasan'             => $pj['nama'], 
+                          'nip_atasan'              => $pj['nip'], 
+                          'nama_skpd'               => $data_sakter['NamaSatker'], 
+                          'tanggal_cetak'           => date("d-m-Y"), 
+                          'nama_penyimpan_barang'   => $pj['nama2'], 
+                          'nip_penyimpan_barang'    => $pj['nip2']
+                    );
+
+            }
+            
+            // echo "masuk"; exit;
+            $TBS = new clsTinyButStrong;  
+            $TBS->Plugin(TBS_INSTALL, OPENTBS_PLUGIN);
+            $template = '../../utility/optbs/template/belanja_persediaan_2.xlsx';
+            $TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8); 
+
+            $TBS->MergeBlock('a', $rekap);
+            $TBS->MergeBlock('b', $identitas_pejabat);
+
+            $TBS->PlugIn(OPENTBS_DELETE_COMMENTS);
+            $save_as = (isset($_POST['save_as']) && (trim($_POST['save_as'])!=='') && ($_SERVER['SERVER_NAME']=='localhost')) ? trim($_POST['save_as']) : ''; 
+                $output_file_name = "belanja_persediaan_2.xlsx"; 
+            if ($save_as==='') { 
+                $TBS->Show(OPENTBS_DOWNLOAD, $output_file_name);
+                exit(); 
+            } 
+            else { 
+                $TBS->Show(OPENTBS_FILE, $output_file_name);  
+                exit("File [$output_file_name] has been created."); 
+            }
+            exit;
+        }
+
         echo '<p align="center" style="margin:0px; padding:0px; font-weight:bold;">LAPORAN POSISI PERSEDIAAN DI NERACA PER REKENING</p>
                 <p align="center" style="margin:0px; padding:0px; font-weight:bold;">UNTUK PERIODE YANG BERAKHIR PADA '.$date.'</p>
                 <p align="center" style="margin:0px; padding:0px; font-weight:bold;">TAHUN ANGGARAN '.$thn_ang.'</p><br></br>';
