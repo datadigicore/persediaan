@@ -160,7 +160,7 @@ else {
         $("#kd_brg").select2({
           placeholder: "-- Pilih Kode Item Barang --",
         });
-        $("li#opname").addClass("active");
+        $("li#opname").addClass("");
         $('#tgl_dok').datepicker({
           format: "dd-mm-yyyy"
         });         
@@ -175,7 +175,7 @@ else {
         $('form').on('blur', 'input[type=number]', function (e) {
           $(this).off('mousewheel.disableScroll')
         });             
-        $("li#saldo_awal").addClass("active");
+        $("li#saldo_awal").addClass("");
         table = $("#example1").DataTable({
           "processing": false,
           "serverSide": true,

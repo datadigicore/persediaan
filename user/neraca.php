@@ -72,15 +72,15 @@
     <script type="text/javascript">
     var table;
       $(function () {
-        $(".treeview").addClass("active");
-        $("li#neraca").addClass("active");
+        $(".treeview").addClass("");
+        $("li#neraca").addClass("");
         $('#tgl_awal').datepicker({
           format: "dd-mm-yyyy"
         });         
         $('#tgl_akhir').datepicker({
           format: "dd-mm-yyyy"
         });             
-        $("li#mutasi_sedia").addClass("active");
+        $("li#mutasi_sedia").addClass("");
 
       });
       $.ajax({

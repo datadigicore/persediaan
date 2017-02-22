@@ -86,8 +86,8 @@
     <script type="text/javascript">
     var table;
       $(function () {
-        $(".treeview").addClass("active");
-        $("li#l_pp_bph").addClass("active");
+        $(".treeview").addClass("");
+        $("li#l_pp_bph").addClass("");
         $('#tgl_awal').datepicker({
           format: "dd-mm-yyyy"
         });         

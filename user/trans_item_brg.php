@@ -397,7 +397,7 @@ else {
     var jns_pemasukan;
     var table_rek;
     var table;
-    $("li#trans_masuk").addClass("active");
+    $("li#trans_masuk").addClass("");
     $("#field_satuan").hide();
     $("#field_pilihan_kode").hide();
     $("#field_harga_satuan").hide();
@@ -1190,14 +1190,14 @@ else {
         $("#kd_brg").select2({
           placeholder: "-- Pilih Kode Item Barang --",
         });
-        $("li#trans_keluar").addClass("active");
+        $("li#trans_keluar").addClass("");
         $('#tgl_dok').datepicker({
           format: "dd-mm-yyyy"
         });         
         $('#tgl_buku').datepicker({
           format: "dd-mm-yyyy"
         });             
-        $("li#saldo_awal").addClass("active");
+        $("li#saldo_awal").addClass("");
         table = $("#example1").DataTable({
           "processing": false,
           "serverSide": true,

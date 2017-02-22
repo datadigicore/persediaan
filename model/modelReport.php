@@ -131,33 +131,38 @@ class modelReport extends mysql_db
     }
 
     public function laporan_belanja_persediaan($data){
-        $kd_lokasi  = $data['kd_lokasi'];
-        $kd_ruang   = $data['kd_ruang'];
-        $satker_asal= $data['satker_asal'];
-        $thn_ang    = $data['thn_ang'];
-        $lingkup    = $data['lingkup'];
-        $tgl_awal   = $data['tgl_awal'];
-        $tgl_akhir  = $data['tgl_akhir'];
-        $jenis      = $data['format'];
-        $date       = $this->cek_periode($data);
+        $kd_lokasi          = $data['kd_lokasi'];
+        $kd_ruang           = $data['kd_ruang'];
+        $satker_asal        = $data['satker_asal'];
+        $thn_ang            = $data['thn_ang'];
+        $lingkup            = $data['lingkup'];
+        $tgl_awal           = $data['tgl_awal'];
+        $tgl_akhir          = $data['tgl_akhir'];
+        $jenis              = $data['format'];
+        $rinci_per_dok      = $data['rinci_per_dok'];
+        $date               = $this->cek_periode($data);
         ob_start();
         $this->getsatker($kd_lokasi);
-        $sql        = "SELECT kd_perk, nilai_kontrak, nm_perk, kode_rekening, nama_rekening, jns_trans, total_harga from transaksi_masuk   where kd_lokasi='$kd_lokasi' and IFNULL(kd_ruang,'')='$kd_ruang' and thn_ang='$thn_ang' and tgl_dok<='$tgl_akhir'   order by kode_rekening,no_dok asc";
+        $sql        = "SELECT no_dok, kd_perk, nilai_kontrak, nm_perk, kode_rekening, nama_rekening, jns_trans, total_harga from transaksi_masuk   where kd_lokasi='$kd_lokasi' and jns_trans='M07' and IFNULL(kd_ruang,'')='$kd_ruang' and thn_ang='$thn_ang' and tgl_dok<='$tgl_akhir'   order by kode_rekening,no_dok,tgl_dok asc";
         // print_r($sql);
         $result     = $this->query($sql);
         $no                     =1;
         $rek_persediaan         ="";
         $rek_keuangan           ="";
         $nilai_rek_persediaan   =0;
+        $nilai_non_persediaan   =0;
         
         $rekap = array();
         $rekap2 = array();
         foreach ($result as $key => $val) {
             $key = $val['kode_rekening']."-".$val['kd_perk'];
             $total = $val['total_harga'] + $val['nilai_kontrak'];
+            $nilai_non_persediaan += $val['nilai_kontrak'];
+            $nilai_rek_persediaan += $val['total_harga'];
              if (!isset($rekap[$key])) {
                 $rekap[$key] = 
                     array('no' => $no, 
+                          'no_dok' => $val['no_dok'],
                           'kode_rekening' => $val['kode_rekening'], 
                           'nama_rekening' => $val['nama_rekening'], 
                           'kd_perk' => $val['kd_perk'], 
@@ -173,6 +178,14 @@ class modelReport extends mysql_db
                 $rekap[$key][nilai_kontrak] = $rekap[$key][nilai_kontrak] + $val[nilai_kontrak];
             }
         }
+        $total_arr[]=array(
+            'total_persediaan'      => $nilai_rek_persediaan,
+            'total_non_persediaan'  => $nilai_non_persediaan,
+            'grand_total'           => $total
+            );
+        $nilai_rek_persediaan   =0;
+        $nilai_non_persediaan   =0;
+
         // echo "<pre>";
         // print_r($rekap);
         // $nilai_final = 0;
@@ -210,6 +223,7 @@ class modelReport extends mysql_db
 
             $TBS->MergeBlock('a', $rekap);
             $TBS->MergeBlock('b', $identitas_pejabat);
+            $TBS->MergeBlock('c', $total_arr);
 
             $TBS->PlugIn(OPENTBS_DELETE_COMMENTS);
             $save_as = (isset($_POST['save_as']) && (trim($_POST['save_as'])!=='') && ($_SERVER['SERVER_NAME']=='localhost')) ? trim($_POST['save_as']) : ''; 
@@ -229,16 +243,18 @@ class modelReport extends mysql_db
                 <p align="center" style="margin:0px; padding:0px; font-weight:bold;">UNTUK PERIODE YANG BERAKHIR PADA '.$date.'</p>
                 <p align="center" style="margin:0px; padding:0px; font-weight:bold;">TAHUN ANGGARAN '.$thn_ang.'</p><br></br>';
          echo '<table style="border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border=1>
+                            <thead style="display: table-header-group;">
                                   <tr>
-                                      <td width="5%"><b>NO</b></td>
-                                      <td width="7%"><b>REK. BELANJA</b></td>
-                                      <td ><b>URAIAN REK. BELANJA</b></td>
-                                      <td width="7%"><b>REK. PERSEDIAAN</b></td>
-                                      <td ><b>URAIAN REK. PERSEDIAAN</b></td>
-                                      <td><b>NILAI PERSEDIAAN</b></td>
-                                      <td><b>NILAI NON PERSEDIAAN</b></td>
-                                      <td><b>TOTAL</b></td>
-                                  </tr>';
+                                      <th width="5%"><b>NO</b></th>
+                                      <th width="7%"><b>REK. BELANJA</b></th>
+                                      <th ><b>URAIAN REK. BELANJA</b></th>
+                                      <th width="7%"><b>REK. PERSEDIAAN</b></th>
+                                      <th ><b>URAIAN REK. PERSEDIAAN</b></th>
+                                      <th><b>NILAI PERSEDIAAN</b></th>
+                                      <th><b>NILAI NON PERSEDIAAN</b></th>
+                                      <th><b>TOTAL</b></td>
+                                  </tr>
+                            </thead>';
         $no=1;
         foreach ($rekap as $val) {
           $total = $val['total_harga']+$val['nilai_kontrak'];

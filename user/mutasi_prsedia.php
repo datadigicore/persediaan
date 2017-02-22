@@ -79,8 +79,8 @@
     <script type="text/javascript">
     var table;
       $(function () {
-        $(".treeview").addClass("active");
-        $("li#mutasi_prsedia").addClass("active");
+        $(".treeview").addClass("");
+        $("li#mutasi_prsedia").addClass("");
         $('#tgl_awal').datepicker({
           format: "dd-mm-yyyy"
         });         

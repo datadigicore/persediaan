@@ -252,14 +252,14 @@ else {
         $("#kd_brg").select2({
           placeholder: "-- Pilih Kode Item Barang --",
         });
-        $("li#trans_keluar").addClass("active");
+        $("li#trans_keluar").addClass("");
         $('#tgl_dok').datepicker({
           format: "dd-mm-yyyy"
         });         
         $('#tgl_buku').datepicker({
           format: "dd-mm-yyyy"
         });             
-        $("li#saldo_awal").addClass("active");
+        $("li#saldo_awal").addClass("");
         baca_tabel();
         // $('#example1 tbody').on('click', 'tr', function () {
         //     var data = table.row( this ).data();

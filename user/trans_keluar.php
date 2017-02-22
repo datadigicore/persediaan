@@ -164,7 +164,7 @@
         $('#tgl_buku').datepicker().on("changeDate", function(e) {
           $(this).datepicker('hide');
         });
-        $("li#saldo_awal").addClass("active");
+        $("li#saldo_awal").addClass("");
 
         baca_tabel();
         $(document).on('click', '#btntmbh', function () {
@@ -234,7 +234,7 @@
         jns_trans_row = row.data()[1];
         gab_row = row.data()[2];
         kdsatker_row = gab_row.substring(0,11);
-        nodok_row = gab_row.substring(14,20);
+        nodok_row = gab_row.substring(14);
         tgl_dok_row = row.data()[4];
         tgl_buku_row = row.data()[5];
         keterangan_row = row.data()[6];

@@ -141,7 +141,7 @@
         }
       });
       $(function () {
-        $("li#barang").addClass("active");
+        $("li#barang").addClass("");
         $(".select2").select2();
         $.ajax({
           type: "post",

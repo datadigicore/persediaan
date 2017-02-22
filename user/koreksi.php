@@ -131,14 +131,14 @@
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
-        $("li#koreksi").addClass("active");
+        $("li#koreksi").addClass("");
         $('#tgl_dok').datepicker({
           format: "yyyy/mm/dd"
         });         
         $('#tgl_buku').datepicker({
           format: "yyyy/mm/dd"
         });             
-        $("li#saldo_awal").addClass("active");
+        $("li#saldo_awal").addClass("");
         $("#example1").DataTable({
           "processing": false,
           "serverSide": true,
