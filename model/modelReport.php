@@ -1798,6 +1798,10 @@ class modelReport extends mysql_db
             $res_satker = $this->query($sql);
             $data_sakter = $this->fetch_array($res_satker);
             
+            $grandTotal_saldoAwal   = 0;
+            $grandTotal_penerimaan  = 0;
+            $grandTotal_pengeluaran = 0;
+            $grandTotal_sisa        = 0;
 
             foreach ($result as $value) {
                if($prev_sskel!=$value['nm_perk']){
@@ -1827,6 +1831,8 @@ class modelReport extends mysql_db
                         'counter'                 => ""
                     );
                 if($value[jns_trans]=="M01"){
+                    $grandTotal_saldoAwal = $grandTotal_saldoAwal + ($value[qty]*$value[harga_sat]);
+                    $grandTotal_pengeluaran  = $grandTotal_pengeluaran + (($value[qty]-$value[qty_akhir])*$value[harga_sat]);
                     $rekap[] = array(
                         'no'                      => $no,                        
                         'jns_trans'               => $value[jns_trans],
@@ -1848,11 +1854,14 @@ class modelReport extends mysql_db
                         'total_harga_sisa'        => $value[qty_akhir]*$value[harga_sat],
                         'cetak_header'            => 0
                     );
-                    $subtotal_saldo_awal += $value[qty]*$value[harga_sat];
-                    $subtotal_keluar += ($value[qty]-$value[qty_akhir])*$value[harga_sat];
+                    $subtotal_saldo_awal    += $value[qty]*$value[harga_sat];
+                    $subtotal_keluar        += ($value[qty]-$value[qty_akhir])*$value[harga_sat];
+
                 }
                 else{
-                   $rekap[] = array(
+                    $grandTotal_penerimaan  = $grandTotal_penerimaan + ($value[qty]*$value[harga_sat]);
+                    $grandTotal_pengeluaran  = $grandTotal_pengeluaran + (($value[qty]-$value[qty_akhir])*$value[harga_sat]);
+                    $rekap[] = array(
                         'no'                      => $no,
                         'jns_trans'               => $value[jns_trans],
                         'nm_brg'                  => $value['nm_brg'],
@@ -1880,6 +1889,8 @@ class modelReport extends mysql_db
                 $prev_sskel=$value['nm_perk'];
                }
                elseif($value[jns_trans]=="M01"){
+                $grandTotal_saldoAwal = $grandTotal_saldoAwal + ($value[qty]*$value[harga_sat]);
+                $grandTotal_pengeluaran  = $grandTotal_pengeluaran + (($value[qty]-$value[qty_akhir])*$value[harga_sat]);
                     $rekap[] = array(
                         'no'                      => $no,                        
                         'jns_trans'               => $value[jns_trans],
@@ -1901,11 +1912,14 @@ class modelReport extends mysql_db
                         'total_harga_sisa'        => $value[qty_akhir]*$value[harga_sat],
                         'cetak_header'            => 0
                     );
-                    $subtotal_saldo_awal += $value[qty]*$value[harga_sat];
-                    $subtotal_keluar += ($value[qty]-$value[qty_akhir])*$value[harga_sat];
-                    $subtotal_sisa   += $value[qty_akhir]*$value[harga_sat];
+                    $subtotal_saldo_awal    += $value[qty]*$value[harga_sat];
+                    $subtotal_keluar        += ($value[qty]-$value[qty_akhir])*$value[harga_sat];
+                    $subtotal_sisa          += $value[qty_akhir]*$value[harga_sat];
+
                 }
                 else{
+                   $grandTotal_penerimaan   = $grandTotal_penerimaan + ($value[qty]*$value[harga_sat]);
+                   $grandTotal_pengeluaran  = $grandTotal_pengeluaran + (($value[qty]-$value[qty_akhir])*$value[harga_sat]);
                    $rekap[] = array(
                         'no'                      => $no,
                         'jns_trans'               => $value[jns_trans],
@@ -1927,13 +1941,35 @@ class modelReport extends mysql_db
                         'total_harga_sisa'        => $value[qty_akhir]*$value[harga_sat],
                         'cetak_header'            => 0
                     );
-                   $subtotal_masuk += $value[qty]*$value[harga_sat];
-                    $subtotal_keluar += ($value[qty]-$value[qty_akhir])*$value[harga_sat];
-                    $subtotal_sisa += $value[qty_akhir]*$value[harga_sat];
+                   $subtotal_masuk   += $value[qty]*$value[harga_sat];
+                    $subtotal_keluar += ($value[qty]-$value[qty_akhir])*
+                                         $value[harga_sat];
+                    $subtotal_sisa   += $value[qty_akhir]*$value[harga_sat];
+
                 }
                 $no++;
             }
-            
+
+            $grandTotal_sisa =  $grandTotal_saldoAwal  + 
+                                $grandTotal_penerimaan - 
+                                $grandTotal_pengeluaran;
+            $rekap[] = array(
+                        'subtotal_saldo_awal' => $subtotal_saldo_awal,
+                        'subtotal_masuk'      => $subtotal_masuk,
+                        'subtotal_keluar'     => $subtotal_keluar,
+                        'subtotal_sisa'       => $subtotal_sisa,
+                        'cetak_subtotal'      => 1,
+                        'cetak_header'        => 2,
+                        'jumlah_saldo_awal'   => 2,
+                        'jumlah_diterima'     => 2,
+                        'counter'             => ""
+                    );
+            $grandTotal[]=array(
+                        'grandTotal_saldoAwal' => $grandTotal_saldoAwal,
+                        'grandTotal_penerimaan' => $grandTotal_penerimaan,
+                        'grandTotal_pengeluaran' => $grandTotal_pengeluaran,
+                        'grandTotal_sisa' => $grandTotal_sisa
+                );
             foreach ($result_pj as $pj) {
                 $identitas_pejabat[]  = 
                 array('nama_atasan' => $pj['nama'], 
@@ -1950,6 +1986,7 @@ class modelReport extends mysql_db
             $TBS->MergeBlock('a', $rekap);
             $TBS->MergeBlock('b', $identitas_pejabat);
             $TBS->MergeBlock('c', $semester);
+            $TBS->MergeBlock('d', $grandTotal);
 
             $TBS->PlugIn(OPENTBS_DELETE_COMMENTS);
             $save_as = (isset($_POST['save_as']) && (trim($_POST['save_as'])!=='') && ($_SERVER['SERVER_NAME']=='localhost')) ? trim($_POST['save_as']) : ''; 
