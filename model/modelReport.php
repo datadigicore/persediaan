@@ -239,6 +239,7 @@ class modelReport extends mysql_db
                                       <td><b>NILAI NON PERSEDIAAN</b></td>
                                       <td><b>TOTAL</b></td>
                                   </tr>';
+        $no=1;
         foreach ($rekap as $val) {
           $total = $val['total_harga']+$val['nilai_kontrak'];
           echo '<tr>
