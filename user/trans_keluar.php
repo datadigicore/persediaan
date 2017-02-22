@@ -37,11 +37,11 @@
                         </div>
                         <div class="form-group">
                           <label class="col-sm-2 control-label">Nomor Dokumen</label>
-                          
+
                           <div class="col-sm-3">
                             <input type="text" name="no_dok" class="form-control" id="no_dok" placeholder="Masukkan No. Faktur / Bon / SP">
-                            <input type="hidden" name="manage" value="tbh_transaksi_klr">  
-                            <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>  
+                            <input type="hidden" name="manage" value="tbh_transaksi_klr">
+                            <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>
                           </div>
                           <label class="col-sm-2 control-label">Jenis Transaksi</label>
                           <div class="col-sm-3">
@@ -56,7 +56,7 @@
                             </select>
                           </div>
                         </div>
-                        <!-- <div class="form-group">                     
+                        <!-- <div class="form-group">
                         <label class="col-sm-2 control-label">Nomor Bukti</label>
                           <div class="col-sm-9">
                             <input type="text" name="no_bukti" class="form-control" id="no_bukti" placeholder="Masukkan Nomor Bukti">
@@ -70,13 +70,13 @@
                           <label class="col-sm-2 control-label">Tanggal Pembukuan</label>
                           <div class="col-sm-3">
                             <input type="text" name="tgl_buku" max="10" class="form-control" id="tgl_buku" >
-                          </div> 
-                        </div>                                           
+                          </div>
+                        </div>
                         <div class="form-group">
                           <label class="col-sm-2 control-label">Keterangan</label>
                           <div class="col-sm-8">
                             <input type="text" name="keterangan"  class="form-control" id="keterangan" placeholder="Masukkan Keterangan / Nama Pihak Penerima" >
-                          </div> 
+                          </div>
                         </div>
                   </div>
                   <div class="box-footer">
@@ -126,7 +126,7 @@
     var table;
       function baca_tabel(){
           table = $("#example1").DataTable({
-            "aaSorting": [[ 0, 'desc' ]], 
+            "aaSorting": [[ 0, 'desc' ]],
             "processing": false,
             "serverSide": true,
             "ajax": "../core/loadtable/loadtransklr",
@@ -141,8 +141,10 @@
               {"targets": 4 },
               {"targets": 5 },
               {"targets": 6 },
-              {"targets": 7 },
-              {"targets": 8 },
+              {"targets": 7,
+               "searchable": false},
+              {"targets": 8,
+               "searchable": false},
               ],
             });
           }
@@ -153,7 +155,7 @@
         $('#tgl_buku').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
         $('#tgl_dok').datepicker({
           format: "dd-mm-yyyy"
-        });         
+        });
         $('#tgl_dok').datepicker().on("changeDate", function(e) {
           $('#tgl_buku').val($(this).val());
           $(this).datepicker('hide');
@@ -163,7 +165,7 @@
         });
         $('#tgl_buku').datepicker().on("changeDate", function(e) {
           $(this).datepicker('hide');
-        });        
+        });
         $("li#saldo_awal").addClass("active");
 
         baca_tabel();
@@ -209,7 +211,7 @@
           },
           function(isConfirm){
             if (isConfirm) {
-              
+
               $.ajax({
                 type: "post",
                 url : "../core/transaksi/prosestransaksi",
@@ -226,7 +228,7 @@
               swal("Cancelled", "Penghapusan Dibatalkan", "error");
             }
           });
-      }); 
+      });
         $(document).on('click', '#btnedt', function () {
         var tr = $(this).closest('tr');
         var row = table.row( tr );
@@ -271,7 +273,7 @@
           });
           $('#tgl_buku_new').datepicker({
             format: "dd-mm-yyyy"
-          }); 
+          });
         }
         }
           });
@@ -307,11 +309,11 @@
           if(nodok_new==""){
             alert("Silahkan Isi Nomor Dokumen Yang Baru");
             return false;
-          }          
+          }
           if(tgl_dok_new==""){
             alert("Silahkan Isi Tanggal Dokumen Yang Baru");
             return false;
-          }          
+          }
           if(tgl_buku_new==""){
             alert("Silahkan Isi Tanggal Pembukuan Yang Baru");
             return false;
@@ -324,7 +326,7 @@
             alert("Tahun Bukti Tidak Sesuai Dengan Tahun Anggaran");
             return false;
           }
-        $('button:submit').attr("disabled", true); 
+        $('button:submit').attr("disabled", true);
         e.preventDefault();
         redirectTime = "2600";
         redirectURL = "trans_keluar";
@@ -335,13 +337,13 @@
           data: addData,
           url : formURL,
           contentType: false,
-          cache: false,  
+          cache: false,
           processData: false,
           success: function(data)
           {
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
-              $('button:submit').attr("disabled", false); 
+              $('button:submit').attr("disabled", false);
               baca_tabel();
           }
         });
@@ -418,7 +420,7 @@
                     $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
                     $("#success-alert").alert('close');
                     });
-                    setTimeout("location.href = redirectURL;",redirectTime); 
+                    setTimeout("location.href = redirectURL;",redirectTime);
                   }
                 });
                 return false;
@@ -432,7 +434,7 @@
           type: "post",
           url: '../core/transaksi/prosestransaksi',
           data: {manage:'readsatkerdok',no_dok:"<?php echo($_SESSION['kd_lok']);?>"},
-          success: function (output) {     
+          success: function (output) {
             $('#read_no_dok').html(output);
           }
         });
@@ -445,11 +447,11 @@
         success: function (output) {
           var tahun = output.tahun;
           if(tahun!=="Aktif") {
-            $('button:submit').attr("disabled", true); 
+            $('button:submit').attr("disabled", true);
             $("#addtransmsk").css("display","none");
         }
       }});
-      
+
       $('#addtransmsk').submit(function(e){
         var jns_trans = $("#jenis_trans").val();
         var tahun_ang = $("#tahun_ang").val();
@@ -477,7 +479,7 @@
             alert("Tahun BUkti Tidak Sesuai Dengan Tahun Anggaran");
             return false;
           }
-          $('button:submit').attr("disabled", true); 
+          $('button:submit').attr("disabled", true);
           e.preventDefault();
           var formURL = $(this).attr("action");
           var addData = new FormData(this);
@@ -486,7 +488,7 @@
             data: addData,
             url : formURL,
             contentType: false,
-            cache: false,  
+            cache: false,
             processData: false,
             success: function(data)
             {
@@ -497,7 +499,7 @@
               $("#keterangan").val('');
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
-              $('button:submit').attr("disabled", false); 
+              $('button:submit').attr("disabled", false);
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
               baca_tabel();
@@ -508,7 +510,7 @@
         else{
           alert("Harap Masukkan Data Terlebih Dahulu");
           return false;
-        }  
+        }
       });
     </script>
   </body>

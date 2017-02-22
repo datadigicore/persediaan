@@ -34,7 +34,7 @@
                         <select name="read_no_dok" id="read_no_dok" class="form-control">
                         </select>
                       </div>
-                      
+
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nomor Dokumen</label>
@@ -42,7 +42,7 @@
                         <input type="text" name="no_dok" class="form-control"  id="no_dok" placeholder="Masukkan No. SP / BASTP / dsb">
                         <input type="hidden" name="manage" value="tbh_transaksi_msk">
                         <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>
-                        <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>    
+                        <input type="hidden" name="tahun_ang" id="tahun_ang" value='<?php echo $_SESSION['thn_ang']; ?>'>
                       </div>
                       <label class="col-sm-2 control-label">Sumber Dana</label>
                       <div class="col-sm-3">
@@ -58,7 +58,7 @@
                           <option value="M10">BOS</option>
                           <option value="M11">BLUD</option>
                           <option value="M12">Lainnya</option>
-                          
+
                         </select>
                       </div>
                     </div>
@@ -71,15 +71,15 @@
                       <label class="col-sm-2 control-label">Tanggal Pembukuan</label>
                       <div class="col-sm-3">
                         <input type="text" name="tgl_buku" class="form-control" id="tgl_buku"  >
-                      </div> 
-                    </div>                    
-                                        
+                      </div>
+                    </div>
+
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Keterangan</label>
                       <div class="col-sm-3">
                         <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Mis. Nama Pihak / Sumber pengirim barang" >
-                      </div> 
-                      
+                      </div>
+
                     </div>
                   </div>
                   <div class="box-footer">
@@ -133,22 +133,22 @@
      $("#form_detail_transaksi").hide();
     $(document).on('click', '#show_field', function () {
       $("#form_detail_transaksi").show();
-    }); 
+    });
     $(document).on('click', '#hide_field', function () {
       $("#form_detail_transaksi").hide();
-    }); 
+    });
       function masuk_tanggal() {
-      
+
         var tgl_dok = $('#tgl_dok').val();
         $('#tgl_buku').val(tgl_dok);
 
-         
+
       }
 
       var table;
-      function baca_tabel(){    
+      function baca_tabel(){
         table = $("#example1").DataTable({
-              "aaSorting": [[ 0, 'desc' ]], 
+              "aaSorting": [[ 0, 'desc' ]],
               "processing": false,
               "serverSide": true,
               "ajax": "../core/loadtable/loadtransmsk",
@@ -163,10 +163,12 @@
                 {"targets": 4 },
                 {"targets": 5 },
                 {"targets": 6 },
-                {"targets": 7 },
-                {"targets": 8 },
+                {"targets": 7,
+                 "searchable": false},
+                {"targets": 8,
+                 "searchable": false},
                 {"targets": 9 },
-                
+
               ],
               "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
             });
@@ -179,7 +181,7 @@
         $('#tgl_buku').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
         $('#tgl_dok').datepicker({
           format: "dd-mm-yyyy"
-        });         
+        });
         $('#tgl_dok').datepicker().on("changeDate", function(e) {
           $('#tgl_buku').val($(this).val());
           $(this).datepicker('hide');
@@ -191,7 +193,7 @@
           $(this).datepicker('hide');
         });
 
-        
+
         $("li#saldo_awal").addClass("active");
 
       });
@@ -216,7 +218,7 @@
           },
           function(isConfirm){
             if (isConfirm) {
-              
+
               $.ajax({
                 type: "post",
                 url : "../core/transaksi/prosestransaksi",
@@ -233,7 +235,7 @@
               swal("Cancelled", "Penghapusan Dibatalkan", "error");
             }
           });
-      }); 
+      });
       $(document).on('click', '#btntmbh', function () {
         var tr = $(this).closest('tr');
         var row = table.row( tr );
@@ -256,7 +258,7 @@
         $form.append($input).append($input2).append($input3).append($input4).append($input5).append($input6).append($input7);
         $("body").append($form);
         $form.submit();
-      }); 
+      });
 
       $(document).on('click', '#btn_tbh_kontrak', function () {
         var tr = $(this).closest('tr');
@@ -286,7 +288,7 @@
         type: "post",
         url: '../core/transaksi/prosestransaksi',
         data: {manage:'readsatkerdok',no_dok:"<?php echo($_SESSION['kd_lok']);?>"},
-        success: function (output) {     
+        success: function (output) {
           $('#read_no_dok').html(output);
         }
       });
@@ -296,7 +298,7 @@
         url: '../core/transaksi/prosestransaksi',
         data: {manage:'baca_rekening'},
         success: function (output) {
-          $(".select2").select2();     
+          $(".select2").select2();
           $('#kode_rek').html(output);
           $("#kode_rek").select2({
           placeholder: "-- Pilih Rekening --"
@@ -313,7 +315,7 @@
         success: function (output) {
           var tahun = output.tahun;
           if(tahun!=="Aktif") {
-            $('button:submit').attr("disabled", true); 
+            $('button:submit').attr("disabled", true);
             $("#addtransmsk").css("display","none");
         }
       }});
@@ -331,10 +333,10 @@
               if(output.saldo!==null){
                 alert("Saldo Awal Telah Dimasukkan / Import Saldo Awal telah dilakukan");
                 $('#jenis_trans').val('');
-                
+
           }
 
-              
+
 
             }
           });
@@ -362,7 +364,7 @@
             return false;
           }
           e.preventDefault();
-          $('button:submit').attr("disabled", true); 
+          $('button:submit').attr("disabled", true);
           var formURL = $(this).attr("action");
           var addData = new FormData(this);
           $.ajax({
@@ -370,7 +372,7 @@
             data: addData,
             url : formURL,
             contentType: false,
-            cache: false,  
+            cache: false,
             processData: false,
             success: function(data)
             {
@@ -382,7 +384,7 @@
               $("#keterangan").val('');
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
-              $('button:submit').attr("disabled", false); 
+              $('button:submit').attr("disabled", false);
               baca_tabel();
             }
           });
@@ -391,7 +393,7 @@
         else{
           alert("Harap Masukkan Data Terlebih Dahulu");
           return false;
-        }       
+        }
       });
       $(document).on('click', '#btnedt', function () {
         var tr = $(this).closest('tr');
@@ -439,12 +441,12 @@
                   });
                   $('#tgl_buku_new').datepicker({
                     format: "dd-mm-yyyy"
-                  }); 
+                  });
                 }
 
               }
             }
-          }); 
+          });
 
 
       });
@@ -479,11 +481,11 @@
           if(nodok_new==""){
             alert("Silahkan Isi Nomor Dokumen Yang Baru");
             return false;
-          }          
+          }
           if(tgl_dok_new==""){
             alert("Silahkan Isi Tanggal Dokumen Yang Baru");
             return false;
-          }          
+          }
           if(tgl_buku_new==""){
             alert("Silahkan Isi Tanggal Pembukuan Yang Baru");
             return false;
@@ -506,15 +508,15 @@
           data: addData,
           url : formURL,
           contentType: false,
-          cache: false,  
+          cache: false,
           processData: false,
           success: function(data)
           {
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
-              $('button:submit').attr("disabled", false); 
+              $('button:submit').attr("disabled", false);
               table = $("#example1").DataTable({
-                "aaSorting": [[ 0, 'desc' ]], 
+                "aaSorting": [[ 0, 'desc' ]],
                 "processing": false,
                 "serverSide": true,
                 "ajax": "../core/loadtable/loadtransmsk",
