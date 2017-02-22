@@ -163,10 +163,8 @@
                 {"targets": 4 },
                 {"targets": 5 },
                 {"targets": 6 },
-                {"targets": 7,
-                 "searchable": false},
-                {"targets": 8,
-                 "searchable": false},
+                {"targets": 7 },
+                {"targets": 8 },
                 {"targets": 9 },
 
               ],
