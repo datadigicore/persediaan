@@ -157,7 +157,7 @@ class SSP {
 
                 if ( $requestColumn['searchable'] == 'true' ) {
                     $binding = SSP::bind( $bindings, '%'.$str.'%', PDO::PARAM_STR );
-                    $globalSearch[] = ($isJoin) ? $column['db']." LIKE ".$binding : "`".$column['db']."` LIKE ".$binding;
+                    $globalSearch[] = ($isJoin) ? $column['field']." LIKE ".$binding : "`".$column['field']."` LIKE ".$binding;
                 }
             }
         }
@@ -173,7 +173,7 @@ class SSP {
             if ( $requestColumn['searchable'] == 'true' &&
                 $str != '' ) {
                 $binding = SSP::bind( $bindings, '%'.$str.'%', PDO::PARAM_STR );
-                $columnSearch[] = ($isJoin) ? $column['db']." LIKE ".$binding : "`".$column['db']."` LIKE ".$binding;
+                $columnSearch[] = ($isJoin) ? $column['field']." LIKE ".$binding : "`".$column['field']."` LIKE ".$binding;
             }
         }
 
@@ -229,9 +229,9 @@ class SSP {
 		// IF Extra where set then set and prepare query
         if($extraWhere)
             $extraWhere = ($where) ? ' AND '.$extraWhere : ' WHERE '.$extraWhere;
-        
+
         $groupBy = ($groupBy) ? ' GROUP BY '.$groupBy .' ' : '';
-        
+
         // Main query to actually get the data
         if($joinQuery){
             $col = SSP::pluck($columns, 'db', $joinQuery);
@@ -251,7 +251,7 @@ class SSP {
 			 $order
 			 $limit";
         }
-        
+
         $data = SSP::sql_exec( $db, $bindings,$query);
 
         // Data set length after filtering

@@ -85,15 +85,15 @@
     <script type="text/javascript">
     var table;
       $(function () {
-        $(".treeview").addClass("active");
-        $("li#lap_sedia").addClass("active");
+        $(".treeview").addClass("");
+        $("li#lap_sedia").addClass("");
         $('#tgl_awal').datepicker({
           format: "dd-mm-yyyy"
         });         
         $('#tgl_akhir').datepicker({
           format: "dd-mm-yyyy"
         });             
-        $("li#saldo_awal").addClass("active");
+        $("li#saldo_awal").addClass("");
 
         $("input[id=tanggal]").click(function()
         {

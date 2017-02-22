@@ -68,7 +68,7 @@
       $("#fileimport").change(function(){
         $("#filename").attr('value', $(this).val().replace(/C:\\fakepath\\/i, ''));
       });
-      $("li#file_import").addClass("active");
+      $("li#file_import").addClass("");
     </script>
   </body>
 </html>

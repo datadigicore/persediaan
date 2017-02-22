@@ -116,7 +116,7 @@
     var table;
       $(function () {
         $(".select2").select2();
-        $("li#opname").addClass("active");
+        $("li#opname").addClass("");
 
         $('#tgl_dok').datepicker({
           format: "dd-mm-yyyy"
@@ -131,7 +131,7 @@
         $('#tgl_buku').datepicker().on("changeDate", function(e) {
           $(this).datepicker('hide');
         });        
-        $("li#saldo_awal").addClass("active");
+        $("li#saldo_awal").addClass("");
         table = $("#example1").DataTable({
           "processing": false,
           "serverSide": true,

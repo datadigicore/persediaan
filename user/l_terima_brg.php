@@ -116,8 +116,8 @@
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">
-      $(".treeview").addClass("active");
-      $("li#l_terima_brg").addClass("active");
+      $(".treeview").addClass("");
+      $("li#l_terima_brg").addClass("");
       var table;
       $(function () {
       // $("#bln").hide();
@@ -129,7 +129,7 @@
       $('#tgl_akhir').datepicker({
             format: "dd-mm-yyyy"
         });             
-      $("li#saldo_awal").addClass("active");
+      $("li#saldo_awal").addClass("");
 
         });
       

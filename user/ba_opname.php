@@ -75,8 +75,8 @@
     <script type="text/javascript">
     var table;
       $(function () {
-        $(".treeview").addClass("active");
-        $("li#ba_opname").addClass("active");
+        $(".treeview").addClass("");
+        $("li#ba_opname").addClass("");
         $('#tgl_awal').datepicker({
           format: "dd-mm-yyyy"
         });         

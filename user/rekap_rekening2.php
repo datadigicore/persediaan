@@ -24,7 +24,7 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Laporan Rekening Persediaan di Neraca </h3>
+                  <h3 class="box-title">Laporan Belanja Persediaan Per Rekening</h3>
                 </div>  
                 <form action="../core/report/prosesreport" method="post" class="form-horizontal" id="addtransmsk">
                    <input type="hidden" name="manage" value="laporan_per_rekening2">
@@ -51,7 +51,15 @@
                           <option value="excel">Excel</option>
                         </select>
                       </div>
-                    </div> 
+                    </div><!-- 
+                    <div class="box-body">
+                      <label class="col-sm-2 control-label">Uraian Per Dokumen</label>
+                      <div class="col-sm-4"> 
+                        <div class="checkbox">
+                          <label><input type="checkbox" name="rinci_per_dok" value="1"></label>
+                        </div>
+                      </div>
+                    </div> -->
                   <div class="box-footer">
                     <button type="Reset" class="btn btn-default">Reset</button>
                     <button type="submit" class="btn btn-info pull-right">Submit</button>
@@ -72,15 +80,15 @@
     <script type="text/javascript">
     var table;
       $(function () {
-        $(".treeview").addClass("active");
-        $("li#neraca").addClass("active");
+        $(".treeview").addClass("");
+        $("li#neraca").addClass("");
         $('#tgl_awal').datepicker({
           format: "dd-mm-yyyy"
         });         
         $('#tgl_akhir').datepicker({
           format: "dd-mm-yyyy"
         });             
-        $("li#mutasi_sedia").addClass("active");
+        $("li#rekap_rekening2").addClass("");
 
       });
       $.ajax({

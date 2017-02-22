@@ -91,12 +91,12 @@
     <script type="text/javascript">
     var table;
       $(function () {
-        $("li#mutasi_sedia").addClass("active");
+        $("li#mutasi_sedia").addClass("");
         $("#bln").hide();
         // $("#awal").hide();
         $("#akhir").hide();
-        $(".treeview").addClass("active");
-        $("li#rincian_persediaan").addClass("active");
+        $(".treeview").addClass("");
+        $("li#rincian_persediaan").addClass("");
         $('#tgl_awal').datepicker({
           format: "dd-mm-yyyy"
         });         

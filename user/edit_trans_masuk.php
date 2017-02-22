@@ -101,7 +101,7 @@
     <script type="text/javascript">
     var table;
       $(function () {
-        $("li#trans_masuk").addClass("active");
+        $("li#trans_masuk").addClass("");
         $('#tgl_dok').datepicker({
           format: "dd-mm-yyyy"
         });         
