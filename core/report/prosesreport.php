@@ -126,8 +126,10 @@ else
 				"satker_asal" 	=> $satker_asal,
 				"lingkup" 		=> $lingkup,
 				"format" 		=> $format,
+				"rinci_per_dok" => $_POST['rinci_per_dok'],
 				"user_id" 		=> $user_id);
 				// print_r($data);
+				// exit;
 			$Report->laporan_belanja_persediaan($data);
 		break;
 
