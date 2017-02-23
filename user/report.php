@@ -154,7 +154,7 @@
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
 
     <script type="text/javascript">
-      $("li#laporan").addClass("active");
+      $("li#laporan").addClass("");
       var manage_val;
       $('#tgl_awal').datepicker({
           format: "dd-mm-yyyy"

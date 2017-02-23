@@ -107,22 +107,22 @@
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">
-      $(".treeview").addClass("active");
+      $(".treeview").addClass("");
       $(".select2").select2();
-      $("li#buku_brg").addClass("active");
+      $("li#buku_brg").addClass("");
       var table;
       $(function () {
       // $("#bln").hide();
       // $("#awal").hide();
       // $("#akhir").hide();
-      $("li#buku_brg").addClass("active");
+      $("li#buku_brg").addClass("");
       $('#tgl_awal').datepicker({
           format: "dd-mm-yyyy"
       });         
       $('#tgl_akhir').datepicker({
             format: "dd-mm-yyyy"
         });             
-      $("li#saldo_awal").addClass("active");
+      $("li#saldo_awal").addClass("");
 
         });
       

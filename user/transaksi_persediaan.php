@@ -120,15 +120,15 @@
           $("#bln").hide();
           $("#awal").hide();
           $("#akhir").hide();
-        $(".treeview").addClass("active");
-        $("li#transaksi_persediaan").addClass("active");
+        $(".treeview").addClass("");
+        $("li#transaksi_persediaan").addClass("");
         $('#tgl_awal').datepicker({
           format: "yyyy/mm/dd"
         });         
         $('#tgl_akhir').datepicker({
           format: "yyyy/mm/dd"
         });             
-        $("li#saldo_awal").addClass("active");
+        $("li#saldo_awal").addClass("");
 
       });
       

@@ -64,7 +64,7 @@
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">    
-      $("li#ubah_pwd").addClass("active");
+      $("li#ubah_pwd").addClass("");
       $('#addtndatgn').submit(function(e){
         var pass1 = $("#password").val();
         var pass2 = $("#confirm_password").val();

@@ -399,7 +399,7 @@ else {
     var jns_pemasukan;
     var table_rek;
     var table;
-    $("li#trans_masuk").addClass("active");
+    $("li#trans_masuk").addClass("");
     $("#field_satuan").hide();
     $("#field_pilihan_kode").hide();
     $("#field_harga_satuan").hide();

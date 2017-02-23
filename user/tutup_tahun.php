@@ -112,7 +112,7 @@
 
           ],
         });
-      $("li#tutup_tahun").addClass("active");
+      $("li#tutup_tahun").addClass("");
        $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
