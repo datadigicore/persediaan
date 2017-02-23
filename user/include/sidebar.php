@@ -43,6 +43,7 @@
               <ul class="treeview-menu">
                 <li id="rekap_rekening"><a href="rekap_rekening"><span>Rekap Persediaan Per Rekening</span></a></li>
                 <li id="rekap_rekening2"><a href="rekap_rekening2"><span>Belanja Persediaan 2</span></a></li>
+                <li id="rekap_per_dok"><a href="rekap_per_dok"><span>Rekap Persediaan Per Dokumen</span></a></li>
               </ul>
             </li>
 
