@@ -25,15 +25,27 @@ $primaryKey = 'id';
  
 // Load Data berdasarkan nama table nya
 $columns = array(
-    array( 'db' => 'id',            'dt' => 0 ),
-    array( 'db' => 'kode_rekening', 'dt' => 1 ),
-    array( 'db' => 'nama_rekening', 'dt' => 2 ),
-    array( 'db' => 'nilai_kontrak', 'dt' => 3 ),
-    array( 'db' => 'ket_rek',       'dt' => 4 ),
-    array( 'db' => 'status',       'dt' => 5,
-        'formatter' => function($d,$row){
-            return '<div class="row-fluid">'.'<button id="hapus_rek" class="btn btn-flat btn-danger btn-xs col-xs-12"><i class="fa fa-remove"></i> Hapus</button>'.'<button id="edit_rek" class="btn btn-success btn-xs btn-flat col-xs-12"><i class="fa fa-edit"></i> Edit</button>'.
-            '</div>';  
+    array( 'db' => 'id',           
+           'dt' => 0 ),
+    array( 'db' => 'kode_rekening',
+           'dt' => 1 ),
+    array( 'db' => 'nama_rekening',
+           'dt' => 2 ),
+    array( 'db' => 'nilai_kontrak',
+           'dt' => 3,
+           'formatter' => function($d,$row){
+                                return number_format($d,2,",",".");
+                            } 
+    ),
+    array( 'db' => 'ket_rek',      
+           'dt' => 4 ),
+    array( 'db' => 'status',       
+           'dt' => 5,
+           'formatter' => function($d,$row){
+                            return '<div class="row-fluid">'.
+                                        '<button id="hapus_rek" class="btn btn-flat btn-danger btn-xs col-xs-12"><i class="fa fa-remove"></i> Hapus</button>'.
+                                        '<button id="edit_rek" class="btn btn-success btn-xs btn-flat col-xs-12"><i class="fa fa-edit"></i> Edit</button>'.
+                                    '</div>';  
 }
             ),
 );

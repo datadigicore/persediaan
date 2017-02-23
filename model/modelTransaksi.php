@@ -2361,7 +2361,7 @@ class modelTransaksi extends mysql_db
             {
                 $hsltottrans=0;
             }
-            echo json_encode(array("nobukti"=>$hslnobukti,"jenistrans"=>$hsljenistrans,"tgldok"=>$hsltgldok,"tglbuku"=>$hsltglbuku,"satker"=>$hslsatker,"total"=>$hsltottrans,"keterangan"=>$hslket));
+            echo json_encode(array("nobukti"=>$hslnobukti,"jenistrans"=>$hsljenistrans,"tgldok"=>$hsltgldok,"tglbuku"=>$hsltglbuku,"satker"=>$hslsatker,"total"=>number_format($hsltottrans,2,",","."),"keterangan"=>$hslket));
         }   
     }       
 
@@ -2399,7 +2399,7 @@ class modelTransaksi extends mysql_db
             {
                 $hsltottrans = abs($row["total_harga"]);
             }
-            echo json_encode(array("satkertujuan"=>$satkertujuan,"jenistrans"=>$hsljenistrans,"tgldok"=>$hsltgldok,"tglbuku"=>$hsltglbuku,"satker"=>$hslsatker,"total"=>$hsltottrans,"keterangan"=>$hslket));
+            echo json_encode(array("satkertujuan"=>$satkertujuan,"jenistrans"=>$hsljenistrans,"tgldok"=>$hsltgldok,"tglbuku"=>$hsltglbuku,"satker"=>$hslsatker,"total"=>number_format($hsltottrans,2,",","."),"keterangan"=>$hslket));
         }   
     }    
 
