@@ -159,7 +159,7 @@ class modelReport extends mysql_db
             $total = $val['total_harga'] + $val['nilai_kontrak'];
             $nilai_non_persediaan += $val['nilai_kontrak'];
             $nilai_rek_persediaan += $val['total_harga'];
-             if (!isset($rekap[$key])) {
+            if (!isset($rekap[$key])) {
                 $rekap[$key] = 
                     array('no' => $no, 
                           'no_dok' => $val['no_dok'],
@@ -183,9 +183,52 @@ class modelReport extends mysql_db
             'total_non_persediaan'  => $nilai_non_persediaan,
             'grand_total'           => $total
             );
-        $nilai_rek_persediaan   =0;
-        $nilai_non_persediaan   =0;
+        $nilai_rek_persediaan   = 0;
+        $nilai_non_persediaan   = 0;
+        // echo "<pre>";
+        // print_r($rekap);
+        $constRek               = "";
+        $countRek               = "";
+        $subTot_persediaan      =  0;
+        $subTot_nonPersediaan   =  0;
+        $numRec                 =  1;
+        foreach ($rekap as $key => $value) {
+            if($numRec==1){
+                $constRek                             = $value['kode_rekening'];
+                $numRec++;
+            }
+            if($constRek!=$value['kode_rekening']){
+                $rekap[$key]['cetak_subtotal']        = 1;
+                $rekap[$key]['subTot_persediaan']     = $subTot_persediaan;
+                $rekap[$key]['subTot_nonPersediaan']  = $subTot_nonPersediaan;
+                $constRek                             = $value['kode_rekening'];
+                $subTot_persediaan                    =  0;
+                $subTot_nonPersediaan                 =  0;
+            }
+            else{
+                $rekap[$key]['cetak_subtotal']        = 0;
+                // $subTot_persediaan                    +=  $value['total_harga'];
+                // $subTot_nonPersediaan                 +=  $value['nilai_kontrak'];
+            }
 
+                $subTot_persediaan                    +=  $value['total_harga'];
+                $subTot_nonPersediaan                 +=  $value['nilai_kontrak'];
+
+        }
+                $rekap[$key+1]['cetak_subtotal']        = 2;
+                $rekap[$key+1]['subTot_persediaan']     = $subTot_persediaan;
+                $rekap[$key+1]['subTot_nonPersediaan']  = $subTot_nonPersediaan;
+                $rekap[$key+1]['no']                    = 0; 
+                $rekap[$key+1]['no_dok']                = "";
+                $rekap[$key+1]['kode_rekening']         = ""; 
+                $rekap[$key+1]['nama_rekening']         = ""; 
+                $rekap[$key+1]['kd_perk']               = ""; 
+                $rekap[$key+1]['nm_perk']               = ""; 
+                $rekap[$key+1]['nilai_kontrak']         = "";  
+                $rekap[$key+1]['total_harga']           = ""; 
+        //         $constRek                               = $value['kode_rekening'];
+        // print_r($rekap);
+        // exit;
         // echo "<pre>";
         // print_r($rekap);
         // $nilai_final = 0;
@@ -258,6 +301,16 @@ class modelReport extends mysql_db
         $no=1;
         foreach ($rekap as $val) {
           $total = $val['total_harga']+$val['nilai_kontrak'];
+          if($val['cetak_subtotal']==1 || $val['cetak_subtotal']==2){
+            $grnd_subtotal=$val['subTot_persediaan']+$val['subTot_nonPersediaan'];
+            echo '<tr>
+                  <td style="text-align:center; font-weight:bold" colspan="5">'."SUBTOTAL".'</td>
+                  <td style="text-align:right; font-weight:bold">'.number_format($val['subTot_persediaan'],2,",",".").'</td>    
+                  <td style="text-align:right; font-weight:bold">'.number_format($val['subTot_nonPersediaan'],2,",",".").'</td>
+                  <td style="text-align:right; font-weight:bold">'.number_format($grnd_subtotal,2,",",".").'</td>
+                </tr>';
+                if($val['cetak_subtotal']==2) continue;
+          }
           echo '<tr>
                   <td style="text-align:center">'.$no.'</td>
                   <td style="text-align:left;">'.$val['kode_rekening'].'</td>
@@ -277,10 +330,10 @@ class modelReport extends mysql_db
 
         }
         echo '<tr>
-                  <td style="text-align:center" colspan="5">'."TOTAL".'</td>
-                  <td style="text-align:right">'.number_format($nilai_rek_persediaan,2,",",".").'</td>    
-                  <td style="text-align:right">'.number_format($nilai_non_persediaan,2,",",".").'</td>
-                  <td style="text-align:right">'.number_format($nilai_total,2,",",".").'</td>
+                  <td style="text-align:center; font-weight:bold" colspan="5">'."TOTAL".'</td>
+                  <td style="text-align:right; font-weight:bold">'.number_format($nilai_rek_persediaan,2,",",".").'</td>    
+                  <td style="text-align:right; font-weight:bold">'.number_format($nilai_non_persediaan,2,",",".").'</td>
+                  <td style="text-align:right; font-weight:bold">'.number_format($nilai_total,2,",",".").'</td>
                 </tr>';
         echo "</table>";
         $this->cetak_nama_pj($kd_lokasi);
@@ -1106,15 +1159,15 @@ class modelReport extends mysql_db
         $mpdf=new mPDF('utf-8', 'A4-L');
         // $mpdf->setFooter('{PAGENO}');
         ob_start(); 
-        $jenis = $data['jenis'];
-        $kd_brg = $data['kd_brg'];
-        $tgl_awal = $data['tgl_awal'];
-        $tgl_akhir = $data['tgl_akhir'];
-        $bulan = $data['bulan'];
-        $kd_lokasi = $data['kd_lokasi'];
-        $thn_ang = $data['thn_ang'];
+        $jenis       = $data['jenis'];
+        $kd_brg      = $data['kd_brg'];
+        $tgl_awal    = $data['tgl_awal'];
+        $tgl_akhir   = $data['tgl_akhir'];
+        $bulan       = $data['bulan'];
+        $kd_lokasi   = $data['kd_lokasi'];
+        $thn_ang     = $data['thn_ang'];
         $satker_asal = $data['kd_lokasi'];
-        $format = $data['format'];
+        $format      = $data['format'];
 
         $this->cetak_header($data,"pengeluaran_brg",$kd_lokasi,"","");
         $this->get_query($data,"pengeluaran_brg",$kd_lokasi,"",$nm_satker,"");
@@ -1134,22 +1187,24 @@ class modelReport extends mysql_db
             $query = "SELECT * from ttd where concat(kd_lokasi,IFNULL(kd_ruang,''))='$satker_asal' ";
             $result_pj = $this->query($query);
             
-            $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, concat(nm_brg,' ',spesifikasi) as nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
+            $sql="SELECT id, tgl_buku, no_dok, tgl_dok, concat(nm_brg,' ',spesifikasi) as nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
                                 FROM transaksi_keluar 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'  
                                       and kd_lokasi = '$kd_lokasi'
                                       AND thn_ang='$thn_ang'
-                                ORDER BY tgl_dok ASC,id asc";
+                                ORDER BY tgl_dok ASC, no_dok ASC";
             $res = $this->query($sql);
             $sql = "SELECT NamaSatker from satker where kode= '$kd_lokasi' ";
             $res_satker = $this->query($sql);
             $data_sakter = $this->fetch_array($res_satker);
+            $total=0;
             foreach ($res as $value) {
+                $total +=  abs($value['total_harga']);
                 $rekap[] = array(
                     'no' => $no,
                     'tgl_dok' => $this->konversi_tanggal($value['tgl_dok']),
                     'tgl_buku' => $value['tgl_buku'],
-                    'no_bukti' => $value['no_bukti'],
+                    'no_dok' => substr($value['no_dok'],14),
                     'nm_brg' => $value['nm_brg'],
                     'qty' => abs($value['qty']),
                     'harga_sat' => abs($value['harga_sat']),
@@ -1166,7 +1221,8 @@ class modelReport extends mysql_db
                       'nama_skpd' => $data_sakter['NamaSatker'], 
                       'tanggal_cetak' => date("d-m-Y"), 
                       'nama_penyimpan_barang' => $pj['nama2'], 
-                      'nip_penyimpan_barang' => $pj['nip2']
+                      'nip_penyimpan_barang' => $pj['nip2'],
+                      'grand_total' =>$total
                       );
 
             }
@@ -2369,6 +2425,7 @@ class modelReport extends mysql_db
                         <td >Tanggal</td>
 
                         <td width="5%" >Nomor Urut</td>
+                        <td width="5%" >Nomor Dokumen</td>
                         <td width="25%" >Nama Barang</td>
                         <td >Banyaknya</td>
                         <td >Harga Satuan</td>
@@ -2377,7 +2434,7 @@ class modelReport extends mysql_db
                         <td >Tanggal Penyerahan</td>
                         <td >Ket</td>
                     </tr>';
-            $this->label_nomor(10);
+            $this->label_nomor(11);
         }
         elseif($nm_lap=="buku_brg_pakai_habis"){   
             echo '<table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-weight:bold; font-size:0.9em; "  align="center">
@@ -2726,12 +2783,12 @@ class modelReport extends mysql_db
 
             }
             elseif($nm_lap=="pengeluaran_brg"){
-              $sql="SELECT id, tgl_buku, no_bukti, tgl_dok,concat(nm_brg,' ',spesifikasi) as nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
+              $sql="SELECT id, tgl_buku, no_dok, tgl_dok,concat(nm_brg,' ',spesifikasi) as nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
                                 FROM transaksi_keluar 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'  
                                       and kd_lokasi = '$kd_lokasi'
                                       AND thn_ang='$thn_ang'
-                                ORDER BY tgl_dok ASC,id asc";
+                                ORDER BY no_dok, tgl_dok ASC,id asc";
 
             }
             elseif($nm_lap=="buku_brg_pakai_habis"){
@@ -3320,12 +3377,14 @@ class modelReport extends mysql_db
                 $header = 7;
                 while($data=$this->fetch_assoc($result))
                 {
+                    if($data[qty]==0) continue;
                     $no+=1;
                     $saldo+=abs($data[total_harga]);
                     echo'<tr>
                     <center><td  align="center">'.$no.'</td></center>
                     <center><td  align="center">'.$this->tgl_buku_sedia($data[tgl_dok]).'</td></center>
                     <center><td  align="center">'.$no.'</td></center>
+                    <center><td  align="center">'.substr($data[no_dok],14).'</td></center>
                     <center><td  align="left">'.$data[nm_brg].'</td></center>
                     <center><td  align="center">'.abs($data[qty]).'</td></center>
                     <center><td  style="text-align:right">'.number_format($data[harga_sat],2,",",".").'</td></center>
@@ -3337,8 +3396,9 @@ class modelReport extends mysql_db
                     echo '</tr>';
                 }
                 echo '<tr>
-                            <td colspan="6" style="align:center; font-weight:bold">TOTAL</td>
+                            <td colspan="7" style="align:center; font-weight:bold">TOTAL</td>
                             <td style="text-align:right">'.number_format($saldo,2,",",".").'</td>
+                            <td></td>
                             <td></td>
                             <td></td>
                           </tr>'; 
