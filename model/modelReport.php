@@ -130,6 +130,167 @@ class modelReport extends mysql_db
         return $kode;
     }
 
+    public function rekap_per_dok($data){
+        $kd_lokasi          = $data['kd_lokasi'];
+        $kd_ruang           = $data['kd_ruang'];
+        $satker_asal        = $data['satker_asal'];
+        $thn_ang            = $data['thn_ang'];
+        $lingkup            = $data['lingkup'];
+        $tgl_awal           = $data['tgl_awal'];
+        $tgl_akhir          = $data['tgl_akhir'];
+        $jenis              = $data['format'];
+        $rinci_per_dok      = $data['rinci_per_dok'];
+        $date               = $this->cek_periode($data);
+        // ob_start();
+        $this->getsatker($kd_lokasi);
+        $sql        = "SELECT no_dok, kd_perk, nilai_kontrak, nm_perk, kode_rekening, nama_rekening, jns_trans, nm_brg, qty, harga_sat, total_harga, nilai_kontrak, ket_rek from transaksi_masuk   where kd_lokasi='$kd_lokasi' and jns_trans='M07' and IFNULL(kd_ruang,'')='$kd_ruang' and thn_ang='$thn_ang' and tgl_dok<='$tgl_akhir'   order by no_dok asc";
+        
+        $result     = $this->query($sql);
+        $no                     =1;
+        $rek_persediaan         ="";
+        $rek_keuangan           ="";
+        $nilai_rek_persediaan   =0;
+        $nilai_non_persediaan   =0;
+        $grand_total_persediaan   =0;
+        $grand_total_nonpersediaan   =0;
+        $flagDok                ="";
+        $rekap = array();
+        $rekap2 = array();
+        foreach ($result as $key => $val) {
+            $key = $val['kode_rekening']."-".$val['kd_perk'];
+            
+
+            if($flagDok!=$val['no_dok'] && $no>1){
+                $rekap[]=array('no'            => 0, 
+                              'no_dok'        => "",
+                              'kode_rekening' => "", 
+                              'nama_rekening' => "", 
+                              'kd_perk'       => "", 
+                              'nm_perk'       => "", 
+                              'kd_brg'        => "", 
+                              'nm_brg'        => "", 
+                              'qty'           => "", 
+                              'harga_sat'     => "", 
+                              'total_harga'   => "", 
+                              'ket_rek'       => "",
+                              'nilai_kontrak' => "",
+                              'total_persediaan'      => $nilai_rek_persediaan,
+                               'total_non_persediaan'  => $nilai_non_persediaan,
+                               'grand_total'           => $total,
+                               'cetak_subtotal'        => 1
+                        );
+                $nilai_rek_persediaan   =0;
+                $nilai_non_persediaan   =0;
+                $flagDok                =$val['no_dok'];
+
+            }
+                $rekap[] = 
+                    array('no'            => $no, 
+                          'no_dok'        => $val['no_dok'],
+                          'kode_rekening' => $val['kode_rekening'], 
+                          'nama_rekening' => $val['nama_rekening'], 
+                          'kd_perk'       => $val['kd_perk'], 
+                          'nm_perk'       => $val['nm_perk'], 
+                          'kd_brg'        => $val['kd_brg'], 
+                          'nm_brg'        => $val['nm_brg'], 
+                          'qty'           => $val['qty'], 
+                          'harga_sat'     => $val['harga_sat'], 
+                          'total_harga'   => $val[total_harga], 
+                          'ket_rek'       => $val[ket_rek],
+                          'nilai_kontrak' => $val[nilai_kontrak]
+                        );
+
+            $nilai_non_persediaan += $val['nilai_kontrak'];
+            $nilai_rek_persediaan += $val['total_harga'];
+            $grand_total_persediaan += $val['total_harga'];
+            $grand_total_nonpersediaan += $val['nilai_kontrak']; 
+            $total = $nilai_non_persediaan+$nilai_rek_persediaan;
+                $no++;
+        }
+        $rekap[]=array('no'            => 0, 
+                              'no_dok'        => "",
+                              'kode_rekening' => "", 
+                              'nama_rekening' => "", 
+                              'kd_perk'       => "", 
+                              'nm_perk'       => "", 
+                              'kd_brg'        => "", 
+                              'nm_brg'        => "", 
+                              'qty'           => "", 
+                              'harga_sat'     => "", 
+                              'total_harga'   => "", 
+                              'ket_rek'       => "",
+                              'nilai_kontrak' => "",
+                              'total_persediaan'      => $nilai_rek_persediaan,
+                               'total_non_persediaan'  => $nilai_non_persediaan,
+                               'grand_total'           => $total,
+                               'cetak_subtotal'        => 1
+                        );
+        // echo "<pre>";
+        // print_r($sql);
+        // print_r($rekap);
+        // exit;
+        $total_arr[]=array(
+            'grand_total_persediaan'      => $grand_total_persediaan,
+            'grand_total_non_persediaan'  => $grand_total_nonpersediaan,
+            'grand_total'           => $total
+            );
+        $nilai_rek_persediaan   = 0;
+        $nilai_non_persediaan   = 0;
+        // echo "<pre>";
+        // print_r($rekap);
+        $constRek               = "";
+        $countRek               = "";
+        $subTot_persediaan      =  0;
+        $subTot_nonPersediaan   =  0;
+        $numRec                 =  1;
+
+        if($jenis=="excel"){
+            ob_end_clean();
+            $identitas_pejabat  = array();
+            $query              = "SELECT * FROM ttd 
+                                    WHERE 
+                                    concat(kd_lokasi,IFNULL(kd_ruang,''))='$satker_asal' ";
+            $result_pj = $this->query($query);
+            foreach ($result_pj as $pj) {
+                $identitas_pejabat[]  = 
+                    array('nama_atasan'             => $pj['nama'], 
+                          'nip_atasan'              => $pj['nip'], 
+                          'nama_skpd'               => $data_sakter['NamaSatker'], 
+                          'tanggal_cetak'           => date("d-m-Y"), 
+                          'nama_penyimpan_barang'   => $pj['nama2'], 
+                          'nip_penyimpan_barang'    => $pj['nip2']
+                    );
+
+            }
+            
+            // echo "masuk"; exit;
+            $TBS = new clsTinyButStrong;  
+            $TBS->Plugin(TBS_INSTALL, OPENTBS_PLUGIN);
+            $template = '../../utility/optbs/template/Rekapitulasi_Persediaan_Per_Rekening.xlsx';
+            $TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8); 
+
+            $TBS->MergeBlock('a', $rekap);
+            $TBS->MergeBlock('b', $identitas_pejabat);
+            $TBS->MergeBlock('c', $total_arr);
+
+            $TBS->PlugIn(OPENTBS_DELETE_COMMENTS);
+            $save_as = (isset($_POST['save_as']) && (trim($_POST['save_as'])!=='') && ($_SERVER['SERVER_NAME']=='localhost')) ? trim($_POST['save_as']) : ''; 
+                $output_file_name = "RPPR.xlsx"; 
+            if ($save_as==='') { 
+                $TBS->Show(OPENTBS_DOWNLOAD, $output_file_name);
+                exit(); 
+            } 
+            else { 
+                $TBS->Show(OPENTBS_FILE, $output_file_name);  
+                exit("File [$output_file_name] has been created."); 
+            }
+            exit;
+        }
+
+
+
+    }
+
     public function laporan_belanja_persediaan($data){
         $kd_lokasi          = $data['kd_lokasi'];
         $kd_ruang           = $data['kd_ruang'];
