@@ -258,7 +258,8 @@ class modelTransaksi extends mysql_db
 
     public function importTransMasuk($data){
         error_reporting(0);
-        $value['kd_lokasi']      = $data[1][B];
+        $this->clear_log_temp_import_masuk();
+        $value['kd_lokasi'] = $data[1][B];
         $cekkdlokasi        = "SELECT NamaSatker FROM satker WHERE kode = '$value[kd_lokasi]'";
         $result             = $this->query($cekkdlokasi);
         if ($result == true) {
@@ -334,9 +335,8 @@ class modelTransaksi extends mysql_db
 
     public function temporaryImportTransMasuk($data){
         error_reporting(0);
+        $this->clear_log_temp_import_masuk();
         $value['user_id'] = $_SESSION['username'];
-        $clearTable       = "DELETE FROM temp_import_masuk WHERE user_id = '$value[user_id]'";
-                            $this->query($clearTable);
         $value['thn_ang'] = $_SESSION['thn_ang'];
         $arrayCount       = count($data);
         for ($i=10; $i <= $arrayCount; $i++) {
