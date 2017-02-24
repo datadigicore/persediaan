@@ -258,7 +258,6 @@ class modelTransaksi extends mysql_db
 
     public function importTransMasuk($data){
         error_reporting(0);
-        print_r('<pre>');
         $value['kd_lokasi']      = $data[1][B];
         $cekkdlokasi        = "SELECT NamaSatker FROM satker WHERE kode = '$value[kd_lokasi]'";
         $result             = $this->query($cekkdlokasi);
@@ -321,7 +320,7 @@ class modelTransaksi extends mysql_db
                     $value['nilai_kontrak'] = 0;
                     $value['ket_rek'] = NULL;
                   }
-              $replace = "INSERT INTO transaksi_masuk (kd_lokasi, nm_satker, user_id, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, jns_trans, keterangan, kd_brg, nm_brg, kd_perk, nm_perk, kd_sskel, nm_sskel, spesifikasi, qty, qty_akhir, satuan, harga_sat, total_harga, nilai_kontrak, ket_rek, kode_rekening, nama_rekening, tgl_update) VALUES ";
+              $replace = "INSERT INTO temp_import_masuk (kd_lokasi, nm_satker, user_id, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, jns_trans, keterangan, kd_brg, nm_brg, kd_perk, nm_perk, kd_sskel, nm_sskel, spesifikasi, qty, qty_akhir, satuan, harga_sat, total_harga, nilai_kontrak, ket_rek, kode_rekening, nama_rekening, tgl_update) VALUES ";
               $values .= "('".$value['kd_lokasi']."','".$value['nm_satker']."','".$value['user_id']."','".$value['thn_ang']."','".$value['no_dok']."','".$value['tgl_dok']."','".$value['tgl_buku']."','".$value['no_bukti']."','".$value['jns_trans']."','".$value['keterangan']."','".$value['kd_brg']."','".$value['nm_brg']."','".$value['kd_perk']."','".$value['nm_perk']."','".$value['kd_sskel']."','".$value['nm_sskel']."','".$value['spesifikasi']."','".$value['qty']."','".$value['qty_akhir']."','".$value['satuan']."','".$value['harga_sat']."','".$value['total_harga']."','".$value['nilai_kontrak']."','".$value['ket_rek']."','".$value['kode_rekening']."','".$value['nama_rekening']."',NOW()),";
             }
             $query  = str_replace("''", "NULL", $replace.$values);

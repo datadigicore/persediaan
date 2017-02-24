@@ -103,31 +103,6 @@
       <?php include("include/footer.php"); ?>
       <?php include("include/success.php"); ?>
     </div>
-    <div class="modal fade" id="importModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <form action="../core/import/prosesimport" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="manage" value="importTransMasuk">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true" style="color:white">×</span></button>
-              <h4 class="modal-title">Import Transaksi Masuk</h4>
-            </div>
-            <div class="modal-body">
-              <div class="form-group">
-                <input type="file" id="fileimport" name="fileimport" style="display:none;">
-                <a id="selectbtn" class="col-sm-2 btn btn-flat btn-primary" style="position:absolute;right:16px;">Pilih File</a>
-                <input type="text" id="filename" class="form-control" placeholder="Pilih File .xls / .xlsx" readonly>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <a href="../dist/uploads/ImportSimsediaTransMasuk.xls" class="col-sm-4 pull-left btn btn-md btn-warning"><i class="fa fa-download"></i>&nbsp;&nbsp;&nbsp;Download Template</a>
-              <button type="submit" class="col-sm-2 pull-right btn btn-flat btn-success">Submit</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
     <?php include("include/loadjs.php"); ?>
     <script src="../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
