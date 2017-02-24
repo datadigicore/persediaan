@@ -86,7 +86,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <a href="../dist/uploads/ImportSimsediaTransMasuk.xls" class="col-sm-4 pull-left btn btn-md btn-warning"><i class="fa fa-download"></i>&nbsp;&nbsp;&nbsp;Download Template</a>
+              <a href="../dist/uploads/Template_Import_Masuk.zip" class="col-sm-4 pull-left btn btn-md btn-warning"><i class="fa fa-download"></i>&nbsp;&nbsp;&nbsp;Download Template</a>
               <button type="submit" class="col-sm-2 pull-right btn btn-flat btn-success">Submit</button>
             </div>
           </form>
