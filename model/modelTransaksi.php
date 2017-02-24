@@ -2555,6 +2555,27 @@ class modelTransaksi extends mysql_db
         }
     }
 
+    public function readidenttempitem($data=null)
+    {
+        if (empty($data)) {
+            $query = "SELECT * FROM temp_import_masuk WHERE user_id = '$_SESSION[username]' ORDER BY no_dok, nm_brg ASC LIMIT 1";
+        }
+        $result = $this->query($query);
+        if ($row = $this->fetch_assoc($result))
+        {
+            $datedok = date_create($row["tgl_dok"]);
+            $datebuku = date_create($row["tgl_buku"]);
+            $keterangan = $row["keterangan"];
+            $jenistrans = $row["jns_trans"];
+            $satker = $row["nm_satker"];
+            $kdruang = $row["kd_ruang"];
+            $nodok = $row["no_dok"];
+            $tgldok = date_format($datedok,"d-m-Y");
+            $tglbuku = date_format($datebuku,"d-m-Y");
+            echo json_encode(array("keterangan"=>$keterangan,"jenistrans"=>$jenistrans,"satker"=>$satker,"kdruang"=>$kdruang,"nodok"=>$nodok,"tgldok"=>$tgldok,"tglbuku"=>$tglbuku));
+        }
+    }
+
     public function baca_persediaan_masuk($data)
     {
         $kd_lokasi = $data['kd_lokasi'];

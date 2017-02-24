@@ -235,6 +235,15 @@ else
 			$kd_ruang = $_SESSION['kd_lok'].$_SESSION['kd_ruang'];
 			$Transaksi->bacaidenttrans_klr($idtrans,$kd_ruang,1);
 		break;
+		case 'readidenttempitem':
+			if (isset($_POST['id'])) {
+				$id = $purifier->purify($_POST['id']);
+				$Transaksi->readidenttempitem($id);
+			}
+			else {
+				$Transaksi->readidenttempitem();
+			}
+		break;
 		case 'read_detail_transfer':
 			$idtrans = $purifier->purify($_POST['idtrans']);
 			$kd_ruang = $_SESSION['kd_lok'].$_SESSION['kd_ruang'];

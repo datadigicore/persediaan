@@ -139,6 +139,23 @@
       $.ajax({
         type: "post",
         url: '../core/transaksi/prosestransaksi',
+        data: {manage:'readidenttempitem'},
+        dataType: "json",
+        success: function (output) {
+          if (output) {
+            $('#keterangan').val(output.keterangan);
+            $('#jenis_trans').val(output.jenistrans);
+            $('#no_dok').val(output.nodok);
+            $('#read_satker').val(output.satker);
+            $('#tgl_dok').val(output.tgldok);
+            $('#kd_ruang').val(output.kdruang);
+            $('#tglbuku').val(output.tglbuku);
+          }
+        }
+      });
+      $.ajax({
+        type: "post",
+        url: '../core/transaksi/prosestransaksi',
         data: {manage:'checkErrorMessage'},
         success: function (output) {
           errormessage = output;
