@@ -7,6 +7,31 @@ class modelTransaksi extends mysql_db
         $sql="DELETE from transaksi_masuk  where no_dok='$no_dok' and qty=0 ";
         $this->query($sql);
     }
+    public function clear_log_temp_import_masuk(){
+        $clearTable = "DELETE FROM temp_import_masuk WHERE user_id = '$_SESSION[username]'";
+        $this->query($clearTable);
+    }
+    public function check_error_message(){
+        $sql="SELECT count(error_message) as data from temp_import_masuk where error_message IS NOT NULL";
+        $res=$this->query($sql);
+        $data=$this->fetch_assoc($res);
+        return $data['data'];
+    }
+    public function add_temp_item_trans_masuk(){
+        $sql="INSERT INTO transaksi_masuk (keterangan, jns_trans, kd_lokasi, kd_ruang, nm_satker, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, kd_perk, nm_perk, satuan, qty, qty_akhir, harga_sat, total_harga, kode_rekening, nama_rekening, nilai_kontrak, ket_rek, tgl_update, user_id)
+              SELECT keterangan, jns_trans, kd_lokasi, kd_ruang, nm_satker, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, kd_perk, nm_perk, satuan, qty, qty_akhir, harga_sat, total_harga, kode_rekening, nama_rekening, nilai_kontrak, ket_rek, tgl_update, user_id from temp_import_masuk where user_id = '$_SESSION[username]'";
+        $res=$this->query($sql);
+        if ($res) {
+            $this->create_log_import();
+            $this->clear_log_temp_import_masuk();
+            return true;
+        }
+    }
+    public function create_log_import(){
+        $sql="INSERT INTO log_trans_masuk (kd_lokasi, nm_satker, thn_ang, user_id, aksi, no_dok, tgl_dok, tgl_buku, no_bukti, kd_brg, nm_brg, spesifikasi, qty, harga_sat, total_harga, jns_trans, keterangan, tgl_update)
+              SELECT kd_lokasi, nm_satker, thn_ang, user_id, 'I-import transaksi masuk', no_dok, tgl_dok, tgl_buku, no_bukti, kd_brg, nm_brg, spesifikasi, qty, harga_sat, total_harga, jns_trans, keterangan, tgl_update from temp_import_masuk where user_id = '$_SESSION[username]'";
+        $res=$this->query($sql);
+    }
     public function hapus_dokumen_keluar($no_dok){
         $sql="DELETE from transaksi_keluar  where no_dok='$no_dok' and qty=0 ";
         $this->query($sql);
@@ -307,6 +332,98 @@ class modelTransaksi extends mysql_db
             return "Kode Barang Tidak Tersedia";
         }
     }
+
+    public function temporaryImportTransMasuk($data){
+        error_reporting(0);
+        $value['user_id'] = $_SESSION['username'];
+        $clearTable       = "DELETE FROM temp_import_masuk WHERE user_id = '$value[user_id]'";
+                            $this->query($clearTable);
+        $value['thn_ang'] = $_SESSION['thn_ang'];
+        $arrayCount       = count($data);
+        for ($i=10; $i <= $arrayCount; $i++) {
+            $error_message = array();
+            if (!empty($data[$i]["A"]) && !empty($data[$i]["B"]) && !empty($data[$i]["D"])) {
+                $value['jns_trans']  = trim($data[$i]["A"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+                $value['kd_lokasi']  = $data[$i]["B"];
+                $cekkdlokasi         = "SELECT NamaSatker FROM satker WHERE kode = '$value[kd_lokasi]'";
+                $result              = $this->query($cekkdlokasi);
+                if (empty($result->num_rows)) {
+                    array_push($error_message, "Kode Lokasi Tidak Ada");
+                }
+                $assocResult         = $this->fetch_assoc($result);
+                $value['nm_satker']  = $assocResult['NamaSatker'];
+                if ($value['tgl_dok'] > $value['tgl_buku']) {
+                    array_push($error_message, "Tanggal Buku Melebihi Tanggal Dokumen");
+                }
+                $value['no_dok']     = trim($data[$i]["B"]," \t\n\r\0\x0B\xA0\x0D\x0A").' - '.trim($data[$i]["D"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+                $value['kd_ruang']   = trim($data[$i]["C"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+                $value['no_bukti']   = trim($data[$i]["D"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+                $tgldok              = split('-', $data[$i]["E"]);
+                $value['tgl_dok']    = $tgldok[2].'-'.$tgldok[1].'-'.$tgldok[0];
+                $tglbuku             = split('-', $data[$i]["F"]);
+                $value['tgl_buku']   = $tglbuku[2].'-'.$tglbuku[1].'-'.$tglbuku[0];
+            }
+            $value['keterangan'] = trim($data[$i]["G"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+            $value['kd_brg']     = trim($data[$i]["H"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+            $cekbarang           = "SELECT kd_brg, nm_brg, kd_perk, nm_perk, kd_sskel, nm_sskel, spesifikasi, satuan FROM persediaan WHERE kd_brg = '$value[kd_brg]' LIMIT 1";
+            $result              = $this->query($cekbarang);
+            if (!empty($result->num_rows) && !empty($value['kd_brg'])) {
+                $arrayResult = $this->fetch_assoc($result);
+                $value['nm_brg'] = $arrayResult['nm_brg'];
+                $value['kd_perk'] = $arrayResult['kd_perk'];
+                $value['nm_perk'] = $arrayResult['nm_perk'];
+                $value['kd_sskel'] = $arrayResult['kd_sskel'];
+                $value['nm_sskel'] = $arrayResult['nm_sskel'];
+                $value['spesifikasi'] = $arrayResult['spesifikasi'];
+            }
+            else {
+                if (empty($data[$i]["N"]) && empty($value['kd_brg'])) {
+                    array_push($error_message, "Kode Barang Tidak Ada");
+                }
+                $value['nm_brg'] = NULL;
+                $value['kd_perk'] = NULL;
+                $value['nm_perk'] = NULL;
+                $value['kd_sskel'] = NULL;
+                $value['nm_sskel'] = NULL;
+                $value['spesifikasi'] = NULL;
+            }
+            $value['qty']         = trim($data[$i]["J"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+            $value['qty_akhir']   = trim($data[$i]["J"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+            $value['satuan']      = trim($data[$i]["K"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+            $cekSatuan            = "SELECT satuan FROM satuan WHERE satuan = '$value[satuan]'";
+            $resultSatuan         = $this->query($cekSatuan);
+            if (!empty($value['kd_brg']) && empty($resultSatuan->num_rows)) {
+                array_push($error_message, "Satuan $value[satuan] Tidak Ada");
+            }
+            $value['harga_sat']   = trim($data[$i]["L"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+            $value['total_harga'] = $value['qty']*$value['harga_sat'];
+            if (!empty($data[$i]["M"])) {
+                $value['kode_rekening'] = trim($data[$i]["M"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+                $rekeningCheck          = "SELECT nama_rekening FROM rekening WHERE kode_rekening = '$value[kode_rekening]' AND tahun = '$value[thn_ang]' LIMIT 1";
+                $rekeningQuery          = $this->query($rekeningCheck);
+                $rekeningResult         = $this->fetch_assoc($rekeningQuery);
+                $value['nama_rekening'] = $rekeningResult['nama_rekening'];
+            }
+            if (!empty($data[$i]["N"])) {
+                $value['nilai_kontrak'] = trim($data[$i]["N"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+                $value['ket_rek']       = trim($data[$i]["O"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+            }
+            else {
+                $value['nilai_kontrak'] = 0;
+                $value['ket_rek'] = NULL;
+            }
+            if (!empty(array_filter($error_message))) {
+                array_push($error_message, "Cek Row Excel No $i");
+            }
+            $value['error_message'] = implode(', ', $error_message);
+            $replace = "INSERT INTO temp_import_masuk (kd_lokasi, kd_ruang, nm_satker, user_id, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, jns_trans, keterangan, kd_brg, nm_brg, kd_perk, nm_perk, kd_sskel, nm_sskel, spesifikasi, qty, qty_akhir, satuan, harga_sat, total_harga, nilai_kontrak, ket_rek, kode_rekening, nama_rekening, error_message, tgl_update) VALUES ";
+            $values .= "('".$value['kd_lokasi']."','".$value['kd_ruang']."','".$value['nm_satker']."','".$value['user_id']."','".$value['thn_ang']."','".$value['no_dok']."','".$value['tgl_dok']."','".$value['tgl_buku']."','".$value['no_bukti']."','".$value['jns_trans']."','".$value['keterangan']."','".$value['kd_brg']."','".$value['nm_brg']."','".$value['kd_perk']."','".$value['nm_perk']."','".$value['kd_sskel']."','".$value['nm_sskel']."','".$value['spesifikasi']."','".$value['qty']."','".$value['qty_akhir']."','".$value['satuan']."','".$value['harga_sat']."','".$value['total_harga']."','".$value['nilai_kontrak']."','".$value['ket_rek']."','".$value['kode_rekening']."','".$value['nama_rekening']."','".$value['error_message']."',NOW()),";
+        }
+        $query  = str_replace("''", "NULL", $replace.$values);
+        $query  = substr($query,0,-1);
+        $result = $this->query($query);
+    }
+
 
     public function importRekening($data){
         $values     = "";
