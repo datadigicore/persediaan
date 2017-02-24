@@ -4,7 +4,7 @@ class modelTransaksi extends mysql_db
 {
 
     public function hapus_dokumen_masuk($no_dok){
-        $sql="DELETE from transaksi_masuk  where no_dok='$no_dok' and qty=0 ";
+        $sql="DELETE from transaksi_masuk  where no_dok='$no_dok' and qty=0 and nilai_kontrak=0";
         $this->query($sql);
     }
     public function clear_log_temp_import_masuk(){
@@ -104,7 +104,7 @@ class modelTransaksi extends mysql_db
     }
 
     public function baca_skpd_luar($kdlokasi){
-        $sql = "SELECT kode, NamaSatker FROM satker where kode not like '$kdlokasi%' and length(kode)>=11 and kd_ruang is null order by kode asc";
+        $sql = "SELECT kode, NamaSatker FROM satker where kode not like '$kdlokasi%' and Gudang is not null and kd_ruang is null order by kode asc";
         print_r($sql);
         $result = $this->query($sql);
         while($row=$this->fetch_assoc($result)){
@@ -913,6 +913,8 @@ class modelTransaksi extends mysql_db
         $ruang_asal= $data['ruang_asal'];
         $nm_satker = $data['nm_satker'];
         $nm_satker_msk = $data['nm_satker_msk'];
+        $nm_satker_msk = $data['nm_satker_msk'];
+        $nm_ruang_msk = $data['nm_ruang'];
         $thn_ang = $data['thn_ang'];
         $no_dok = $data['no_dok'];
         $tgl_dok = $data['tgl_dok'];
@@ -933,6 +935,7 @@ class modelTransaksi extends mysql_db
                         kd_ruang_msk='$kd_ruang_msk',
                         nm_satker='$nm_satker',
                         nm_satker_msk='$nm_satker_msk',
+                        nm_ruang_msk='$nm_ruang_msk',
                         thn_ang='$thn_ang',
                         no_dok='$no_dok',
                         tgl_dok='$tgl_dok',
@@ -2430,13 +2433,27 @@ class modelTransaksi extends mysql_db
         }
     }
 
+    public function get_bidang_report($data){
+        $kode_satker = $data['kode_satker'].$data['kode_ruang'];
+        $query = "select Kd_Ruang, kode, NamaSatker from satker where concat(kode,IFNULL(kd_ruang,'')) like '$kode_satker%' ";
+        // echo $query;
+        $result = $this->query($query);
+        while ($row = $this->fetch_array($result))
+        {
+            if($row['Kd_Ruang']=="") $row['Kd_Ruang']=" ";
+            echo '<option value="'.$row['Kd_Ruang'].'">'.$row['Kd_Ruang'].'  -  '.$row['NamaSatker']."</option>";
+
+        }
+
+    }
+
     public function baca_ruang($data)
     {
         // $satker = $data['no_dok'];
         $kd_satker = $data['kd_lokasi'];
         $thnang = $data['thn_ang'];
         $query = "select Kd_Ruang, kode, NamaSatker from satker where kode = '$kd_satker' and kd_ruang is not null";
-        echo $query;
+        // echo $query;
         $result = $this->query($query);
         while ($row = $this->fetch_array($result))
         {

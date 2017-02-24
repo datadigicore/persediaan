@@ -78,9 +78,9 @@ else
 		break;
 
 		case 'laporan_per_rekening':
+		$kd_ruang = $purifier->purify($_POST['kd_ruang']);
 		$kd_lokasi = $purifier->purify($_POST['satker']);
 		$satker_asal = $_SESSION['kd_lok'];
-		$kd_ruang = $_SESSION['kd_ruang'];
 		$thn_ang = $purifier->purify($_SESSION['thn_ang']);
 		$kd_brg = $purifier->purify($_POST['kd_brg']);
 		$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
@@ -105,9 +105,9 @@ else
 		break;
 
 		case 'laporan_per_rekening2':
+		$kd_ruang = $purifier->purify($_POST['kd_ruang']);
 		$kd_lokasi = $purifier->purify($_POST['satker']);
 		$satker_asal = $_SESSION['kd_lok'];
-		$kd_ruang = $_SESSION['kd_ruang'];
 		$thn_ang = $purifier->purify($_SESSION['thn_ang']);
 		$kd_brg = $purifier->purify($_POST['kd_brg']);
 		$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
@@ -123,6 +123,7 @@ else
 			"tgl_awal" 		=> $tgl_awal,
 			"tgl_akhir" 	=> $tgl_akhir,
 			"kd_lokasi" 	=> $kd_lokasi,
+			"kd_ruang" 		=> $kd_ruang,
 			"satker_asal" 	=> $satker_asal,
 			"lingkup" 		=> $lingkup,
 			"format" 		=> $format,
@@ -135,9 +136,9 @@ else
 
 
 		case 'rekap_per_dok':
+		$kd_ruang = $purifier->purify($_POST['kd_ruang']);
 		$kd_lokasi = $purifier->purify($_POST['satker']);
 		$satker_asal = $_SESSION['kd_lok'];
-		$kd_ruang = $_SESSION['kd_ruang'];
 		$thn_ang = $purifier->purify($_SESSION['thn_ang']);
 		$kd_brg = $purifier->purify($_POST['kd_brg']);
 		$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
@@ -153,6 +154,7 @@ else
 			"tgl_awal" 		=> $tgl_awal,
 			"tgl_akhir" 	=> $tgl_akhir,
 			"kd_lokasi" 	=> $kd_lokasi,
+			"kd_ruang" 	=> $kd_ruang,
 			"satker_asal" 	=> $satker_asal,
 			"lingkup" 		=> $lingkup,
 			"format" 		=> $format,
@@ -183,6 +185,7 @@ else
 		break;
 		
 		case 'buku_persediaan':
+		$kd_ruang = $purifier->purify($_POST['kd_ruang']);
 		$kd_lokasi = $purifier->purify($_POST['satker']);
 		$satker_asal = $_SESSION['kd_lok'];
 		$jenis = $purifier->purify($_POST['jenis']);
@@ -201,6 +204,7 @@ else
 			"tgl_awal" => $tgl_awal,
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $kd_lokasi,
+			"kd_ruang" => $kd_ruang,
 			"satker_asal" => $satker_asal,
 			"format" => $format,
 			"user_id" => $user_id
@@ -225,6 +229,7 @@ else
 		break;
 
 		case 'lap_persediaan':
+		$kd_ruang = $purifier->purify($_POST['kd_ruang']);
 		$kd_lokasi = $purifier->purify($_POST['satker']);
 		$satker_asal = $_SESSION['kd_lok'];
 		$jenis = $purifier->purify($_POST['jenis']);
@@ -244,6 +249,7 @@ else
 			"kd_brg" => $kd_brg,
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $kd_lokasi,
+			"kd_ruang" => $kd_ruang,
 			"satker_asal" => $satker_asal,
 			"format" => $format,
 			"user_id" => $user_id);
@@ -252,6 +258,7 @@ else
 		break;
 
 		case 'rincian':
+		$kd_ruang = $purifier->purify($_POST['kd_ruang']);
 		$kd_lokasi = $purifier->purify($_POST['satker']);
 		$satker_asal = $_SESSION['kd_lok'];
 		$jenis = $purifier->purify($_POST['jenis']);
@@ -274,6 +281,7 @@ else
 			"tgl_awal" => $tgl_awal,
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $kd_lokasi,
+			"kd_ruang" => $kd_ruang,
 			"satker_asal" => $satker_asal,
 			"lingkup" => $lingkup,
 			"format" => $format,
@@ -283,6 +291,7 @@ else
 		break;		
 
 		case 'neraca':
+		$kd_ruang = $purifier->purify($_POST['kd_ruang']);
 		$kd_lokasi = $purifier->purify($_POST['satker']);
 		$satker_asal = $_SESSION['kd_lok'];
 		$thn_ang = $purifier->purify($_SESSION['thn_ang']);
@@ -299,6 +308,7 @@ else
 			"tgl_awal" => $tgl_awal,
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $kd_lokasi,
+			"kd_ruang" => $kd_ruang,
 			"satker_asal" => $satker_asal,
 			"lingkup" => $lingkup,
 			"format" => $format,
@@ -309,6 +319,7 @@ else
 		break;
 
 		case 'mutasi':
+		$kd_ruang = $purifier->purify($_POST['kd_ruang']);
 		$kd_lokasi = $purifier->purify($_POST['satker']);
 		$satker_asal = $_SESSION['kd_lok'];
 		$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
@@ -324,6 +335,7 @@ else
 			"tgl_awal" => $tgl_awal,
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $kd_lokasi,
+			"kd_ruang" => $kd_ruang,
 			"satker_asal" => $satker_asal,
 			"format" => $format,
 			"user_id" => $user_id);
@@ -336,6 +348,7 @@ else
 		break;
 
 		case 'transaksi':
+		$kd_ruang = $purifier->purify($_POST['kd_ruang']);
 		$kd_lokasi = $purifier->purify($_POST['satker']);
 		$satker_asal = $_SESSION['kd_lok'];
 		$jenis = $purifier->purify($_POST['jenis']);
@@ -360,6 +373,7 @@ else
 			"tgl_awal" => $tgl_awal,
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $kd_lokasi,
+			"kd_ruang" => $kd_ruang,
 			"satker_asal" => $satker_asal,
 			"format" => $format,
 			"user_id" => $user_id
@@ -371,6 +385,7 @@ else
 
 		case 'l_terima_brg':
 		$kd_lokasi = $purifier->purify($_POST['satker']);
+		$kd_ruang = $purifier->purify($_POST['kd_ruang']);
 		$satker_asal = $_SESSION['kd_lok'];
 		$format = $_POST['format'];
 		$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
@@ -388,6 +403,7 @@ else
 			"tgl_awal" => $tgl_awal,
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $kd_lokasi,
+			"kd_ruang" => $kd_ruang,
 			"satker_asal" => $satker_asal,
 			"user_id" => $user_id);
 
@@ -395,7 +411,9 @@ else
 		break;
 		
 		case 'l_keluar_brg':
+		$kd_ruang = $purifier->purify($_POST['kd_ruang']);
 		$kd_lokasi = $purifier->purify($_POST['satker']);
+		$kd_ruang = $purifier->purify($_POST['kd_ruang']);
 		$satker_asal = $_SESSION['kd_lok'];
 		$format = $_POST['format'];
 		$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
@@ -413,6 +431,7 @@ else
 			"tgl_awal" => $tgl_awal,
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $kd_lokasi,
+			"kd_ruang" => $kd_ruang,
 			"satker_asal" => $satker_asal,
 			"user_id" => $user_id);
 
@@ -420,6 +439,7 @@ else
 		break;
 
 		case 'l_buku_bph':
+		$kd_ruang = $purifier->purify($_POST['kd_ruang']);
 		$kd_lokasi = $purifier->purify($_POST['satker']);
 		$satker_asal = $_SESSION['kd_lok'];
 		$format = $_POST['format'];
@@ -442,6 +462,7 @@ else
 			"tgl_awal" => $tgl_awal,
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $kd_lokasi,
+			"kd_ruang" => $kd_ruang,
 			"satker_asal" => $satker_asal,
 			"user_id" => $user_id);
 
@@ -449,6 +470,7 @@ else
 		break;		
 
 		case 'l_kartu_brg':
+		$kd_ruang = $purifier->purify($_POST['kd_ruang']);
 		$kd_lokasi = $purifier->purify($_POST['satker']);
 		$satker_asal = $_SESSION['kd_lok'];
 		$format = $_POST['format'];
@@ -470,6 +492,7 @@ else
 			"tgl_awal" => $tgl_awal,
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $kd_lokasi,
+			"kd_ruang" => $kd_ruang,
 			"satker_asal" => $satker_asal,
 			"user_id" => $user_id);
 
@@ -477,6 +500,7 @@ else
 		break;		
 
 		case 'l_kartu_p_brg':
+		$kd_ruang = $purifier->purify($_POST['kd_ruang']);
 		$kd_lokasi = $purifier->purify($_POST['satker']);
 		$satker_asal = $_SESSION['kd_lok'];
 		$format = $_POST['format'];
@@ -498,6 +522,7 @@ else
 			"tgl_awal" => $tgl_awal,
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $kd_lokasi,
+			"kd_ruang" => $kd_ruang,
 			"satker_asal" => $satker_asal,
 			"user_id" => $user_id);
 
@@ -505,6 +530,7 @@ else
 		break;
 
 		case 'l_pp_bph':
+		$kd_ruang = $purifier->purify($_POST['kd_ruang']);
 		$kd_lokasi = $purifier->purify($_POST['satker']);
 		$satker_asal = $_SESSION['kd_lok'];
 		$format = $_POST['format'];
@@ -524,6 +550,7 @@ else
 			"kd_brg" => $kd_brg,
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $kd_lokasi,
+			"kd_ruang" => $kd_ruang,
 			"semester" => $bln_akhir,
 			"satker_asal" => $satker_asal,
 			"user_id" => $user_id);
@@ -532,6 +559,7 @@ else
 		break;		
 
 		case 'ba_opname':
+		$kd_ruang = $purifier->purify($_POST['kd_ruang']);
 		$kd_lokasi = $purifier->purify($_POST['satker']);
 		$satker_asal = $_SESSION['kd_lok'];
 		$format = $_POST['format'];
@@ -551,6 +579,7 @@ else
 			"kd_brg" => $kd_brg,
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $kd_lokasi,
+			"kd_ruang" => $kd_ruang,
 			"semester" => $bln_akhir,
 			"satker_asal" => $satker_asal,
 			"user_id" => $user_id);

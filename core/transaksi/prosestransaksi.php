@@ -14,6 +14,7 @@ else
 
 		case 'hapus_dokumen_masuk':
 			$no_dok= $purifier->purify($_POST['no_dok']);
+			$Transaksi->hapus_dokumen_masuk($no_dok);
 		break;
 
 		case 'hapus_dokumen_keluar':
@@ -100,7 +101,8 @@ else
 			$Transaksi->baca_skpd($kd_lokasi);
 		break;
 		case 'baca_skpd_luar':
-			$kd_lokasi = substr($_SESSION['kd_lok'], 0,2);
+			// $kd_lokasi = substr($_SESSION['kd_lok'], 0,2);
+			$kd_lokasi = $_SESSION['kd_lok'];
 
 			$Transaksi->baca_skpd_luar($kd_lokasi);
 		break;
@@ -178,7 +180,10 @@ else
 				);
 			$Transaksi->bacasatkerdok($data);
 		break;
-
+		case 'get_bidang_report':
+			// print_r($_POST);
+			$Transaksi->get_bidang_report($_POST);
+		break;
 		case 'readbidang':
 			$satker_tujuan= substr($purifier->purify($_POST['satker_tujuan']), 0,11);
 			$kd_lokasi = substr($purifier->purify($_POST['satker_tujuan']), 0,11);
@@ -382,7 +387,7 @@ else
 					"user_id" => $user_id
 
 				);
-				// print_r($data);
+				print_r($data);
 				// echo "<br>Masuk Dokumen";
 
 				$Transaksi->tbh_transfer($data,1);

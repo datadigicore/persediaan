@@ -41,7 +41,7 @@ class modelReport extends mysql_db
 
     public function bacabrg($data)
     {
-        $kd_lokasi = $data['kd_lokasi'].$data['kd_ruang'];
+        $kd_lokasi = $data['kd_lokasi'].$kd_ruang;
         $thn_ang = $data['thn_ang'];
         $query_satker = " kd_lokasi like '$kd_lokasi%' ";
         if($data['kd_ruang']!='') $query_satker = " concat(kd_lokasi, IFNULL(kd_ruang,''))='$kd_lokasi' ";
@@ -131,8 +131,9 @@ class modelReport extends mysql_db
     }
 
     public function rekap_per_dok($data){
-        $kd_lokasi          = $data['kd_lokasi'];
-        $kd_ruang           = $data['kd_ruang'];
+
+        $kd_lokasi          = $data['kd_lokasi']; 
+        $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
         $satker_asal        = $data['satker_asal'];
         $thn_ang            = $data['thn_ang'];
         $lingkup            = $data['lingkup'];
@@ -291,9 +292,9 @@ class modelReport extends mysql_db
 
     }
 
-    public function laporan_belanja_persediaan($data){
-        $kd_lokasi          = $data['kd_lokasi'];
-        $kd_ruang           = $data['kd_ruang'];
+    public function laporan_belanja_persediaan($data){ 
+        $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
+        $kd_lokasi          = $data['kd_lokasi'].$kd_ruang;
         $satker_asal        = $data['satker_asal'];
         $thn_ang            = $data['thn_ang'];
         $lingkup            = $data['lingkup'];
@@ -304,7 +305,7 @@ class modelReport extends mysql_db
         $date               = $this->cek_periode($data);
         ob_start();
         $this->getsatker($kd_lokasi);
-        $sql        = "SELECT no_dok, kd_perk, nilai_kontrak, nm_perk, kode_rekening, nama_rekening, jns_trans, total_harga from transaksi_masuk   where kd_lokasi='$kd_lokasi' and jns_trans='M07' and IFNULL(kd_ruang,'')='$kd_ruang' and thn_ang='$thn_ang' and tgl_dok<='$tgl_akhir'   order by kode_rekening,no_dok,tgl_dok asc";
+        $sql        = "SELECT no_dok, kd_perk, nilai_kontrak, nm_perk, kode_rekening, nama_rekening, jns_trans, total_harga from transaksi_masuk   where concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%' and jns_trans='M07' and IFNULL(kd_ruang,'')='$kd_ruang' and thn_ang='$thn_ang' and tgl_dok<='$tgl_akhir'   order by kode_rekening,no_dok,tgl_dok asc";
         // print_r($sql);
         $result     = $this->query($sql);
         $no                     =1;
@@ -507,8 +508,8 @@ class modelReport extends mysql_db
 
     }
      public function laporan_per_rekening($data){
-            
-            $kd_lokasi = $data['kd_lokasi'].$data['kd_ruang'];
+            $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
+            $kd_lokasi = $data['kd_lokasi'].$kd_ruang;
             $satker_asal = $data['satker_asal'];
             $thn_ang = $data['thn_ang'];
             $lingkup = $data['lingkup'];
@@ -644,8 +645,8 @@ class modelReport extends mysql_db
         }
 
     public function surat_permintaan_barang($data){
-        $no_dok = $data['no_dok'];
-        $kd_ruang = $data['kd_ruang'];
+        $no_dok = $data['no_dok']; 
+        $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
         $thn_ang = $data['thn_ang'];
 
         $sql = "select kd_lokasi, kd_ruang, tgl_dok, kd_brg, nm_brg, qty, satuan, keterangan from transaksi_keluar where no_dok = '$no_dok' and thn_ang='$thn_ang' ";
@@ -697,8 +698,8 @@ class modelReport extends mysql_db
     } 
 
     public function surat_penyaluran_barang($data){
-        $no_dok = $data['no_dok'];
-        $kd_ruang = $data['kd_ruang'];
+        $no_dok = $data['no_dok']; 
+        $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
         $thn_ang = $data['thn_ang'];
 
         $sql = "select kd_lokasi, kd_ruang, tgl_dok, kd_brg, nm_brg, qty,harga_sat,total_harga, satuan, keterangan from transaksi_keluar where no_dok = '$no_dok' and thn_ang='$thn_ang' ";
@@ -747,8 +748,8 @@ class modelReport extends mysql_db
     } 
 
     public function bukti_pengambilan_barang($data){
-        $no_dok = $data['no_dok'];
-        $kd_ruang = $data['kd_ruang'];
+        $no_dok = $data['no_dok']; 
+        $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
         $thn_ang = $data['thn_ang'];
 
         $sql = "select kd_lokasi, kd_ruang, tgl_dok, kd_brg, nm_brg, qty,harga_sat,total_harga, satuan, keterangan from transaksi_keluar where no_dok = '$no_dok' and thn_ang='$thn_ang' ";
@@ -806,8 +807,9 @@ class modelReport extends mysql_db
         // $mpdf->setFooter('{PAGENO}');
         ob_start(); 
         $jenis = $data['jenis'];
-        $kd_brg = $data['kd_brg'];
-        $kd_lokasi = $data['kd_lokasi'];
+        $kd_brg = $data['kd_brg']; 
+        $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
+        $kd_lokasi = $data['kd_lokasi'].$kd_ruang;
         $satker_asal = $data['kd_lokasi'];
         $format = $data['format'];
 
@@ -841,13 +843,14 @@ class modelReport extends mysql_db
         ob_start(); 
 
         $format = $data_lp['format'];
-        $thn_ang = $data_lp['thn_ang'];
-        $kd_lokasi = $data_lp['kd_lokasi'];
+        $thn_ang = $data_lp['thn_ang']; 
+        $kd_ruang = str_replace(" ", "", $data_lp['kd_ruang']);
+        $kd_lokasi = $data_lp['kd_lokasi'].$kd_ruang;
         $date = $this->cek_periode($data_lp);
         $satker_asal = $data_lp['satker_asal'];
         $no_urut = 0;
         $this->cetak_header($data_lp,"laporan_persediaan",$kd_lokasi,"",$no);
-        $query = "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' and char_length(kode)=11 order by kode asc";
+        $query = "SELECT concat(kode,IFNULL(kd_ruang,'')) kode, NamaSatker FROM satker where concat(kode,IFNULL(kd_ruang,'')) like '$kd_lokasi%' and Gudang is not null order by kode asc";
         $result = $this->query($query);
                 
         while($kdsatker=$this->fetch_assoc($result))
@@ -887,8 +890,9 @@ class modelReport extends mysql_db
         $tgl_awal = $data['tgl_awal'];
         $tgl_akhir = $data['tgl_akhir'];
         $thn_ang_lalu = intval($thn_ang)-1;
-        $kd_brg = $data['kd_brg'];
-        $kd_lokasi = $data['kd_lokasi'];
+        $kd_brg = $data['kd_brg']; 
+        $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
+        $kd_lokasi = $data['kd_lokasi'].$kd_ruang;
         $satker_asal = $data['satker_asal'];
 
         //echo '<img src="../../dist/img/pekalongan.png" alt="Pekalongan"  width="30%" height="8%" /><br></br>';
@@ -1067,7 +1071,7 @@ class modelReport extends mysql_db
                 return "SELECT kd_lokasi from user where kd_lokasi is null limit 1";
             }
             else {
-                return "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' and char_length(kode)=11 order by kode asc";
+                return "SELECT CONCAT(kode,IFNULL(kd_ruang,'')) kode, NamaSatker FROM satker where concat(kode,IFNULL(kd_ruang,'')) like '$kd_lokasi%' and char_length(kode)=11 order by kode asc";
             }
         } 
         public function rincian_persediaan2($data_lp)
@@ -1116,8 +1120,8 @@ class modelReport extends mysql_db
 
     public function neraca($data_lp)
     {
-       
-        $kd_lokasi = $data_lp['kd_lokasi'];
+        $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
+        $kd_lokasi = $data_lp['kd_lokasi'].$kd_ruang;
         $satker_asal = $data_lp['satker_asal'];
         $format = $data_lp['format'];
         $lingkup = $data_lp['lingkup'];
@@ -1155,8 +1159,9 @@ class modelReport extends mysql_db
     public function mutasi_prsedia($data)
     {
         $mpdf=new mPDF('utf-8', 'A4-L');
-        ob_start(); 
-        $kd_lokasi = $data['kd_lokasi'];
+        ob_start();  
+        $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
+        $kd_lokasi = $data['kd_lokasi'].$kd_ruang;
         $format = $data['format'];
         $satker_asal = $data['satker_asal'];
         $this->cetak_header($data_lp,"mutasi_persediaan",$kd_lokasi,"",$no);
@@ -1204,8 +1209,9 @@ class modelReport extends mysql_db
         $kd_trans = $data['kd_trans'];
         $nm_trans = $data['nm_trans'];
         $format = $data['format'];
-        $thn_ang = $data['thn_ang'];
-        $kd_lokasi = $data['kd_lokasi'];
+        $thn_ang = $data['thn_ang']; 
+        $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
+        $kd_lokasi = $data['kd_lokasi'].$kd_ruang;
 
         $this->cetak_header($data_lp,"transaksi_persediaan",$kd_lokasi,"",$no);
         $this->get_query($data,"transaksi_persediaan",$kd_lokasi,"",$nm_satker,"");
@@ -1228,7 +1234,8 @@ class modelReport extends mysql_db
         $mpdf=new mPDF('utf-8', 'A4-L');
         // $mpdf->setFooter('{PAGENO}');
         ob_start(); 
-        $kd_lokasi = $data['kd_lokasi'];
+        $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
+        $kd_lokasi = $data['kd_lokasi'].$kd_ruang;
         $satker_asal = $data['kd_lokasi'];
         $format = $data['format'];
         $tgl_awal = $data['tgl_awal'];
@@ -1253,7 +1260,7 @@ class modelReport extends mysql_db
             $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, concat(nm_brg,' ',spesifikasi) as nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
                                 FROM transaksi_masuk 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'  
-                                      and kd_lokasi = '$kd_lokasi'   
+                                      and concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'   
                                       AND thn_ang='$thn_ang'
                                 ORDER BY tgl_dok ASC,id asc";
             $res = $this->query($sql);
@@ -1325,7 +1332,8 @@ class modelReport extends mysql_db
         $tgl_awal    = $data['tgl_awal'];
         $tgl_akhir   = $data['tgl_akhir'];
         $bulan       = $data['bulan'];
-        $kd_lokasi   = $data['kd_lokasi'];
+        $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
+        $kd_lokasi   = $data['kd_lokasi'].$kd_ruang;
         $thn_ang     = $data['thn_ang'];
         $satker_asal = $data['kd_lokasi'];
         $format      = $data['format'];
@@ -1351,7 +1359,7 @@ class modelReport extends mysql_db
             $sql="SELECT id, tgl_buku, no_dok, tgl_dok, concat(nm_brg,' ',spesifikasi) as nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
                                 FROM transaksi_keluar 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'  
-                                      and kd_lokasi = '$kd_lokasi'
+                                      and concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'
                                       AND thn_ang='$thn_ang'
                                 ORDER BY tgl_dok ASC, no_dok ASC";
             $res = $this->query($sql);
@@ -1421,8 +1429,9 @@ class modelReport extends mysql_db
         $kd_brg = $data['kd_brg'];
         $tgl_awal = $data['tgl_awal'];
         $tgl_akhir = $data['tgl_akhir'];
-        $bulan = $data['bulan'];
-        $kd_lokasi = $data['kd_lokasi'];
+        $bulan = $data['bulan']; 
+        $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
+        $kd_lokasi = $data['kd_lokasi'].$kd_ruang;
         $thn_ang = $data['thn_ang'];
         $satker_asal = $data['kd_lokasi'];
         $format = $data['format'];
@@ -1450,13 +1459,13 @@ class modelReport extends mysql_db
             $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, nm_sskel, nm_brg,  spesifikasi, qty,satuan , harga_sat,total_harga, keterangan 
                                             FROM transaksi_masuk 
                                             where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
-                                            and kd_lokasi = '$kd_lokasi' 
+                                            and concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%' 
                                             AND thn_ang='$thn_ang'
                     union all
                     SELECT id, tgl_buku, no_bukti, tgl_dok, nm_sskel, nm_brg, spesifikasi,  qty,satuan , harga_sat,total_harga, keterangan 
                                             FROM transaksi_keluar 
                                             where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
-                                             and kd_lokasi = '$kd_lokasi'  
+                                             and concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'  
                                              AND thn_ang='$thn_ang'
 
                     ORDER BY tgl_dok ASC,id asc, nm_brg asc";
@@ -1550,8 +1559,9 @@ class modelReport extends mysql_db
         // $mpdf->setFooter('{PAGENO}');
         ob_start(); 
         $jenis = $data['jenis'];
-        $kd_brg = $data['kd_brg'];
-        $kd_lokasi = $data['kd_lokasi'];
+        $kd_brg = $data['kd_brg']; 
+        $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
+        $kd_lokasi = $data['kd_lokasi'].$kd_ruang;
         $satker_asal = $data['satker_asal'];
         $format = $data['format'];
         $tgl_awal = $data['tgl_awal'];
@@ -1589,14 +1599,14 @@ class modelReport extends mysql_db
                                             FROM transaksi_masuk 
                                             where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'
                                             AND kd_brg='$kd_brg'  
-                                            and kd_lokasi = '$kd_lokasi' 
+                                            and concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%' 
                                             AND thn_ang='$thn_ang'
                     union all
                     SELECT id, tgl_buku, no_bukti, tgl_dok,kd_brg, nm_brg, spesifikasi,  qty,satuan, keterangan 
                                             FROM transaksi_keluar 
                                             where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'
                                             AND kd_brg='$kd_brg'  
-                                             and kd_lokasi = '$kd_lokasi'  
+                                             and concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'  
                                              AND thn_ang='$thn_ang'
 
                     ORDER BY tgl_dok ASC,id asc, nm_brg asc";
@@ -1694,8 +1704,9 @@ class modelReport extends mysql_db
         $kd_brg = $data['kd_brg'];
         $tgl_awal = $data['tgl_awal'];
         $tgl_akhir = $data['tgl_akhir'];
-        $bulan = $data['bulan'];
-        $kd_lokasi = $data['kd_lokasi'];
+        $bulan = $data['bulan']; 
+        $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
+        $kd_lokasi = $data['kd_lokasi'].$kd_ruang;
         $thn_ang = $data['thn_ang'];
         $satker_asal = $data['satker_asal'];
         
@@ -1720,14 +1731,14 @@ class modelReport extends mysql_db
                                             FROM transaksi_masuk 
                                             where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'
                                             AND kd_brg='$kd_brg'  
-                                            and kd_lokasi = '$kd_lokasi' 
+                                            and concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%' 
                                             AND thn_ang='$thn_ang'
                     union all
                     SELECT id, tgl_buku, no_bukti, tgl_dok,kd_brg, nm_brg, spesifikasi,  qty,satuan, harga_sat, keterangan 
                                             FROM transaksi_keluar 
                                             where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'
                                             AND kd_brg='$kd_brg'  
-                                             and kd_lokasi = '$kd_lokasi'  
+                                             and concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'  
                                              AND thn_ang='$thn_ang'
 
                     ORDER BY tgl_dok ASC,id asc, nm_brg asc";
@@ -1843,8 +1854,9 @@ class modelReport extends mysql_db
         
 
         $jenis = $data['jenis'];
-        $thn_ang = $data['thn_ang'];
-        $kd_lokasi = $data['kd_lokasi'];
+        $thn_ang = $data['thn_ang']; 
+        $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
+        $kd_lokasi = $data['kd_lokasi'].$kd_ruang;
         $thn_ang = $data['thn_ang'];
         $bln_awal = $data['bln_awal'];
         $bln_akhir = $data['bln_akhir'];
@@ -1868,13 +1880,13 @@ class modelReport extends mysql_db
             $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, nm_sskel, concat(nm_brg,' ',spesifikasi) as nm_brg, qty, satuan, untuk, harga_sat,total_harga, keterangan 
                                                     FROM transaksi_masuk 
                                                     where month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir'
-                                                     and kd_lokasi = '$kd_lokasi'  
+                                                     and concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'  
                                                      AND thn_ang='$thn_ang'
                                                 union all
                     SELECT id, tgl_buku, no_bukti, tgl_dok, nm_sskel, concat(nm_brg,' ',spesifikasi) as nm_brg,  qty, satuan, untuk, harga_sat,total_harga, keterangan 
                                                     FROM transaksi_keluar 
                                                     where month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir'
-                                                     and kd_lokasi = '$kd_lokasi'  
+                                                     and concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'  
                                                      AND thn_ang='$thn_ang'
 
                                                      ORDER BY tgl_dok ASC,id asc, nm_brg asc;";
@@ -1981,8 +1993,9 @@ class modelReport extends mysql_db
     public function ba_opname($data){
         $smt="";
         $jenis = $data['format'];
-        $thn_ang = $data['thn_ang'];
-        $kd_lokasi = $data['kd_lokasi'];
+        $thn_ang = $data['thn_ang']; 
+        $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
+        $kd_lokasi = $data['kd_lokasi'].$kd_ruang;
         $bln_awal = $data['bln_awal'];
         $bln_akhir = $data['bln_akhir'];
         $date = $this->cek_periode($data);
@@ -1995,14 +2008,14 @@ class modelReport extends mysql_db
         $subtotal_sisa = 0;
         $semester = array();
         $rekap = array();
-        if($_SESSION['kd_ruang']!=''){
-            $kode_bagian=$_SESSION['kd_ruang'];
-            $baca_ruang=" and kd_ruang='$kode_bagian' ";
-        }
+        // if($_SESSION['kd_ruang']!=''){
+        //     $kode_bagian=$_SESSION['kd_ruang'];
+        //     $baca_ruang=" and kd_ruang='$kode_bagian' ";
+        // }
         $query = "SELECT kd_perk,nm_perk, satuan, harga_sat, concat(nm_brg,' ',spesifikasi) as nm_brg,jns_trans, 
                     qty, qty_akhir 
                     from transaksi_masuk 
-                    where kd_lokasi='$kd_lokasi' ".$baca_ruang." and thn_ang='$thn_ang' and month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' and IFNULL(kd_brg,'')!=''
+                    where concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'  and thn_ang='$thn_ang' and month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' and IFNULL(kd_brg,'')!=''
                     order BY kd_sskel asc, nm_brg asc, jns_trans asc";
                     // echo $query;
         $result = $this->query($query);
@@ -2357,7 +2370,7 @@ class modelReport extends mysql_db
     }
 
     public function cetak_header($data,$nm_lap,$kd_lokasi,$kd_brg, $inc){
-            // $kd_lokasi = $data['kd_lokasi'];
+            // $kd_lokasi = $data['kd_lokasi'].$kd_ruang;
             $thn_ang = $data['thn_ang'];
             
             if($nm_lap=="buku_persediaan"){
@@ -2864,36 +2877,13 @@ class modelReport extends mysql_db
                 //                   SELECT kd_sskel, nm_sskel, kd_brg, nm_brg, kd_perk, nm_perk, total_harga,status_hapus,kd_lokasi,thn_ang,tgl_dok from transaksi_keluar)
                 //                   transaksi 
                 //                     where   kd_lokasi like '{$kd_lokasi}%'  AND thn_ang='$thn_ang' AND GROUP BY kd_brg";
-            $sql= "SELECT kd_perk, nm_perk from transaksi_masuk kd_lokasi where kd_lokasi like '$kd_lokasi%'  and thn_ang='$thn_ang' 
+            $sql= "SELECT kd_perk, nm_perk from transaksi_masuk kd_lokasi where concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'  and thn_ang='$thn_ang' 
                                   GROUP by kd_brg";
             }   
             elseif($nm_lap=="rincian_persediaan2"){
 
               $kriteria1 = substr($sblm_kriteria, 5);
-                    // $sql="SELECT kd_perk, nm_perk, kd_brg, nm_brg, 
-                    //         sum(case WHEN jns_trans='M01' THEN qty else 0 end) as brg_thn_lalu,  
-                    //         sum(case WHEN jns_trans='M01' THEN total_harga else 0 end) as hrg_thn_lalu,  
-
-                    //         sum(case WHEN qty>=0 ".$kriteria." and jns_trans!='M01'  THEN qty else 0 end) as masuk, 
-                    //         sum(case WHEN qty>=0 ".$sblm_kriteria." and jns_trans!='M01' THEN qty else 0 end) as masuk0, 
-
-                    //         sum(case WHEN qty<0  ".$kriteria." and jns_trans!='M01'  THEN qty else 0 end) as keluar,
-                    //         sum(case WHEN qty<0  ".$sblm_kriteria." and jns_trans!='M01' THEN qty else 0 end) as keluar0,
-
-                    //         sum(case WHEN qty>=0  ".$kriteria." and jns_trans!='M01'  THEN total_harga else 0 end) + 
-                    //         sum(case WHEN qty<0  ".$kriteria." and jns_trans!='M01'  THEN total_harga else 0 end) as nilai, 
-
-                    //         sum(case WHEN qty>=0 ".$sblm_kriteria." and jns_trans!='M01' THEN total_harga else 0 end) + 
-                    //         sum(case WHEN qty<0  ".$sblm_kriteria." and jns_trans!='M01' THEN total_harga else 0 end) as nilai0 
-
-                    //         FROM (
-                    //                 SELECT thn_ang, jns_trans, tgl_dok, kd_brg, nm_brg, spesifikasi, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_masuk
-                    //                 UNION ALL
-                    //                 SELECT thn_ang,jns_trans, tgl_dok, kd_brg, nm_brg, spesifikasi, kd_perk, nm_perk,qty, total_harga,status_hapus,kd_lokasi from transaksi_keluar
-                    //               ) transaksi
-                    //               where   kd_lokasi like '$kd_lokasi%'  and thn_ang='$thn_ang' 
-                    //               GROUP by kd_brg";
-                        $sql= "SELECT kd_perk, nm_perk from transaksi_masuk where kd_lokasi like '$kd_lokasi%'  and thn_ang='$thn_ang' 
+                        $sql= "SELECT kd_perk, nm_perk from transaksi_masuk where concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'  and thn_ang='$thn_ang' 
                                   GROUP by kd_brg";
             }
             elseif($nm_lap=="neraca"){
@@ -2937,7 +2927,7 @@ class modelReport extends mysql_db
               $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, concat(nm_brg,' ',spesifikasi) as nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
                                 FROM transaksi_masuk 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'  
-                                      and kd_lokasi = '$kd_lokasi'   
+                                      and concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'   
                                       AND thn_ang='$thn_ang'
                                 ORDER BY tgl_dok ASC,id asc";
                    
@@ -2947,7 +2937,7 @@ class modelReport extends mysql_db
               $sql="SELECT id, tgl_buku, no_dok, tgl_dok,concat(nm_brg,' ',spesifikasi) as nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
                                 FROM transaksi_keluar 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'  
-                                      and kd_lokasi = '$kd_lokasi'
+                                      and concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'
                                       AND thn_ang='$thn_ang'
                                 ORDER BY no_dok, tgl_dok ASC,id asc";
 
@@ -2956,13 +2946,13 @@ class modelReport extends mysql_db
               $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, nm_sskel, nm_brg,  spesifikasi, qty, satuan, harga_sat,total_harga, keterangan 
                                             FROM transaksi_masuk 
                                             where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
-                                            and kd_lokasi = '$kd_lokasi' 
+                                            and concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%' 
                                             AND thn_ang='$thn_ang'
                     union all
                     SELECT id, tgl_buku, no_bukti, tgl_dok, nm_sskel, nm_brg, spesifikasi,  qty, satuan, harga_sat,total_harga, keterangan 
                                             FROM transaksi_keluar 
                                             where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
-                                             and kd_lokasi = '$kd_lokasi'  
+                                             and concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'  
                                              AND thn_ang='$thn_ang'
 
                     ORDER BY tgl_dok ASC,id asc, nm_brg asc;";
@@ -2974,14 +2964,14 @@ class modelReport extends mysql_db
                             FROM transaksi_masuk 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
                                     AND kd_brg='$kd_brg' 
-                                    and kd_lokasi = '$kd_lokasi' 
+                                    and concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%' 
                                     AND thn_ang='$thn_ang'
                                 union all 
                             SELECT id, tgl_dok, keterangan,qty,harga_sat,kd_lokasi,kd_brg 
                               FROM transaksi_keluar 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
                                     AND kd_brg='$kd_brg' 
-                                    and kd_lokasi = '$kd_lokasi'  
+                                    and concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'  
                                     AND thn_ang='$thn_ang'
                             ORDER BY tgl_dok ASC,id asc;";
 
@@ -2998,7 +2988,7 @@ class modelReport extends mysql_db
                                      FROM transaksi_keluar 
                                      where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir' 
                                      AND kd_brg='$kd_brg' 
-                                     and kd_lokasi = '$kd_lokasi'   
+                                     and concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'   
                                      AND thn_ang='$thn_ang'
                                      ORDER BY tgl_dok ASC,id asc;";
 
@@ -3007,13 +2997,13 @@ class modelReport extends mysql_db
                   $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, nm_sskel, nm_brg,  spesifikasi, qty, satuan, untuk, harga_sat,total_harga, keterangan 
                                                     FROM transaksi_masuk 
                                                     where month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir'
-                                                     and kd_lokasi = '$kd_lokasi'  
+                                                     and concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'  
                                                      AND thn_ang='$thn_ang'
                                                 union all
                     SELECT id, tgl_buku, no_bukti, tgl_dok, nm_sskel, nm_brg, spesifikasi,  qty, satuan, untuk, harga_sat,total_harga, keterangan 
                                                     FROM transaksi_keluar 
                                                     where month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir'
-                                                     and kd_lokasi = '$kd_lokasi'  
+                                                     and concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'  
                                                      AND thn_ang='$thn_ang'
 
                                                      ORDER BY tgl_dok ASC,id asc, nm_brg asc;";
@@ -4118,7 +4108,7 @@ public function getupb($kd_lokasi){
             $nilai2=0;
         }
         
-        $sql = "SELECT ".$nm_kolom." as jml from ".$nm_tabel." where kd_lokasi like '$kd_lokasi%' and thn_ang='$thn_ang' ".$jns_trans." ".$kd_perk." ".$kriteria;
+        $sql = "SELECT ".$nm_kolom." as jml from ".$nm_tabel." where concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%' and thn_ang='$thn_ang' ".$jns_trans." ".$kd_perk." ".$kriteria;
 
         $result = $this->query($sql);
         $array = $this->fetch_array($result);
