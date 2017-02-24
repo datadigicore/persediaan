@@ -15,7 +15,7 @@ class modelTransaksi extends mysql_db
         $sql="SELECT count(error_message) as data from temp_import_masuk where error_message IS NOT NULL";
         $res=$this->query($sql);
         $data=$this->fetch_assoc($res);
-        return $data['data'];
+        echo $data['data'];
     }
     public function add_temp_item_trans_masuk(){
         $sql="INSERT INTO transaksi_masuk (keterangan, jns_trans, kd_lokasi, kd_ruang, nm_satker, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, kd_perk, nm_perk, satuan, qty, qty_akhir, harga_sat, total_harga, kode_rekening, nama_rekening, nilai_kontrak, ket_rek, tgl_update, user_id)
@@ -355,6 +355,11 @@ class modelTransaksi extends mysql_db
                     array_push($error_message, "Tanggal Buku Melebihi Tanggal Dokumen");
                 }
                 $value['no_dok']     = trim($data[$i]["B"]," \t\n\r\0\x0B\xA0\x0D\x0A").' - '.trim($data[$i]["D"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+                $cekNoDok            = "SELECT no_dok FROM transaksi_masuk WHERE no_dok = '$value[no_dok]' AND thn_ang = '$value[thn_ang]' LIMIT 1";
+                $resultCekNoDok      = $this->query($cekNoDok);
+                if (!empty($resultCekNoDok->num_rows)) {
+                    array_push($error_message, "Nomor Dokumen Telah Digunakan");
+                }
                 $value['kd_ruang']   = trim($data[$i]["C"]," \t\n\r\0\x0B\xA0\x0D\x0A");
                 $value['no_bukti']   = trim($data[$i]["D"]," \t\n\r\0\x0B\xA0\x0D\x0A");
                 $tgldok              = split('-', $data[$i]["E"]);
