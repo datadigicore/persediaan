@@ -2323,6 +2323,7 @@ class modelTransaksi extends mysql_db
         $result = $this->query($query);
         while ($row = $this->fetch_array($result))
         {
+            if($row['Kd_Ruang']=="") $row['Kd_Ruang']=" ";
             echo '<option value="'.$row['Kd_Ruang'].'">'.$row['Kd_Ruang'].'  -  '.$row['NamaSatker']."</option>";
 
         }
