@@ -19,9 +19,10 @@ $columns = array(
     array( 'db' => 'id', 'dt' => 0 ),
     array( 'db' => 'no_dok', 'dt' => 1),
     array( 'db' => 'nm_satker_msk', 'dt' => 2),
-    array( 'db' => 'tgl_dok', 'dt' => 3, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
-    array( 'db' => 'tgl_buku', 'dt' => 4, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
-    array( 'db' => 'keterangan', 'dt' => 5 ),
+    array( 'db' => 'nm_ruang_msk', 'dt' => 3),
+    array( 'db' => 'tgl_dok', 'dt' => 4, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
+    array( 'db' => 'tgl_buku', 'dt' => 5, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
+    array( 'db' => 'keterangan', 'dt' => 6 ),
 );
  
 // Settingan Koneksi Datatable
