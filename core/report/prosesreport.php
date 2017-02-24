@@ -371,6 +371,7 @@ else
 
 		case 'l_terima_brg':
 		$kd_lokasi = $purifier->purify($_POST['satker']);
+		$kd_ruang = $purifier->purify($_POST['kd_ruang']);
 		$satker_asal = $_SESSION['kd_lok'];
 		$format = $_POST['format'];
 		$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
@@ -388,6 +389,7 @@ else
 			"tgl_awal" => $tgl_awal,
 			"tgl_akhir" => $tgl_akhir,
 			"kd_lokasi" => $kd_lokasi,
+			"kd_ruang" => $kd_ruang,
 			"satker_asal" => $satker_asal,
 			"user_id" => $user_id);
 
