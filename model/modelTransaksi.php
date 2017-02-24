@@ -4,7 +4,7 @@ class modelTransaksi extends mysql_db
 {
 
     public function hapus_dokumen_masuk($no_dok){
-        $sql="DELETE from transaksi_masuk  where no_dok='$no_dok' and qty=0 ";
+        $sql="DELETE from transaksi_masuk  where no_dok='$no_dok' and qty=0 and nilai_kontrak=0";
         $this->query($sql);
     }
     public function hapus_dokumen_keluar($no_dok){

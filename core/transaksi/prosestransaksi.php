@@ -14,7 +14,9 @@ else
 
 		case 'hapus_dokumen_masuk':
 			$no_dok= $purifier->purify($_POST['no_dok']);
-			
+			// print_r($no_dok);
+			$Transaksi->hapus_dokumen_masuk($no_dok);
+		break;
 		case 'hapus_dokumen_keluar':
 			$no_dok= $purifier->purify($_POST['no_dok']);
 			$Transaksi->hapus_dokumen_keluar($no_dok);	
