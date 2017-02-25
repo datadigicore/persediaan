@@ -2012,7 +2012,7 @@ class modelReport extends mysql_db
         //     $kode_bagian=$_SESSION['kd_ruang'];
         //     $baca_ruang=" and kd_ruang='$kode_bagian' ";
         // }
-        $query = "SELECT kd_perk,nm_perk, satuan, harga_sat, concat(nm_brg,' ',spesifikasi) as nm_brg,jns_trans, 
+        $query = "SELECT kd_perk,nm_perk, satuan, harga_sat, concat(nm_brg,' ',IFNULL(spesifikasi,'')) as nm_brg,jns_trans, 
                     qty, qty_akhir 
                     from transaksi_masuk 
                     where concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'  and thn_ang='$thn_ang' and month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' and IFNULL(kd_brg,'')!=''
@@ -2215,6 +2215,9 @@ class modelReport extends mysql_db
                         'grandTotal_pengeluaran' => $grandTotal_pengeluaran,
                         'grandTotal_sisa' => $grandTotal_sisa
                 );
+            // echo "<pre>";
+            // print_r($rekap);
+            // exit;
         if($jenis=="excel"){
             $TBS = new clsTinyButStrong;  
             $TBS->Plugin(TBS_INSTALL, OPENTBS_PLUGIN);

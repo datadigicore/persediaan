@@ -23,6 +23,7 @@ else
 			$user_pass = $purifier->purify(md5($_POST['password']));
 			$email = $purifier->purify($_POST['email']);
 			$kdgudang = $purifier->purify($_POST['kdunitgudang']);
+			$kodeSubUPB = $purifier->purify($_POST['kodeSubUPB']);
 			$urgudang = $purifier->purify($_POST['urgudangh']);
 			$tahun = $purifier->purify($_POST['tahun']);
 			$data = array(
@@ -30,6 +31,7 @@ else
 				"user_pass" => $user_pass,
 				"user_email" => $email,
 		    	"kd_satker" => $kdgudang,
+		    	"kodeSubUPB" => $kodeSubUPB,
 		    	"nm_satker" => $urgudang,
 		    	"tahun" => $tahun
 		    );

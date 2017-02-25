@@ -115,6 +115,7 @@ class modelUser extends mysql_db
 		$user_pass = $data['user_pass'];
         $user_email = $data['user_email'];
         $kd_satker= $data['kd_satker'];
+        $kodeSubUPB= $data['kodeSubUPB'];
         $nm_satker= $data['nm_satker'];
         $tahun= $data['tahun'];
 		$user_level = 2;
@@ -123,6 +124,7 @@ class modelUser extends mysql_db
                     user_pass='$user_pass',
                     user_email='$user_email',
                     kd_lokasi='$kd_satker',
+                    kd_ruang='$kodeSubUPB',
                     nm_satker='$nm_satker',
         			tahun='$tahun',
                     user_level='$user_level'";

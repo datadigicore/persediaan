@@ -75,6 +75,14 @@
                         </select>
                       </div>
                     </div>
+                    <div class="form-group" style="margin-top:15px;">
+                      <label class="col-sm-2 control-label">Kode Sub-Unit / Bagian</label>
+                      <div class="col-sm-9">
+                        <select name="kodeSubUPB" id="kodeSubUPB" class="form-control select2">
+                          <!-- <option value="">--Pusat--</option> -->
+                        </select>
+                      </div>
+                    </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Kode Bidang</label>
                       <div class="col-sm-2">
@@ -113,7 +121,7 @@
                         <input type="hidden" name="urgudangh" class="form-control" id="urgudangh">
                       </div>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label class="col-sm-2 control-label">Kode Bagian</label>
                       <div class="col-sm-2">
                         <input type="text" name="kdgudang" class="form-control" id="kdgudang" placeholder="Kode Bagian" disabled>
@@ -122,7 +130,7 @@
                         <input type="text" name="urbagian" class="form-control" id="urbagian" placeholder="Uraian Bagian" disabled>
                         <input type="hidden" name="urbagianh" class="form-control" id="urbagianh">
                       </div>
-                    </div>                    
+                    </div>  -->                   
                   </div>
                   <div class="box-footer">
                     <button type="Reset" class="btn btn-default">Reset</button>
@@ -285,9 +293,21 @@
           $('#ursektor' ).val('');
           $('#ursatker').val('');
           $('#urunit').val('');
+          $('#kodeSubUPB').select2("val","");
+          $("#kodeSubUPB").html("");
         }
         else {
           var kdunitgudang = $(this).val();
+          $.ajax({
+              type: "post",
+              url: '../core/transaksi/prosestransaksi',
+              data: {manage:'get_bidang_report',kode_satker:kdunitgudang,kode_ruang:""},
+              success: function (output) {
+                $('#kodeSubUPB').html(output);
+                // $("#bidang_tujuan").select2({
+                // });
+              }
+            });
           $.ajax({
             type: "post",
             url: '../core/user/prosesuser',
@@ -316,6 +336,7 @@
               }
             }
           });
+           
         }
       });
       function format ( d ) {
