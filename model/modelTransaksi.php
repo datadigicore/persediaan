@@ -38,9 +38,11 @@ class modelTransaksi extends mysql_db
         $sql="SELECT * from temp_import_masuk where user_id = '$_SESSION[username]'";
         $res=$this->query($sql);
         while ($row=$this->fetch_assoc($res)){
+            $row['ruang_asal'] = '';
+            $row['status'] = 0;
             $this->import_transaksi_keluar($row);
         }
-        $this->clear_log_temp_import_keluar('temp_import_keluar');
+        $this->clear_log_temp_import('temp_import_keluar');
         return true;
     }
 
@@ -1312,7 +1314,7 @@ class modelTransaksi extends mysql_db
         $no_dok    = $data['no_dok'];
         $tgl_dok   = $data['tgl_dok'];
         $tgl_buku  = $data['tgl_buku'];
-        $arr_dok   =explode("-", $data['no_dok']);
+        $arr_dok   = explode("-", $data['no_dok']);
         $no_bukti  = $arr_dok[1];
         $jns_trans = $data['jns_trans'];
         $keterangan= $data['keterangan'];
