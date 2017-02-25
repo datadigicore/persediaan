@@ -67,7 +67,7 @@ else if (substr_count($str,".") == 2) {
     $where = "kd_lokasi like '$kd_satker.%' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and qty>0";
 }
 else{
-    $where = "kd_lokasi='$kd_satker'  and thn_ang='$thn_ang' and no_dok = '$no_dok' and nilai_kontrak>0 and kd_brg='' ".$query_ruang." ";
+    $where = "kd_lokasi='$kd_satker'  and thn_ang='$thn_ang' and no_dok = '$no_dok' and kode_rekening!='' and kd_brg='' ".$query_ruang." ";
 }
  
 // Pengaturan Output Server Side Processing
