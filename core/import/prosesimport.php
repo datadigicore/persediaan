@@ -119,8 +119,14 @@ else
               die('Kesalahan! Gagal dalam mengupload file : "'.pathinfo($_FILES['excelupload']['name'],PATHINFO_BASENAME).'": '.$e->getMessage());
             }
             $allDataInSheet = $objPHPExcel->getActiveSheet()->toArray(NULL,TRUE,FALSE,TRUE);
-            $Transaksi->importTransMasuk($allDataInSheet);
-            header('location:../../admin/trans_masuk');
+            if (count($allDataInSheet[10]) == 15) {
+              $Transaksi->temporaryImportTransMasuk($allDataInSheet);
+              header('location:../../admin/temp_import_masuk');
+            }
+            else {
+              $Transaksi->importTransMasuk($allDataInSheet);
+              header('location:../../admin/temp_import_masuk');
+            }
           }
         }
       }
