@@ -35,7 +35,7 @@ class modelTransaksi extends mysql_db
     }
 
     public function add_temp_item_trans_keluar(){
-        $sql="SELECT * from temp_import_masuk where user_id = '$_SESSION[username]'";
+        $sql="SELECT * from temp_import_keluar where user_id = '$_SESSION[username]'";
         $res=$this->query($sql);
         while ($row=$this->fetch_assoc($res)){
             $row['ruang_asal'] = '';
@@ -1306,6 +1306,7 @@ class modelTransaksi extends mysql_db
 
     public function import_transaksi_keluar($data)
     {
+        error_reporting(0);
         $kd_lokasi = $data['kd_lokasi'];
         $kd_satker = $data['kd_lokasi'].$data['ruang_asal'];
         $nm_satker = $data['nm_satker'];

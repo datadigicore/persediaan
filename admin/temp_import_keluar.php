@@ -154,18 +154,6 @@
             $("#simpanImport").attr('disabled', 'disabled');
           }
         },
-        "rowCallback": function( row, data, index ) {
-          if (!data[2] && data[3] == 0) {
-            if (data[9] == null) {
-              data[9] = '';
-            }
-            $(row).html('<td>'+data[1]+'</td><td colspan="1" style="text-align:center">Transaksi Non Persediaan</td><td>'+data[6]+'</td><td>'+data[7]+'</td><td>'+data[8]+'</td><td>'+data[9]+'</td>');
-            $(row).css({"background-color": "#388E3C","color":"white"});
-          }
-          if (data[9]) {
-            $(row).css({"background-color": "#B71C1C","color":"white"});
-          }
-        }
       });
     </script>
   </body>
