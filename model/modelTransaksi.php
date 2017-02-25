@@ -1109,6 +1109,311 @@ class modelTransaksi extends mysql_db
 
     }
 
+    public function import_transaksi_keluar($data)
+    {
+        $kd_lokasi = $data['kd_lokasi'];
+        $kd_satker = $data['kd_lokasi'].$data['ruang_asal'];
+        $nm_satker = $data['nm_satker'];
+        $ruang_asal=$data['ruang_asal'];
+        $thn_ang   = $data['thn_ang'];
+
+        $no_dok    = $data['no_dok'];
+        $tgl_dok   = $data['tgl_dok'];
+        $tgl_buku  = $data['tgl_buku'];
+        $arr_dok   =explode("-", $data['no_dok']);
+        $no_bukti  = $arr_dok[1];
+        $jns_trans = $data['jns_trans'];
+        $keterangan= $data['keterangan'];
+
+        $kd_brg    = $data['kd_brg'];
+
+
+        $satuan    = $data['satuan'];
+        $kuantitas = $data['kuantitas'];
+        $status    = $data['status'];
+        $user_id   = $data['user_id'];
+
+        $this->query("BEGIN");
+
+        echo "<pre>";
+        while($kuantitas > 0)
+        {
+            echo " kuantitas tersisa : ".$kuantitas;
+            $query_id = "SELECT id,id_brg_trf,
+                                id_opname,
+                                kd_sskel,
+                                nm_sskel,
+                                kd_brg,
+                                nm_brg,
+                                spesifikasi,
+                                satuan,
+                                kd_perk,
+                                nm_perk,
+                                qty_akhir,
+                                harga_sat 
+                        FROM  transaksi_masuk 
+                        WHERE kd_brg='$kd_brg'
+                              and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker'
+                              and qty_akhir>0
+                              and thn_ang='$thn_ang' order by tgl_dok asc, id asc limit 1";
+
+            echo "Pencarian Barang : ".$query_id."<br>";
+
+            $result_id  = $this->query($query_id);
+            $row_id     = $this->fetch_array($result_id);
+            $id_trans_m = $row_id['id'];
+            $id_brg_trf = $row_id['id_brg_trf'];
+            $id_opname  = $row_id['id_opname'];
+            $qty_akhir  = $row_id['qty_akhir'];
+            $harga_sat  = $row_id['harga_sat'];
+            $total_harga= $kuantitas*$harga_sat;
+
+            $kd_sskel   = $row_id['kd_sskel'];
+            $nm_sskel   = $row_id['nm_sskel'];
+            $kd_perk    = $row_id['kd_perk'];
+            $nm_perk    = $row_id['nm_perk'];
+            $nm_brg     = $row_id['nm_brg'];
+            $spesifikasi= $row_id['spesifikasi'];
+
+            echo "ID transaksi masuk : ".$id_trans_m.' '.$qty_akhir.' '.$harga_sat;
+            echo '<br>';
+
+            if($kuantitas<$qty_akhir)
+            {
+                echo "terbukti sisa kuantitas : ".$kuantitas.' dengan qy akhir : '.$qty_akhir;
+                echo '<br>';
+
+                $query_keluar = "Insert into transaksi_keluar
+                                    set
+                                    id_brg_trf   ='$id_brg_trf',
+                                    kd_lokasi    ='$kd_lokasi',
+                                    kd_ruang     ='$kd_ruang',
+                                    kd_lok_msk   ='$kd_lok_msk',
+                                    kd_ruang_msk ='$kd_ruang_msk',
+                                    nm_satker_msk='$nm_satker_msk',
+                                    id_masuk     = '$id_trans_m',
+                                    id_opname    = '$id_opname',
+                                    nm_satker    ='$nm_satker',
+                                    thn_ang      ='$thn_ang',
+                                    no_dok       ='$no_dok',
+                                    tgl_dok      ='$tgl_dok',
+                                    tgl_buku     ='$tgl_buku',
+                                    no_bukti     ='$no_bukti',
+                                    jns_trans    ='$jns_trans',
+                                    kd_sskel     ='$kd_sskel',
+                                    nm_sskel     ='$nm_sskel',
+                                    kd_perk      ='$kd_perk',
+                                    nm_perk      ='$nm_perk',
+                                    kd_brg       ='$kd_brg',
+                                    nm_brg       ='$nm_brg',
+                                    spesifikasi  ='$spesifikasi',
+                                    satuan       ='$satuan',
+                                    qty          =-1*'$kuantitas',
+                                    harga_sat    ='$harga_sat',
+                                    total_harga  =-1*'$total_harga',
+                                    keterangan   ='$keterangan',
+                                    status       =0,
+                                    tgl_update   =CURDATE(),
+                                    user_id      ='$user_id'";
+
+                echo "Insert Barang keluar if qty<qty_akhir : ".$query_keluar."<br>";
+
+
+                $result_keluar = $this->query($query_keluar);
+                $id_transk = $this->insert_id();
+
+                $query_log = "Insert into log_trans_masuk
+                        set
+                        kd_lokasi  ='$kd_lokasi',
+                        nm_satker  ='$nm_satker',
+                        thn_ang    ='$thn_ang',
+                        no_dok     ='$no_dok',
+                        tgl_dok    ='$tgl_dok',
+                        tgl_buku   ='$tgl_buku',
+                        no_bukti   ='$no_bukti',
+                        jns_trans  ='$jns_trans',
+                        aksi       ='I-Transaksi Keluar',
+                        kd_brg     ='$kd_brg',
+                        nm_brg     ='$nm_brg',
+
+
+                        qty        =-1*'$kuantitas',
+
+                        harga_sat  ='$harga_sat',
+                        total_harga=-1*'$total_harga',
+                        keterangan ='$keterangan',
+                        tgl_update =NOW(),
+                        user_id    ='$user_id'";
+                $result_log      = $this->query($query_log);
+
+                $query_upd_masuk = "UPDATE transaksi_masuk 
+                                    SET qty_akhir = qty_akhir - $kuantitas 
+                                    WHERE concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' AND id='$id_trans_m'  ";
+                $result_upd_masuk= $this->query($query_upd_masuk);
+
+
+
+                $minus_qty  = -$kuantitas;
+                $minus_hrg  = -$harga_sat;
+                $minus_total= -$total_harga;
+                echo "id trans keluar : ".$id_transk;
+                echo '<br>';
+                $query_full = "Insert into transaksi_full
+                                set
+                                id_brg_trf   ='$id_trans_m',
+                                kd_lokasi    ='$kd_lokasi',
+                                kd_ruang     ='$kd_ruang',
+                                id_keluar    ='$id_transk',
+                                id_opname    ='$id_opname',
+                                kd_lok_msk   ='$kd_lok_msk',
+                                kd_ruang_msk ='$kd_ruang_msk',
+                                nm_satker    ='$nm_satker',
+                                nm_satker_msk='$nm_satker_msk',
+                                thn_ang      ='$thn_ang',
+                                no_dok       ='$no_dok',
+                                tgl_dok      ='$tgl_dok',
+                                tgl_buku     ='$tgl_buku',
+                                no_bukti     ='$no_bukti',
+                                jns_trans    ='$jns_trans',
+                                kd_sskel     ='$kd_sskel',
+                                nm_sskel     ='$nm_sskel',
+                                kd_perk      ='$kd_perk',
+                                nm_perk      ='$nm_perk',
+                                kd_brg       ='$kd_brg',
+                                nm_brg       ='$nm_brg',
+                                spesifikasi  ='$spesifikasi',
+                                satuan       ='$satuan',
+                                qty          ='$minus_qty',
+                                harga_sat    ='$minus_hrg',
+                                total_harga  ='$minus_total',
+                                keterangan   ='$keterangan',
+                                status       =0,
+                                tgl_update   =NOW(),
+                                user_id      ='$user_id'";
+
+
+                $result_trans_full = $this->query($query_full);
+
+                $kuantitas = 0;
+                break;
+            }
+
+                $query_id      = "select id,id_brg_trf, id_opname, kd_brg, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and qty_akhir>0 and thn_ang='$thn_ang'  order by tgl_dok asc, id asc limit 1";
+                echo "Cari Ref. Barang if qty>qty_akhir : ".$query_id."<br>";
+                $result_id     = $this->query($query_id);
+                $row_id        = $this->fetch_array($result_id);
+                $id_trans      = $row_id['id'];
+                $id_brg_trf    = $row_id['id_brg_trf'];
+                $qty_akhir     = $row_id['qty_akhir'];
+                $id_opname     = $row_id['id_opname'];
+                $harga_sat     = $row_id['harga_sat'];
+                $total_harga   = $qty_akhir * $harga_sat;
+
+                echo $id_trans.' '.$qty_akhir.' '.$harga_sat;
+                echo '<br>';
+
+                $query_keluar  = "Insert into transaksi_keluar
+                                set
+                                id_brg_trf   ='$id_brg_trf',
+                                kd_lok_msk   ='$kd_lok_msk',
+                                kd_ruang_msk ='$kd_ruang_msk',
+                                nm_satker_msk='$nm_satker_msk',
+                                kd_lokasi    ='$kd_lokasi',
+                                kd_ruang     ='$kd_ruang',
+                                id_masuk     = '$id_trans',
+                                id_opname    = '$id_opname',
+                                nm_satker    ='$nm_satker',
+                                thn_ang      ='$thn_ang',
+                                no_dok       ='$no_dok',
+                                tgl_dok      ='$tgl_dok',
+                                tgl_buku     ='$tgl_buku',
+                                no_bukti     ='$no_bukti',
+                                jns_trans    ='$jns_trans',
+                                kd_sskel     ='$kd_sskel',
+                                nm_sskel     ='$nm_sskel',
+                                kd_perk      ='$kd_perk',
+                                nm_perk      ='$nm_perk',
+                                kd_brg       ='$kd_brg',
+                                nm_brg       ='$nm_brg',
+                                spesifikasi  ='$spesifikasi',
+                                satuan       ='$satuan',
+                                qty          =-1*'$qty_akhir',
+                                harga_sat    ='$harga_sat',
+                                total_harga  =-1*'$total_harga',
+                                keterangan   ='$keterangan',
+                                status       =0,
+                                tgl_update   =CURDATE(),
+                                user_id      ='$user_id'";
+
+                echo "Insert Barang keluar if qty>qty_akhir : ".$query_keluar."<br>";
+                $result_keluar = $this->query($query_keluar);
+                $id_transk = $this->insert_id();
+                $query_log = "Insert into log_trans_masuk
+                                set
+                                kd_lokasi  ='$kd_lokasi',
+                                nm_satker  ='$nm_satker',
+                                thn_ang    ='$thn_ang',
+                                no_dok     ='$no_dok',
+                                tgl_dok    ='$tgl_dok',
+                                tgl_buku   ='$tgl_buku',
+                                no_bukti   ='$no_bukti',
+                                jns_trans  ='$jns_trans',
+                                aksi       ='I-Transaksi Keluar',
+                                kd_brg     ='$kd_brg',
+                                nm_brg     ='$nm_brg',
+                                qty        =-1*'$qty_akhir',
+                                harga_sat  ='$harga_sat',
+                                total_harga=-1*'$total_harga',
+                                keterangan ='$keterangan',
+                                tgl_update =NOW(),
+                                user_id    ='$user_id'";
+                $result_log = $this->query($query_log);
+                $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $qty_akhir where kd_lokasi='$kd_lokasi' and id='$id_trans'  ";
+                $result_upd_masuk = $this->query($query_upd_masuk);
+
+                $minus_qty = -$qty_akhir;
+                $minus_hrg = -$harga_sat;
+                $minus_total = -$total_harga;
+                if($kd_lok_msk!="") $keterangan = "Transfer ke ".$nm_satker_msk;
+                $query_full = "Insert into transaksi_full
+                                set
+                                kd_lokasi    ='$kd_lokasi',
+                                kd_ruang     ='$kd_ruang',
+                                id_trans     ='$id_transk',
+                                id_opname    ='$id_opname',
+                                id_keluar    ='$id_transk',
+                                kd_lok_msk   ='$kd_lok_msk',
+                                nm_satker    ='$nm_satker',
+                                nm_satker_msk='$nm_satker_msk',
+                                thn_ang      ='$thn_ang',
+                                no_dok       ='$no_dok',
+                                tgl_dok      ='$tgl_dok',
+                                tgl_buku     ='$tgl_buku',
+                                no_bukti     ='$no_bukti',
+                                jns_trans    ='$jns_trans',
+                                kd_sskel     ='$kd_sskel',
+                                nm_sskel     ='$nm_sskel',
+                                kd_perk      ='$kd_perk',
+                                nm_perk      ='$nm_perk',
+                                kd_brg       ='$kd_brg',
+                                nm_brg       ='$nm_brg',
+                                spesifikasi  ='$spesifikasi',
+                                satuan       ='$satuan',
+                                qty          ='$minus_qty',
+                                harga_sat    ='$minus_hrg',
+                                total_harga  ='$minus_total',
+                                keterangan   ='$keterangan',
+                                status       =0,
+                                tgl_update   =NOW(),
+                                user_id      ='$user_id'";
+                if($kd_lok_msk!="") $keterangan = "Transfer dari ".$nm_satker;
+
+                $result_full   = $this->query($query_full);
+                $kuantitas     = $kuantitas - $qty_akhir;
+
+        }
+        $com = $this->query("COMMIT");
+    }
 
     public function trnsaksi_keluar($data)
     {
