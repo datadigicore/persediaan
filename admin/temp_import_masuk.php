@@ -124,7 +124,7 @@
             $('#read_satker').val(output.satker);
             $('#tgl_dok').val(output.tgldok);
             $('#kd_ruang').val(output.kdruang);
-            $('#tglbuku').val(output.tglbuku);
+            $('#tgl_buku').val(output.tglbuku);
           }
         }
       });
