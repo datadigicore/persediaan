@@ -845,7 +845,8 @@ class modelTransaksi extends mysql_db
         $no_dok = $data['no_dok'];
         $kode_rek =$data['kode_rek'];
         $nama_rek =$data['nama_rek'];
-        $nilai_kontrak =$data['nilai_kontrak'];
+        // $nilai_kontrak =$data['nilai_kontrak'];
+        $nilai_kontrak =0;
         $ket_non_persediaan =$data['ket_non_persediaan'];
 
 
