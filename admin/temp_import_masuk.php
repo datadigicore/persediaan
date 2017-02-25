@@ -131,7 +131,7 @@
       $.ajax({
         type: "post",
         url: '../core/transaksi/prosestransaksi',
-        data: {manage:'checkErrorMessage'},
+        data: {manage:'checkErrorMessage',jenis:'masuk'},
         success: function (output) {
           errormessage = output;
         }

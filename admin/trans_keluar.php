@@ -72,7 +72,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <form action="../core/import/prosesimport" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="manage" value="importTransMasuk">
+            <input type="hidden" name="manage" value="importTransKeluar">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true" style="color:white">×</span></button>

@@ -25,13 +25,19 @@ else
 		case 'add_temp_item_trans_masuk':
 			$result = $Transaksi->add_temp_item_trans_masuk();
 			if ($result) {
-				echo "<script language=\"javascript\">alert('Data Berhasil Dimasukkan')</script>";
 				header('location:../../admin/trans_masuk');
 			}
 		break;
 
+		case 'add_temp_item_trans_keluar':
+			$result = $Transaksi->add_temp_item_trans_keluar();
+			if ($result) {
+				header('location:../../admin/trans_keluar');
+			}
+		break;
+
 		case 'checkErrorMessage':
-			$Transaksi->check_error_message();
+			$Transaksi->check_error_message($_POST['jenis']);
 		break;
 
 		case 'update_rekening_barang':
@@ -242,6 +248,15 @@ else
 			}
 			else {
 				$Transaksi->readidenttempitem();
+			}
+		break;
+		case 'readidenttempitemklr':
+			if (isset($_POST['id'])) {
+				$id = $purifier->purify($_POST['id']);
+				$Transaksi->readidenttempitemklr($id);
+			}
+			else {
+				$Transaksi->readidenttempitemklr();
 			}
 		break;
 		case 'read_detail_transfer':

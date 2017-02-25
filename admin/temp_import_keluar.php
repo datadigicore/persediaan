@@ -127,7 +127,7 @@
       $.ajax({
         type: "post",
         url: '../core/transaksi/prosestransaksi',
-        data: {manage:'checkErrorMessage'},
+        data: {manage:'checkErrorMessage',jenis:'keluar'},
         success: function (output) {
           errormessage = output;
         }
