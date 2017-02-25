@@ -7,12 +7,8 @@ class modelTransaksi extends mysql_db
         $sql="DELETE from transaksi_masuk  where no_dok='$no_dok' and qty=0 and nilai_kontrak=0";
         $this->query($sql);
     }
-    public function clear_log_temp_import_masuk(){
-        $clearTable = "DELETE FROM temp_import_masuk WHERE user_id = '$_SESSION[username]'";
-        $this->query($clearTable);
-    }
-    public function clear_log_temp_import_keluar(){
-        $clearTable = "DELETE FROM temp_import_keluar WHERE user_id = '$_SESSION[username]'";
+    public function clear_log_temp_import($table){
+        $clearTable = "DELETE FROM $table WHERE user_id = '$_SESSION[username]'";
         $this->query($clearTable);
     }
     public function check_error_message($jenis){
@@ -32,25 +28,25 @@ class modelTransaksi extends mysql_db
               SELECT keterangan, jns_trans, kd_lokasi, kd_ruang, nm_satker, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, kd_perk, nm_perk, satuan, qty, qty_akhir, harga_sat, total_harga, kode_rekening, nama_rekening, nilai_kontrak, ket_rek, tgl_update, user_id from temp_import_masuk where user_id = '$_SESSION[username]'";
         $res=$this->query($sql);
         if ($res) {
-            $this->create_log_import_masuk();
-            $this->clear_log_temp_import_masuk();
+            $this->create_log_import('I-Transaksi Masuk');
+            $this->clear_log_temp_import('temp_import_masuk');
             return true;
         }
     }
 
     public function add_temp_item_trans_keluar(){
-        $sql="INSERT INTO transaksi_masuk (keterangan, jns_trans, kd_lokasi, kd_ruang, nm_satker, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, kd_perk, nm_perk, satuan, qty, qty_akhir, harga_sat, total_harga, kode_rekening, nama_rekening, nilai_kontrak, ket_rek, tgl_update, user_id)
-              SELECT keterangan, jns_trans, kd_lokasi, kd_ruang, nm_satker, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, kd_perk, nm_perk, satuan, qty, qty_akhir, harga_sat, total_harga, kode_rekening, nama_rekening, nilai_kontrak, ket_rek, tgl_update, user_id from temp_import_masuk where user_id = '$_SESSION[username]'";
+        $sql="SELECT * from temp_import_masuk where user_id = '$_SESSION[username]'";
         $res=$this->query($sql);
-        if ($res) {
-            $this->clear_log_temp_import_keluar();
-            return true;
+        while ($row=$this->fetch_assoc($res)){
+            $this->import_transaksi_keluar($row);
         }
+        $this->clear_log_temp_import_keluar('temp_import_keluar');
+        return true;
     }
 
-    public function create_log_import_masuk(){
+    public function create_log_import($data){
         $sql="INSERT INTO log_trans_masuk (kd_lokasi, nm_satker, thn_ang, user_id, aksi, no_dok, tgl_dok, tgl_buku, no_bukti, kd_brg, nm_brg, spesifikasi, qty, harga_sat, total_harga, jns_trans, keterangan, tgl_update)
-              SELECT kd_lokasi, nm_satker, thn_ang, user_id, 'I-import transaksi masuk', no_dok, tgl_dok, tgl_buku, no_bukti, kd_brg, nm_brg, spesifikasi, qty, harga_sat, total_harga, jns_trans, keterangan, tgl_update from temp_import_masuk where user_id = '$_SESSION[username]'";
+              SELECT kd_lokasi, nm_satker, thn_ang, user_id, '$data', no_dok, tgl_dok, tgl_buku, no_bukti, kd_brg, nm_brg, spesifikasi, qty, harga_sat, total_harga, jns_trans, keterangan, tgl_update from temp_import_masuk where user_id = '$_SESSION[username]'";
         $res=$this->query($sql);
     }
     public function hapus_dokumen_keluar($no_dok){
@@ -279,7 +275,7 @@ class modelTransaksi extends mysql_db
 
     public function importTransMasuk($data){
         error_reporting(0);
-        $this->clear_log_temp_import_masuk();
+        $this->clear_log_temp_import('temp_import_masuk');
         $error_message = array();
         $value['kd_lokasi'] = $data[1][B];
         $value['kd_ruang'] = $data[2][B];
@@ -375,7 +371,7 @@ class modelTransaksi extends mysql_db
 
     public function temporaryImportTransMasuk($data){
         error_reporting(0);
-        $this->clear_log_temp_import_masuk();
+        $this->clear_log_temp_import('temp_import_masuk');
         $value['user_id'] = $_SESSION['username'];
         $value['thn_ang'] = $_SESSION['thn_ang'];
         $arrayCount       = count($data);
@@ -470,7 +466,7 @@ class modelTransaksi extends mysql_db
 
     public function importTransKeluar($data){
         error_reporting(0);
-        $this->clear_log_temp_import_keluar();
+        $this->clear_log_temp_import('temp_import_keluar');
         $error_message = array();
         $value['kd_lokasi'] = $data[1][B];
         $value['kd_ruang'] = $data[2][B];
@@ -549,7 +545,7 @@ class modelTransaksi extends mysql_db
 
     public function temporaryImportTransKeluar($data){
         error_reporting(0);
-        $this->clear_log_temp_import_masuk();
+        $this->clear_log_temp_import('temp_import_keluar');
         $value['user_id'] = $_SESSION['username'];
         $value['thn_ang'] = $_SESSION['thn_ang'];
         $arrayCount       = count($data);
@@ -1325,7 +1321,7 @@ class modelTransaksi extends mysql_db
 
 
         $satuan    = $data['satuan'];
-        $kuantitas = $data['kuantitas'];
+        $kuantitas = $data['qty'];
         $status    = $data['status'];
         $user_id   = $data['user_id'];
 
