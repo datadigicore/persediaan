@@ -143,7 +143,7 @@
           "aaSorting": [[ 0, 'desc' ]],
           "processing": false,
           "serverSide": true,
-          "ajax": "../core/loadtable/admin_masuk",
+          "ajax": "../core/loadtable/admin_keluar",
           "columnDefs":
           [
             {"targets": 0,
