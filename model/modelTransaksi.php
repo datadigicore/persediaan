@@ -845,7 +845,8 @@ class modelTransaksi extends mysql_db
         $no_dok = $data['no_dok'];
         $kode_rek =$data['kode_rek'];
         $nama_rek =$data['nama_rek'];
-        $nilai_kontrak =$data['nilai_kontrak'];
+        // $nilai_kontrak =$data['nilai_kontrak'];
+        $nilai_kontrak =0;
         $ket_non_persediaan =$data['ket_non_persediaan'];
 
 
@@ -1329,10 +1330,10 @@ class modelTransaksi extends mysql_db
 
         $this->query("BEGIN");
 
-        echo "<pre>";
+        // echo "<pre>";
         while($kuantitas > 0)
         {
-            echo " kuantitas tersisa : ".$kuantitas;
+            // echo " kuantitas tersisa : ".$kuantitas;
             $query_id = "SELECT id,id_brg_trf,
                                 id_opname,
                                 kd_sskel,
@@ -1351,7 +1352,7 @@ class modelTransaksi extends mysql_db
                               and qty_akhir>0
                               and thn_ang='$thn_ang' order by tgl_dok asc, id asc limit 1";
 
-            echo "Pencarian Barang : ".$query_id."<br>";
+            // echo "Pencarian Barang : ".$query_id."<br>";
 
             $result_id  = $this->query($query_id);
             $row_id     = $this->fetch_array($result_id);
@@ -1369,13 +1370,13 @@ class modelTransaksi extends mysql_db
             $nm_brg     = $row_id['nm_brg'];
             $spesifikasi= $row_id['spesifikasi'];
 
-            echo "ID transaksi masuk : ".$id_trans_m.' '.$qty_akhir.' '.$harga_sat;
-            echo '<br>';
+            // echo "ID transaksi masuk : ".$id_trans_m.' '.$qty_akhir.' '.$harga_sat;
+            // echo '<br>';
 
             if($kuantitas<$qty_akhir)
             {
-                echo "terbukti sisa kuantitas : ".$kuantitas.' dengan qy akhir : '.$qty_akhir;
-                echo '<br>';
+                // echo "terbukti sisa kuantitas : ".$kuantitas.' dengan qy akhir : '.$qty_akhir;
+                // echo '<br>';
 
                 $query_keluar = "Insert into transaksi_keluar
                                     set
@@ -1410,7 +1411,7 @@ class modelTransaksi extends mysql_db
                                     tgl_update   =CURDATE(),
                                     user_id      ='$user_id'";
 
-                echo "Insert Barang keluar if qty<qty_akhir : ".$query_keluar."<br>";
+                // echo "Insert Barang keluar if qty<qty_akhir : ".$query_keluar."<br>";
 
 
                 $result_keluar = $this->query($query_keluar);
@@ -1450,8 +1451,8 @@ class modelTransaksi extends mysql_db
                 $minus_qty  = -$kuantitas;
                 $minus_hrg  = -$harga_sat;
                 $minus_total= -$total_harga;
-                echo "id trans keluar : ".$id_transk;
-                echo '<br>';
+                // echo "id trans keluar : ".$id_transk;
+                // echo '<br>';
                 $query_full = "Insert into transaksi_full
                                 set
                                 id_brg_trf   ='$id_trans_m',
@@ -1493,7 +1494,7 @@ class modelTransaksi extends mysql_db
             }
 
                 $query_id      = "select id,id_brg_trf, id_opname, kd_brg, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and qty_akhir>0 and thn_ang='$thn_ang'  order by tgl_dok asc, id asc limit 1";
-                echo "Cari Ref. Barang if qty>qty_akhir : ".$query_id."<br>";
+                // echo "Cari Ref. Barang if qty>qty_akhir : ".$query_id."<br>";
                 $result_id     = $this->query($query_id);
                 $row_id        = $this->fetch_array($result_id);
                 $id_trans      = $row_id['id'];
@@ -1503,8 +1504,8 @@ class modelTransaksi extends mysql_db
                 $harga_sat     = $row_id['harga_sat'];
                 $total_harga   = $qty_akhir * $harga_sat;
 
-                echo $id_trans.' '.$qty_akhir.' '.$harga_sat;
-                echo '<br>';
+                // echo $id_trans.' '.$qty_akhir.' '.$harga_sat;
+                // echo '<br>';
 
                 $query_keluar  = "Insert into transaksi_keluar
                                 set
@@ -1539,7 +1540,7 @@ class modelTransaksi extends mysql_db
                                 tgl_update   =CURDATE(),
                                 user_id      ='$user_id'";
 
-                echo "Insert Barang keluar if qty>qty_akhir : ".$query_keluar."<br>";
+                // echo "Insert Barang keluar if qty>qty_akhir : ".$query_keluar."<br>";
                 $result_keluar = $this->query($query_keluar);
                 $id_transk = $this->insert_id();
                 $query_log = "Insert into log_trans_masuk
