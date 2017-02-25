@@ -9,7 +9,7 @@ $user_id=$_SESSION['username'];
 $kd_satker=$_SESSION['kd_lok'];
 $thn_ang=$_SESSION['thn_ang'];
 // Table yang di load
-$table = 'transaksi_masuk';
+$table = 'transaksi_keluar';
 
 // Primary Key table
 $primaryKey = 'id';

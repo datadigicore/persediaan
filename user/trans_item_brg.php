@@ -35,7 +35,7 @@ else {
                               <div class="form-group" >
                                 <label class="col-sm-3 control-label">Nilai <b>Non</b> Persediaan</label>
                                 <div class="col-sm-8">
-                                  <input type="number" min="0" name="edit_nilai_kontrak" class="form-control" id="edit_nilai_kontrak"  placeholder="Masukkan Nilai Non Persediaan" >
+                                  <input type="number" min="1" name="edit_nilai_kontrak" class="form-control" id="edit_nilai_kontrak"  placeholder="Masukkan Nilai Non Persediaan" required>
                                 </div>
                               </div>
                               <div class="form-group" >
@@ -796,11 +796,15 @@ else {
         kode_rek = row.data()[1];
         nama_rek = row.data()[2];
         nilai_kontrak = row.data()[3];
+        nilai_kontrak = nilai_kontrak.replace(".","");
+        nilai_kontrak = nilai_kontrak.replace(".","");
+        nilai_kontrak = nilai_kontrak.replace(".","");
+        jumlah_kontrak = nilai_kontrak.split(",");
         ket_rek = row.data()[4];
          $("#myModal").modal();
          $("#id_edit").val(id);
          $("#detail_rek").val(+kode_rek+" : "+nama_rek);
-         $("#edit_nilai_kontrak").val(nilai_kontrak);
+         $("#edit_nilai_kontrak").val(jumlah_kontrak[0]);
          $("#edit_ket_non_persediaan").val(ket_rek);
       });
         $("#kd_rek_brg_baru").select2({

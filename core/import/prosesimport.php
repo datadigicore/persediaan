@@ -119,8 +119,51 @@ else
               die('Kesalahan! Gagal dalam mengupload file : "'.pathinfo($_FILES['excelupload']['name'],PATHINFO_BASENAME).'": '.$e->getMessage());
             }
             $allDataInSheet = $objPHPExcel->getActiveSheet()->toArray(NULL,TRUE,FALSE,TRUE);
-            $Transaksi->importTransMasuk($allDataInSheet);
-            header('location:../../admin/trans_masuk');
+            if (count($allDataInSheet[10]) == 15) {
+              $Transaksi->temporaryImportTransMasuk($allDataInSheet);
+              header('location:../../admin/temp_import_masuk');
+            }
+            else {
+              $Transaksi->importTransMasuk($allDataInSheet);
+              header('location:../../admin/temp_import_masuk');
+            }
+          }
+        }
+      }
+      else {
+        header('location:../../admin/trans_masuk');
+      }
+    break;
+    case 'importTransKeluar':
+      if(isset($_POST) && !empty($_FILES['fileimport']['name'])) {
+        $path = $_FILES['fileimport']['name'];
+        $ext  = pathinfo($path, PATHINFO_EXTENSION);
+        if($ext != 'xls' && $ext != 'xlsx') {
+          echo "Kesalahan File yang di Upload Tidak Sesuai";
+          header('location:../../user/trans_masuk');
+        }
+        else {
+          $time        = time();
+          $target_dir  = $path_upload;
+          $target_name = basename(date("Ymd-His-\T\R\A\N\S\M\A\S\U\K.",$time).$ext);
+          $target_file = $target_dir . $target_name;
+          $response    = move_uploaded_file($_FILES['fileimport']['tmp_name'],$target_file);
+          if($response) {
+            try {
+              $objPHPExcel = PHPExcel_IOFactory::load($target_file);
+            }
+            catch(Exception $e) {
+              die('Kesalahan! Gagal dalam mengupload file : "'.pathinfo($_FILES['excelupload']['name'],PATHINFO_BASENAME).'": '.$e->getMessage());
+            }
+            $allDataInSheet = $objPHPExcel->getActiveSheet()->toArray(NULL,TRUE,FALSE,TRUE);
+            if (count($allDataInSheet[10]) == 11) {
+              $Transaksi->temporaryImportTransKeluar($allDataInSheet);
+              header('location:../../admin/temp_import_keluar');
+            }
+            else {
+              $Transaksi->importTransKeluar($allDataInSheet);
+              header('location:../../admin/temp_import_keluar');
+            }
           }
         }
       }

@@ -12,11 +12,11 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Persediaan Masuk
+            Persediaan Keluar
             <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-compress"></i> Transaksi Masuk</a></li>
+            <li class="active"><a href="#"><i class="fa fa-compress"></i> Transaksi Keluar</a></li>
           </ol>
         </section>
         <section class="content">
@@ -24,7 +24,7 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Daftar Transaksi Masuk</h3> <a href="#importModal" data-toggle="modal" class="btn btn-sm btn-success pull-right" style="margin-right: 12px;padding: 4px 25px">Import</a>
+                  <h3 class="box-title">Daftar Transaksi Keluar</h3> <a href="#importModal" data-toggle="modal" class="btn btn-sm btn-success pull-right" style="margin-right: 12px;padding: 4px 25px">Import</a>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
@@ -72,11 +72,11 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <form action="../core/import/prosesimport" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="manage" value="importTransMasuk">
+            <input type="hidden" name="manage" value="importTransKeluar">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true" style="color:white">×</span></button>
-              <h4 class="modal-title">Import Transaksi Masuk</h4>
+              <h4 class="modal-title">Import Transaksi Keluar</h4>
             </div>
             <div class="modal-body">
               <div class="form-group">
@@ -86,7 +86,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <a href="../dist/uploads/Template_Import_Masuk.zip" class="col-sm-4 pull-left btn btn-md btn-warning"><i class="fa fa-download"></i>&nbsp;&nbsp;&nbsp;Download Template</a>
+              <a href="../dist/uploads/Template_Import_Keluar.zip" class="col-sm-4 pull-left btn btn-md btn-warning"><i class="fa fa-download"></i>&nbsp;&nbsp;&nbsp;Download Template</a>
               <button type="submit" class="col-sm-2 pull-right btn btn-flat btn-success">Submit</button>
             </div>
           </form>
@@ -122,7 +122,7 @@
       var table;
       $(function () {
         $(".select2").select2();
-        $("li#trans_masuk").addClass("active");
+        $("li#trans_keluar").addClass("active");
         $('#tgl_dok').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
         $('#tgl_buku').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
         $('#tgl_dok').datepicker({
@@ -143,7 +143,7 @@
           "aaSorting": [[ 0, 'desc' ]],
           "processing": false,
           "serverSide": true,
-          "ajax": "../core/loadtable/admin_masuk",
+          "ajax": "../core/loadtable/admin_keluar",
           "columnDefs":
           [
             {"targets": 0,
@@ -158,7 +158,6 @@
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                   '<button id="btntmbh" class="btn btn-info btn-flat btn-xs"><i class="fa fa-plus"></i> Lihat item</button>'+
-                                  // '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                 '</div>',
              "targets": [7],"targets": 7 },
           ],

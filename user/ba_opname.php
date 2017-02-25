@@ -34,6 +34,13 @@
                         <select name="satker" id="satker" class="form-control">
                         </select>
                       </div>
+                    </div>  
+                    <div class="box-body">
+                      <label class="col-sm-2 control-label">Kode Bagian / Sub-Unit </label>
+                      <div class="col-sm-4">
+                        <select name="kd_ruang" id="kd_ruang" class="form-control">
+                        </select>
+                      </div>
                     </div>
                     <div class="box-body" id="bln"  >
                       <label class="col-sm-2 control-label">Semester</label>
@@ -83,8 +90,18 @@
         $('#tgl_akhir').datepicker({
           format: "dd-mm-yyyy"
         });             
-      
 
+        function getBidang(){
+          $.ajax({
+              type: "post",
+              url: '../core/transaksi/prosestransaksi',
+              data: {manage:'get_bidang_report',kode_satker:"<?php echo $_SESSION['kd_lok']; ?>",kode_ruang:"<?php echo $_SESSION['kd_ruang'] ?>"},
+              success: function (output) {
+                $('#kd_ruang').html(output);
+              }
+            });
+        }
+        getBidang();
         $("input[id=tanggal]").click(function()
         {
 
@@ -116,6 +133,9 @@
             $('#satker').html(output);
           }
        });
+      $('#satker').click(function(){
+        $kd_satker = $('#satker').val();
+      });
       $('form').on('submit', function() {
         if(document.getElementById("satker").value=="")
         {
