@@ -261,6 +261,7 @@ class modelTransaksi extends mysql_db
         $this->clear_log_temp_import_masuk();
         $error_message = array();
         $value['kd_lokasi'] = $data[1][B];
+        $value['kd_ruang'] = $data[2][B];
         $cekkdlokasi        = "SELECT NamaSatker FROM satker WHERE kode = '$value[kd_lokasi]'";
         $result             = $this->query($cekkdlokasi);
         if ($result == true) {
@@ -268,22 +269,22 @@ class modelTransaksi extends mysql_db
             $value['nm_satker'] = $assocResult['NamaSatker'];
             $value['user_id']   = $_SESSION['username'];
             $value['thn_ang']   = $_SESSION['thn_ang'];
-            $value['no_dok']    = $data[1][B].' - '.$data[2][B];
+            $value['no_dok']    = $data[1][B].' - '.$data[3][B];
             $cekNoDok            = "SELECT no_dok FROM transaksi_masuk WHERE no_dok = '$value[no_dok]' AND thn_ang = '$value[thn_ang]' LIMIT 1";
             $resultCekNoDok      = $this->query($cekNoDok);
             if (!empty($resultCekNoDok->num_rows)) {
                 array_push($error_message, "Nomor Dokumen Telah Digunakan");
             }
-            $tgldok             = split('-', $data[4][B]);
+            $tgldok             = split('-', $data[5][B]);
             $value['tgl_dok']   = $tgldok[2].'-'.$tgldok[1].'-'.$tgldok[0];
-            $tglbuku            = split('-', $data[5][B]);
+            $tglbuku            = split('-', $data[6][B]);
             $value['tgl_buku']  = $tglbuku[2].'-'.$tglbuku[1].'-'.$tglbuku[0];
-            $value['no_bukti']  = $data[2][B];
-            $value['jns_trans'] = $data[3][B];
+            $value['no_bukti']  = $data[3][B];
+            $value['jns_trans'] = $data[4][B];
             if ($value['tgl_dok'] > $value['tgl_buku']) {
                 echo "Melebihi";
             }
-            $value['keterangan']    = $data[6][B];
+            $value['keterangan']    = $data[7][B];
             $arrayCount             = count($data);
             for ($i=10; $i <= $arrayCount; $i++) {
                 $value['kd_brg'] = trim($data[$i]["A"]," \t\n\r\0\x0B\xA0\x0D\x0A");
@@ -338,8 +339,8 @@ class modelTransaksi extends mysql_db
                     array_push($error_message, "Cek Row Excel No $i");
                 }
                 $value['error_message'] = implode(', ', $error_message);
-                $replace = "INSERT INTO temp_import_masuk (kd_lokasi, nm_satker, user_id, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, jns_trans, keterangan, kd_brg, nm_brg, kd_perk, nm_perk, kd_sskel, nm_sskel, spesifikasi, qty, qty_akhir, satuan, harga_sat, total_harga, nilai_kontrak, ket_rek, kode_rekening, nama_rekening, error_message, tgl_update) VALUES ";
-                $values .= "('".$value['kd_lokasi']."','".$value['nm_satker']."','".$value['user_id']."','".$value['thn_ang']."','".$value['no_dok']."','".$value['tgl_dok']."','".$value['tgl_buku']."','".$value['no_bukti']."','".$value['jns_trans']."','".$value['keterangan']."','".$value['kd_brg']."','".$value['nm_brg']."','".$value['kd_perk']."','".$value['nm_perk']."','".$value['kd_sskel']."','".$value['nm_sskel']."','".$value['spesifikasi']."','".$value['qty']."','".$value['qty_akhir']."','".$value['satuan']."','".$value['harga_sat']."','".$value['total_harga']."','".$value['nilai_kontrak']."','".$value['ket_rek']."','".$value['kode_rekening']."','".$value['nama_rekening']."','".$value['error_message']."',NOW()),";
+                $replace = "INSERT INTO temp_import_masuk (kd_lokasi, kd_ruang, nm_satker, user_id, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, jns_trans, keterangan, kd_brg, nm_brg, kd_perk, nm_perk, kd_sskel, nm_sskel, spesifikasi, qty, qty_akhir, satuan, harga_sat, total_harga, nilai_kontrak, ket_rek, kode_rekening, nama_rekening, error_message, tgl_update) VALUES ";
+                $values .= "('".$value['kd_lokasi']."','".$value['kd_ruang']."','".$value['nm_satker']."','".$value['user_id']."','".$value['thn_ang']."','".$value['no_dok']."','".$value['tgl_dok']."','".$value['tgl_buku']."','".$value['no_bukti']."','".$value['jns_trans']."','".$value['keterangan']."','".$value['kd_brg']."','".$value['nm_brg']."','".$value['kd_perk']."','".$value['nm_perk']."','".$value['kd_sskel']."','".$value['nm_sskel']."','".$value['spesifikasi']."','".$value['qty']."','".$value['qty_akhir']."','".$value['satuan']."','".$value['harga_sat']."','".$value['total_harga']."','".$value['nilai_kontrak']."','".$value['ket_rek']."','".$value['kode_rekening']."','".$value['nama_rekening']."','".$value['error_message']."',NOW()),";
                 $error_message = array();
             }
             $query  = str_replace("''", "NULL", $replace.$values);
@@ -1150,8 +1151,8 @@ class modelTransaksi extends mysql_db
                                 kd_perk,
                                 nm_perk,
                                 qty_akhir,
-                                harga_sat 
-                        FROM  transaksi_masuk 
+                                harga_sat
+                        FROM  transaksi_masuk
                         WHERE kd_brg='$kd_brg'
                               and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker'
                               and qty_akhir>0
@@ -1246,8 +1247,8 @@ class modelTransaksi extends mysql_db
                         user_id    ='$user_id'";
                 $result_log      = $this->query($query_log);
 
-                $query_upd_masuk = "UPDATE transaksi_masuk 
-                                    SET qty_akhir = qty_akhir - $kuantitas 
+                $query_upd_masuk = "UPDATE transaksi_masuk
+                                    SET qty_akhir = qty_akhir - $kuantitas
                                     WHERE concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' AND id='$id_trans_m'  ";
                 $result_upd_masuk= $this->query($query_upd_masuk);
 
