@@ -85,26 +85,14 @@
                           <option value="excel">Excel</option>
                         </select>
                       </div>
-                    </div>  
-<!--                     <div class="box-body" id="bln" style="display: none;">
-                      <label class="col-sm-2 control-label">Bulan</label>
-                      <div class="col-sm-2">
-                        <select name="bulan" id="bulan" class="form-control">
-                          <option value="01">Januari</option>
-                          <option value="02">Februari</option>
-                          <option value="03">Maret</option>
-                          <option value="04">April</option>
-                          <option value="05">Mei</option>
-                          <option value="06">Juni</option>
-                          <option value="07">Juli</option>
-                          <option value="08">Agustus</option>
-                          <option value="09">September</option>
-                          <option value="10">Oktober</option>
-                          <option value="11">November</option>
-                          <option value="12">Desember</option>
+                    </div> 
+                    <div class="box-body">
+                      <label class="col-sm-2 control-label">Tanggal Cetak Laporan</label>
+                      <div class="col-sm-4">
+                        <input type="text" name="tgl_cetak" class="form-control" id="tgl_cetak" placeholder="" required>
                         </select>
                       </div>
-                    </div>  -->
+                    </div>  
                     <div class="box-footer">
                       <!-- <button type="Reset" class="btn btn-default">Reset</button> -->
                       <button type="submit" class="btn btn-info pull-right">Submit</button>
