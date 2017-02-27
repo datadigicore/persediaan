@@ -907,7 +907,7 @@ else {
         redirectTime = "2600";
         redirectURL = "trans_masuk";
         id_row = row.data()[0];
-        managedata = "hapusTransMasuk";
+        managedata = "hapusRekening";
         job=confirm("Anda yakin ingin menghapus data ini?");
         if(job!=true)
         {
