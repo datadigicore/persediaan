@@ -1168,7 +1168,7 @@ class modelTransaksi extends mysql_db
             return $result;
         }
         else{
-            $query_dok = "select kd_lokasi, kd_ruang, kd_lok_msk, kd_ruang_msk, nm_satker_msk, tgl_dok, tgl_buku, jns_trans, keterangan from transfer where no_dok='$no_dok' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' LIMIT 1";
+            $query_dok = "select id, kd_lokasi, kd_ruang, kd_lok_msk, kd_ruang_msk, nm_satker_msk, nm_ruang_msk, tgl_dok, tgl_buku, jns_trans, keterangan from transfer where no_dok='$no_dok' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' LIMIT 1";
             // print_r($query_dok);
             $result_dok = $this->query($query_dok);
             if($this->num_rows($result_dok)==0)
@@ -1177,25 +1177,26 @@ class modelTransaksi extends mysql_db
                 echo "Tidak Dapat Menambah Barang Setelah Opname / Seluruh Item Telah Dihapus, buat Dokumen Baru!";
                 exit();
             }
-            $dok = $this->fetch_array($result_dok);
-
-            $kd_lok_msk = $dok['kd_lok_msk'];
-            $kd_ruang = $dok['kd_ruang'];
-            $kd_ruang_msk = $dok['kd_ruang_msk'];
+            $dok           = $this->fetch_array($result_dok);
+            
+            $transfer_id    = $dok['id'];
+            $kd_lok_msk    = $dok['kd_lok_msk'];
+            $nm_ruang_msk  = $dok['nm_ruang_msk'];
+            $kd_ruang      = $dok['kd_ruang'];
+            $kd_ruang_msk  = $dok['kd_ruang_msk'];
             $nm_satker_msk = $dok['nm_satker_msk'];
             // if($kd_lok_msk!="") echo "Satker Tujuan : ".$kd_lok_msk;
-
-            $kd_satker = $dok['kd_lokasi'].$dok['kd_ruang'];
-
-            $kd_lokasi = $dok['kd_lokasi'];
-            $tgl_dok = $dok['tgl_dok'];
-            $tgl_buku = $dok['tgl_buku'];
-            $jns_trans = $dok['jns_trans'];
+            
+            $kd_satker  = $dok['kd_lokasi'].$dok['kd_ruang'];
+            $kd_lokasi  = $dok['kd_lokasi'];
+            $tgl_dok    = $dok['tgl_dok'];
+            $tgl_buku   = $dok['tgl_buku'];
+            $jns_trans  = $dok['jns_trans'];
             $keterangan = $dok['keterangan'];
-            $kd_brg = $data['kd_brg'];
-
-            $kuantitas = $data['kuantitas'];
-            $harga_sat = $data['harga_sat'];
+            $kd_brg     = $data['kd_brg'];
+            
+            $kuantitas  = $data['kuantitas'];
+            $harga_sat  = $data['harga_sat'];
             $query_id = "select id,id_brg_trf, id_opname, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, satuan, kd_perk, nm_perk, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and qty_akhir>0 and thn_ang='$thn_ang' order by tgl_dok asc, id asc limit 1";
             $res_id = $this->query($query_id);
             $row_id = $this->fetch_array($res_id);
@@ -1214,6 +1215,7 @@ class modelTransaksi extends mysql_db
                         kd_ruang='$ruang_asal',
                         kd_lok_msk='$kd_lok_msk',
                         kd_ruang_msk='$kd_ruang_msk',
+                        nm_ruang_msk='$nm_ruang_msk',
                         nm_satker='$nm_satker',
                         nm_satker_msk='$nm_satker_msk',
                         thn_ang='$thn_ang',
@@ -1614,6 +1616,7 @@ class modelTransaksi extends mysql_db
     public function trnsaksi_keluar($data)
     {
         $kd_lokasi = $data['kd_lokasi'];
+        $transfer_id = $data['id_brg_transfer'];
         $kd_satker = $data['kd_lokasi'].$data['ruang_asal'];
         $nm_satker = $data['nm_satker'];
         // $kd_ruang = $data['kd_ruang'];
@@ -1632,7 +1635,7 @@ class modelTransaksi extends mysql_db
             $nama_tabel="transaksi_keluar";
         }
         $this->query("BEGIN");
-        $query_dok = "select kd_lokasi, kd_ruang, kd_lok_msk, kd_ruang_msk, nm_satker_msk, tgl_dok, tgl_buku, jns_trans, keterangan from ".$nama_tabel." where no_dok='$no_dok' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' LIMIT 1";
+        $query_dok = "select kd_lokasi, kd_ruang, kd_lok_msk, kd_ruang_msk, nm_satker_msk, nm_ruang_msk, tgl_dok, tgl_buku, jns_trans, keterangan from ".$nama_tabel." where no_dok='$no_dok' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' LIMIT 1";
         print_r($query_dok);
         $result_dok = $this->query($query_dok);
         if($this->num_rows($result_dok)==0)
@@ -1646,6 +1649,7 @@ class modelTransaksi extends mysql_db
         $kd_lok_msk = $dok['kd_lok_msk'];
         $kd_ruang = $dok['kd_ruang'];
         $kd_ruang_msk = $dok['kd_ruang_msk'];
+        $nm_ruang_msk = $dok['nm_ruang_msk'];
         $nm_satker_msk = $dok['nm_satker_msk'];
         if($kd_lok_msk!="") echo "Satker Tujuan : ".$kd_lok_msk;
 
@@ -1732,11 +1736,13 @@ class modelTransaksi extends mysql_db
                 $query_keluar = "Insert into transaksi_keluar
                                     set
                                     id_brg_trf='$id_brg_trf',
+                                    transfer_id='$transfer_id',
                                     kd_lokasi='$kd_lokasi',
                                     kd_ruang='$kd_ruang',
                                     kd_lok_msk='$kd_lok_msk',
                                     kd_ruang_msk='$kd_ruang_msk',
                                     nm_satker_msk='$nm_satker_msk',
+                                    nm_ruang_msk='$nm_ruang_msk',
                                     id_masuk = '$id_trans_m',
                                     id_opname = '$id_opname',
                                     nm_satker='$nm_satker',
@@ -1766,12 +1772,14 @@ class modelTransaksi extends mysql_db
                     $query_trf = "Insert into transaksi_masuk
                                     set
                                     id_brg_trf='$id_trans_m',
+                                    transfer_id='$transfer_id',
                                     kd_lokasi='$kd_lok_msk',
                                     kd_lok_msk='$kd_lokasi',
                                     kd_ruang='$kd_ruang_msk',
                                     kd_ruang_msk='$kd_ruang',
                                     nm_satker='$nm_satker_msk',
                                     nm_satker_msk='$nm_satker',
+                                    nm_ruang_msk='$nm_ruang_msk',
                                     thn_ang='$thn_ang',
                                     no_dok='$no_dok',
                                     tgl_dok='$tgl_dok',
@@ -1846,6 +1854,7 @@ class modelTransaksi extends mysql_db
                                 kd_ruang_msk='$kd_ruang_msk',
                                 nm_satker='$nm_satker',
                                 nm_satker_msk='$nm_satker_msk',
+                                nm_ruang_msk='$nm_ruang_msk',
                                 thn_ang='$thn_ang',
                                 no_dok='$no_dok',
                                 tgl_dok='$tgl_dok',
@@ -1872,11 +1881,13 @@ class modelTransaksi extends mysql_db
                                     set
                                     id_masuk='$id_trans',
                                     id_brg_trf='$id_trans_m',
+                                    transfer_id='$transfer_id',
                                     kd_lokasi='$kd_lok_msk',
                                     kd_lok_msk='$kd_lokasi',
                                     kd_ruang='$kd_ruang_msk',
                                     kd_ruang_msk='$kd_ruang',
                                     nm_satker='$nm_satker_msk',
+                                    nm_ruang_msk='$nm_ruang_msk',
                                     nm_satker_msk='$nm_satker',
                                     thn_ang='$thn_ang',
                                     no_dok='$no_dok',
@@ -1920,9 +1931,11 @@ class modelTransaksi extends mysql_db
                 $query_keluar = "Insert into transaksi_keluar
                                 set
                                 id_brg_trf='$id_brg_trf',
+                                transfer_id='$transfer_id',
                                 kd_lok_msk='$kd_lok_msk',
                                 kd_ruang_msk='$kd_ruang_msk',
                                 nm_satker_msk='$nm_satker_msk',
+                                nm_ruang_msk='$nm_ruang_msk',
                                 kd_lokasi='$kd_lokasi',
                                 kd_ruang='$kd_ruang',
                                 id_masuk = '$id_trans',
@@ -1953,11 +1966,13 @@ class modelTransaksi extends mysql_db
                 $query_trf = "Insert into transaksi_masuk
                                     set
                                     id_brg_trf='$id_trans_m',
+                                    transfer_id='$transfer_id',
                                     kd_lokasi='$kd_lok_msk',
                                     kd_lok_msk='$kd_lokasi',
                                     kd_ruang='$kd_ruang_msk',
                                     kd_ruang_msk='$kd_ruang',
                                     nm_satker='$nm_satker_msk',
+                                    nm_ruang_msk='$nm_ruang_msk',
                                     nm_satker_msk='$nm_satker',
                                     thn_ang='$thn_ang',
                                     no_dok='$no_dok',
@@ -2027,6 +2042,7 @@ class modelTransaksi extends mysql_db
                                 kd_lok_msk='$kd_lok_msk',
                                 nm_satker='$nm_satker',
                                 nm_satker_msk='$nm_satker_msk',
+                                nm_ruang_msk='$nm_ruang_msk',
                                 thn_ang='$thn_ang',
                                 no_dok='$no_dok',
                                 tgl_dok='$tgl_dok',
@@ -2053,11 +2069,13 @@ class modelTransaksi extends mysql_db
                                     set
                                     id_masuk='$id_trans',
                                     id_brg_trf='$id_trans_m',
+                                    transfer_id='$transfer_id',
                                     kd_lokasi='$kd_lok_msk',
                                     kd_ruang_msk='$kd_ruang',
                                     kd_lok_msk='$kd_lokasi',
                                     kd_ruang='$kd_ruang_msk',
                                     nm_satker='$nm_satker_msk',
+                                    nm_ruang_msk='$nm_ruang_msk',
                                     nm_satker_msk='$nm_satker',
                                     thn_ang='$thn_ang',
                                     no_dok='$no_dok',
