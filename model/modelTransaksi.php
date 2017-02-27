@@ -2701,6 +2701,10 @@ class modelTransaksi extends mysql_db
             return $result;
     }
 
+    public function hapus_rekening($id){
+        $query = "delete from transaksi_masuk where id='$id' ";
+        return $this->query($query);
+    }
 
     public function hapus_transaksi_masuk($data)
     {
