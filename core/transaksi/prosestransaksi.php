@@ -87,6 +87,7 @@ else
 			$trf = $Transaksi->get_transfer_detail($id);
 			// print_r($trf);
 			$data = array(
+					"id_brg_transfer" => $id,
 					"kd_lokasi" => $trf['kd_lokasi'],
 					"ruang_asal"=> $_SESSION['kd_ruang'],
 					"kd_lok_msk"=> $trf['kd_lok_msk'],
