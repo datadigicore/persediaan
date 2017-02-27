@@ -257,7 +257,7 @@ class modelReport extends mysql_db
                     array('nama_atasan'             => $pj['nama'], 
                           'nip_atasan'              => $pj['nip'], 
                           'nama_skpd'               => $data_sakter['NamaSatker'], 
-                          'tanggal_cetak'           => date("d-m-Y"), 
+                          'tanggal_cetak'           => $tgl_cetak, 
                           'nama_penyimpan_barang'   => $pj['nama2'], 
                           'nip_penyimpan_barang'    => $pj['nip2']
                     );
@@ -300,6 +300,7 @@ class modelReport extends mysql_db
         $lingkup            = $data['lingkup'];
         $tgl_awal           = $data['tgl_awal'];
         $tgl_akhir          = $data['tgl_akhir'];
+        $tgl_cetak          = $data['tgl_cetak'];
         $jenis              = $data['format'];
         $rinci_per_dok      = $data['rinci_per_dok'];
         $date               = $this->cek_periode($data);
@@ -413,7 +414,7 @@ class modelReport extends mysql_db
                     array('nama_atasan'             => $pj['nama'], 
                           'nip_atasan'              => $pj['nip'], 
                           'nama_skpd'               => $data_sakter['NamaSatker'], 
-                          'tanggal_cetak'           => date("d-m-Y"), 
+                          'tanggal_cetak'           => $tgl_cetak, 
                           'nama_penyimpan_barang'   => $pj['nama2'], 
                           'nip_penyimpan_barang'    => $pj['nip2']
                     );
@@ -498,7 +499,7 @@ class modelReport extends mysql_db
                   <td style="text-align:right; font-weight:bold">'.number_format($nilai_total,2,",",".").'</td>
                 </tr>';
         echo "</table>";
-        $this->cetak_nama_pj($kd_lokasi);
+        $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
         $html = ob_get_contents(); 
         ob_end_clean();
         $mpdf=new mPDF('utf-8', 'A4-L');
@@ -511,6 +512,7 @@ class modelReport extends mysql_db
             $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
             $kd_lokasi = $data['kd_lokasi'].$kd_ruang;
             $satker_asal = $data['satker_asal'];
+            $tgl_cetak = $data['tgl_cetak'];
             $thn_ang = $data['thn_ang'];
             $lingkup = $data['lingkup'];
 
@@ -819,7 +821,7 @@ class modelReport extends mysql_db
             $this->cetak_header($data,"buku_persediaan",$kd_lokasi,$kode_brg['kd_brg'],"");
             $this->get_query($data,"buku_persediaan",$kd_lokasi,$kode_brg['kd_brg'],"","");
             echo '<pagebreak />';
-            // $this->cetak_nama_pj($kd_lokasi);
+            // $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
         }
         $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
         ob_end_clean();
@@ -844,6 +846,7 @@ class modelReport extends mysql_db
 
         $format = $data_lp['format'];
         $thn_ang = $data_lp['thn_ang']; 
+        $tgl_cetak = $data_lp['tgl_cetak']; 
         $kd_ruang = str_replace(" ", "", $data_lp['kd_ruang']);
         $kd_lokasi = $data_lp['kd_lokasi'].$kd_ruang;
         $date = $this->cek_periode($data_lp);
@@ -861,7 +864,7 @@ class modelReport extends mysql_db
           $this->get_query($data_lp,"laporan_persediaan",$kd_lokasi2,"",$nm_satker,$no_urut);
         }
         echo '</table>';            
-        $this->cetak_nama_pj($kd_lokasi);
+        $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
 
         $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
         ob_end_clean();
@@ -889,6 +892,7 @@ class modelReport extends mysql_db
         $bln_akhir = $data['bln_akhir'];
         $tgl_awal = $data['tgl_awal'];
         $tgl_akhir = $data['tgl_akhir'];
+        $tgl_cetak = $data['tgl_cetak'];
         $thn_ang_lalu = intval($thn_ang)-1;
         $kd_brg = $data['kd_brg']; 
         $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
@@ -1049,7 +1053,7 @@ class modelReport extends mysql_db
                 {
                 echo '<pagebreak />';
                 }
-                $this->cetak_nama_pj($kd_lokasi);
+                $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
 
                 // $this->hitung_brg_rusak($kd_lokasi);
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
@@ -1084,6 +1088,7 @@ class modelReport extends mysql_db
                 $kd_lokasi = $data_lp['kd_lokasi'];
                 $satker_asal = $data_lp['satker_asal'];
                 $lingkup = $data_lp['lingkup'];
+                $tgl_cetak = $data_lp['tgl_cetak'];
                 $no_urut = 0;
                 $this->cetak_header($data_lp,"rincian_persediaan2",$kd_lokasi,"",$no);
                 $query = $this->query_bidang($lingkup,$kd_lokasi);
@@ -1101,7 +1106,7 @@ class modelReport extends mysql_db
                 }
                 echo '</table>';
                    
-                $this->cetak_nama_pj($kd_lokasi);
+                $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
                 $html = ob_get_contents();
                 ob_end_clean();
                 if($format=="excel"){
@@ -1124,6 +1129,7 @@ class modelReport extends mysql_db
         $kd_lokasi = $data_lp['kd_lokasi'].$kd_ruang;
         $satker_asal = $data_lp['satker_asal'];
         $format = $data_lp['format'];
+        $tgl_cetak = $data_lp['tgl_cetak'];
         $lingkup = $data_lp['lingkup'];
         ob_start(); 
         $this->cetak_header($data_lp,"neraca",$kd_lokasi,"",$no);
@@ -1140,7 +1146,7 @@ class modelReport extends mysql_db
                   // echo '<pagebreak />'; 
         }
         echo '</table>';
-        $this->cetak_nama_pj($kd_lokasi);
+        $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
         $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
         ob_end_clean();
         if($format=="excel"){
@@ -1181,7 +1187,7 @@ class modelReport extends mysql_db
                 }
                 echo '</table>';
 
-                $this->cetak_nama_pj($kd_lokasi);
+                $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
 
                 $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
                 ob_end_clean();
@@ -1240,6 +1246,7 @@ class modelReport extends mysql_db
         $format = $data['format'];
         $tgl_awal = $data['tgl_awal'];
         $tgl_akhir = $data['tgl_akhir'];
+        $tgl_cetak = $data['tgl_cetak'];
         $thn_ang = $data['thn_ang'];
 
         
@@ -1287,7 +1294,7 @@ class modelReport extends mysql_db
                 array('nama_atasan' => $pj['nama'], 
                       'nip_atasan' => $pj['nip'], 
                       'nama_skpd' => $data_sakter['NamaSatker'], 
-                      'tanggal_cetak' => date("d-m-Y"), 
+                      'tanggal_cetak' => $tgl_cetak, 
                       'nama_penyimpan_barang' => $pj['nama2'], 
                       'nip_penyimpan_barang' => $pj['nip2']
                       );
@@ -1340,7 +1347,7 @@ class modelReport extends mysql_db
 
         $this->cetak_header($data,"pengeluaran_brg",$kd_lokasi,"","");
         $this->get_query($data,"pengeluaran_brg",$kd_lokasi,"",$nm_satker,"");
-        $this->cetak_nama_pj($kd_lokasi);
+        $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
         $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
         ob_end_clean();
         if($format=="excel") {
@@ -1388,7 +1395,7 @@ class modelReport extends mysql_db
                 array('nama_atasan' => $pj['nama'], 
                       'nip_atasan' => $pj['nip'], 
                       'nama_skpd' => $data_sakter['NamaSatker'], 
-                      'tanggal_cetak' => date("d-m-Y"), 
+                      'tanggal_cetak' => $tgl_cetak, 
                       'nama_penyimpan_barang' => $pj['nama2'], 
                       'nip_penyimpan_barang' => $pj['nip2'],
                       'grand_total' =>$total
@@ -1429,6 +1436,7 @@ class modelReport extends mysql_db
         $kd_brg = $data['kd_brg'];
         $tgl_awal = $data['tgl_awal'];
         $tgl_akhir = $data['tgl_akhir'];
+        $tgl_cetak = $data['tgl_cetak'];
         $bulan = $data['bulan']; 
         $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
         $kd_lokasi = $data['kd_lokasi'].$kd_ruang;
@@ -1438,7 +1446,7 @@ class modelReport extends mysql_db
         
         $this->cetak_header($data,"buku_brg_pakai_habis",$kd_lokasi,"","");
         $this->get_query($data,"buku_brg_pakai_habis",$kd_lokasi,"",$nm_satker,"");       
-        $this->cetak_nama_pj($kd_lokasi);
+        $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
 
         $html = ob_get_contents(); 
         ob_end_clean();
@@ -1521,7 +1529,7 @@ class modelReport extends mysql_db
                 array('nama_atasan' => $pj['nama'], 
                       'nip_atasan' => $pj['nip'], 
                       'nama_skpd' => $data_sakter['NamaSatker'], 
-                      'tanggal_cetak' => date("d-m-Y"), 
+                      'tanggal_cetak' => $tgl_cetak, 
                       'nama_penyimpan_barang' => $pj['nama2'], 
                       'nip_penyimpan_barang' => $pj['nip2']
                       );
@@ -1566,6 +1574,7 @@ class modelReport extends mysql_db
         $format = $data['format'];
         $tgl_awal = $data['tgl_awal'];
         $tgl_akhir = $data['tgl_akhir'];
+        $tgl_cetak = $data['tgl_cetak'];
         $thn_ang = $data['thn_ang'];
 
         $hasil = $this->query_brg($kd_brg,$kd_lokasi);
@@ -1573,7 +1582,7 @@ class modelReport extends mysql_db
         {
             $this->cetak_header($data,"kartu_brg",$kd_lokasi,$kode_brg['kd_brg'],"");
             $this->get_query($data,"kartu_brg",$kd_lokasi,$kode_brg['kd_brg'],$nm_satker,"");
-            $this->cetak_nama_pj($kd_lokasi);
+            $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
             echo '<pagebreak />';
         }
 
@@ -1658,7 +1667,7 @@ class modelReport extends mysql_db
                 array('nama_atasan' => $pj['nama'], 
                       'nip_atasan' => $pj['nip'], 
                       'nama_skpd' => $data_sakter['NamaSatker'], 
-                      'tanggal_cetak' => date("d-m-Y"), 
+                      'tanggal_cetak' => $tgl_cetak, 
                       'nama_penyimpan_barang' => $pj['nama2'], 
                       'nip_penyimpan_barang' => $pj['nip2']
                       );
@@ -1704,6 +1713,7 @@ class modelReport extends mysql_db
         $kd_brg = $data['kd_brg'];
         $tgl_awal = $data['tgl_awal'];
         $tgl_akhir = $data['tgl_akhir'];
+        $tgl_cetak = $data['tgl_cetak'];
         $bulan = $data['bulan']; 
         $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
         $kd_lokasi = $data['kd_lokasi'].$kd_ruang;
@@ -1801,7 +1811,7 @@ class modelReport extends mysql_db
                 array('nama_atasan' => $pj['nama'], 
                       'nip_atasan' => $pj['nip'], 
                       'nama_skpd' => $data_sakter['NamaSatker'], 
-                      'tanggal_cetak' => date("d-m-Y"), 
+                      'tanggal_cetak' => $tgl_cetak, 
                       'nama_penyimpan_barang' => $pj['nama2'], 
                       'nip_penyimpan_barang' => $pj['nip2']
                       );
@@ -1837,7 +1847,7 @@ class modelReport extends mysql_db
                 echo '<pagebreak />';  
             }
 
-                    $this->cetak_nama_pj($kd_lokasi);
+                    $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
 
                     $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
                     ob_end_clean();
@@ -1860,6 +1870,7 @@ class modelReport extends mysql_db
         $thn_ang = $data['thn_ang'];
         $bln_awal = $data['bln_awal'];
         $bln_akhir = $data['bln_akhir'];
+        $tgl_cetak = $data['tgl_cetak'];
         $date = $this->cek_periode($data);
         $satker_asal = $data['satker_asal'];
 
@@ -1951,7 +1962,7 @@ class modelReport extends mysql_db
                 array('nama_atasan' => $pj['nama'], 
                       'nip_atasan' => $pj['nip'], 
                       'nama_skpd' => $data_sakter['NamaSatker'], 
-                      'tanggal_cetak' => date("d-m-Y"), 
+                      'tanggal_cetak' => $tgl_cetak, 
                       'nama_penyimpan_barang' => $pj['nama2'], 
                       'nip_penyimpan_barang' => $pj['nip2']
                       );
@@ -1979,7 +1990,7 @@ class modelReport extends mysql_db
             ob_start(); 
             $this->cetak_header($data,"pp_brg_pakai_habis",$kd_lokasi,"","");
             $this->get_query($data,"pp_brg_pakai_habis",$kd_lokasi,"",$nm_satker,"");
-            $this->cetak_nama_pj($kd_lokasi);
+            $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
             $mpdf=new mPDF('utf-8', 'A4-L');
             $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
             ob_end_clean(); 
@@ -2828,6 +2839,7 @@ class modelReport extends mysql_db
 
             $tgl_awal = $data['tgl_awal'];
             $tgl_akhir = $data['tgl_akhir'];
+            $tgl_cetak = $data['tgl_cetak'];
             $bulan = $data['bulan'];
 
             $thn_ang = $data['thn_ang'];
@@ -3521,7 +3533,7 @@ class modelReport extends mysql_db
                 echo '</table>';
                 $line_acc = $header+$no;
                 if($line_acc>=20) echo '<pagebreak />';
-                $this->cetak_nama_pj($kd_lokasi);
+                $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
            
 
         }
@@ -3943,6 +3955,7 @@ public function getupb($kd_lokasi){
         $jenis = $data['jenis'];
         $tgl_awal = $data['tgl_awal'];
         $tgl_akhir = $data['tgl_akhir'];
+        $tgl_cetak = $data['tgl_cetak'];
         $bulan = $data['bulan'];
         $bln_awal = $data['bln_awal'];
         $bln_akhir = $data['bln_akhir'];
@@ -4173,6 +4186,7 @@ public function getupb($kd_lokasi){
         $bulan = $data['bulan'];
         $tgl_awal = $data['tgl_awal'];
         $tgl_akhir = $data['tgl_akhir'];
+        $tgl_cetak = $data['tgl_cetak'];
         $bln_awal = $data['bln_awal'];
         $bln_akhir = $data['bln_akhir'];
         $thn_ang = $data['thn_ang'];
@@ -4310,7 +4324,7 @@ public function getupb($kd_lokasi){
               <tr>
                 <td style="text-align: center;"></td>
                 <td style="text-align: center;"></td>
-                <td style="text-align: left;"> '.'Kota Pekalongan,'.date("d-m-Y").'</td>
+                <td style="text-align: left;"> '.'Kota Pekalongan,'.$tgl_cetak.'</td>
               </tr>
               <tr>
               <td style="text-align: left;">Mengetahui</td>

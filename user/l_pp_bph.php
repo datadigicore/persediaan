@@ -108,6 +108,9 @@
         $('#tgl_akhir').datepicker({
           format: "dd-mm-yyyy"
         });             
+        $('#tgl_cetak').datepicker({
+          format: "dd-mm-yyyy"
+        });            
         function getBidang(){
           $.ajax({
               type: "post",
