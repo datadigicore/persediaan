@@ -87,6 +87,9 @@
         $('#tgl_akhir').datepicker({
           format: "dd-mm-yyyy"
         });             
+        $('#tgl_cetak').datepicker({
+          format: "dd-mm-yyyy"
+        });            
         $("li#mutasi_sedia").addClass("");
 
       });

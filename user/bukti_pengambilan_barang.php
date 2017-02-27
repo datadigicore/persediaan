@@ -92,6 +92,9 @@
       });         
       $('#tgl_akhir').datepicker({
             format: "dd-mm-yyyy"
+        });            
+      $('#tgl_cetak').datepicker({
+            format: "dd-mm-yyyy"
         });             
       $("li#surat_permintaan_barang").addClass("");
 
