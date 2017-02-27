@@ -1998,6 +1998,7 @@ class modelReport extends mysql_db
         $kd_lokasi = $data['kd_lokasi'].$kd_ruang;
         $bln_awal = $data['bln_awal'];
         $bln_akhir = $data['bln_akhir'];
+        $tgl_cetak = $data['tgl_cetak'];
         $date = $this->cek_periode($data);
         $satker_asal = $data['satker_asal'];
         $baca_ruang="";
@@ -2237,7 +2238,7 @@ class modelReport extends mysql_db
                 array('nama_atasan' => $pj['nama'], 
                       'nip_atasan' => $pj['nip'], 
                       'nama_skpd' => $data_sakter['NamaSatker'], 
-                      'tanggal_cetak' => date("d-m-Y"), 
+                      'tanggal_cetak' => $tgl_cetak, 
                       'nama_penyimpan_barang' => $pj['nama2'], 
                       'nip_penyimpan_barang' => $pj['nip2']
                       );
@@ -2360,7 +2361,7 @@ class modelReport extends mysql_db
                         <td style"text-align:right">'.number_format($grandTotal[0][grandTotal_sisa],2,",",".").'</td>
                         </tr>';
           echo '</table>';
-          $this->cetak_nama_pj($satker_asal);
+          $this->cetak_nama_pj($satker_asal,$tgl_cetak);
           // exit;
         $mpdf=new mPDF('utf-8', 'A4');
         $html = ob_get_contents();
@@ -4276,7 +4277,7 @@ public function getupb($kd_lokasi){
         return $tanggal;
     }
 
-    public function cetak_nama_pj($satker_asal)
+    public function cetak_nama_pj($satker_asal,$tgl_cetak="")
     {
         $kode_satker = $satker_asal.$_SESSION['kd_ruang'];
         $query = "SELECT * from ttd where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kode_satker' ";

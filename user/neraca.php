@@ -42,7 +42,7 @@
                         <input type="text" name="tgl_akhir" class="form-control" id="tgl_akhir" placeholder="" required>
                         </select>
                       </div>
-                    </div> 
+                    </div>
                     <div class="box-body">
                       <label class="col-sm-2 control-label">Format laporan</label>
                       <div class="col-sm-4">
@@ -51,7 +51,14 @@
                           <option value="excel">Excel</option>
                         </select>
                       </div>
-                    </div> 
+                    </div>  
+                    <div class="box-body">
+                      <label class="col-sm-2 control-label">Tanggal Cetak Laporan</label>
+                      <div class="col-sm-4">
+                        <input type="text" name="tgl_cetak" class="form-control" id="tgl_cetak" placeholder="" required>
+                        </select>
+                      </div>
+                    </div>
                   <div class="box-footer">
                     <button type="Reset" class="btn btn-default">Reset</button>
                     <button type="submit" class="btn btn-info pull-right">Submit</button>

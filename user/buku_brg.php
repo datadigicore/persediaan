@@ -41,6 +41,13 @@
                         <select name="kd_brg" id="kd_brg" class="form-control select2">
                         </select>
                       </div>
+                    </div>
+                    <div class="box-body">
+                      <label class="col-sm-2 control-label">Tanggal Cetak Laporan</label>
+                      <div class="col-sm-4">
+                        <input type="text" name="tgl_cetak" class="form-control" id="tgl_cetak" placeholder="" required>
+                        </select>
+                      </div>
                     </div> 
                     <div class="box-body">
                       <label class="col-sm-2 control-label">Format laporan</label>
