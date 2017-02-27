@@ -863,6 +863,11 @@ else
 			$Transaksi->tbh_koreksi_masuk($data);
 		break;
 
+		case 'hapusRekening':
+			$id = $purifier->purify($_POST['id']);
+			$Transaksi->hapus_rekening($id);
+		break;
+
 		case 'hapusTransMasuk':
 			$id = $purifier->purify($_POST['id']);
 			$user_id = $_SESSION['username'];
