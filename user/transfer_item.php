@@ -345,6 +345,25 @@ else {
         $("#example1 tbody").empty();
         baca_tabel();   
       });
+      $(document).on('click', '#hapus_transfer', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+        id = row.data()[0];
+        kd_brg = row.data()[2];
+        $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'hapus_transfer', id:id, kd_brg:kd_brg},
+          dataType: "json",
+          success: function (output) {
+            alert(output);
+          }
+        });
+        $("#example1").DataTable().destroy();
+        $("#example1 tbody").empty();
+        baca_tabel();
+
+      });
       $(document).on('click', '#btnhps', function () {
       var tr = $(this).closest('tr');
       var row = table.row( tr );

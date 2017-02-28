@@ -12,6 +12,15 @@ else
 	switch ($manage)
 	{
 
+		case 'hapus_transfer':
+			$data   =array(
+				'id'      => $_POST['id'],
+				'thn_ang' => $_SESSION['thn_ang'],
+				'user_id' 	=> $_SESSION['username'],
+				'kd_brg'  => $_POST['kd_brg']
+	        	);
+			$Transaksi->hapus_transfer_barang($data);
+		break;
 		case 'hapus_dokumen_masuk':
 			$no_dok= $purifier->purify($_POST['no_dok']);
 			$Transaksi->hapus_dokumen_masuk($no_dok);
@@ -100,7 +109,7 @@ else
 					"kuantitas" => $trf['qty'],
 					"trf"=>$trf['id']
 				);
-			print_r($data);
+			// print_r($data);
 			$Transaksi->trnsaksi_keluar($data);
 		break;
 		case 'baca_skpd':
