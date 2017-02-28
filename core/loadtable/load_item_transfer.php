@@ -38,7 +38,7 @@ $columns = array(
                     
             }
             elseif($_SESSION['level']==2 && $row['jns_trans']=="K06"){  
-                return  '<div class="row-fluid">'.'<button id="btnkonfirm" class="btn btn-flat btn-success btn-xs"><i class="fa fa-remove"></i> Konfirmasi Transfer</button>'. '</div>';
+                return  '<div class="row-fluid">'.'<button id="btnkonfirm" class="btn btn-flat btn-success btn-xs"><i class="fa fa-check"></i> Eksekusi Transfer</button>'. '</div>';
                     
             }
             else{
@@ -57,7 +57,7 @@ $columns = array(
         }
         elseif($d==2)
         {
-            return 'Sudah Ditransfer';    
+            return 'Sudah Ditransfer'.'<div class="row-fluid">'.'<button id="hapus_transfer" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-remove"></i> hapus Transfer</button>'. '</div>';;    
         }
         else
         {
@@ -96,7 +96,7 @@ else if (substr_count($str,".") == 2) {
     $where = "kd_lokasi like '$kd_satker.%' and thn_ang='$thn_ang' and no_dok = '$no_dok' ";
 }
 else{
-    $where = "kd_lokasi='$kd_satker' and thn_ang='$thn_ang' and no_dok = '$no_dok' ".$query_ruang." and qty>0";
+    $where = "kd_lokasi='$kd_satker' and thn_ang='$thn_ang' and no_dok = '$no_dok' ".$query_ruang." and qty>0 and status!=4 ";
 }
  
 // Pengaturan Output Server Side Processing
