@@ -538,14 +538,14 @@ class modelReport extends mysql_db
                           <tr>
                               <td width="5%"><b>NO</b></td>
                               <td width="9%"><b>REK. BELANJA</b></td>
-                              <td ><b>URAIAN REK. BELANJA</b></td>
+                              <td ><b>REK. PERSEDIAAN</b></td>
                               <td><b>APBD</b></td>
                               <td><b>BOS</b></td>
                               <td><b>BLUD</b></td>
                               <td><b>Bantuan Pem.Pusat / Prov.</b></td>
                           </tr>';
 
-            $sql    = "SELECT kd_perk, nm_perk, kode_rekening, nama_rekening, jns_trans, sum(total_harga) as total_harga from transaksi_masuk   where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_lokasi' and thn_ang='$thn_ang' and tgl_dok>'$tgl_dok'  group by kd_perk, kode_rekening order by kd_perk asc";
+            $sql    = "SELECT kd_perk, nm_perk, kode_rekening, kd_perk, jns_trans, sum(total_harga) as total_harga from transaksi_masuk   where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_lokasi' and thn_ang='$thn_ang' and tgl_dok>'$tgl_dok'  group by kd_perk, kode_rekening order by kd_perk asc";
             // print_r($sql);
             $no=1;
             $rek_persediaan="";
@@ -557,7 +557,7 @@ class modelReport extends mysql_db
                     echo '<tr>
                             <td>'.$no.'</td>
                             <td style="align:left;">'.$val['kode_rekening'].'</td>
-                            <td style="align:left;">'.$val['nama_rekening'].'</td>
+                            <td style="align:left;">'.$val['kd_perk'].'</td>
                             <td>'.number_format($val['total_harga'],2,",",".").'</td>    
                             <td>'.'0'.'</td>
                             <td>'.'0'.'</td>
