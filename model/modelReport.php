@@ -534,15 +534,15 @@ class modelReport extends mysql_db
             //                   <td><b>TOTAL</b></td>
             //               </tr>';
 
-            echo '<table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border="1" align="center">
+            echo '<table style="border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border="1">
                           <tr>
-                              <td width="5%"><b>NO</b></td>
-                              <td width="9%"><b>REK. BELANJA</b></td>
-                              <td ><b>REK. PERSEDIAAN</b></td>
-                              <td><b>APBD</b></td>
-                              <td><b>BOS</b></td>
-                              <td><b>BLUD</b></td>
-                              <td><b>Bantuan Pem.Pusat / Prov.</b></td>
+                              <td style="text-align: center;" width="5%"><b>NO</b></td>
+                              <td style="text-align: center;" width="12%"><b>REKENING PERSEDIAAN</b></td>
+                              <td style="text-align: center;" style="align:left;"><b>URAIAN REK. PERSEDIAAN</b></td>
+                              <td style="text-align: center;" width="14%"><b>APBD</b></td>
+                              <td style="text-align: center;" width="14%"><b>BOS</b></td>
+                              <td style="text-align: center;" width="14%"><b>BLUD</b></td>
+                              <td style="text-align: center;" width="14%"><b>Bantuan Pem.Pusat / Prov.</b></td>
                           </tr>';
 
             $sql    = "SELECT kd_perk,nm_perk, nm_satker, sum(total_harga) as total_harga, jns_trans from transaksi_masuk   where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_lokasi' and thn_ang='$thn_ang' and tgl_dok>'$tgl_dok' and total_harga>0  group by kd_perk, jns_trans order by kd_perk asc, jns_trans asc";
@@ -593,13 +593,13 @@ class modelReport extends mysql_db
             foreach ($dataFinal as $key => $value) {
               $detilRek = explode("-", $key); 
               echo '<tr>
-                            <td>'.$no.'</td>
-                            <td style="align:left;">'.$detilRek[0].'</td>
+                            <td style="text-align: center;">'.$no.'</td>
+                            <td style="text-align:center;">'.$detilRek[0].'</td>
                             <td style="align:left;">'.$detilRek[1].'</td>
-                            <td>'.number_format($value['apbd'],2,",",".").'</td>    
-                            <td>'.number_format($value['bos'],2,",",".").'</td>    
-                            <td>'.number_format($value['blud'],2,",",".").'</td>    
-                            <td>'.number_format($value['bpp'],2,",",".").'</td>    
+                            <td style="text-align: right;">'.number_format($value['apbd'],2,",",".").'</td>    
+                            <td style="text-align: right;">'.number_format($value['bos'],2,",",".").'</td>    
+                            <td style="text-align: right;">'.number_format($value['blud'],2,",",".").'</td>    
+                            <td style="text-align: right;">'.number_format($value['bpp'],2,",",".").'</td>    
                         </tr>';
               $no++;
             }
