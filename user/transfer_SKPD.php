@@ -140,7 +140,7 @@
     var table;
       $(function () {
         $(".select2").select2();
-        $("li#transfer").addClass("active");
+        $("li#transfer").addClass("");
         $('#tgl_dok').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
         $('#tgl_buku').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
         $('#tgl_dok').datepicker({
@@ -156,7 +156,7 @@
         $('#tgl_buku').datepicker().on("changeDate", function(e) {
           $(this).datepicker('hide');
         });        
-        $("li#saldo_awal").addClass("active");
+        $("li#saldo_awal").addClass("");
         table = $("#example1").DataTable({
           "aaSorting": [[ 0, 'desc' ]], 
           "processing": false,

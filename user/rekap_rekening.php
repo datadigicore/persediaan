@@ -34,6 +34,13 @@
                           <select name="satker" id="satker" class="form-control">
                           </select>
                         </div>
+                    </div>   
+                    <div class="box-body">
+                      <label class="col-sm-2 control-label">Kode Bagian / Sub-Unit </label>
+                      <div class="col-sm-4">
+                        <select name="kd_ruang" id="kd_ruang" class="form-control">
+                        </select>
+                      </div>
                     </div>  
 
                     <div class="box-body">
@@ -42,7 +49,14 @@
                         <input type="text" name="tgl_akhir" class="form-control" id="tgl_akhir" placeholder="" required>
                         </select>
                       </div>
-                    </div> 
+                    </div>
+                    <div class="box-body">
+                      <label class="col-sm-2 control-label">Tanggal Cetak Laporan</label>
+                      <div class="col-sm-4">
+                        <input type="text" name="tgl_cetak" class="form-control" id="tgl_cetak" placeholder="" required>
+                        </select>
+                      </div>
+                    </div>  
                     <div class="box-body">
                       <label class="col-sm-2 control-label">Format laporan</label>
                       <div class="col-sm-4">
@@ -72,15 +86,18 @@
     <script type="text/javascript">
     var table;
       $(function () {
-        $(".treeview").addClass("active");
-        $("li#neraca").addClass("active");
+        $(".treeview").addClass("");
+        $("li#rekap_rekening").addClass("");
         $('#tgl_awal').datepicker({
           format: "dd-mm-yyyy"
         });         
         $('#tgl_akhir').datepicker({
           format: "dd-mm-yyyy"
         });             
-        $("li#mutasi_sedia").addClass("active");
+        $('#tgl_cetak').datepicker({
+          format: "dd-mm-yyyy"
+        });            
+        $("li#mutasi_sedia").addClass("");
 
       });
       $.ajax({
@@ -91,6 +108,17 @@
             $('#satker').html(output);
           }
        });
+      function getBidang(){
+          $.ajax({
+              type: "post",
+              url: '../core/transaksi/prosestransaksi',
+              data: {manage:'get_bidang_report',kode_satker:"<?php echo $_SESSION['kd_lok']; ?>",kode_ruang:"<?php echo $_SESSION['kd_ruang'] ?>"},
+              success: function (output) {
+                $('#kd_ruang').html(output);
+              }
+            });
+        }
+        getBidang();
       $('form').on('submit', function() {
         if(document.getElementById("satker").value=="")
         {

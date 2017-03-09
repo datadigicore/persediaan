@@ -24,16 +24,16 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Berita Acara Opname Fisik Persediaan</h3>
+                  <h3 class="box-title">Rekapitulasi Persediaan Per Dokumen</h3>
                 </div>  
                 <form action="../core/report/prosesreport" method="post" class="form-horizontal" id="addtransmsk">
-                   <input type="hidden" name="manage" value="ba_opname">  
-                    <div class="box-body">
+                   <input type="hidden" name="manage" value="rekap_per_dok">
+                   <div class="box-body">
                       <label class="col-sm-2 control-label">Kode Satker</label>
-                      <div class="col-sm-4">
-                        <select name="satker" id="satker" class="form-control">
-                        </select>
-                      </div>
+                        <div class="col-sm-4">
+                          <select name="satker" id="satker" class="form-control">
+                          </select>
+                        </div>
                     </div>  
                     <div class="box-body">
                       <label class="col-sm-2 control-label">Kode Bagian / Sub-Unit </label>
@@ -41,13 +41,12 @@
                         <select name="kd_ruang" id="kd_ruang" class="form-control">
                         </select>
                       </div>
-                    </div>
-                    <div class="box-body" id="bln"  >
-                      <label class="col-sm-2 control-label">Semester</label>
-                      <div class="col-sm-2">
-                        <select name="smt" id="smt" class="form-control">
-                          <option value="01-06">Semester 1</option>
-                          <option value="01-12">Semester 2</option>
+                    </div>   
+
+                    <div class="box-body">
+                      <label class="col-sm-2 control-label">Sampai Dengan Tanggal</label>
+                      <div class="col-sm-4">
+                        <input type="text" name="tgl_akhir" class="form-control" id="tgl_akhir" placeholder="" required>
                         </select>
                       </div>
                     </div>
@@ -57,20 +56,26 @@
                         <input type="text" name="tgl_cetak" class="form-control" id="tgl_cetak" placeholder="" required>
                         </select>
                       </div>
-                    </div> 
+                    </div>  
                     <div class="box-body">
                       <label class="col-sm-2 control-label">Format laporan</label>
                       <div class="col-sm-4">
                         <select name="format" id="format" class="form-control">
-                          <option value="pdf">PDF</option>
+                          <!-- <option value="pdf">PDF</option> -->
                           <option value="excel">Excel</option>
                         </select>
                       </div>
-                    </div>                    
-
- 
+                    </div><!-- 
+                    <div class="box-body">
+                      <label class="col-sm-2 control-label">Uraian Per Dokumen</label>
+                      <div class="col-sm-4"> 
+                        <div class="checkbox">
+                          <label><input type="checkbox" name="rinci_per_dok" value="1"></label>
+                        </div>
+                      </div>
+                    </div> -->
                   <div class="box-footer">
-                    <!-- <button type="Reset" class="btn btn-default">Reset</button> -->
+                    <button type="Reset" class="btn btn-default">Reset</button>
                     <button type="submit" class="btn btn-info pull-right">Submit</button>
                   </div>
                 </form>
@@ -90,7 +95,7 @@
     var table;
       $(function () {
         $(".treeview").addClass("");
-        $("li#ba_opname").addClass("");
+        $("li#neraca").addClass("");
         $('#tgl_awal').datepicker({
           format: "dd-mm-yyyy"
         });         
@@ -99,8 +104,19 @@
         });             
         $('#tgl_cetak').datepicker({
           format: "dd-mm-yyyy"
-        });  
-        function getBidang(){
+        });            
+        $("li#rekap_rekening2").addClass("");
+
+      });
+      $.ajax({
+          type: "post",
+          url: '../core/report/prosesreport',
+          data: {manage:'baca_satker'},
+          success: function (output) {     
+            $('#satker').html(output);
+          }
+       });
+      function getBidang(){
           $.ajax({
               type: "post",
               url: '../core/transaksi/prosestransaksi',
@@ -111,40 +127,6 @@
             });
         }
         getBidang();
-        $("input[id=tanggal]").click(function()
-        {
-
-            $("#bln").hide();
-            // $("#awal").show();
-            $("#akhir").show();
-            $('#tgl_akhir').prop('required',true);
-        });
-        $("input[id=semester]").click(function()
-        {
-            $("#bln").show();
-            // $("#awal").hide();
-            $("#akhir").hide();
-            $('#tgl_akhir').removeAttr('required');
-        });
-        $("input[id=tahun]").click(function()
-        {
-            $("#bln").hide();
-            // $("#awal").hide();
-            $("#akhir").hide();
-            $('#tgl_akhir').removeAttr('required');
-        });
-        });
-       $.ajax({
-          type: "post",
-          url: '../core/report/prosesreport',
-          data: {manage:'baca_satker'},
-          success: function (output) {     
-            $('#satker').html(output);
-          }
-       });
-      $('#satker').click(function(){
-        $kd_satker = $('#satker').val();
-      });
       $('form').on('submit', function() {
         if(document.getElementById("satker").value=="")
         {
@@ -156,7 +138,6 @@
           return true;
         }
     });
-
     </script>
   </body>
 </html>

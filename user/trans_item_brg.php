@@ -10,14 +10,14 @@ else {
     <?php include("include/loadcss.php"); ?>
     <link href="../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="../dist/css/datepicker.css" rel="stylesheet" type="text/css" />
-    
+
   </head>
   <body class="skin-blue">
-  <div class="container">                       
+  <div class="container">
                         <!-- Modal -->
                         <div class="modal fade" id="myModal" role="dialog">
                           <div class="modal-dialog">
-                            
+
                             <div class="modal-content">
                               <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -35,14 +35,14 @@ else {
                               <div class="form-group" >
                                 <label class="col-sm-3 control-label">Nilai <b>Non</b> Persediaan</label>
                                 <div class="col-sm-8">
-                                  <input type="number" min="0" name="edit_nilai_kontrak" class="form-control" id="edit_nilai_kontrak"  placeholder="Masukkan Nilai Non Persediaan" >
-                                </div> 
+                                  <input type="number" min="1" name="edit_nilai_kontrak" class="form-control" id="edit_nilai_kontrak"  placeholder="Masukkan Nilai Non Persediaan" required>
+                                </div>
                               </div>
                               <div class="form-group" >
                                   <label class="col-sm-3 control-label">Keterangan Nilai Non Persediaan</label>
                                   <div class="col-sm-8">
                                    <input type="text"  name="edit_ket_non_persediaan" class="form-control" id="edit_ket_non_persediaan"  placeholder="Masukkan Keterangan Non Persediaan" >
-                                  </div> 
+                                  </div>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-info" id="update_rek" data-dismiss="modal">Simpan Data</button>
@@ -50,7 +50,49 @@ else {
                               </div>
                             </form>
                             </div>
-                            
+
+                          </div>
+                        </div>
+
+                        <div class="modal fade" id="Modal_edit_rek_brg" role="dialog">
+                          <div class="modal-dialog">
+
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Edit Rekening Per Barang </h4>
+                              </div>
+                              <form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="submit_update_rek_brg">
+                                <div class="modal-body">
+                                <div class="form-group">
+                                  <input type="hidden" name="update_rekening_barang" >
+                                  <input type="hidden" name="id_edit_rek" id="id_edit_rek" >
+                                  <label class="col-sm-3 control-label">Kode Rekening Lama</label>
+                                  <div class="col-sm-8">
+                                   <input type="text"  name="detail_rek_barang" class="form-control" id="detail_rek_barang" readonly>
+                                  </div>
+                                </div>
+                                <div class="form-group" >
+                                  <label class="col-sm-3 control-label">Nama Barang</label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="nama_barang" class="form-control" id="nama_barang"  placeholder="Masukkan Nilai Non Persediaan" >
+                                  </div>
+                                </div>
+                                <div class="form-group" >
+                                    <label class="col-sm-3 control-label">Kode Rekening Baru</label>
+                                    <div class="col-sm-8">
+                                     <select name="kd_rek_brg_baru" id="kd_rek_brg_baru" class="form-control select2" style="width:100%" required>
+                                      </select>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-info" id="update_rek_brg" data-dismiss="modal">Simpan Data</button>
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                                </div>
+                              </form>
+                            </div>
+
                           </div>
                         </div>
                       </div>
@@ -116,13 +158,13 @@ else {
                           <div class="col-sm-7">
                             <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="" readonly>
                           </div>
-                        </div> 
+                        </div>
                         <div class="form-group">
                           <label class="col-sm-5 control-label">Tgl. Dokumen</label>
                           <div class="col-sm-7">
                             <input type="text" id="tgl_dok" name="tgl_dok" class="form-control" readonly>
                           </div>
-                        </div>                  
+                        </div>
                         <div class="form-group">
                           <label class="col-sm-5 control-label">Tgl. Pembukuan</label>
                           <div class="col-sm-7">
@@ -134,7 +176,7 @@ else {
                           <div class="col-sm-7">
                             <input type="text" id="dissatker" name="dissatker" class="form-control" readonly>
                           </div>
-                        </div>                  
+                        </div>
                         <div class="form-group">
                           <label class="col-sm-5 control-label">Total Transaksi</label>
                           <div class="col-sm-7">
@@ -144,8 +186,8 @@ else {
                       </div>
                       <?php if ($_POST['manage']=="trans_masuk") { ?>
                       <div class="col-sm-7">
-                        
-                        <?php if($_POST['jenistrans']!="Transfer ") { ?> 
+
+                        <?php if($_POST['jenistrans']!="Transfer ") { ?>
                         <div class="form-group" id="jns_masuk">
                         <label class="col-sm-3 control-label">Jenis Pemasukan</label>
                           <div class="col-sm-8">
@@ -162,22 +204,22 @@ else {
                             <select name="kode_rek" class="form-control select2" id="kode_rek" >
                             </select>
                           </div>
-                        </div>  
+                        </div>
                       <div class="form-group" id="field_nilai_non_persediaan">
                         <label class="col-sm-3 control-label">Nilai <b>Non</b> Persediaan</label>
                         <div class="col-sm-8">
                           <input type="number" min="0" name="nilai_kontrak" class="form-control" id="nilai_kontrak"  placeholder="Masukkan Nilai Non Persediaan" >
-                        </div> 
+                        </div>
                       </div>
                       <div class="form-group" id="ket_non_persediaan">
                         <label class="col-sm-3 control-label">Keterangan Nilai Non Persediaan</label>
                         <div class="col-sm-8">
                           <input type="text"  name="ket_non_persediaan" class="form-control" id="ket_non_persediaan"  placeholder="Masukkan Keterangan Non Persediaan" >
-                        </div> 
-                      </div>                          
+                        </div>
+                      </div>
                         <div class="form-group" id="field_kode_persediaan">
 
-                          <label class="col-sm-3 control-label">Kode / Nama Barang</label> 
+                          <label class="col-sm-3 control-label">Kode / Nama Barang</label>
                           <div class="col-sm-8" id="lbr_kode_persediaan">
                             <select name="kd_brg" id="kd_brg" class="form-control select2">
                             </select>
@@ -187,16 +229,16 @@ else {
                           <label class="col-sm-3 control-label">Jumlah Masuk</label>
                           <div class="col-sm-4">
                             <input type="number" min="0,1" name="jml_msk" class="form-control" id="jml_msk" step="any" placeholder="Masukkan Jumlah">
-                          </div>                             
+                          </div>
                           <div class="col-sm-1" id="field_satuan">
                             <label class="control-label">Satuan</label>
-                          </div> 
+                          </div>
                           <div class="col-sm-3">
                             <!-- <input type="text" name="satuan" id="satuan" class="form-control"  readonly> -->
                             <select name="satuan" id="satuan" class="form-control select2">
                             </select>
-                          </div>                            
-                        </div>                  
+                          </div>
+                        </div>
                         <div class="form-group" id="field_harga_satuan">
                           <label class="col-sm-3 control-label">Harga Satuan Barang</label>
                           <div class="col-sm-8">
@@ -209,15 +251,15 @@ else {
                             <input type="text" name="ket_brg" class="form-control" id="ket_brg" step="any" placeholder="Keterangan Barang Jika Diperlukan">
                           </div>
                         </div>
-                        
 
-                         <?php }  ?>                  
+
+                         <?php }  ?>
                         <div name="detil_transaksi" id="detil_transaksi">
                         </div>
-                      </div>  
+                      </div>
                       <?php }
                       else if ($_POST['manage']=="trans_keluar") { ?>
-                      <div class="col-sm-7">  
+                      <div class="col-sm-7">
                           <div class="form-group">
                             <label class="col-sm-3 control-label">No. Dokumen</label>
                             <div class="col-sm-8">
@@ -225,7 +267,7 @@ else {
                               <input type="hidden" name="manage" value="tbh_transaksi_klr">
                             <input type="hidden" id="read_no_dok" name="read_no_dok">
                             </div>
-                          </div>  
+                          </div>
                           <div class="form-group">
                             <label class="col-sm-3 control-label">Keterangan</label>
                             <div class="col-sm-8">
@@ -246,20 +288,20 @@ else {
                             </div>
                             <div class="col-sm-4">
                               <input type="text" name="satuan" id="satuan" class="form-control"  readonly>
-                            </div> 
-                          </div>                  
+                            </div>
+                          </div>
                           <div class="form-group">
                             <label class="col-sm-3 control-label">Sisa Barang</label>
                             <div class="col-sm-8">
                               <input type="text" name="rph_sat" class="form-control" id="rph_sat" placeholder="Saldo Barang" readonly >
                             </div>
-                          </div>                  
-                        </div>  
+                          </div>
+                        </div>
                       <?php } ?>
-                      
+
                     </div>
                   </div> <!-- </div class="box-body">  -->
-                  <?php if($_POST['jenistrans']!="Transfer ") { ?> 
+                  <?php if($_POST['jenistrans']!="Transfer ") { ?>
                   <div class="box-footer">
                       <!-- <button type="reset" id="btn_resets" class="btn btn-default">Reset</button> -->
                       <button type="submit" class="btn btn-info pull-right">Submit</button>
@@ -284,7 +326,7 @@ else {
                         <th>Jumlah</th>
                         <th>Satuan</th>
                         <th>Harga Satuan</th>
-                        <th>Total Harga</th>  
+                        <th>Total Harga</th>
                         <th>Keterangan</th>
                         <th width="8%">Sisa</th>
                         <th width="8%">Aksi</th>
@@ -312,7 +354,7 @@ else {
                   </table>
                 </div>
               </div>
-              <?php } ?>              
+              <?php } ?>
               <?php if ($_POST['manage']=="trans_keluar") { ?>
               <div class="box box-info">
                 <div class="box-header with-border">
@@ -330,7 +372,7 @@ else {
                         <th>Jumlah</th>
                         <th>Satuan</th>
                         <th>Harga Satuan</th>
-                        <th>Total Harga</th>  
+                        <th>Total Harga</th>
                         <th>Keterangan</th>
                         <th width="8%">Aksi</th>
                       </tr>
@@ -357,7 +399,7 @@ else {
     var jns_pemasukan;
     var table_rek;
     var table;
-    $("li#trans_masuk").addClass("active");
+    $("li#trans_masuk").addClass("");
     $("#field_satuan").hide();
     $("#field_pilihan_kode").hide();
     $("#field_harga_satuan").hide();
@@ -375,10 +417,10 @@ else {
     $('form').on('blur', 'input[type=number]', function (e) {
       $(this).off('mousewheel.disableScroll')
     });
-    
+
     function baca_rekening(){
       table_rek = $("#example2").DataTable({
-          "aaSorting": [[ 0, 'desc' ]], 
+          "aaSorting": [[ 0, 'desc' ]],
           "processing": false,
           "serverSide": true,
           "ajax":
@@ -402,7 +444,7 @@ else {
         });
     }
 
-    
+
     function list_kode_barang(){
       $(".select2").select2();
         $("#kd_brg").select2({
@@ -440,7 +482,7 @@ else {
               type: "post",
               url: '../core/transaksi/prosestransaksi',
               data: {manage:'baca_rekening'},
-              success: function (output) { 
+              success: function (output) {
                 $('#kode_rek').html(output);
                 $("#kode_rek").select2({
                 placeholder: "-- Pilih Kode Rekening --",
@@ -450,10 +492,10 @@ else {
           });
         }
         // list_kode_barang();
-            
+
         baca_rekening();
         table = $("#example1").DataTable({
-          "aaSorting": [[ 0, 'desc' ]], 
+          "aaSorting": [[ 0, 'desc' ]],
           "processing": false,
           "serverSide": true,
           "ajax":
@@ -497,7 +539,7 @@ else {
           $("#ket_brg").val('');
         }
               var sumber_dana = "<?php echo $_POST['jenistrans']?>";
-             
+
          $('#jenis_pemasukan').change(function(){
           jns_pemasukan = $("#jenis_pemasukan").val();
           // alert(jns_pemasukan);
@@ -573,8 +615,8 @@ else {
           }
           });
 
-  
-        
+
+
         if(sumber_dana=="APBD"){
           list_kode_rekening();
         }
@@ -609,7 +651,7 @@ else {
           type: "post",
           url: '../core/transaksi/prosestransaksi',
           data: {manage:'readsatkerdoks',no_dok:"<?php echo($_SESSION['kd_lok']);?>"},
-          success: function (output) {     
+          success: function (output) {
             $('#read_no_dok').val(output);
           }
         });
@@ -667,7 +709,7 @@ else {
           }
       });
 
-        
+
 
       });
       function format ( d ) {
@@ -683,7 +725,7 @@ else {
               '<td width="8%"><input style="width:97%" step="any" id="qty'+d[0]+'" name="jumlah_baru" class="form-control" type="number" min="'+qty_akhir+'" required ></td>'+
               '<td width="13%"><input style="width:99%" id="total_harga'+d[0]+'" name="ket_baru" class="form-control" type="text" readonly ></td>'+
               '<td width="11%"><input style="width:98%" step="any" id="harga_sat'+d[0]+'" name="harga_baru" min="1" class="form-control" type="number" required ></td>'+
-              
+
               '<td style="vertical-align:middle; width:7%;">'+
                 '<div class="box-tools">'+
                   // '<button id="btnrst" class="btn btn-warning btn-xs pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
@@ -694,7 +736,7 @@ else {
         '</table>'+
         '</form></div>';
       }
-      $(document).on('submit', '#ubah_brg_masuk', function (e) {        
+      $(document).on('submit', '#ubah_brg_masuk', function (e) {
         e.preventDefault();
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
@@ -703,13 +745,13 @@ else {
           data: addData,
           url : formURL,
           contentType: false,
-          cache: false,  
+          cache: false,
           processData: false,
           success: function(data)
           {
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
-              $('button:submit').attr("disabled", false); 
+              $('button:submit').attr("disabled", false);
               table = $("#example1").DataTable({
                 "aaSorting": [[ 0, 'desc' ]],
                 "processing": false,
@@ -754,12 +796,45 @@ else {
         kode_rek = row.data()[1];
         nama_rek = row.data()[2];
         nilai_kontrak = row.data()[3];
+        nilai_kontrak = nilai_kontrak.replace(".","");
+        nilai_kontrak = nilai_kontrak.replace(".","");
+        nilai_kontrak = nilai_kontrak.replace(".","");
+        jumlah_kontrak = nilai_kontrak.split(",");
         ket_rek = row.data()[4];
          $("#myModal").modal();
          $("#id_edit").val(id);
          $("#detail_rek").val(+kode_rek+" : "+nama_rek);
-         $("#edit_nilai_kontrak").val(nilai_kontrak);
+         $("#edit_nilai_kontrak").val(jumlah_kontrak[0]);
          $("#edit_ket_non_persediaan").val(ket_rek);
+      });
+        $("#kd_rek_brg_baru").select2({
+               placeholder: "-- Pilih Kode Rekeing --",
+        });
+      $(document).on('click', '#edit_rek_brg', function () {
+        // alert("Fitur sedang dikembangkan, coba beberapa hari lagi");
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+        id = row.data()[0];
+        kode_rek = row.data()[2];
+        nama_rek = row.data()[12];
+        nama_barang = row.data()[3];
+        ket_rek = row.data()[4];
+
+         $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'baca_rekening'},
+          success: function (output) {
+            $('#kd_rek_brg_baru').html(output);
+
+          }
+       });
+
+         $("#Modal_edit_rek_brg").modal();
+         $("#id_edit_rek").val(id);
+         $("#detail_rek_barang").val(kode_rek+" : "+nama_rek);
+         $("#nama_barang").val(nama_barang);
+
       });
        $(document).on('click', '#update_rek', function (e) {
           case_menu       = "update_rekening" ;
@@ -777,14 +852,62 @@ else {
                     baca_rekening();
                 }
               });
-       });  
+       });
+       $(document).on('click', '#update_rek_brg', function (e) {
+          case_menu       = "update_rekening_barang" ;
+          id_row          = $('#id_edit_rek').val();
+          kd_rek_brg_baru   = $('#kd_rek_brg_baru').val();
+          keterangan_baru = $('#edit_ket_non_persediaan').val();
+          $.ajax({
+                type: "post",
+                url : "../core/transaksi/prosestransaksi",
+                data: {manage:case_menu, id:id_row, kd_rek_brg_baru:kd_rek_brg_baru, keterangan_baru:keterangan_baru},
+                success: function(data)
+                {
+                    $("#example1").DataTable().destroy();
+                    $("#example1 tbody").empty();
+                    table = $("#example1").DataTable({
+                "aaSorting": [[ 0, 'desc' ]],
+                "processing": false,
+                "serverSide": true,
+                "ajax":
+                {
+                  'type': 'GET',
+                  'url': '../core/loadtable/loadtransmskitm',
+                  'data': {
+                     no_dok: '<?php echo $_POST["satker"]?>',
+                  },
+                },
+                "columnDefs":
+                [
+                  {"targets": 0,
+                   "visible": false },
+                  {"targets": 1,
+                   "visible": false  },
+                  {"targets": 2 },
+                  {"targets": 3 },
+                  {"targets": 4 },
+                  {"targets": 5 },
+                  {"targets": 6 },
+                  {"targets": 7 },
+                  {"targets": 8 },
+                  {"targets": 9 },
+                  {"targets": 10,
+                   "visible": true },
+                  {"targets": 11 },
+                ],
+              });
+                    // baca_rekening();
+                }
+              });
+       });
       $(document).on('click', '#hapus_rek', function () {
         var tr = $(this).closest('tr');
         var row = table_rek.row( tr );
         redirectTime = "2600";
         redirectURL = "trans_masuk";
         id_row = row.data()[0];
-        managedata = "hapusTransMasuk";
+        managedata = "hapusRekening";
         job=confirm("Anda yakin ingin menghapus data ini?");
         if(job!=true)
         {
@@ -898,17 +1021,17 @@ else {
           type: "post",
           url: '../core/transaksi/prosestransaksi',
           data: {manage:'readbrg'},
-          success: function (output) {     
+          success: function (output) {
             $('#kd_brg').html(output);
           }
        });
       $('#kd_brg').change(function(){
         if ($(this).val()=='') {
           $('#satuan').val('');
-          
+
         }
         else {
-          var kd_brg = $('#kd_brg').val(); 
+          var kd_brg = $('#kd_brg').val();
           var no_dok = $('#no_dok').val();
           var tgl_dok = $("#tgl_dok").val();
           // $.ajax({
@@ -934,20 +1057,20 @@ else {
             url: '../core/transaksi/validasi',
             data: {manage:'cek_tutup_tahun',kd_lokasi:"<?php echo $_POST['kd_satker'];?>"},
             dataType: "json",
-            success: function (output) {        
+            success: function (output) {
               if(output.st_amb=="1"){
                 $.notify("Tidak Dapat Menambah Transaski Setelah Import Saldo Awal di Tahun Anggaran Setelahnya","error");
-                $('button:submit').attr("disabled", true); 
+                $('button:submit').attr("disabled", true);
                 return false;
               }
             }
-            }); 
+            });
           $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
           data: {manage:'baca_detil_trans',kd_brg:kd_brg,no_dok:no_dok},
           // dataType: "json",
-          success: function (output) {     
+          success: function (output) {
             $('#satuan').html(output);
             $("#satuan").select2({
            placeholder: "Pilih Satuan Barang",
@@ -965,12 +1088,12 @@ else {
         success: function (output) {
           var tahun = output.tahun;
           if(tahun!=="Aktif") {
-            $('button:submit').attr("disabled", true); 
+            $('button:submit').attr("disabled", true);
         }
       }});
       $('#addtransmsk').submit(function(e){
-        
-      
+
+
 
           // if($('#kd_brg').select2('data')== "") {
           //   // alert("Kode Barang persediaan Belum Dipilih");
@@ -999,7 +1122,7 @@ else {
             data: addData,
             url : formURL,
             contentType: false,
-            cache: false,  
+            cache: false,
             processData: false,
             success: function(data)
             {
@@ -1008,14 +1131,14 @@ else {
               $("#satuan").val('');
               $("#rph_sat").val('');
               $("#keterangan").val('');
-              $('button:submit').attr("disabled", false); 
+              $('button:submit').attr("disabled", false);
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
               $("#example2").DataTable().destroy();
               $("#example2 tbody").empty();
               baca_rekening();
               table = $("#example1").DataTable({
-                "aaSorting": [[ 0, 'desc' ]], 
+                "aaSorting": [[ 0, 'desc' ]],
                 "processing": false,
                 "serverSide": true,
                 "ajax": {
@@ -1048,9 +1171,9 @@ else {
             $.notify("Data Berhasil Ditambahkan", "success");
             }
           });
-          
+
           return false;
-      
+
       });
     </script>
 
@@ -1076,10 +1199,10 @@ else {
         $("li#trans_keluar").addClass("active");
         $('#tgl_dok').datepicker({
           format: "dd-mm-yyyy"
-        });         
+        });
         $('#tgl_buku').datepicker({
           format: "dd-mm-yyyy"
-        });             
+        });
         $("li#saldo_awal").addClass("active");
         table = $("#example1").DataTable({
           "processing": false,
@@ -1107,7 +1230,7 @@ else {
             {"targets": 8 },
             {"targets": 9 },
             {"targets": 10 },
-            
+
           ],
         });
         // $('#example1 tbody').on('click', 'tr', function () {
@@ -1133,7 +1256,7 @@ else {
           type: "post",
           url: '../core/transaksi/prosestransaksi',
           data: {manage:'readsatkerdoks',no_dok:"<?php echo($_SESSION['kd_lok']);?>"},
-          success: function (output) {     
+          success: function (output) {
             $('#read_no_dok').val(output);
           }
         });
@@ -1224,11 +1347,11 @@ else {
     });
       $('#kd_brg').change(function(){
         if ($(this).val()=='') {
-          $('#rph_sat').val(''); 
+          $('#rph_sat').val('');
           $('#satuan').val('');
         }
         else {
-          var kd_brg = $('#kd_brg').val(); 
+          var kd_brg = $('#kd_brg').val();
           var no_dok = $('#no_dok').val();
           var tgl_dok = $("#tgl_dok").val();
            $.ajax({
@@ -1236,14 +1359,14 @@ else {
             url: '../core/transaksi/validasi',
             data: {manage:'cek_tutup_tahun',kd_lokasi:"<?php echo $_POST['kd_satker'];?>"},
             dataType: "json",
-            success: function (output) {        
+            success: function (output) {
               if(output.st_amb=="1"){
                 $.notify("Tidak Dapat Menambah Transaski Setelah Import Saldo Awal di Tahun Anggaran Setelahnya","error");
-                $('button:submit').attr("disabled", true); 
+                $('button:submit').attr("disabled", true);
                 return false;
               }
             }
-            }); 
+            });
           $.ajax({
             type: "post",
             url: '../core/transaksi/prosestransaksi',
@@ -1279,24 +1402,24 @@ else {
           type: "post",
           url: '../core/transaksi/prosestransaksi',
           data: {manage:'readbrgmsk',kd_satker:"<?php echo($_POST['kd_satker']);?>"},
-          success: function (output) {     
+          success: function (output) {
             $('#kd_brg').html(output);
           }
        });
       $('#kd_brg').change(function(){
         if ($(this).val()=='') {
           $('#satuan').val('');
-          
+
         }
         else {
-          var kd_brg = $('#kd_brg').val(); 
-          var no_dok = $('#no_dok').val(); 
+          var kd_brg = $('#kd_brg').val();
+          var no_dok = $('#no_dok').val();
           $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
           data: {manage:'baca_detil_trans',kd_brg:kd_brg,no_dok:no_dok},
           dataType: "json",
-          success: function (output) {     
+          success: function (output) {
             $('#satuan').val(output.satuan);
           }
        });
@@ -1304,7 +1427,7 @@ else {
       });
 
       $('#addtransmsk').submit(function(e){
-        
+
         var kd_brg = $("#kd_brg").val();
 
         if(kd_brg!=""){
@@ -1325,7 +1448,7 @@ else {
             data: addData,
             url : formURL,
             contentType: false,
-            cache: false,  
+            cache: false,
             processData: false,
             success: function(data)
             {
@@ -1372,7 +1495,7 @@ else {
         else{
           alert("Kode Persediaan Barang Belum Dipilih");
           return false;
-        }       
+        }
       });
     </script>
     <?php } ?>

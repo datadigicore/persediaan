@@ -50,7 +50,7 @@
       <?php include("include/footer.php"); ?>
       <?php include("include/success.php"); ?>
     </div>
-    <style type="text/css"> 
+    <style type="text/css">
       .modal {
         text-align: center;
         padding: 0!important;
@@ -86,6 +86,7 @@
               </div>
             </div>
             <div class="modal-footer">
+              <a href="../dist/uploads/Template_Import_Masuk.zip" class="col-sm-4 pull-left btn btn-md btn-warning"><i class="fa fa-download"></i>&nbsp;&nbsp;&nbsp;Download Template</a>
               <button type="submit" class="col-sm-2 pull-right btn btn-flat btn-success">Submit</button>
             </div>
           </form>
@@ -111,11 +112,11 @@
         $("#filename-revisi").attr('value', $(this).val().replace(/C:\\fakepath\\/i, ''));
       });
       function masuk_tanggal() {
-      
+
         var tgl_dok = $('#tgl_dok').val();
         $('#tgl_buku').val(tgl_dok);
 
-         
+
       }
 
       var table;
@@ -126,7 +127,7 @@
         $('#tgl_buku').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
         $('#tgl_dok').datepicker({
           format: "dd-mm-yyyy"
-        });         
+        });
         $('#tgl_dok').datepicker().on("changeDate", function(e) {
           $('#tgl_buku').val($(this).val());
           $(this).datepicker('hide');
@@ -139,7 +140,7 @@
         });
         $("li#saldo_awal").addClass("active");
         table = $("#example1").DataTable({
-          "aaSorting": [[ 0, 'desc' ]], 
+          "aaSorting": [[ 0, 'desc' ]],
           "processing": false,
           "serverSide": true,
           "ajax": "../core/loadtable/admin_masuk",
@@ -192,7 +193,7 @@
         type: "post",
         url: '../core/transaksi/prosestransaksi',
         data: {manage:'readsatkerdok',no_dok:"<?php echo($_SESSION['kd_lok']);?>"},
-        success: function (output) {     
+        success: function (output) {
           $('#read_no_dok').html(output);
         }
       });
@@ -206,7 +207,7 @@
         success: function (output) {
           var tahun = output.tahun;
           if(tahun!=="Aktif") {
-            $('button:submit').attr("disabled", true); 
+            $('button:submit').attr("disabled", true);
             $("#addtransmsk").css("display","none");
         }
       }});
@@ -224,10 +225,10 @@
               if(output.saldo!==null){
                 alert("Saldo Awal Telah Dimasukkan / Import Saldo Awal telah dilakukan");
                 $('#jenis_trans').val('');
-                
+
           }
 
-              
+
 
             }
           });
@@ -255,7 +256,7 @@
             return false;
           }
           e.preventDefault();
-          $('button:submit').attr("disabled", true); 
+          $('button:submit').attr("disabled", true);
           var formURL = $(this).attr("action");
           var addData = new FormData(this);
           $.ajax({
@@ -263,7 +264,7 @@
             data: addData,
             url : formURL,
             contentType: false,
-            cache: false,  
+            cache: false,
             processData: false,
             success: function(data)
             {
@@ -275,9 +276,9 @@
               $("#keterangan").val('');
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
-              $('button:submit').attr("disabled", false); 
+              $('button:submit').attr("disabled", false);
               table = $("#example1").DataTable({
-                "aaSorting": [[ 0, 'desc' ]], 
+                "aaSorting": [[ 0, 'desc' ]],
                 "processing": false,
                 "serverSide": true,
                 "ajax": "../core/loadtable/loadtransmsk",
@@ -309,7 +310,7 @@
         else{
           alert("Harap Masukkan Data Terlebih Dahulu");
           return false;
-        }       
+        }
       });
       $(document).on('click', '#btnedt', function () {
         var tr = $(this).closest('tr');
@@ -357,12 +358,12 @@
                   });
                   $('#tgl_buku_new').datepicker({
                     format: "dd-mm-yyyy"
-                  }); 
+                  });
                 }
 
               }
             }
-          }); 
+          });
 
 
       });
@@ -397,11 +398,11 @@
           if(nodok_new==""){
             alert("Silahkan Isi Nomor Dokumen Yang Baru");
             return false;
-          }          
+          }
           if(tgl_dok_new==""){
             alert("Silahkan Isi Tanggal Dokumen Yang Baru");
             return false;
-          }          
+          }
           if(tgl_buku_new==""){
             alert("Silahkan Isi Tanggal Pembukuan Yang Baru");
             return false;
@@ -424,15 +425,15 @@
           data: addData,
           url : formURL,
           contentType: false,
-          cache: false,  
+          cache: false,
           processData: false,
           success: function(data)
           {
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
-              $('button:submit').attr("disabled", false); 
+              $('button:submit').attr("disabled", false);
               table = $("#example1").DataTable({
-                "aaSorting": [[ 0, 'desc' ]], 
+                "aaSorting": [[ 0, 'desc' ]],
                 "processing": false,
                 "serverSide": true,
                 "ajax": "../core/loadtable/loadtransmsk",
@@ -450,7 +451,7 @@
                   {"orderable": false,
                    "data": null,
                    "defaultContent":  '<div class="box-tools">'+
-                                        
+
                                         '<button id="btntmbh" class="btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
                                         '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                       '</div>',

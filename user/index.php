@@ -34,7 +34,7 @@
     <script src="../plugins/knob/jquery.knob.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
-        $("li#index").addClass("active");
+        $("li#index").addClass("");
         $.ajax({
           type: "post",
           url: '../core/dashboard/prosesdashboard',

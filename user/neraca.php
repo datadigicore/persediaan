@@ -42,7 +42,7 @@
                         <input type="text" name="tgl_akhir" class="form-control" id="tgl_akhir" placeholder="" required>
                         </select>
                       </div>
-                    </div> 
+                    </div>
                     <div class="box-body">
                       <label class="col-sm-2 control-label">Format laporan</label>
                       <div class="col-sm-4">
@@ -51,7 +51,14 @@
                           <option value="excel">Excel</option>
                         </select>
                       </div>
-                    </div> 
+                    </div>  
+                    <div class="box-body">
+                      <label class="col-sm-2 control-label">Tanggal Cetak Laporan</label>
+                      <div class="col-sm-4">
+                        <input type="text" name="tgl_cetak" class="form-control" id="tgl_cetak" placeholder="" required>
+                        </select>
+                      </div>
+                    </div>
                   <div class="box-footer">
                     <button type="Reset" class="btn btn-default">Reset</button>
                     <button type="submit" class="btn btn-info pull-right">Submit</button>
@@ -72,15 +79,18 @@
     <script type="text/javascript">
     var table;
       $(function () {
-        $(".treeview").addClass("active");
-        $("li#neraca").addClass("active");
+        $(".treeview").addClass("");
+        $("li#neraca").addClass("");
         $('#tgl_awal').datepicker({
           format: "dd-mm-yyyy"
         });         
         $('#tgl_akhir').datepicker({
           format: "dd-mm-yyyy"
         });             
-        $("li#mutasi_sedia").addClass("active");
+        $('#tgl_cetak').datepicker({
+          format: "dd-mm-yyyy"
+        });            
+        $("li#mutasi_sedia").addClass("");
 
       });
       $.ajax({

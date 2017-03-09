@@ -115,7 +115,8 @@
                       <tr>
                         <th width="5%">ID</th>
                         <th width="18%">No Dokumen</th>
-                        <th width="18%">Satker/Bid. tujuan</th>
+                        <th width="18%">Satker tujuan</th>
+                        <th width="18%">Bidang tujuan</th>
                         <th>Tanggal Dokumen</th>
                         <th>Tanggal Pembukuan</th>
                         <th>Keterangan</th>
@@ -155,20 +156,21 @@
             {"targets": 3 },
             {"targets": 4 },
             {"targets": 5 },
+            {"targets": 6 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                   '<button id="btntmbh" class="btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
                                   '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                 '</div>',
-             "targets": [6],"targets": 6 }         
+             "targets": [7],"targets": 7 }         
 
           ],
         });
     }
       $(function () {
         $(".select2").select2();
-        $("li#transfer").addClass("active");
+        $("li#transfer").addClass("");
         $('#tgl_dok').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
         $('#tgl_buku').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
         $('#tgl_dok').datepicker({
@@ -184,7 +186,7 @@
         $('#tgl_buku').datepicker().on("changeDate", function(e) {
           $(this).datepicker('hide');
         });        
-        $("li#saldo_awal").addClass("active");
+        $("li#saldo_awal").addClass("");
         baca_tabel();
         $(document).on('click', '#btntmbh', function () {
           var tr = $(this).closest('tr');
@@ -519,30 +521,7 @@
               $('button:submit').attr("disabled", false); 
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
-              table = $("#example1").DataTable({
-                 "aaSorting": [[ 0, 'desc' ]], 
-                "processing": false,
-                "serverSide": true,
-                "ajax": "../core/loadtable/dok_transfer",
-                "columnDefs":
-                [
-                   {"targets": 0,
-             "visible": false },
-            {"targets": 1 },
-            {"targets": 2 },
-            {"targets": 3 },
-            {"targets": 4 },
-            {"targets": 5 },
-            {"orderable": false,
-             "data": null,
-             "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btntmbh" class="btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
-                                  '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                '</div>',
-             "targets": [6],"targets": 6 }         
-                ],
-                "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
-              });
+              baca_tabel();
             }
           });
           return false;

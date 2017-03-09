@@ -36,6 +36,13 @@
                       </div>
                     </div> 
                     <div class="box-body">
+                      <label class="col-sm-2 control-label">Tanggal Cetak Laporan</label>
+                      <div class="col-sm-4">
+                        <input type="text" name="tgl_cetak" class="form-control" id="tgl_cetak" placeholder="" required>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="box-body">
                       <label class="col-sm-2 control-label">Format laporan</label>
                       <div class="col-sm-4">
                         <select name="format" id="format" class="form-control">
@@ -91,18 +98,21 @@
     <script type="text/javascript">
     var table;
       $(function () {
-        $("li#mutasi_sedia").addClass("active");
+        $("li#mutasi_sedia").addClass("");
         $("#bln").hide();
         // $("#awal").hide();
         $("#akhir").hide();
-        $(".treeview").addClass("active");
-        $("li#rincian_persediaan").addClass("active");
+        $(".treeview").addClass("");
+        $("li#rincian_persediaan").addClass("");
         $('#tgl_awal').datepicker({
           format: "dd-mm-yyyy"
         });         
         $('#tgl_akhir').datepicker({
           format: "dd-mm-yyyy"
         });             
+        $('#tgl_cetak').datepicker({
+          format: "dd-mm-yyyy"
+        });            
        
         $("#bln").hide();
         $("#awal").hide();

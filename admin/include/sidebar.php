@@ -10,6 +10,7 @@
             <li id="user"><a href="user"><i class="fa fa-user"></i> <span>Tambah Pengelola</span></a></li>
             <li id="laporan"><a href="report"><i class="fa fa-file-text-o"></i> <span>Laporan SKPD</span></a></li>
             <li id="trans_masuk"><a href="trans_masuk"><i class="fa  fa-file-excel-o "></i> <span>Import Trans Masuk</span></a></li>
+            <li id="trans_keluar"><a href="trans_keluar"><i class="fa  fa-file-excel-o "></i> <span>Import Trans Keluar</span></a></li>
             <li class="treeview">
               <a href="#"><i class="fa fa-link"></i> <span>Lain-Lain</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">

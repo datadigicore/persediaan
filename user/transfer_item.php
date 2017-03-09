@@ -252,14 +252,14 @@ else {
         $("#kd_brg").select2({
           placeholder: "-- Pilih Kode Item Barang --",
         });
-        $("li#trans_keluar").addClass("active");
+        $("li#trans_keluar").addClass("");
         $('#tgl_dok').datepicker({
           format: "dd-mm-yyyy"
         });         
         $('#tgl_buku').datepicker({
           format: "dd-mm-yyyy"
         });             
-        $("li#saldo_awal").addClass("active");
+        $("li#saldo_awal").addClass("");
         baca_tabel();
         // $('#example1 tbody').on('click', 'tr', function () {
         //     var data = table.row( this ).data();
@@ -344,6 +344,25 @@ else {
         $("#example1").DataTable().destroy();
         $("#example1 tbody").empty();
         baca_tabel();   
+      });
+      $(document).on('click', '#hapus_transfer', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+        id = row.data()[0];
+        kd_brg = row.data()[2];
+        $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'hapus_transfer', id:id, kd_brg:kd_brg},
+          dataType: "json",
+          success: function (output) {
+            alert(output);
+          }
+        });
+        $("#example1").DataTable().destroy();
+        $("#example1 tbody").empty();
+        baca_tabel();
+
       });
       $(document).on('click', '#btnhps', function () {
       var tr = $(this).closest('tr');
