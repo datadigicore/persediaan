@@ -545,106 +545,77 @@ class modelReport extends mysql_db
                               <td><b>Bantuan Pem.Pusat / Prov.</b></td>
                           </tr>';
 
-            $sql    = "SELECT kd_perk, nm_perk, kode_rekening, kd_perk, jns_trans, sum(total_harga) as total_harga from transaksi_masuk   where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_lokasi' and thn_ang='$thn_ang' and tgl_dok>'$tgl_dok'  group by kd_perk, kode_rekening order by kd_perk asc";
+            $sql    = "SELECT kd_perk,nm_perk, nm_satker, sum(total_harga) as total_harga, jns_trans from transaksi_masuk   where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_lokasi' and thn_ang='$thn_ang' and tgl_dok>'$tgl_dok' and total_harga>0  group by kd_perk, jns_trans order by kd_perk asc, jns_trans asc";
             // print_r($sql);
-            $no=1;
-            $rek_persediaan="";
-            $rek_keuangan="";
-            $nilai_rek_persediaan=0;
-            $result = $this->query($sql);
+            $no      =1;
+            $apbd    =0;
+            $bp      =0;
+            $blud    =0;
+            $bos     =0;
+            $lainnya =0;
+            $result  = $this->query($sql);
+            $dataFinal= array();
+            // print_r($result);
+            // echo "<pre>";
             foreach ($result as $val) {
-                if($val['jns_trans']=="M07"){
-                    echo '<tr>
-                            <td>'.$no.'</td>
-                            <td style="align:left;">'.$val['kode_rekening'].'</td>
-                            <td style="align:left;">'.$val['kd_perk'].'</td>
-                            <td>'.number_format($val['total_harga'],2,",",".").'</td>    
-                            <td>'.'0'.'</td>
-                            <td>'.'0'.'</td>
-                            <td>'.'0'.'</td>
-                           </tr>';
-                }
-                elseif($val['jns_trans']=="M10"){
-                     echo '<tr>
-                            <td>'.$no.'</td>
-                            <td style="align:left;">'.$val['kode_rekening'].'</td>
-                            <td style="align:left;">'.$val['nama_rekening'].'</td> 
-                            <td>'.'0'.'</td>
-                            <td>'.number_format($val['total_harga'],2,",",".").'</td>   
-                            <td>'.'0'.'</td>
-                            <td>'.'0'.'</td>
-                           </tr>';
-
-                }
-                elseif($val['jns_trans']=="M11"){
-                     echo '<tr>
-                            <td>'.$no.'</td>
-                            <td style="align:left;">'.$val['kode_rekening'].'</td>
-                            <td style="align:left;">'.$val['nama_rekening'].'</td> 
-                            <td>'.'0'.'</td>
-                            <td>'.number_format($val['total_harga'],2,",",".").'</td>   
-                            <td>'.'0'.'</td>
-                            <td>'.'0'.'</td>
-                           </tr>';
-
-                }
-
-                // if($rek_persediaan!=$val['kd_perk'] and $no==1){
-
-                //     echo '<tr>
-                //             <td>'.$no.'</td>
-                //             <td style="align:left;">'.$val['kd_perk'].'</td>
-                //             <td style="align:left;">'.$val['nm_perk'].'</td>
-                //             <td style="align:left;">'.$val['kode_rekening'].'</td>
-                //             <td style="align:left;">'.$val['nama_rekening'].'</td>
-                //             <td>'.number_format($val['total_harga'],2,",",".").'</td>    
-                //             <td>'.'0'.'</td>
-                //             <td>'.'0'.'</td>
-                //            </tr>';
-                // }
-                // elseif($rek_persediaan!=$val['kd_perk']){
-                //     echo '<tr>
-                //             <td colspan="5">'.'TOTAL'.'</td>   
-                //             <td>'.number_format($nilai_rek_persediaan,2,",",".").'</td>
-                //             <td>'.'0'.'</td>
-                //             <td>'.'0'.'</td>
-                //            </tr>';
-                //     $nilai_rek_persediaan = 0;
-                //     echo '<tr>
-                //             <td>'.$no.'</td>
-                //             <td style="align:left;">'.$val['kd_perk'].'</td>
-                //             <td style="align:left;">'.$val['nm_perk'].'</td>
-                //             <td style="align:left;">'.$val['kode_rekening'].'</td>
-                //             <td style="align:left;">'.$val['nama_rekening'].'</td>
-                //             <td>'.number_format($val['total_harga'],2,",",".").'</td>    
-                //             <td>'.'0'.'</td>
-                //             <td>'.'0'.'</td>
-                //            </tr>';
-                // }
-                // else{
-                //     echo '<tr>
-                //             <td>'.$no.'</td>
-                //             <td>'.''.'</td>
-                //             <td>'.''.'</td>
-                //             <td>'.$val['kode_rekening'].'</td>
-                //             <td>'.$val['nama_rekening'].'</td>
-                //             <td>'.number_format($val['total_harga'],2,",",".").'</td>    
-                //             <td>'.'0'.'</td>
-                //             <td>'.'0'.'</td>
-                //            </tr>';
-                // }
-                $rek_persediaan         = $val['kd_perk'];
-                $nilai_rek_persediaan   += $val['total_harga']; 
-                $no++;
+              if($val['jns_trans']=="M07"){
+                $dataFinal["$val[kd_perk]-$val[nm_perk]"]["apbd"] += $val['total_harga'];
+                $dataFinal["$val[kd_perk]-$val[nm_perk]"]["bos"] += 0;
+                $dataFinal["$val[kd_perk]-$val[nm_perk]"]["blud"] += 0;
+                $dataFinal["$val[kd_perk]-$val[nm_perk]"]["bpp"] += 0;
+              }
+              elseif($val['jns_trans']=="M08"||$val['jns_trans']=="M09"){
+                $dataFinal["$val[kd_perk]-$val[nm_perk]"]["apbd"] += 0;
+                $dataFinal["$val[kd_perk]-$val[nm_perk]"]["bos"] += 0;
+                $dataFinal["$val[kd_perk]-$val[nm_perk]"]["blud"] += 0;
+                $dataFinal["$val[kd_perk]-$val[nm_perk]"]["bpp"] += $val['total_harga'];
+              }
+              elseif($val['jns_trans']=="M10"){
+                $dataFinal["$val[kd_perk]-$val[nm_perk]"]["apbd"] += 0;
+                $dataFinal["$val[kd_perk]-$val[nm_perk]"]["bos"] += $val['total_harga'];
+                $dataFinal["$val[kd_perk]-$val[nm_perk]"]["blud"] += 0;
+                $dataFinal["$val[kd_perk]-$val[nm_perk]"]["bpp"] += 0;
+              }
+              
+              elseif($val['jns_trans']=="M11"){
+                $dataFinal["$val[kd_perk]-$val[nm_perk]"]["apbd"] += 0;
+                $dataFinal["$val[kd_perk]-$val[nm_perk]"]["bos"] += 0;
+                $dataFinal["$val[kd_perk]-$val[nm_perk]"]["blud"] += $val['total_harga'];
+                $dataFinal["$val[kd_perk]-$val[nm_perk]"]["bpp"] += 0;
+              }
+              
+              else{
+                $dataFinal["$val[kd_perk]-$val[nm_perk]"]["lainnya"] += $val['total_harga'];
+              }
             }
+            // print_r($dataFinal);
+            $no=1;
+            foreach ($dataFinal as $key => $value) {
+              $detilRek = explode("-", $key); 
+              echo '<tr>
+                            <td>'.$no.'</td>
+                            <td style="align:left;">'.$detilRek[0].'</td>
+                            <td style="align:left;">'.$detilRek[1].'</td>
+                            <td>'.number_format($value['apbd'],2,",",".").'</td>    
+                            <td>'.number_format($value['bos'],2,",",".").'</td>    
+                            <td>'.number_format($value['blud'],2,",",".").'</td>    
+                            <td>'.number_format($value['bpp'],2,",",".").'</td>    
+                        </tr>';
+              $no++;
+            }
+                
+
+              
             echo "</table>";
+            // exit;
             $html = ob_get_contents(); 
             ob_end_clean();
             $mpdf=new mPDF('utf-8', 'A4-L');
             $mpdf->WriteHTML(utf8_encode($html));
             $mpdf->Output("rekap_per_rekening.pdf" ,'I');
             exit;
-        }
+        
+      }
 
     public function surat_permintaan_barang($data){
         $no_dok = $data['no_dok']; 
