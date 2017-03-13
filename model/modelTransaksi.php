@@ -78,7 +78,7 @@ class modelTransaksi extends mysql_db
         $sql="SELECT * from temp_import_keluar where user_id = '$_SESSION[username]'";
         $res=$this->query($sql);
         while ($row=$this->fetch_assoc($res)){
-            $row['ruang_asal'] = '';
+            $row['ruang_asal'] = $row['kd_ruang'];
             $row['status'] = 0;
             $this->import_transaksi_keluar($row);
         }
