@@ -17,38 +17,19 @@ $primaryKey = 'id';
 // Load Data berdasarkan nama table nya
 $columns = array(
     array( 'db' => 'id', 'dt' => 0 ),
-    array( 'db' => 'nm_satker', 'dt' => 1 ),
-    array( 'db' => 'jns_trans', 'dt' => 2, 'field' => 'jns_trans', 'as' => 'jns_trans',
+    array( 'db' => 'kd_lokasi', 'dt' => 1 ),
+    array( 'db' => 'nm_satker', 'dt' => 2 ),
+    array( 'db' => 'kd_ruang', 'dt' => 3 ),
+    array( 'db' => 'jns_trans', 'dt' => 4, 'field' => 'jns_trans', 'as' => 'jns_trans',
         'formatter' => function($d,$row){
-            if($d=="M01"){
-                return "Saldo Awal";}
-            elseif($d=="M02"){
-                return "Pembelian";}
-            elseif($d=="M03"){
-                return "Hibah Masuk";}
-            elseif($d=="M04"){
-                return "Perolehan Lainnya";}
-            elseif($d=="M06"){
-                return "Transfer ";}
-            elseif ($d=="M07"){
-                return "APBD"; }
-            elseif ($d=="M08"){
-                return "Bantuan Pem. Pusat"; }
-            elseif ($d=="M09"){
-                return "Bantuan Pem. Prov."; }
-            elseif ($d=="M10"){
-                return "BOS"; }
-            elseif ($d=="M11"){
-                return "BLUD"; }
-            elseif ($d=="M12"){
-                return "Lainnya"; }
+           if($d=="K01"){return "Habis Pakai";}elseif($d=="K02"){return "Transfer Keluar";}elseif($d=="K03"){return "Hibah Keluar";}elseif($d=="K04"){return "Usang";}else{return "Rusak";}
                 {
         # code...
     }} ),
-    array( 'db' => 'no_dok', 'dt' => 3 ),
-    array( 'db' => 'tgl_dok', 'dt' => 4, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
-    array( 'db' => 'tgl_buku', 'dt' => 5, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
-    array( 'db' => 'keterangan', 'dt' => 6 ),
+    array( 'db' => 'no_dok', 'dt' => 5 ),
+    array( 'db' => 'tgl_dok', 'dt' => 6, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
+    array( 'db' => 'tgl_buku', 'dt' => 7, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
+    array( 'db' => 'keterangan', 'dt' => 8 ),
     // array( 'db' => 'nm_brg', 'dt' => 5 ),
     // array( 'db' => 'qty', 'dt' => 6 ),
     // array( 'db' => 'harga_sat', 'dt' => 7 ),

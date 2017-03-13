@@ -1348,11 +1348,12 @@ class modelTransaksi extends mysql_db
 
     public function import_transaksi_keluar($data)
     {
-        error_reporting(0);
+        // error_reporting(0);
         $kd_lokasi = $data['kd_lokasi'];
         $kd_satker = $data['kd_lokasi'].$data['ruang_asal'];
         $nm_satker = $data['nm_satker'];
         $ruang_asal=$data['ruang_asal'];
+        $kd_ruang  =$data['ruang_asal'];
         $thn_ang   = $data['thn_ang'];
 
         $no_dok    = $data['no_dok'];
