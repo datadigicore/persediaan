@@ -31,7 +31,9 @@
                     <thead>
                       <tr>
                         <th >ID</th>
+                        <th >Kode Lokasi</th>
                         <th >SKPD</th>
+                        <th >Kode Ruang</th>
                         <th >Jenis Transaksi</th>
                         <th >Nomor Dokumen</th>
                         <th >Tanggal Dokumen</th>
@@ -154,12 +156,14 @@
             {"targets": 4 },
             {"targets": 5 },
             {"targets": 6 },
+            {"targets": 7 },
+            {"targets": 8 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                   '<button id="btntmbh" class="btn btn-info btn-flat btn-xs"><i class="fa fa-plus"></i> Lihat item</button>'+
                                 '</div>',
-             "targets": [7],"targets": 7 },
+             "targets": [9],"targets": 9 },
           ],
         });
       });
@@ -167,10 +171,11 @@
       $(document).on('click', '#btntmbh', function () {
         var tr = $(this).closest('tr');
         var row = table.row( tr );
-        manage = "trans_masuk";
+        manage = "trans_keluar";
         id_row = row.data()[0];
-        jns_trans = row.data()[1];
-        satker = row.data()[3];
+        jns_trans = row.data()[3];
+        satker = row.data()[5];
+        kd_ruang = row.data()[3];
         tgl_dok = row.data()[4];
         tgl_buku = row.data()[5];
         kd_satker = satker.substring(0,11);
@@ -183,7 +188,8 @@
         var $input5=$(document.createElement('input')).css({display:'none'}).attr('name','satker').val(satker);
         var $input6=$(document.createElement('input')).css({display:'none'}).attr('name','manage').val(manage);
         var $input7=$(document.createElement('input')).css({display:'none'}).attr('name','kd_satker').val(kd_satker);
-        $form.append($input).append($input2).append($input3).append($input4).append($input5).append($input6).append($input7);
+        var $input8=$(document.createElement('input')).css({display:'none'}).attr('name','kd_ruang').val(kd_ruang);
+        $form.append($input).append($input2).append($input3).append($input4).append($input5).append($input6).append($input7).append($input8);
         $("body").append($form);
         $form.submit();
       });
