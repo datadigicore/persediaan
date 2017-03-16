@@ -77,12 +77,14 @@ class modelTransaksi extends mysql_db
     public function add_temp_item_trans_keluar(){
         $sql="SELECT * from temp_import_keluar where user_id = '$_SESSION[username]'";
         $res=$this->query($sql);
+        $this->query('BEGIN');
         while ($row=$this->fetch_assoc($res)){
             $row['ruang_asal'] = $row['kd_ruang'];
             $row['status'] = 0;
             $this->import_transaksi_keluar($row);
         }
         $this->clear_log_temp_import('temp_import_keluar');
+        $this->query('COMMIT');
         return true;
     }
 
@@ -704,8 +706,10 @@ class modelTransaksi extends mysql_db
     public function cek_saldo_awal($data){
         $kd_lokasi = $data['kd_lokasi'];
         $thn_ang = $data['thn_ang'];
+        $kd_satker = $kd_lokasi.$data['kd_ruang'];
 
-        $query = "select no_dok, tgl_dok, jns_trans  from transaksi_masuk where kd_lokasi='$kd_lokasi' and thn_ang = '$thn_ang' and jns_trans in ('M01', 'M01I') ";
+        $query = "select no_dok, tgl_dok, jns_trans  from transaksi_masuk where concat(kd_lokasi,IFNULL(kd_ruang,'')) = '$kd_satker' and thn_ang = '$thn_ang' and jns_trans in ('M01', 'M01I') ";
+        // print_r($query);
         $hasil = $this->query($query);
 
         $row_brg = $this->fetch_array($hasil);
@@ -1372,7 +1376,6 @@ class modelTransaksi extends mysql_db
         $status    = $data['status'];
         $user_id   = $data['user_id'];
 
-        $this->query("BEGIN");
 
         // echo "<pre>";
         while($kuantitas > 0)
@@ -1487,7 +1490,7 @@ class modelTransaksi extends mysql_db
 
                 $query_upd_masuk = "UPDATE transaksi_masuk
                                     SET qty_akhir = qty_akhir - $kuantitas
-                                    WHERE concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' AND id='$id_trans_m'  ";
+                                    WHERE id='$id_trans_m'  ";
                 $result_upd_masuk= $this->query($query_upd_masuk);
 
 
@@ -1540,6 +1543,12 @@ class modelTransaksi extends mysql_db
                 $query_id      = "select id,id_brg_trf, id_opname, kd_brg, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and qty_akhir>0 and thn_ang='$thn_ang'  order by tgl_dok asc, id asc limit 1";
                 // echo "Cari Ref. Barang if qty>qty_akhir : ".$query_id."<br>";
                 $result_id     = $this->query($query_id);
+                if($this->num_rows($result_id)==0){
+                     $query = "select sum(qty_akhir) as sisa,satuan from transaksi_masuk  where kd_brg = '$kd_brg' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and tgl_dok<='$tgl_dok' and thn_ang='$thn_ang' ";
+                    $result_id     = $this->query($query);
+                    echo "Jumlah Barang yang dikeluarkan sebesar $kuantitas $satuan pada kode Barang $kd_brg Melebihi Sisa barang yang tersimpan didalam sistem sebesar 0 ";
+                    exit;
+                }
                 $row_id        = $this->fetch_array($result_id);
                 $id_trans      = $row_id['id'];
                 $id_brg_trf    = $row_id['id_brg_trf'];
@@ -1607,7 +1616,7 @@ class modelTransaksi extends mysql_db
                                 tgl_update =NOW(),
                                 user_id    ='$user_id'";
                 $result_log = $this->query($query_log);
-                $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $qty_akhir where kd_lokasi='$kd_lokasi' and id='$id_trans'  ";
+                $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $qty_akhir where id='$id_trans'  ";
                 $result_upd_masuk = $this->query($query_upd_masuk);
 
                 $minus_qty = -$qty_akhir;
@@ -1651,7 +1660,6 @@ class modelTransaksi extends mysql_db
                 $kuantitas     = $kuantitas - $qty_akhir;
 
         }
-        $com = $this->query("COMMIT");
     }
 
     public function trnsaksi_keluar($data)
@@ -1871,7 +1879,7 @@ class modelTransaksi extends mysql_db
                         user_id='$user_id'";
                 $result_log = $this->query($query_log);
 
-                $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $kuantitas where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and id='$id_trans_m'  ";
+                $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $kuantitas where id='$id_trans_m'  ";
                 $result_upd_masuk = $this->query($query_upd_masuk);
 
                 // $query_idk = "select id from transaksi_keluar WHERE kd_brg='$kd_brg' and user_id='$user_id' and kd_lokasi='$kd_lokasi' and no_dok='$no_dok' order by id DESC";
@@ -2061,7 +2069,7 @@ class modelTransaksi extends mysql_db
                         tgl_update=NOW(),
                         user_id='$user_id'";
                 $result_log = $this->query($query_log);
-                $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $qty_akhir where kd_lokasi='$kd_lokasi' and id='$id_trans'  ";
+                $query_upd_masuk = "update transaksi_masuk set qty_akhir = qty_akhir - $qty_akhir where id='$id_trans'  ";
                 $result_upd_masuk = $this->query($query_upd_masuk);
 
                 // $query_idk = "select id from transaksi_keluar WHERE kd_brg='$kd_brg' and kd_lokasi='$kd_lokasi' and user_id='$user_id' and no_dok='$no_dok' order by id DESC";
@@ -3261,6 +3269,7 @@ class modelTransaksi extends mysql_db
         $kd_brg = $data['kd_brg'];
         $thn_ang = $data['thn_ang'];
         $no_dok = $data['no_dok'];
+        $kd_satker = $kd_lokasi.$kd_ruang;
         $q_ruang;
 
         if($jenis==1){
@@ -3277,7 +3286,8 @@ class modelTransaksi extends mysql_db
         $tgl_brg = $this->fetch_array($result_tgl);
         $tgl_dok = $tgl_brg['tgl_dok'];
 
-        $query = "select sum(qty_akhir) as sisa,satuan from transaksi_masuk  where kd_brg = '$kd_brg' and kd_lokasi = '$kd_lokasi' and tgl_dok<='$tgl_dok' and thn_ang='$thn_ang' ".$q_ruang."  ";
+        $query = "select sum(qty_akhir) as sisa,satuan from transaksi_masuk  where kd_brg = '$kd_brg' and concat(kd_lokasi,IFNULL(kd_ruang,'')) = '$kd_satker' and tgl_dok<='$tgl_dok' and thn_ang='$thn_ang' ";
+        // echo $query;
         $result = $this->query($query);
         $sisa_brg = $this->fetch_array($result);
 

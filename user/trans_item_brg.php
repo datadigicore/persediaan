@@ -1126,9 +1126,9 @@ else {
             processData: false,
             success: function(data)
             {
-              if(jns_pemasukan=="persediaan") $("#kd_brg").select2("val", "");
+              // if(jns_pemasukan=="persediaan") $("#kd_brg").select2("val", "");
               $("#jml_msk").val('');
-              $("#satuan").val('');
+              // $("#satuan").val('');
               $("#rph_sat").val('');
               $("#keterangan").val('');
               $('button:submit').attr("disabled", false);
