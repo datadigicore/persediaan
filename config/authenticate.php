@@ -33,6 +33,7 @@ if (mysqli_num_rows($query) == 1 AND $username == $data['user_name']) {
 	$_SESSION['kd_ruang']    = $data['kd_ruang'];
 	$_SESSION['username']    = $data['user_name'];
 	$_SESSION['nama_satker'] = $data['nm_satker'];
+	$_SESSION['nm_ruang'] 	 = $data['nm_ruang'];
 	$_SESSION['transfer']    = $data['transfer'];
 	$_SESSION['thn_ang']     = $purifier->purify($_POST['thn_ang']);
 	$_SESSION['level']       = $data['user_level'];

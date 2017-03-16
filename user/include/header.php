@@ -20,7 +20,7 @@
                     <img src="../dist/img/adminpic2.png" class="img-circle" alt="User Image" />
                     <p>
                     <?php echo $_SESSION['username']; ?> - SIMSEDIA
-                      <small><?php echo $_SESSION['kd_lok'].'<br>'.$_SESSION['nama_satker']; ?></small>
+                      <small><?php echo $_SESSION['kd_lok'].'<br>'.$_SESSION['nama_satker']." - ".$_SESSION['nm_ruang']; ?></small>
                     </p>
                   </li>
                   <li class="user-footer">

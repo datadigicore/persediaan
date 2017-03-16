@@ -111,23 +111,28 @@ class modelUser extends mysql_db
 	public function tambahuser($data)
 	{
 
-		$user_name = $data['user_name'];
-		$user_pass = $data['user_pass'];
+        $user_name  = $data['user_name'];
+        $user_pass  = $data['user_pass'];
         $user_email = $data['user_email'];
-        $kd_satker= $data['kd_satker'];
-        $kodeSubUPB= $data['kodeSubUPB'];
-        $nm_satker= $data['nm_satker'];
-        $tahun= $data['tahun'];
-		$user_level = 2;
-		$query = "Insert into user
-        			set user_name='$user_name',
-                    user_pass='$user_pass',
-                    user_email='$user_email',
-                    kd_lokasi='$kd_satker',
-                    kd_ruang='$kodeSubUPB',
-                    nm_satker='$nm_satker',
-        			tahun='$tahun',
-                    user_level='$user_level'";
+        $kd_satker  = $data['kd_satker'];
+        $kodeSubUPB = $data['kodeSubUPB'];
+        $nm_satker  = $data['nm_satker'];
+        $tahun      = $data['tahun'];
+        $user_level = 2;
+        $sql_ruang  = "SELECT NamaSatker from satker where kode='$kd_satker' and kd_ruang='$kodeSubUPB'  ";
+        $res        = $this->query($sql_ruang);
+        $fetch      = $this->fetch_array($res);
+        $nm_ruang   = $fetch['NamaSatker'];
+		$query      = "Insert into user
+            			set user_name  ='$user_name',
+                            user_pass  ='$user_pass',
+                            user_email ='$user_email',
+                            kd_lokasi  ='$kd_satker',
+                            kd_ruang   ='$kodeSubUPB',
+                            nm_satker  ='$nm_satker',
+                            nm_ruang   ='$nm_ruang',
+                            tahun      ='$tahun',
+                            user_level ='$user_level'";
         $result = $this->query($query);
 		return $result;
 	}
