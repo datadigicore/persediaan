@@ -31,7 +31,9 @@
                     <thead>
                       <tr>
                         <th >ID</th>
+                        <th >Kode Lokasi</th>
                         <th >SKPD</th>
+                        <th >Bagian</th>
                         <th >Jenis Transaksi</th>
                         <th >Nomor Dokumen</th>
                         <th >Tanggal Dokumen</th>
@@ -154,13 +156,15 @@
             {"targets": 4 },
             {"targets": 5 },
             {"targets": 6 },
+            {"targets": 7 },
+            {"targets": 8 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
                                   '<button id="btntmbh" class="btn btn-info btn-flat btn-xs"><i class="fa fa-plus"></i> Lihat item</button>'+
                                   // '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                 '</div>',
-             "targets": [7],"targets": 7 },
+             "targets": [9],"targets": 9 },
           ],
         });
       });
@@ -170,10 +174,12 @@
         var row = table.row( tr );
         manage = "trans_masuk";
         id_row = row.data()[0];
-        jns_trans = row.data()[1];
-        satker = row.data()[3];
-        tgl_dok = row.data()[4];
-        tgl_buku = row.data()[5];
+        jns_trans = row.data()[4];
+        satker = row.data()[5];
+        nm_satker = row.data()[2];
+        kd_ruang = row.data()[3];
+        tgl_dok = row.data()[6];
+        tgl_buku = row.data()[7];
         kd_satker = satker.substring(0,11);
 
         var $form=$(document.createElement('form')).css({display:'none'}).attr("method","POST").attr("action","trans_item_brg");
@@ -184,7 +190,9 @@
         var $input5=$(document.createElement('input')).css({display:'none'}).attr('name','satker').val(satker);
         var $input6=$(document.createElement('input')).css({display:'none'}).attr('name','manage').val(manage);
         var $input7=$(document.createElement('input')).css({display:'none'}).attr('name','kd_satker').val(kd_satker);
-        $form.append($input).append($input2).append($input3).append($input4).append($input5).append($input6).append($input7);
+        var $input8=$(document.createElement('input')).css({display:'none'}).attr('name','kd_ruang').val(kd_ruang);
+        var $input9=$(document.createElement('input')).css({display:'none'}).attr('name','nm_satker').val(nm_satker);
+        $form.append($input).append($input2).append($input3).append($input4).append($input5).append($input6).append($input7).append($input8).append($input9);
         $("body").append($form);
         $form.submit();
       });
@@ -199,270 +207,8 @@
       });
 
 
-      $.ajax({
-        type: "post",
-        url: '../core/transaksi/prosestransaksi',
-        data: {manage:'cek_tahun_aktif',thn_ang:"<?php echo($_SESSION['thn_ang']);?>"},
-        dataType: "json",
-        success: function (output) {
-          var tahun = output.tahun;
-          if(tahun!=="Aktif") {
-            $('button:submit').attr("disabled", true);
-            $("#addtransmsk").css("display","none");
-        }
-      }});
-
-      $('#jenis_trans').change(function(){
-        var jns_trans= $('#jenis_trans').val();
-        var kd_lokasi = $('#read_no_dok').val();
-        if (jns_trans=='M01') {
-          $.ajax({
-            type: "post",
-            url: '../core/transaksi/prosestransaksi',
-            data: {manage:'cek_saldo_awal',kd_lokasi:kd_lokasi},
-            dataType: "json",
-            success: function (output) {
-              if(output.saldo!==null){
-                alert("Saldo Awal Telah Dimasukkan / Import Saldo Awal telah dilakukan");
-                $('#jenis_trans').val('');
-
-          }
 
 
-
-            }
-          });
-        }
-
-      });
-      $('#addtransmsk').submit(function(e){
-        var jns_trans = $("#jenis_trans").val();
-        var tahun_ang = $("#tahun_ang").val();
-        var tgl_dok = $("#tgl_dok").val();
-        var tgl_buku = $("#tgl_buku").val();
-        var no_dok = $("#no_dok").val();
-
-        if(jns_trans!=""){
-          if(no_dok==""){
-            alert("Silahkan Isi Nomor Dokumen");
-            return false;
-          }
-          if(tgl_dok.substring(6,10)!=tahun_ang){
-            alert("Tahun Dokumen Tidak Sesuai Dengan Tahun Anggaran");
-            return false;
-          }
-          if(tgl_buku.substring(6,10)!=tahun_ang){
-            alert("Tahun Bukti Tidak Sesuai Dengan Tahun Anggaran");
-            return false;
-          }
-          e.preventDefault();
-          $('button:submit').attr("disabled", true);
-          var formURL = $(this).attr("action");
-          var addData = new FormData(this);
-          $.ajax({
-            type: "post",
-            data: addData,
-            url : formURL,
-            contentType: false,
-            cache: false,
-            processData: false,
-            success: function(data)
-            {
-
-              $("#jenis_trans").val('');
-              $("#no_dok").val('');
-              $("#tgl_dok").val('');
-              $("#tgl_buku").val('');
-              $("#keterangan").val('');
-              $("#example1").DataTable().destroy();
-              $("#example1 tbody").empty();
-              $('button:submit').attr("disabled", false);
-              table = $("#example1").DataTable({
-                "aaSorting": [[ 0, 'desc' ]],
-                "processing": false,
-                "serverSide": true,
-                "ajax": "../core/loadtable/loadtransmsk",
-                "columnDefs":
-                [
-                  {"targets": 0,
-                   "visible": false },
-                  {"targets": 1 },
-                  {"targets": 2 },
-                  {"targets": 3,
-                   "visible": false },
-                  {"targets": 4 },
-                  {"targets": 5 },
-                  {"targets": 6 },
-                  {"orderable": false,
-                   "data": null,
-                   "defaultContent":  '<div class="box-tools">'+
-                                        '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                        '<button id="btntmbh" class="btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
-                                      '</div>',
-                   "targets": [7],"targets": 7 },
-                ],
-                "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
-              });
-            }
-          });
-          return false;
-        }
-        else{
-          alert("Harap Masukkan Data Terlebih Dahulu");
-          return false;
-        }
-      });
-      $(document).on('click', '#btnedt', function () {
-        var tr = $(this).closest('tr');
-        var row = table.row( tr );
-        id_row = row.data()[0];
-        jns_trans_row = row.data()[1];
-        gab_row = row.data()[2];
-        kdsatker_row = gab_row.substring(0,11);
-        nodok_row = gab_row.substring(14,20);
-        tgl_dok_row = row.data()[4];
-        tgl_buku_row = row.data()[5];
-        keterangan_row = row.data()[6];
-
-          $.ajax({
-            type: "post",
-            url: '../core/transaksi/validasi',
-            data: {manage:'cek_dok_masuk',kd_lokasi:kdsatker_row, no_dok:gab_row},
-            dataType: "json",
-            success: function (output) {
-              if(output.st_op==1) {
-                alert("Tidak Dapat Mengedit Dokumen karena terdapat barang yang telah diopname : "+output.nm_brg+" "+output.spesifikasi);
-                return false;
-              }
-              else {
-                if ( row.child.isShown() ) {
-                  $('div.slider', row.child()).slideUp( function () {
-                    row.child.hide();
-                    tr.removeClass('shown');
-                  });
-                }
-                else {
-                  row.child( format(row.data())).show();
-                  tr.addClass('shown');
-                  $('div.slider', row.child()).slideDown();
-                  $("#jns_trans"+id_row +"").val(jns_trans_row);
-                  $("#kd_satker"+id_row +"").val(kdsatker_row);
-                  $("#nodok_new").val(nodok_row);
-                  $("#tgl_dok_new").val(tgl_dok_row);
-                  $("#tgl_buku_new").val(tgl_buku_row);
-                  $("#keterangannew").val(keterangan_row);
-                  $('#tgl_dok_new').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
-                  $('#tgl_buku_new').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
-                  $('#tgl_dok_new').datepicker({
-                    format: "dd-mm-yyyy"
-                  });
-                  $('#tgl_buku_new').datepicker({
-                    format: "dd-mm-yyyy"
-                  });
-                }
-
-              }
-            }
-          });
-
-
-      });
-      function format ( d ) {
-        return '<div class="slider">'+
-        '<form action="../core/transaksi/prosestransaksi" method="post" class="form-horizontal" id="upd_dok_masuk">'+
-        '<table width="100%">'+
-           '<tr>'+
-              '<input type="hidden" name="manage" value="ubah_dok_masuk">'+
-              '<input type="hidden" name="no_dok_lama" value="'+d[2]+'">'+
-              '<td width="7%"><input style="width:90%" id="jns_trans'+d[0]+'" name="jns_trans_baru" class="form-control" type="text" readonly></td>'+
-              '<td width="11%"><input style="width:98%" id="kd_satker'+d[0]+'" name="kd_satker" class="form-control" type="text" readonly></td>'+
-              '<td><input style="width:98%" id="nodok_new" name="nodok_baru" class="form-control" type="text" ></td>'+
-              '<td><input style="width:98%" id="tgl_dok_new" name="tgl_dok_baru" class="form-control" type="text" ></td>'+
-              '<td><input style="width:98%" id="tgl_buku_new" name="tgl_buku_baru" class="form-control" type="text" ></td>'+
-              '<td><input style="width:98%" id="keterangannew" name="ket_baru" class="form-control" type="text" ></td>'+
-              '<td style="vertical-align:middle; width:7%;">'+
-                '<div class="box-tools">'+
-                  // '<button id="btnrst" class="btn btn-warning btn-xs pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
-                  '<button id="btnupd" class="btn btn-primary btn-xs pull-right"><i class="fa fa-upload"></i> Update</button>'+
-                '</div>'
-              '</td>'+
-           '</tr>'+
-        '</table>'+
-        '</form></div>';
-      }
-      $(document).on('submit', '#upd_dok_masuk', function (e) {
-        var tahun_ang = $("#tahun_ang").val();
-        var tgl_dok_new = $("#tgl_dok_new").val();
-        var tgl_buku_new = $("#tgl_buku_new").val();
-        var nodok_new = $("#nodok_new").val();
-          if(nodok_new==""){
-            alert("Silahkan Isi Nomor Dokumen Yang Baru");
-            return false;
-          }
-          if(tgl_dok_new==""){
-            alert("Silahkan Isi Tanggal Dokumen Yang Baru");
-            return false;
-          }
-          if(tgl_buku_new==""){
-            alert("Silahkan Isi Tanggal Pembukuan Yang Baru");
-            return false;
-          }
-          if(tgl_dok_new.substring(6,10)!=tahun_ang){
-            alert("Tahun Dokumen Tidak Sesuai Dengan Tahun Anggaran");
-            return false;
-          }
-          if(tgl_buku_new.substring(6,10)!=tahun_ang){
-            alert("Tahun Bukti Tidak Sesuai Dengan Tahun Anggaran");
-            return false;
-          }
-        e.preventDefault();
-        redirectTime = "2600";
-        redirectURL = "trans_masuk";
-        var formURL = $(this).attr("action");
-        var addData = new FormData(this);
-        $.ajax({
-          type: "post",
-          data: addData,
-          url : formURL,
-          contentType: false,
-          cache: false,
-          processData: false,
-          success: function(data)
-          {
-              $("#example1").DataTable().destroy();
-              $("#example1 tbody").empty();
-              $('button:submit').attr("disabled", false);
-              table = $("#example1").DataTable({
-                "aaSorting": [[ 0, 'desc' ]],
-                "processing": false,
-                "serverSide": true,
-                "ajax": "../core/loadtable/loadtransmsk",
-                "columnDefs":
-                [
-                  {"targets": 0,
-                   "visible": false },
-                  {"targets": 1 },
-                  {"targets": 2 },
-                  {"targets": 3,
-                   "visible": false },
-                  {"targets": 4 },
-                  {"targets": 5 },
-                  {"targets": 6 },
-                  {"orderable": false,
-                   "data": null,
-                   "defaultContent":  '<div class="box-tools">'+
-
-                                        '<button id="btntmbh" class="btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i> Tambah</button>'+
-                                        '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                      '</div>',
-                   "targets": [7],"targets": 7 },
-                ],
-                "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
-              });
-          }
-        });
-        return false;
-      });
     </script>
   </body>
 </html>
