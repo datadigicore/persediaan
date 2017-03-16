@@ -50,33 +50,33 @@ else {
 
                           <label class="col-sm-5 control-label">Jenis Transaksi</label>
                           <div class="col-sm-7">
-                            <input type="text" id="disjenistrans" name="disjenistrans" class="form-control" readonly>
+                            <input type="text" id="disjenistrans" name="disjenistrans" class="form-control" value="<?php echo $_POST['jenistrans'] ?>" readonly>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="col-sm-5 control-label">Tgl. Dokumen</label>
                           <div class="col-sm-7">
-                            <input type="text" id="tgl_dok" name="tgl_dok" class="form-control" readonly>
+                            <input type="text" id="tgl_dok" name="tgl_dok" class="form-control" value="<?php echo $_POST['tanggaldok'] ?>" readonly>
                           </div>
                         </div>                  
                         <div class="form-group">
                           <label class="col-sm-5 control-label">Tgl. Pembukuan</label>
                           <div class="col-sm-7">
-                            <input type="text" id="tgl_buku" name="tgl_buku" class="form-control" readonly>
+                            <input type="text" id="tgl_buku" name="tgl_buku" class="form-control" value="<?php echo $_POST['tanggalbuku'] ?>" readonly>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="col-sm-5 control-label">Satker</label>
                           <div class="col-sm-7">
-                            <input type="text" id="dissatker" name="dissatker" class="form-control" readonly>
+                            <input type="text" id="dissatker" name="dissatker" class="form-control" value="<?php echo $_POST['nm_satker'] ?>" readonly>
                           </div>
                         </div>                  
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                           <label class="col-sm-5 control-label">Total Transaksi</label>
                           <div class="col-sm-7">
                             <input type="text" id="distottrans" name="distottrans" class="form-control" readonly>
                           </div>
-                        </div>
+                        </div> -->
                       </div>
                       <?php if ($_POST['manage']=="trans_masuk") { ?>
                       <div class="col-sm-7">
@@ -92,6 +92,12 @@ else {
                           <label class="col-sm-3 control-label">Keterangan</label>
                           <div class="col-sm-8">
                             <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="" readonly>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-3 control-label">Kode Bagian</label>
+                          <div class="col-sm-8">
+                            <input type="text" name="kd_ruang" class="form-control" id="kd_ruang" value="<?php echo $_POST['kd_ruang'] ?>" placeholder="" readonly>
                           </div>
                         </div> 
                 
@@ -114,7 +120,12 @@ else {
                             <div class="col-sm-8">
                               <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="" readonly>
                             </div>
-                          </div>                 
+                          </div> 
+                        <div class="form-group">
+                          <label class="col-sm-3 control-label">Kode Bagian</label>
+                          <div class="col-sm-8">
+                            <input type="text" name="kd_ruang" class="form-control" id="kd_ruang" value="<?php echo $_POST['kd_ruang'] ?>" placeholder="" readonly>
+                          </div                
                         </div>  
                       <?php } ?>
                       
