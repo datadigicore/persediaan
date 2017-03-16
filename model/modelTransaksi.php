@@ -884,6 +884,7 @@ class modelTransaksi extends mysql_db
         // $kd_lokasi = $data['kd_lokasi'];
 
         $nm_satker = $data['nm_satker'];
+        $nm_ruang = $_SESSION['nm_ruang'];
         $ket_brg = $data['ket_brg'];
         $thn_ang = $data['thn_ang'];
         $no_dok = $data['no_dok'];
@@ -980,6 +981,7 @@ class modelTransaksi extends mysql_db
                     set kd_lokasi='$kd_lokasi',
                     kd_ruang='$kd_ruang',
                     nm_satker='$nm_satker',
+                    nm_ruang='$nm_ruang',
                     thn_ang='$thn_ang',
                     no_dok='$no_dok',
                     tgl_dok='$tgl_dok',
@@ -1022,6 +1024,7 @@ class modelTransaksi extends mysql_db
                         kd_ruang='$kd_ruang',
                         id_masuk='$id_trans',
                         nm_satker='$nm_satker',
+                        nm_ruang='$nm_ruang',
                         thn_ang='$thn_ang',
                         no_dok='$no_dok',
                         tgl_dok='$tgl_dok',
@@ -1065,6 +1068,7 @@ class modelTransaksi extends mysql_db
         $kd_ruang = $data['kd_ruang'];
         $kd_lok_msk = $data['kd_lokasi'];
         $nm_satker = $data['nm_satker'];
+        $nm_ruang = $_SESSION['nm_ruang'];
         $thn_ang = $data['thn_ang'];
         $no_dok = $data['no_dok'];
         $tgl_dok = $data['tgl_dok'];
@@ -1082,6 +1086,7 @@ class modelTransaksi extends mysql_db
                     set kd_lokasi='$kd_lokasi',
                     kd_ruang='$kd_ruang',
                     nm_satker='$nm_satker',
+                    nm_ruang='$nm_ruang',
                     thn_ang='$thn_ang',
                     no_dok='$no_dok',
                     tgl_dok='$tgl_dok',
@@ -1131,6 +1136,7 @@ class modelTransaksi extends mysql_db
                         id_masuk='$id_trans',
                         kd_lok_msk='$kd_lok_msk',
                         nm_satker='$nm_satker',
+                        nm_ruang='$nm_ruang',
                         thn_ang='$thn_ang',
                         no_dok='$no_dok',
                         tgl_dok='$tgl_dok',
