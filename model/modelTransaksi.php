@@ -99,7 +99,7 @@ class modelTransaksi extends mysql_db
     }
 
     public function get_transfer_detail($data){
-        $sql="SELECT id, kd_lokasi,nm_satker, kd_lok_msk, kd_ruang_msk, no_dok, thn_ang, kd_brg, qty, satuan from transfer where id='$data' ";
+        $sql="SELECT id, kd_lokasi, kd_ruang, nm_satker, kd_lok_msk, kd_ruang_msk, no_dok, thn_ang, kd_brg, qty, satuan from transfer where id='$data' ";
         $res=$this->query($sql);
         return $this->fetch_array($res);
     }
@@ -1674,6 +1674,7 @@ class modelTransaksi extends mysql_db
         $transfer_id = $data['id_brg_transfer'];
         $kd_satker = $data['kd_lokasi'].$data['ruang_asal'];
         $nm_satker = $data['nm_satker'];
+        $nm_ruang = $_SESSION['nm_ruang'];
         // $kd_ruang = $data['kd_ruang'];
         $q_ruang="";
         $nama_tabel;
@@ -1801,6 +1802,7 @@ class modelTransaksi extends mysql_db
                                     id_masuk = '$id_trans_m',
                                     id_opname = '$id_opname',
                                     nm_satker='$nm_satker',
+                                    nm_ruang='$nm_ruang',
                                     thn_ang='$thn_ang',
                                     no_dok='$no_dok',
                                     tgl_dok='$tgl_dok',
@@ -1996,6 +1998,7 @@ class modelTransaksi extends mysql_db
                                 id_masuk = '$id_trans',
                                 id_opname = '$id_opname',
                                 nm_satker='$nm_satker',
+                                nm_ruang='$nm_ruang',
                                 thn_ang='$thn_ang',
                                 no_dok='$no_dok',
                                 tgl_dok='$tgl_dok',
