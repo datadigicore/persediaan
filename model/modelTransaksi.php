@@ -1674,6 +1674,7 @@ class modelTransaksi extends mysql_db
         $transfer_id = $data['id_brg_transfer'];
         $kd_satker = $data['kd_lokasi'].$data['ruang_asal'];
         $nm_satker = $data['nm_satker'];
+        $nm_ruang = $_SESSION['nm_ruang'];
         // $kd_ruang = $data['kd_ruang'];
         $q_ruang="";
         $nama_tabel;
@@ -1801,6 +1802,7 @@ class modelTransaksi extends mysql_db
                                     id_masuk = '$id_trans_m',
                                     id_opname = '$id_opname',
                                     nm_satker='$nm_satker',
+                                    nm_ruang='$nm_ruang',
                                     thn_ang='$thn_ang',
                                     no_dok='$no_dok',
                                     tgl_dok='$tgl_dok',
@@ -1996,6 +1998,7 @@ class modelTransaksi extends mysql_db
                                 id_masuk = '$id_trans',
                                 id_opname = '$id_opname',
                                 nm_satker='$nm_satker',
+                                nm_ruang='$nm_ruang',
                                 thn_ang='$thn_ang',
                                 no_dok='$no_dok',
                                 tgl_dok='$tgl_dok',
