@@ -16,9 +16,11 @@ $primaryKey = 'id';
 
 // Load Data berdasarkan nama table nya
 $columns = array(
-    array( 'db' => 'id', 'dt' => 0 ),
-    array( 'db' => 'nm_satker', 'dt' => 1 ),
-    array( 'db' => 'jns_trans', 'dt' => 2, 'field' => 'jns_trans', 'as' => 'jns_trans',
+ array( 'db' => 'id', 'dt' => 0 ),
+    array( 'db' => 'kd_lokasi', 'dt' => 1 ),
+    array( 'db' => 'nm_satker', 'dt' => 2 ),
+    array( 'db' => 'kd_ruang', 'dt' => 3 ),
+    array( 'db' => 'jns_trans', 'dt' => 4, 'field' => 'jns_trans', 'as' => 'jns_trans',
         'formatter' => function($d,$row){
             if($d=="M01"){
                 return "Saldo Awal";}
@@ -45,15 +47,10 @@ $columns = array(
                 {
         # code...
     }} ),
-    array( 'db' => 'no_dok', 'dt' => 3 ),
-    array( 'db' => 'tgl_dok', 'dt' => 4, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
-    array( 'db' => 'tgl_buku', 'dt' => 5, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
-    array( 'db' => 'keterangan', 'dt' => 6 ),
-    // array( 'db' => 'nm_brg', 'dt' => 5 ),
-    // array( 'db' => 'qty', 'dt' => 6 ),
-    // array( 'db' => 'harga_sat', 'dt' => 7 ),
-    // array( 'db' => 'total_harga', 'dt' => 8 ),
-    // array( 'db' => 'keterangan', 'dt' => 9 ),
+    array( 'db' => 'no_dok', 'dt' => 5 ),
+    array( 'db' => 'tgl_dok', 'dt' => 6, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
+    array( 'db' => 'tgl_buku', 'dt' => 7, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
+    array( 'db' => 'keterangan', 'dt' => 8 ),
 
 
 
