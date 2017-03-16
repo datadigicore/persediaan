@@ -138,8 +138,10 @@ else
 		case 'cek_saldo_awal':
 		$kd_lokasi = $purifier->purify($_POST['kd_lokasi']);
 		$thn_ang = $_SESSION['thn_ang'];
+		$kd_ruang = $_SESSION['kd_ruang'];
 		$data = array(
 				"kd_lokasi" => $kd_lokasi,
+				"kd_ruang" => $kd_ruang,
 				"thn_ang" => $thn_ang
 				);
 		$Transaksi->cek_saldo_awal($data);
