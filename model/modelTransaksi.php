@@ -99,7 +99,7 @@ class modelTransaksi extends mysql_db
     }
 
     public function get_transfer_detail($data){
-        $sql="SELECT id, kd_lokasi,nm_satker, kd_lok_msk, kd_ruang_msk, no_dok, thn_ang, kd_brg, qty, satuan from transfer where id='$data' ";
+        $sql="SELECT id, kd_lokasi, kd_ruang, nm_satker, kd_lok_msk, kd_ruang_msk, no_dok, thn_ang, kd_brg, qty, satuan from transfer where id='$data' ";
         $res=$this->query($sql);
         return $this->fetch_array($res);
     }

@@ -98,7 +98,7 @@ else
 			$data = array(
 					"id_brg_transfer" => $id,
 					"kd_lokasi" => $trf['kd_lokasi'],
-					"ruang_asal"=> $_SESSION['kd_ruang'],
+					"ruang_asal"=> $trf['kd_ruang'],
 					"kd_lok_msk"=> $trf['kd_lok_msk'],
 					"nm_satker" => $trf['nm_satker'],
 					"thn_ang" 	=> $trf['thn_ang'],
@@ -109,7 +109,7 @@ else
 					"kuantitas" => $trf['qty'],
 					"trf"=>$trf['id']
 				);
-			// print_r($data);
+			print_r($data);
 			$Transaksi->trnsaksi_keluar($data);
 		break;
 		case 'baca_skpd':
