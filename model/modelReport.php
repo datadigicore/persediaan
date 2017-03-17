@@ -1972,6 +1972,376 @@ class modelReport extends mysql_db
 
     }
 
+
+
+    public function ba_opname_group($data){
+        $smt                 ="";
+        $jenis               = $data['format'];
+        $thn_ang             = $data['thn_ang']; 
+        $kd_ruang            = str_replace(" ", "", $data['kd_ruang']);
+        $kd_lokasi           = $data['kd_lokasi'].$kd_ruang;
+        $bln_awal            = $data['bln_awal'];
+        $bln_akhir           = $data['bln_akhir'];
+        $tgl_akhir           = $data['tgl_akhir'];
+        $tgl_cetak           = $data['tgl_cetak'];
+        $date                = $this->cek_periode($data);
+        $satker_asal         = $data['satker_asal'];
+        $baca_ruang          ="";
+        $prev_sskel          ="";
+        $subtotal_masuk      = 0;
+        $subtotal_keluar     = 0;
+        $subtotal_saldo_awal = 0;
+        $subtotal_sisa       = 0;
+        $semester            = array();
+        $rekap               = array();
+        // if($_SESSION['kd_ruang']!=''){
+        //     $kode_bagian=$_SESSION['kd_ruang'];
+        //     $baca_ruang=" and kd_ruang='$kode_bagian' ";
+        // }
+        $query = "SELECT kd_perk, nm_perk, satuan, harga_sat, concat(nm_brg,' ',IFNULL(spesifikasi,'')) as nm_brg,jns_trans, 
+                    sum(qty) qty, sum(qty_akhir) qty_akhir 
+                    FROM transaksi_masuk 
+                    WHERE 
+                        concat(kd_lokasi,IFNULL(kd_ruang,'')) LIKE '$kd_lokasi%'  AND 
+                        thn_ang='$thn_ang' AND 
+                        tgl_dok <= '$tgl_akhir' AND
+                        IFNULL(kd_brg,'')!=''
+                    GROUP BY kd_brg 
+                    ORDER BY kd_perk asc, nm_brg asc, jns_trans asc";
+                    // echo $query;
+        $result = $this->query($query);
+        $query = "SELECT * from ttd where kd_lokasi='$kd_lokasi' ".$baca_ruang;
+
+        $result_pj = $this->query($query);
+                    // echo $query;
+        // if($data['semester']=="06"){ 
+        //     $smt="I"; 
+        //     $semester[]= array('semester' =>$smt);
+        // } 
+        // else{ 
+        //     $smt="II";
+        //     $semester[]= array('semester' =>$smt); 
+        // }
+        $semester[]= array('tanggal' =>$data['tgl_rekap']);
+            $grandTotal_saldoAwal   = 0;
+            $grandTotal_penerimaan  = 0;
+            $grandTotal_pengeluaran = 0;
+            $grandTotal_sisa        = 0;
+            $no=1;
+            foreach ($result as $value) {
+               if($prev_sskel!=$value['nm_perk']){
+                if($no>1){
+                    $rekap[] = array(
+                        'subtotal_saldo_awal' => $subtotal_saldo_awal,
+                        'subtotal_masuk'      => $subtotal_masuk,
+                        'subtotal_keluar'     => $subtotal_keluar,
+                        'subtotal_sisa'       => $subtotal_sisa,
+                        'cetak_subtotal'      => 1,
+                        'cetak_header'        => 2,
+                        'jumlah_saldo_awal'   => 2,
+                        'jumlah_diterima'     => 2,
+                        'counter'             => ""
+                    );
+                    $subtotal_saldo_awal = 0;
+                    $subtotal_keluar    = 0;
+                    $subtotal_masuk  = 0;
+                    $subtotal_sisa    = 0;
+                    
+                }
+                
+                $rekap[] = array(
+                        'jenis_barang'            => $value['nm_perk'],
+                        'cetak_header'            => 1,
+                        'cetak_subtotal'          => 0,
+                        'counter'                 => ""
+                    );
+                if($value[jns_trans]=="M01"){
+                    $grandTotal_saldoAwal = $grandTotal_saldoAwal + ($value[qty]*$value[harga_sat]);
+                    $grandTotal_pengeluaran  = $grandTotal_pengeluaran + (($value[qty]-$value[qty_akhir])*$value[harga_sat]);
+                    $rekap[] = array(
+                        'no'                      => $no,                        
+                        'jns_trans'               => $value[jns_trans],
+                        'nm_brg'                  => $value['nm_brg'],
+                        'jenis_barang'            => $value['nm_perk'],
+                        'satuan'                  => $value['satuan'],
+                        'jumlah_saldo_awal'       => $value[qty],
+                        'qty'                     => $value[qty],
+                        'jumlah_diterima'         => 0,
+                        'jumlah_keluar'           => $value[qty]-$value[qty_akhir],
+                        'sisa_barang'             => $value[qty_akhir],
+                        'counter'                 => "",
+                        'harga_satuan_saldo_awal' => $value[harga_sat],
+                        'harga_satuan'            => $value[harga_sat],
+                        'harga_satuan_masuk'      => 0,
+                        'harga_satuan_keluar'     => $value[harga_sat],
+
+                        'total_harga_saldo_awal'  => $value[qty]*$value[harga_sat],
+                        'total_harga'             => $value[qty]*$value[harga_sat],
+                        'total_harga_masuk'       => 0,
+                        'total_harga_keluar'      => ($value[qty]-$value[qty_akhir])*$value[harga_sat],
+                        'total_harga_sisa'        => $value[qty_akhir]*$value[harga_sat],
+                        'cetak_header'            => 0
+                    );
+                    $subtotal_saldo_awal    += $value[qty]*$value[harga_sat];
+                    $subtotal_keluar        += ($value[qty]-$value[qty_akhir])*$value[harga_sat];
+
+                }
+                else{
+                    $grandTotal_penerimaan  = $grandTotal_penerimaan + ($value[qty]*$value[harga_sat]);
+                    $grandTotal_pengeluaran  = $grandTotal_pengeluaran + (($value[qty]-$value[qty_akhir])*$value[harga_sat]);
+                    $rekap[] = array(
+                        'no'                      => $no,
+                        'jns_trans'               => $value[jns_trans],
+                        'nm_brg'                  => $value['nm_brg'],
+                        'jenis_barang'            => $value['nm_perk'],
+                        'satuan'                  => $value['satuan'],
+                        'jumlah_saldo_awal'       => 0,
+                        'jumlah_diterima'         => $value[qty],                        
+                        'qty'                     => $value[qty],
+                        'jumlah_keluar'           => $value[qty]-$value[qty_akhir],
+                        'sisa_barang'             => $value[qty_akhir],
+                        'counter'                 => "",
+                        'harga_satuan_saldo_awal' => 0,
+                        'harga_satuan_masuk'      => $value[harga_sat],
+                        'harga_satuan'            => $value[harga_sat],
+                        'harga_satuan_keluar'     => $value[harga_sat],
+
+                        'total_harga_saldo_awal'  => 0,
+                        'total_harga_masuk'       => $value[qty]*$value[harga_sat],
+                        'total_harga'             => $value[qty]*$value[harga_sat],
+                        'total_harga_keluar'      => ($value[qty]-$value[qty_akhir])*$value[harga_sat],
+                        'total_harga_sisa'        => $value[qty_akhir]*$value[harga_sat],
+                        'cetak_header'            => 0
+                    );
+                    $subtotal_masuk += $value[qty]*$value[harga_sat];
+                    $subtotal_keluar += ($value[qty]-$value[qty_akhir])*$value[harga_sat];
+                    $subtotal_sisa += $value[qty_akhir]*$value[harga_sat];
+                }
+                $prev_sskel=$value['nm_perk'];
+               }
+               elseif($value[jns_trans]=="M01"){
+                $grandTotal_saldoAwal = $grandTotal_saldoAwal + ($value[qty]*$value[harga_sat]);
+                $grandTotal_pengeluaran  = $grandTotal_pengeluaran + (($value[qty]-$value[qty_akhir])*$value[harga_sat]);
+                    $rekap[] = array(
+                        'no'                      => $no,                        
+                        'jns_trans'               => $value[jns_trans],
+                        'nm_brg'                  => $value['nm_brg'],
+                        'jenis_barang'            => $value['nm_perk'],
+                        'satuan'                  => $value['satuan'],
+                        'jumlah_saldo_awal'       => $value[qty],                        
+                        'qty'                     => $value[qty],
+                        'jumlah_diterima'         => 0,
+                        'jumlah_keluar'           => $value[qty]-$value[qty_akhir],
+                        'sisa_barang'             => $value[qty_akhir],
+                        'counter'                 => "",
+                        'harga_satuan_saldo_awal' => $value[harga_sat],
+                        'harga_satuan'            => $value[harga_sat],
+                        'harga_satuan_masuk'      => 0,
+                        'harga_satuan_keluar'     => $value[harga_sat],
+
+                        'total_harga_saldo_awal'  => $value[qty]*$value[harga_sat],
+                        'total_harga'             => $value[qty]*$value[harga_sat],
+                        'total_harga_masuk'       => 0,
+                        'total_harga_keluar'      => ($value[qty]-$value[qty_akhir])*$value[harga_sat],
+                        'total_harga_sisa'        => $value[qty_akhir]*$value[harga_sat],
+                        'cetak_header'            => 0
+                    );
+                    $subtotal_saldo_awal    += $value[qty]*$value[harga_sat];
+                    $subtotal_keluar        += ($value[qty]-$value[qty_akhir])*$value[harga_sat];
+                    $subtotal_sisa          += $value[qty_akhir]*$value[harga_sat];
+
+                }
+                else{
+                   $grandTotal_penerimaan   = $grandTotal_penerimaan + ($value[qty]*$value[harga_sat]);
+                   $grandTotal_pengeluaran  = $grandTotal_pengeluaran + (($value[qty]-$value[qty_akhir])*$value[harga_sat]);
+                   $rekap[] = array(
+                        'no'                      => $no,
+                        'jns_trans'               => $value[jns_trans],
+                        'nm_brg'                  => $value['nm_brg'],
+                        'jenis_barang'            => $value['nm_perk'],
+                        'satuan'                  => $value['satuan'],
+                        'qty'                     => $value[qty],
+                        'jumlah_saldo_awal'       => 0,
+                        'jumlah_diterima'         => $value[qty],
+                        'jumlah_keluar'           => $value[qty]-$value[qty_akhir],
+                        'sisa_barang'             => $value[qty_akhir],
+                        'counter'                 => "",
+                        'harga_satuan_saldo_awal' => 0,
+                        'harga_satuan_masuk'      => $value[harga_sat],
+                        'harga_satuan'      => $value[harga_sat],
+                        'harga_satuan_keluar'     => $value[harga_sat],
+
+                        'total_harga_saldo_awal'  => 0,
+                        'total_harga_masuk'       => $value[qty]*$value[harga_sat],
+                        'total_harga'             => $value[qty]*$value[harga_sat],
+                        'total_harga_keluar'      => ($value[qty]-$value[qty_akhir])*$value[harga_sat],
+                        'total_harga_sisa'        => $value[qty_akhir]*$value[harga_sat],
+                        'cetak_header'            => 0
+                    );
+                   $subtotal_masuk   += $value[qty]*$value[harga_sat];
+                    $subtotal_keluar += ($value[qty]-$value[qty_akhir])*
+                                         $value[harga_sat];
+                    $subtotal_sisa   += $value[qty_akhir]*$value[harga_sat];
+
+                }
+                $no++;
+            }
+
+            $grandTotal_sisa =  $grandTotal_saldoAwal  + 
+                                $grandTotal_penerimaan - 
+                                $grandTotal_pengeluaran;
+            $rekap[] = array(
+                        'subtotal_saldo_awal' => $subtotal_saldo_awal,
+                        'subtotal_masuk'      => $subtotal_masuk,
+                        'subtotal_keluar'     => $subtotal_keluar,
+                        'subtotal_sisa'       => $subtotal_sisa,
+                        'cetak_subtotal'      => 1,
+                        'cetak_header'        => 2,
+                        'jumlah_saldo_awal'   => 2,
+                        'jumlah_diterima'     => 2,
+                        'counter'             => ""
+                    );
+            $grandTotal[]=array(
+                        'grandTotal_saldoAwal' => $grandTotal_saldoAwal,
+                        'grandTotal_penerimaan' => $grandTotal_penerimaan,
+                        'grandTotal_pengeluaran' => $grandTotal_pengeluaran,
+                        'grandTotal_sisa' => $grandTotal_sisa
+                );
+            // echo "<pre>";
+            // print_r($rekap);
+            // exit;
+        if($jenis=="excel"){
+            $TBS = new clsTinyButStrong;  
+            $TBS->Plugin(TBS_INSTALL, OPENTBS_PLUGIN);
+            $template = '../../utility/optbs/template/berita_acara_stock_opname_group.xlsx';
+            $TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8); 
+            $no=1;
+            $identitas_pejabat = array();
+
+            
+            $sql = "SELECT NamaSatker from satker where kode= '$kd_lokasi' ";
+            $res_satker = $this->query($sql);
+            $data_sakter = $this->fetch_array($res_satker);
+            
+            
+            foreach ($result_pj as $pj) {
+                $identitas_pejabat[]  = 
+                array('nama_atasan' => $pj['nama'], 
+                      'nip_atasan' => $pj['nip'], 
+                      'nama_skpd' => $data_sakter['NamaSatker'], 
+                      'tanggal_cetak' => $tgl_cetak, 
+                      'nama_penyimpan_barang' => $pj['nama2'], 
+                      'nip_penyimpan_barang' => $pj['nip2']
+                      );
+
+            }
+            
+            $TBS->MergeBlock('a', $rekap);
+            $TBS->MergeBlock('b', $identitas_pejabat);
+            $TBS->MergeBlock('c', $semester);
+            $TBS->MergeBlock('d', $grandTotal);
+
+            $TBS->PlugIn(OPENTBS_DELETE_COMMENTS);
+            $save_as = (isset($_POST['save_as']) && (trim($_POST['save_as'])!=='') && ($_SERVER['SERVER_NAME']=='localhost')) ? trim($_POST['save_as']) : ''; 
+                $output_file_name = "berita_acara_stock_opname_group.xlsx"; 
+            if ($save_as==='') { 
+                $TBS->Show(OPENTBS_DOWNLOAD, $output_file_name);
+                exit(); 
+            } 
+            else { 
+                $TBS->Show(OPENTBS_FILE, $output_file_name);  
+                exit("File [$output_file_name] has been created."); 
+            } 
+        }
+        else{
+
+             
+        ob_start();
+        // echo "<pre>";
+        // print_r($rekap);
+            $this->getupb($kd_lokasi);
+            echo '<table style=" text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-weight:bold; font-size:1em; "  align="center">
+                <tr>
+                    <td rowspan="3" width="5%"><img src="../../dist/img/pekalongan2.png" alt="Pekalongan" height="8%" /></td>
+                    <td style= "vertical-align: bottom;">LAMPIRAN BERITA ACARA</td>
+                    
+                </tr>
+                <tr>
+                    <td style= "vertical-align: bottom;">STOK OPNAME PERSEDIAAN</td>
+                </tr>
+                <tr>
+                    <td style= "vertical-align: bottom;">PER TANGGAL : '.$data['tgl_rekap'].'</td>
+                </tr>
+
+                </table>
+                <p></p>
+                ';   
+        echo '<table style="text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; font-size:0.75em;" border=1 >
+          <tr>
+            <th align="center">NO</th>
+            <th width="23%">JENIS BARANG</th>
+            <th>SATUAN</th>
+            <th>SALDO AWAL</th>
+            <th>JUMLAH PENERIMAAN/<br></br>PENGADAAN BARANG</th>
+            <th>JUMLAH PENGELUARAN BARANG</th>
+            <th>SALDO AKHIR / SISA</th>
+          </tr>
+        ';
+        foreach ($rekap as $key => $value) {
+            if($value['cetak_header']==1){
+                echo "<tr>
+                        <td colspan='15' style='text-align:left; font-weight:bold'>$value[jenis_barang]</td>
+                      </tr>";
+
+            }
+            elseif ($value['cetak_subtotal']==1) {
+                // echo '<tr>
+                //         <td colspan=5>TOTAL</td>
+                //         <td style"text-align:right">'.number_format($value[subtotal_saldo_awal],2,",",".").'</td>
+                //         <td colspan=2></td>
+                //         <td style"text-align:right">'.number_format($value[subtotal_masuk],2,",",".").'</td>
+                //          <td colspan=2></td>
+                //         <td style"text-align:right">'.number_format($value[subtotal_keluar],2,",",".").'</td>
+                //          <td colspan=2></td>
+                //         <td style"text-align:right">'.number_format($value[subtotal_sisa],2,",",".").'</td>
+                //         </tr>';
+            }
+            else{
+                echo "<tr>
+                        <td>$value[no]</td>
+                        <td style='text-align:left'>$value[nm_brg]</td>
+                        <td>$value[satuan]</td>
+                        <td>$value[jumlah_saldo_awal]</td>                        
+                        <td>".number_format($value[jumlah_diterima],2,",",".")."</td>                        
+                        <td>".number_format($value[jumlah_keluar],2,",",".")."</td>                        
+                        <td>".number_format($value[sisa_barang],2,",",".")."</td> 
+                    </tr>";
+            }
+
+        }
+        // echo '<tr>
+        //                 <td colspan=5>GRAND TOTAL</td>
+        //                 <td style"text-align:right">'.number_format($grandTotal[0][grandTotal_saldoAwal],2,",",".").'</td>
+        //                 <td colspan=2></td>
+        //                 <td style"text-align:right">'.number_format($grandTotal[0][grandTotal_penerimaan],2,",",".").'</td>
+        //                  <td colspan=2></td>
+        //                 <td style"text-align:right">'.number_format($grandTotal[0][grandTotal_pengeluaran],2,",",".").'</td>
+        //                  <td colspan=2></td>
+        //                 <td style"text-align:right">'.number_format($grandTotal[0][grandTotal_sisa],2,",",".").'</td>
+        //                 </tr>';
+          echo '</table>';
+          $this->cetak_nama_pj($satker_asal,$tgl_cetak);
+          // exit;
+        $mpdf=new mPDF('utf-8', 'A4');
+        $html = ob_get_contents();
+        ob_end_clean(); 
+        $mpdf->WriteHTML(utf8_encode($html));
+        $mpdf->Output("BA_OPNAME" ,'I');
+        exit;
+
+    }
+    }
+
     public function ba_opname($data){
         $smt="";
         $jenis = $data['format'];
@@ -1980,6 +2350,7 @@ class modelReport extends mysql_db
         $kd_lokasi = $data['kd_lokasi'].$kd_ruang;
         $bln_awal = $data['bln_awal'];
         $bln_akhir = $data['bln_akhir'];
+        $tgl_akhir = $data['tgl_akhir'];
         $tgl_cetak = $data['tgl_cetak'];
         $date = $this->cek_periode($data);
         $satker_asal = $data['satker_asal'];
@@ -1998,7 +2369,11 @@ class modelReport extends mysql_db
         $query = "SELECT kd_perk, nm_perk, satuan, harga_sat, concat(nm_brg,' ',IFNULL(spesifikasi,'')) as nm_brg,jns_trans, 
                     qty, qty_akhir 
                     from transaksi_masuk 
-                    where concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'  and thn_ang='$thn_ang' and month(tgl_dok) >= '$bln_awal' and month(tgl_dok) <= '$bln_akhir' and IFNULL(kd_brg,'')!=''
+                    where 
+                        concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'  AND 
+                        thn_ang='$thn_ang' AND 
+                        tgl_dok <= '$tgl_akhir' AND
+                        IFNULL(kd_brg,'')!=''
                     order BY kd_perk asc, nm_brg asc, jns_trans asc";
                     // echo $query;
         $result = $this->query($query);
@@ -2006,14 +2381,16 @@ class modelReport extends mysql_db
 
         $result_pj = $this->query($query);
                     // echo $query;
-        if($data['semester']=="06"){ 
-            $smt="I"; 
-            $semester[]= array('semester' =>$smt);
-        } 
-        else{ 
-            $smt="II";
-            $semester[]= array('semester' =>$smt); 
-        }
+        // if($data['semester']=="06"){ 
+        //     $smt="I"; 
+        //     $semester[]= array('semester' =>$smt);
+        // } 
+        // else{ 
+        //     $smt="II";
+        //     $semester[]= array('semester' =>$smt); 
+        // }
+
+        $semester[]= array('tanggal' =>$data['tgl_rekap']); 
             $grandTotal_saldoAwal   = 0;
             $grandTotal_penerimaan  = 0;
             $grandTotal_pengeluaran = 0;
@@ -2261,7 +2638,7 @@ class modelReport extends mysql_db
                     <td style= "vertical-align: bottom;">STOK OPNAME PERSEDIAAN</td>
                 </tr>
                 <tr>
-                    <td style= "vertical-align: bottom;">SEMESTER : '.$smt.'</td>
+                    <td style= "vertical-align: bottom;">PER TANGGAL : '.$data['tgl_rekap'].'</td>
                 </tr>
 
                 </table>
