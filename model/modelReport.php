@@ -293,7 +293,7 @@ class modelReport extends mysql_db
     }
 
     public function laporan_belanja_persediaan($data){ 
-        $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
+        $kd_ruang           = trim($data['kd_ruang']);
         $kd_lokasi          = $data['kd_lokasi'].$kd_ruang;
         $satker_asal        = $data['satker_asal'];
         $thn_ang            = $data['thn_ang'];
@@ -1143,7 +1143,7 @@ class modelReport extends mysql_db
         $satker_asal = $data['satker_asal'];
         $this->cetak_header($data_lp,"mutasi_persediaan",$kd_lokasi,"",$no);
 
-        $query = "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' and char_length(kode)=11 order by kode asc";
+        $query = "SELECT concat(kode, IFNULL(kd_ruang,'')) kode, NamaSatker FROM satker where kode like '$kd_lokasi%' and Gudang IS NOT NULL order by kode asc";
         $result = $this->query($query);
         $no = 0;
                 while($kdsatker=$this->fetch_assoc($result))
@@ -3266,11 +3266,15 @@ class modelReport extends mysql_db
                              sum(case when total_harga<0 and jns_trans !='M01' then total_harga else 0 end) as kurang 
                              FROM
                              (
-                             SELECT tgl_dok, thn_ang, kd_perk, nm_perk, jns_trans, total_harga, status_hapus, kd_lokasi from transaksi_masuk
+                             SELECT tgl_dok, thn_ang, kd_perk, nm_perk, jns_trans, total_harga, status_hapus, kd_lokasi,kd_ruang from transaksi_masuk
                                 UNION ALL
-                             SELECT tgl_dok, thn_ang, kd_perk, nm_perk, jns_trans, total_harga, status_hapus, kd_lokasi from transaksi_keluar
+                             SELECT tgl_dok, thn_ang, kd_perk, nm_perk, jns_trans, total_harga, status_hapus, kd_lokasi,kd_ruang from transaksi_keluar
                              ) transaksi  
-                              where kd_perk not like '' and kd_lokasi like '{$kd_lokasi}%'  and thn_ang='$thn_ang' and tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'
+                              where kd_perk not like '' 
+                                      AND concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_lokasi'  
+                                      AND thn_ang='$thn_ang' 
+                                      AND tgl_dok BETWEEN '$tgl_awal' 
+                                      AND '$tgl_akhir'
                               GROUP BY kd_perk";
             }
             elseif($nm_lap=="transaksi_persediaan"){
