@@ -35,6 +35,7 @@ if (mysqli_num_rows($query) == 1 AND $data['user_name'] == $username) {
 	$_SESSION['nama_satker'] = $data['nm_satker'];
 	$_SESSION['nm_ruang'] 	 = $data['nm_ruang'];
 	$_SESSION['transfer']    = $data['transfer'];
+	$_SESSION['akses_menu']    = $data['akses_menu'];
 	$_SESSION['thn_ang']     = $purifier->purify($_POST['thn_ang']);
 	$_SESSION['level']       = $data['user_level'];
 	$_SESSION['start']       = time();
