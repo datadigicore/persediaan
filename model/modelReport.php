@@ -2290,7 +2290,7 @@ class modelReport extends mysql_db
         foreach ($rekap as $key => $value) {
             if($value['cetak_header']==1){
                 echo "<tr>
-                        <td colspan='15' style='text-align:left; font-weight:bold'>$value[jenis_barang]</td>
+                        <td colspan='7' style='text-align:left; font-weight:bold'>$value[jenis_barang]</td>
                       </tr>";
 
             }
