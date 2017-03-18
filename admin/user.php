@@ -286,6 +286,8 @@
         }
       });
       $('#kdunitgudang').change(function(){
+        $("#kodeSubUPB").html("");
+        $('#kodeSubUPB').select2("val","");
         if ($(this).val()=='') {
           $('#kdsektor').val('');
           $('#kdsatker').val('');
@@ -298,16 +300,21 @@
         }
         else {
           var kdunitgudang = $(this).val();
-          $.ajax({
-              type: "post",
-              url: '../core/transaksi/prosestransaksi',
-              data: {manage:'get_bidang_report',kode_satker:kdunitgudang,kode_ruang:""},
-              success: function (output) {
-                $('#kodeSubUPB').html(output);
-                // $("#bidang_tujuan").select2({
-                // });
-              }
+          if(kdunitgudang.length==11){
+            $.ajax({
+                type: "post",
+                url: '../core/transaksi/prosestransaksi',
+                data: {manage:'get_bidang_report',kode_satker:kdunitgudang,kode_ruang:""},
+                success: function (output) {
+                  $('#kodeSubUPB').html(output);
+                  // $("#bidang_tujuan").select2({
+                  // });
+                }
             });
+          }
+          else{
+             $("#kodeSubUPB").html("");
+          }
           $.ajax({
             type: "post",
             url: '../core/user/prosesuser',
