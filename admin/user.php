@@ -151,6 +151,7 @@
                         <th>Email</th>
                         <th width="14%">Kode Satker</th>
                         <th width="26%">Nama Satker</th>
+                        <th>Nama Bagian</th>
                         <th width="10%">Tahun</th>
                         <th width="13%">Aksi</th>
                       </tr>
@@ -197,13 +198,14 @@
             {"targets": 3 },
             {"targets": 4 },
             {"targets": 5 },
+            {"targets": 6 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="row-fluid">'+
                                   '<button id="btnedt" class="col-xs-6 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                   '<button id="btnhps" class="col-xs-6 btn btn-danger btn-xs btn-flat pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
-             "targets": [6],"targets": 6 }
+             "targets": [7],"targets": 7 }
           ],
           "order": [[ 1, "asc" ]]
         });

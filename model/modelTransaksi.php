@@ -1724,6 +1724,7 @@ class modelTransaksi extends mysql_db
 
         $satuan = $data['satuan'];
         $kuantitas = $data['kuantitas'];
+        $jmlDikeluarkan = $data['kuantitas'];
         // $harga_sat = $data['harga_sat'];
         $status = $data['status'];
         $user_id = $data['user_id'];
@@ -1975,6 +1976,13 @@ class modelTransaksi extends mysql_db
             // {
                 $query_id = "select id,id_brg_trf, id_opname, kd_brg, qty_akhir, harga_sat from transaksi_masuk WHERE kd_brg='$kd_brg' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and qty_akhir>0 and thn_ang='$thn_ang'  order by tgl_dok asc, id asc limit 1";
                 $result_id = $this->query($query_id);
+                if($this->num_rows($result_id)==0){
+                     $query = "select sum(qty_akhir) as sisa,satuan from transaksi_masuk  where kd_brg = '$kd_brg' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and tgl_dok<='$tgl_dok' and thn_ang='$thn_ang' ";
+                    $result_id     = $this->query($query);
+                    $sisa = $jmlDikeluarkan - $kuantitas;
+                    echo "Jumlah Barang yang dikeluarkan sebesar $kuantitas $satuan pada kode Barang $kd_brg Melebihi Sisa barang yang tersimpan didalam sistem sebesar $sisa ";
+                    exit;
+                }
                 $row_id = $this->fetch_array($result_id);
                 $id_trans = $row_id['id'];
                 $id_brg_trf = $row_id['id_brg_trf'];
