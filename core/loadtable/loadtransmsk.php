@@ -6,7 +6,7 @@
 //Mendapatkan Data Sesi Username dan kode satker
 session_start();
 $user_id=$_SESSION['username'];
-$kd_satker=$_SESSION['kd_lok'].$_SESSION['kd_ruang'];
+$kd_satker=$_SESSION['kd_lok'].trim($_SESSION['kd_ruang']);
 $kd_ruang=$_SESSION['kd_ruang'];
 $thn_ang=$_SESSION['thn_ang'];
 // Table yang di load
@@ -88,19 +88,19 @@ require('../../config/dbconf.php');
 $config = new config();
 $sql_details = $config->sql_details();
 
-$str = $kd_satker;
-if (substr_count($str,".") == 0) {
-    $where = "kd_lokasi like '$kd_satker.%.%.%'  and thn_ang='$thn_ang'  and jns_trans not in ('P01','P02','M01I')  group by no_dok";   
-}
-else if (substr_count($str,".") == 1) {
-    $where = "kd_lokasi like '$kd_satker.%.%'  and thn_ang='$thn_ang'  and jns_trans not in ('P01','P02','M01I')  group by no_dok";   
-}
-else if (substr_count($str,".") == 2) {
-    $where = "kd_lokasi like '$kd_satker.%'  and thn_ang='$thn_ang'  and jns_trans not in ('P01','P02','M01I')  group by no_dok";
-}
-else{
-    $where = "concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker'  and thn_ang='$thn_ang' and jns_trans not in ('P01','P02','M01I')  group by no_dok";
-}
+// $str = $kd_satker;
+// if (substr_count($str,".") == 0) {
+//     $where = "kd_lokasi like '$kd_satker.%.%.%'  and thn_ang='$thn_ang'  and jns_trans not in ('P01','P02','M01I')  group by no_dok";   
+// }
+// else if (substr_count($str,".") == 1) {
+//     $where = "kd_lokasi like '$kd_satker.%.%'  and thn_ang='$thn_ang'  and jns_trans not in ('P01','P02','M01I')  group by no_dok";   
+// }
+// else if (substr_count($str,".") == 2) {
+//     $where = "kd_lokasi like '$kd_satker.%'  and thn_ang='$thn_ang'  and jns_trans not in ('P01','P02','M01I')  group by no_dok";
+// }
+// else{
+    $where = "concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_satker%'  and thn_ang='$thn_ang' and jns_trans not in ('P01','P02','M01I')  group by no_dok";
+// }
  
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp-join.php' );
