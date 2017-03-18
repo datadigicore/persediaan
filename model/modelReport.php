@@ -2330,7 +2330,7 @@ class modelReport extends mysql_db
         //                 <td style"text-align:right">'.number_format($grandTotal[0][grandTotal_sisa],2,",",".").'</td>
         //                 </tr>';
           echo '</table>';
-          $this->cetak_nama_pj($satker_asal,$tgl_cetak);
+          $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
           // exit;
         $mpdf=new mPDF('utf-8', 'A4');
         $html = ob_get_contents();
@@ -2720,7 +2720,7 @@ class modelReport extends mysql_db
                         <td style"text-align:right">'.number_format($grandTotal[0][grandTotal_sisa],2,",",".").'</td>
                         </tr>';
           echo '</table>';
-          $this->cetak_nama_pj($satker_asal,$tgl_cetak);
+          $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
           // exit;
         $mpdf=new mPDF('utf-8', 'A4');
         $html = ob_get_contents();
@@ -3292,7 +3292,7 @@ class modelReport extends mysql_db
 
             }
             elseif($nm_lap=="penerimaan_brg"){
-              $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, concat(nm_brg,' ',spesifikasi) as nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
+              $sql="SELECT id, tgl_buku, no_bukti, tgl_dok, concat(nm_brg,' ',IFNULL(spesifikasi,'')) as nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
                                 FROM transaksi_masuk 
                                 where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'  
                                       and concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'   
@@ -4645,7 +4645,7 @@ public function getupb($kd_lokasi){
 
     public function cetak_nama_pj($satker_asal,$tgl_cetak="")
     {
-        $kode_satker = $satker_asal.$_SESSION['kd_ruang'];
+        $kode_satker = $satker_asal;
         $query = "SELECT * from ttd where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kode_satker' ";
         $result = $this->query($query);
         $pj = $this->fetch_array($result);
