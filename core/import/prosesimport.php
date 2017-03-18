@@ -168,7 +168,44 @@ else
         }
       }
       else {
-        header('location:../../admin/trans_masuk');
+        header('location:../../admin/trans_keluar');
+      }
+    break;
+    case 'importTransTransfer':
+      if(isset($_POST) && !empty($_FILES['fileimport']['name'])) {
+        $path = $_FILES['fileimport']['name'];
+        $ext  = pathinfo($path, PATHINFO_EXTENSION);
+        if($ext != 'xls' && $ext != 'xlsx') {
+          echo "Kesalahan File yang di Upload Tidak Sesuai";
+          header('location:../../admin/transfer');
+        }
+        else {
+          $time        = time();
+          $target_dir  = $path_upload;
+          $target_name = basename(date("Ymd-His-\T\R\A\N\S\F\E\R.",$time).$ext);
+          $target_file = $target_dir . $target_name;
+          $response    = move_uploaded_file($_FILES['fileimport']['tmp_name'],$target_file);
+          if($response) {
+            try {
+              $objPHPExcel = PHPExcel_IOFactory::load($target_file);
+            }
+            catch(Exception $e) {
+              die('Kesalahan! Gagal dalam mengupload file : "'.pathinfo($_FILES['excelupload']['name'],PATHINFO_BASENAME).'": '.$e->getMessage());
+            }
+            $allDataInSheet = $objPHPExcel->getActiveSheet()->toArray(NULL,TRUE,FALSE,TRUE);
+            if (count($allDataInSheet[10]) == 11) {
+              $Transaksi->temporaryImportTransTransfer($allDataInSheet);
+              header('location:../../admin/temp_import_transfer');
+            }
+            else {
+              $Transaksi->importTransTransfer($allDataInSheet);
+              header('location:../../admin/temp_import_transfer');
+            }
+          }
+        }
+      }
+      else {
+        header('location:../../admin/transfer');
       }
     break;
     case 'importRekening':

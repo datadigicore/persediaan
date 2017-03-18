@@ -37,6 +37,16 @@ else {
             <li class="active"><a href="#"><i class="fa fa-compress"></i> Transaksi Keluar</a></li>
           </ol>
         </section>
+        <?php } else if ($_POST['manage']=="transfer") { ?>
+        <section class="content-header">
+          <h1>
+            Transfer Persediaan
+            <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
+          </h1>
+          <ol class="breadcrumb">
+            <li class="active"><a href="#"><i class="fa fa-compress"></i> Transaksi Keluar</a></li>
+          </ol>
+        </section>
         <?php } ?>
         <section class="content">
           <div class="row">
@@ -70,6 +80,12 @@ else {
                           <div class="col-sm-7">
                             <input type="text" id="dissatker" name="dissatker" class="form-control" value="<?php echo $_POST['nm_satker'] ?>" readonly>
                           </div>
+                        </div> 
+                        <div class="form-group">
+                          <label class="col-sm-5 control-label">Kode Bagian</label>
+                          <div class="col-sm-7">
+                            <input type="text" name="kd_ruang" class="form-control" id="kd_ruang" value="<?php echo $_POST['kd_ruang'] ?>" placeholder="" readonly>
+                          </div>
                         </div>                  
                         <!-- <div class="form-group">
                           <label class="col-sm-5 control-label">Total Transaksi</label>
@@ -94,17 +110,11 @@ else {
                             <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="" readonly>
                           </div>
                         </div>
-                        <div class="form-group">
-                          <label class="col-sm-3 control-label">Kode Bagian</label>
-                          <div class="col-sm-8">
-                            <input type="text" name="kd_ruang" class="form-control" id="kd_ruang" value="<?php echo $_POST['kd_ruang'] ?>" placeholder="" readonly>
-                          </div>
-                        </div> 
                 
                         <div name="detil_transaksi" id="detil_transaksi">
                         </div>
                       </div>  
-                      <?php }
+                  <?php }
                       else if ($_POST['manage']=="trans_keluar") { ?>
                       <div class="col-sm-7">  
                           <div class="form-group">
@@ -120,15 +130,39 @@ else {
                             <div class="col-sm-8">
                               <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="" readonly>
                             </div>
-                          </div> 
-                        <div class="form-group">
-                          <label class="col-sm-3 control-label">Kode Bagian</label>
-                          <div class="col-sm-8">
-                            <input type="text" name="kd_ruang" class="form-control" id="kd_ruang" value="<?php echo $_POST['kd_ruang'] ?>" placeholder="" readonly>
-                          </div                
-                        </div>  
-                      <?php } ?>
-                      
+                          </div>  
+                  <?php } 
+                       else if ($_POST['manage']=="transfer") {
+                      ?>
+                      <div class="col-sm-7">  
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">No. Dokumen</label>
+                            <div class="col-sm-8">
+                              <input type="text" name="no_dok_item" id="no_dok_item" class="form-control" style="width:100%;" readonly value="<?php echo $_POST['satker'];?>">
+                              <input type="hidden" name="manage" value="tbh_transaksi_klr">
+                            <input type="hidden" id="read_no_dok" name="read_no_dok">
+                            </div>
+                          </div>  
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">Keterangan</label>
+                            <div class="col-sm-8">
+                              <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="" readonly>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">Satker Penerima</label>
+                            <div class="col-sm-8">
+                              <input type="text" name="satker_penerima" class="form-control" id="satker_penerima" placeholder="" readonly>
+                            </div>
+                          </div>  
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">Bagian Penerima</label>
+                            <div class="col-sm-8">
+                              <input type="text" name="bagian_penerima" class="form-control" id="bagian_penerima" placeholder="" readonly>
+                            </div>
+                          </div>
+                        </div>
+                    <?php } ?> 
                     </div>
                   </div> 
                     </div>
@@ -179,6 +213,41 @@ else {
                         <th>Harga Satuan</th>
                         <th>Total Harga</th>
                         <th>Keterangan</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+              <?php } ?>   
+              <?php if ($_POST['manage']=="transfer") { ?>
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Daftar Transaksi Keluar</h3>
+                </div>
+                <div class="box-body">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                      <tr> 
+                        <th>ID</th>
+                        <th>No Dokumen</th>
+                        <th>Kode Barang</th>
+                        <th>Nama Barang</th>
+                        <th>Spesifikasi</th>
+                        <th>Jumlah</th>
+                        <th>Satuan</th>
+                        <th>Harga Satuan</th>
+                        <th>Total Harga</th>  
+                        <th>Keterangan</th>
+                        <th width="8%">Aksi</th>
+                        <th> kd_lokasi </th>
+                        <th> kd_lok_msk </th>
+                        <th> kd_ruang_msk </th>
+                        <th> nm_satker </th>
+                        <th> nm_satker_msk </th>
+                        <th> kd_brg </th>
+                        <th> nm_brg </th>
+                        <th> satuan </th>
+                        <th> qty </th>
                       </tr>
                     </thead>
                   </table>
@@ -276,6 +345,103 @@ else {
 
           ],
         });
+    </script>
+
+<!-- ########################################################################## -->
+    <?php } else if ($_POST['manage']=="transfer") { ?>
+<!-- ########################################################################## -->
+
+    <script type="text/javascript">
+    var table;
+     $("li#trans_keluar").addClass("active");
+     function baca_tabel(){
+        table = $("#example1").DataTable({
+            "processing": false,
+            "serverSide": true,
+            "ajax":
+            {
+              'type': 'GET',
+              'url': '../core/loadtable/load_item_transfer',
+              'data': {
+                 no_dok: '<?php echo $_POST["satker"]?>',
+              },
+            },
+            "columnDefs":
+            [
+              {"targets": 0,
+               "visible": false },
+              {"targets": 1,
+               "visible": false  },
+              {"targets": 2 },
+              {"targets": 3 },
+              {"targets": 4 },
+              {"targets": 5 },
+              {"targets": 6 },
+              {"targets": 7 },
+              {"targets": 8 },
+              {"targets": 9 },
+              {"targets": 10 },
+              {"targets": 11,
+               "visible": false },
+              {"targets": 12,
+               "visible": false },
+              {"targets": 13,
+               "visible": false },
+              {"targets": 14,
+               "visible": false },
+              {"targets": 15,
+               "visible": false },
+              {"targets": 16,
+               "visible": false },
+              {"targets": 17,
+               "visible": false },
+              {"targets": 18,
+               "visible": false },
+              {"targets": 19,
+               "visible": false },
+            ],
+          });
+        }
+          baca_tabel();
+          $(document).on('click', '#btnkonfirm', function () {
+          var tr = $(this).closest('tr');
+          var row = table.row( tr );
+          manage = "konfirmasi_transfer";
+          id_row = row.data()[0];
+          $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'konfirmasi_transfer',id:id_row},
+          dataType: "json",
+          success: function (output) {
+            
+          }
+        });
+        $("#example1").DataTable().destroy();
+        $("#example1 tbody").empty();
+        baca_tabel();   
+      });
+
+
+        $(document).on('click', '#hapus_transfer', function () {
+          var tr = $(this).closest('tr');
+          var row = table.row( tr );
+          id = row.data()[0];
+          kd_brg = row.data()[10];
+          $.ajax({
+            type: "post",
+            url: '../core/transaksi/prosestransaksi',
+            data: {manage:'hapus_transfer', id:id, kd_brg:kd_brg},
+            dataType: "json",
+            success: function (output) {
+              alert(output);
+            }
+          });
+          $("#example1").DataTable().destroy();
+          $("#example1 tbody").empty();
+          baca_tabel();
+        });
+
     </script>
     <?php } ?>
   </body>

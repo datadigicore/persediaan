@@ -45,6 +45,13 @@ else
 			}
 		break;
 
+		case 'add_temp_item_trans_transfer':
+			$result = $Transaksi->add_temp_item_trans_transfer();
+			if ($result) {
+				header('location:../../admin/transfer');
+			}
+		break;
+
 		case 'checkErrorMessage':
 			$Transaksi->check_error_message($_POST['jenis']);
 		break;

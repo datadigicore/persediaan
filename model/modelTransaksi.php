@@ -55,6 +55,9 @@ class modelTransaksi extends mysql_db
         if ($jenis == 'keluar') {
             $table = 'temp_import_keluar';
         }
+        elseif($jenis=='transfer') {
+            $table = 'temp_import_transfer';
+        }
         else {
             $table = 'temp_import_masuk';
         }
@@ -86,6 +89,17 @@ class modelTransaksi extends mysql_db
         $this->clear_log_temp_import('temp_import_keluar');
         $this->query('COMMIT');
         return true;
+    }
+
+    public function add_temp_item_trans_transfer(){
+        $sql="INSERT INTO transfer (kd_lokasi, kd_ruang, kd_lok_msk, kd_ruang_msk, nm_satker, nm_ruang, nm_satker_msk, nm_ruang_msk, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, kd_perk, nm_perk, satuan, qty, jns_trans, keterangan,status, tgl_update, user_id)
+              SELECT kd_lokasi, kd_ruang, kd_lok_msk, kd_ruang_msk, nm_satker, nm_ruang, nm_satker_msk, nm_ruang_msk, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, kd_perk, nm_perk, satuan, qty, jns_trans, keterangan, 1 , tgl_update, user_id from temp_import_transfer where user_id = '$_SESSION[username]'";
+        $res=$this->query($sql);
+        if ($res) {
+            $this->create_log_import('I-Transaksi Transfer');
+            $this->clear_log_temp_import('temp_import_transfer');
+            return true;
+        }
     }
 
     public function create_log_import($data){
@@ -508,6 +522,102 @@ class modelTransaksi extends mysql_db
         $result = $this->query($query);
     }
 
+    public function importTransTransfer($data){
+        error_reporting(0);
+        $this->clear_log_temp_import('temp_import_transfer');
+        $error_message = array();
+        $value['kd_lokasi'] = $data[1][B];
+        $value['kd_ruang'] = $data[2][B];
+        $value['kd_lok_msk']   = $data[1][D];
+        $value['kd_ruang_msk'] = $data[2][D];
+        $cekkdlokasi        = "SELECT NamaSatker FROM satker WHERE kode = '$value[kd_lokasi]'";
+        $result             = $this->query($cekkdlokasi);
+        if ($result == true) {
+
+            $cekkdruang             = "SELECT NamaSatker FROM satker WHERE kode = '$value[kd_lokasi]' and kd_ruang='$value[kd_ruang]' ";
+            $cekkdsatkermsk          = "SELECT NamaSatker FROM satker WHERE kode = '$value[kd_lok_msk]' and (kd_ruang IS NULL or kd_ruang='') ";
+            $cekkdruangmsk          = "SELECT NamaSatker FROM satker WHERE kode = '$value[kd_lok_msk]' and kd_ruang='$value[kd_ruang_msk]' ";
+            $resultkdruang          = $this->query($cekkdruang);
+            $resultkdsatkermsk       = $this->query($cekkdsatkermsk);
+            $resultkdruangmsk       = $this->query($cekkdruangmsk);
+
+            $assocResult            = $this->fetch_assoc($result);
+            $assocRuangResult       = $this->fetch_assoc($resultkdruang);
+
+            $assocMskResult         = $this->fetch_assoc($resultkdsatkermsk);
+            $assocRuangMskResult    = $this->fetch_assoc($resultkdruangmsk);
+            $value['nm_satker']     = $assocResult['NamaSatker'];
+            $value['nm_ruang']      = $assocRuangResult['NamaSatker'];
+            $value['nm_satker_msk'] = $assocMskResult['NamaSatker'];
+            $value['nm_ruang_msk']  = $assocRuangMskResult['NamaSatker'];
+            $value['user_id']       = $_SESSION['username'];
+            $value['thn_ang']       = $_SESSION['thn_ang'];
+            $value['no_dok']        = $data[1][B].' - '.$data[3][B];
+
+            $cekNoDok            = "SELECT no_dok FROM transfer WHERE no_dok = '$value[no_dok]' AND thn_ang = '$value[thn_ang]' LIMIT 1";
+            $resultCekNoDok      = $this->query($cekNoDok);
+            if (!empty($resultCekNoDok->num_rows)) {
+                array_push($error_message, "Nomor Dokumen Telah Digunakan");
+            }
+            $tgldok             = split('-', $data[5][B]);
+            $value['tgl_dok']   = $tgldok[2].'-'.$tgldok[1].'-'.$tgldok[0];
+            $tglbuku            = split('-', $data[6][B]);
+            $value['tgl_buku']  = $tglbuku[2].'-'.$tglbuku[1].'-'.$tglbuku[0];
+            $value['no_bukti']  = $data[3][B];
+            $value['jns_trans'] = $data[4][B];
+            if ($value['tgl_dok'] > $value['tgl_buku']) {
+                echo "Melebihi";
+            }
+            $value['keterangan']    = $data[7][B];
+            $arrayCount             = count($data);
+            for ($i=10; $i <= $arrayCount; $i++) {
+                $value['kd_brg'] = trim($data[$i]["A"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+                $cekbarang       = "SELECT kd_brg, nm_brg, kd_perk, nm_perk, kd_sskel, nm_sskel, spesifikasi, satuan FROM persediaan WHERE kd_brg = '$value[kd_brg]' LIMIT 1";
+                $result          = $this->query($cekbarang);
+                if (!empty($result->num_rows)) {
+                    $arrayResult = $this->fetch_assoc($result);
+                    $value['nm_brg'] = $arrayResult['nm_brg'];
+                    $value['kd_perk'] = $arrayResult['kd_perk'];
+                    $value['nm_perk'] = $arrayResult['nm_perk'];
+                    $value['kd_sskel'] = $arrayResult['kd_sskel'];
+                    $value['nm_sskel'] = $arrayResult['nm_sskel'];
+                    $value['spesifikasi'] = $arrayResult['spesifikasi'];
+                }
+                else {
+                    if (empty($data[$i]["G"]) && empty($value['kd_brg'])) {
+                        array_push($error_message, "Kode Barang Tidak Ada");
+                    }
+                    $value['nm_brg'] = NULL;
+                    $value['kd_perk'] = NULL;
+                    $value['nm_perk'] = NULL;
+                    $value['kd_sskel'] = NULL;
+                    $value['nm_sskel'] = NULL;
+                    $value['spesifikasi'] = NULL;
+                }
+                $value['qty'] = trim($data[$i]["C"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+                $value['qty_akhir'] = trim($data[$i]["C"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+                $value['satuan'] = trim($data[$i]["D"]," \t\n\r\0\x0B\xA0\x0D\x0A");
+                $cekSatuan            = "SELECT satuan FROM satuan WHERE satuan = '$value[satuan]' LIMIT 1";
+                $resultSatuan         = $this->query($cekSatuan);
+                if (!empty($value['kd_brg']) && empty($resultSatuan->num_rows)) {
+                    array_push($error_message, "Satuan $value[satuan] Tidak Ada");
+                }
+                if (!empty(array_filter($error_message))) {
+                    array_push($error_message, "Cek Row Excel No $i");
+                }
+                $value['error_message'] = implode(', ', $error_message);
+                $replace = "INSERT INTO temp_import_transfer (keterangan, jns_trans, kd_lokasi, kd_ruang, kd_lok_msk, kd_ruang_msk, nm_satker, nm_ruang, nm_satker_msk, nm_ruang_msk, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, kd_perk, nm_perk, satuan, qty, tgl_update, user_id, error_message) VALUES ";
+                $values .= "('".$value['keterangan']."','".$value['jns_trans']."','".$value['kd_lokasi']."','".$value['kd_ruang']."','".$value['kd_lok_msk']."','".$value['kd_ruang_msk']."','".$value['nm_satker']."','".$value['nm_ruang']."','".$value['nm_satker_msk']."','".$value['nm_ruang_msk']."','".$value['thn_ang']."','".$value['no_dok']."','".$value['tgl_dok']."','".$value['tgl_buku']."','".$value['no_bukti']."','".$value['kd_sskel']."','".$value['nm_sskel']."','".$value['kd_brg']."','".$value['nm_brg']."','".$value['spesifikasi']."','".$value['kd_perk']."','".$value['nm_perk']."','".$value['satuan']."','".$value['qty']."',NOW(),'".$value['user_id']."','".$value['error_message']."'),";
+                $error_message = array();
+            }
+            $query  = str_replace("''", "NULL", $replace.$values);
+            $query  = substr($query,0,-1);
+            $result = $this->query($query);
+        }
+        else {
+            return "Kode Barang Tidak Tersedia";
+        }
+    }
     public function importTransKeluar($data){
         error_reporting(0);
         $this->clear_log_temp_import('temp_import_keluar');

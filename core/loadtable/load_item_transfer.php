@@ -86,7 +86,10 @@ $config = new config();
 $sql_details = $config->sql_details();
 
 $str = $kd_satker;
-if (substr_count($str,".") == 0) {
+if ($_SESSION['level'] == 1) {
+    $where = "thn_ang='$thn_ang' and no_dok = '$no_dok' ";
+}
+else if (substr_count($str,".") == 0) {
     $where = "kd_lokasi like '$kd_satker.%.%.%' and thn_ang='$thn_ang' and no_dok = '$no_dok' ";
 }
 else if (substr_count($str,".") == 1) {
