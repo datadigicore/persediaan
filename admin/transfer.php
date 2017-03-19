@@ -32,8 +32,8 @@
                       <tr>
                         <th width="5%">ID</th>
                         <th width="18%">No Dokumen</th>
-                        <th width="18%">Satker tujuan</th>
-                        <th width="18%">Bidang tujuan</th>
+                        <th width="18%">Satker Pengirim</th>
+                        <th width="18%">Satker Penerima</th>
                         <th>Tanggal Dokumen</th>
                         <th>Tanggal Pembukuan</th>
                         <th>Keterangan</th>
@@ -163,8 +163,8 @@
         jns_trans = row.data()[4];
         satker = row.data()[1];
         nm_satker = row.data()[2];
-        kd_ruang = row.data()[3];
-        tgl_dok = row.data()[6];
+        nm_satker_msk = row.data()[3];
+        tgl_dok = row.data()[4];
         tgl_buku = row.data()[7];
         kd_satker = satker.substring(0,11);
 
@@ -176,7 +176,7 @@
         var $input5=$(document.createElement('input')).css({display:'none'}).attr('name','satker').val(satker);
         var $input6=$(document.createElement('input')).css({display:'none'}).attr('name','manage').val(manage);
         var $input7=$(document.createElement('input')).css({display:'none'}).attr('name','kd_satker').val(kd_satker);
-        var $input8=$(document.createElement('input')).css({display:'none'}).attr('name','kd_ruang').val(kd_ruang);
+        var $input8=$(document.createElement('input')).css({display:'none'}).attr('name','nm_satker_msk').val(nm_satker_msk);
         var $input9=$(document.createElement('input')).css({display:'none'}).attr('name','nm_satker').val(nm_satker);
         $form.append($input).append($input2).append($input3).append($input4).append($input5).append($input6).append($input7).append($input8).append($input9);
         $("body").append($form);

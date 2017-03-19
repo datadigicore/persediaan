@@ -56,37 +56,31 @@ else {
                   <div class="box-body" style="padding-top:15px;">
                     <div class="row">
                       <div class="col-sm-5">
-                        <div class="form-group">
+<!--                         <div class="form-group">
 
                           <label class="col-sm-5 control-label">Jenis Transaksi</label>
                           <div class="col-sm-7">
                             <input type="text" id="disjenistrans" name="disjenistrans" class="form-control" value="<?php echo $_POST['jenistrans'] ?>" readonly>
                           </div>
-                        </div>
+                        </div> -->
                         <div class="form-group">
                           <label class="col-sm-5 control-label">Tgl. Dokumen</label>
                           <div class="col-sm-7">
                             <input type="text" id="tgl_dok" name="tgl_dok" class="form-control" value="<?php echo $_POST['tanggaldok'] ?>" readonly>
                           </div>
-                        </div>                  
+                        </div><!--                   
                         <div class="form-group">
                           <label class="col-sm-5 control-label">Tgl. Pembukuan</label>
                           <div class="col-sm-7">
                             <input type="text" id="tgl_buku" name="tgl_buku" class="form-control" value="<?php echo $_POST['tanggalbuku'] ?>" readonly>
                           </div>
-                        </div>
+                        </div> -->
                         <div class="form-group">
-                          <label class="col-sm-5 control-label">Satker</label>
+                          <label class="col-sm-5 control-label">Satker Pengirim</label>
                           <div class="col-sm-7">
-                            <input type="text" id="dissatker" name="dissatker" class="form-control" value="<?php echo $_POST['nm_satker'] ?>" readonly>
+                            <textarea class="form-control" rows="2"   readonly><?php echo $_POST['nm_satker'] ?></textarea>
                           </div>
-                        </div> 
-                        <div class="form-group">
-                          <label class="col-sm-5 control-label">Kode Bagian</label>
-                          <div class="col-sm-7">
-                            <input type="text" name="kd_ruang" class="form-control" id="kd_ruang" value="<?php echo $_POST['kd_ruang'] ?>" placeholder="" readonly>
-                          </div>
-                        </div>                  
+                        </div>                   
                         <!-- <div class="form-group">
                           <label class="col-sm-5 control-label">Total Transaksi</label>
                           <div class="col-sm-7">
@@ -152,15 +146,9 @@ else {
                           <div class="form-group">
                             <label class="col-sm-3 control-label">Satker Penerima</label>
                             <div class="col-sm-8">
-                              <input type="text" name="satker_penerima" class="form-control" id="satker_penerima" placeholder="" readonly>
+                              <textarea class="form-control" rows="2" readonly=""><?php echo $_POST['nm_satker_msk'] ?></textarea>
                             </div>
                           </div>  
-                          <div class="form-group">
-                            <label class="col-sm-3 control-label">Bagian Penerima</label>
-                            <div class="col-sm-8">
-                              <input type="text" name="bagian_penerima" class="form-control" id="bagian_penerima" placeholder="" readonly>
-                            </div>
-                          </div>
                         </div>
                     <?php } ?> 
                     </div>
