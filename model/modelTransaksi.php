@@ -632,7 +632,7 @@ class modelTransaksi extends mysql_db
             $value['user_id']   = $_SESSION['username'];
             $value['thn_ang']   = $_SESSION['thn_ang'];
             $value['no_dok']    = $data[1][B].' - '.$data[3][B];
-            $cekNoDok            = "SELECT no_dok FROM transaksi_masuk WHERE no_dok = '$value[no_dok]' AND thn_ang = '$value[thn_ang]' LIMIT 1";
+            $cekNoDok            = "SELECT no_dok FROM transaksi_keluar WHERE no_dok = '$value[no_dok]' AND thn_ang = '$value[thn_ang]' LIMIT 1";
             $resultCekNoDok      = $this->query($cekNoDok);
             if (!empty($resultCekNoDok->num_rows)) {
                 array_push($error_message, "Nomor Dokumen Telah Digunakan");
