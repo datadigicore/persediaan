@@ -18,8 +18,8 @@ $primaryKey = 'id';
 $columns = array(
     array( 'db' => 'id', 'dt' => 0 ),
     array( 'db' => 'no_dok', 'dt' => 1),
-    array( 'db' => 'nm_satker', 'dt' => 2, 'formatter' => function($d,$row){return "$row[7], $d";}),
-    array( 'db' => 'nm_satker_msk', 'dt' => 3, 'formatter' => function($d,$row){return "$row[8], $d";}),
+    array( 'db' => 'nm_satker', 'dt' => 2, 'formatter' => function($d,$row){return "$row[7] $d";}),
+    array( 'db' => 'nm_satker_msk', 'dt' => 3, 'formatter' => function($d,$row){return "$row[8] $d";}),
     array( 'db' => 'tgl_dok', 'dt' => 4, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
     array( 'db' => 'tgl_buku', 'dt' => 5, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
     array( 'db' => 'keterangan', 'dt' => 6 ),
