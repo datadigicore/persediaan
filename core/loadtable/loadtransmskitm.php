@@ -12,7 +12,7 @@ if ($_SESSION['level'] == 1 AND isset($_GET['kd_sat'])) {
 else {
     $kd_satker = $_SESSION['kd_lok'];
 }
-$kd_ruang=$_SESSION['kd_ruang'];
+$kd_ruang=trim($_SESSION['kd_ruang']);
 $thn_ang=$_SESSION['thn_ang'];
 $query_ruang="";
 $no_dok = $_GET['no_dok'];
