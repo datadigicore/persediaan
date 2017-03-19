@@ -344,6 +344,7 @@ else {
      $("li#trans_keluar").addClass("active");
      function baca_tabel(){
         table = $("#example1").DataTable({
+            "aaSorting": [[ 10, 'desc' ]],
             "processing": false,
             "serverSide": true,
             "ajax":
