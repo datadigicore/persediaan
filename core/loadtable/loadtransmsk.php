@@ -99,7 +99,7 @@ $sql_details = $config->sql_details();
 //     $where = "kd_lokasi like '$kd_satker.%'  and thn_ang='$thn_ang'  and jns_trans not in ('P01','P02','M01I')  group by no_dok";
 // }
 // else{
-    $where = "concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_satker%'  and thn_ang='$thn_ang' and jns_trans not in ('P01','P02','M01I')  group by no_dok";
+    $where = "concat(kd_lokasi,IFNULL(kd_ruang,'')) = '$kd_satker'  and thn_ang='$thn_ang' and jns_trans not in ('P01','P02','M01I')  group by no_dok";
 // }
  
 // Pengaturan Output Server Side Processing
