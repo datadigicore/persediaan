@@ -180,7 +180,7 @@
         kd_ruang = row.data()[3];
         tgl_dok = row.data()[6];
         tgl_buku = row.data()[7];
-        kd_satker = satker.substring(0,11);
+        kd_satker = satker.split(" ", 1);
 
         var $form=$(document.createElement('form')).css({display:'none'}).attr("method","POST").attr("action","trans_item_brg");
         var $input=$(document.createElement('input')).css({display:'none'}).attr('name','id').val(id_row);
