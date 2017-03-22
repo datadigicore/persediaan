@@ -6,7 +6,7 @@
 //Mendapatkan Data Sesi Username dan kode satker
 session_start();
 $user_id=$_SESSION['username'];
-if ($_SESSION['level'] == 1 AND isset($_GET['kd_sat'])) {
+if ($_SESSION['level']==1) {
     $kd_satker = $_GET['kd_sat'];
 }
 else {

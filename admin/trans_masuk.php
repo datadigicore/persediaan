@@ -174,20 +174,20 @@
         var row = table.row( tr );
         manage = "trans_masuk";
         id_row = row.data()[0];
-        jns_trans = row.data()[4];
-        satker = row.data()[5];
+        kd_satker = row.data()[1];
         nm_satker = row.data()[2];
         kd_ruang = row.data()[3];
+        jns_trans = row.data()[4];
+        no_dok = row.data()[5];
         tgl_dok = row.data()[6];
         tgl_buku = row.data()[7];
-        kd_satker = satker.split(" ", 1);
 
         var $form=$(document.createElement('form')).css({display:'none'}).attr("method","POST").attr("action","trans_item_brg");
         var $input=$(document.createElement('input')).css({display:'none'}).attr('name','id').val(id_row);
         var $input2=$(document.createElement('input')).css({display:'none'}).attr('name','jenistrans').val(jns_trans);
         var $input3=$(document.createElement('input')).css({display:'none'}).attr('name','tanggaldok').val(tgl_dok);
         var $input4=$(document.createElement('input')).css({display:'none'}).attr('name','tanggalbuku').val(tgl_buku);
-        var $input5=$(document.createElement('input')).css({display:'none'}).attr('name','satker').val(satker);
+        var $input5=$(document.createElement('input')).css({display:'none'}).attr('name','no_dok').val(no_dok);
         var $input6=$(document.createElement('input')).css({display:'none'}).attr('name','manage').val(manage);
         var $input7=$(document.createElement('input')).css({display:'none'}).attr('name','kd_satker').val(kd_satker);
         var $input8=$(document.createElement('input')).css({display:'none'}).attr('name','kd_ruang').val(kd_ruang);
