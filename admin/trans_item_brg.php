@@ -10,7 +10,7 @@ else {
     <?php include("include/loadcss.php"); ?>
     <link href="../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="../dist/css/datepicker.css" rel="stylesheet" type="text/css" />
-    
+
   </head>
   <body class="skin-blue">
     <div class="wrapper">
@@ -68,7 +68,7 @@ else {
                           <div class="col-sm-7">
                             <input type="text" id="tgl_dok" name="tgl_dok" class="form-control" value="<?php echo $_POST['tanggaldok'] ?>" readonly>
                           </div>
-                        </div><!--                   
+                        </div><!--
                         <div class="form-group">
                           <label class="col-sm-5 control-label">Tgl. Pembukuan</label>
                           <div class="col-sm-7">
@@ -80,7 +80,7 @@ else {
                           <div class="col-sm-7">
                             <textarea class="form-control" rows="2"   readonly><?php echo $_POST['nm_satker'] ?></textarea>
                           </div>
-                        </div>                   
+                        </div>
                         <!-- <div class="form-group">
                           <label class="col-sm-5 control-label">Total Transaksi</label>
                           <div class="col-sm-7">
@@ -93,7 +93,7 @@ else {
                         <div class="form-group">
                           <label class="col-sm-3 control-label">No. Dokumen</label>
                           <div class="col-sm-8">
-                            <input type="text" name="no_dok_item" id="no_dok_item" class="form-control" style="width:100%;" readonly value="<?php echo $_POST['satker'];?>">
+                            <input type="text" name="no_dok_item" id="no_dok_item" class="form-control" style="width:100%;" readonly value="<?php echo $_POST['no_dok'];?>">
                             <input type="hidden" name="manage" value="tbh_transaksi_msk">
                             <input type="hidden" id="read_no_dok" name="read_no_dok">
                           </div>
@@ -104,39 +104,39 @@ else {
                             <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="" readonly>
                           </div>
                         </div>
-                
+
                         <div name="detil_transaksi" id="detil_transaksi">
                         </div>
-                      </div>  
+                      </div>
                   <?php }
                       else if ($_POST['manage']=="trans_keluar") { ?>
-                      <div class="col-sm-7">  
+                      <div class="col-sm-7">
                           <div class="form-group">
                             <label class="col-sm-3 control-label">No. Dokumen</label>
                             <div class="col-sm-8">
-                              <input type="text" name="no_dok_item" id="no_dok_item" class="form-control" style="width:100%;" readonly value="<?php echo $_POST['satker'];?>">
+                              <input type="text" name="no_dok_item" id="no_dok_item" class="form-control" style="width:100%;" readonly value="<?php echo $_POST['no_dok'];?>">
                               <input type="hidden" name="manage" value="tbh_transaksi_klr">
                             <input type="hidden" id="read_no_dok" name="read_no_dok">
                             </div>
-                          </div>  
+                          </div>
                           <div class="form-group">
                             <label class="col-sm-3 control-label">Keterangan</label>
                             <div class="col-sm-8">
                               <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="" readonly>
                             </div>
-                          </div>  
-                  <?php } 
+                          </div>
+                  <?php }
                        else if ($_POST['manage']=="transfer") {
                       ?>
-                      <div class="col-sm-7">  
+                      <div class="col-sm-7">
                           <div class="form-group">
                             <label class="col-sm-3 control-label">No. Dokumen</label>
                             <div class="col-sm-8">
-                              <input type="text" name="no_dok_item" id="no_dok_item" class="form-control" style="width:100%;" readonly value="<?php echo $_POST['satker'];?>">
+                              <input type="text" name="no_dok_item" id="no_dok_item" class="form-control" style="width:100%;" readonly value="<?php echo $_POST['no_dok'];?>">
                               <input type="hidden" name="manage" value="tbh_transaksi_klr">
                             <input type="hidden" id="read_no_dok" name="read_no_dok">
                             </div>
-                          </div>  
+                          </div>
                           <div class="form-group">
                             <label class="col-sm-3 control-label">Keterangan</label>
                             <div class="col-sm-8">
@@ -148,11 +148,11 @@ else {
                             <div class="col-sm-8">
                               <textarea class="form-control" rows="2" readonly=""><?php echo $_POST['nm_satker_msk'] ?></textarea>
                             </div>
-                          </div>  
+                          </div>
                         </div>
-                    <?php } ?> 
+                    <?php } ?>
                     </div>
-                  </div> 
+                  </div>
                     </div>
                 </form>
               </div>
@@ -173,7 +173,7 @@ else {
                         <th>Jumlah</th>
                         <th>Satuan</th>
                         <th>Harga Satuan</th>
-                        <th>Total Harga</th>  
+                        <th>Total Harga</th>
                         <th>Keterangan</th>
                         <th width="8%">Sisa</th>
                       </tr>
@@ -181,7 +181,7 @@ else {
                   </table>
                 </div>
               </div>
-              <?php } ?>  
+              <?php } ?>
               <?php if ($_POST['manage']=="trans_keluar") { ?>
               <div class="box box-info">
                 <div class="box-header with-border">
@@ -190,7 +190,7 @@ else {
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
-                      <tr> 
+                      <tr>
                         <th>ID</th>
                         <th>No Dokumen</th>
                         <th>Kode Barang</th>
@@ -206,7 +206,7 @@ else {
                   </table>
                 </div>
               </div>
-              <?php } ?>   
+              <?php } ?>
               <?php if ($_POST['manage']=="transfer") { ?>
               <div class="box box-info">
                 <div class="box-header with-border">
@@ -215,7 +215,7 @@ else {
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
-                      <tr> 
+                      <tr>
                         <th>ID</th>
                         <th>No Dokumen</th>
                         <th>Kode Barang</th>
@@ -224,7 +224,7 @@ else {
                         <th>Jumlah</th>
                         <th>Satuan</th>
                         <th>Harga Satuan</th>
-                        <th>Total Harga</th>  
+                        <th>Total Harga</th>
                         <th>Keterangan</th>
                         <th width="8%">Aksi</th>
                         <th> kd_lokasi </th>
@@ -241,7 +241,7 @@ else {
                   </table>
                 </div>
               </div>
-              <?php } ?>              
+              <?php } ?>
             </section>
           </div>
         </section>
@@ -256,12 +256,12 @@ else {
     <script src="../dist/js/notify.js"></script>
     <?php if ($_POST['manage']=="trans_masuk") { ?>
     <script type="text/javascript">
-   
+
     var table;
       $(function () {
         $("li#trans_masuk").addClass("active");
         table = $("#example1").DataTable({
-          "aaSorting": [[ 0, 'desc' ]], 
+          "aaSorting": [[ 0, 'desc' ]],
           "processing": false,
           "serverSide": true,
           "ajax":
@@ -269,7 +269,7 @@ else {
             'type': 'GET',
             'url': '../core/loadtable/loadtransmskitm',
             'data': {
-               no_dok: '<?php echo $_POST["satker"]?>',
+               no_dok: '<?php echo $_POST["no_dok"]?>',
                kd_sat: '<?php echo $_POST["kd_satker"]?>'
             },
           },
@@ -292,7 +292,7 @@ else {
 
           ],
         });
-        
+
       });
     </script>
 
@@ -303,7 +303,7 @@ else {
     <script type="text/javascript">
      $("li#trans_keluar").addClass("active");
     table = $("#example1").DataTable({
-          "aaSorting": [[ 0, 'desc' ]], 
+          "aaSorting": [[ 0, 'desc' ]],
           "processing": false,
           "serverSide": true,
           "ajax":
@@ -311,9 +311,9 @@ else {
             'type': 'GET',
             'url': '../core/loadtable/loadtransklritm',
             'data': {
-               no_dok:   '<?php echo $_POST["satker"]?>',
+               no_dok:   '<?php echo $_POST["no_dok"]?>',
                kd_ruang: '<?php echo $_POST["kd_ruang"]?>',
-               kd_sat:   '<?php echo $_POST["kd_satker"]?>'
+               kd_sat: '<?php echo $_POST["kd_satker"]?>'
             },
           },
           "columnDefs":
@@ -352,7 +352,7 @@ else {
               'type': 'GET',
               'url': '../core/loadtable/load_item_transfer',
               'data': {
-                 no_dok: '<?php echo $_POST["satker"]?>',
+                 no_dok: '<?php echo $_POST["no_dok"]?>',
               },
             },
             "columnDefs":
@@ -403,12 +403,12 @@ else {
           data: {manage:'konfirmasi_transfer',id:id_row},
           dataType: "json",
           success: function (output) {
-            
+
           }
         });
         $("#example1").DataTable().destroy();
         $("#example1 tbody").empty();
-        baca_tabel();   
+        baca_tabel();
       });
 
 
