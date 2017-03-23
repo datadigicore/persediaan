@@ -2002,7 +2002,7 @@ class modelReport extends mysql_db
                     sum(qty) qty, sum(qty_akhir) qty_akhir 
                     FROM transaksi_masuk 
                     WHERE 
-                        concat(kd_lokasi,IFNULL(kd_ruang,'')) LIKE '$kd_lokasi'  AND 
+                        concat(kd_lokasi,IFNULL(kd_ruang,'')) = '$kd_lokasi'  AND 
                         thn_ang='$thn_ang' AND 
                         tgl_dok <= '$tgl_akhir' AND
                         IFNULL(kd_brg,'')!=''
@@ -2370,7 +2370,7 @@ class modelReport extends mysql_db
                     qty, qty_akhir 
                     from transaksi_masuk 
                     where 
-                        concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi'  AND 
+                        concat(kd_lokasi,IFNULL(kd_ruang,'')) = '$kd_lokasi'  AND 
                         thn_ang='$thn_ang' AND 
                         tgl_dok <= '$tgl_akhir' AND
                         IFNULL(kd_brg,'')!=''
