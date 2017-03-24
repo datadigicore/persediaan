@@ -250,14 +250,6 @@
             });
           }
           else {
-            $.ajax({
-                type: "post",
-                url: '../core/barang/prosesbarang',
-                data: {manage:'readbarang'},
-                success: function (output) {     
-                  $('#kdbaru').html(output);
-                }
-             });
             
             row.child( ubh_jns(row.data())).show();
             tr.addClass('shown');
@@ -266,10 +258,7 @@
             $("#urbarang"+id_row+"").val(urbarang_row);
             $("#spesifikasi"+id_row+"").val(spesifikasi_row);
             $("#satuan"+id_row+"").val(satuan_row);
-            $("#kdbaru").select2({
-             placeholder: "Pilih Jenis Barang Persediaan",
-             allowClear: false
-            });
+
           }
         });
         $(document).on('click', '#btnhps', function () {
@@ -353,9 +342,9 @@
               '<input type="hidden" name="satuan" value="'+d[5]+'">'+
 
               '<td width="5%">Jenis Awal</td>'+
-              '<td width="25.8%"><input style="width:94%" id="satuan'+d[2]+'" name=jns_lama"updsatuan" class="form-control" type="text" value="'+d[2]+'" readonly></td>'+
+              '<td width="25.8%"><input style="width:94%" id="satuan'+d[1]+'" name=jns_lama"updsatuan" class="form-control" type="text" value="'+d[2]+'" readonly></td>'+
               '<td width="5%">Jenis Baru</td>'+
-              '<td width="50%"><select style="width:100%" name="kdbaru" id="kdbaru" class="form-control select2" ></select></td>'+
+              '<td width="50%"><input style="width:94%" id="nama_barubaru'+d[3]+'" name=nama_baru" class="form-control" type="text" value="'+d[2]+'" ></td>'+
               // '<td width="20.2%"><input style="width:98.2%" id="urbarang'+d[0]+'" name="updurbarang" class="form-control" type="text" placeholder="Uraian Barang"></td>'+
               // '<td><input style="width:94%" id="spesifikasi'+d[0]+'" name="updspesifikasi" class="form-control" type="text" placeholder="Spesifikasi"></td>'+
               // '<td><input style="width:94%" id="satuan'+d[0]+'" name="updsatuan" class="form-control" type="text" placeholder="Satuan"></td>'+

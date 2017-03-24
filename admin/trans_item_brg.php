@@ -352,7 +352,7 @@ else {
               'type': 'GET',
               'url': '../core/loadtable/load_item_transfer',
               'data': {
-                 no_dok: '<?php echo $_POST["no_dok"]?>',
+                 no_dok: '<?php echo $_POST["satker"]?>',
               },
             },
             "columnDefs":
