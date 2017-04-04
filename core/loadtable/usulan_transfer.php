@@ -8,7 +8,7 @@ session_start();
 
 // Table yang di load
 $table = 'transfer';
- 
+$thn_ang = $_SESSION['thn_ang'];
 // Primary Key table
 $primaryKey = 'id';
  
@@ -65,7 +65,7 @@ $columns = array(
 require('../../config/dbconf.php');
 $config = new config();
 $sql_details = $config->sql_details();
-    $where = "status>0 and qty>0 and status!=4";
+    $where = "status>0 and qty>0 and status!=4 and thn_ang='$thn_ang' ";
 
 
 // Pengaturan Output Server Side Processing
