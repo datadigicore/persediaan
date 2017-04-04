@@ -359,7 +359,7 @@
               '<td width="16.2%"><input style="width:90%" id="username'+d[0]+'" name="user_name" class="form-control" type="text" placeholder="Username"></td>'+
               '<td width="18.2%"><input style="width:90%" id="email'+d[0]+'" name="user_email" class="form-control" type="text" placeholder="Email"></td>'+
               '<td width="17.7%"><input type="checkbox" id="checkpass" style="margin-top:11px;margin-left:-5px;position:absolute;"><input style="width:90%" id="updpassword" name="user_pass" class="form-control" type="password" placeholder="Password" disabled></td>'+
-              '<td width="24.2%"><input type="checkbox" id="checktrans" style="margin-top:11px;margin-left:-5px;position:absolute;z-index:1"><select name="kd_lokasi" id="updkdunitgudang" class="form-control select2" style="width:95%;" disabled><option value="">-- Pilih Kode Satker--</option></select></td>'+
+              // '<td width="24.2%"><input type="checkbox" id="checktrans" style="margin-top:11px;margin-left:-5px;position:absolute;z-index:1"><select name="kd_lokasi" id="updkdunitgudang" class="form-control select2" style="width:95%;" disabled><option value="">-- Pilih Kode Satker--</option></select></td>'+
               '<td style="vertical-align:middle; width:14%;">'+
                 '<div class="row-fluid">'+
                   '<button id="btnrst" class="col-sm-6 btn btn-flat btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
