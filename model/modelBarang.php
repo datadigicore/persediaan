@@ -182,37 +182,6 @@ class modelBarang extends mysql_db
 		return $result;
 	}
 
-	public function loghistory($data)
-	{	
-		error_reporting(0);
-		$kd_lokasi = $data['kd_lokasi'];
-		$nm_satker = $data['nm_satker'];
-		$user_id = $data['user_id'];
-		$aksi = $data['aksi'];
-		$kd_kbrg = $data['kd_kbrg'];
-		$kd_jbrg = $data['kd_jbrg'];
-		$kd_brg = $data['kd_brg'];
-		$nm_brg = $data['nm_brg'];
-		$satuan = $data['satuan'];
-		$tanggal = $data['tanggal'];
-
-
-		$query = "Insert into log_persediaan
-        			set
-        			kd_lokasi='$kd_lokasi',
-        			nm_satker='$nm_satker',
-        			user_id='$user_id', 
-        			aksi='$aksi',
-        			nm_sskel='$nm_sskel',
-        			kd_brg='$kd_brg',
-        			nm_brg='$nm_brg',
-                    satuan='$satuan',
-                    tgl_update='$tanggal'
-                   
-                     ";
-        $result = $this->query($query);
-		return $result;
-	}
 
 
 	public function bacasskel()
@@ -280,11 +249,36 @@ class modelBarang extends mysql_db
 public function hapusbarang($data)
 	{
 		$id = $data['id'];
+		$kd_brg = $data['idbrg'];
+		$username = $_SESSION['username'];
+		$sql = "SELECT kd_brg from transaksi_masuk where kd_brg='$kd_brg' LIMIT 1";
+		// echo $sql;
+		$result = $this->query($sql);
+		// echo $this->num_rows($result);
+		if($this->num_rows($result)==1){
+			echo json_encode(array("Barang Tidak Dapat Dihapus karena telah digunakan"));
+		}
+		else{
+			$query = "delete from persediaan
+					 where id='$id' ";
+			$result = $this->query($query);
+					$query = "Insert into log_persediaan
+        			set
+        			kd_lokasi='',
+        			nm_satker='',
+        			user_id='$username', 
+        			aksi='Hapus',
+        			nm_sskel='$nm_sskel',
+        			kd_brg='$kd_brg',
+        			nm_brg='$nm_brg',
+                    satuan='$satuan'
+                   
+                     ";
+        	$result = $this->query($query);
+			echo json_encode(array("Barang Telah Dihapus"));
+		}
 	
-		$query = "delete from persediaan
-					 where id='$id'";
-		$result = $this->query($query);
-		return $result;
+		
 	}
 
 public function delrekbarang($data)

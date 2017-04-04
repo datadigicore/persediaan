@@ -171,7 +171,7 @@
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="row-fluid">'+
-                                  '<button id="btnalih" class="col-xs-12 btn btn-edit btn-xs btn-flat"><i class="fa fa-edit"></i> Ubah Jenis</button>'+
+                                  // '<button id="btnalih" class="col-xs-12 btn btn-edit btn-xs btn-flat"><i class="fa fa-edit"></i> Ubah Jenis</button>'+
                                   '<button id="btnhps" class="col-xs-12 btn btn-danger btn-xs btn-flat"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
              "targets": [6],"targets": 6 }
@@ -264,22 +264,14 @@
               return false;
             }
             else{
-              $('#myModal').modal({
-                backdrop: 'static',
-                keyboard: false
-              });
-              $('#myModal').modal('show');
               $.ajax({
                 type: "post",
                 url : "../core/barang/prosesbarang",
                 data: {manage:managedata,id:id_row,idbrg:id_barang,urbrg:ur_barang},
+                dataType: "json",
                 success: function(data)
                 {
-                  $("#success-alert").alert();
-                  $("#success-alert").fadeTo(500, 500).slideUp(500, function(){
-                  $("#success-alert").alert('close');
-                  });
-                  setTimeout("$('#myModal').modal('hide');",redirectTime);
+                  alert(data);
                   $("#example1").DataTable().destroy();
                   $("#example1 tbody").empty();
                   myTable();
