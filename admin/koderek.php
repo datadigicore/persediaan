@@ -26,14 +26,13 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Kode Rekening Akuntansi</h3>
                 </div>  
-                <form action="../core/barang/prosesrekening" method="post" class="form-horizontal" id="addbarang">
+                <form action="../core/barang/prosesbarang" method="post" class="form-horizontal" id="addbarang">
                   <div class="box-body">
                     <div class="form-group" style="margin-top:15px;">
-                      <label class="col-sm-2 control-label">Jenis Rekening </label>
+                      <label class="col-sm-2 control-label">Kode Rekening </label>
                       <div class="col-sm-5">
-                        <select name="kdbarang_no" id="kdbarang_no" class="form-control select2" placeholder="Kode Barang">
-                        </select>
-                        <input type="hidden" name="manage" value="addsubbarang">
+                        <input type="text" name="kode_rekening" class="form-control" id="kode_rekening" placeholder="Masukkan Kode Rekening">
+                        <input type="hidden" name="manage" value="add_kode_rekening">
                       </div>
                       <label class="col-sm-2 control-label">Import Rekening</label>
                       <div class="col-sm-2">
@@ -43,7 +42,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nama Rekening</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nmbarang" class="form-control" id="nmbarang" placeholder="Masukkan Nama Barang">
+                        <input type="text" name="nama_rekening" class="form-control" id="nama_rekening" placeholder="Masukkan Nama Rekening">
                       </div>
                     </div>
                     <!-- <div class="form-group" style="margin-top:15px;">
@@ -168,7 +167,7 @@
              "data": null,
              "defaultContent":  '<div class="row-fluid">'+
                                   // '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                  '<button id="btnalih" class="col-xs-12 btn btn-edit btn-xs btn-flat"><i class="fa fa-edit"></i> Ubah Jenis</button>'+
+                                  // '<button id="btnalih" class="col-xs-12 btn btn-edit btn-xs btn-flat"><i class="fa fa-edit"></i> Ubah Nama</button>'+
                                   '<button id="btnhps" class="col-xs-12 btn btn-danger btn-xs btn-flat"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
              "targets": [4],"targets": 4 }

@@ -19,6 +19,11 @@ class modelBarang extends mysql_db
 
 	}
 
+	public function add_kode_rek_akuntansi($data){
+		$query = "INSERT INTO rekening SET kode_rekening ='$data[kode_rekening]', nama_rekening ='$data[nama_rekening]' ";
+		$this->query($query);
+	}
+
 	public function addrekbarang($data)
 	{
 		$query = "INSERT INTO perk SET kd_perk = '$data[kdrekening]', nm_perk = '$data[nmrekening]'";

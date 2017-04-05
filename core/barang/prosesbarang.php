@@ -12,6 +12,10 @@ else
 	switch ($manage)
 	{
 
+		case 'add_kode_rekening':
+			$Barang->add_kode_rek_akuntansi($_POST);
+		break;
+
 		case 'cekkode':
 			$kdbarang = $purifier->purify($_POST['kdsskel']);
 			$kd_jbrg = $purifier->purify($_POST['kodebarang']);
