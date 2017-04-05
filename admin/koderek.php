@@ -165,10 +165,10 @@
             {"targets": 3 },
             {"orderable": false,
              "data": null,
-             "defaultContent":  '<div class="row-fluid">'+
+             "defaultContent":  '<div class="row-fluid">'+'-'+
                                   // '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                  // '<button id="btnalih" class="col-xs-12 btn btn-edit btn-xs btn-flat"><i class="fa fa-edit"></i> Ubah Nama</button>'+
-                                  '<button id="btnhps" class="col-xs-12 btn btn-danger btn-xs btn-flat"><i class="fa fa-remove"></i> Hapus</button>'+
+                                  // // '<button id="btnalih" class="col-xs-12 btn btn-edit btn-xs btn-flat"><i class="fa fa-edit"></i> Ubah Nama</button>'+
+                                  // '<button id="btnhps" class="col-xs-12 btn btn-danger btn-xs btn-flat"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
              "targets": [4],"targets": 4 }
           ],
@@ -267,7 +267,7 @@
           id_row = row.data()[0];
           id_barang = row.data()[1];
           ur_barang = row.data()[2];
-          managedata = "delbarang";
+          managedata = "del_rekening";
           job=confirm("Anda yakin ingin menghapus data ini?");
             if(job!=true){
               return false;
