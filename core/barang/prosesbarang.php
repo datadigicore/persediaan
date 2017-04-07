@@ -235,12 +235,19 @@ else
 			$Barang->loghistory($datalog);
 		break;
 		case 'delbarang':
-			$id = $purifier->purify($_POST['id']);
-			$idbarang = $purifier->purify($_POST['idbrg']);
-			$nmbarang = $purifier->purify($_POST['urbrg']);
-			$data = array(
-				"id" => $id,
-				"idbrg" => $idbarang,
+			$id         = $purifier->purify($_POST['id']);
+			$idbarang   = $purifier->purify($_POST['idbrg']);
+			$nmbarang   = $purifier->purify($_POST['urbrg']);
+			$jns_barang = $purifier->purify($_POST['jns_barang']);
+			$spk_barang = $purifier->purify($_POST['spk_barang']);
+			$sat_barang = $purifier->purify($_POST['sat_barang']);
+			$data       = array(
+				"id"          => $id,
+				"idbrg"       => $idbarang,
+				"nm_brg"      => $nmbarang,
+				"jns_barang"  => $jns_barang,
+				"spesifikasi" => $spk_barang,
+				"satuan"      => $sat_barang
 		    );
 		    // print_r($data);
 			$Barang->hapusbarang($data);

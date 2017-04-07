@@ -255,8 +255,13 @@ public function hapusbarang($data)
 	{
 		$id = $data['id'];
 		$kd_brg = $data['idbrg'];
+		$nm_brg = $data['nm_brg'];
+		$jns_barang = $data['jns_barang'];
+		$spesifikasi = $data['spesifikasi'];
+		$satuan = $data['satuan'];
 		$username = $_SESSION['username'];
-		$sql = "SELECT kd_brg from transaksi_masuk where kd_brg='$kd_brg' LIMIT 1";
+		$thn_ang = $_SESSION['thn_ang'];
+		$sql = "SELECT kd_brg from transaksi_masuk where kd_brg='$kd_brg' and thn_ang='$thn_ang' LIMIT 1";
 		// echo $sql;
 		$result = $this->query($sql);
 		// echo $this->num_rows($result);
@@ -269,13 +274,11 @@ public function hapusbarang($data)
 			$result = $this->query($query);
 					$query = "Insert into log_persediaan
         			set
-        			kd_lokasi='',
-        			nm_satker='',
-        			user_id='$username', 
         			aksi='Hapus',
-        			nm_sskel='$nm_sskel',
         			kd_brg='$kd_brg',
         			nm_brg='$nm_brg',
+        			nm_sskel='$jns_barang',
+        			spesifikasi='$spesifikasi',
                     satuan='$satuan'
                    
                      ";

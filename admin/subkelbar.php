@@ -257,7 +257,10 @@
           redirectTime = "1000";
           id_row = row.data()[0];
           id_barang = row.data()[1];
-          ur_barang = row.data()[2];
+          jns_barang = row.data()[2];
+          ur_barang = row.data()[3];
+          spk_barang = row.data()[4];
+          sat_barang = row.data()[5];
           managedata = "delbarang";
           job=confirm("Anda yakin ingin menghapus data ini?");
             if(job!=true){
@@ -267,7 +270,7 @@
               $.ajax({
                 type: "post",
                 url : "../core/barang/prosesbarang",
-                data: {manage:managedata,id:id_row,idbrg:id_barang,urbrg:ur_barang},
+                data: {manage:managedata,id:id_row,idbrg:id_barang,urbrg:ur_barang,jns_barang:jns_barang,spk_barang:spk_barang,sat_barang:sat_barang},
                 dataType: "json",
                 success: function(data)
                 {
