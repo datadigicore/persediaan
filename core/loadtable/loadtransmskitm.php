@@ -81,7 +81,7 @@ $str = $kd_satker;
 // else{
 //     $where = "kd_lokasi='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and qty>0 ".$query_ruang." ";
 // }
-$where = "no_dok = '$no_dok' and qty>0 ";
+$where = "no_dok = '$no_dok' and qty>0 ".$query_ruang;
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp.class.php' );
 echo json_encode(
