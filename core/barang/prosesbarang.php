@@ -186,6 +186,12 @@ else
 			$_POST = $purifier->purifyArray($_POST);
 			$Barang->updrekbarang($_POST);
 		break;
+		
+		case 'upd_kode_rekening':
+			unset($_POST['manage']);
+			$_POST = $purifier->purifyArray($_POST);
+			$Barang->upd_kode_rekening($_POST);
+		break;
 
 		case 'updsubbarang':
 			unset($_POST['manage']);

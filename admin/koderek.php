@@ -165,8 +165,8 @@
             {"targets": 3 },
             {"orderable": false,
              "data": null,
-             "defaultContent":  '<div class="row-fluid">'+'-'+
-                                  // '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
+             "defaultContent":  '<div class="row-fluid">'+
+                                  '<button id="btnedt" class="btn btn-success btn-xs btn-flat btn-block pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                   // // '<button id="btnalih" class="col-xs-12 btn btn-edit btn-xs btn-flat"><i class="fa fa-edit"></i> Ubah Nama</button>'+
                                   // '<button id="btnhps" class="col-xs-12 btn btn-danger btn-xs btn-flat"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
@@ -308,48 +308,15 @@
        });
       function format ( d ) {
         return '<div class="slider">'+
-        '<form action="../core/barang/prosesbarang" method="post" class="form-horizontal" id="updbarang">'+
-        '<table width="100%">'+
-           '<tr>'+
-              '<input type="hidden" name="manage" value="updsubbarang">'+
-              '<input type="hidden" name="id" value="'+d[0]+'">'+
-              '<td width="15.8%"><input style="width:95%" id="kdbarang'+d[0]+'" name="updkdbarang" class="form-control" type="text" placeholder="Kode Barang"></td>'+
-              '<td width="44.2%"><input style="width:98.2%" id="urbarang'+d[0]+'" name="updurbarang" class="form-control" type="text" placeholder="Uraian Barang"></td>'+
-              '<td><input style="width:94%" id="spesifikasi'+d[0]+'" name="updspesifikasi" class="form-control" type="text" placeholder="Spesifikasi"></td>'+
-              '<td><input style="width:94%" id="satuan'+d[0]+'" name="updsatuan" class="form-control" type="text" placeholder="Satuan"></td>'+
-              '<td style="vertical-align:middle; width:15%;">'+
-                '<div class="box-tools">'+
-                  '<button id="btnrst" class="btn btn-flat btn-sm btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
-                  '<button id="btnupd" class="btn btn-flat btn-sm btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
-                '</div>'
-              '</td>'+
-           '</tr>'+
-        '</table>'+
-        '</form></div>';  
-      }
-
-      function ubh_jns ( d ) {
-        return '<div class="slider">'+
         '<form action="../core/barang/prosesbarang" method="post" class="form-horizontal" id="updjenis">'+
         '<table width="100%">'+
            '<tr>'+
-              '<input type="hidden" name="manage" value="updjenisbrg">'+
+              '<input type="hidden" name="manage" value="upd_kode_rekening">'+
               '<input type="hidden" name="id" value="'+d[0]+'">'+
-              '<input type="hidden" name="kodebarang" value="'+d[1]+'">'+
-              '<input type="hidden" name="namabarang" value="'+d[3]+'">'+
-              '<input type="hidden" name="spesifikasi" value="'+d[4]+'">'+
-              '<input type="hidden" name="satuan" value="'+d[5]+'">'+
-
-              '<td width="5%">Jenis Awal</td>'+
-              '<td width="25.8%"><input style="width:94%" id="satuan'+d[1]+'" name=jns_lama"updsatuan" class="form-control" type="text" value="'+d[2]+'" readonly></td>'+
-              '<td width="5%">Jenis Baru</td>'+
-              '<td width="50%"><input style="width:94%" id="nama_barubaru'+d[3]+'" name=nama_baru" class="form-control" type="text" value="'+d[2]+'" ></td>'+
-              // '<td width="20.2%"><input style="width:98.2%" id="urbarang'+d[0]+'" name="updurbarang" class="form-control" type="text" placeholder="Uraian Barang"></td>'+
-              // '<td><input style="width:94%" id="spesifikasi'+d[0]+'" name="updspesifikasi" class="form-control" type="text" placeholder="Spesifikasi"></td>'+
-              // '<td><input style="width:94%" id="satuan'+d[0]+'" name="updsatuan" class="form-control" type="text" placeholder="Satuan"></td>'+
+              '<td width="15.8%"><input style="width:95%" id="kdbarang'+d[0]+'" name="kode_rek" class="form-control" type="text" placeholder="Kode Barang" readonly></td>'+
+              '<td width="44.2%"><input style="width:98.2%" id="urbarang'+d[0]+'" name="ur_rek_baru" class="form-control" type="text" placeholder="Uraian Barang"></td>'+
               '<td style="vertical-align:middle; width:15%;">'+
                 '<div class="box-tools">'+
-                  // '<button id="btnrst" class="btn btn-flat btn-sm btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
                   '<button id="btnupd" class="btn btn-flat btn-sm btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
                 '</div>'
               '</td>'+
@@ -357,13 +324,8 @@
         '</table>'+
         '</form></div>';  
       }
+
       $(document).on('submit', '#updjenis', function (e) {
-        // $('#myModal').modal({
-        //   backdrop: 'static',
-        //   keyboard: false
-        // });
-        // $('#myModal').modal('show');
-        // e.preventDefault();
         redirectTime = "1000";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);

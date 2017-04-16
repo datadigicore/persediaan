@@ -310,6 +310,7 @@ public function delrekbarang($data)
 		echo json_encode(array("kdbrg"=>$data));
 
 	}
+	
 	public function updrekbarang($data){
 		$query = "UPDATE perk
 				  SET 
@@ -317,6 +318,57 @@ public function delrekbarang($data)
 	    			nm_perk='$data[nm_perk]'
 				  WHERE id='$data[id]'";
 		$result = $this->query($query);
+
+		$query = "UPDATE transaksi_masuk
+				  SET 	
+	    			nm_perk='$data[nm_perk]'
+				  WHERE kd_perk='$data[kd_perk]' ";
+				  
+		$result = $this->query($query);
+
+		$query = "UPDATE transaksi_keluar
+				  SET 	
+	    			nm_perk='$data[nm_perk]'
+				  WHERE kd_perk='$data[kd_perk]' ";
+
+		$result = $this->query($query);
+
+		$query = "UPDATE transaksi_full
+				  SET 	
+	    			nm_perk='$data[nm_perk]'
+				  WHERE kd_perk='$data[kd_perk]' ";
+
+		$result = $this->query($query);
+
+		return $result;
+	}
+
+	public function upd_kode_rekening($data){
+		$query = "UPDATE rekening
+				  SET 
+	    			nama_rekening='$data[ur_rek_baru]'
+				  WHERE 
+	    			kode_rekening='$data[kode_rek]' ";
+		$result = $this->query($query);
+
+		$query = "UPDATE transaksi_masuk
+				  SET 	
+	    			nama_rekening='$data[ur_rek_baru]'
+				  WHERE kode_rekening='$data[kode_rek]' ";
+		$result = $this->query($query);
+
+		$query = "UPDATE transaksi_keluar
+				  SET 	
+	    			nama_rekening='$data[ur_rek_baru]'
+				  WHERE kode_rekening='$data[kode_rek]' ";		  
+		$result = $this->query($query);
+
+		$query = "UPDATE transaksi_full
+				  SET 	
+	    			nama_rekening='$data[ur_rek_baru]'
+				  WHERE kode_rekening='$data[kode_rek]' ";		  
+		$result = $this->query($query);
+
 		return $result;
 	}
 
