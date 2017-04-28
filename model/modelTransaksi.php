@@ -3250,7 +3250,7 @@ class modelTransaksi extends mysql_db
             $nama_tbl="transfer";
             $kolom = "nm_satker_msk, tgl_dok, tgl_buku, jns_trans, nm_satker,keterangan, sum(total_harga) as total_harga";
         }
-        $query = "select ".$kolom." from ".$nama_tbl." where no_dok = '$data' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_ruang' group by no_dok";
+        $query = "select ".$kolom." from ".$nama_tbl." where no_dok = '$data' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_ruang' and thn_ang=$_SESSION[thn_ang] group by no_dok";
         $result = $this->query($query);
         if ($row = $this->fetch_assoc($result))
         {
