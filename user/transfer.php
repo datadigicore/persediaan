@@ -73,7 +73,7 @@
                           </div>
                           <label class="col-sm-2 control-label">Unit Kerja Tujuan</label>
                           <div class="col-sm-3">
-                            <select name="bidang_tujuan" id="bidang_tujuan" class="form-control select2" required>
+                            <select name="bidang_tujuan" id="bidang_tujuan" class="form-control select2">
                             </select>
 
                           </div>
