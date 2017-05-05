@@ -3392,7 +3392,7 @@ class modelTransaksi extends mysql_db
         $nama_tbl="";
 
         $kd_lokasi = $data['kd_lokasi'];
-        $kd_ruang = $data['kd_ruang'];
+        $kd_ruang = trim($data['kd_ruang']);
         $kd_brg = $data['kd_brg'];
         $thn_ang = $data['thn_ang'];
         $no_dok = $data['no_dok'];
@@ -3407,7 +3407,12 @@ class modelTransaksi extends mysql_db
         }
 
         if($kd_ruang!=""){ $q_ruang=" and kd_ruang='$kd_ruang' "; } else{ $q_ruang=" and (kd_ruang is null or kd_ruang='') "; }
-        $query_tgl = "select tgl_dok from ".$nama_tbl."  where no_dok='$no_dok' ".$q_ruang." limit 1 ";
+        $query_tgl = "SELECT tgl_dok FROM ".$nama_tbl."  
+                      WHERE 
+                      no_dok='$no_dok' AND 
+                      concat(kd_lokasi,IFNULL(kd_ruang,'')) = '$kd_satker' AND 
+                      thn_ang='$thn_ang'
+                      limit 1 ";
         // print_r($query_tgl);
         $result_tgl = $this->query($query_tgl);
         $tgl_brg = $this->fetch_array($result_tgl);
