@@ -34,7 +34,7 @@ $sql_details = $config->sql_details();
 
 $str = $kd_satker;
 if ($_SESSION['level'] == 1) {
-    $where = "1 group by no_dok";
+    $where = " thn_ang='$thn_ang' group by no_dok";
 }
 else{
     $where = "concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and thn_ang='$thn_ang' and jns_trans not like 'P%' and jns_trans in ('K06','K07') group by no_dok"; 
