@@ -1277,6 +1277,10 @@ class modelTransaksi extends mysql_db
         return $this->query("UPDATE transfer set status=1 where id='$data' ");
     }
 
+    public function hapus_usulan_transfer($data){
+        return $this->query("DELETE FROM transfer where id='$data' ");
+    }
+
     public function hapus_transfer($data){
         return $this->query("UPDATE transfer set status=3 where id='$data' ");
     }
