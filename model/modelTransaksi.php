@@ -1800,10 +1800,18 @@ class modelTransaksi extends mysql_db
         $no_dok = $data['no_dok'];
         if($data['trf']>0){
             $nama_tabel="transfer";
+            $sqlStatusTrf= "select id from transfer where id ='$transfer_id' and status=2 ";
+            $hslSqlStatusTrf = $this->query($sqlStatusTrf);
+            if($this->num_rows($hslSqlStatusTrf)!=0){
+                echo 'Barang sudah ditransfer sebelumnya';
+                exit;
+            }
         }
         else{
             $nama_tabel="transaksi_keluar";
         }
+        // echo $nama_tabel;
+        // exit;
         $this->query("BEGIN");
         $query_dok = "select kd_lokasi, kd_ruang, kd_lok_msk, kd_ruang_msk, nm_satker_msk, nm_ruang_msk, tgl_dok, tgl_buku, jns_trans, keterangan from ".$nama_tabel." where no_dok='$no_dok' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' LIMIT 1";
         // print_r($query_dok);
@@ -2290,11 +2298,11 @@ class modelTransaksi extends mysql_db
 
             $query_hps_full = "delete from transaksi_full where kd_brg like '' and no_dok='$no_dok' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' ";
             $result_hps_full = $this->query($query_hps_full);
-            $com = $this->query("COMMIT");
             if($this->num_rows($com)==0 and $data["trf"]>0){
                 $id_trsf = $data["trf"];
                 $this->query("UPDATE transfer set status=2 where id='$id_trsf' ");
             }
+            $com = $this->query("COMMIT");
 
     }
 
