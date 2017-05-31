@@ -2006,7 +2006,7 @@ class modelReport extends mysql_db
                         thn_ang='$thn_ang' AND 
                         tgl_dok <= '$tgl_akhir' AND
                         IFNULL(kd_brg,'')!=''
-                    GROUP BY kd_brg 
+                    GROUP BY kd_brg, jns_trans 
                     ORDER BY kd_perk asc, nm_brg asc, jns_trans asc";
                     // echo $query;
         $result = $this->query($query);
