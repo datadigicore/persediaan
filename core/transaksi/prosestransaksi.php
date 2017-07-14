@@ -286,7 +286,7 @@ else
 		case 'readbrgmsk':
 			$kd_lokasi = $purifier->purify($_POST['kd_satker']);
 			$thn_ang = $_SESSION['thn_ang'];
-			$kd_ruang = $_SESSION['kd_ruang'];
+			$kd_ruang = trim($_SESSION['kd_ruang']);
 			$data = array(
 				"kd_lokasi" => $kd_lokasi,
 				"kd_ruang" => $kd_ruang,
