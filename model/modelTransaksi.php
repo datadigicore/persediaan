@@ -3333,15 +3333,14 @@ class modelTransaksi extends mysql_db
     public function baca_persediaan_masuk($data)
     {
         $kd_lokasi = $data['kd_lokasi'];
-        $kd_ruang = $data['kd_ruang'];
+        $kd_ruang = trim($data['kd_ruang']);
         $thn_ang = $data['thn_ang'];
         $str = $kd_lokasi;
         $q_ruang="";
         if($kd_ruang!=""){
             $q_ruang = " and kd_ruang='$kd_ruang' ";
         }else{
-            // $q_ruang = " and kd_ruang IS NULL ";
-            $q_ruang = " and IFNULL(kd_ruang,'') ='' ";
+            $q_ruang = " and kd_ruang IS NULL ";
         }
         $query = "select kd_brg, nm_brg, spesifikasi FROM transaksi_masuk where kd_lokasi = '$kd_lokasi'  and thn_ang = '$thn_ang' and kd_brg!='' ".$q_ruang." GROUP BY kd_brg ORDER BY nm_brg ASC ";
         echo $query;
