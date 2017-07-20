@@ -84,7 +84,7 @@ else
 				"satuan" => $data['satuan'],
 				"aksi" => "T-Persediaan"
 		    );
-			$Barang->loghistory($datalog);			
+			// $Barang->loghistory($datalog);			
 		break;
 
 		case 'addbarang':

@@ -89,7 +89,7 @@ else
 		case 'batalkan_transfer':
 			$id = $purifier->purify($_POST['id']);
 			print_r($id);
-			$Transaksi->batalkan_transfer($id);
+			$Transaksi->hapus_usulan_transfer($id);
 		break;
 
 		case 'usulkan_transfer':

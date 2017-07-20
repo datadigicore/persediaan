@@ -424,13 +424,13 @@
           return false;
         }
         else{
-        $('#myModal').modal({
-          backdrop: 'static',
-          keyboard: false
-        });
-        $('#myModal').modal('show');
-        e.preventDefault();
-        redirectTime = "1000";
+        // $('#myModal').modal({
+        //   backdrop: 'static',
+        //   keyboard: false
+        // });
+        // $('#myModal').modal('show');
+        // e.preventDefault();
+        // redirectTime = "1000";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({
@@ -442,11 +442,7 @@
           processData: false,
           success: function(data)
           {
-            $("#success-alert").alert();
-            $("#success-alert").fadeTo(500, 500).slideUp(500, function(){
-            $("#success-alert").alert('close');
-            });
-            setTimeout("$('#myModal').modal('hide');",redirectTime);
+            alert("data tersimpan");
             $("#example1").DataTable().destroy();
             $("#example1 tbody").empty();
             myTable();

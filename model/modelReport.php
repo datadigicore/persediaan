@@ -41,18 +41,20 @@ class modelReport extends mysql_db
 
     public function bacabrg($data)
     {
+        $kd_ruang = trim($data['kd_ruang']);
         $kd_lokasi = $data['kd_lokasi'].$kd_ruang;
         $thn_ang = $data['thn_ang'];
         $query_satker = " kd_lokasi like '$kd_lokasi%' ";
-        if($data['kd_ruang']!='') $query_satker = " concat(kd_lokasi, IFNULL(kd_ruang,''))='$kd_lokasi' ";
-        $query = "select kd_brg, nm_brg FROM transaksi_masuk where ".$query_satker." and thn_ang='$thn_ang' and kd_brg not like '' GROUP BY kd_brg ORDER BY nm_brg ASC ";
+        if($kd_ruang!='') $query_satker = " concat(kd_lokasi, IFNULL(kd_ruang,''))='$kd_lokasi' ";
+        $query = "select kd_brg, nm_brg,spesifikasi FROM transaksi_masuk where ".$query_satker." and thn_ang='$thn_ang' and kd_brg not like '' GROUP BY kd_brg ORDER BY nm_brg ASC ";
+        // echo $query;
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         echo '<option value="all">Semua Barang</option>';
         
         while ($row = $this->fetch_array($result))
         {
-            echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg']."</option>";
+            echo '<option value="'.$row['kd_brg'].'">'.$row['kd_brg'].' '.$row['nm_brg']." ".$row['spesifikasi']."</option>";
         }   
     }
 

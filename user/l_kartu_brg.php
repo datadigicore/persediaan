@@ -200,10 +200,11 @@
         }
         else {
          var kode_satker =  $('#satker').val(); 
+         var kode_ruang =  $('#kd_ruang').val(); 
          $.ajax({
             type: "post",
             url: '../core/report/prosesreport',
-            data: {manage:'readbrg',satker:kode_satker},
+            data: {manage:'readbrg',satker:kode_satker, kd_ruang:kode_ruang},
             success: function (output) {     
               $('#kd_brg').html(output);
             }
