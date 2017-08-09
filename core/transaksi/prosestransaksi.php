@@ -702,7 +702,7 @@ else
 					"nama_rek" => $nama_rek,
 					"ket_brg" => $ket_brg,
 					"keterangan" => $keterangan,
-					"nilai_kontrak" =>$nilai_kontrak,
+					"nilai_kontrak" =>0,
 					"ket_non_persediaan" =>$ket_non_persediaan,
 					"kode_rek" => $kode_rek,
 					"nama_rek" => $nama_rek
