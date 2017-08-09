@@ -95,8 +95,7 @@
               </ul>
             </li>
         
-          </ul>
-          <li id="opname"><a href="../documentation/PETUNJUK_PENGGUNAAN.pdf" download><i class="fa fa-download"></i> <span> Petunjuk Penggunaan</span></a></li>   
+          </ul> 
         </section>
       </aside>
       <script src="../plugins/jQuery/jQuery-2.1.4.min.js" type="text/javascript"></script>
