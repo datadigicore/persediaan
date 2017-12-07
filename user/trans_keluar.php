@@ -176,7 +176,9 @@
           satker = row.data()[2];
           tgl_dok = row.data()[4];
           tgl_buku = row.data()[5];
-          kd_satker = satker.substring(0,11);
+          dataDok = satker.split('-');
+          kd_satker = dataDok[0].trim();
+          //kd_satker = satker.substring(0,11);
           var $form=$(document.createElement('form')).css({display:'none'}).attr("method","POST").attr("action","trans_item_brg");
           var $input=$(document.createElement('input')).css({display:'none'}).attr('name','id').val(id_row);
           var $input2=$(document.createElement('input')).css({display:'none'}).attr('name','jenistrans').val(jns_trans);

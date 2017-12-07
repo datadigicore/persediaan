@@ -3344,7 +3344,7 @@ class modelTransaksi extends mysql_db
             $q_ruang = " and IFNULL(kd_ruang,'') ='' ";
         }
         $query = "select kd_brg, nm_brg, spesifikasi FROM transaksi_masuk where kd_lokasi = '$kd_lokasi'  and thn_ang = '$thn_ang' and kd_brg!='' ".$q_ruang." GROUP BY kd_brg ORDER BY nm_brg ASC ";
-
+        //echo $query;
         $result = $this->query($query);
         echo '<option value="">-- Pilih Kode Barang --</option>';
         while ($row = $this->fetch_array($result))
@@ -3428,13 +3428,13 @@ class modelTransaksi extends mysql_db
                       concat(kd_lokasi,IFNULL(kd_ruang,'')) = '$kd_satker' AND 
                       thn_ang='$thn_ang'
                       limit 1 ";
-        // print_r($query_tgl);
+        //print_r($query_tgl);
         $result_tgl = $this->query($query_tgl);
         $tgl_brg = $this->fetch_array($result_tgl);
         $tgl_dok = $tgl_brg['tgl_dok'];
 
         $query = "select sum(qty_akhir) as sisa,satuan from transaksi_masuk  where kd_brg = '$kd_brg' and concat(kd_lokasi,IFNULL(kd_ruang,'')) = '$kd_satker' and tgl_dok<='$tgl_dok' and thn_ang='$thn_ang' ";
-        // echo $query;
+        //echo $query;
         $result = $this->query($query);
         $sisa_brg = $this->fetch_array($result);
 

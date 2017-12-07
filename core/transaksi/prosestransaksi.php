@@ -330,7 +330,9 @@ else
 		case 'sisabarang':
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			$no_dok = $purifier->purify($_POST['nodok']);
-			$kd_lokasi = substr($no_dok, 0, 11);
+                        $dataDok = explode('-',$no_dok);
+                        $kd_lokasi = trim($dataDok[0]);
+			//$kd_lokasi = substr($no_dok, 0, 11);
 			$thn_ang = $_SESSION['thn_ang'];
 			$kd_ruang = $_SESSION['kd_ruang'];
 			$data = array(
@@ -340,6 +342,9 @@ else
 				"no_dok" => $no_dok,
 				"kd_brg" => $kd_brg
 				);
+                        //echo "<pre>";
+                        //print_r($data);
+                        //print_r($dataDok);
 			$Transaksi->sisa_barang($data,1);
 		break;
 
