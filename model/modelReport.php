@@ -308,7 +308,7 @@ public function laporan_belanja_persediaan($data){
     $date               = $this->cek_periode($data);
     ob_start();
     $this->getsatker($kd_lokasi);
-    $sql        = "SELECT no_dok, kd_perk, nilai_kontrak, nm_perk, kode_rekening, nama_rekening, jns_trans, total_harga from transaksi_masuk   where concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%' and jns_trans='M07' and IFNULL(kd_ruang,'')='$kd_ruang' and thn_ang='$thn_ang' and tgl_dok<='$tgl_akhir'   order by kode_rekening,no_dok,tgl_dok asc";
+    $sql        = "SELECT kd_lokasi,nm_satker,no_dok, kd_perk, sum(nilai_kontrak) as nilai_kontrak, nm_perk, kode_rekening, nama_rekening, jns_trans, sum(total_harga) as total_harga, sum(nilai_kontrak)+sum(total_harga) as grand_total from transaksi_masuk   where concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%' and jns_trans='M07' and IFNULL(kd_ruang,'')='$kd_ruang' and thn_ang='$thn_ang' and tgl_dok<='$tgl_akhir' and kd_perk IS NOT NULL  group by kd_lokasi,kd_perk,kode_rekening   order by kd_lokasi, kode_rekening,kd_perk asc";
         // print_r($sql);
     $result     = $this->query($sql);
     $no                     =1;
@@ -316,6 +316,22 @@ public function laporan_belanja_persediaan($data){
     $rek_keuangan           ="";
     $nilai_rek_persediaan   =0;
     $nilai_non_persediaan   =0;
+    $total                  =0;
+
+        // echo "<pre>";
+        $dataPerSKPD = array();
+        foreach ($result as $key => $value) {
+            // $dataPerSKPD[$value['kd_lokasi']]['nm_satker'] = $value['nm_satker'];
+            $dataPerSKPD["$value[kd_lokasi]-$value[nm_satker]"][$value['kode_rekening']]['nama_rekening'] = $value['nama_rekening'];
+            $dataPerSKPD["$value[kd_lokasi]-$value[nm_satker]"][$value['kode_rekening']]['nilai_kontrak'] += $value['nilai_kontrak'];
+            $dataPerSKPD["$value[kd_lokasi]-$value[nm_satker]"][$value['kode_rekening']]['total_harga'] += $value['total_harga'];
+            $dataPerSKPD["$value[kd_lokasi]-$value[nm_satker]"][$value['kode_rekening']]['grand_total'] += ($value['total_harga']+$value['nilai_kontrak']);
+            $dataPerSKPD["$value[kd_lokasi]-$value[nm_satker]"][$value['kode_rekening']]['data'][] = $value;
+            $nilai_rek_persediaan   +=$value['total_harga'];
+            $nilai_non_persediaan   +=$value['nilai_kontrak'];
+            $total                  += ($value['nilai_kontrak']+$value['total_harga']);
+        }
+        // print_r($dataPerSKPD);
 
     $rekap = array();
     $rekap2 = array();
@@ -350,8 +366,6 @@ public function laporan_belanja_persediaan($data){
     );
     $nilai_rek_persediaan   = 0;
     $nilai_non_persediaan   = 0;
-        // echo "<pre>";
-        // print_r($rekap);
     $constRek               = "";
     $countRek               = "";
     $subTot_persediaan      =  0;
@@ -453,8 +467,8 @@ public function laporan_belanja_persediaan($data){
     echo '<table style="border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;" border=1>
     <thead style="display: table-header-group;">
     <tr>
-    <th width="5%"><b>NO</b></th>
-    <th width="7%"><b>REK. BELANJA</b></th>
+    <th width="3%"><b>NO</b></th>
+    <th width="5%"><b>REK. BELANJA</b></th>
     <th ><b>URAIAN REK. BELANJA</b></th>
     <th width="7%"><b>REK. PERSEDIAAN</b></th>
     <th ><b>URAIAN REK. PERSEDIAAN</b></th>
@@ -464,42 +478,83 @@ public function laporan_belanja_persediaan($data){
     </tr>
     </thead>';
     $no=1;
-    foreach ($rekap as $val) {
-      $total = $val['total_harga']+$val['nilai_kontrak'];
-      if($val['cetak_subtotal']==1 || $val['cetak_subtotal']==2){
-        $grnd_subtotal=$val['subTot_persediaan']+$val['subTot_nonPersediaan'];
-        echo '<tr>
-        <td style="text-align:center; font-weight:bold" colspan="5">'."SUBTOTAL".'</td>
-        <td style="text-align:right; font-weight:bold">'.number_format($val['subTot_persediaan'],2,",",".").'</td>    
-        <td style="text-align:right; font-weight:bold">'.number_format($val['subTot_nonPersediaan'],2,",",".").'</td>
-        <td style="text-align:right; font-weight:bold">'.number_format($grnd_subtotal,2,",",".").'</td>
-        </tr>';
-        if($val['cetak_subtotal']==2) continue;
+    // print_r($dataPerSKPD);
+    // exit;
+    foreach ($dataPerSKPD as $kode => $satker) {
+        $skpd = explode("-",$kode);
+        echo ' <tr style="background-color:#EFEFEF;">
+                    <td style="text-align:left; font-weight:bold" colspan="8">'.$skpd[1].'</td>
+                </tr>';
+        foreach ($satker as $kode => $rek) {
+            echo '<tr>
+                    <td style="text-align:center">'.$no.'</td>
+                    <td style="text-align:center;">'.$kode.'</td>
+                    <td style="text-align:left;">'.$rek['nama_rekening'].'</td>
+                    <td style="text-align:right"></td>    
+                    <td style="text-align:right"></td>    
+                    <td style="text-align:right"></td>    
+                    <td style="text-align:right">'.number_format($rek['nilai_kontrak'],2,",",".").'</td>
+                    <td style="text-align:right">'.number_format($rek['nilai_kontrak'],2,",",".").'</td>
+                  </tr>';
+            $no++;
+            foreach ($rek['data'] as $key => $val) {
+                echo '<tr>
+                    <td style="text-align:center"></td>
+                    <td style="text-align:center"></td>
+                    <td style="text-align:center"></td>
+                    <td style="text-align:center;">'.$val['kd_perk'].'</td>
+                    <td style="text-align:left;"  >'.$val['nm_perk'].'</td>
+                    <td style="text-align:right">'.number_format($val['total_harga'],2,",",".").'</td>
+                    <td style="text-align:right"></td>    
+                    <td style="text-align:right">'.number_format($val['total_harga'],2,",",".").'</td>
+                  </tr>';
+            }
+            echo '<tr>
+                    <td style="text-align:center; font-weight:bold" colspan="5">'."SUBTOTAL".'</td>
+                    <td style="text-align:right; font-weight:bold">'.number_format($rek['total_harga'],2,",",".").'</td>    
+                    <td style="text-align:right; font-weight:bold">'.number_format($rek['nilai_kontrak'],2,",",".").'</td>
+                    <td style="text-align:right; font-weight:bold">'.number_format($rek['grand_total'],2,",",".").'</td>
+                  </tr>';
+
+        }
     }
-    echo '<tr>
-    <td style="text-align:center">'.$no.'</td>
-    <td style="text-align:left;">'.$val['kode_rekening'].'</td>
-    <td style="text-align:left;">'.$val['nama_rekening'].'</td>
-    <td style="text-align:left;">'.$val['kd_perk'].'</td>
-    <td style="text-align:left;">'.$val['nm_perk'].'</td>
-    <td style="text-align:right">'.number_format($val['total_harga'],2,",",".").'</td>    
-    <td style="text-align:right">'.number_format($val['nilai_kontrak'],2,",",".").'</td>
-    <td style="text-align:right">'.number_format($total,2,",",".").'</td>
-    </tr>';
+//         exit;
+//     foreach ($rekap as $val) {
+//       $total = $val['total_harga']+$val['nilai_kontrak'];
+//       if($val['cetak_subtotal']==1 || $val['cetak_subtotal']==2){
+//         $grnd_subtotal=$val['subTot_persediaan']+$val['subTot_nonPersediaan'];
+//         echo '<tr>
+//         <td style="text-align:center; font-weight:bold" colspan="5">'."SUBTOTAL".'</td>
+//         <td style="text-align:right; font-weight:bold">'.number_format($val['subTot_persediaan'],2,",",".").'</td>    
+//         <td style="text-align:right; font-weight:bold">'.number_format($val['subTot_nonPersediaan'],2,",",".").'</td>
+//         <td style="text-align:right; font-weight:bold">'.number_format($grnd_subtotal,2,",",".").'</td>
+//         </tr>';
+//         if($val['cetak_subtotal']==2) continue;
+//     }
+//     echo '<tr>
+//     <td style="text-align:center">'.$no.'</td>
+//     <td style="text-align:left;">'.$val['kode_rekening'].'</td>
+//     <td style="text-align:left;">'.$val['nama_rekening'].'</td>
+//     <td style="text-align:left;">'.$val['kd_perk'].'</td>
+//     <td style="text-align:left;">'.$val['nm_perk'].'</td>
+//     <td style="text-align:right">'.number_format($val['total_harga'],2,",",".").'</td>    
+//     <td style="text-align:right">'.number_format($val['nilai_kontrak'],2,",",".").'</td>
+//     <td style="text-align:right">'.number_format($total,2,",",".").'</td>
+//     </tr>';
 
-    $rek_persediaan         = $val['kd_perk'];
-    $nilai_rek_persediaan   += $val['total_harga']; 
-    $nilai_non_persediaan   += $val['nilai_kontrak']; 
-    $nilai_total             += $total; 
-    $no++;
+//     $rek_persediaan         = $val['kd_perk'];
+//     $nilai_rek_persediaan   += $val['total_harga']; 
+//     $nilai_non_persediaan   += $val['nilai_kontrak']; 
+//     $nilai_total             += $total; 
+//     $no++;
 
-}
-echo '<tr>
-<td style="text-align:center; font-weight:bold" colspan="5">'."TOTAL".'</td>
-<td style="text-align:right; font-weight:bold">'.number_format($nilai_rek_persediaan,2,",",".").'</td>    
-<td style="text-align:right; font-weight:bold">'.number_format($nilai_non_persediaan,2,",",".").'</td>
-<td style="text-align:right; font-weight:bold">'.number_format($nilai_total,2,",",".").'</td>
-</tr>';
+// }
+// echo '<tr>
+// <td style="text-align:center; font-weight:bold" colspan="5">'."TOTAL".'</td>
+// <td style="text-align:right; font-weight:bold">'.number_format($nilai_rek_persediaan,2,",",".").'</td>    
+// <td style="text-align:right; font-weight:bold">'.number_format($nilai_non_persediaan,2,",",".").'</td>
+// <td style="text-align:right; font-weight:bold">'.number_format($nilai_total,2,",",".").'</td>
+// </tr>';
 echo "</table>";
 $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
 $html = ob_get_contents(); 
