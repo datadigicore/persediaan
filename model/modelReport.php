@@ -1161,7 +1161,7 @@ public function buku_persediaan($data)
 
                 // }
                 echo '</table>';
-                exit;
+                // exit;
                 $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
                 $html = ob_get_contents();
                 ob_end_clean();
