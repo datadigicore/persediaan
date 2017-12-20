@@ -192,7 +192,6 @@ else {
                         <label class="col-sm-3 control-label">Jenis Pemasukan</label>
                           <div class="col-sm-8">
                             <select name="jenis_pemasukan" id="jenis_pemasukan" class="form-control" required>
-                            <option>Pilih Jenis Pemasukkan</option>
                               <option value="persediaan">Input Persediaan</option>
                               <option value="non_persediaan">Input Non Persediaan</option>
                             </select>
@@ -543,7 +542,7 @@ else {
          $('#jenis_pemasukan').change(function(){
           jns_pemasukan = $("#jenis_pemasukan").val();
           // alert(jns_pemasukan);
-          if(jns_pemasukan=="persediaan" && sumber_dana=="APBD"){
+          if(jns_pemasukan=="persediaan"){
             $("#field_satuan").show();
             $("#pilihan_kode").show();
             $("#field_harga_satuan").show();
@@ -563,7 +562,7 @@ else {
             $("#field_nilai_non_persediaan").prop('required',false);
             hapus_input();
           }
-          else if(jns_pemasukan=="non_persediaan" && sumber_dana=="APBD"){
+          else{
             $("#field_satuan").prop('required',false);
             $("#field_harga_satuan").prop('required',false);
             $("#field_jumlah_masuk").prop('required',false);
@@ -583,55 +582,27 @@ else {
             $("#harga_sat").prop('required',false);
             list_kode_rekening();
             hapus_input();
-
           }
-          else if(jns_pemasukan=="persediaan" && sumber_dana!="APBD"){
-            $("#field_satuan").show();
-            $("#pilihan_kode").hide();
+          });
+
+           $("#field_satuan").show();
+            $("#pilihan_kode").show();
             $("#field_harga_satuan").show();
             $("#field_jumlah_masuk").show();
-            $("#field_kode_persediaan").show();
             $("#field_ket_brg").show();
+            $("#field_kode_persediaan").show();
+            $("#pilihan_kode").show();
             $("#field_nilai_non_persediaan").hide();
-            $("#field_nilai_non_persediaan").prop('required',false);
-            $("#kode_rek").prop('required',false);
+            $("#ket_non_persediaan").hide();
+            $("#kode_rek").prop('required',true);
             $("#kd_brg").prop('required',true);
             $("#satuan").prop('required',true);
             $("#jml_msk").prop('required',true);
             $("#harga_sat").prop('required',true);
-            $("#ket_non_persediaan").hide();
-            hapus_input();
+            list_kode_barang();
+            list_kode_rekening();
+            $("#field_nilai_non_persediaan").prop('required',false);
 
-          }
-          else{
-            $("#field_satuan").hide();
-            $("#pilihan_kode").hide();
-            $("#field_harga_satuan").hide();
-            $("#field_jumlah_masuk").hide();
-            $("#field_kode_persediaan").hide();
-            $("#field_nilai_non_persediaan").hide();
-            $("#ket_non_persediaans").hide();
-            hapus_input();
-          }
-          });
-
-
-
-        if(sumber_dana=="APBD"){
-          list_kode_rekening();
-        }
-        else{
-          $('#pilihan_kode').hide();
-          $('#field_nilai_non_persediaan').hide();
-          $('#jns_masuk').hide();
-          $('#field_kode_persediaan').show();
-          $('#field_jumlah_masuk').show();
-          $('#field_harga_satuan').show();
-          $('#field_satuan').show();
-          $("#field_ket_brg").show();
-          $('#jenis_pemasukan').hide();
-          list_kode_barang();
-        }
         $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
