@@ -290,7 +290,7 @@ else
 			"thn_ang" => $thn_ang,
 			"kd_brg" => $kd_brg,
 			"tgl_awal" => $tgl_awal,
-			"tgl_akhir" => $tgl_akhir,
+			"tgl_akhir" => $Report->sqlDate($_POST['tgl_akhir']),
 			"tgl_cetak" => $tgl_cetak,
 			"kd_lokasi" => $kd_lokasi,
 			"kd_ruang" => $kd_ruang,

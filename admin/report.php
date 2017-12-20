@@ -50,6 +50,7 @@
                   </div>
 
                   <div class="tab-pane" id="rincian_persediaan">
+                    <input type="hidden" name="jenis" value="tanggal">
                     <div class="box-body radio" >
                         <label class="col-sm-2 control-label"><input type="radio" name="lingkup" id="kota" value="kota" >Kota</label>
                         <label class="col-sm-2 control-label"><input type="radio" name="lingkup" id="skpd" value="skpd" >SKPD</label>

@@ -547,7 +547,7 @@ public function laporan_per_rekening($data){
     <td style="text-align: center;" width="14%"><b>Bantuan Pem.Pusat / Prov.</b></td>
     </tr>';
 
-    $sql    = "SELECT kd_perk,nm_perk, nm_satker, sum(total_harga) as total_harga, jns_trans from transaksi_masuk   where concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_lokasi' and thn_ang='$thn_ang' and tgl_dok>'$tgl_dok' and total_harga>0  group by kd_perk, jns_trans order by kd_perk asc, jns_trans asc";
+    $sql    = "SELECT kd_lokasi, nm_satker, kd_perk,nm_perk, sum(total_harga) as total_harga, jns_trans from transaksi_masuk   where concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%' and thn_ang='$thn_ang' and tgl_dok>'$tgl_dok' and total_harga>0  group by kd_perk, jns_trans, kd_lokasi order by kd_perk asc,kd_lokasi asc, jns_trans asc";
             // print_r($sql);
     $no      =1;
     $apbd    =0;
@@ -556,54 +556,79 @@ public function laporan_per_rekening($data){
     $bos     =0;
     $lainnya =0;
     $result  = $this->query($sql);
+    $dataPerSKPD  = array();
     $dataFinal= array();
-            // print_r($result);
-            // echo "<pre>";
+    echo "<pre>";
+    $count = 0;
+    foreach ($result as $val) {
+        // $dataPerSKPD[$val['kd_lokasi']]['nm_satker'] = $val['nm_satker']; 
+        // $dataPerSKPD[$val['kd_lokasi']]['kd_perk'] = $val['kd_perk']; 
+        // $dataPerSKPD[$val['kd_lokasi']]['nm_perk'] = $val['nm_perk']; 
+        // $dataPerSKPD[$val['kd_lokasi']]['total_harga'] = $val['total_harga']; 
+        // $dataPerSKPD[$val['kd_lokasi']]['jns_trans'] = $val['jns_trans'];
+        $dataPerSKPD[$val['kd_lokasi']][] = $val; 
+    }
+    // print_r($dataPerSKPD);
+    // foreach ($dataPerSKPD as $key => $value) {
+    //     $dataFinal[$key] = $value;
+    // }
+    // print_r($dataPerSKPD);
+    // echo $sql;
+    // print_r($dataPerSKPD);
+
     foreach ($result as $val) {
       if($val['jns_trans']=="M07"){
-        $dataFinal["$val[kd_perk]-$val[nm_perk]"]["apbd"] += $val['total_harga'];
-        $dataFinal["$val[kd_perk]-$val[nm_perk]"]["bos"] += 0;
-        $dataFinal["$val[kd_perk]-$val[nm_perk]"]["blud"] += 0;
-        $dataFinal["$val[kd_perk]-$val[nm_perk]"]["bpp"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["apbd"] += $val['total_harga'];
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["bos"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["blud"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["bpp"] += 0;
     }
     elseif($val['jns_trans']=="M08"||$val['jns_trans']=="M09"){
-        $dataFinal["$val[kd_perk]-$val[nm_perk]"]["apbd"] += 0;
-        $dataFinal["$val[kd_perk]-$val[nm_perk]"]["bos"] += 0;
-        $dataFinal["$val[kd_perk]-$val[nm_perk]"]["blud"] += 0;
-        $dataFinal["$val[kd_perk]-$val[nm_perk]"]["bpp"] += $val['total_harga'];
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["apbd"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["bos"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["blud"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["bpp"] += $val['total_harga'];
     }
     elseif($val['jns_trans']=="M10"){
-        $dataFinal["$val[kd_perk]-$val[nm_perk]"]["apbd"] += 0;
-        $dataFinal["$val[kd_perk]-$val[nm_perk]"]["bos"] += $val['total_harga'];
-        $dataFinal["$val[kd_perk]-$val[nm_perk]"]["blud"] += 0;
-        $dataFinal["$val[kd_perk]-$val[nm_perk]"]["bpp"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["apbd"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["bos"] += $val['total_harga'];
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["blud"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["bpp"] += 0;
     }
 
     elseif($val['jns_trans']=="M11"){
-        $dataFinal["$val[kd_perk]-$val[nm_perk]"]["apbd"] += 0;
-        $dataFinal["$val[kd_perk]-$val[nm_perk]"]["bos"] += 0;
-        $dataFinal["$val[kd_perk]-$val[nm_perk]"]["blud"] += $val['total_harga'];
-        $dataFinal["$val[kd_perk]-$val[nm_perk]"]["bpp"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["apbd"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["bos"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["blud"] += $val['total_harga'];
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["bpp"] += 0;
     }
 
     else{
-        $dataFinal["$val[kd_perk]-$val[nm_perk]"]["lainnya"] += $val['total_harga'];
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["lainnya"] += $val['total_harga'];
     }
 }
-            // print_r($dataFinal);
+
+// print_r($dataFinal);
+//             exit;
 $no=1;
 foreach ($dataFinal as $key => $value) {
-  $detilRek = explode("-", $key); 
-  echo '<tr>
-  <td style="text-align: center;">'.$no.'</td>
-  <td style="text-align:center;">'.$detilRek[0].'</td>
-  <td style="align:left;">'.$detilRek[1].'</td>
-  <td style="text-align: right;">'.number_format($value['apbd'],2,",",".").'</td>    
-  <td style="text-align: right;">'.number_format($value['bos'],2,",",".").'</td>    
-  <td style="text-align: right;">'.number_format($value['blud'],2,",",".").'</td>    
-  <td style="text-align: right;">'.number_format($value['bpp'],2,",",".").'</td>    
-  </tr>';
-  $no++;
+    $detilSatker = explode("-", $key);
+    echo "<tr>
+            <td colspan='7' style='background-color:#EFEFEF;'><b>$detilSatker[1]</b></td>
+          </tr>";
+    foreach ($value as $key2 => $value2) {
+          $detilRek = explode("-", $key2); 
+          echo '<tr>
+          <td style="text-align: center;">'.$no.'</td>
+          <td style="text-align:center;">'.$detilRek[0].'</td>
+          <td style="align:left;">'.$detilRek[1].'</td>
+          <td style="text-align: right;">'.number_format($value2['apbd'],2,",",".").'</td>    
+          <td style="text-align: right;">'.number_format($value2['bos'],2,",",".").'</td>    
+          <td style="text-align: right;">'.number_format($value2['blud'],2,",",".").'</td>    
+          <td style="text-align: right;">'.number_format($value2['bpp'],2,",",".").'</td>    
+          </tr>';
+          $no++;
+    }
 }
 
 
@@ -615,7 +640,7 @@ ob_end_clean();
 $mpdf=new mPDF('utf-8', 'A4-L');
 $mpdf->WriteHTML(utf8_encode($html));
 $mpdf->Output("rekap_per_rekening.pdf" ,'I');
-exit;
+
 
 }
 
@@ -812,48 +837,6 @@ public function buku_persediaan($data)
     }
 
 
-    public function laporan_persediaan($data_lp)
-    {
-
-        ob_start(); 
-
-        $format = $data_lp['format'];
-        $thn_ang = $data_lp['thn_ang']; 
-        $tgl_cetak = $data_lp['tgl_cetak']; 
-        $kd_ruang = str_replace(" ", "", $data_lp['kd_ruang']);
-        $kd_lokasi = $data_lp['kd_lokasi'].$kd_ruang;
-        $date = $this->cek_periode($data_lp);
-        $satker_asal = $data_lp['satker_asal'];
-        $no_urut = 0;
-        $this->cetak_header($data_lp,"laporan_persediaan",$kd_lokasi,"",$no);
-        $query = "SELECT concat(kode,IFNULL(kd_ruang,'')) kode, NamaSatker FROM satker where concat(kode,IFNULL(kd_ruang,'')) like '$kd_lokasi%' and Gudang is not null order by kode asc";
-        $result = $this->query($query);
-
-        while($kdsatker=$this->fetch_assoc($result))
-        { 
-          $no_urut++;
-          $kd_lokasi2=$kdsatker['kode'];
-          $nm_satker=$kdsatker['NamaSatker'];
-          $this->get_query($data_lp,"laporan_persediaan",$kd_lokasi2,"",$nm_satker,$no_urut);
-      }
-      echo '</table>';            
-      $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
-
-        $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
-        ob_end_clean();
-        if($format=="excel"){
-            $this->excel_export($html,"Lap_persediaan");
-        }
-        else {
-
-            $mpdf=new mPDF('utf-8', 'A4-L');
-            $mpdf->setFooter('{PAGENO}');
-            $mpdf->WriteHTML(utf8_encode($html));
-            $mpdf->Output("Lap_persediaan.pdf" ,'I');
-            exit;
-        }
-
-    }    
 
     public function rincian_persediaan($data)
     {
@@ -1080,9 +1063,19 @@ public function buku_persediaan($data)
                 $date_cond 
                 GROUP by kd_lokasi, kd_perk";
                 $data = array();
+                // echo "<pre>";
+                // print_r($data_lp);
                 // echo $sql;
                 // exit;
                 $dataPerSKPD = array();
+                $jml_klr =0;
+                $nilai_klr =0;
+                $jml_msk =0;
+                $nilai_msk =0;
+                $saldo_awal =0;
+                $nilai_saldo_awal =0;
+                $sisa =0;
+                $nilai_sisa =0;
                 $dtMutasi = $this->query($sql);
                 foreach ($dtMutasi as $key => $value) {
                 //     $data[$value['kd_lokasi']]['nm_satker'] = $value['nm_satker'];
@@ -1095,6 +1088,14 @@ public function buku_persediaan($data)
                     $data[$key]['nilai_klr'] = ($value['saldo_awal']+$value['jml_msk']-$value['sisa'])*$value['harga_sat'];
                     $data[$key]['nilai_sisa'] = $value['sisa']*$value['harga_sat'];
                     $data[$key]['nilai_saldo_awal'] = $value['saldo_awal']*$value['harga_sat'];
+                    $jml_klr    +=  $data[$key]['jml_klr'];
+                    $nilai_klr  += ($value['saldo_awal']+$value['jml_msk']-$value['sisa'])*$value['harga_sat'];
+                    $jml_msk    += $value['jml_msk'];
+                    $nilai_msk  += ($value['jml_msk']*$value['harga_sat']);
+                    $saldo_awal += $value['saldo_awal'];
+                    $nilai_saldo_awal += ($value['saldo_awal']*$value['harga_sat']);
+                    $sisa       += $value['sisa'];
+                    $nilai_sisa += $value['sisa']*$value['harga_sat'];
 
                 }
                 foreach ($data as $key => $value) {
@@ -1110,6 +1111,15 @@ public function buku_persediaan($data)
                 }
                 // echo "<pre>";
                 // print_r($dataPerSKPD);
+                echo '<tr>
+                    <td colspan="3" style="font-weight:bold; background-color:#EFEFEF;"></td>
+                    <td align="center"  style="font-size:90%; background-color:#EFEFEF; "><b>'.$saldo_awal.'</b></td>
+                    <td align="right"  style="font-size:90%; background-color:#EFEFEF; "><b>'.number_format($nilai_saldo_awal,2,",",".").'</b></td>
+                    <td align="center"  style="font-size:90%; background-color:#EFEFEF; "><b>'.$jml_msk.'</b></td>
+                    <td align="center"  style="font-size:90%; background-color:#EFEFEF; "><b>'.$jml_klr.'</b></td>
+                    <td align="center"  style="font-size:90%; background-color:#EFEFEF; "><b>'.$sisa.'</b></td>
+                    <td align="right"  style="font-size:90%; background-color:#EFEFEF; "><b>'.number_format($nilai_sisa,2,",",".").'</b>
+                    </tr>';
                 $no_urut_satker=1;
                 foreach ($dataPerSKPD as $key => $value) {
                     echo '<tr>
@@ -1151,7 +1161,7 @@ public function buku_persediaan($data)
 
                 // }
                 echo '</table>';
-                // exit;
+                exit;
                 $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
                 $html = ob_get_contents();
                 ob_end_clean();
@@ -1169,8 +1179,8 @@ public function buku_persediaan($data)
 
             }    
 
-            public function neraca($data_lp)
-            {
+    public function laporan_persediaan($data_lp)
+    {
                 $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
                 $kd_lokasi = $data_lp['kd_lokasi'].$kd_ruang;
                 $satker_asal = $data_lp['satker_asal'];
@@ -1178,8 +1188,8 @@ public function buku_persediaan($data)
                 $tgl_cetak = $data_lp['tgl_cetak'];
                 $lingkup = $data_lp['lingkup'];
                 ob_start(); 
-                $this->cetak_header($data_lp,"neraca",$kd_lokasi,"",$no);
-        // $query = "SELECT kode, NamaSatker FROM satker where kode like '$kd_lokasi%' and char_length(kode)=11 order by kode asc";
+                $this->cetak_header($data_lp,"laporan_persediaan",$kd_lokasi,"",$no);
+
                 $query = $this->query_bidang($lingkup,$kd_lokasi);
                 $result = $this->query($query);
                 $sql= "SELECT kd_lokasi,
@@ -1195,14 +1205,17 @@ public function buku_persediaan($data)
                 and tgl_dok < '$data_lp[tgl_akhir]'
                 GROUP by kd_lokasi, kd_perk";
                 $data = array();
-                // print_r($_POST);
-                // echo $sql;
-                // exit();
+                $jml_klr =0;
+                $nilai_klr =0;
+                $jml_msk =0;
+                $nilai_msk =0;
+                $saldo_awal =0;
+                $nilai_saldo_awal =0;
+                $sisa =0;
+                $nilai_sisa =0;
                 $dataPerSKPD = array();
                 $dtMutasi = $this->query($sql);
                 foreach ($dtMutasi as $key => $value) {
-                //     $data[$value['kd_lokasi']]['nm_satker'] = $value['nm_satker'];
-                //     $data[$value['kd_lokasi']]['jml_msk'] += $value['jml_msk'];
                     $data[] = $value;
                 }
                 foreach($data as $key => $value){
@@ -1211,6 +1224,14 @@ public function buku_persediaan($data)
                     $data[$key]['nilai_klr'] = ($value['saldo_awal']+$value['jml_msk']-$value['sisa'])*$value['harga_sat'];
                     $data[$key]['nilai_sisa'] = $value['sisa']*$value['harga_sat'];
                     $data[$key]['nilai_saldo_awal'] = $value['saldo_awal']*$value['harga_sat'];
+                    $jml_klr    +=  $data[$key]['jml_klr'];
+                    $nilai_klr  += ($value['saldo_awal']+$value['jml_msk']-$value['sisa'])*$value['harga_sat'];
+                    $jml_msk    += $value['jml_msk'];
+                    $nilai_msk  += ($value['jml_msk']*$value['harga_sat']);
+                    $saldo_awal += $value['saldo_awal'];
+                    $nilai_saldo_awal += ($value['saldo_awal']*$value['harga_sat']);
+                    $sisa       += $value['sisa'];
+                    $nilai_sisa += $value['sisa']*$value['harga_sat'];
 
                 }
                 foreach ($data as $key => $value) {
@@ -1224,9 +1245,13 @@ public function buku_persediaan($data)
                     $dataPerSKPD[$value['kd_lokasi']]['jml_klr'] += (($value['saldo_awal']+$value['jml_msk'])-$value['sisa']);
                     $dataPerSKPD[$value['kd_lokasi']]['data'][] = $value;
                 }
-                // echo "<pre>";
-                // print_r($dataPerSKPD);
+
                 $no_urut_satker=1;
+
+                echo '<tr>
+                <td colspan="3" style="font-weight:bold; background-color:#EFEFEF;"></td>
+                <td align="right"  style="font-size:90%; background-color:#EFEFEF; "><b>'.number_format($nilai_sisa,2,",",".").'</b>
+                </tr>';
                 foreach ($dataPerSKPD as $key => $value) {
                     echo '<tr>
                     <td colspan style="font-weight:bold; background-color:#EFEFEF;">'.$no_urut_satker.'</td>
@@ -1243,17 +1268,114 @@ public function buku_persediaan($data)
                         </tr>';
                     }
                 }         
-        // while($kdsatker=$this->fetch_assoc($result))
-        // { 
-        //     $no++;
-        //     $kd_lokasi2=$kdsatker['kode'];
-        //     $nm_satker=$kdsatker['NamaSatker'];
 
-        //     $this->get_query($data_lp,"neraca",$kd_lokasi2,"",$nm_satker,$no);
-        //           // echo '<pagebreak />'; 
-        // }
                 echo '</table>';
-        // exit;
+                $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
+        $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
+        ob_end_clean();
+        if($format=="excel"){
+            $this->excel_export($html,"Neraca");
+        }
+        else {
+            $mpdf=new mPDF('utf-8', 'A4');
+            $mpdf->setFooter('{PAGENO}');
+            $mpdf->WriteHTML(utf8_encode($html));
+            $mpdf->Output("Neraca.pdf" ,'I');
+            exit;
+        }
+
+    }
+    public function neraca($data_lp)
+    {
+                $kd_ruang = str_replace(" ", "", $data['kd_ruang']);
+                $kd_lokasi = $data_lp['kd_lokasi'].$kd_ruang;
+                $satker_asal = $data_lp['satker_asal'];
+                $format = $data_lp['format'];
+                $tgl_cetak = $data_lp['tgl_cetak'];
+                $lingkup = $data_lp['lingkup'];
+                ob_start(); 
+                $this->cetak_header($data_lp,"neraca",$kd_lokasi,"",$no);
+
+                $query = $this->query_bidang($lingkup,$kd_lokasi);
+                $result = $this->query($query);
+                $sql= "SELECT kd_lokasi,
+                nm_satker,
+                kd_perk, nm_perk, harga_sat,
+                sum(CASE WHEN jns_trans = 'M01' THEN qty ELSE 0 END) as saldo_awal, 
+                sum(CASE WHEN jns_trans != 'M01' THEN qty ELSE 0 END) as jml_msk, 
+                sum(CASE WHEN jns_trans != 'M01' THEN qty_akhir ELSE 0 END) as sisa
+                FROM transaksi_masuk where concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'  
+                and thn_ang='$data_lp[thn_ang]' 
+                and kd_perk IS not null 
+                and kd_perk!=''   
+                and tgl_dok < '$data_lp[tgl_akhir]'
+                GROUP by kd_lokasi, kd_perk";
+                $data = array();
+                $jml_klr =0;
+                $nilai_klr =0;
+                $jml_msk =0;
+                $nilai_msk =0;
+                $saldo_awal =0;
+                $nilai_saldo_awal =0;
+                $sisa =0;
+                $nilai_sisa =0;
+                $dataPerSKPD = array();
+                $dtMutasi = $this->query($sql);
+                foreach ($dtMutasi as $key => $value) {
+                    $data[] = $value;
+                }
+                foreach($data as $key => $value){
+
+                    $data[$key]['jml_klr'] = $value['saldo_awal']+$value['jml_msk']-$value['sisa'];
+                    $data[$key]['nilai_klr'] = ($value['saldo_awal']+$value['jml_msk']-$value['sisa'])*$value['harga_sat'];
+                    $data[$key]['nilai_sisa'] = $value['sisa']*$value['harga_sat'];
+                    $data[$key]['nilai_saldo_awal'] = $value['saldo_awal']*$value['harga_sat'];
+                    $jml_klr    +=  $data[$key]['jml_klr'];
+                    $nilai_klr  += ($value['saldo_awal']+$value['jml_msk']-$value['sisa'])*$value['harga_sat'];
+                    $jml_msk    += $value['jml_msk'];
+                    $nilai_msk  += ($value['jml_msk']*$value['harga_sat']);
+                    $saldo_awal += $value['saldo_awal'];
+                    $nilai_saldo_awal += ($value['saldo_awal']*$value['harga_sat']);
+                    $sisa       += $value['sisa'];
+                    $nilai_sisa += $value['sisa']*$value['harga_sat'];
+
+                }
+                foreach ($data as $key => $value) {
+                    $dataPerSKPD[$value['kd_lokasi']]['nm_satker'] = $value['nm_satker'];
+                    $dataPerSKPD[$value['kd_lokasi']]['jml_msk'] += $value['jml_msk'];
+                    $dataPerSKPD[$value['kd_lokasi']]['nilai_msk'] += ($value['jml_msk']*$value['harga_sat']);
+                    $dataPerSKPD[$value['kd_lokasi']]['saldo_awal']  += $value['saldo_awal'];
+                    $dataPerSKPD[$value['kd_lokasi']]['nilai_saldo_awal']  += ($value['saldo_awal']*$value['harga_sat']);
+                    $dataPerSKPD[$value['kd_lokasi']]['sisa']  += $value['sisa'];
+                    $dataPerSKPD[$value['kd_lokasi']]['nilai_sisa']  += $value['sisa']*$value['harga_sat'];
+                    $dataPerSKPD[$value['kd_lokasi']]['jml_klr'] += (($value['saldo_awal']+$value['jml_msk'])-$value['sisa']);
+                    $dataPerSKPD[$value['kd_lokasi']]['data'][] = $value;
+                }
+
+                $no_urut_satker=1;
+
+                echo '<tr>
+                <td colspan="3" style="font-weight:bold; background-color:#EFEFEF;"></td>
+                <td align="right"  style="font-size:90%; background-color:#EFEFEF; "><b>'.number_format($nilai_sisa,2,",",".").'</b>
+                </tr>';
+                foreach ($dataPerSKPD as $key => $value) {
+                    echo '<tr>
+                    <td colspan style="font-weight:bold; background-color:#EFEFEF;">'.$no_urut_satker.'</td>
+                    <td colspan="2" align="left" style="font-weight:bold; background-color:#EFEFEF;">'.$value['nm_satker'].'</td>
+                    <td  align="right"  style="font-size:90%; background-color:#EFEFEF; "><b>'.number_format($value['nilai_sisa'],2,",",".").'</b>
+                    </tr>';
+                    $no_urut_satker++;
+                    foreach ($value['data'] as $key2 => $value2) {
+                        echo '  <tr>
+                        <td align="right" style="font-size:90%; "></td>
+                        <td align="right" style="font-size:90%; ">'.$value2['kd_perk'].'</td>
+                        <td align="left" style="font-size:90%; ">'.$value2['nm_perk'].'</td>
+                        <td align="right"  style="font-size:90%; "><b>'.number_format($value2['nilai_sisa'],2,",",".").'</b></td>
+                        </tr>';
+                    }
+                }         
+
+                echo '</table>';
                 $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
         $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
         ob_end_clean();
@@ -3323,7 +3445,7 @@ public function dateRange($data)
         $kriteria = "and month(tgl_dok) >= '$data[bln_awal]' and month(tgl_dok) <= '$data[bln_akhir]' ";
     }
     elseif($data['jenis']=="tanggal"){
-        $kriteria = "AND tgl_dok <= '$tgl_akhir' ";
+        $kriteria = "AND tgl_dok <= '$data[tgl_akhir]' ";
     }        
     elseif($data['jenis']=="bulan"){
         $kriteria = "and month(tgl_dok)='$bulan'";
