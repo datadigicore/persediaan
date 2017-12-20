@@ -309,7 +309,7 @@ else
 		$thn_ang = $purifier->purify($_SESSION['thn_ang']);
 		$kd_brg = $purifier->purify($_POST['kd_brg']);
 		$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
-		$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
+		$tgl_akhir =  $Report->sqlDate($purifier->purify($_POST['tgl_akhir']));
 		$tgl_cetak =  $purifier->purify($_POST['tgl_cetak']);
 		$lingkup = $purifier->purify($_POST['lingkup']);
 		$format = $purifier->purify($_POST['format']);
