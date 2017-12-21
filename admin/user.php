@@ -434,11 +434,11 @@
 
 
 
-        if(kode_satker=="")
-        {
-          alert("Kode Unit Satker Pengelola Belum Dipilh");
-          return false;
-        }
+        // if(kode_satker=="")
+        // {
+        //   alert("Kode Unit Satker Pengelola Belum Dipilh");
+        //   return false;
+        // }
         if(tahun=="")
         {
           alert("Tahun Belum Dipilh");
