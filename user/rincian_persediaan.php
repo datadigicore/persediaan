@@ -51,11 +51,10 @@
                         </select>
                       </div>
                     </div>  
-                    <div class="box-body radio">
+<!--                     <div class="box-body radio">
                         <label class="col-sm-2 control-label"><input type="radio" name="jenis" id="tanggal" value="tanggal">Tanggal</label>
                         <label class="col-sm-2 control-label"><input type="radio" name="jenis" id="semester" value="semester">Semester</label>
-                        <!-- <label class="col-sm-2 control-label"><input type="radio" name="jenis" id="tahun" value="tahun" checked>Tahun <?php echo $_SESSION['thn_ang'];?></label> -->
-                    </div>                   
+                    </div>  -->                  
                     <div class="box-body" id="awal">
                       <label class="col-sm-2 control-label">Tanggal Awal</label>
                       <div class="col-sm-4">
@@ -97,11 +96,28 @@
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">
     var table;
+    function getBidang(kd_satker,kd_ruang){
+          $.ajax({
+              type: "post",
+              url: '../core/transaksi/prosestransaksi',
+              data: {manage:'get_bidang_report',kode_satker:kd_satker,kode_ruang:kd_ruang},
+              success: function (output) {
+                $('#kd_ruang').html(output);
+              }
+          });
+        }
+
+        $('#satker').change(function(){
+          kd_satker = $('#satker').val();
+          getBidang(kd_satker,'');
+        });
+
+        getBidang("<?php echo $_SESSION['kd_lok']; ?>","<?php echo $_SESSION['kd_ruang'] ?>");
       $(function () {
         $("li#mutasi_sedia").addClass("");
         $("#bln").hide();
         // $("#awal").hide();
-        $("#akhir").hide();
+        // $("#akhir").hide();
         $(".treeview").addClass("");
         $("li#rincian_persediaan").addClass("");
         $('#tgl_awal').datepicker({
@@ -116,35 +132,32 @@
        
         $("#bln").hide();
         $("#awal").hide();
-        $("#akhir").hide();
+        // $("#akhir").hide();
         
-        $("input[id=tanggal]").click(function()
-        {
+        // $("input[id=tanggal]").click(function()
+        // {
 
-            $("#bln").hide();
-            $("#awal").show();
-            $("#akhir").show();
-            $('#tgl_awal').prop('required',true);
-            $('#tgl_akhir').prop('required',true);
-        });
+        //     $("#bln").hide();
+        //     $("#awal").show();
+        //     $("#akhir").show();
+        //     $('#tgl_akhir').prop('required',true);
+        // });
 
-        $("input[id=semester]").click(function()
-        {
-            $("#bln").show();
-            $("#awal").hide();
-            $("#akhir").hide();
-            $('#tgl_awal').removeAttr('required');
-            $('#tgl_akhir').removeAttr('required');
-        });
+        // $("input[id=semester]").click(function()
+        // {
+        //     $("#bln").show();
+        //     $("#awal").hide();
+        //     $("#akhir").hide();
+        //     $('#tgl_akhir').removeAttr('required');
+        // });
 
-        $("input[id=tahun]").click(function()
-        {
-            $("#bln").hide();
-            $("#awal").hide();
-            $("#akhir").hide();
-            $('#tgl_awal').removeAttr('required');
-            $('#tgl_akhir').removeAttr('required');
-        });
+        // $("input[id=tahun]").click(function()
+        // {
+        //     $("#bln").hide();
+        //     $("#awal").hide();
+        //     $("#akhir").hide();
+        //     $('#tgl_akhir').removeAttr('required');
+        // });
 
       });
       

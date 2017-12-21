@@ -3169,12 +3169,12 @@ class modelTransaksi extends mysql_db
     public function get_bidang_report($data){
         $kode_satker = $data['kode_satker'].$data['kode_ruang'];
         $query = "select Kd_Ruang, kode, NamaSatker from satker where concat(kode,IFNULL(kd_ruang,'')) like '$kode_satker%' ";
-        // echo $query;
+        echo $query;
         $result = $this->query($query);
         while ($row = $this->fetch_array($result))
         {
             if($row['Kd_Ruang']=="") $row['Kd_Ruang']=" ";
-            echo '<option value="'.$row['Kd_Ruang'].'">'.$row['Kd_Ruang'].'  -  '.$row['NamaSatker']."</option>";
+            echo '<option value="'.$row['Kd_Ruang'].'">'.$row['NamaSatker']."</option>";
 
         }
 

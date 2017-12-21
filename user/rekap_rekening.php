@@ -85,6 +85,23 @@
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">
     var table;
+    function getBidang(kd_satker,kd_ruang){
+          $.ajax({
+              type: "post",
+              url: '../core/transaksi/prosestransaksi',
+              data: {manage:'get_bidang_report',kode_satker:kd_satker,kode_ruang:kd_ruang},
+              success: function (output) {
+                $('#kd_ruang').html(output);
+              }
+          });
+        }
+
+        $('#satker').change(function(){
+          kd_satker = $('#satker').val();
+          getBidang(kd_satker,'');
+        });
+
+        getBidang("<?php echo $_SESSION['kd_lok']; ?>","<?php echo $_SESSION['kd_ruang'] ?>");
       $(function () {
         $(".treeview").addClass("");
         $("li#rekap_rekening").addClass("");
@@ -108,17 +125,6 @@
             $('#satker').html(output);
           }
        });
-      function getBidang(){
-          $.ajax({
-              type: "post",
-              url: '../core/transaksi/prosestransaksi',
-              data: {manage:'get_bidang_report',kode_satker:"<?php echo $_SESSION['kd_lok']; ?>",kode_ruang:"<?php echo $_SESSION['kd_ruang'] ?>"},
-              success: function (output) {
-                $('#kd_ruang').html(output);
-              }
-            });
-        }
-        getBidang();
       $('form').on('submit', function() {
         if(document.getElementById("satker").value=="")
         {

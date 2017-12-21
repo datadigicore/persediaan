@@ -38,7 +38,7 @@
                     <div class="box-body">
                       <label class="col-sm-2 control-label">Kode Satker</label>
                       <div class="col-sm-4">
-                        <select name="satker" id="satker" class="form-control">
+                        <select name="satker" id="satker" class="form-control select2">
                         </select>
                       </div>
                     </div>  
@@ -131,6 +131,7 @@
     <script src="../dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(".treeview").addClass("");
+      $(".select2").select2();
       var table;
       $(function () {
       // $("#bln").hide();
@@ -149,17 +150,23 @@
       $("li#saldo_awal").addClass("");
 
         });
-      function getBidang(){
+      function getBidang(kd_satker,kd_ruang){
           $.ajax({
               type: "post",
               url: '../core/transaksi/prosestransaksi',
-              data: {manage:'get_bidang_report',kode_satker:"<?php echo $_SESSION['kd_lok']; ?>",kode_ruang:"<?php echo $_SESSION['kd_ruang'] ?>"},
+              data: {manage:'get_bidang_report',kode_satker:kd_satker,kode_ruang:kd_ruang},
               success: function (output) {
                 $('#kd_ruang').html(output);
               }
-            });
+          });
         }
-        getBidang();
+
+        $('#satker').change(function(){
+          kd_satker = $('#satker').val();
+          getBidang(kd_satker,'');
+        });
+
+        getBidang("<?php echo $_SESSION['kd_lok']; ?>","<?php echo $_SESSION['kd_ruang'] ?>");
       $("input[id=tanggal]").click(function()
       {
 
