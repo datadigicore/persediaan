@@ -17,7 +17,7 @@ class modelTransaksi extends mysql_db
             echo json_encode("Transfer tidak dapat dihapus : Barang Telah dikeluarkan oleh SKPD / Bagian Penerima");
             exit;
         }
-        $this->query("BEGIN");
+        //$this->query("BEGIN");
         foreach ($res_listItemMasuk as $key => $value) {
             $submit = array(
                 'id' => $value['id'],
@@ -39,7 +39,7 @@ class modelTransaksi extends mysql_db
             $this->hapus_transaksi_keluar($submit);
         }
         $this->query("UPDATE transfer set status=4  WHERE id=$id ");
-        $this->query("COMMIT");
+        //$this->query("COMMIT");
         echo json_encode("Transfer Berhasil Dibatalkan");
 
     }
@@ -80,14 +80,14 @@ class modelTransaksi extends mysql_db
     public function add_temp_item_trans_keluar(){
         $sql="SELECT * from temp_import_keluar where user_id = '$_SESSION[username]'";
         $res=$this->query($sql);
-        $this->query('BEGIN');
+        //$this->query("BEGIN");
         while ($row=$this->fetch_assoc($res)){
             $row['ruang_asal'] = $row['kd_ruang'];
             $row['status'] = 0;
             $this->import_transaksi_keluar($row);
         }
         $this->clear_log_temp_import('temp_import_keluar');
-        $this->query('COMMIT');
+        //$this->query("COMMIT");
         return true;
     }
 
@@ -852,7 +852,7 @@ class modelTransaksi extends mysql_db
         $tgl_buku = "";
         $no_bukti = "";
         $nm_satker = "";
-        $this->query("BEGIN");
+        //$this->query("BEGIN");
         $query = "select kd_lokasi, nm_satker, thn_ang, no_dok, tgl_dok, tgl_buku, no_bukti, jns_trans, kd_sskel, nm_sskel, kd_brg, nm_brg, spesifikasi, satuan, sum(qty_akhir) as qty_akhir, harga_sat, keterangan, untuk, kd_perk, nm_perk   from transaksi_masuk where kd_lokasi='$kd_lokasi' and qty_akhir>0 and status_ambil=0 and thn_ang = '$thn_ang_lalu' and status=1 group by kd_brg, harga_sat";
         $result_read = $this->query($query);
         if($this->num_rows($result_read)==0)
@@ -984,7 +984,7 @@ class modelTransaksi extends mysql_db
                         tgl_update=NOW(),
                         user_id='$user_id'";
                 $this->query($query_log);
-                $this->query("COMMIT");
+                //$this->query("COMMIT");
 
 
     }
@@ -1812,7 +1812,7 @@ class modelTransaksi extends mysql_db
         }
         // echo $nama_tabel;
         // exit;
-        $this->query("BEGIN");
+        //$this->query("BEGIN");
         $query_dok = "select kd_lokasi, kd_ruang, kd_lok_msk, kd_ruang_msk, nm_satker_msk, nm_ruang_msk, tgl_dok, tgl_buku, jns_trans, keterangan from ".$nama_tabel." where no_dok='$no_dok' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' LIMIT 1";
         // print_r($query_dok);
         $result_dok = $this->query($query_dok);
@@ -2302,7 +2302,7 @@ class modelTransaksi extends mysql_db
                 $id_trsf = $data["trf"];
                 $this->query("UPDATE transfer set status=2 where id='$id_trsf' ");
             }
-            $com = $this->query("COMMIT");
+            //$com = $this->query("COMMIT");
 
     }
 
@@ -2476,7 +2476,7 @@ class modelTransaksi extends mysql_db
         $thn_ang = $data['thn_ang'];
         $kuantitas = $data['kuantitas'];
         $harga_baru = $data['harga_sat'];
-        $this->query("BEGIN");
+        //$this->query("BEGIN");
         $query_qty_awal ="SELECT  id,nm_satker, kd_lokasi, kd_ruang, no_dok, tgl_dok, tgl_buku, no_bukti, kd_sskel, nm_sskel, kd_perk, nm_perk,jns_trans, kd_brg, nm_brg, spesifikasi, satuan, qty,qty_akhir, harga_sat, total_harga from transaksi_masuk where id='$kd_trans' ";
         $result_qty_awal = $this->query($query_qty_awal);
         if($this->num_rows($result_qty_awal)==0)
@@ -2859,7 +2859,7 @@ class modelTransaksi extends mysql_db
                                 tgl_update=NOW(),
                                 user_id='$user_id'";
                             $this->query($query_log);
-                            $this->query("COMMIT");
+                            //$this->query("COMMIT");
     }
 
     public function transaksi_keluar($data)
