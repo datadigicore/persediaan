@@ -27,10 +27,12 @@ $primaryKey = 'id';
 $columns = array(
     array( 'db' => 'id', 'dt' => 0 ),
     array( 'db' => 'no_dok', 'dt' => 1 ),
-    array( 'db' => 'kode_rekening', 'dt' => 2,
-        'formatter' => function($d,$row){
-            return $d."-".$row[12];
-         } ),
+    array( 'db' => 'kd_brg', 'dt' => 2
+        // ,
+        // 'formatter' => function($d,$row){
+        //     return $d."-".$row[12];
+        //  } 
+     ),
     array( 'db' => 'nm_brg', 'dt' => 3 ),
     array( 'db' => 'spesifikasi', 'dt' => 4 ),
     array( 'db' => 'qty', 'dt' => 5, 'formatter' => function($d,$row){if(ceil($d)!=$d or floor($d)!=$d) {return number_format($d,2,",",".");} else { return number_format($d,0,",",".");} } ),

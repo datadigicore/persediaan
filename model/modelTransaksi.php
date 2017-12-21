@@ -3229,7 +3229,7 @@ class modelTransaksi extends mysql_db
     }
     public function bacaidenttrans($data,$kd_ruang,$thn_ang)
     {
-        $query = "select no_bukti, tgl_dok, tgl_buku, jns_trans, nm_satker, keterangan, sum(total_harga) as total_harga from transaksi_masuk where no_dok = '$data' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_ruang' and thn_ang='$thn_ang' group by no_dok";
+        $query = "select no_bukti, tgl_dok, tgl_buku, jns_trans, nm_satker, keterangan, sum(total_harga) as total_harga from transaksi_masuk where no_dok = '$data' and thn_ang='$thn_ang' group by no_dok";
         $result = $this->query($query);
         if ($row = $this->fetch_assoc($result))
         {
