@@ -197,6 +197,7 @@ else {
                             </select>
                           </div>
                         </div>
+<?php if($_POST['jenistrans']=="APBD"){  ?>
                         <div class="form-group" id="pilihan_kode">
                           <label class="col-sm-3 control-label">Kode Rekening Belanja</label>
                           <div class="col-sm-8">
@@ -204,6 +205,7 @@ else {
                             </select>
                           </div>
                         </div>
+<?php }                                   ?>
                       <div class="form-group" id="field_nilai_non_persediaan">
                         <label class="col-sm-3 control-label">Nilai <b>Non</b> Persediaan</label>
                         <div class="col-sm-8">
@@ -416,7 +418,7 @@ else {
     $('form').on('blur', 'input[type=number]', function (e) {
       $(this).off('mousewheel.disableScroll')
     });
-
+    detail_dokumen();
     function baca_rekening(){
       table_rek = $("#example2").DataTable({
           "aaSorting": [[ 0, 'desc' ]],
@@ -552,7 +554,7 @@ else {
             $("#pilihan_kode").show();
             $("#field_nilai_non_persediaan").hide();
             $("#ket_non_persediaan").hide();
-            $("#kode_rek").prop('required',true);
+            
             $("#kd_brg").prop('required',true);
             $("#satuan").prop('required',true);
             $("#jml_msk").prop('required',true);
@@ -575,7 +577,7 @@ else {
             $("#pilihan_kode").show();
             $("#field_nilai_non_persediaan").show();
             $("#ket_non_persediaan").show();
-            $("#kode_rek").prop('required',true);
+            
             $("#kd_brg").prop('required',false);
             $("#satuan").prop('required',false);
             $("#jml_msk").prop('required',false);
@@ -594,7 +596,7 @@ else {
             $("#pilihan_kode").show();
             $("#field_nilai_non_persediaan").hide();
             $("#ket_non_persediaan").hide();
-            $("#kode_rek").prop('required',true);
+            $("#kode_rek").hide();
             $("#kd_brg").prop('required',true);
             $("#satuan").prop('required',true);
             $("#jml_msk").prop('required',true);
@@ -603,21 +605,9 @@ else {
             list_kode_rekening();
             $("#field_nilai_non_persediaan").prop('required',false);
 
-        $.ajax({
-          type: "post",
-          url: '../core/transaksi/prosestransaksi',
-          data: {manage:'readidenttrans',idtrans:"<?php echo $_POST['satker']?>"},
-          dataType: "json",
-          success: function (output) {
-            $('#disnobukti').val(output.nobukti);
-            $('#disjenistrans').val(output.jenistrans);
-            $('#tgl_dok').val(output.tgldok);
-            $('#tgl_buku').val(output.tglbuku);
-            $('#dissatker').val(output.satker);
-            $('#distottrans').val(output.total);
-            $('#keterangan').val(output.keterangan);
-          }
-        });
+
+            
+
         $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
@@ -942,6 +932,7 @@ else {
                 data: {manage:managedata,id:id_row},
                 success: function(data)
                 {
+                    detail_dokumen();
                     $("#kd_brg").select2("val", "");
                     $("#jml_msk").val('');
                     $("#satuan").val('');
@@ -1108,6 +1099,7 @@ else {
               $("#example2").DataTable().destroy();
               $("#example2 tbody").empty();
               baca_rekening();
+              detail_dokumen();
               table = $("#example1").DataTable({
                 "aaSorting": [[ 0, 'desc' ]],
                 "processing": false,
@@ -1146,6 +1138,24 @@ else {
           return false;
 
       });
+    function detail_dokumen(){
+        $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'readidenttrans',idtrans:"<?php echo $_POST['satker']?>"},
+          dataType: "json",
+          success: function (output) {
+            $('#disnobukti').val(output.nobukti);
+            $('#disjenistrans').val(output.jenistrans);
+            $('#tgl_dok').val(output.tgldok);
+            $('#tgl_buku').val(output.tglbuku);
+            $('#dissatker').val(output.satker);
+            $('#distottrans').val(output.total);
+            $('#keterangan').val(output.keterangan);
+
+          }
+        });
+      }
     </script>
 
 <!-- ########################################################################## -->
@@ -1208,21 +1218,9 @@ else {
         //     var data = table.row( this ).data();
         //     alert( 'You clicked on '+data[0]+'\'s row' );
         // } );
-        $.ajax({
-          type: "post",
-          url: '../core/transaksi/prosestransaksi',
-          data: {manage:'readidenttransklr',idtrans:"<?php echo $_POST['satker']?>"},
-          dataType: "json",
-          success: function (output) {
-            $('#disnobukti').val(output.nobukti);
-            $('#disjenistrans').val(output.jenistrans);
-            $('#tgl_dok').val(output.tgldok);
-            $('#tgl_buku').val(output.tglbuku);
-            $('#dissatker').val(output.satker);
-            $('#distottrans').val(output.total);
-            $('#keterangan').val(output.keterangan);
-          }
-        });
+        detail_dokumen();
+
+
         $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
@@ -1279,6 +1277,7 @@ else {
                   $("#keterangan").val('');
                   $("#example1").DataTable().destroy();
                   $("#example1 tbody").empty();
+                  detail_dokumen();
                   table = $("#example1").DataTable({
                     "processing": false,
                     "serverSide": true,
@@ -1431,6 +1430,7 @@ else {
               $('button:submit').attr("disabled", false);
               $("#example1").DataTable().destroy();
               $("#example1 tbody").empty();
+              detail_dokumen();
               table = $("#example1").DataTable({
                 "processing": false,
                 "serverSide": true,
@@ -1468,6 +1468,23 @@ else {
           return false;
         }
       });
+      function detail_dokumen(){
+          $.ajax({
+            type: "post",
+            url: '../core/transaksi/prosestransaksi',
+            data: {manage:'readidenttransklr',no_dok:"<?php echo $_POST['no_dok']?>"},
+            dataType: "json",
+            success: function (output) {
+              $('#disnobukti').val(output.nobukti);
+              $('#disjenistrans').val(output.jenistrans);
+              $('#tgl_dok').val(output.tgldok);
+              $('#tgl_buku').val(output.tglbuku);
+              $('#dissatker').val(output.satker);
+              $('#distottrans').val(output.total);
+              $('#keterangan').val(output.keterangan);
+            }
+          });
+        }
     </script>
     <?php } ?>
   </body>

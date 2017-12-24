@@ -256,9 +256,8 @@ else
 			$Transaksi->bacaidenttrans($idtrans,$kd_ruang,$thn_ang);
 		break;
 		case 'readidenttransklr':
-			$idtrans = $purifier->purify($_POST['idtrans']);
-			$kd_ruang = $_SESSION['kd_lok'].$_SESSION['kd_ruang'];
-			$Transaksi->bacaidenttrans_klr($idtrans,$kd_ruang,1);
+			$no_dok = $purifier->purify($_POST['no_dok']);
+			$Transaksi->bacaidenttrans_klr($no_dok,1);
 		break;
 		case 'readidenttempitem':
 			if (isset($_POST['id'])) {

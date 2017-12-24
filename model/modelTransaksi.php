@@ -44,7 +44,9 @@ class modelTransaksi extends mysql_db
 
     }
     public function hapus_dokumen_masuk($no_dok){
-        $sql="DELETE from transaksi_masuk  where no_dok='$no_dok' and qty=0 and nilai_kontrak=0";
+        $thnang = $_SESSION['thn_ang'];
+        $sql="DELETE from transaksi_masuk  where no_dok='$no_dok' and qty=0 and nilai_kontrak=0 and thn_ang='$thnang' ";
+        echo $sql;
         $this->query($sql);
     }
     public function clear_log_temp_import($table){
@@ -108,7 +110,9 @@ class modelTransaksi extends mysql_db
         $res=$this->query($sql);
     }
     public function hapus_dokumen_keluar($no_dok){
-        $sql="DELETE from transaksi_keluar  where no_dok='$no_dok' and qty=0 ";
+        $thnang = $_SESSION['thn_ang'];
+        $sql="DELETE from transaksi_keluar  where no_dok='$no_dok' and qty=0 and thn_ang='$thnang' ";
+        // echo $sql;
         $this->query($sql);
     }
 
@@ -3250,10 +3254,11 @@ class modelTransaksi extends mysql_db
         }
     }
 
-    public function bacaidenttrans_klr($data,$kd_ruang,$jenis)
+    public function bacaidenttrans_klr($no_dok,$jenis)
     {
         $nama_tbl   =   "";
         $kolom      =   "";
+        $thn_ang = $_SESSION['thn_ang'];
         if($jenis==1){
             $nama_tbl="transaksi_keluar";
             $kolom = "nm_satker_msk, no_bukti, tgl_dok, tgl_buku, jns_trans, nm_satker,keterangan, sum(total_harga) as total_harga";
@@ -3262,7 +3267,8 @@ class modelTransaksi extends mysql_db
             $nama_tbl="transfer";
             $kolom = "nm_satker_msk, tgl_dok, tgl_buku, jns_trans, nm_satker,keterangan, sum(total_harga) as total_harga";
         }
-        $query = "select ".$kolom." from ".$nama_tbl." where no_dok = '$data' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_ruang' and thn_ang=$_SESSION[thn_ang] group by no_dok";
+        $query = "select ".$kolom." from ".$nama_tbl." where no_dok = '$no_dok' and thn_ang=$_SESSION[thn_ang] group by no_dok";
+        // echo $query;
         $result = $this->query($query);
         if ($row = $this->fetch_assoc($result))
         {

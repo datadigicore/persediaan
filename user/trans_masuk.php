@@ -203,7 +203,7 @@
         var row = table.row( tr );
               redirectTime = "2600";
               redirectURL = "trans_masuk";
-              no_dok = row.data()[2];
+              no_dok = row.data()[3];
               managedata = "hapus_dokumen_masuk";
           swal({
             title: "Konfirmasi Penghapusan Dokumen",
