@@ -22,7 +22,14 @@ $primaryKey = 'id';
 $columns = array(
     array( 'db' => 'id', 'dt' => 0 ),
     array( 'db' => 'no_dok', 'dt' => 1 ),
-    array( 'db' => 'kd_brg', 'dt' => 2, ),
+    array( 'db' => 'kd_brg', 'dt' => 2, 'formatter' => function($d,$row){
+        if($row['status']<2) {
+            return '<input type="checkbox" name="id" value="'.$row['id'].'" /> '.$d;
+        } else 
+        { 
+            return $d;
+        } 
+    }),
     array( 'db' => 'nm_brg', 'dt' => 3 ),
     array( 'db' => 'spesifikasi', 'dt' => 4 ),
     array( 'db' => 'qty', 'dt' => 5, 'formatter' => function($d,$row){if(ceil($d)!=$d or floor($d)!=$d) {return number_format(abs($d),2,",",".");} else { return number_format(abs($d),0,",",".");} } ),

@@ -210,7 +210,8 @@ else {
               <?php if ($_POST['manage']=="transfer") { ?>
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Daftar Transaksi Keluar</h3>
+                  <h3 class="box-title">Daftar Transfer Persediaanr</h3> 
+                  <button id="confirmAll" class="btn btn-sm btn-success pull-right" style="margin-right: 12px;padding: 4px 25px">Transfer Item Terpilih</button> 
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
@@ -218,7 +219,7 @@ else {
                       <tr>
                         <th>ID</th>
                         <th>No Dokumen</th>
-                        <th>Kode Barang</th>
+                        <th><input type="checkbox" id="selectAll" /> Kode Barang</th>
                         <th>Nama Barang</th>
                         <th>Spesifikasi</th>
                         <th>Jumlah</th>
@@ -340,11 +341,40 @@ else {
 <!-- ########################################################################## -->
 
     <script type="text/javascript">
+
+      $('#selectAll').on('click', function(){
+   // Get all rows with search applied
+         var rows = table.rows({ 'search': 'applied' }).nodes();
+         // Check/uncheck checkboxes for all rows in the table
+         $('input[type="checkbox"]', rows).prop('checked', this.checked);
+      });
+      $('#confirmAll').on('click', function(){
+        var id = [];
+            $.each($("input[name='id']:checked"), function(){            
+                id.push($(this).val());
+            });
+        $("#selectAll").prop( "disabled", true );
+        $.ajax({
+          type: "post",
+          url: '../core/transaksi/prosestransaksi',
+          data: {manage:'konfirmasi_transfer',id:id},
+          dataType: "json",
+          success: function (output) {
+            alert('Barang Telah Di Transfer ');
+          }
+        });
+         
+            $("#example1").DataTable().destroy();
+            $("#example1 tbody").empty();
+            baca_tabel();
+          $("#selectAll").prop( "disabled", false );
+
+      });
     var table;
      $("li#trans_keluar").addClass("active");
      function baca_tabel(){
         table = $("#example1").DataTable({
-            "aaSorting": [[ 10, 'asc' ]],
+            "ordering": false,
             "processing": false,
             "serverSide": true,
             "ajax":
@@ -396,14 +426,16 @@ else {
           var tr = $(this).closest('tr');
           var row = table.row( tr );
           manage = "konfirmasi_transfer";
+       var id = [];
           id_row = row.data()[0];
+          id.push(id_row);
           $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
-          data: {manage:'konfirmasi_transfer',id:id_row},
+          data: {manage:'konfirmasi_transfer',id:id},
           dataType: "json",
           success: function (output) {
-
+            alert('Barang Telah Di Transfer ');
           }
         });
         $("#example1").DataTable().destroy();

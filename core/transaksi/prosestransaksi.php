@@ -99,25 +99,26 @@ else
 		break;
 
 		case 'konfirmasi_transfer':
-			$id = $purifier->purify($_POST['id']);
-			$trf = $Transaksi->get_transfer_detail($id);
+			foreach ($_POST['id'] as $key => $value) {
+				$trf = $Transaksi->get_transfer_detail($value);
 			// print_r($trf);
-			$data = array(
-					"id_brg_transfer" => $id,
-					"kd_lokasi" => $trf['kd_lokasi'],
-					"ruang_asal"=> $trf['kd_ruang'],
-					"kd_lok_msk"=> $trf['kd_lok_msk'],
-					"nm_satker" => $trf['nm_satker'],
-					"thn_ang" 	=> $trf['thn_ang'],
-					"no_dok" 	=> $trf['no_dok'],
-					"user_id" 	=> $_SESSION['username'],
-					"kd_brg" 	=> $trf['kd_brg'],
-					"satuan" 	=> $trf['satuan'],
-					"kuantitas" => $trf['qty'],
-					"trf"=>$trf['id']
-				);
-			print_r($data);
-			$Transaksi->trnsaksi_keluar($data);
+				$data = array(
+						"id_brg_transfer" => $id,
+						"kd_lokasi" => $trf['kd_lokasi'],
+						"ruang_asal"=> $trf['kd_ruang'],
+						"kd_lok_msk"=> $trf['kd_lok_msk'],
+						"nm_satker" => $trf['nm_satker'],
+						"thn_ang" 	=> $trf['thn_ang'],
+						"no_dok" 	=> $trf['no_dok'],
+						"user_id" 	=> $_SESSION['username'],
+						"kd_brg" 	=> $trf['kd_brg'],
+						"satuan" 	=> $trf['satuan'],
+						"kuantitas" => $trf['qty'],
+						"trf"=>$trf['id']
+					);
+				print_r($data);
+				$Transaksi->trnsaksi_keluar($data);
+			}	
 		break;
 		case 'baca_skpd':
 			$kd_lokasi = $_SESSION['kd_lok'];
