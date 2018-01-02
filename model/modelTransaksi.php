@@ -3363,11 +3363,15 @@ class modelTransaksi extends mysql_db
     public function baca_detil_trans($data)
     {
         $kd_brg = $data['kd_brg'];
+        $thn_ang = $_SESSION['thn_ang'];
         $kd_lokasi = $data['kd_lokasi'];
         $kd_satker = $data['kd_lokasi'].$data['kd_ruang'];
         $query_brg = "select satuan from persediaan where kd_brg = '$kd_brg' ";
         // $result_brg = $this->query($query_brg);
-        $result_satker = $this->query("select * from transaksi_masuk where kd_brg = '$kd_brg' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' limit 1 ");
+        $sql = "select * from transaksi_masuk where kd_brg = '$kd_brg' and concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker'
+                                       and thn_ang=$thn_ang  limit 1 ";
+        echo $sql;
+        $result_satker = $this->query($sql);
 
         if($this->num_rows($result_satker)==1)
         {
