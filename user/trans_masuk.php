@@ -400,13 +400,13 @@
         var tr = $(this).closest('tr');
         var row = table.row( tr );
         id_row = row.data()[0];
-        jns_trans_row = row.data()[1];
-        gab_row = row.data()[2];
+        jns_trans_row = row.data()[2];
+        gab_row = row.data()[3];
         kdsatker_row = gab_row.substring(0,11);
         nodok_row = gab_row.substring(14);
-        tgl_dok_row = row.data()[4];
-        tgl_buku_row = row.data()[5];
-        keterangan_row = row.data()[6];
+        tgl_dok_row = row.data()[5];
+        tgl_buku_row = row.data()[6];
+        keterangan_row = row.data()[7];
 
           $.ajax({
             type: "post",
