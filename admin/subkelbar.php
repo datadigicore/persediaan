@@ -171,7 +171,7 @@
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="row-fluid">'+
-                                  '<button id="btnalih" class="col-xs-12 btn btn-edit btn-xs btn-flat"><i class="fa fa-edit"></i> Ubah Jenis</button>'+
+                                  // '<button id="btnalih" class="col-xs-12 btn btn-edit btn-xs btn-flat"><i class="fa fa-edit"></i> Ubah Jenis</button>'+
                                   '<button id="btnhps" class="col-xs-12 btn btn-danger btn-xs btn-flat"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
              "targets": [6],"targets": 6 }
@@ -257,29 +257,24 @@
           redirectTime = "1000";
           id_row = row.data()[0];
           id_barang = row.data()[1];
-          ur_barang = row.data()[2];
+          jns_barang = row.data()[2];
+          ur_barang = row.data()[3];
+          spk_barang = row.data()[4];
+          sat_barang = row.data()[5];
           managedata = "delbarang";
           job=confirm("Anda yakin ingin menghapus data ini?");
             if(job!=true){
               return false;
             }
             else{
-              $('#myModal').modal({
-                backdrop: 'static',
-                keyboard: false
-              });
-              $('#myModal').modal('show');
               $.ajax({
                 type: "post",
                 url : "../core/barang/prosesbarang",
-                data: {manage:managedata,id:id_row,idbrg:id_barang,urbrg:ur_barang},
+                data: {manage:managedata,id:id_row,idbrg:id_barang,urbrg:ur_barang,jns_barang:jns_barang,spk_barang:spk_barang,sat_barang:sat_barang},
+                dataType: "json",
                 success: function(data)
                 {
-                  $("#success-alert").alert();
-                  $("#success-alert").fadeTo(500, 500).slideUp(500, function(){
-                  $("#success-alert").alert('close');
-                  });
-                  setTimeout("$('#myModal').modal('hide');",redirectTime);
+                  alert(data);
                   $("#example1").DataTable().destroy();
                   $("#example1 tbody").empty();
                   myTable();
@@ -429,13 +424,13 @@
           return false;
         }
         else{
-        $('#myModal').modal({
-          backdrop: 'static',
-          keyboard: false
-        });
-        $('#myModal').modal('show');
-        e.preventDefault();
-        redirectTime = "1000";
+        // $('#myModal').modal({
+        //   backdrop: 'static',
+        //   keyboard: false
+        // });
+        // $('#myModal').modal('show');
+        // e.preventDefault();
+        // redirectTime = "1000";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);
         $.ajax({
@@ -447,11 +442,7 @@
           processData: false,
           success: function(data)
           {
-            $("#success-alert").alert();
-            $("#success-alert").fadeTo(500, 500).slideUp(500, function(){
-            $("#success-alert").alert('close');
-            });
-            setTimeout("$('#myModal').modal('hide');",redirectTime);
+            alert("data tersimpan");
             $("#example1").DataTable().destroy();
             $("#example1 tbody").empty();
             myTable();

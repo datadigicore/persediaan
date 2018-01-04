@@ -73,7 +73,7 @@
                           </div>
                           <label class="col-sm-2 control-label">Unit Kerja Tujuan</label>
                           <div class="col-sm-3">
-                            <select name="bidang_tujuan" id="bidang_tujuan" class="form-control select2" required>
+                            <select name="bidang_tujuan" id="bidang_tujuan" class="form-control select2">
                             </select>
 
                           </div>
@@ -115,8 +115,8 @@
                       <tr>
                         <th width="5%">ID</th>
                         <th width="18%">No Dokumen</th>
-                        <th width="18%">Satker tujuan</th>
-                        <th width="18%">Bidang tujuan</th>
+                        <th width="18%">Satker Pengirim</th>
+                        <th width="18%">Satker Penerima</th>
                         <th>Tanggal Dokumen</th>
                         <th>Tanggal Pembukuan</th>
                         <th>Keterangan</th>

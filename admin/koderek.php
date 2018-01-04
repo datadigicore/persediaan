@@ -26,14 +26,13 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">Tambah Kode Rekening Akuntansi</h3>
                 </div>  
-                <form action="../core/barang/prosesrekening" method="post" class="form-horizontal" id="addbarang">
+                <form action="../core/barang/prosesbarang" method="post" class="form-horizontal" id="addbarang">
                   <div class="box-body">
                     <div class="form-group" style="margin-top:15px;">
-                      <label class="col-sm-2 control-label">Jenis Rekening </label>
+                      <label class="col-sm-2 control-label">Kode Rekening </label>
                       <div class="col-sm-5">
-                        <select name="kdbarang_no" id="kdbarang_no" class="form-control select2" placeholder="Kode Barang">
-                        </select>
-                        <input type="hidden" name="manage" value="addsubbarang">
+                        <input type="text" name="kode_rekening" class="form-control" id="kode_rekening" placeholder="Masukkan Kode Rekening">
+                        <input type="hidden" name="manage" value="add_kode_rekening">
                       </div>
                       <label class="col-sm-2 control-label">Import Rekening</label>
                       <div class="col-sm-2">
@@ -43,7 +42,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Nama Rekening</label>
                       <div class="col-sm-9">
-                        <input type="text" name="nmbarang" class="form-control" id="nmbarang" placeholder="Masukkan Nama Barang">
+                        <input type="text" name="nama_rekening" class="form-control" id="nama_rekening" placeholder="Masukkan Nama Rekening">
                       </div>
                     </div>
                     <!-- <div class="form-group" style="margin-top:15px;">
@@ -167,9 +166,9 @@
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="row-fluid">'+
-                                  // '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
-                                  '<button id="btnalih" class="col-xs-12 btn btn-edit btn-xs btn-flat"><i class="fa fa-edit"></i> Ubah Jenis</button>'+
-                                  '<button id="btnhps" class="col-xs-12 btn btn-danger btn-xs btn-flat"><i class="fa fa-remove"></i> Hapus</button>'+
+                                  '<button id="btnedt" class="btn btn-success btn-xs btn-flat btn-block pull-left"><i class="fa fa-edit"></i> Edit</button>'+
+                                  // // '<button id="btnalih" class="col-xs-12 btn btn-edit btn-xs btn-flat"><i class="fa fa-edit"></i> Ubah Nama</button>'+
+                                  // '<button id="btnhps" class="col-xs-12 btn btn-danger btn-xs btn-flat"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
              "targets": [4],"targets": 4 }
           ],
@@ -250,14 +249,6 @@
             });
           }
           else {
-            $.ajax({
-                type: "post",
-                url: '../core/barang/prosesbarang',
-                data: {manage:'readbarang'},
-                success: function (output) {     
-                  $('#kdbaru').html(output);
-                }
-             });
             
             row.child( ubh_jns(row.data())).show();
             tr.addClass('shown');
@@ -266,10 +257,7 @@
             $("#urbarang"+id_row+"").val(urbarang_row);
             $("#spesifikasi"+id_row+"").val(spesifikasi_row);
             $("#satuan"+id_row+"").val(satuan_row);
-            $("#kdbaru").select2({
-             placeholder: "Pilih Jenis Barang Persediaan",
-             allowClear: false
-            });
+
           }
         });
         $(document).on('click', '#btnhps', function () {
@@ -279,7 +267,7 @@
           id_row = row.data()[0];
           id_barang = row.data()[1];
           ur_barang = row.data()[2];
-          managedata = "delbarang";
+          managedata = "del_rekening";
           job=confirm("Anda yakin ingin menghapus data ini?");
             if(job!=true){
               return false;
@@ -320,48 +308,15 @@
        });
       function format ( d ) {
         return '<div class="slider">'+
-        '<form action="../core/barang/prosesbarang" method="post" class="form-horizontal" id="updbarang">'+
-        '<table width="100%">'+
-           '<tr>'+
-              '<input type="hidden" name="manage" value="updsubbarang">'+
-              '<input type="hidden" name="id" value="'+d[0]+'">'+
-              '<td width="15.8%"><input style="width:95%" id="kdbarang'+d[0]+'" name="updkdbarang" class="form-control" type="text" placeholder="Kode Barang"></td>'+
-              '<td width="44.2%"><input style="width:98.2%" id="urbarang'+d[0]+'" name="updurbarang" class="form-control" type="text" placeholder="Uraian Barang"></td>'+
-              '<td><input style="width:94%" id="spesifikasi'+d[0]+'" name="updspesifikasi" class="form-control" type="text" placeholder="Spesifikasi"></td>'+
-              '<td><input style="width:94%" id="satuan'+d[0]+'" name="updsatuan" class="form-control" type="text" placeholder="Satuan"></td>'+
-              '<td style="vertical-align:middle; width:15%;">'+
-                '<div class="box-tools">'+
-                  '<button id="btnrst" class="btn btn-flat btn-sm btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
-                  '<button id="btnupd" class="btn btn-flat btn-sm btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
-                '</div>'
-              '</td>'+
-           '</tr>'+
-        '</table>'+
-        '</form></div>';  
-      }
-
-      function ubh_jns ( d ) {
-        return '<div class="slider">'+
         '<form action="../core/barang/prosesbarang" method="post" class="form-horizontal" id="updjenis">'+
         '<table width="100%">'+
            '<tr>'+
-              '<input type="hidden" name="manage" value="updjenisbrg">'+
+              '<input type="hidden" name="manage" value="upd_kode_rekening">'+
               '<input type="hidden" name="id" value="'+d[0]+'">'+
-              '<input type="hidden" name="kodebarang" value="'+d[1]+'">'+
-              '<input type="hidden" name="namabarang" value="'+d[3]+'">'+
-              '<input type="hidden" name="spesifikasi" value="'+d[4]+'">'+
-              '<input type="hidden" name="satuan" value="'+d[5]+'">'+
-
-              '<td width="5%">Jenis Awal</td>'+
-              '<td width="25.8%"><input style="width:94%" id="satuan'+d[2]+'" name=jns_lama"updsatuan" class="form-control" type="text" value="'+d[2]+'" readonly></td>'+
-              '<td width="5%">Jenis Baru</td>'+
-              '<td width="50%"><select style="width:100%" name="kdbaru" id="kdbaru" class="form-control select2" ></select></td>'+
-              // '<td width="20.2%"><input style="width:98.2%" id="urbarang'+d[0]+'" name="updurbarang" class="form-control" type="text" placeholder="Uraian Barang"></td>'+
-              // '<td><input style="width:94%" id="spesifikasi'+d[0]+'" name="updspesifikasi" class="form-control" type="text" placeholder="Spesifikasi"></td>'+
-              // '<td><input style="width:94%" id="satuan'+d[0]+'" name="updsatuan" class="form-control" type="text" placeholder="Satuan"></td>'+
+              '<td width="15.8%"><input style="width:95%" id="kdbarang'+d[0]+'" name="kode_rek" class="form-control" type="text" placeholder="Kode Barang" readonly></td>'+
+              '<td width="44.2%"><input style="width:98.2%" id="urbarang'+d[0]+'" name="ur_rek_baru" class="form-control" type="text" placeholder="Uraian Barang"></td>'+
               '<td style="vertical-align:middle; width:15%;">'+
                 '<div class="box-tools">'+
-                  // '<button id="btnrst" class="btn btn-flat btn-sm btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
                   '<button id="btnupd" class="btn btn-flat btn-sm btn-primary btn-sm pull-right"><i class="fa fa-upload"></i> Update</button>'+
                 '</div>'
               '</td>'+
@@ -369,13 +324,8 @@
         '</table>'+
         '</form></div>';  
       }
+
       $(document).on('submit', '#updjenis', function (e) {
-        // $('#myModal').modal({
-        //   backdrop: 'static',
-        //   keyboard: false
-        // });
-        // $('#myModal').modal('show');
-        // e.preventDefault();
         redirectTime = "1000";
         var formURL = $(this).attr("action");
         var addData = new FormData(this);

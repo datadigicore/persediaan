@@ -28,7 +28,10 @@
               <li><a href="#rincian_persediaan" data-toggle="tab">Rincian Persediaan<i class="fa"></i></a></li>
               <li><a href="#neraca" data-toggle="tab">Posisi Persediaan<i class="fa"></i></a></li>
               <li><a href="#mutasi" data-toggle="tab">Mutasi Persediaan<i class="fa"></i></a></li>
-              <li><a href="#trans" data-toggle="tab">Daftar Transaksi Persediaan Per UPB<i class="fa"></i></a></li>
+              <li><a href="#ba_opname" data-toggle="tab">Berita Acara Stock Opname<i class="fa"></i></a></li>
+              <li><a href="#belanjaPerKategori" data-toggle="tab">Belanja Persediaan Per-Kategori<i class="fa"></i></a></li>
+              <li><a href="#belanjaPerDokumen" data-toggle="tab">Belanja Persediaan Per-Dokumen<i class="fa"></i></a></li>
+              <li><a href="#belanjaPerKategori2" data-toggle="tab">Belanja Persediaan Per-Rekening(2)<i class="fa"></i></a></li>
               <li><a href="#terima_brg" data-toggle="tab">Buku Penerimaan Barang Per UPB<i class="fa"></i></a></li>
               <li><a href="#keluar_brg" data-toggle="tab">Buku Pengeluaran Barang Per UPB<i class="fa"></i></a></li>
               <li><a href="#buku_pakai_habis" data-toggle="tab">Buku Barang Pakai Habis Per UPB<i class="fa"></i></a></li>
@@ -47,6 +50,7 @@
                   </div>
 
                   <div class="tab-pane" id="rincian_persediaan">
+                    <input type="hidden" name="jenis" value="tanggal">
                     <div class="box-body radio" >
                         <label class="col-sm-2 control-label"><input type="radio" name="lingkup" id="kota" value="kota" >Kota</label>
                         <label class="col-sm-2 control-label"><input type="radio" name="lingkup" id="skpd" value="skpd" >SKPD</label>
@@ -66,21 +70,15 @@
 
                   </div>
                     
-                  <div class="tab-pane" id="trans">
-                    <div class="box-body">
-                      <label class="col-sm-2 control-label">Jenis Transaksi</label>
-                      <div class="col-sm-4">
-                        <select name="jenis_trans" id="jenis_trans" class="form-control">
-                          <option value="">---Pilih Jenis Transaksi---</option>
-                          <option value="M01-Saldo Awal">Saldo Awal</option>
-                          <option value="M02-Pembelian">Pembelian</option>
-                          <option value="M03-Transfer Masuk">Transfer Masuk</option>
-                          <option value="K01-Habis Pakai">Habis Pakai</option>
-                          <option value="K02-Usang">Usang</option>
-                          <option value="K03-Rusak">Rusak</option>
-                          <option value="K04-Transfer Keluar">Transfer Keluar</option>
-                        </select>
-                      </div>
+                  <div class="tab-pane" id="ba_opname">
+                    <div class="box-body" id="bln"  >
+                        <label class="col-sm-2 control-label">Jenis Laporan</label>
+                        <div class="col-sm-4">
+                          <select name="scope" id="scope" class="form-control">
+                            <option value="1">Detail (Uraian Jumlah, dan Total Harga Per Barang)</option>
+                            <option value="2">Group Per Barang (Uraian Jumlah Barang)</option>
+                          </select>
+                        </div>
                     </div>
                   </div>
 
@@ -95,6 +93,12 @@
 
                   <div class="tab-pane" id="terima_keluar_brg">
                   </div>
+                  <div class="tab-pane" id="belanjaPerKategori">
+                  </div>
+                  <div class="tab-pane" id="belanjaPerKategori2">
+                  </div>
+                  <div class="tab-pane" id="belanjaPerDokumen">
+                  </div>
 
               </div>
                  <div class="box-body">
@@ -103,19 +107,26 @@
                           <select name="satker" id="satker" class="form-control">
                           </select>
                         </div>
-                  </div> 
+                  </div>
+                  <div class="box-body">
+                      <label class="col-sm-2 control-label">Kode Bagian / Sub-Unit </label>
+                      <div class="col-sm-4">
+                        <select name="kd_ruang" id="kd_ruang" class="form-control">
+                        </select>
+                      </div>
+                    </div> 
                     <div class="box-body radio" style="display: none;">
                         <label class="col-sm-2 control-label"><input type="radio" name="jenis" id="tanggal" value="tanggal" checked>Tanggal</label>
                         <label class="col-sm-2 control-label"><input type="radio" name="jenis" id="semester" value="semester">Semester</label>
                         <label class="col-sm-2 control-label"><input type="radio" name="jenis" id="tahun" value="tahun" >Tahun <?php echo $_SESSION['thn_ang'];?></label>
                     </div>                                       
-                    <div class="box-body" id="awal" >
+                    <!-- <div class="box-body" id="awal" >
                       <label class="col-sm-2 control-label">Tanggal Awal</label>
                       <div class="col-sm-4">
                         <input type="text" name="tgl_awal" class="form-control" id="tgl_awal" placeholder="">
                         </select>
                       </div>
-                    </div>                     
+                    </div> -->                     
                     <div class="box-body" id="akhir" >
                       <label class="col-sm-2 control-label">Tanggal Akhir</label>
                       <div class="col-sm-4">
@@ -123,6 +134,23 @@
                         </select>
                       </div>
                     </div>
+                    <div class="box-body">
+                      <label class="col-sm-2 control-label">Tanggal Cetak Laporan</label>
+                      <div class="col-sm-4">
+                        <input type="text" name="tgl_cetak" class="form-control" id="tgl_cetak" placeholder="" required>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="box-body">
+                      <label class="col-sm-2 control-label">Format laporan</label>
+                      <div class="col-sm-4">
+                        <select name="format" id="format" class="form-control">
+                          <option value="pdf">PDF</option>
+                          <option value="excel">Excel</option>
+                        </select>
+                      </div>
+                    </div>
+
                     <div class="box-body" id="bln"  style="display: none;">
                       <label class="col-sm-2 control-label">Semester</label>
                       <div class="col-sm-2">
@@ -132,15 +160,7 @@
                         </select>
                       </div>
                     </div> 
-                    <div class="box-body" style="display: none;">
-                      <label class="col-sm-2 control-label">Format laporan</label>
-                      <div class="col-sm-4">
-                        <select name="format" id="format" class="form-control">
-                          <option value="pdf">PDF</option>
-                          <option value="excel">Excel</option>
-                        </select>
-                      </div>
-                    </div> 
+ 
               <div class="form-group" style="margin-top: 15px;">
                   <div class="col-xs-5 col-xs-offset-3">
                       <button type="submit" class="btn btn-default">Cetak</button>
@@ -216,8 +236,8 @@
               manage_val = 'baca_satker_admin';
             break;            
 
-            case 'Daftar Transaksi Persediaan Per UPB':
-              $("#manage").val("transaksi");
+            case 'Berita Acara Stock Opname':
+              $("#manage").val("ba_opname");
               manage_val = 'baca_upb_admin';
             break;            
 
@@ -235,8 +255,20 @@
               $("#manage").val("l_buku_bph");
               manage_val = 'baca_upb_admin';
             break;            
-            case 'BPenerimaan & pengeluaran Barang Pakai Habis Per UPB':
+            case 'Penerimaan & pengeluaran Barang Pakai Habis Per UPB':
               $("#manage").val("l_pp_bph");
+              manage_val = 'baca_upb_admin';
+            break;            
+            case 'Belanja Persediaan Per-Kategori':
+              $("#manage").val("laporan_per_rekening");
+              manage_val = 'baca_upb_admin';
+            break;
+            case 'Belanja Persediaan Per-Rekening(2)':
+              $("#manage").val("laporan_per_rekening2");
+              manage_val = 'baca_upb_admin';
+            break;
+            case 'Belanja Persediaan Per-Dokumen':
+              $("#manage").val("rekap_per_dok");
               manage_val = 'baca_upb_admin';
             break;
 
@@ -247,6 +279,18 @@
     });
 });
 
+$('#satker').change(function(){
+  var kode_satker = $('#satker').val();
+
+  $.ajax({
+    type: "post",
+    url: '../core/transaksi/prosestransaksi',
+    data: {manage:'get_bidang_report',kode_satker:kode_satker,kode_ruang:""},
+      success: function (output) {
+          $('#kd_ruang').html(output);
+    }
+  });
+});
 
 
       $("#satker").select2({

@@ -28,13 +28,14 @@ else
 		break;
 		case 'readbrg':
 		$kd_lokasi = $purifier->purify($_POST['satker']);
-		$kd_ruang = $_SESSION['kd_ruang'];
+		$kd_ruang = $_POST['kd_ruang'];
 		$thn_ang = $_SESSION['thn_ang'];
 		$data = array(
 			"kd_lokasi"=>$kd_lokasi,
 			"kd_ruang"=>$kd_ruang,
 			"thn_ang" => $thn_ang
 			);
+		// print_r($data);
 		$Report->bacabrg($data);
 		break;
 
@@ -289,7 +290,7 @@ else
 			"thn_ang" => $thn_ang,
 			"kd_brg" => $kd_brg,
 			"tgl_awal" => $tgl_awal,
-			"tgl_akhir" => $tgl_akhir,
+			"tgl_akhir" => $Report->sqlDate($_POST['tgl_akhir']),
 			"tgl_cetak" => $tgl_cetak,
 			"kd_lokasi" => $kd_lokasi,
 			"kd_ruang" => $kd_ruang,
@@ -308,7 +309,7 @@ else
 		$thn_ang = $purifier->purify($_SESSION['thn_ang']);
 		$kd_brg = $purifier->purify($_POST['kd_brg']);
 		$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
-		$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
+		$tgl_akhir =  $Report->sqlDate($purifier->purify($_POST['tgl_akhir']));
 		$tgl_cetak =  $purifier->purify($_POST['tgl_cetak']);
 		$lingkup = $purifier->purify($_POST['lingkup']);
 		$format = $purifier->purify($_POST['format']);
@@ -595,26 +596,35 @@ else
 		$bln_awal = $semester[0];
 		$bln_akhir = $semester[1];
 		$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
+		$tgl_rekap =  $purifier->purify($_POST['tgl_akhir']);
 		$tgl_cetak =  $purifier->purify($_POST['tgl_cetak']);
 		$format = $purifier->purify($_POST['format']);
 		$thn_ang = $purifier->purify($_SESSION['thn_ang']);
 		$kd_brg = $purifier->purify($_POST['kd_brg']);
 		$user_id= $_SESSION['username'];
 		$data = array(
-			"format"=>$format,
-			"bln_awal"=>$bln_awal,
-			"bln_akhir"=>$bln_akhir,
-			"thn_ang" => $thn_ang,
-			"kd_brg" => $kd_brg,
-			"tgl_akhir" => $tgl_akhir,
-			"tgl_cetak" => $tgl_cetak,
-			"kd_lokasi" => $kd_lokasi,
-			"kd_ruang" => $kd_ruang,
-			"semester" => $bln_akhir,
+			"format"      =>$format,
+			"bln_awal"    =>$bln_awal,
+			"bln_akhir"   =>$bln_akhir,
+			"thn_ang"     => $thn_ang,
+			"kd_brg"      => $kd_brg,
+			"tgl_akhir"   => $tgl_akhir,
+			"tgl_rekap"   => $tgl_rekap,
+			"tgl_cetak"   => $tgl_cetak,
+			"scope"       => $_POST['scope'],
+			"kd_lokasi"   => $kd_lokasi,
+			"kd_ruang"    => $kd_ruang,
+			"semester"    => $bln_akhir,
 			"satker_asal" => $satker_asal,
-			"user_id" => $user_id);
+			"user_id"     => $user_id);
 			// print_r($data);
-		$Report->ba_opname($data);
+		if($_POST['scope']=="1"){
+			$Report->ba_opname($data);
+		}
+		else{
+			$Report->ba_opname_group($data);
+		}
+		
 
 		break;
 

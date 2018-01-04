@@ -48,7 +48,7 @@ $config = new config();
 $sql_details = $config->sql_details();
 
 
-    $where = "thn_ang='$thn_ang' and jns_trans not in ('P01','P02','M01I')  group by no_dok";
+    $where = "thn_ang='$thn_ang' and jns_trans not in ('P01','P02','M01I','K07','K06')  group by no_dok";
 
 
 // Pengaturan Output Server Side Processing

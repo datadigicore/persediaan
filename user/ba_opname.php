@@ -42,12 +42,19 @@
                         </select>
                       </div>
                     </div>
-                    <div class="box-body" id="bln"  >
-                      <label class="col-sm-2 control-label">Semester</label>
-                      <div class="col-sm-2">
-                        <select name="smt" id="smt" class="form-control">
-                          <option value="01-06">Semester 1</option>
-                          <option value="01-12">Semester 2</option>
+                     <div class="box-body">
+                      <label class="col-sm-2 control-label">Sampai Dengan Tanggal</label>
+                      <div class="col-sm-4">
+                        <input type="text" name="tgl_akhir" class="form-control" id="tgl_akhir" placeholder="" required>
+                        </select>
+                      </div>
+                    </div>
+                     <div class="box-body" id="bln"  >
+                      <label class="col-sm-2 control-label">Jenis Laporan</label>
+                      <div class="col-sm-4">
+                        <select name="scope" id="scope" class="form-control">
+                          <option value="1">Detail (Uraian Jumlah, dan Total Harga Per Barang)</option>
+                          <option value="2">Group Per Barang (Uraian Jumlah Barang)</option>
                         </select>
                       </div>
                     </div>
@@ -100,17 +107,23 @@
         $('#tgl_cetak').datepicker({
           format: "dd-mm-yyyy"
         });  
-        function getBidang(){
+        function getBidang(kd_satker,kd_ruang){
           $.ajax({
               type: "post",
               url: '../core/transaksi/prosestransaksi',
-              data: {manage:'get_bidang_report',kode_satker:"<?php echo $_SESSION['kd_lok']; ?>",kode_ruang:"<?php echo $_SESSION['kd_ruang'] ?>"},
+              data: {manage:'get_bidang_report',kode_satker:kd_satker,kode_ruang:kd_ruang},
               success: function (output) {
                 $('#kd_ruang').html(output);
               }
-            });
+          });
         }
-        getBidang();
+
+        $('#satker').change(function(){
+          kd_satker = $('#satker').val();
+          getBidang(kd_satker,'');
+        });
+
+        getBidang("<?php echo $_SESSION['kd_lok']; ?>","<?php echo $_SESSION['kd_ruang'] ?>");
         $("input[id=tanggal]").click(function()
         {
 

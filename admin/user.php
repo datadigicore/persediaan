@@ -151,6 +151,7 @@
                         <th>Email</th>
                         <th width="14%">Kode Satker</th>
                         <th width="26%">Nama Satker</th>
+                        <th>Nama Bagian</th>
                         <th width="10%">Tahun</th>
                         <th width="13%">Aksi</th>
                       </tr>
@@ -197,13 +198,14 @@
             {"targets": 3 },
             {"targets": 4 },
             {"targets": 5 },
+            {"targets": 6 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="row-fluid">'+
                                   '<button id="btnedt" class="col-xs-6 btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
                                   '<button id="btnhps" class="col-xs-6 btn btn-danger btn-xs btn-flat pull-right"><i class="fa fa-remove"></i> Hapus</button>'+
                                 '</div>',
-             "targets": [6],"targets": 6 }
+             "targets": [7],"targets": 7 }
           ],
           "order": [[ 1, "asc" ]]
         });
@@ -286,6 +288,8 @@
         }
       });
       $('#kdunitgudang').change(function(){
+        $("#kodeSubUPB").html("");
+        $('#kodeSubUPB').select2("val","");
         if ($(this).val()=='') {
           $('#kdsektor').val('');
           $('#kdsatker').val('');
@@ -298,16 +302,21 @@
         }
         else {
           var kdunitgudang = $(this).val();
-          $.ajax({
-              type: "post",
-              url: '../core/transaksi/prosestransaksi',
-              data: {manage:'get_bidang_report',kode_satker:kdunitgudang,kode_ruang:""},
-              success: function (output) {
-                $('#kodeSubUPB').html(output);
-                // $("#bidang_tujuan").select2({
-                // });
-              }
+          if(kdunitgudang.length==11){
+            $.ajax({
+                type: "post",
+                url: '../core/transaksi/prosestransaksi',
+                data: {manage:'get_bidang_report',kode_satker:kdunitgudang,kode_ruang:""},
+                success: function (output) {
+                  $('#kodeSubUPB').html(output);
+                  // $("#bidang_tujuan").select2({
+                  // });
+                }
             });
+          }
+          else{
+             $("#kodeSubUPB").html("");
+          }
           $.ajax({
             type: "post",
             url: '../core/user/prosesuser',
@@ -350,7 +359,7 @@
               '<td width="16.2%"><input style="width:90%" id="username'+d[0]+'" name="user_name" class="form-control" type="text" placeholder="Username"></td>'+
               '<td width="18.2%"><input style="width:90%" id="email'+d[0]+'" name="user_email" class="form-control" type="text" placeholder="Email"></td>'+
               '<td width="17.7%"><input type="checkbox" id="checkpass" style="margin-top:11px;margin-left:-5px;position:absolute;"><input style="width:90%" id="updpassword" name="user_pass" class="form-control" type="password" placeholder="Password" disabled></td>'+
-              '<td width="24.2%"><input type="checkbox" id="checktrans" style="margin-top:11px;margin-left:-5px;position:absolute;z-index:1"><select name="kd_lokasi" id="updkdunitgudang" class="form-control select2" style="width:95%;" disabled><option value="">-- Pilih Kode Satker--</option></select></td>'+
+              // '<td width="24.2%"><input type="checkbox" id="checktrans" style="margin-top:11px;margin-left:-5px;position:absolute;z-index:1"><select name="kd_lokasi" id="updkdunitgudang" class="form-control select2" style="width:95%;" disabled><option value="">-- Pilih Kode Satker--</option></select></td>'+
               '<td style="vertical-align:middle; width:14%;">'+
                 '<div class="row-fluid">'+
                   '<button id="btnrst" class="col-sm-6 btn btn-flat btn-warning btn-sm pull-left" type="reset"><i class="fa fa-refresh"></i> Reset</button>'+
@@ -425,11 +434,11 @@
 
 
 
-        if(kode_satker=="")
-        {
-          alert("Kode Unit Satker Pengelola Belum Dipilh");
-          return false;
-        }
+        // if(kode_satker=="")
+        // {
+        //   alert("Kode Unit Satker Pengelola Belum Dipilh");
+        //   return false;
+        // }
         if(tahun=="")
         {
           alert("Tahun Belum Dipilh");

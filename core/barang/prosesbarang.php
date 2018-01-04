@@ -12,6 +12,10 @@ else
 	switch ($manage)
 	{
 
+		case 'add_kode_rekening':
+			$Barang->add_kode_rek_akuntansi($_POST);
+		break;
+
 		case 'cekkode':
 			$kdbarang = $purifier->purify($_POST['kdsskel']);
 			$kd_jbrg = $purifier->purify($_POST['kodebarang']);
@@ -80,7 +84,7 @@ else
 				"satuan" => $data['satuan'],
 				"aksi" => "T-Persediaan"
 		    );
-			$Barang->loghistory($datalog);			
+			// $Barang->loghistory($datalog);			
 		break;
 
 		case 'addbarang':
@@ -182,6 +186,12 @@ else
 			$_POST = $purifier->purifyArray($_POST);
 			$Barang->updrekbarang($_POST);
 		break;
+		
+		case 'upd_kode_rekening':
+			unset($_POST['manage']);
+			$_POST = $purifier->purifyArray($_POST);
+			$Barang->upd_kode_rekening($_POST);
+		break;
 
 		case 'updsubbarang':
 			unset($_POST['manage']);
@@ -231,12 +241,21 @@ else
 			$Barang->loghistory($datalog);
 		break;
 		case 'delbarang':
-			$id = $purifier->purify($_POST['id']);
-			$idbarang = $purifier->purify($_POST['idbrg']);
-			$nmbarang = $purifier->purify($_POST['urbrg']);
-			$data = array(
-				"id" => $id
+			$id         = $purifier->purify($_POST['id']);
+			$idbarang   = $purifier->purify($_POST['idbrg']);
+			$nmbarang   = $purifier->purify($_POST['urbrg']);
+			$jns_barang = $purifier->purify($_POST['jns_barang']);
+			$spk_barang = $purifier->purify($_POST['spk_barang']);
+			$sat_barang = $purifier->purify($_POST['sat_barang']);
+			$data       = array(
+				"id"          => $id,
+				"idbrg"       => $idbarang,
+				"nm_brg"      => $nmbarang,
+				"jns_barang"  => $jns_barang,
+				"spesifikasi" => $spk_barang,
+				"satuan"      => $sat_barang
 		    );
+		    // print_r($data);
 			$Barang->hapusbarang($data);
 			//========= Log History =========//
 			$kdlokasiuser = $_SESSION['kd_lok'];
@@ -244,18 +263,18 @@ else
 			$username = $_SESSION['username'];
 			$aksi = "H-Satker";
 			$tanggal = date("Y-m-d h:i:sa");
-			$datalog = array(
-				"kdlokasiuser" => $kdlokasiuser,
-				"nmsatkeruser" => $nmsatkeruser,
-				"username" => $username,
-				"kd_sektor" => $idsatker,
-		    	"nm_sektor" => $nmsatker,
-		    	"tahun" => $tahun,
-		    	"aksi" => $aksi,
-		    	"tanggal" => $tanggal
-		    );
-			$Barang->loghistory($datalog);
-			print_r($_POST);
+			// $datalog = array(
+			// 	"kdlokasiuser" => $kdlokasiuser,
+			// 	"nmsatkeruser" => $nmsatkeruser,
+			// 	"username" => $username,
+			// 	"kd_sektor" => $idsatker,
+		 //    	"nm_sektor" => $nmsatker,
+		 //    	"tahun" => $tahun,
+		 //    	"aksi" => $aksi,
+		 //    	"tanggal" => $tanggal
+		 //    );
+			// $Barang->loghistory($datalog);
+			// print_r($_POST);
 			//========= Log History =========//
 		break;
 

@@ -202,7 +202,7 @@
            '<tr>'+
               '<input type="hidden" name="manage" value="updrekbarang">'+
               '<input type="hidden" name="id" value="'+d[0]+'">'+
-              '<td width="17.5%"><input style="width:95%" id="kdbarang'+d[0]+'" name="kd_perk" class="form-control" type="text" placeholder="Kode Barang"></td>'+
+              '<td width="17.5%"><input style="width:95%" id="kdbarang'+d[0]+'" name="kd_perk" class="form-control" type="text" placeholder="Kode Barang" readonly></td>'+
               '<td width="60%"><input style="width:97%" id="urbarang'+d[0]+'" name="nm_perk" class="form-control" type="text" placeholder="Uraian Barang"></td>'+
               '<td style="vertical-align:middle; width:12%;">'+
                 '<div class="box-tools">'+

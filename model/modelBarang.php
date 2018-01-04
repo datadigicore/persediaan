@@ -19,6 +19,11 @@ class modelBarang extends mysql_db
 
 	}
 
+	public function add_kode_rek_akuntansi($data){
+		$query = "INSERT INTO rekening SET kode_rekening ='$data[kode_rekening]', nama_rekening ='$data[nama_rekening]' ";
+		$this->query($query);
+	}
+
 	public function addrekbarang($data)
 	{
 		$query = "INSERT INTO perk SET kd_perk = '$data[kdrekening]', nm_perk = '$data[nmrekening]'";
@@ -182,37 +187,6 @@ class modelBarang extends mysql_db
 		return $result;
 	}
 
-	public function loghistory($data)
-	{	
-		error_reporting(0);
-		$kd_lokasi = $data['kd_lokasi'];
-		$nm_satker = $data['nm_satker'];
-		$user_id = $data['user_id'];
-		$aksi = $data['aksi'];
-		$kd_kbrg = $data['kd_kbrg'];
-		$kd_jbrg = $data['kd_jbrg'];
-		$kd_brg = $data['kd_brg'];
-		$nm_brg = $data['nm_brg'];
-		$satuan = $data['satuan'];
-		$tanggal = $data['tanggal'];
-
-
-		$query = "Insert into log_persediaan
-        			set
-        			kd_lokasi='$kd_lokasi',
-        			nm_satker='$nm_satker',
-        			user_id='$user_id', 
-        			aksi='$aksi',
-        			nm_sskel='$nm_sskel',
-        			kd_brg='$kd_brg',
-        			nm_brg='$nm_brg',
-                    satuan='$satuan',
-                    tgl_update='$tanggal'
-                   
-                     ";
-        $result = $this->query($query);
-		return $result;
-	}
 
 
 	public function bacasskel()
@@ -280,11 +254,39 @@ class modelBarang extends mysql_db
 public function hapusbarang($data)
 	{
 		$id = $data['id'];
+		$kd_brg = $data['idbrg'];
+		$nm_brg = $data['nm_brg'];
+		$jns_barang = $data['jns_barang'];
+		$spesifikasi = $data['spesifikasi'];
+		$satuan = $data['satuan'];
+		$username = $_SESSION['username'];
+		$thn_ang = $_SESSION['thn_ang'];
+		$sql = "SELECT kd_brg from transaksi_masuk where kd_brg='$kd_brg' and thn_ang='$thn_ang' LIMIT 1";
+		// echo $sql;
+		$result = $this->query($sql);
+		// echo $this->num_rows($result);
+		if($this->num_rows($result)==1){
+			echo json_encode(array("Barang Tidak Dapat Dihapus karena telah digunakan"));
+		}
+		else{
+			$query = "delete from persediaan
+					 where id='$id' ";
+			$result = $this->query($query);
+					$query = "Insert into log_persediaan
+        			set
+        			aksi='Hapus',
+        			kd_brg='$kd_brg',
+        			nm_brg='$nm_brg',
+        			nm_sskel='$jns_barang',
+        			spesifikasi='$spesifikasi',
+                    satuan='$satuan'
+                   
+                     ";
+        	$result = $this->query($query);
+			echo json_encode(array("Barang Telah Dihapus"));
+		}
 	
-		$query = "delete from persediaan
-					 where id='$id'";
-		$result = $this->query($query);
-		return $result;
+		
 	}
 
 public function delrekbarang($data)
@@ -308,6 +310,7 @@ public function delrekbarang($data)
 		echo json_encode(array("kdbrg"=>$data));
 
 	}
+	
 	public function updrekbarang($data){
 		$query = "UPDATE perk
 				  SET 
@@ -315,6 +318,57 @@ public function delrekbarang($data)
 	    			nm_perk='$data[nm_perk]'
 				  WHERE id='$data[id]'";
 		$result = $this->query($query);
+
+		$query = "UPDATE transaksi_masuk
+				  SET 	
+	    			nm_perk='$data[nm_perk]'
+				  WHERE kd_perk='$data[kd_perk]' ";
+				  
+		$result = $this->query($query);
+
+		$query = "UPDATE transaksi_keluar
+				  SET 	
+	    			nm_perk='$data[nm_perk]'
+				  WHERE kd_perk='$data[kd_perk]' ";
+
+		$result = $this->query($query);
+
+		$query = "UPDATE transaksi_full
+				  SET 	
+	    			nm_perk='$data[nm_perk]'
+				  WHERE kd_perk='$data[kd_perk]' ";
+
+		$result = $this->query($query);
+
+		return $result;
+	}
+
+	public function upd_kode_rekening($data){
+		$query = "UPDATE rekening
+				  SET 
+	    			nama_rekening='$data[ur_rek_baru]'
+				  WHERE 
+	    			kode_rekening='$data[kode_rek]' ";
+		$result = $this->query($query);
+
+		$query = "UPDATE transaksi_masuk
+				  SET 	
+	    			nama_rekening='$data[ur_rek_baru]'
+				  WHERE kode_rekening='$data[kode_rek]' ";
+		$result = $this->query($query);
+
+		$query = "UPDATE transaksi_keluar
+				  SET 	
+	    			nama_rekening='$data[ur_rek_baru]'
+				  WHERE kode_rekening='$data[kode_rek]' ";		  
+		$result = $this->query($query);
+
+		$query = "UPDATE transaksi_full
+				  SET 	
+	    			nama_rekening='$data[ur_rek_baru]'
+				  WHERE kode_rekening='$data[kode_rek]' ";		  
+		$result = $this->query($query);
+
 		return $result;
 	}
 

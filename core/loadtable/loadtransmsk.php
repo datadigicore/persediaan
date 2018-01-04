@@ -6,7 +6,7 @@
 //Mendapatkan Data Sesi Username dan kode satker
 session_start();
 $user_id=$_SESSION['username'];
-$kd_satker=$_SESSION['kd_lok'].$_SESSION['kd_ruang'];
+$kd_satker=$_SESSION['kd_lok'].trim($_SESSION['kd_ruang']);
 $kd_ruang=$_SESSION['kd_ruang'];
 $thn_ang=$_SESSION['thn_ang'];
 // Table yang di load
@@ -18,7 +18,8 @@ $primaryKey = 'id';
 // Load Data berdasarkan nama table nya
 $columns = array(
     array( 'db' => 'id', 'dt' => 0, 'field' => 'id', 'as' => 'id'  ),
-    array( 'db' => 'jns_trans', 'dt' => 1, 'field' => 'jns_trans', 'as' => 'jns_trans',
+    array( 'db' => 'nm_satker', 'dt' => 1, 'field' => 'nm_satker', 'as' => 'nm_satker'  ),
+    array( 'db' => 'jns_trans', 'dt' => 2, 'field' => 'jns_trans', 'as' => 'jns_trans',
         'formatter' => function($d,$row){
             if($d=="M01"){
                 return "Saldo Awal";}
@@ -45,20 +46,20 @@ $columns = array(
                 {
         # code...
     }} ),
-    array( 'db' => 'no_dok', 'dt' => 2,  'field' => 'no_dok', 'as' => 'no_dok' ),
-    array( 'db' => 'no_bukti', 'dt' => 3,  'field' => 'no_bukti', 'as' => 'no_bukti' ),
-    array( 'db' => 'tgl_dok', 'dt' => 4,  'field' => 'tgl_dok',  'as' => 'tgl_dok', 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
-    array( 'db' => 'tgl_buku', 'dt' => 5,  'field' => 'tgl_buku',  'as' => 'tgl_buku', 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
-    array( 'db' => 'keterangan', 'dt' => 6,  'field' => 'keterangan', 'as' => 'keterangan' ),
-    array( 'db' => 'SUM(`total_harga`)', 'dt' => 7,  'field' => 'total_harga', 'as' => 'total_harga',
+    array( 'db' => 'no_dok', 'dt' => 3,  'field' => 'no_dok', 'as' => 'no_dok' ),
+    array( 'db' => 'no_bukti', 'dt' => 4,  'field' => 'no_bukti', 'as' => 'no_bukti' ),
+    array( 'db' => 'tgl_dok', 'dt' => 5,  'field' => 'tgl_dok',  'as' => 'tgl_dok', 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
+    array( 'db' => 'tgl_buku', 'dt' => 6,  'field' => 'tgl_buku',  'as' => 'tgl_buku', 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
+    array( 'db' => 'keterangan', 'dt' => 7,  'field' => 'keterangan', 'as' => 'keterangan' ),
+    array( 'db' => 'SUM(`total_harga`)', 'dt' => 8,  'field' => 'total_harga', 'as' => 'total_harga',
             'formatter'=> function($d,$row){
                 return number_format($d,2,",",".");
             }),
-    array( 'db' => 'SUM(`nilai_kontrak`)', 'dt' => 8,  'field' => 'nilai_kontrak', 'as' => 'nilai_kontrak',
+    array( 'db' => 'SUM(`nilai_kontrak`)', 'dt' => 9,  'field' => 'nilai_kontrak', 'as' => 'nilai_kontrak',
             'formatter'=> function($d,$row){
                 return number_format($d,2,",",".");
             }),
-    array( 'db' => 'jns_trans', 'dt' => 9, 'field' => 'jns_trans', 'as' => 'jns_trans','formatter' => function($d,$row){
+    array( 'db' => 'jns_trans', 'dt' => 10, 'field' => 'jns_trans', 'as' => 'jns_trans','formatter' => function($d,$row){
         if($row[7]==0){
             return '<div class="row-fluid">'.
                     '<button id="del_dok" class="col-xs-12 btn btn-danger btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Hapus Dokumen </button>'.
@@ -88,19 +89,19 @@ require('../../config/dbconf.php');
 $config = new config();
 $sql_details = $config->sql_details();
 
-$str = $kd_satker;
-if (substr_count($str,".") == 0) {
-    $where = "kd_lokasi like '$kd_satker.%.%.%'  and thn_ang='$thn_ang'  and jns_trans not in ('P01','P02','M01I')  group by no_dok";   
-}
-else if (substr_count($str,".") == 1) {
-    $where = "kd_lokasi like '$kd_satker.%.%'  and thn_ang='$thn_ang'  and jns_trans not in ('P01','P02','M01I')  group by no_dok";   
-}
-else if (substr_count($str,".") == 2) {
-    $where = "kd_lokasi like '$kd_satker.%'  and thn_ang='$thn_ang'  and jns_trans not in ('P01','P02','M01I')  group by no_dok";
-}
-else{
-    $where = "concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker'  and thn_ang='$thn_ang' and jns_trans not in ('P01','P02','M01I')  group by no_dok";
-}
+// $str = $kd_satker;
+// if (substr_count($str,".") == 0) {
+//     $where = "kd_lokasi like '$kd_satker.%.%.%'  and thn_ang='$thn_ang'  and jns_trans not in ('P01','P02','M01I')  group by no_dok";   
+// }
+// else if (substr_count($str,".") == 1) {
+//     $where = "kd_lokasi like '$kd_satker.%.%'  and thn_ang='$thn_ang'  and jns_trans not in ('P01','P02','M01I')  group by no_dok";   
+// }
+// else if (substr_count($str,".") == 2) {
+//     $where = "kd_lokasi like '$kd_satker.%'  and thn_ang='$thn_ang'  and jns_trans not in ('P01','P02','M01I')  group by no_dok";
+// }
+// else{
+    $where = "concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_satker%'  and thn_ang='$thn_ang' and jns_trans not in ('P01','P02','M01I')  group by no_dok";
+// }
  
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp-join.php' );

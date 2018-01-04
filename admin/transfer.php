@@ -12,11 +12,11 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Persediaan Masuk
+            Persediaan Keluar
             <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           <ol class="breadcrumb">
-            <li class="active"><a href="#"><i class="fa fa-compress"></i> Transaksi Masuk</a></li>
+            <li class="active"><a href="#"><i class="fa fa-compress"></i> Transaksi Keluar</a></li>
           </ol>
         </section>
         <section class="content">
@@ -24,22 +24,20 @@
             <section class="col-lg-12 connectedSortable">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Daftar Transaksi Masuk</h3> <a href="#importModal" data-toggle="modal" class="btn btn-sm btn-success pull-right" style="margin-right: 12px;padding: 4px 25px">Import</a>
+                  <h3 class="box-title">Daftar Transaksi Keluar</h3> <a href="#importModal" data-toggle="modal" class="btn btn-sm btn-success pull-right" style="margin-right: 12px;padding: 4px 25px">Import</a>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th >ID</th>
-                        <th >Kode Lokasi</th>
-                        <th >SKPD</th>
-                        <th >Bagian</th>
-                        <th >Jenis Transaksi</th>
-                        <th >Nomor Dokumen</th>
-                        <th >Tanggal Dokumen</th>
-                        <th >Tanggal Pembukuan</th>
-                        <th >Keterangan</th>
-                        <th >Aksi</th>
+                        <th width="5%">ID</th>
+                        <th width="18%">No Dokumen</th>
+                        <th width="18%">Satker Pengirim</th>
+                        <th width="18%">Satker Penerima</th>
+                        <th>Tanggal Dokumen</th>
+                        <th>Tanggal Pembukuan</th>
+                        <th>Keterangan</th>
+                        <th width="5%">Aksi</th>
                       </tr>
                     </thead>
                   </table>
@@ -74,11 +72,11 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <form action="../core/import/prosesimport" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="manage" value="importTransMasuk">
+            <input type="hidden" name="manage" value="importTransTransfer">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true" style="color:white">×</span></button>
-              <h4 class="modal-title">Import Transaksi Masuk</h4>
+              <h4 class="modal-title">Import Transaksi Transfer</h4>
             </div>
             <div class="modal-body">
               <div class="form-group">
@@ -88,7 +86,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <a href="../dist/uploads/Template_Import_Masuk.zip" class="col-sm-4 pull-left btn btn-md btn-warning"><i class="fa fa-download"></i>&nbsp;&nbsp;&nbsp;Download Template</a>
+              <a href="../dist/uploads/Template_Import_Transfer.xls" class="col-sm-4 pull-left btn btn-md btn-warning"><i class="fa fa-download"></i>&nbsp;&nbsp;&nbsp;Download Template</a>
               <button type="submit" class="col-sm-2 pull-right btn btn-flat btn-success">Submit</button>
             </div>
           </form>
@@ -124,47 +122,35 @@
       var table;
       $(function () {
         $(".select2").select2();
-        $("li#trans_masuk").addClass("active");
+        $("li#transfer").addClass("active");
         $('#tgl_dok').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
         $('#tgl_buku').mask('99-99-9999',{placeholder:"dd-mm-yyyy"});
         $('#tgl_dok').datepicker({
           format: "dd-mm-yyyy"
         });
-        $('#tgl_dok').datepicker().on("changeDate", function(e) {
-          $('#tgl_buku').val($(this).val());
-          $(this).datepicker('hide');
-        });
-        $('#tgl_buku').datepicker({
-          format: "dd-mm-yyyy"
-        });
-        $('#tgl_buku').datepicker().on("changeDate", function(e) {
-          $(this).datepicker('hide');
-        });
-        $("li#saldo_awal").addClass("active");
-        table = $("#example1").DataTable({
-          "aaSorting": [[ 0, 'desc' ]],
+        $("li#transfer").addClass("active");
+      table = $("#example1").DataTable({
+          "aaSorting": [[ 0, 'desc' ]], 
           "processing": false,
           "serverSide": true,
-          "ajax": "../core/loadtable/admin_masuk",
+          "ajax": "../core/loadtable/dok_transfer",
           "columnDefs":
           [
             {"targets": 0,
              "visible": false },
             {"targets": 1 },
             {"targets": 2 },
-            {"targets": 3,},
+            {"targets": 3 },
             {"targets": 4 },
             {"targets": 5 },
             {"targets": 6 },
-            {"targets": 7 },
-            {"targets": 8 },
             {"orderable": false,
              "data": null,
              "defaultContent":  '<div class="box-tools">'+
-                                  '<button id="btntmbh" class="btn btn-info btn-flat btn-xs"><i class="fa fa-plus"></i> Lihat item</button>'+
-                                  // '<button id="btnedt" class="btn btn-success btn-xs btn-flat pull-left"><i class="fa fa-edit"></i> Edit</button>'+
+                                  '<button id="btntmbh" class="btn btn-info btn-flat btn-xs pull-right"><i class="fa fa-plus"></i>Lihat Barang</button>'+
                                 '</div>',
-             "targets": [9],"targets": 9 },
+             "targets": [7],"targets": 7 }         
+
           ],
         });
       });
@@ -172,42 +158,30 @@
       $(document).on('click', '#btntmbh', function () {
         var tr = $(this).closest('tr');
         var row = table.row( tr );
-        manage = "trans_masuk";
+        manage = "transfer";
         id_row = row.data()[0];
-        kd_satker = row.data()[1];
-        nm_satker = row.data()[2];
-        kd_ruang = row.data()[3];
         jns_trans = row.data()[4];
-        no_dok = row.data()[5];
-        tgl_dok = row.data()[6];
+        satker = row.data()[1];
+        nm_satker = row.data()[2];
+        nm_satker_msk = row.data()[3];
+        tgl_dok = row.data()[4];
         tgl_buku = row.data()[7];
+        kd_satker = satker.substring(0,11);
 
         var $form=$(document.createElement('form')).css({display:'none'}).attr("method","POST").attr("action","trans_item_brg");
         var $input=$(document.createElement('input')).css({display:'none'}).attr('name','id').val(id_row);
         var $input2=$(document.createElement('input')).css({display:'none'}).attr('name','jenistrans').val(jns_trans);
         var $input3=$(document.createElement('input')).css({display:'none'}).attr('name','tanggaldok').val(tgl_dok);
         var $input4=$(document.createElement('input')).css({display:'none'}).attr('name','tanggalbuku').val(tgl_buku);
-        var $input5=$(document.createElement('input')).css({display:'none'}).attr('name','no_dok').val(no_dok);
+        var $input5=$(document.createElement('input')).css({display:'none'}).attr('name','satker').val(satker);
         var $input6=$(document.createElement('input')).css({display:'none'}).attr('name','manage').val(manage);
         var $input7=$(document.createElement('input')).css({display:'none'}).attr('name','kd_satker').val(kd_satker);
-        var $input8=$(document.createElement('input')).css({display:'none'}).attr('name','kd_ruang').val(kd_ruang);
+        var $input8=$(document.createElement('input')).css({display:'none'}).attr('name','nm_satker_msk').val(nm_satker_msk);
         var $input9=$(document.createElement('input')).css({display:'none'}).attr('name','nm_satker').val(nm_satker);
         $form.append($input).append($input2).append($input3).append($input4).append($input5).append($input6).append($input7).append($input8).append($input9);
         $("body").append($form);
         $form.submit();
       });
-
-      $.ajax({
-        type: "post",
-        url: '../core/transaksi/prosestransaksi',
-        data: {manage:'readsatkerdok',no_dok:"<?php echo($_SESSION['kd_lok']);?>"},
-        success: function (output) {
-          $('#read_no_dok').html(output);
-        }
-      });
-
-
-
 
     </script>
   </body>

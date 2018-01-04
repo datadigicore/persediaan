@@ -101,6 +101,7 @@
                         <th>Tanggal Pembukuan</th>
                         <th>Keterangan</th>
                         <th>Total Transaksi</th>
+                        <th>SKPD</th>
                         <th width="15%">Aksi</th>
                       </tr>
                     </thead>
@@ -143,6 +144,7 @@
               {"targets": 6 },
               {"targets": 7 },
               {"targets": 8 },
+              {"targets": 9 },
               ],
             });
           }
@@ -176,7 +178,9 @@
           satker = row.data()[2];
           tgl_dok = row.data()[4];
           tgl_buku = row.data()[5];
-          kd_satker = satker.substring(0,11);
+          dataDok = satker.split('-');
+          kd_satker = dataDok[0].trim();
+          //kd_satker = satker.substring(0,11);
           var $form=$(document.createElement('form')).css({display:'none'}).attr("method","POST").attr("action","trans_item_brg");
           var $input=$(document.createElement('input')).css({display:'none'}).attr('name','id').val(id_row);
           var $input2=$(document.createElement('input')).css({display:'none'}).attr('name','jenistrans').val(jns_trans);
@@ -185,7 +189,8 @@
           var $input5=$(document.createElement('input')).css({display:'none'}).attr('name','satker').val(satker);
           var $input6=$(document.createElement('input')).css({display:'none'}).attr('name','manage').val(manage);
           var $input7=$(document.createElement('input')).css({display:'none'}).attr('name','kd_satker').val(kd_satker);
-          $form.append($input).append($input2).append($input3).append($input4).append($input5).append($input6).append($input7);
+          var $input8=$(document.createElement('input')).css({display:'none'}).attr('name','no_dok').val(satker);
+          $form.append($input).append($input2).append($input3).append($input4).append($input5).append($input6).append($input7).append($input8);
           $("body").append($form);
           $form.submit();
         });
@@ -195,7 +200,7 @@
               redirectTime = "2600";
               redirectURL = "trans_masuk";
               no_dok = row.data()[2];
-              managedata = "hapus_dokumen_masuk";
+              managedata = "hapus_dokumen_keluar";
           swal({
             title: "Konfirmasi Penghapusan Dokumen",
             text: "Anda Tidak Dapat Mengembalikan Dokumen Yang Telah Dihapus",

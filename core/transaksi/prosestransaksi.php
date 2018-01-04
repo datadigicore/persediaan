@@ -45,6 +45,13 @@ else
 			}
 		break;
 
+		case 'add_temp_item_trans_transfer':
+			$result = $Transaksi->add_temp_item_trans_transfer();
+			if ($result) {
+				header('location:../../admin/transfer');
+			}
+		break;
+
 		case 'checkErrorMessage':
 			$Transaksi->check_error_message($_POST['jenis']);
 		break;
@@ -82,7 +89,7 @@ else
 		case 'batalkan_transfer':
 			$id = $purifier->purify($_POST['id']);
 			print_r($id);
-			$Transaksi->batalkan_transfer($id);
+			$Transaksi->hapus_usulan_transfer($id);
 		break;
 
 		case 'usulkan_transfer':
@@ -92,25 +99,26 @@ else
 		break;
 
 		case 'konfirmasi_transfer':
-			$id = $purifier->purify($_POST['id']);
-			$trf = $Transaksi->get_transfer_detail($id);
+			foreach ($_POST['id'] as $key => $value) {
+				$trf = $Transaksi->get_transfer_detail($value);
 			// print_r($trf);
-			$data = array(
-					"id_brg_transfer" => $id,
-					"kd_lokasi" => $trf['kd_lokasi'],
-					"ruang_asal"=> $_SESSION['kd_ruang'],
-					"kd_lok_msk"=> $trf['kd_lok_msk'],
-					"nm_satker" => $trf['nm_satker'],
-					"thn_ang" 	=> $trf['thn_ang'],
-					"no_dok" 	=> $trf['no_dok'],
-					"user_id" 	=> $_SESSION['username'],
-					"kd_brg" 	=> $trf['kd_brg'],
-					"satuan" 	=> $trf['satuan'],
-					"kuantitas" => $trf['qty'],
-					"trf"=>$trf['id']
-				);
-			// print_r($data);
-			$Transaksi->trnsaksi_keluar($data);
+				$data = array(
+						"id_brg_transfer" => $id,
+						"kd_lokasi" => $trf['kd_lokasi'],
+						"ruang_asal"=> $trf['kd_ruang'],
+						"kd_lok_msk"=> $trf['kd_lok_msk'],
+						"nm_satker" => $trf['nm_satker'],
+						"thn_ang" 	=> $trf['thn_ang'],
+						"no_dok" 	=> $trf['no_dok'],
+						"user_id" 	=> $_SESSION['username'],
+						"kd_brg" 	=> $trf['kd_brg'],
+						"satuan" 	=> $trf['satuan'],
+						"kuantitas" => $trf['qty'],
+						"trf"=>$trf['id']
+					);
+				print_r($data);
+				$Transaksi->trnsaksi_keluar($data);
+			}	
 		break;
 		case 'baca_skpd':
 			$kd_lokasi = $_SESSION['kd_lok'];
@@ -138,8 +146,10 @@ else
 		case 'cek_saldo_awal':
 		$kd_lokasi = $purifier->purify($_POST['kd_lokasi']);
 		$thn_ang = $_SESSION['thn_ang'];
+		$kd_ruang = $_SESSION['kd_ruang'];
 		$data = array(
 				"kd_lokasi" => $kd_lokasi,
+				"kd_ruang" => $kd_ruang,
 				"thn_ang" => $thn_ang
 				);
 		$Transaksi->cek_saldo_awal($data);
@@ -247,9 +257,8 @@ else
 			$Transaksi->bacaidenttrans($idtrans,$kd_ruang,$thn_ang);
 		break;
 		case 'readidenttransklr':
-			$idtrans = $purifier->purify($_POST['idtrans']);
-			$kd_ruang = $_SESSION['kd_lok'].$_SESSION['kd_ruang'];
-			$Transaksi->bacaidenttrans_klr($idtrans,$kd_ruang,1);
+			$no_dok = $purifier->purify($_POST['no_dok']);
+			$Transaksi->bacaidenttrans_klr($no_dok,1);
 		break;
 		case 'readidenttempitem':
 			if (isset($_POST['id'])) {
@@ -277,7 +286,7 @@ else
 		case 'readbrgmsk':
 			$kd_lokasi = $purifier->purify($_POST['kd_satker']);
 			$thn_ang = $_SESSION['thn_ang'];
-			$kd_ruang = $_SESSION['kd_ruang'];
+			$kd_ruang = trim($_SESSION['kd_ruang']);
 			$data = array(
 				"kd_lokasi" => $kd_lokasi,
 				"kd_ruang" => $kd_ruang,
@@ -321,7 +330,9 @@ else
 		case 'sisabarang':
 			$kd_brg = $purifier->purify($_POST['kd_brg']);
 			$no_dok = $purifier->purify($_POST['nodok']);
-			$kd_lokasi = substr($no_dok, 0, 11);
+                        $dataDok = explode('-',$no_dok);
+                        $kd_lokasi = trim($dataDok[0]);
+			//$kd_lokasi = substr($no_dok, 0, 11);
 			$thn_ang = $_SESSION['thn_ang'];
 			$kd_ruang = $_SESSION['kd_ruang'];
 			$data = array(
@@ -331,6 +342,9 @@ else
 				"no_dok" => $no_dok,
 				"kd_brg" => $kd_brg
 				);
+                        //echo "<pre>";
+                        //print_r($data);
+                        //print_r($dataDok);
 			$Transaksi->sisa_barang($data,1);
 		break;
 
@@ -693,7 +707,7 @@ else
 					"nama_rek" => $nama_rek,
 					"ket_brg" => $ket_brg,
 					"keterangan" => $keterangan,
-					"nilai_kontrak" =>$nilai_kontrak,
+					"nilai_kontrak" =>0,
 					"ket_non_persediaan" =>$ket_non_persediaan,
 					"kode_rek" => $kode_rek,
 					"nama_rek" => $nama_rek

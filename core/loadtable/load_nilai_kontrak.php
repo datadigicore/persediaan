@@ -50,25 +50,27 @@ $columns = array(
             ),
 );
 
-if($kd_ruang!="") $query_ruang="and kd_ruang='$kd_ruang' "; 
+// if($kd_ruang!="") $query_ruang="and kd_ruang='$kd_ruang' "; 
 // Settingan Koneksi Datatable
 require('../../config/dbconf.php');
 $config = new config();
 $sql_details = $config->sql_details();
 
 $str = $kd_satker;
-if (substr_count($str,".") == 0) {
-    $where = "kd_lokasi like '$kd_satker.%.%.%' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and qty>0";
-}
-else if (substr_count($str,".") == 1) {
-    $where = "kd_lokasi like '$kd_satker.%.%' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and qty>0";
-}
-else if (substr_count($str,".") == 2) {
-    $where = "kd_lokasi like '$kd_satker.%' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and qty>0";
-}
-else{
-    $where = "kd_lokasi='$kd_satker'  and thn_ang='$thn_ang' and no_dok = '$no_dok' and kode_rekening!='' and kd_brg='' ".$query_ruang." ";
-}
+// if (substr_count($str,".") == 0) {
+//     $where = "kd_lokasi like '$kd_satker.%.%.%' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and qty>0";
+// }
+// else if (substr_count($str,".") == 1) {
+//     $where = "kd_lokasi like '$kd_satker.%.%' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and qty>0";
+// }
+// else if (substr_count($str,".") == 2) {
+//     $where = "kd_lokasi like '$kd_satker.%' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and qty>0";
+// }
+// else{
+//     $where = "kd_lokasi='$kd_satker'  and thn_ang='$thn_ang' and no_dok = '$no_dok' and kode_rekening!='' and kd_brg='' ".$query_ruang." ";
+// }
+
+$where = "thn_ang='$thn_ang' and no_dok = '$no_dok' and kode_rekening!='' and kd_brg='' ".$query_ruang." ";
  
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp.class.php' );

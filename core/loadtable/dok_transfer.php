@@ -18,11 +18,13 @@ $primaryKey = 'id';
 $columns = array(
     array( 'db' => 'id', 'dt' => 0 ),
     array( 'db' => 'no_dok', 'dt' => 1),
-    array( 'db' => 'nm_satker_msk', 'dt' => 2),
-    array( 'db' => 'nm_ruang_msk', 'dt' => 3),
+    array( 'db' => 'nm_satker', 'dt' => 2, 'formatter' => function($d,$row){return "$row[7] $d";}),
+    array( 'db' => 'nm_satker_msk', 'dt' => 3, 'formatter' => function($d,$row){return "$row[8] $d";}),
     array( 'db' => 'tgl_dok', 'dt' => 4, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
     array( 'db' => 'tgl_buku', 'dt' => 5, 'formatter' => function($d,$row){return date('d-m-Y',strtotime($d));}),
     array( 'db' => 'keterangan', 'dt' => 6 ),
+    array( 'db' => 'nm_ruang', 'dt' => 7 ),
+    array( 'db' => 'nm_ruang_msk', 'dt' => 8 ),
 );
  
 // Settingan Koneksi Datatable
@@ -32,7 +34,7 @@ $sql_details = $config->sql_details();
 
 $str = $kd_satker;
 if ($_SESSION['level'] == 1) {
-    $where = "1 group by no_dok";
+    $where = " thn_ang='$thn_ang' group by no_dok";
 }
 else{
     $where = "concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and thn_ang='$thn_ang' and jns_trans not like 'P%' and jns_trans in ('K06','K07') group by no_dok"; 

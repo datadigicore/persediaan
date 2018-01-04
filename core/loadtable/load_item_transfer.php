@@ -22,7 +22,14 @@ $primaryKey = 'id';
 $columns = array(
     array( 'db' => 'id', 'dt' => 0 ),
     array( 'db' => 'no_dok', 'dt' => 1 ),
-    array( 'db' => 'kd_brg', 'dt' => 2, ),
+    array( 'db' => 'kd_brg', 'dt' => 2, 'formatter' => function($d,$row){
+        if($row['status']<2) {
+            return '<input type="checkbox" name="id" value="'.$row['id'].'" /> '.$d;
+        } else 
+        { 
+            return $d;
+        } 
+    }),
     array( 'db' => 'nm_brg', 'dt' => 3 ),
     array( 'db' => 'spesifikasi', 'dt' => 4 ),
     array( 'db' => 'qty', 'dt' => 5, 'formatter' => function($d,$row){if(ceil($d)!=$d or floor($d)!=$d) {return number_format(abs($d),2,",",".");} else { return number_format(abs($d),0,",",".");} } ),
@@ -86,7 +93,10 @@ $config = new config();
 $sql_details = $config->sql_details();
 
 $str = $kd_satker;
-if (substr_count($str,".") == 0) {
+if ($_SESSION['level'] == 1) {
+    $where = "thn_ang='$thn_ang' and no_dok = '$no_dok' ";
+}
+else if (substr_count($str,".") == 0) {
     $where = "kd_lokasi like '$kd_satker.%.%.%' and thn_ang='$thn_ang' and no_dok = '$no_dok' ";
 }
 else if (substr_count($str,".") == 1) {

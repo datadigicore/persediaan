@@ -6,13 +6,13 @@
 //Mendapatkan Data Sesi Username dan kode satker
 session_start();
 $user_id=$_SESSION['username'];
-if ($_SESSION['level'] == 1 AND isset($_GET['kd_sat'])) {
+if ($_SESSION['level']==1) {
     $kd_satker = $_GET['kd_sat'];
 }
 else {
     $kd_satker = $_SESSION['kd_lok'];
 }
-$kd_ruang=$_SESSION['kd_ruang'];
+$kd_ruang=trim($_SESSION['kd_ruang']);
 $thn_ang=$_SESSION['thn_ang'];
 $query_ruang="";
 $no_dok = $_GET['no_dok'];
@@ -27,10 +27,12 @@ $primaryKey = 'id';
 $columns = array(
     array( 'db' => 'id', 'dt' => 0 ),
     array( 'db' => 'no_dok', 'dt' => 1 ),
-    array( 'db' => 'kode_rekening', 'dt' => 2,
-        'formatter' => function($d,$row){
-            return $d."-".$row[12];
-         } ),
+    array( 'db' => 'kd_brg', 'dt' => 2
+        // ,
+        // 'formatter' => function($d,$row){
+        //     return $d."-".$row[12];
+        //  } 
+     ),
     array( 'db' => 'nm_brg', 'dt' => 3 ),
     array( 'db' => 'spesifikasi', 'dt' => 4 ),
     array( 'db' => 'qty', 'dt' => 5, 'formatter' => function($d,$row){if(ceil($d)!=$d or floor($d)!=$d) {return number_format($d,2,",",".");} else { return number_format($d,0,",",".");} } ),
@@ -69,19 +71,19 @@ $config = new config();
 $sql_details = $config->sql_details();
 
 $str = $kd_satker;
-if (substr_count($str,".") == 0) {
-    $where = "kd_lokasi like '$kd_satker.%.%.%' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and qty>0";
-}
-else if (substr_count($str,".") == 1) {
-    $where = "kd_lokasi like '$kd_satker.%.%' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and qty>0";
-}
-else if (substr_count($str,".") == 2) {
-    $where = "kd_lokasi like '$kd_satker.%' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and qty>0";
-}
-else{
-    $where = "kd_lokasi='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and qty>0 ".$query_ruang." ";
-}
-
+// if (substr_count($str,".") == 0) {
+//     $where = "kd_lokasi like '$kd_satker.%.%.%' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and qty>0";
+// }
+// else if (substr_count($str,".") == 1) {
+//     $where = "kd_lokasi like '$kd_satker.%.%' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and qty>0";
+// }
+// else if (substr_count($str,".") == 2) {
+//     $where = "kd_lokasi like '$kd_satker.%' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and qty>0";
+// }
+// else{
+//     $where = "kd_lokasi='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang' and no_dok = '$no_dok' and qty>0 ".$query_ruang." ";
+// }
+$where = "no_dok = '$no_dok' and qty>0 ".$query_ruang;
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp.class.php' );
 echo json_encode(

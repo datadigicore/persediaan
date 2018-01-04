@@ -101,6 +101,7 @@
                     <thead>
                       <tr>
                         <th width="1%">ID</th>
+                        <th>SKPD</th>
                         <th width="5%">Sumber Dana</th>
                         <th width="18%">No. Dokumen</th>
                         <th width="18%">No Bukti</th>
@@ -155,17 +156,18 @@
               "columnDefs":
               [
                 {"targets": 0,
-                 "visible": false },
-                {"targets": 1 },
-                {"targets": 2 },
-                {"targets": 3,
-                 "visible": false },
-                {"targets": 4 },
-                {"targets": 5 },
-                {"targets": 6 },
-                {"targets": 7 },
-                {"targets": 8 },
-                {"targets": 9 },
+                   "visible": false },
+                  {"targets": 1 },
+                  {"targets": 2 },
+                  {"targets": 3 },
+                  {"targets": 4,
+                   "visible": false },
+                  {"targets": 5 },
+                  {"targets": 6 },
+                  {"targets": 7 },
+                  {"targets": 8 },
+                  {"targets": 9 },
+                  {"targets": 10 },
 
               ],
               "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
@@ -201,7 +203,7 @@
         var row = table.row( tr );
               redirectTime = "2600";
               redirectURL = "trans_masuk";
-              no_dok = row.data()[2];
+              no_dok = row.data()[3];
               managedata = "hapus_dokumen_masuk";
           swal({
             title: "Konfirmasi Penghapusan Dokumen",
@@ -239,11 +241,12 @@
         var row = table.row( tr );
         manage = "trans_masuk";
         id_row = row.data()[0];
-        jns_trans = row.data()[1];
-        satker = row.data()[2];
-        tgl_dok = row.data()[4];
-        tgl_buku = row.data()[5];
-        kd_satker = satker.substring(0,11);
+        jns_trans = row.data()[2];
+        satker = row.data()[3];
+        tgl_dok = row.data()[5];
+        tgl_buku = row.data()[6];
+        dt_satker = satker.split('-');
+        kd_satker = dt_satker[0];
 
         var $form=$(document.createElement('form')).css({display:'none'}).attr("method","POST").attr("action","trans_item_brg");
         var $input=$(document.createElement('input')).css({display:'none'}).attr('name','id').val(id_row);
@@ -397,13 +400,13 @@
         var tr = $(this).closest('tr');
         var row = table.row( tr );
         id_row = row.data()[0];
-        jns_trans_row = row.data()[1];
-        gab_row = row.data()[2];
+        jns_trans_row = row.data()[2];
+        gab_row = row.data()[3];
         kdsatker_row = gab_row.substring(0,11);
         nodok_row = gab_row.substring(14);
-        tgl_dok_row = row.data()[4];
-        tgl_buku_row = row.data()[5];
-        keterangan_row = row.data()[6];
+        tgl_dok_row = row.data()[5];
+        tgl_buku_row = row.data()[6];
+        keterangan_row = row.data()[7];
 
           $.ajax({
             type: "post",
@@ -524,14 +527,15 @@
                    "visible": false },
                   {"targets": 1 },
                   {"targets": 2 },
-                  {"targets": 3,
+                  {"targets": 3 },
+                  {"targets": 4,
                    "visible": false },
-                  {"targets": 4 },
                   {"targets": 5 },
                   {"targets": 6 },
                   {"targets": 7 },
                   {"targets": 8 },
                   {"targets": 9 },
+                  {"targets": 10 },
                 ],
                 "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
               });
