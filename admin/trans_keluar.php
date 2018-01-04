@@ -185,6 +185,7 @@
         var $input=$(document.createElement('input')).css({display:'none'}).attr('name','id').val(id_row);
         var $input2=$(document.createElement('input')).css({display:'none'}).attr('name','jenistrans').val(jns_trans);
         var $input3=$(document.createElement('input')).css({display:'none'}).attr('name','tanggaldok').val(tgl_dok);
+        var $input3=$(document.createElement('input')).css({display:'none'}).attr('name','no_dok').val(satker);
         var $input4=$(document.createElement('input')).css({display:'none'}).attr('name','tanggalbuku').val(tgl_buku);
         var $input5=$(document.createElement('input')).css({display:'none'}).attr('name','satker').val(satker);
         var $input6=$(document.createElement('input')).css({display:'none'}).attr('name','manage').val(manage);
