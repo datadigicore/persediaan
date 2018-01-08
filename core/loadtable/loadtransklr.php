@@ -6,7 +6,7 @@
 //Mendapatkan Data Sesi Username dan kode satker
 session_start();
 $user_id=$_SESSION['username'];
-$kd_satker=$_SESSION['kd_lok'].$_SESSION['kd_ruang'];
+$kd_satker=trim($_SESSION['kd_lok'].$_SESSION['kd_ruang']);
 $thn_ang=$_SESSION['thn_ang'];
 $kd_ruang=$_SESSION['kd_ruang'];
 // Table yang di load
@@ -68,6 +68,7 @@ $sql_details = $config->sql_details();
 //     $where = "concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang' and jns_trans not  in('P01','K06','K07')  group by no_dok"; 
 // }
 $where = "concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_satker%'  and thn_ang='$thn_ang' and jns_trans not in ('P01','K06','K07')  group by no_dok";
+//echo $where;
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp-join.php' );
 echo json_encode(
