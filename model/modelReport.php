@@ -361,7 +361,7 @@ public function laporan_belanja_persediaan($data){
     $count_val = 0;
     foreach ($dataPerSKPD as $kode => $satker) {
         $skpd = explode("-",$kode);
-        $rekap[$kode]['no'] = "ctksatker";
+        $rekap[$kode]['no'] = "";
         $rekap[$kode]['nm_satker'] = $skpd[1];
         $rekap[$kode]['kode_rekening'] = "";
         $rekap[$kode]['nama_rekening'] = "";
@@ -374,7 +374,7 @@ public function laporan_belanja_persediaan($data){
         $rekap[$kode]['cetak_satker']   = 1;
         $rekap[$kode]['cetak_detail']   = 0;
         foreach ($satker as $kode => $rek) {
-            $rekap[$kode."rek"]['no'] = "ctkrek";
+            $rekap[$kode."rek"]['no'] = "";
             $rekap[$kode."rek"]['nm_satker'] = "";
             $rekap[$kode."rek"]['kode_rekening'] = $kode;
             $rekap[$kode."rek"]['nama_rekening'] = $rek['nama_rekening'];
@@ -391,7 +391,7 @@ public function laporan_belanja_persediaan($data){
 
             foreach ($rek['data'] as $key => $val) {
                 $count_val++;
-                $rekap[$count_val]['no'] = "ctkdata";
+                $rekap[$count_val]['no'] = "";
                 $rekap[$count_val]['nm_satker'] = "";
                 $rekap[$count_val]['kode_rekening'] = "";
                 $rekap[$count_val]['nama_rekening'] = "";
@@ -409,7 +409,7 @@ public function laporan_belanja_persediaan($data){
                 $sub_grand_total    += $val['grand_total'];
                 
             }
-            $rekap[$kode."sub"]['no'] = "ctksub";
+            $rekap[$kode."sub"]['no'] = "";
             $rekap[$kode."sub"]['nm_satker'] = "";
             $rekap[$kode."sub"]['kode_rekening'] = "";
             $rekap[$kode."sub"]['nama_rekening'] = "";
