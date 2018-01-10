@@ -127,23 +127,25 @@
           $form.submit();
         });
 
-      $(document).on('click', '#btnkonfirm', function () {
+        $(document).on('click', '#btnkonfirm', function () {
           var tr = $(this).closest('tr');
           var row = table.row( tr );
           manage = "konfirmasi_transfer";
+       var id = [];
           id_row = row.data()[0];
+          id.push(id_row);
           $.ajax({
           type: "post",
           url: '../core/transaksi/prosestransaksi',
-          data: {manage:'konfirmasi_transfer',id:id_row},
+          data: {manage:'konfirmasi_transfer',id:id},
           dataType: "json",
           success: function (output) {
-            
+            alert('Barang Telah Di Transfer ');
           }
         });
         $("#example1").DataTable().destroy();
         $("#example1 tbody").empty();
-        baca_tabel();   
+        baca_tabel();
       });
        
       });
