@@ -30,7 +30,7 @@ $columns = array(
     array( 'db' => 'kd_brg', 'dt' => 2
         ,
         'formatter' => function($d,$row){
-            return "<b>$d</b>"."<br>(".$row[13]." ".$row[12].")";
+            return "<b>$d </b>"."<br>(".$row[13]." ".$row[12].")";
          } 
      ),
     array( 'db' => 'nm_brg', 'dt' => 3 ),
