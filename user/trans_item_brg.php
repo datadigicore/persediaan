@@ -776,7 +776,7 @@ else {
         var tr = $(this).closest('tr');
         var row = table.row( tr );
         id = row.data()[0];
-        kode_rek = row.data()[2];
+        kode_rek = row.data()[13];
         nama_rek = row.data()[12];
         nama_barang = row.data()[3];
         ket_rek = row.data()[4];

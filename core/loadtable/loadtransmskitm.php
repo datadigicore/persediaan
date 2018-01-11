@@ -28,10 +28,10 @@ $columns = array(
     array( 'db' => 'id', 'dt' => 0 ),
     array( 'db' => 'no_dok', 'dt' => 1 ),
     array( 'db' => 'kd_brg', 'dt' => 2
-        // ,
-        // 'formatter' => function($d,$row){
-        //     return $d."-".$row[12];
-        //  } 
+        ,
+        'formatter' => function($d,$row){
+            return "<b>$d</b>"."<br>(".$row[13]." ".$row[12].")";
+         } 
      ),
     array( 'db' => 'nm_brg', 'dt' => 3 ),
     array( 'db' => 'spesifikasi', 'dt' => 4 ),
@@ -54,7 +54,8 @@ $columns = array(
         return '-';
     }
              }  ),
-    array( 'db' => 'nama_rekening', 'dt' => 12 )
+    array( 'db' => 'nama_rekening', 'dt' => 12 ),
+    array( 'db' => 'kode_rekening', 'dt' => 13 )
     // array( 'db' => 'total_harga', 'dt' => 8 ),
     // array( 'db' => 'keterangan', 'dt' => 9 ),
 
