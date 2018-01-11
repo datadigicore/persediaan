@@ -55,7 +55,8 @@ $columns = array(
     }
              }  ),
     array( 'db' => 'nama_rekening', 'dt' => 12 ),
-    array( 'db' => 'kode_rekening', 'dt' => 13 )
+    array( 'db' => 'kode_rekening', 'dt' => 13 ),
+    array( 'db' => 'kd_brg', 'dt' => 14 )
     // array( 'db' => 'total_harga', 'dt' => 8 ),
     // array( 'db' => 'keterangan', 'dt' => 9 ),
 

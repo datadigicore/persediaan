@@ -622,7 +622,7 @@ else {
         var tr = $(this).closest('tr');
         var row = table.row( tr );
         id_row = row.data()[0];
-        kd_brg_row = row.data()[2];
+        kd_brg_row = row.data()[14];
         nm_brg_row = row.data()[3];
         spesifikasi_row = row.data()[4];
         var qty_rw = row.data()[5];
