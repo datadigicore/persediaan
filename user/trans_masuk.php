@@ -457,7 +457,7 @@
         '<table width="100%">'+
            '<tr>'+
               '<input type="hidden" name="manage" value="ubah_dok_masuk">'+
-              '<input type="hidden" name="no_dok_lama" value="'+d[2]+'">'+
+              '<input type="hidden" name="no_dok_lama" value="'+d[3]+'">'+
               '<td width="7%"><input style="width:90%" id="jns_trans'+d[0]+'" name="jns_trans_baru" class="form-control" type="text" readonly></td>'+
               '<td width="11%"><input style="width:98%" id="kd_satker'+d[0]+'" name="kd_satker" class="form-control" type="text" readonly></td>'+
               '<td><input style="width:98%" id="nodok_new" name="nodok_baru" class="form-control" type="text" ></td>'+
