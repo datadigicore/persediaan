@@ -1,0 +1,6 @@
+SELECT id, tgl_buku, no_dok, tgl_dok, concat(nm_brg,' ',spesifikasi) as nm_brg, qty, harga_sat,total_harga, tgl_buku, keterangan 
+            FROM transaksi_keluar 
+            where tgl_dok <= '2017/02/14'  
+            and concat(kd_lokasi,IFNULL(kd_ruang,'')) like '04.02.01.01%'
+            AND thn_ang='2017'
+            ORDER BY tgl_dok ASC, no_dok ASC

@@ -15,7 +15,14 @@ class mysql_db extends config {
 
           $this->connect = $this->open_connection();
      }
-
+     
+      public function tgl_buku_sedia($tgl)
+      {
+          $data_tgl = explode("-",$tgl);
+          $array = array($data_tgl[2],$data_tgl[1],$data_tgl[0]);
+          $tanggal = implode(" / ", $array );
+          return $tanggal;
+      }
      public function query($data) {
          $this->query = mysqli_query($this->connect,$data) or $this->error();
           return $this->query;

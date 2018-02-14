@@ -2,6 +2,8 @@
 include('../../model/modelReport.php');
 // include('../../model/modelReportLanjut.php');
 include('../../config/purifier.php');
+include ('../../config/filepath.php');
+
 $Report = new modelReport();
 session_start();
 
@@ -432,7 +434,7 @@ else
 		case 'l_keluar_brg':
 		$kd_ruang = $purifier->purify($_POST['kd_ruang']);
 		$kd_lokasi = $purifier->purify($_POST['satker']);
-		$kd_ruang = $purifier->purify($_POST['kd_ruang']);
+		$kd_ruang = trim($purifier->purify($_POST['kd_ruang']));
 		$satker_asal = $_SESSION['kd_lok'];
 		$format = $_POST['format'];
 		$tgl_awal =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_awal']));
@@ -442,6 +444,21 @@ else
 		$thn_ang = $purifier->purify($_SESSION['thn_ang']);
 		$kd_brg = $purifier->purify($_POST['kd_brg']);
 		$user_id= $_SESSION['username'];
+		$kdgab  = $kd_lokasi.$kd_ruang;
+		$nama_file = "l_keluar_brg_$kdgab.xlsx";
+		$time = date('h-i');
+		if($_POST['background']=="1"){
+			$string_exec = "php -f $base_path"."/BackgroundReport.php 'l_keluar_brg' '$kd_lokasi' '$kd_ruang' '$tgl_akhir' '$thn_ang' '$tgl_cetak' > $path_laporan"."l_keluar_brg_$kdgab-$time.txt &";
+		   echo exec($string_exec, $op, $rt);
+           echo "
+           			<script>
+           				window.location.href = '$url/user/status_laporan';
+
+           			</script>
+           ";
+			exit;
+		}
+		
 		$data = array(
 			"format"=>$format,
 			"bln_awal"=>$bln_awal,

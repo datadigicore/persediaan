@@ -1575,7 +1575,7 @@ public function buku_persediaan($data)
     {
         $mpdf=new mPDF('utf-8', 'A4-L');
         // $mpdf->setFooter('{PAGENO}');
-        ob_start(); 
+        
         $jenis       = $data['jenis'];
         $kd_brg      = $data['kd_brg'];
         $tgl_awal    = $data['tgl_awal'];
@@ -1587,11 +1587,8 @@ public function buku_persediaan($data)
         $satker_asal = $data['kd_lokasi'];
         $format      = $data['format'];
 
-        $this->cetak_header($data,"pengeluaran_brg",$kd_lokasi,"","");
-        $this->get_query($data,"pengeluaran_brg",$kd_lokasi,"",$nm_satker,"");
-        $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
-        $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
-        ob_end_clean();
+        
+        
         if($format=="excel") {
             $TBS = new clsTinyButStrong;  
             $TBS->Plugin(TBS_INSTALL, OPENTBS_PLUGIN);
@@ -1660,7 +1657,17 @@ public function buku_persediaan($data)
                 exit("File [$output_file_name] has been created."); 
             } 
         }
-        else {
+        else{
+            ob_start(); 
+            $this->cetak_header($data,"pengeluaran_brg",$kd_lokasi,"","");
+            $this->get_query($data,"pengeluaran_brg",$kd_lokasi,"",$nm_satker,"");
+            $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
+            
+        }
+
+        if($format=="pdf") { 
+            $html = ob_get_contents(); //Proses untuk mengambil hasil dari OB..
+            ob_end_clean();
             $mpdf=new mPDF('utf-8', 'A4-L');
             $mpdf->WriteHTML(utf8_encode($html));
             $mpdf->Output("Pengeluaran_brg.pdf" ,'I');
