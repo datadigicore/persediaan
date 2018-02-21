@@ -1607,6 +1607,7 @@ public function buku_persediaan($data)
             where tgl_dok BETWEEN '$tgl_awal' AND '$tgl_akhir'  
             and concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'
             AND thn_ang='$thn_ang'
+            AND kd_brg!=''
             ORDER BY tgl_dok ASC, no_dok ASC";
             $res = $this->query($sql);
             $sql = "SELECT NamaSatker from satker where kode= '$kd_lokasi' ";
