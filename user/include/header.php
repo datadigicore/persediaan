@@ -2,7 +2,7 @@
     <header class="main-header">
         <a href="index" class="logo">
           <span class="logo-mini"><b>A</b>LT</span>
-          <span class="logo-lg"><img src="../dist/img/icon2.png" width="35px;" style="margin-top:-2px;"> <b>SIMSEDIA</b></span>
+          <span class="logo-lg"><img src="../dist/img/icon2.png" width="29px;" style="margin-top:-2px;"> <b>SIMSEDIA</b></span>
         </a>
         <nav class="navbar navbar-static-top" role="navigation">
           <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
