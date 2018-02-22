@@ -3491,7 +3491,7 @@ class modelTransaksi extends mysql_db
        $id_masuk = $data['id_masuk'];
 
 
-       $query_cek = "SELECT tgl_dok,qty,satuan,status from transaksi_keluar where kd_lokasi like '$kd_lokasi%' and id_masuk='$id_masuk' and status_hapus=0";
+       $query_cek = "SELECT no_dok,tgl_dok,qty,satuan,status from transaksi_keluar where kd_lokasi like '$kd_lokasi%' and id_masuk='$id_masuk' and status_hapus=0";
        $result = $this->query($query_cek);
        $cek= $this->fetch_array($result);
        $jumlah = $cek["qty"];
@@ -3501,7 +3501,7 @@ class modelTransaksi extends mysql_db
        $cek_opname= $this->fetch_array($result_cek_opname);
        $status = $cek_opname["status"];
 
-       echo json_encode(array("tgl_dok"=>$cek["tgl_dok"], "qty"=>$jumlah,"satuan"=>$cek["satuan"],"st_op"=>$status,"id"=>$id_masuk));
+       echo json_encode(array("no_dok"=>$cek["no_dok"], "qty"=>$jumlah,"satuan"=>$cek["satuan"],"st_op"=>$status,"id"=>$id_masuk));
     }
 
     public function loghistory_masuk($datalog)
