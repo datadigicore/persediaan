@@ -11,7 +11,7 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Identitas Penandatanganan Laporan
+            Identitas Pejabat SKPD
             <small>Tahun Anggaran <?php echo($_SESSION['thn_ang']);?></small>
           </h1>
           <ol class="breadcrumb">

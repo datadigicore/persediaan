@@ -2747,7 +2747,7 @@ public function ba_opname($data){
     $grandTotal_sisa        = 0;
     $no=1;
     foreach ($result as $value) {
-       if($prev_sskel!=$value['nm_perk']){
+       if($prev_sskel!=$value['kd_perk']){
         if($no>1){
             $rekap[] = array(
                 'subtotal_saldo_awal' => $subtotal_saldo_awal,
@@ -2835,7 +2835,7 @@ public function ba_opname($data){
             $subtotal_keluar += ($value[qty]-$value[qty_akhir])*$value[harga_sat];
             $subtotal_sisa += $value[qty_akhir]*$value[harga_sat];
         }
-        $prev_sskel=$value['nm_perk'];
+        $prev_sskel=$value['kd_perk'];
     }
     elseif($value[jns_trans]=="M01"){
         $grandTotal_saldoAwal = $grandTotal_saldoAwal + ($value[qty]*$value[harga_sat]);
