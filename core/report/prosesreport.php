@@ -449,6 +449,7 @@ else
 		$time = date('h-i');
 		if($_POST['background']=="1"){
 			$string_exec = "php -f $base_path"."/BackgroundReport.php 'l_keluar_brg' '$kd_lokasi' '$kd_ruang' '$tgl_akhir' '$thn_ang' '$tgl_cetak' > $path_laporan"."l_keluar_brg_$kdgab-$time.txt &";
+			echo $string_exec;
 		   echo exec($string_exec, $op, $rt);
            echo "
            			<script>

@@ -5,7 +5,7 @@
             <li id="index"><a href="index"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
             <!-- <li id="barang"><a href="barang"><i class="fa fa-table"></i> <span>Barang Persediaan</span></a></li> -->
             <li id="status_laporan"><a href="status_laporan"><i class="fa fa-book"></i> <span>Status Laporan</span></a></li>
-            <li id="tnda_tangan"><a href="tndtgn"><i class="fa fa-check-square-o"></i> <span>Penandatanganan</span></a></li>
+            <li id="tnda_tangan"><a href="tndtgn"><i class="fa fa-check-square-o"></i> <span>Pejabat SKPD</span></a></li>
             <li id="trans_masuk"><a href="trans_masuk"><i class="fa fa-compress"></i> <span>Transaksi Masuk</span></a></li>
             <li id="trans_keluar"><a href="trans_keluar"><i class="fa fa-expand"></i> <span>Transaksi Keluar</span></a></li>
             <li id="transfer"><a href="transfer"><i class="fa fa-exchange"></i> <span>Transfer Persediaan</span></a></li>
