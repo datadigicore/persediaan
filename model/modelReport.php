@@ -589,37 +589,38 @@ public function laporan_per_rekening($data){
     // print_r($dataPerSKPD);
 
     foreach ($result as $val) {
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]"]['nm_perk'] = $val['nm_perk'];
       if($val['jns_trans']=="M07"){
-        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["apbd"] += $val['total_harga'];
-        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["bos"] += 0;
-        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["blud"] += 0;
-        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["bpp"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]"]["apbd"] += $val['total_harga'];
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]"]["bos"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]"]["blud"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]"]["bpp"] += 0;
     }
     elseif($val['jns_trans']=="M08"||$val['jns_trans']=="M09"){
-        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["apbd"] += 0;
-        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["bos"] += 0;
-        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["blud"] += 0;
-        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["bpp"] += $val['total_harga'];
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]"]["apbd"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]"]["bos"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]"]["blud"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]"]["bpp"] += $val['total_harga'];
     }
     elseif($val['jns_trans']=="M10"){
-        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["apbd"] += 0;
-        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["bos"] += $val['total_harga'];
-        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["blud"] += 0;
-        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["bpp"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]"]["apbd"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]"]["bos"] += $val['total_harga'];
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]"]["blud"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]"]["bpp"] += 0;
     }
 
     elseif($val['jns_trans']=="M11"){
-        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["apbd"] += 0;
-        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["bos"] += 0;
-        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["blud"] += $val['total_harga'];
-        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["bpp"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]"]["apbd"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]"]["bos"] += 0;
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]"]["blud"] += $val['total_harga'];
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]"]["bpp"] += 0;
     }
 
     else{
-        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]-$val[nm_perk]"]["lainnya"] += $val['total_harga'];
+        $dataFinal["$val[kd_lokasi]-$val[nm_satker]"]["$val[kd_perk]"]["lainnya"] += $val['total_harga'];
     }
 }
-
+// echo "<pre>";
 // print_r($dataFinal);
 //             exit;
 $no=1;
@@ -632,8 +633,8 @@ foreach ($dataFinal as $key => $value) {
       $detilRek = explode("-", $key2); 
       echo '<tr>
       <td style="text-align: center;">'.$no.'</td>
-      <td style="text-align:center;">'.$detilRek[0].'</td>
-      <td style="align:left;">'.$detilRek[1].'</td>
+      <td style="text-align:center;">'.$key2.'</td>
+      <td style="align:left;">'.$value2['nm_perk'].'</td>
       <td style="text-align: right;">'.number_format($value2['apbd'],2,",",".").'</td>    
       <td style="text-align: right;">'.number_format($value2['bos'],2,",",".").'</td>    
       <td style="text-align: right;">'.number_format($value2['blud'],2,",",".").'</td>    
