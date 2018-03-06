@@ -1048,9 +1048,10 @@ public function buku_persediaan($data)
             } 
             public function rincian_persediaan2($data_lp)
             {
+                echo "<pre>";
                 $mpdf=new mPDF('utf-8', 'A4-L');
                 ob_start();
-
+                // print_r($data_lp);
                 $kd_brg = $data_lp['kd_brg'];
                 $format = $data_lp['format'];
                 $kd_lokasi = $data_lp['kd_lokasi'];
@@ -1072,8 +1073,20 @@ public function buku_persediaan($data)
                 and thn_ang='$data_lp[thn_ang]' 
                 and kd_perk IS not null 
                 and kd_perk!=''   
-                $date_cond 
+                and tgl_dok <= '$data_lp[tgl_akhir]' 
                 GROUP by kd_lokasi, kd_perk";
+
+                $query = "SELECT kd_lokasi, nm_satker, kd_perk, nm_perk, harga_sat, 
+                            qty, qty_akhir, jns_trans  
+                          FROM transaksi_masuk 
+                          WHERE
+                            concat(kd_lokasi,IFNULL(kd_ruang,'')) LIKE '$kd_lokasi%'  AND 
+                            thn_ang='$data_lp[thn_ang]' AND 
+                            tgl_dok <= '$data_lp[tgl_akhir]' AND
+                            kd_perk IS NOT NULL AND
+                            kd_perk!='' 
+                        ORDER BY kd_lokasi asc, kd_perk asc, jns_trans ASC";
+                // echo $query;
                 $data = array();
                 // echo "<pre>";
                 // print_r($data_lp);
@@ -1088,41 +1101,62 @@ public function buku_persediaan($data)
                 $nilai_saldo_awal =0;
                 $sisa =0;
                 $nilai_sisa =0;
-                $dtMutasi = $this->query($sql);
-                foreach ($dtMutasi as $key => $value) {
-                //     $data[$value['kd_lokasi']]['nm_satker'] = $value['nm_satker'];
-                //     $data[$value['kd_lokasi']]['jml_msk'] += $value['jml_msk'];
-                    $data[] = $value;
-                }
-                foreach($data as $key => $value){
+                $dtMutasi = $this->query($query);
 
-                    $data[$key]['jml_klr'] = $value['saldo_awal']+$value['jml_msk']-$value['sisa'];
-                    $data[$key]['nilai_klr'] = ($value['saldo_awal']+$value['jml_msk']-$value['sisa'])*$value['harga_sat'];
-                    $data[$key]['nilai_sisa'] = $value['sisa']*$value['harga_sat'];
-                    $data[$key]['nilai_saldo_awal'] = $value['saldo_awal']*$value['harga_sat'];
-                    $jml_klr    +=  $data[$key]['jml_klr'];
-                    $nilai_klr  += ($value['saldo_awal']+$value['jml_msk']-$value['sisa'])*$value['harga_sat'];
-                    $jml_msk    += $value['jml_msk'];
-                    $nilai_msk  += ($value['jml_msk']*$value['harga_sat']);
-                    $saldo_awal += $value['saldo_awal'];
-                    $nilai_saldo_awal += ($value['saldo_awal']*$value['harga_sat']);
-                    $sisa       += $value['sisa'];
-                    $nilai_sisa += $value['sisa']*$value['harga_sat'];
+                $data_final = array();
 
-                }
-                foreach ($data as $key => $value) {
-                    $dataPerSKPD[$value['kd_lokasi']]['nm_satker'] = $value['nm_satker'];
-                    $dataPerSKPD[$value['kd_lokasi']]['jml_msk'] += $value['jml_msk'];
-                    $dataPerSKPD[$value['kd_lokasi']]['nilai_msk'] += ($value['jml_msk']*$value['harga_sat']);
-                    $dataPerSKPD[$value['kd_lokasi']]['saldo_awal']  += $value['saldo_awal'];
-                    $dataPerSKPD[$value['kd_lokasi']]['nilai_saldo_awal']  += ($value['saldo_awal']*$value['harga_sat']);
-                    $dataPerSKPD[$value['kd_lokasi']]['sisa']  += $value['sisa'];
-                    $dataPerSKPD[$value['kd_lokasi']]['nilai_sisa']  += $value['sisa']*$value['harga_sat'];
-                    $dataPerSKPD[$value['kd_lokasi']]['jml_klr'] += (($value['saldo_awal']+$value['jml_msk'])-$value['sisa']);
-                    $dataPerSKPD[$value['kd_lokasi']]['data'][] = $value;
-                }
-                // echo "<pre>";
-                // print_r($dataPerSKPD);
+                    foreach ($dtMutasi as $key2 => $isi) {
+                        $key = $isi['kd_lokasi'];
+                        // print_r($isi);
+                        $data_final[$key]['nm_satker'] = $isi['nm_satker'];
+                        $data_final[$key]['data']["$isi[kd_perk]"]['kd_perk'] = $isi['kd_perk'];
+                        $data_final[$key]['data']["$isi[kd_perk]"]['nm_perk'] = $isi['nm_perk'];
+
+                        if($isi['jns_trans']=="M01"){
+
+
+                             $data_final[$key]['data']["$isi[kd_perk]"]['saldo_awal'] += $isi['qty'];
+                             $data_final[$key]['data']["$isi[kd_perk]"]['nilai_saldo_awal'] += ($isi['qty']*$isi['harga_sat']);
+
+                             $saldo_awal += $isi['qty'];
+                             $nilai_saldo_awal += ($isi['qty']*$isi['harga_sat']);
+
+
+                            $data_final[$key]['saldo_awal'] += $isi['qty'];
+                            $data_final[$key]['nilai_saldo_awal'] += ($isi['qty']*$isi['harga_sat']);
+                        }
+                        else{
+
+                            $data_final[$key]['data']["$isi[kd_perk]"]['jml_msk'] += $isi['qty'];
+                            $data_final[$key]['data']["$isi[kd_perk]"]['nilai_msk'] += ($isi['qty']*$isi['harga_sat']);
+
+
+                            $jml_msk += $isi['qty'];
+                            $nilai_msk += ($isi['qty']*$isi['harga_sat']);
+
+
+                            $data_final[$key]['jml_msk'] +=$isi['qty'];
+                            $data_final[$key]['nilai_msk'] += ($isi['qty']*$isi['harga_sat']);
+                        }
+                        
+                        $data_final[$key]['data']["$isi[kd_perk]"]['sisa'] += $isi['qty_akhir'];
+                        $data_final[$key]['data']["$isi[kd_perk]"]['nilai_sisa'] += ($isi['qty_akhir']*$isi['harga_sat']);                        
+                        $data_final[$key]['data']["$isi[kd_perk]"]['jml_klr'] += ($isi['qty'] - $isi['qty_akhir']);
+                        $data_final[$key]['data']["$isi[kd_perk]"]['nilai_klr'] += (($isi['qty'] - $isi['qty_akhir'])*$isi['harga_sat']);
+
+                        $jml_klr    += ($isi['qty'] - $isi['qty_akhir']);
+                        $nilai_klr  += (($isi['qty'] - $isi['qty_akhir'])*$isi['harga_sat']);
+
+                        $data_final[$key]['jml_klr'] += ($isi['qty'] - $isi['qty_akhir']);
+                        $data_final[$key]['nilai_klr'] += (($isi['qty'] - $isi['qty_akhir'])*$isi['harga_sat']);
+                        $data_final[$key]['sisa'] =  $data_final[$key]['saldo_awal'] + $data_final[$key]['jml_msk'] - $data_final[$key]['jml_klr'];
+                        $data_final[$key]['nilai_sisa'] =  $data_final[$key]['nilai_saldo_awal'] + $data_final[$key]['nilai_msk'] - $data_final[$key]['nilai_klr'];
+                    }
+
+                $nilai_sisa  = ($nilai_msk+$nilai_saldo_awal)-$nilai_klr;
+                $sisa        = ($jml_msk+$saldo_awal)-$jml_klr;
+
+
                 echo '<tr>
                 <td colspan="3" style="font-weight:bold; background-color:#EFEFEF;"></td>
                 <td align="center"  style="font-size:90%; background-color:#EFEFEF; "><b>'.$saldo_awal.'</b></td>
@@ -1133,7 +1167,7 @@ public function buku_persediaan($data)
                 <td align="right"  style="font-size:90%; background-color:#EFEFEF; "><b>'.number_format($nilai_sisa,2,",",".").'</b>
                 </tr>';
                 $no_urut_satker=1;
-                foreach ($dataPerSKPD as $key => $value) {
+                foreach ($data_final as $key => $value) {
                     echo '<tr>
                     <td colspan style="font-weight:bold; background-color:#EFEFEF;">'.$no_urut_satker.'</td>
                     <td colspan="2" align="left" style="font-weight:bold; background-color:#EFEFEF;">'.$value['nm_satker'].'</td>
@@ -1177,6 +1211,8 @@ public function buku_persediaan($data)
                 $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
                 $html = ob_get_contents();
                 ob_end_clean();
+                // echo $html;
+                // exit;
                 if($format=="excel"){
                     $this->excel_export($html,"Mutasi_persediaan");
                 }
@@ -1204,18 +1240,16 @@ public function buku_persediaan($data)
 
                 $query = $this->query_bidang($lingkup,$kd_lokasi);
                 $result = $this->query($query);
-                $sql= "SELECT kd_lokasi,
-                nm_satker,
-                kd_perk, nm_perk, harga_sat,
-                sum(CASE WHEN jns_trans = 'M01' THEN qty ELSE 0 END) as saldo_awal, 
-                sum(CASE WHEN jns_trans != 'M01' THEN qty ELSE 0 END) as jml_msk, 
-                sum(CASE WHEN jns_trans != 'M01' THEN qty_akhir ELSE 0 END) as sisa
-                FROM transaksi_masuk where concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'  
-                and thn_ang='$data_lp[thn_ang]' 
-                and kd_perk IS not null 
-                and kd_perk!=''   
-                and tgl_dok < '$data_lp[tgl_akhir]'
-                GROUP by kd_lokasi, kd_perk";
+                $sql = "SELECT kd_lokasi, nm_satker, kd_perk, nm_perk, harga_sat, 
+                            qty, qty_akhir, jns_trans  
+                          FROM transaksi_masuk 
+                          WHERE
+                            concat(kd_lokasi,IFNULL(kd_ruang,'')) LIKE '$kd_lokasi%'  AND 
+                            thn_ang='$data_lp[thn_ang]' AND 
+                            tgl_dok <= '$data_lp[tgl_akhir]' AND
+                            kd_perk IS NOT NULL AND
+                            kd_perk!='' 
+                        ORDER BY kd_lokasi asc, kd_perk asc, jns_trans ASC";
                 $data = array();
                 $jml_klr =0;
                 $nilai_klr =0;
@@ -1227,36 +1261,56 @@ public function buku_persediaan($data)
                 $nilai_sisa =0;
                 $dataPerSKPD = array();
                 $dtMutasi = $this->query($sql);
-                foreach ($dtMutasi as $key => $value) {
-                    $data[] = $value;
-                }
-                foreach($data as $key => $value){
+                $data_final = array();
+                    foreach ($dtMutasi as $key2 => $isi) {
+                        $key = $isi['kd_lokasi'];
+                        // print_r($isi);
+                        $data_final[$key]['nm_satker'] = $isi['nm_satker'];
+                        $data_final[$key]['data']["$isi[kd_perk]"]['kd_perk'] = $isi['kd_perk'];
+                        $data_final[$key]['data']["$isi[kd_perk]"]['nm_perk'] = $isi['nm_perk'];
 
-                    $data[$key]['jml_klr'] = $value['saldo_awal']+$value['jml_msk']-$value['sisa'];
-                    $data[$key]['nilai_klr'] = ($value['saldo_awal']+$value['jml_msk']-$value['sisa'])*$value['harga_sat'];
-                    $data[$key]['nilai_sisa'] = $value['sisa']*$value['harga_sat'];
-                    $data[$key]['nilai_saldo_awal'] = $value['saldo_awal']*$value['harga_sat'];
-                    $jml_klr    +=  $data[$key]['jml_klr'];
-                    $nilai_klr  += ($value['saldo_awal']+$value['jml_msk']-$value['sisa'])*$value['harga_sat'];
-                    $jml_msk    += $value['jml_msk'];
-                    $nilai_msk  += ($value['jml_msk']*$value['harga_sat']);
-                    $saldo_awal += $value['saldo_awal'];
-                    $nilai_saldo_awal += ($value['saldo_awal']*$value['harga_sat']);
-                    $sisa       += $value['sisa'];
-                    $nilai_sisa += $value['sisa']*$value['harga_sat'];
+                        if($isi['jns_trans']=="M01"){
 
-                }
-                foreach ($data as $key => $value) {
-                    $dataPerSKPD[$value['kd_lokasi']]['nm_satker'] = $value['nm_satker'];
-                    $dataPerSKPD[$value['kd_lokasi']]['jml_msk'] += $value['jml_msk'];
-                    $dataPerSKPD[$value['kd_lokasi']]['nilai_msk'] += ($value['jml_msk']*$value['harga_sat']);
-                    $dataPerSKPD[$value['kd_lokasi']]['saldo_awal']  += $value['saldo_awal'];
-                    $dataPerSKPD[$value['kd_lokasi']]['nilai_saldo_awal']  += ($value['saldo_awal']*$value['harga_sat']);
-                    $dataPerSKPD[$value['kd_lokasi']]['sisa']  += $value['sisa'];
-                    $dataPerSKPD[$value['kd_lokasi']]['nilai_sisa']  += $value['sisa']*$value['harga_sat'];
-                    $dataPerSKPD[$value['kd_lokasi']]['jml_klr'] += (($value['saldo_awal']+$value['jml_msk'])-$value['sisa']);
-                    $dataPerSKPD[$value['kd_lokasi']]['data'][] = $value;
-                }
+
+                             $data_final[$key]['data']["$isi[kd_perk]"]['saldo_awal'] += $isi['qty'];
+                             $data_final[$key]['data']["$isi[kd_perk]"]['nilai_saldo_awal'] += ($isi['qty']*$isi['harga_sat']);
+
+                             $saldo_awal += $isi['qty'];
+                             $nilai_saldo_awal += ($isi['qty']*$isi['harga_sat']);
+
+
+                            $data_final[$key]['saldo_awal'] += $isi['qty'];
+                            $data_final[$key]['nilai_saldo_awal'] += ($isi['qty']*$isi['harga_sat']);
+                        }
+                        else{
+
+                            $data_final[$key]['data']["$isi[kd_perk]"]['jml_msk'] += $isi['qty'];
+                            $data_final[$key]['data']["$isi[kd_perk]"]['nilai_msk'] += ($isi['qty']*$isi['harga_sat']);
+
+
+                            $jml_msk += $isi['qty'];
+                            $nilai_msk += ($isi['qty']*$isi['harga_sat']);
+
+
+                            $data_final[$key]['jml_msk'] +=$isi['qty'];
+                            $data_final[$key]['nilai_msk'] += ($isi['qty']*$isi['harga_sat']);
+                        }
+                        
+                        $data_final[$key]['data']["$isi[kd_perk]"]['sisa'] += $isi['qty_akhir'];
+                        $data_final[$key]['data']["$isi[kd_perk]"]['nilai_sisa'] += ($isi['qty_akhir']*$isi['harga_sat']);                        
+                        $data_final[$key]['data']["$isi[kd_perk]"]['jml_klr'] += ($isi['qty'] - $isi['qty_akhir']);
+                        $data_final[$key]['data']["$isi[kd_perk]"]['nilai_klr'] += (($isi['qty'] - $isi['qty_akhir'])*$isi['harga_sat']);
+
+                        $jml_klr    += ($isi['qty'] - $isi['qty_akhir']);
+                        $nilai_klr  += (($isi['qty'] - $isi['qty_akhir'])*$isi['harga_sat']);
+
+                        $data_final[$key]['jml_klr'] += ($isi['qty'] - $isi['qty_akhir']);
+                        $data_final[$key]['nilai_klr'] += (($isi['qty'] - $isi['qty_akhir'])*$isi['harga_sat']);
+                        $data_final[$key]['sisa'] =  $data_final[$key]['saldo_awal'] + $data_final[$key]['jml_msk'] - $data_final[$key]['jml_klr'];
+                        $data_final[$key]['nilai_sisa'] =  $data_final[$key]['nilai_saldo_awal'] + $data_final[$key]['nilai_msk'] - $data_final[$key]['nilai_klr'];
+                    }
+                $nilai_sisa  = ($nilai_msk+$nilai_saldo_awal)-$nilai_klr;
+                $sisa        = ($jml_msk+$saldo_awal)-$jml_klr;
 
                 $no_urut_satker=1;
 
@@ -1264,7 +1318,7 @@ public function buku_persediaan($data)
                 <td colspan="3" style="font-weight:bold; background-color:#EFEFEF;"></td>
                 <td align="right"  style="font-size:90%; background-color:#EFEFEF; "><b>'.number_format($nilai_sisa,2,",",".").'</b>
                 </tr>';
-                foreach ($dataPerSKPD as $key => $value) {
+                foreach ($data_final as $key => $value) {
                     echo '<tr>
                     <td colspan style="font-weight:bold; background-color:#EFEFEF;">'.$no_urut_satker.'</td>
                     <td colspan="2" align="left" style="font-weight:bold; background-color:#EFEFEF;">'.$value['nm_satker'].'</td>
@@ -1310,18 +1364,16 @@ public function buku_persediaan($data)
 
         $query = $this->query_bidang($lingkup,$kd_lokasi);
         $result = $this->query($query);
-        $sql= "SELECT kd_lokasi,
-        nm_satker,
-        kd_perk, nm_perk, harga_sat,
-        sum(CASE WHEN jns_trans = 'M01' THEN qty ELSE 0 END) as saldo_awal, 
-        sum(CASE WHEN jns_trans != 'M01' THEN qty ELSE 0 END) as jml_msk, 
-        sum(CASE WHEN jns_trans != 'M01' THEN qty_akhir ELSE 0 END) as sisa
-        FROM transaksi_masuk where concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%'  
-        and thn_ang='$data_lp[thn_ang]' 
-        and kd_perk IS not null 
-        and kd_perk!=''   
-        and tgl_dok < '$data_lp[tgl_akhir]'
-        GROUP by kd_lokasi, kd_perk";
+        $sql = "SELECT kd_lokasi, nm_satker, kd_perk, nm_perk, harga_sat, 
+                            qty, qty_akhir, jns_trans  
+                          FROM transaksi_masuk 
+                          WHERE
+                            concat(kd_lokasi,IFNULL(kd_ruang,'')) LIKE '$kd_lokasi%'  AND 
+                            thn_ang='$data_lp[thn_ang]' AND 
+                            tgl_dok <= '$data_lp[tgl_akhir]' AND
+                            kd_perk IS NOT NULL AND
+                            kd_perk!='' 
+                        ORDER BY kd_lokasi asc, kd_perk asc, jns_trans ASC";
         $data = array();
         $jml_klr =0;
         $nilai_klr =0;
@@ -1333,44 +1385,63 @@ public function buku_persediaan($data)
         $nilai_sisa =0;
         $dataPerSKPD = array();
         $dtMutasi = $this->query($sql);
-        foreach ($dtMutasi as $key => $value) {
-            $data[] = $value;
-        }
-        foreach($data as $key => $value){
+        $data_final = array();
+                    foreach ($dtMutasi as $key2 => $isi) {
+                        $key = $isi['kd_lokasi'];
+                        // print_r($isi);
+                        $data_final[$key]['nm_satker'] = $isi['nm_satker'];
+                        $data_final[$key]['data']["$isi[kd_perk]"]['kd_perk'] = $isi['kd_perk'];
+                        $data_final[$key]['data']["$isi[kd_perk]"]['nm_perk'] = $isi['nm_perk'];
 
-            $data[$key]['jml_klr'] = $value['saldo_awal']+$value['jml_msk']-$value['sisa'];
-            $data[$key]['nilai_klr'] = ($value['saldo_awal']+$value['jml_msk']-$value['sisa'])*$value['harga_sat'];
-            $data[$key]['nilai_sisa'] = $value['sisa']*$value['harga_sat'];
-            $data[$key]['nilai_saldo_awal'] = $value['saldo_awal']*$value['harga_sat'];
-            $jml_klr    +=  $data[$key]['jml_klr'];
-            $nilai_klr  += ($value['saldo_awal']+$value['jml_msk']-$value['sisa'])*$value['harga_sat'];
-            $jml_msk    += $value['jml_msk'];
-            $nilai_msk  += ($value['jml_msk']*$value['harga_sat']);
-            $saldo_awal += $value['saldo_awal'];
-            $nilai_saldo_awal += ($value['saldo_awal']*$value['harga_sat']);
-            $sisa       += $value['sisa'];
-            $nilai_sisa += $value['sisa']*$value['harga_sat'];
+                        if($isi['jns_trans']=="M01"){
 
-        }
-        foreach ($data as $key => $value) {
-            $dataPerSKPD[$value['kd_lokasi']]['nm_satker'] = $value['nm_satker'];
-            $dataPerSKPD[$value['kd_lokasi']]['jml_msk'] += $value['jml_msk'];
-            $dataPerSKPD[$value['kd_lokasi']]['nilai_msk'] += ($value['jml_msk']*$value['harga_sat']);
-            $dataPerSKPD[$value['kd_lokasi']]['saldo_awal']  += $value['saldo_awal'];
-            $dataPerSKPD[$value['kd_lokasi']]['nilai_saldo_awal']  += ($value['saldo_awal']*$value['harga_sat']);
-            $dataPerSKPD[$value['kd_lokasi']]['sisa']  += $value['sisa'];
-            $dataPerSKPD[$value['kd_lokasi']]['nilai_sisa']  += $value['sisa']*$value['harga_sat'];
-            $dataPerSKPD[$value['kd_lokasi']]['jml_klr'] += (($value['saldo_awal']+$value['jml_msk'])-$value['sisa']);
-            $dataPerSKPD[$value['kd_lokasi']]['data'][] = $value;
-        }
 
+                             $data_final[$key]['data']["$isi[kd_perk]"]['saldo_awal'] += $isi['qty'];
+                             $data_final[$key]['data']["$isi[kd_perk]"]['nilai_saldo_awal'] += ($isi['qty']*$isi['harga_sat']);
+
+                             $saldo_awal += $isi['qty'];
+                             $nilai_saldo_awal += ($isi['qty']*$isi['harga_sat']);
+
+
+                            $data_final[$key]['saldo_awal'] += $isi['qty'];
+                            $data_final[$key]['nilai_saldo_awal'] += ($isi['qty']*$isi['harga_sat']);
+                        }
+                        else{
+
+                            $data_final[$key]['data']["$isi[kd_perk]"]['jml_msk'] += $isi['qty'];
+                            $data_final[$key]['data']["$isi[kd_perk]"]['nilai_msk'] += ($isi['qty']*$isi['harga_sat']);
+
+
+                            $jml_msk += $isi['qty'];
+                            $nilai_msk += ($isi['qty']*$isi['harga_sat']);
+
+
+                            $data_final[$key]['jml_msk'] +=$isi['qty'];
+                            $data_final[$key]['nilai_msk'] += ($isi['qty']*$isi['harga_sat']);
+                        }
+                        
+                        $data_final[$key]['data']["$isi[kd_perk]"]['sisa'] += $isi['qty_akhir'];
+                        $data_final[$key]['data']["$isi[kd_perk]"]['nilai_sisa'] += ($isi['qty_akhir']*$isi['harga_sat']);                        
+                        $data_final[$key]['data']["$isi[kd_perk]"]['jml_klr'] += ($isi['qty'] - $isi['qty_akhir']);
+                        $data_final[$key]['data']["$isi[kd_perk]"]['nilai_klr'] += (($isi['qty'] - $isi['qty_akhir'])*$isi['harga_sat']);
+
+                        $jml_klr    += ($isi['qty'] - $isi['qty_akhir']);
+                        $nilai_klr  += (($isi['qty'] - $isi['qty_akhir'])*$isi['harga_sat']);
+
+                        $data_final[$key]['jml_klr'] += ($isi['qty'] - $isi['qty_akhir']);
+                        $data_final[$key]['nilai_klr'] += (($isi['qty'] - $isi['qty_akhir'])*$isi['harga_sat']);
+                        $data_final[$key]['sisa'] =  $data_final[$key]['saldo_awal'] + $data_final[$key]['jml_msk'] - $data_final[$key]['jml_klr'];
+                        $data_final[$key]['nilai_sisa'] =  $data_final[$key]['nilai_saldo_awal'] + $data_final[$key]['nilai_msk'] - $data_final[$key]['nilai_klr'];
+                    }
+                $nilai_sisa  = ($nilai_msk+$nilai_saldo_awal)-$nilai_klr;
+                $sisa        = ($jml_msk+$saldo_awal)-$jml_klr;
         $no_urut_satker=1;
 
         echo '<tr>
         <td colspan="3" style="font-weight:bold; background-color:#EFEFEF;"></td>
         <td align="right"  style="font-size:90%; background-color:#EFEFEF; "><b>'.number_format($nilai_sisa,2,",",".").'</b>
         </tr>';
-        foreach ($dataPerSKPD as $key => $value) {
+        foreach ($data_final as $key => $value) {
             echo '<tr>
             <td colspan style="font-weight:bold; background-color:#EFEFEF;">'.$no_urut_satker.'</td>
             <td colspan="2" align="left" style="font-weight:bold; background-color:#EFEFEF;">'.$value['nm_satker'].'</td>
