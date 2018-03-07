@@ -584,9 +584,12 @@ public function laporan_per_rekening($data){
         $blud    += $val['total_harga'];
     }
 
-    else{
+    elseif($val['jns_trans']=="M12"){
         $dataFinal["$val[kd_lokasi]"]['data']["$val[kd_perk]"]["lainnya"] += $val['total_harga'];
          $lainnya += $val['total_harga'];
+    }
+    else{
+
     }
        
         
@@ -616,15 +619,16 @@ public function laporan_per_rekening($data){
         <td style="text-align: center;" width="14%"><b>BLUD</b></td>
         <td style="text-align: center;" width="14%"><b>Bantuan Pem.Pusat / Prov.</b></td>
         <td style="text-align: center;" width="14%"><b>Lainnya</b></td>
+        <td style="text-align: center;" width="14%"><b>Total</b></td>
         </tr>';
         $no=1;
         foreach ($dataFinal as $key => $value) {
             $detilSatker = explode("-", $key);
             echo "<tr>
-            <td colspan='8' style='background-color:#EFEFEF;'><b>$value[nm_satker]</b></td>
+            <td colspan='9' style='background-color:#EFEFEF;'><b>$value[nm_satker]</b></td>
             </tr>";
             foreach ($value['data'] as $key2 => $value2) {
-              $detilRek = explode("-", $key2); 
+              $total_rek = $value2['apbd']+$value2['bos']+$value2['blud']+$value2['bpp']+$value2['lainnya'];
               echo '<tr>
               <td style="text-align: center;">'.$no.'</td>
               <td style="text-align:center;">'.$key2.'</td>
@@ -634,10 +638,13 @@ public function laporan_per_rekening($data){
               <td style="text-align: right;">'.number_format($value2['blud'],2,",",".").'</td>    
               <td style="text-align: right;">'.number_format($value2['bpp'],2,",",".").'</td>    
               <td style="text-align: right;">'.number_format($value2['lainnya'],2,",",".").'</td>    
+              <td style="text-align: right;">'.number_format($total_rek,2,",",".").'</td>    
               </tr>';
               $no++;
           }
         }
+        $total_rek = $apbd+$bos+$blud+$bpp+$lainnya;
+
             echo '<tr>
               <td style="text-align: center;" colspan="3">TOTAL</td>
               <td style="text-align: right;">'.number_format($apbd,2,",",".").'</td>    
@@ -645,6 +652,7 @@ public function laporan_per_rekening($data){
               <td style="text-align: right;">'.number_format($blud,2,",",".").'</td>    
               <td style="text-align: right;">'.number_format($bp,2,",",".").'</td>    
               <td style="text-align: right;">'.number_format($lainnya,2,",",".").'</td>    
+              <td style="text-align: right;">'.number_format($total_rek,2,",",".").'</td>    
               </tr>';
 
 
@@ -732,8 +740,8 @@ public function laporan_per_rekening($data){
         $sheet->getStyle('A1:A3')->getFont()->setBold(true);
         $sheet->getStyle('A1:A3')->applyFromArray($horizontal);    
         $sheet->getStyle('A1:A3')->applyFromArray($vertical);
-        $sheet->getStyle('A12:H12')->applyFromArray($horizontal);    
-        $sheet->getStyle('A12:H12')->applyFromArray($vertical);
+        $sheet->getStyle('A12:I12')->applyFromArray($horizontal);    
+        $sheet->getStyle('A12:I12')->applyFromArray($vertical);
         $skpd = $this->getsatker($kd_lokasi);
         
         $objPHPExcel->setActiveSheetIndex(0)
