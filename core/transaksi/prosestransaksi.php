@@ -103,7 +103,7 @@ else
 				$trf = $Transaksi->get_transfer_detail($value);
 			// print_r($trf);
 				$data = array(
-						"id_brg_transfer" => $id,
+						"id_brg_transfer" => $value,
 						"kd_lokasi" => $trf['kd_lokasi'],
 						"ruang_asal"=> $trf['kd_ruang'],
 						"kd_lok_msk"=> $trf['kd_lok_msk'],
@@ -116,7 +116,6 @@ else
 						"kuantitas" => $trf['qty'],
 						"trf"=>$trf['id']
 					);
-				print_r($data);
 				$Transaksi->trnsaksi_keluar($data);
 			}	
 		break;
