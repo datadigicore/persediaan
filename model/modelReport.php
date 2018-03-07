@@ -706,6 +706,7 @@ public function laporan_per_rekening($data){
         $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(15);
         $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(15);
         $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(15);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(15);
 
 
         $objPHPExcel->getActiveSheet()->getStyle('A:L')->getAlignment()->setWrapText(true); 
@@ -713,9 +714,9 @@ public function laporan_per_rekening($data){
 
 
         $sheet = $objPHPExcel->getActiveSheet()->setTitle("Lap. Saldo Persediaan");
-        $sheet->mergeCells('A1:H1');
-        $sheet->mergeCells('A2:H2');
-        $sheet->mergeCells('A3:H3');
+        $sheet->mergeCells('A1:I1');
+        $sheet->mergeCells('A2:I2');
+        $sheet->mergeCells('A3:I3');
         $sheet->mergeCells('A5:B5');
         $sheet->mergeCells('A6:B6');
         $sheet->mergeCells('A7:B7');
@@ -723,13 +724,16 @@ public function laporan_per_rekening($data){
         $sheet->mergeCells('A9:B9');
         $sheet->mergeCells('A10:B10');
 
-        $sheet->getStyle("A12:H12")->applyFromArray($border);
+        $sheet->getStyle("A12:I12")->applyFromArray($border);
+        $objPHPExcel->getActiveSheet()->getRowDimension("12")->setRowHeight(40);
 
         $sheet->getStyle('A1:A3')->getFont()->setBold(true);
         
         $sheet->getStyle('A1:A3')->getFont()->setBold(true);
         $sheet->getStyle('A1:A3')->applyFromArray($horizontal);    
         $sheet->getStyle('A1:A3')->applyFromArray($vertical);
+        $sheet->getStyle('A12:H12')->applyFromArray($horizontal);    
+        $sheet->getStyle('A12:H12')->applyFromArray($vertical);
         $skpd = $this->getsatker($kd_lokasi);
         
         $objPHPExcel->setActiveSheetIndex(0)
@@ -754,8 +758,9 @@ public function laporan_per_rekening($data){
                 ->setCellValue('D12',"APBD" )
                 ->setCellValue('E12',"BOS" )
                 ->setCellValue('F12',"BLUD" )
-                ->setCellValue('G12',"Bantuan Pem.Pusat / Prov." )
-                ->setCellValue('H12',"Lainnya" )
+                ->setCellValue('G12',"BANTUAN PEMPROV / PUSAT." )
+                ->setCellValue('H12',"LAINNYA" )
+                ->setCellValue('I12',"TOTAL" )
                 ;
         $rows = 13;
         $nomor=1;
@@ -763,14 +768,15 @@ public function laporan_per_rekening($data){
             $detilSatker = explode("-", $key);
             $objPHPExcel->setActiveSheetIndex(0)              
                 ->setCellValue("A$rows",$value['nm_satker']);
-            $sheet->mergeCells("A$rows:H$rows");
-            $sheet->getStyle("A$rows:H$rows")->applyFromArray($border);
-            $sheet->getStyle("A$rows:H$rows")->applyFromArray($left);
+            $sheet->mergeCells("A$rows:I$rows");
+            $sheet->getStyle("A$rows:I$rows")->applyFromArray($border);
+            $sheet->getStyle("A$rows:I$rows")->applyFromArray($left);
             $objPHPExcel->getActiveSheet()->getRowDimension("$rows")->setRowHeight(20);
 
 
             $rows++;
             foreach ($value['data'] as $key2 => $value2) {
+              $total_rek = $value2['apbd']+$value2['bos']+$value2['blud']+$value2['bpp']+$value2['lainnya'];
               $objPHPExcel->setActiveSheetIndex(0)              
                 ->setCellValue("A$rows",$nomor)
                 ->setCellValue("B$rows",$key2)
@@ -780,15 +786,16 @@ public function laporan_per_rekening($data){
                 ->setCellValue("F$rows",number_format($value2['blud'],2,",","."))
                 ->setCellValue("G$rows",number_format($value2['bpp'],2,",","."))
                 ->setCellValue("H$rows",number_format($value2['lainnya'],2,",","."))
+                ->setCellValue("I$rows",number_format($total_rek,2,",","."))
                 ;   
-                $sheet->getStyle("A$rows:H$rows")->applyFromArray($border);
+                $sheet->getStyle("A$rows:I$rows")->applyFromArray($border);
                 $sheet->getStyle("C$rows")->applyFromArray($left);
                 $sheet->getStyle("A$rows:B$rows")->applyFromArray($horizontal);
                 $sheet->getStyle("A$rows:B$rows")->applyFromArray($vertical);
-                $sheet->getStyle("D$rows:H$rows")->applyFromArray($right);
+                $sheet->getStyle("D$rows:I$rows")->applyFromArray($right);
                 $objPHPExcel->getActiveSheet()->getRowDimension("$rows")->setRowHeight(40);
 
-                $objPHPExcel->getActiveSheet()->getStyle("D$rows:H$rows")->getAlignment()->setWrapText(true); 
+                $objPHPExcel->getActiveSheet()->getStyle("D$rows:I$rows")->getAlignment()->setWrapText(true); 
 
 
               $nomor++;
@@ -796,20 +803,20 @@ public function laporan_per_rekening($data){
 
           }
         }
-
+        $total_rek = $apbd+$bos+$blud+$bpp+$lainnya;
         $objPHPExcel->setActiveSheetIndex(0)              
                 ->setCellValue("A$rows","TOTAL")
                 ->setCellValue("D$rows",number_format($apbd,2,",","."))
                 ->setCellValue("E$rows",number_format($bos,2,",","."))
                 ->setCellValue("F$rows",number_format($blud,2,",","."))
                 ->setCellValue("G$rows",number_format($bp,2,",","."))
-                ->setCellValue("H$rows",number_format($lainnya,2,",","."))
-                ;   
-                $sheet->getStyle("A$rows:H$rows")->applyFromArray($border);
+                ->setCellValue("H$rows",number_format($lainnya,2,",","."))  
+                ->setCellValue("I$rows",number_format($total_rek,2,",","."));   
+                $sheet->getStyle("A$rows:I$rows")->applyFromArray($border);
                 $sheet->getStyle("C$rows")->applyFromArray($left);
                 $sheet->getStyle("A$rows:B$rows")->applyFromArray($horizontal);
                 $sheet->getStyle("A$rows:B$rows")->applyFromArray($vertical);
-                $sheet->getStyle("D$rows:H$rows")->applyFromArray($right);
+                $sheet->getStyle("D$rows:I$rows")->applyFromArray($right);
 
                 $sheet->mergeCells("A$rows:C$rows");
 
