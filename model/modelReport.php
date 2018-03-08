@@ -565,7 +565,7 @@ public function laporan_belanja_persediaan($data){
                 $sheet->mergeCells("A$rows:F$rows");
         // echo "ini excel";
         Header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="Laporan Realisasi Anggaran dan Kinerja.xlsx"');
+        header('Content-Disposition: attachment;filename="LAPORAN REKENING BELANJA PERSEDIAAN.xlsx"');
         header('Cache-Control: max-age=0');
 
 
@@ -952,7 +952,7 @@ public function laporan_per_rekening($data){
                 $sheet->mergeCells("A$rows:C$rows");
 
         Header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="Laporan Realisasi Anggaran dan Kinerja.xlsx"');
+        header('Content-Disposition: attachment;filename="LAPORAN POSISI PERSEDIAAN PER REKENING.xlsx"');
         header('Cache-Control: max-age=0');
 
 
