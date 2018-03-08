@@ -447,14 +447,14 @@ public function laporan_belanja_persediaan($data){
         $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(5);
         $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(15);
         $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(15);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(15);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(30);
         $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(15);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(15);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(30);
         $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(15);
         $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(15);
 
 
-        $objPHPExcel->getActiveSheet()->getStyle('A:H')->getAlignment()->setWrapText(true); 
+        $objPHPExcel->getActiveSheet()->getStyle('A12:H12')->getAlignment()->setWrapText(true); 
 
 
 
@@ -530,13 +530,16 @@ public function laporan_belanja_persediaan($data){
                     ->setCellValue("E$rows",$key3)
                     ->setCellValue("F$rows",$value3['nm_perk'])
                     ->setCellValue("G$rows",number_format($value3['total_harga'],2,",","."))
-                    ->setCellValue("H$rows",number_format($value3['nilai_kontrak'],2,",","."))
+                    ->setCellValue("H$rows",number_format($value2['nilai_kontrak'],2,",","."))
                     ;   
                     $sheet->getStyle("A$rows:H$rows")->applyFromArray($border);
-                    $sheet->getStyle("C$rows:F$rows")->applyFromArray($left);
-                    $sheet->getStyle("A$rows:B$rows")->applyFromArray($horizontal);
-                    $sheet->getStyle("A$rows:B$rows")->applyFromArray($vertical);
-                    $sheet->getStyle("D$rows:H$rows")->applyFromArray($right);
+                    $sheet->getStyle("D$rows")->applyFromArray($left);
+                    $sheet->getStyle("F$rows")->applyFromArray($left);
+                    $sheet->getStyle("B$rows:C$rows")->applyFromArray($horizontal);
+                    $sheet->getStyle("A$rows:H$rows")->applyFromArray($vertical);
+                    $sheet->getStyle("E$rows")->applyFromArray($horizontal);
+                    $sheet->getStyle("A$rows")->applyFromArray($horizontal);
+                    $sheet->getStyle("G$rows:H$rows")->applyFromArray($right);
                     $objPHPExcel->getActiveSheet()->getRowDimension("$rows")->setRowHeight(40);
 
                     $objPHPExcel->getActiveSheet()->getStyle("D$rows:H$rows")->getAlignment()->setWrapText(true); 
@@ -549,21 +552,18 @@ public function laporan_belanja_persediaan($data){
         }
         $total_rek = $apbd+$bos+$blud+$bpp+$lainnya;
         $objPHPExcel->setActiveSheetIndex(0)              
-                ->setCellValue("A$rows","TOTAL")
-                ->setCellValue("D$rows",number_format($apbd,2,",","."))
-                ->setCellValue("E$rows",number_format($bos,2,",","."))
-                ->setCellValue("F$rows",number_format($blud,2,",","."))
-                ->setCellValue("G$rows",number_format($bp,2,",","."))
-                ->setCellValue("H$rows",number_format($lainnya,2,",","."))  
-                ->setCellValue("I$rows",number_format($total_rek,2,",","."));   
-                $sheet->getStyle("A$rows:I$rows")->applyFromArray($border);
+                ->setCellValue("A$rows","GRAND TOTAL")
+                    ->setCellValue("G$rows",number_format($nilai_rek_persediaan,2,",","."))
+                    ->setCellValue("H$rows",number_format($nilai_non_persediaan,2,",","."))
+                    ;     
+                $sheet->getStyle("A$rows:H$rows")->applyFromArray($border);
                 $sheet->getStyle("C$rows")->applyFromArray($left);
                 $sheet->getStyle("A$rows:B$rows")->applyFromArray($horizontal);
                 $sheet->getStyle("A$rows:B$rows")->applyFromArray($vertical);
                 $sheet->getStyle("G$rows:H$rows")->applyFromArray($right);
 
-                $sheet->mergeCells("A$rows:C$rows");
-        echo "ini excel";
+                $sheet->mergeCells("A$rows:F$rows");
+        // echo "ini excel";
         Header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="Laporan Realisasi Anggaran dan Kinerja.xlsx"');
         header('Cache-Control: max-age=0');
