@@ -307,10 +307,19 @@ public function laporan_belanja_persediaan($data){
     $jenis              = $data['format'];
     $rinci_per_dok      = $data['rinci_per_dok'];
     $date               = $this->cek_periode($data);
-    ob_start();
-    $this->getsatker($kd_lokasi);
-    $sql        = "SELECT kd_lokasi,nm_satker,no_dok, kd_perk, sum(nilai_kontrak) as nilai_kontrak, nm_perk, kode_rekening, nama_rekening, jns_trans, sum(total_harga) as total_harga, sum(nilai_kontrak)+sum(total_harga) as grand_total from transaksi_masuk   where concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%' and jns_trans='M07' and IFNULL(kd_ruang,'')='$kd_ruang' and thn_ang='$thn_ang' and tgl_dok<='$tgl_akhir' and kd_perk IS NOT NULL  group by kd_lokasi,kd_perk,kode_rekening   order by kd_lokasi, kode_rekening,kd_perk asc";
-        // print_r($sql);
+
+    // $sql        = "SELECT kd_lokasi,nm_satker,no_dok, kd_perk, sum(nilai_kontrak) as nilai_kontrak, nm_perk, kode_rekening, nama_rekening, jns_trans, sum(total_harga) as total_harga, sum(nilai_kontrak)+sum(total_harga) as grand_total from transaksi_masuk   where concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%' and jns_trans='M07' and IFNULL(kd_ruang,'')='$kd_ruang' and thn_ang='$thn_ang' and tgl_dok<='$tgl_akhir' and kd_perk IS NOT NULL  group by kd_lokasi,kd_perk,kode_rekening   order by kd_lokasi, kode_rekening,kd_perk asc";
+
+    $sql    = "SELECT kd_lokasi, nm_satker, kd_perk,nm_perk, total_harga,kode_rekening,nama_rekening, nilai_kontrak, jns_trans 
+        FROM transaksi_masuk   
+        WHERE concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%' 
+        AND thn_ang='$thn_ang' 
+        AND tgl_dok>'$tgl_dok' 
+        AND jns_trans!='M01'
+        AND total_harga+nilai_kontrak > 0
+        order by kd_lokasi asc, kode_rekening asc, kd_perk asc, jns_trans asc ";
+
+        // exit;
     $result                 = $this->query($sql);
     $no                     =1;
     $rek_persediaan         ="";
@@ -318,144 +327,257 @@ public function laporan_belanja_persediaan($data){
     $nilai_rek_persediaan   =0;
     $nilai_non_persediaan   =0;
     $total                  =0;
-
-        // echo "<pre>";
+    $apbd  = 0;
+    $bp = 0;
+    $bos = 0;
+    $blud = 0;
+    $lainnya = 0;
     $dataPerSKPD = array();
     foreach ($result as $key => $value) {
+        // print_r($value);
             // $dataPerSKPD[$value['kd_lokasi']]['nm_satker'] = $value['nm_satker'];
-        $dataPerSKPD["$value[kd_lokasi]-$value[nm_satker]"][$value['kode_rekening']]['nama_rekening'] = $value['nama_rekening'];
-        $dataPerSKPD["$value[kd_lokasi]-$value[nm_satker]"][$value['kode_rekening']]['nilai_kontrak'] += $value['nilai_kontrak'];
-        $dataPerSKPD["$value[kd_lokasi]-$value[nm_satker]"][$value['kode_rekening']]['total_harga'] += $value['total_harga'];
-        $dataPerSKPD["$value[kd_lokasi]-$value[nm_satker]"][$value['kode_rekening']]['grand_total'] += ($value['total_harga']+$value['nilai_kontrak']);
-        $dataPerSKPD["$value[kd_lokasi]-$value[nm_satker]"][$value['kode_rekening']]['data'][] = $value;
+        $dataPerSKPD["$value[kd_lokasi]"]['nm_satker'] = $value['nm_satker'];
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['nama_rekening'] = $value['nama_rekening'];
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['nilai_kontrak'] += $value['nilai_kontrak'];
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['total_harga'] += $value['total_harga'];
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['grand_total'] += ($value['total_harga']+$value['nilai_kontrak']);
+
+
+      $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['total_harga'] += $value['total_harga'];
+      $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['nm_perk'] = $value['nm_perk'];
+      if($value['jns_trans']=="M07"){
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['apbd'] += $value['total_harga'];
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['bos'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['blud'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['bpp'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['sumber_dana'] = "APBD";
+        $apbd    += $val['total_harga'];
+
+    }
+    elseif($value['jns_trans']=="M08"||$val['jns_trans']=="M09"){
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['apbd'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['bos'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['blud'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['bpp'] += $value['total_harga'];
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['sumber_dana'] = "Bantuan Pemprov/Pusat";
+
+        $bp      += $val['total_harga'];
+    }
+    elseif($value['jns_trans']=="M10"){
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['apbd'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['bos'] += $value['total_harga'];
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['blud'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['bpp'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['sumber_dana'] = "BOS";
+        $bos     += $val['total_harga'];
+    }
+
+    elseif($value['jns_trans']=="M11"){
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['apbd'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['bos'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['blud'] += $value['total_harga'];
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['bpp'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['sumber_dana'] = "BLUD";
+        $blud    += $val['total_harga'];
+    }
+
+    elseif($value['jns_trans']=="M12"){
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['apbd'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['bos'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['blud'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['bpp'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['lainnya'] += $val['total_harga'];
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['sumber_dana'] = "Lainnya";
+         $lainnya += $val['total_harga'];
+    }
+    else{
+
+    }
+
         $nilai_rek_persediaan   +=$value['total_harga'];
         $nilai_non_persediaan   +=$value['nilai_kontrak'];
         $total                  += ($value['nilai_kontrak']+$value['total_harga']);
     }
 
     // echo "<pre>";
-    //     print_r($rekap);
+    //     print_r($dataPerSKPD);
     //     exit;
     if($jenis=="excel"){
-        ob_end_clean();
-        $identitas_pejabat  = array();
-        $query              = "SELECT * FROM ttd 
-        WHERE 
-        concat(kd_lokasi,IFNULL(kd_ruang,''))='$satker_asal' ";
-        $result_pj = $this->query($query);
-        foreach ($result_pj as $pj) {
-            $identitas_pejabat[]  = 
-            array('nama_atasan'             => $pj['nama'], 
-              'nip_atasan'              => $pj['nip'], 
-              'nama_skpd'               => $data_sakter['NamaSatker'], 
-              'tanggal_cetak'           => $tgl_cetak, 
-              'nama_penyimpan_barang'   => $pj['nama2'], 
-              'nip_penyimpan_barang'    => $pj['nip2']
+
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->getProperties()->setCreator($_SESSION['nm_satker'])
+                  ->setLastModifiedBy("")
+                  ->setTitle("LAPORAN SALDO REKENING PERSEDIAAN");
+        $border = array(
+              'borders' => array(
+                  'allborders' => array(
+                      'style' => PHPExcel_Style_Border::BORDER_THIN
+                  )
+              )
           );
-        }
-    $total_arr[] = array(
-                    "total_persediaan" => $nilai_rek_persediaan,
-                    "total_non_persediaan" => $nilai_non_persediaan
-                );
+        $default_border = array(
+              'style' => PHPExcel_Style_Border::BORDER_THIN
+          );
 
-    $rekap = array();
-    $count_val = 0;
-    foreach ($dataPerSKPD as $kode => $satker) {
-        $skpd = explode("-",$kode);
-        $rekap[$kode]['no'] = "";
-        $rekap[$kode]['nm_satker'] = $skpd[1];
-        $rekap[$kode]['kode_rekening'] = "";
-        $rekap[$kode]['nama_rekening'] = "";
-        $rekap[$kode]['kd_perk'] = "";
-        $rekap[$kode]['nm_perk'] = "";
-        $rekap[$kode]['total_harga'] = "";
-        $rekap[$kode]['nilai_kontrak'] = "";
-        $rekap[$kode]['grand_total'] = "";
-        $rekap[$kode]['cetak_subtotal'] = 0;
-        $rekap[$kode]['cetak_satker']   = 1;
-        $rekap[$kode]['cetak_detail']   = 0;
-        foreach ($satker as $kode => $rek) {
-            $rekap[$kode."rek"]['no'] = "";
-            $rekap[$kode."rek"]['nm_satker'] = "";
-            $rekap[$kode."rek"]['kode_rekening'] = $kode;
-            $rekap[$kode."rek"]['nama_rekening'] = $rek['nama_rekening'];
-            $rekap[$kode."rek"]['kd_perk'] = "";
-            $rekap[$kode."rek"]['nm_perk'] = "";
-            $rekap[$kode."rek"]['total_harga'] = "";
-            $rekap[$kode."rek"]['nilai_kontrak'] = $rek['nilai_kontrak'];
-            $rekap[$kode."rek"]['grand_total'] =$rek['nilai_kontrak'];
-            $rekap[$kode."rek"]['cetak_subtotal'] = 0;
-            $rekap[$kode."rek"]['cetak_satker']   = 0;
-            $rekap[$kode."rek"]['cetak_rekening']   = 1;
-            $rekap[$kode."rek"]['cetak_detail']   = 0;
-            $no++;
+              $horizontal = array(
+                  'alignment' => array(
+                      'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                  )
+              );
+              $vertical = array(
+                  'alignment' => array(
+                      'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+                  )
+              );
+              $left = array(
+                  'alignment' => array(
+                      'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+                      'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
+                  )
+              );
+              $right = array(
+                  'alignment' => array(
+                      'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+                      'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
+                  )
+              );
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
 
-            foreach ($rek['data'] as $key => $val) {
-                $count_val++;
-                $rekap[$count_val]['no'] = "";
-                $rekap[$count_val]['nm_satker'] = "";
-                $rekap[$count_val]['kode_rekening'] = "";
-                $rekap[$count_val]['nama_rekening'] = "";
-                $rekap[$count_val]['kd_perk'] = $val['kd_perk'];
-                $rekap[$count_val]['nm_perk'] = $val['nm_perk'];
-                $rekap[$count_val]['total_harga'] = $val['total_harga'];
-                $rekap[$count_val]['nilai_kontrak'] = $val['nilai_kontrak'];
-                $rekap[$count_val]['grand_total'] = $val['total_harga'];
-                $rekap[$count_val]['cetak_subtotal'] = 0;
-                $rekap[$count_val]['cetak_satker']   = 0;
-                $rekap[$count_val]['cetak_rekening']   = 0;
-                $rekap[$count_val]['cetak_detail']   = 1;
-                $sub_total_harga    += $val['total_harga'];
-                $sub_nilai_kontrak  += $val['nilai_kontrak'];
-                $sub_grand_total    += $val['grand_total'];
-                
-            }
-            $rekap[$kode."sub"]['no'] = "";
-            $rekap[$kode."sub"]['nm_satker'] = "";
-            $rekap[$kode."sub"]['kode_rekening'] = "";
-            $rekap[$kode."sub"]['nama_rekening'] = "";
-            $rekap[$kode."sub"]['kd_perk'] = "";
-            $rekap[$kode."sub"]['nm_perk'] = "";
-            $rekap[$kode."sub"]['total_harga'] = $sub_total_harga;
-            $rekap[$kode."sub"]['nilai_kontrak'] = $sub_nilai_kontrak;
-            $rekap[$kode."sub"]['grand_total'] = $sub_grand_total;
-            $rekap[$kode."sub"]['cetak_subtotal'] = 1;
-            $rekap[$kode."sub"]['cetak_satker']   = 0;
-            $rekap[$kode."sub"]['cetak_rekening']   = 0;
-            $rekap[$kode."sub"]['cetak_detail']   = 0;
-            $sub_total_harga = 0;
-            $sub_nilai_kontrak = 0;
-            $sub_grand_total = 0;
-            $no++;
-           
-        }
-    }
-            // echo "masuk"; exit;
-        $TBS = new clsTinyButStrong;  
-        $TBS->Plugin(TBS_INSTALL, OPENTBS_PLUGIN);
-        $template = '../../utility/optbs/template/belanja_persediaan_2.xlsx';
-        $TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8); 
-        // echo "<pre>";
-        // print_r($rekap);
-        // exit;
-        $TBS->MergeBlock('a', $rekap);
-        $TBS->MergeBlock('b', $identitas_pejabat);
-        $TBS->MergeBlock('c', $total_arr);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(5);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(15);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(15);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(15);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(15);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(15);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(15);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(15);
 
-        $TBS->PlugIn(OPENTBS_DELETE_COMMENTS);
-        $save_as = (isset($_POST['save_as']) && (trim($_POST['save_as'])!=='') && ($_SERVER['SERVER_NAME']=='localhost')) ? trim($_POST['save_as']) : ''; 
-        $output_file_name = "belanja_persediaan_2.xlsx"; 
-        if ($save_as==='') { 
-            $TBS->Show(OPENTBS_DOWNLOAD, $output_file_name);
-            exit(); 
-        } 
-        else { 
-            $TBS->Show(OPENTBS_FILE, $output_file_name);  
-            exit("File [$output_file_name] has been created."); 
-        }
+
+        $objPHPExcel->getActiveSheet()->getStyle('A:H')->getAlignment()->setWrapText(true); 
+
+
+
+        $sheet = $objPHPExcel->getActiveSheet()->setTitle("Lap. Saldo Persediaan");
+        $sheet->mergeCells('A1:I1');
+        $sheet->mergeCells('A2:I2');
+        $sheet->mergeCells('A3:I3');
+        $sheet->mergeCells('A5:B5');
+        $sheet->mergeCells('A6:B6');
+        $sheet->mergeCells('A7:B7');
+        $sheet->mergeCells('A8:B8');
+        $sheet->mergeCells('A9:B9');
+        $sheet->mergeCells('A10:B10');
+
+        $sheet->getStyle("A12:H12")->applyFromArray($border);
+        $objPHPExcel->getActiveSheet()->getRowDimension("12")->setRowHeight(40);
+
+        $sheet->getStyle('A1:A3')->getFont()->setBold(true);
         
+        $sheet->getStyle('A1:A3')->getFont()->setBold(true);
+        $sheet->getStyle('A1:A3')->applyFromArray($horizontal);    
+        $sheet->getStyle('A1:A3')->applyFromArray($vertical);
+        $sheet->getStyle('A12:H12')->applyFromArray($horizontal);    
+        $sheet->getStyle('A12:H12')->applyFromArray($vertical);
+        $skpd = $this->getsatker($kd_lokasi);
+        
+        $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue('A1',"LAPORAN REKENING BELANJA PERSEDIAAN" )
+                ->setCellValue('A2',"PERIODE ".$date)
+                ->setCellValue('A3',"TAHUN ANGGARAN ".$thn_ang )
+                ->setCellValue('A5',"Provinsi" )
+                ->setCellValue('A6',"Kabupaten / Kota" )
+                ->setCellValue('A7',"Bidang" )
+                ->setCellValue('A8',"Unit Organisasi" )
+                ->setCellValue('A9',"Sub Unit Organisasi" )
+                ->setCellValue('A10',"UPB" )                
+                ->setCellValue('C5',": Jawa Tengah" )
+                ->setCellValue('C6',": Kota Pekalongan" )
+                ->setCellValue('C7',": ".$skpd['nama_sektor'] )
+                ->setCellValue('C8',": ".$skpd['nama_satker'] )
+                ->setCellValue('C9',": ".$skpd['nama_unit'] )
+                ->setCellValue('C10',": ".$skpd['nama_gudang'] )                
+                ->setCellValue('A12',"NO" )
+                ->setCellValue('B12',"SUMBER DANA" )
+                ->setCellValue('C12',"REKENING BELANJA" )
+                ->setCellValue('D12',"URAIAN REK. BELANJA" )
+                ->setCellValue('E12',"REKENING PERSEDIAAN" )
+                ->setCellValue('F12',"URAIAN REK. PERSEDIAAN" )
+                ->setCellValue('G12',"NILAI PERSEDIAAN" )
+                ->setCellValue('H12',"NILAI NON PERSEDIAAN" )
+                ;
+        $rows = 13;
+        $nomor=1;
+        foreach ($dataPerSKPD as $key => $value) {
+            $detilSatker = explode("-", $key);
+            $objPHPExcel->setActiveSheetIndex(0)              
+                ->setCellValue("A$rows",$value['nm_satker']);
+            $sheet->mergeCells("A$rows:H$rows");
+            $sheet->getStyle("A$rows:H$rows")->applyFromArray($border);
+            $sheet->getStyle("A$rows:H$rows")->applyFromArray($left);
+            $objPHPExcel->getActiveSheet()->getRowDimension("$rows")->setRowHeight(20);
+
+
+            $rows++;
+            foreach ($value['data'] as $key2 => $value2) {
+                foreach ($value2['data'] as $key3 => $value3) {
+                  $total_rek = $value3['apbd']+$value3['bos']+$value3['blud']+$value3['bpp']+$value3['lainnya'];
+                  $objPHPExcel->setActiveSheetIndex(0)              
+                    ->setCellValue("A$rows",$nomor)
+                    ->setCellValue("B$rows",$value2['sumber_dana'])
+                    ->setCellValue("C$rows",$key2)
+                    ->setCellValue("D$rows",$value2['nama_rekening'])
+                    ->setCellValue("E$rows",$key3)
+                    ->setCellValue("F$rows",$value3['nm_perk'])
+                    ->setCellValue("G$rows",number_format($value3['total_harga'],2,",","."))
+                    ->setCellValue("H$rows",number_format($value3['nilai_kontrak'],2,",","."))
+                    ;   
+                    $sheet->getStyle("A$rows:H$rows")->applyFromArray($border);
+                    $sheet->getStyle("C$rows:F$rows")->applyFromArray($left);
+                    $sheet->getStyle("A$rows:B$rows")->applyFromArray($horizontal);
+                    $sheet->getStyle("A$rows:B$rows")->applyFromArray($vertical);
+                    $sheet->getStyle("D$rows:H$rows")->applyFromArray($right);
+                    $objPHPExcel->getActiveSheet()->getRowDimension("$rows")->setRowHeight(40);
+
+                    $objPHPExcel->getActiveSheet()->getStyle("D$rows:H$rows")->getAlignment()->setWrapText(true); 
+
+
+                  $nomor++;
+                  $rows++;
+                }
+            }
+        }
+        $total_rek = $apbd+$bos+$blud+$bpp+$lainnya;
+        $objPHPExcel->setActiveSheetIndex(0)              
+                ->setCellValue("A$rows","TOTAL")
+                ->setCellValue("D$rows",number_format($apbd,2,",","."))
+                ->setCellValue("E$rows",number_format($bos,2,",","."))
+                ->setCellValue("F$rows",number_format($blud,2,",","."))
+                ->setCellValue("G$rows",number_format($bp,2,",","."))
+                ->setCellValue("H$rows",number_format($lainnya,2,",","."))  
+                ->setCellValue("I$rows",number_format($total_rek,2,",","."));   
+                $sheet->getStyle("A$rows:I$rows")->applyFromArray($border);
+                $sheet->getStyle("C$rows")->applyFromArray($left);
+                $sheet->getStyle("A$rows:B$rows")->applyFromArray($horizontal);
+                $sheet->getStyle("A$rows:B$rows")->applyFromArray($vertical);
+                $sheet->getStyle("G$rows:H$rows")->applyFromArray($right);
+
+                $sheet->mergeCells("A$rows:C$rows");
+        echo "ini excel";
+        Header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="Laporan Realisasi Anggaran dan Kinerja.xlsx"');
+        header('Cache-Control: max-age=0');
+
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+
+        ob_end_clean();
+        ob_start();
+        $objWriter->save('php://output');
     }
     else{
+        ob_start();
+        $this->getsatker($kd_lokasi);
         echo'<p align="center" style="margin:0px; padding:0px; font-weight:bold;">LAPORAN POSISI PERSEDIAAN DI NERACA PER REKENING</p>
             <p align="center" style="margin:0px; padding:0px; font-weight:bold;">UNTUK PERIODE YANG BERAKHIR PADA '.$date.'</p>
             <p align="center" style="margin:0px; padding:0px; font-weight:bold;">TAHUN ANGGARAN '.$thn_ang.'</p><br></br>';
@@ -512,15 +634,16 @@ public function laporan_belanja_persediaan($data){
                 </tr>';
             }
         }
+            echo "</table>";
+            $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
+            $html = ob_get_contents(); 
+            ob_end_clean();
+            $mpdf=new mPDF('utf-8', 'A4-L');
+            $mpdf->WriteHTML(utf8_encode($html));
+            $mpdf->Output("rekap_per_rekening2.pdf" ,'I');
+            exit;
     }
-    echo "</table>";
-    $this->cetak_nama_pj($kd_lokasi,$tgl_cetak);
-    $html = ob_get_contents(); 
-    ob_end_clean();
-    $mpdf=new mPDF('utf-8', 'A4-L');
-    $mpdf->WriteHTML(utf8_encode($html));
-    $mpdf->Output("rekap_per_rekening2.pdf" ,'I');
-    exit;
+
 
 }
 public function laporan_per_rekening($data){
