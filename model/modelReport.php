@@ -776,12 +776,12 @@ public function rekap_opname_mutasi($data)
     $lingkup = $data['lingkup'];
     $tgl_dok = $data['tgl_rekap'];
     $date = $this->cek_periode($data);
-    
+    $skpd_criteria = $this->filter_query($kd_lokasi);
 
     $sql    = "SELECT kd_lokasi, nm_satker, kd_perk,nm_perk, jns_trans, qty, qty_akhir, harga_sat 
                 FROM transaksi_masuk   
-                WHERE concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%' 
-                AND thn_ang='$thn_ang' 
+                WHERE $skpd_criteria
+                    thn_ang='$thn_ang' 
                 AND tgl_dok<='$tgl_dok' 
                 AND total_harga>0 ";
     $no      =1;
@@ -1032,11 +1032,11 @@ public function rekap_opname_sumber($data)
     foreach ($res_query_brg as $key => $value) {
         $data_kel[$value['id']]['nm_perk'] = $value['nm_perk'];
     }
-
+    $skpd_criteria = $this->filter_query($kd_lokasi);
     $sql    = "SELECT kd_lokasi, nm_satker, kd_perk,nm_perk, jns_trans,kd_brg, qty, qty_akhir, harga_sat 
                 FROM transaksi_masuk   
-                WHERE concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_lokasi%' 
-                AND thn_ang='$thn_ang' 
+                WHERE $skpd_criteria
+                 thn_ang='$thn_ang' 
                 AND tgl_dok<='$tgl_dok' 
                 AND total_harga>0 ";
                 // echo $sql;
@@ -1213,6 +1213,7 @@ public function rekap_opname_sumber($data)
         $objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(18);
         $objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(18);
         $objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(18);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(18);
 
 
         $objPHPExcel->getActiveSheet()->getStyle('A:L')->getAlignment()->setWrapText(true); 
@@ -1341,6 +1342,7 @@ public function rekap_opname_sumber($data)
               }
 
           }
+            $saldo_akhir = $value['saldo_awal']+$value['apbd']+$value['blud']+$value['bprov']+$value['bpusat']+$value['transfer']+$value['lainnya']-$value['pengeluaran'];
               $sheet->mergeCells("A$rows:C$rows");
               $objPHPExcel->setActiveSheetIndex(0)              
                 ->setCellValue("A$rows","SUBTOTAL")
@@ -1352,7 +1354,7 @@ public function rekap_opname_sumber($data)
                 ->setCellValue("I$rows",$value['transfer'])
                 ->setCellValue("J$rows",$value['lainnya'])
                 ->setCellValue("K$rows",$value['pengeluaran'])
-                ->setCellValue("L$rows",$value['saldo_akhir'])
+                ->setCellValue("L$rows",$saldo_akhir)
                 ;   
 
                 $sheet->getStyle("A$rows:L$rows")->applyFromArray($border);
@@ -1366,7 +1368,7 @@ public function rekap_opname_sumber($data)
               $rows++;
         }
 
-        $saldo_akhir = $apbd+$bos+$blud+$bpusat+$bprov+$transfer+$lainnya-$pengeluaran;
+        $saldo_akhir = $saldo_awal+$apbd+$bos+$blud+$bpusat+$bprov+$transfer+$lainnya-$pengeluaran;
         $sheet->mergeCells("A$rows:C$rows");
         $objPHPExcel->setActiveSheetIndex(0)              
                 ->setCellValue("A$rows","GRAND TOTAL")
@@ -1387,9 +1389,7 @@ public function rekap_opname_sumber($data)
                 $sheet->getStyle("A$rows:F$rows")->applyFromArray($vertical);
                 $sheet->getStyle("D$rows:L$rows")->applyFromArray($right);
                 $objPHPExcel->getActiveSheet()->getRowDimension("$rows")->setRowHeight(30);
-
-
-                $sheet->mergeCells("A$rows:B$rows");
+                $objPHPExcel->getActiveSheet()->getStyle("A$rows:L$rows")->getFont()->setBold( true );
 
         Header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="LAPORAN POSISI PERSEDIAAN PER REKENING.xlsx"');
@@ -6018,6 +6018,19 @@ public function cek_periode($data)
 
 }
 
+public function filter_query($str){
+    $skpd_criteria = "";   
+    if ($str=="") {
+        $skpd_criteria = "";   
+    }
+    else if (substr_count($str,".") == 0 and substr_count($str,".") <=2) {
+        $skpd_criteria = "concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$str%'  and";   
+    }
+    else{
+        $skpd_criteria = "concat(kd_lokasi,IFNULL(kd_ruang,'')) = '$str'  and"; 
+    }
+    return $skpd_criteria;
+}
 
 
 
