@@ -589,7 +589,7 @@ public function laporan_belanja_persediaan($data){
         $sheet->mergeCells('A10:B10');
 
         $sheet->getStyle("A12:H12")->applyFromArray($border);
-        $objPHPExcel->getActiveSheet()->getRowDimension("12")->setRowHeight(40);
+        $objPHPExcel->getActiveSheet()->getRowDimension("12")->setRowHeight(30);
 
         $sheet->getStyle('A1:A3')->getFont()->setBold(true);
         
@@ -599,6 +599,7 @@ public function laporan_belanja_persediaan($data){
         $sheet->getStyle('A12:H12')->applyFromArray($horizontal);    
         $sheet->getStyle('A12:H12')->applyFromArray($vertical);
         $skpd = $this->getsatker($kd_lokasi);
+        $sheet->getStyle('G:H')->getNumberFormat()->setFormatCode('#,##0.00');
         
         $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue('A1',"LAPORAN REKENING BELANJA PERSEDIAAN" )
@@ -648,8 +649,8 @@ public function laporan_belanja_persediaan($data){
                     ->setCellValue("D$rows",$value2['nama_rekening'])
                     ->setCellValue("E$rows",$key3)
                     ->setCellValue("F$rows",$value3['nm_perk'])
-                    ->setCellValue("G$rows",number_format($value3['total_harga'],2,",","."))
-                    ->setCellValue("H$rows",number_format($value2['nilai_kontrak'],2,",","."))
+                    ->setCellValue("G$rows",$value3['total_harga'])
+                    ->setCellValue("H$rows",$value2['nilai_kontrak'])
                     ;   
                     $sheet->getStyle("A$rows:H$rows")->applyFromArray($border);
                     $sheet->getStyle("D$rows")->applyFromArray($left);
@@ -667,6 +668,26 @@ public function laporan_belanja_persediaan($data){
                   $nomor++;
                   $rows++;
                 }
+
+                $sheet->mergeCells("A$rows:F$rows"); 
+                $objPHPExcel->setActiveSheetIndex(0)             
+                    ->setCellValue("A$rows","SUBTOTAL")
+                    ->setCellValue("G$rows",$value2['total_harga'])
+                    ->setCellValue("H$rows",$value2['nilai_kontrak'])
+                    ;   
+                    $sheet->getStyle("A$rows:H$rows")->applyFromArray($border);
+                    $sheet->getStyle("D$rows")->applyFromArray($left);
+                    $sheet->getStyle("F$rows")->applyFromArray($left);
+                    $sheet->getStyle("B$rows:C$rows")->applyFromArray($horizontal);
+                    $sheet->getStyle("A$rows:H$rows")->applyFromArray($vertical);
+                    $sheet->getStyle("E$rows")->applyFromArray($horizontal);
+                    $sheet->getStyle("A$rows")->applyFromArray($horizontal);
+                    $sheet->getStyle("G$rows:H$rows")->applyFromArray($right);
+                    $objPHPExcel->getActiveSheet()->getRowDimension("$rows")->setRowHeight(30);
+                    $sheet->getStyle("A$rows:H$rows")->getFont()->setBold(true);
+                    $objPHPExcel->getActiveSheet()->getStyle("D$rows:H$rows")->getAlignment()->setWrapText(true); 
+
+                  $rows++;
             }
         }
         $total_rek = $apbd+$bos+$blud+$bpp+$lainnya;
@@ -680,7 +701,7 @@ public function laporan_belanja_persediaan($data){
                 $sheet->getStyle("A$rows:B$rows")->applyFromArray($horizontal);
                 $sheet->getStyle("A$rows:B$rows")->applyFromArray($vertical);
                 $sheet->getStyle("G$rows:H$rows")->applyFromArray($right);
-
+                $sheet->getStyle("A$rows:H$rows")->getFont()->setBold(true);
                 $sheet->mergeCells("A$rows:F$rows");
         // echo "ini excel";
         Header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
