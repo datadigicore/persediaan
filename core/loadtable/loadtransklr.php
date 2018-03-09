@@ -54,20 +54,19 @@ require('../../config/dbconf.php');
 $config = new config();
 $sql_details = $config->sql_details();
 
-// $str = $kd_satker;
-// if (substr_count($str,".") == 0) {
-//     $where = "kd_lokasi like '$kd_satker.%.%.%' and status_hapus=0 and thn_ang='$thn_ang' and jns_trans not like 'P%'  group by no_dok";   
-// }
-// else if (substr_count($str,".") == 1) {
-//     $where = "kd_lokasi like '$kd_satker.%.%' and status_hapus=0 and thn_ang='$thn_ang' and jns_trans not like 'P%'  group by no_dok";   
-// }
-// else if (substr_count($str,".") == 2) {
-//     $where = "kd_lokasi like '$kd_satker.%' and status_hapus=0 and thn_ang='$thn_ang' and jns_trans not like 'P%'  group by no_dok";
-// }
-// else{
-//     $where = "concat(kd_lokasi,IFNULL(kd_ruang,''))='$kd_satker' and status_hapus=0 and thn_ang='$thn_ang' and jns_trans not  in('P01','K06','K07')  group by no_dok"; 
-// }
-$where = "concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_satker%'  and thn_ang='$thn_ang' and jns_trans not in ('P01','K06','K07')  group by no_dok";
+$str = $kd_satker;
+$skpd_criteria = "";
+if ($str=="") {
+    $skpd_criteria = "";   
+}
+else if (substr_count($str,".") == 0 and substr_count($str,".") <=2) {
+    $skpd_criteria = "concat(kd_lokasi,IFNULL(kd_ruang,'')) like '$kd_satker%'  and";   
+}
+else{
+    $skpd_criteria = "concat(kd_lokasi,IFNULL(kd_ruang,'')) = '$kd_satker'  and"; 
+}
+
+$where = "$skpd_criteria thn_ang='$thn_ang' and jns_trans not in ('P01','K06','K07')  group by no_dok";
 //echo $where;
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp-join.php' );
