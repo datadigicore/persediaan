@@ -70,7 +70,7 @@ $str = $kd_satker;
 //     $where = "kd_lokasi='$kd_satker'  and thn_ang='$thn_ang' and no_dok = '$no_dok' and kode_rekening!='' and kd_brg='' ".$query_ruang." ";
 // }
 
-$where = "thn_ang='$thn_ang' and no_dok = '$no_dok' and kode_rekening!='' and kd_brg='' ".$query_ruang." ";
+$where = "thn_ang='$thn_ang' and no_dok = '$no_dok' and nilai_kontrak>0 and kd_brg='' ".$query_ruang." ";
  
 // Pengaturan Output Server Side Processing
 require( '../../config/ssp.class.php' );
