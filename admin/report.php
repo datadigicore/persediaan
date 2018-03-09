@@ -29,6 +29,7 @@
               <li><a href="#neraca" data-toggle="tab">Posisi Persediaan<i class="fa"></i></a></li>
               <li><a href="#mutasi" data-toggle="tab">Mutasi Persediaan<i class="fa"></i></a></li>
               <li><a href="#ba_opname" data-toggle="tab">Berita Acara Stock Opname<i class="fa"></i></a></li>
+              <li><a href="#ba_opname2" data-toggle="tab">Rekapitulasi Stock Opname<i class="fa"></i></a></li>
               <li><a href="#belanjaPerKategori" data-toggle="tab">Belanja Persediaan Per-Kategori<i class="fa"></i></a></li>
               <li><a href="#belanjaPerDokumen" data-toggle="tab">Belanja Persediaan Per-Dokumen<i class="fa"></i></a></li>
               <li><a href="#belanjaPerKategori2" data-toggle="tab">Belanja Persediaan Per-Rekening(2)<i class="fa"></i></a></li>
@@ -77,6 +78,17 @@
                           <select name="scope" id="scope" class="form-control">
                             <option value="1">Detail (Uraian Jumlah, dan Total Harga Per Barang)</option>
                             <option value="2">Group Per Barang (Uraian Jumlah Barang)</option>
+                          </select>
+                        </div>
+                    </div>
+                  </div>                    
+                  <div class="tab-pane" id="ba_opname2">
+                    <div class="box-body" id="bln"  >
+                        <label class="col-sm-2 control-label">Jenis Laporan</label>
+                        <div class="col-sm-4">
+                          <select name="scope" id="scope" class="form-control">
+                            <option value="1">Rekap Berdasarkan Sumber Penerimaan</option>
+                            <option value="2">Rekap Berdasarkan Mutasi</option>
                           </select>
                         </div>
                     </div>
@@ -238,6 +250,10 @@
 
             case 'Berita Acara Stock Opname':
               $("#manage").val("ba_opname");
+              manage_val = 'baca_upb_admin';
+            break;  
+            case 'Rekapitulasi Stock Opname':
+              $("#manage").val("ba_opname2");
               manage_val = 'baca_upb_admin';
             break;            
 

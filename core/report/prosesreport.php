@@ -644,6 +644,46 @@ else
 		
 
 		break;
+		case 'ba_opname2':
+		$kd_ruang = $purifier->purify($_POST['kd_ruang']);
+		$kd_lokasi = $purifier->purify($_POST['satker']);
+		$satker_asal = $_SESSION['kd_lok'];
+		$format = $_POST['format'];
+		$semester = explode("-",$purifier->purify($_POST['smt']));
+		$bln_awal = $semester[0];
+		$bln_akhir = $semester[1];
+		$tgl_akhir =  $Report->konversi_tanggal($purifier->purify($_POST['tgl_akhir']));
+		$tgl_rekap =  $Report->sqlDate($purifier->purify($_POST['tgl_akhir']));
+		$tgl_cetak =  $purifier->purify($_POST['tgl_cetak']);
+		$format = $purifier->purify($_POST['format']);
+		$thn_ang = $purifier->purify($_SESSION['thn_ang']);
+		$kd_brg = $purifier->purify($_POST['kd_brg']);
+		$user_id= $_SESSION['username'];
+		$data = array(
+			"format"      =>$format,
+			"bln_awal"    =>$bln_awal,
+			"bln_akhir"   =>$bln_akhir,
+			"thn_ang"     => $thn_ang,
+			"kd_brg"      => $kd_brg,
+			"tgl_akhir"   => $tgl_akhir,
+			"tgl_rekap"   => $tgl_rekap,
+			"tgl_cetak"   => $tgl_cetak,
+			"scope"       => $_POST['scope'],
+			"kd_lokasi"   => $kd_lokasi,
+			"kd_ruang"    => $kd_ruang,
+			"semester"    => $bln_akhir,
+			"satker_asal" => $satker_asal,
+			"user_id"     => $user_id);
+
+		if($_POST['scope']=="1"){
+			$Report->rekap_opname_sumber($data);
+		}
+		else{
+			$Report->rekap_opname_mutasi($data);
+		}
+		
+
+		break;
 
 		default:
 		echo "Error Data Tidak Tersedia";
