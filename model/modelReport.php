@@ -650,7 +650,7 @@ public function laporan_belanja_persediaan($data){
                     ->setCellValue("E$rows",$key3)
                     ->setCellValue("F$rows",$value3['nm_perk'])
                     ->setCellValue("G$rows",$value3['total_harga'])
-                    ->setCellValue("H$rows",$value2['nilai_kontrak'])
+                    ->setCellValue("H$rows","")
                     ;   
                     $sheet->getStyle("A$rows:H$rows")->applyFromArray($border);
                     $sheet->getStyle("D$rows")->applyFromArray($left);
