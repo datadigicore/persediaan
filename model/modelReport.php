@@ -3480,6 +3480,7 @@ public function kartu_p_barang($data)
                     'no'                      => $no,                        
                     'jns_trans'               => $value[jns_trans],
                     'nm_brg'                  => $value['nm_brg'],
+                    'kd_brg'                  => $value['kd_brg'],
                     'jenis_barang'            => $value['nm_perk'],
                     'satuan'                  => $value['satuan'],
                     'jumlah_saldo_awal'       => $value[qty],
@@ -3511,6 +3512,7 @@ public function kartu_p_barang($data)
                     'no'                      => $no,
                     'jns_trans'               => $value[jns_trans],
                     'nm_brg'                  => $value['nm_brg'],
+                    'kd_brg'                  => $value['kd_brg'],
                     'jenis_barang'            => $value['nm_perk'],
                     'satuan'                  => $value['satuan'],
                     'jumlah_saldo_awal'       => 0,
@@ -3544,6 +3546,7 @@ public function kartu_p_barang($data)
                 'no'                      => $no,                        
                 'jns_trans'               => $value[jns_trans],
                 'nm_brg'                  => $value['nm_brg'],
+                'kd_brg'                  => $value['kd_brg'],
                 'jenis_barang'            => $value['nm_perk'],
                 'satuan'                  => $value['satuan'],
                 'jumlah_saldo_awal'       => $value[qty],                        
@@ -3576,6 +3579,7 @@ public function kartu_p_barang($data)
             'no'                      => $no,
             'jns_trans'               => $value[jns_trans],
             'nm_brg'                  => $value['nm_brg'],
+            'kd_brg'                  => $value['kd_brg'],
             'jenis_barang'            => $value['nm_perk'],
             'satuan'                  => $value['satuan'],
             'qty'                     => $value[qty],
@@ -3784,7 +3788,7 @@ public function ba_opname($data){
         //     $kode_bagian=$_SESSION['kd_ruang'];
         //     $baca_ruang=" and kd_ruang='$kode_bagian' ";
         // }
-    $query = "SELECT kd_perk, nm_perk, satuan, harga_sat, concat(nm_brg,' ',IFNULL(spesifikasi,'')) as nm_brg,jns_trans, 
+    $query = "SELECT kd_brg, kd_perk, nm_perk, satuan, harga_sat, concat(nm_brg,' ',IFNULL(spesifikasi,'')) as nm_brg,jns_trans, 
     qty, qty_akhir 
     from transaksi_masuk 
     where 
@@ -3848,6 +3852,7 @@ public function ba_opname($data){
                 'no'                      => $no,                        
                 'jns_trans'               => $value[jns_trans],
                 'nm_brg'                  => $value['nm_brg'],
+                'kd_brg'                  => $value['kd_brg'],
                 'jenis_barang'            => $value['nm_perk'],
                 'satuan'                  => $value['satuan'],
                 'jumlah_saldo_awal'       => $value[qty],
@@ -3879,6 +3884,7 @@ public function ba_opname($data){
                 'no'                      => $no,
                 'jns_trans'               => $value[jns_trans],
                 'nm_brg'                  => $value['nm_brg'],
+                'kd_brg'                  => $value['kd_brg'],
                 'jenis_barang'            => $value['nm_perk'],
                 'satuan'                  => $value['satuan'],
                 'jumlah_saldo_awal'       => 0,
@@ -3912,6 +3918,7 @@ public function ba_opname($data){
             'no'                      => $no,                        
             'jns_trans'               => $value[jns_trans],
             'nm_brg'                  => $value['nm_brg'],
+            'kd_brg'                  => $value['kd_brg'],
             'jenis_barang'            => $value['nm_perk'],
             'satuan'                  => $value['satuan'],
             'jumlah_saldo_awal'       => $value[qty],                        
@@ -3944,6 +3951,7 @@ public function ba_opname($data){
         'no'                      => $no,
         'jns_trans'               => $value[jns_trans],
         'nm_brg'                  => $value['nm_brg'],
+        'kd_brg'                  => $value['kd_brg'],
         'jenis_barang'            => $value['nm_perk'],
         'satuan'                  => $value['satuan'],
         'qty'                     => $value[qty],
