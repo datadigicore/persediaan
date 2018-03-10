@@ -799,13 +799,20 @@ public function rekap_opname_mutasi($data)
     $date = $this->cek_periode($data);
     $skpd_criteria = $this->filter_query($kd_lokasi);
 
-    $sql    = "SELECT kd_lokasi, nm_satker, kd_perk,nm_perk, jns_trans, qty, qty_akhir, harga_sat 
+    $sql    = "SELECT kd_lokasi, nm_satker,kd_brg, kd_perk,nm_perk, jns_trans, qty, qty_akhir, harga_sat 
                 FROM transaksi_masuk   
                 WHERE $skpd_criteria
                     thn_ang='$thn_ang' 
                 AND tgl_dok<='$tgl_dok' 
                 AND total_harga>0 
                 ORDER BY kd_lokasi ASC, kd_perk ASC, kd_brg ASC";
+    $query_brg = "SELECT * FROM persediaan WHERE e is NULL and d is NOT NULL";
+    $res_query_brg = $this->query($query_brg);
+    $data_kel=array();
+    foreach ($res_query_brg as $key => $value) {
+        $data_kel[$value['id']]['nm_perk'] = $value['nm_perk'];
+    }
+
     $no      =1;
     $saldo_awal    =0;
     $penerimaan      =0;
@@ -822,25 +829,33 @@ public function rekap_opname_mutasi($data)
     foreach ($result as $val) {
         $jumlah_masuk = $val['qty']*$val['harga_sat'];
         $jumlah_keluar = ($val['qty']-$val['qty_akhir'])*$val['harga_sat'];
-
+        $kode = explode(".", $val['kd_brg']);
+        $skel = "$kode[0].$kode[1].$kode[2].$kode[3]";
+        $sskel = "$kode[0].$kode[1].$kode[2].$kode[3].$kode[4]";
         $dataFinal["$val[kd_lokasi]"]['nm_satker'] = $val['nm_satker'];
-        $dataFinal["$val[kd_lokasi]"]['data']["$val[kd_perk]"]['nm_perk'] = $val['nm_perk'];
-        $dataFinal["$val[kd_lokasi]"]['data']["$val[kd_perk]"]['kd_perk'] = $val['kd_perk'];
+        $dataFinal["$val[kd_lokasi]"]['data'][$skel]['nm_perk'] = $data_kel[$skel]['nm_perk'];
+        $dataFinal["$val[kd_lokasi]"]['data'][$skel]['data']["$val[kd_perk]"]['nm_perk'] = $val['nm_perk'];
+        $dataFinal["$val[kd_lokasi]"]['data'][$skel]['data']["$val[kd_perk]"]['kd_perk'] = $val['kd_perk'];
+        $dataFinal["$val[kd_lokasi]"]['data'][$skel]['data']["$val[kd_perk]"]['kd_sskel'] = $sskel;
 
         if($val['jns_trans']=="M01"){
-            $dataFinal["$val[kd_lokasi]"]['data']["$val[kd_perk]"]["saldo_awal"] += $jumlah_masuk;
+            $dataFinal["$val[kd_lokasi]"]['data'][$skel]["saldo_awal"] += $jumlah_masuk;
+            $dataFinal["$val[kd_lokasi]"]['data'][$skel]['data']["$val[kd_perk]"]["saldo_awal"] += $jumlah_masuk;
             $dataFinal["$val[kd_lokasi]"]["saldo_awal"] += $jumlah_masuk;
             $saldo_awal +=$jumlah_masuk;
         }
         else{
-            $dataFinal["$val[kd_lokasi]"]['data']["$val[kd_perk]"]["penerimaan"] += $jumlah_masuk;
+            $dataFinal["$val[kd_lokasi]"]['data'][$skel]["penerimaan"] += $jumlah_masuk;
+            $dataFinal["$val[kd_lokasi]"]['data'][$skel]['data']["$val[kd_perk]"]["penerimaan"] += $jumlah_masuk;
             $dataFinal["$val[kd_lokasi]"]["penerimaan"] += $jumlah_masuk;
             $penerimaan +=$jumlah_masuk;
 
         }
-        $dataFinal["$val[kd_lokasi]"]['data']["$val[kd_perk]"]["pengeluaran"] += $jumlah_keluar;
+        $dataFinal["$val[kd_lokasi]"]['data'][$skel]["pengeluaran"] += $jumlah_keluar;
+        $dataFinal["$val[kd_lokasi]"]['data'][$skel]['data']["$val[kd_perk]"]["pengeluaran"] += $jumlah_keluar;
         $saldo_akhir = $saldo_awal+$jumlah_masuk-$jumlah_keluar;
-        $dataFinal["$val[kd_lokasi]"]['data']["$val[kd_perk]"]["saldo_akhir"] += $saldo_akhir;
+        $dataFinal["$val[kd_lokasi]"]['data'][$skel]['data']["$val[kd_perk]"]["saldo_akhir"] += $saldo_akhir;
+        $dataFinal["$val[kd_lokasi]"]['data'][$skel]["saldo_akhir"] += ($val['qty']*$val['harga_sat']) -($val['qty']-$val['qty_akhir'])*$val['harga_sat'];
         
         
         $dataFinal["$val[kd_lokasi]"]["pengeluaran"] += $jumlah_keluar;
@@ -852,7 +867,9 @@ public function rekap_opname_mutasi($data)
        }
         
         $saldo_akhir = $saldo_awal+$penerimaan-$pengeluaran;
-       
+       //  echo "<pre>";
+       // print_r($dataFinal);
+       // exit;
     $objPHPExcel = new PHPExcel();
         $objPHPExcel->getProperties()->setCreator($_SESSION['nm_satker'])
                   ->setLastModifiedBy("")
@@ -894,7 +911,7 @@ public function rekap_opname_mutasi($data)
         $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
 
         $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(5);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(10);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(15);
         $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(40);
         $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(25);
         $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(25);
@@ -972,7 +989,7 @@ public function rekap_opname_mutasi($data)
               $total_rek = $value2['apbd']+$value2['bos']+$value2['blud']+$value2['bpp']+$value2['lainnya'];
               $objPHPExcel->setActiveSheetIndex(0)              
                 ->setCellValue("A$rows",$nomor)
-                ->setCellValue("B$rows",$value2['kd_perk'])
+                ->setCellValue("B$rows",$key2)
                 ->setCellValue("C$rows",$value2['nm_perk'])
                 ->setCellValue("D$rows",$value2['saldo_awal'])
                 ->setCellValue("E$rows",$value2['penerimaan'])
@@ -987,8 +1004,31 @@ public function rekap_opname_mutasi($data)
                 $objPHPExcel->getActiveSheet()->getRowDimension("$rows")->setRowHeight(40);
 
                 $objPHPExcel->getActiveSheet()->getStyle("B$rows")->getAlignment()->setWrapText(true); 
+                $sheet->getStyle("A$rows:G$rows")->getFont()->setBold(true);
+
+              // $nomor++;
+              $rows++;
+              foreach ($value2['data'] as $key3 => $value3) {
+                $objPHPExcel->setActiveSheetIndex(0)              
+                    ->setCellValue("A$rows",$nomor)
+                    ->setCellValue("B$rows",$value3['kd_sskel'])
+                    ->setCellValue("C$rows",$value3['nm_perk'])
+                    ->setCellValue("D$rows",$value3['saldo_awal'])
+                    ->setCellValue("E$rows",$value3['penerimaan'])
+                    ->setCellValue("F$rows",$value3['pengeluaran'])
+                    ->setCellValue("G$rows",$value3['saldo_akhir'])
+                    ;   
+                    $sheet->getStyle("A$rows:G$rows")->applyFromArray($border);
+                    $sheet->getStyle("B$rows")->applyFromArray($left);
+                    $sheet->getStyle("A$rows")->applyFromArray($horizontal);
+                    $sheet->getStyle("A$rows:G$rows")->applyFromArray($vertical);
+                    $sheet->getStyle("D$rows:G$rows")->applyFromArray($right);
+                    $objPHPExcel->getActiveSheet()->getRowDimension("$rows")->setRowHeight(40);
+
+                $objPHPExcel->getActiveSheet()->getStyle("B$rows")->getAlignment()->setWrapText(true); 
               $nomor++;
               $rows++;
+              }
 
           }
             $sheet->mergeCells("A$rows:C$rows");
@@ -1029,6 +1069,7 @@ public function rekap_opname_mutasi($data)
                 $sheet->getStyle("D$rows:G$rows")->applyFromArray($right);
                 $objPHPExcel->getActiveSheet()->getRowDimension("$rows")->setRowHeight(40);
 
+                $sheet->getStyle("A$rows:G$rows")->getFont()->setBold(true);
 
                 $sheet->mergeCells("A$rows:C$rows");
 
