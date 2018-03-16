@@ -1284,9 +1284,10 @@ public function rekap_opname_sumber($data)
         $objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(18);
         $objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(18);
         $objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(18);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('M')->setWidth(18);
 
 
-        $objPHPExcel->getActiveSheet()->getStyle('A:L')->getAlignment()->setWrapText(true); 
+        $objPHPExcel->getActiveSheet()->getStyle('A:M')->getAlignment()->setWrapText(true); 
 
 
 
@@ -1301,7 +1302,7 @@ public function rekap_opname_sumber($data)
         $sheet->mergeCells('A9:B9');
         $sheet->mergeCells('A10:B10');
 
-        $sheet->getStyle("A12:L12")->applyFromArray($border);
+        $sheet->getStyle("A12:M12")->applyFromArray($border);
         $objPHPExcel->getActiveSheet()->getRowDimension("12")->setRowHeight(30);
 
         $sheet->getStyle('A1:A3')->getFont()->setBold(true);
@@ -1309,8 +1310,8 @@ public function rekap_opname_sumber($data)
         $sheet->getStyle('A1:A3')->getFont()->setBold(true);
         $sheet->getStyle('A1:A3')->applyFromArray($horizontal);    
         $sheet->getStyle('A1:A3')->applyFromArray($vertical);
-        $sheet->getStyle('A12:L12')->applyFromArray($horizontal);    
-        $sheet->getStyle('A12:L12')->applyFromArray($vertical);
+        $sheet->getStyle('A12:M12')->applyFromArray($horizontal);    
+        $sheet->getStyle('A12:M12')->applyFromArray($vertical);
         $skpd = $this->getsatker($kd_lokasi);
         
         $objPHPExcel->setActiveSheetIndex(0)
@@ -1334,15 +1335,16 @@ public function rekap_opname_sumber($data)
                 ->setCellValue('C12',"URAIAN" )
                 ->setCellValue('D12',"SALDO AWAL" )
                 ->setCellValue('E12',"PENERIMAAN APBD")
-                ->setCellValue('F12',"PENERIMAAN BLUD")
-                ->setCellValue('G12',"PENERIMAAN PROV")
-                ->setCellValue('H12',"PENERIMAAN PUSAT")
-                ->setCellValue('I12',"PENERIMAAN TRANSFER")
-                ->setCellValue('J12',"LAINNYA")
-                ->setCellValue('K12',"PENGELUARAN")
-                ->setCellValue('L12',"SALDO AKHIR" )
+                ->setCellValue('F12',"BOS")
+                ->setCellValue('G12',"PENERIMAAN BLUD")
+                ->setCellValue('H12',"PENERIMAAN PROV")
+                ->setCellValue('I12',"PENERIMAAN PUSAT")
+                ->setCellValue('J12',"PENERIMAAN TRANSFER")
+                ->setCellValue('K12',"LAINNYA")
+                ->setCellValue('L12',"PENGELUARAN")
+                ->setCellValue('M12',"SALDO AKHIR" )
                 ;
-                $sheet->getStyle('D:L')->getNumberFormat()->setFormatCode('#,##0.00');
+                $sheet->getStyle('D:M')->getNumberFormat()->setFormatCode('#,##0.00');
 
         $rows = 13;
         $nomor=1;
@@ -1351,8 +1353,8 @@ public function rekap_opname_sumber($data)
             $objPHPExcel->setActiveSheetIndex(0)              
                 ->setCellValue("A$rows",$value['nm_satker']);
             $sheet->mergeCells("A$rows:L$rows");
-            $sheet->getStyle("A$rows:L$rows")->applyFromArray($border);
-            $sheet->getStyle("A$rows:L$rows")->applyFromArray($left);
+            $sheet->getStyle("A$rows:M$rows")->applyFromArray($border);
+            $sheet->getStyle("A$rows:M$rows")->applyFromArray($left);
             $objPHPExcel->getActiveSheet()->getRowDimension("$rows")->setRowHeight(20);
 
 
@@ -1364,23 +1366,24 @@ public function rekap_opname_sumber($data)
                 ->setCellValue("C$rows",$value2['nm_perk'])
                 ->setCellValue("D$rows",$value2['saldo_awal'])
                 ->setCellValue("E$rows",$value2['apbd'])
-                ->setCellValue("F$rows",$value2['blud'])
-                ->setCellValue("G$rows",$value2['bprov'])
-                ->setCellValue("H$rows",$value2['bpusat'])
-                ->setCellValue("I$rows",$value2['transfer'])
-                ->setCellValue("J$rows",$value2['lainnya'])
-                ->setCellValue("K$rows",$value2['pengeluaran'])
-                ->setCellValue("L$rows",$value2['saldo_akhir'])
+                ->setCellValue("F$rows",$value2['bos'])
+                ->setCellValue("G$rows",$value2['blud'])
+                ->setCellValue("H$rows",$value2['bprov'])
+                ->setCellValue("I$rows",$value2['bpusat'])
+                ->setCellValue("J$rows",$value2['transfer'])
+                ->setCellValue("K$rows",$value2['lainnya'])
+                ->setCellValue("L$rows",$value2['pengeluaran'])
+                ->setCellValue("M$rows",$value2['saldo_akhir'])
                 ;   
-                $sheet->getStyle("A$rows:L$rows")->applyFromArray($border);
+                $sheet->getStyle("A$rows:M$rows")->applyFromArray($border);
                 $sheet->getStyle("C$rows")->applyFromArray($left);
                 $sheet->getStyle("A$rows")->applyFromArray($horizontal);
-                $sheet->getStyle("A$rows:L$rows")->applyFromArray($vertical);
-                $sheet->getStyle("D$rows:L$rows")->applyFromArray($right);
+                $sheet->getStyle("A$rows:M$rows")->applyFromArray($vertical);
+                $sheet->getStyle("D$rows:M$rows")->applyFromArray($right);
                 $objPHPExcel->getActiveSheet()->getRowDimension("$rows")->setRowHeight(30);
 
                 $objPHPExcel->getActiveSheet()->getStyle("B$rows")->getAlignment()->setWrapText(true); 
-                $objPHPExcel->getActiveSheet()->getStyle("A$rows:L$rows")->getFont()->setBold( true );
+                $objPHPExcel->getActiveSheet()->getStyle("A$rows:M$rows")->getFont()->setBold( true );
 
               $rows++;
               foreach ($value2['sskel'] as $key3 => $value3) {
@@ -1391,19 +1394,20 @@ public function rekap_opname_sumber($data)
                     ->setCellValue("C$rows",$value3['nm_perk'])
                     ->setCellValue("D$rows",$value3['saldo_awal'])
                     ->setCellValue("E$rows",$value3['apbd'])
-                    ->setCellValue("F$rows",$value3['blud'])
-                    ->setCellValue("G$rows",$value3['bprov'])
-                    ->setCellValue("H$rows",$value3['bpusat'])
-                    ->setCellValue("I$rows",$value3['transfer'])
-                    ->setCellValue("J$rows",$value3['lainnya'])
-                    ->setCellValue("K$rows",$value3['pengeluaran'])
-                    ->setCellValue("L$rows",$value3['saldo_akhir'])
+                    ->setCellValue("F$rows",$value3['bos'])
+                    ->setCellValue("G$rows",$value3['blud'])
+                    ->setCellValue("H$rows",$value3['bprov'])
+                    ->setCellValue("I$rows",$value3['bpusat'])
+                    ->setCellValue("J$rows",$value3['transfer'])
+                    ->setCellValue("K$rows",$value3['lainnya'])
+                    ->setCellValue("L$rows",$value3['pengeluaran'])
+                    ->setCellValue("M$rows",$value3['saldo_akhir'])
                     ;   
-                    $sheet->getStyle("A$rows:L$rows")->applyFromArray($border);
+                    $sheet->getStyle("A$rows:M$rows")->applyFromArray($border);
                     $sheet->getStyle("C$rows")->applyFromArray($left);
                     $sheet->getStyle("A$rows")->applyFromArray($horizontal);
-                    $sheet->getStyle("A$rows:L$rows")->applyFromArray($vertical);
-                    $sheet->getStyle("D$rows:L$rows")->applyFromArray($right);
+                    $sheet->getStyle("A$rows:M$rows")->applyFromArray($vertical);
+                    $sheet->getStyle("D$rows:M$rows")->applyFromArray($right);
                     $objPHPExcel->getActiveSheet()->getRowDimension("$rows")->setRowHeight(30);
 
                     $objPHPExcel->getActiveSheet()->getStyle("B$rows")->getAlignment()->setWrapText(true); 
@@ -1419,22 +1423,23 @@ public function rekap_opname_sumber($data)
                     ->setCellValue("A$rows","SUBTOTAL")
                     ->setCellValue("D$rows",$value['saldo_awal'])
                     ->setCellValue("E$rows",$value['apbd'])
-                    ->setCellValue("F$rows",$value['blud'])
-                    ->setCellValue("G$rows",$value['bprov'])
-                    ->setCellValue("H$rows",$value['bpusat'])
-                    ->setCellValue("I$rows",$value['transfer'])
-                    ->setCellValue("J$rows",$value['lainnya'])
-                    ->setCellValue("K$rows",$value['pengeluaran'])
-                    ->setCellValue("L$rows",$saldo_akhir)
+                    ->setCellValue("F$rows",$value['bos'])
+                    ->setCellValue("G$rows",$value['blud'])
+                    ->setCellValue("I$rows",$value['bprov'])
+                    ->setCellValue("J$rows",$value['bpusat'])
+                    ->setCellValue("K$rows",$value['transfer'])
+                    ->setCellValue("L$rows",$value['lainnya'])
+                    ->setCellValue("M$rows",$value['pengeluaran'])
+                    ->setCellValue("N$rows",$saldo_akhir)
                     ;   
 
-                    $sheet->getStyle("A$rows:L$rows")->applyFromArray($border);
+                    $sheet->getStyle("A$rows:M$rows")->applyFromArray($border);
                     $sheet->getStyle("B$rows")->applyFromArray($left);
                     $sheet->getStyle("A$rows:B$rows")->applyFromArray($horizontal);
                     $sheet->getStyle("A$rows:F$rows")->applyFromArray($vertical);
                     $sheet->getStyle("C$rows:F$rows")->applyFromArray($right);
                     $objPHPExcel->getActiveSheet()->getRowDimension("$rows")->setRowHeight(40);
-                    $objPHPExcel->getActiveSheet()->getStyle("A$rows:L$rows")->getFont()->setBold( true );
+                    $objPHPExcel->getActiveSheet()->getStyle("A$rows:M$rows")->getFont()->setBold( true );
                     $objPHPExcel->getActiveSheet()->getStyle("B$rows")->getAlignment()->setWrapText(true); 
                 $rows++;
 
@@ -1447,22 +1452,23 @@ public function rekap_opname_sumber($data)
                 ->setCellValue("A$rows","GRAND TOTAL")
                 ->setCellValue("D$rows",$saldo_awal)
                 ->setCellValue("E$rows",$apbd)
-                ->setCellValue("F$rows",$blud)
-                ->setCellValue("G$rows",$bprov)
-                ->setCellValue("H$rows",$bpusat)
-                ->setCellValue("I$rows",$transfer)
-                ->setCellValue("J$rows",$lainnya)
-                ->setCellValue("K$rows",$pengeluaran)
-                ->setCellValue("L$rows",$saldo_akhir)
+                ->setCellValue("F$rows",$bos)
+                ->setCellValue("G$rows",$blud)
+                ->setCellValue("H$rows",$bprov)
+                ->setCellValue("I$rows",$bpusat)
+                ->setCellValue("J$rows",$transfer)
+                ->setCellValue("K$rows",$lainnya)
+                ->setCellValue("L$rows",$pengeluaran)
+                ->setCellValue("M$rows",$saldo_akhir)
                 ;   
 
-                $sheet->getStyle("A$rows:L$rows")->applyFromArray($border);
+                $sheet->getStyle("A$rows:M$rows")->applyFromArray($border);
                 $sheet->getStyle("B$rows")->applyFromArray($left);
                 $sheet->getStyle("A$rows:B$rows")->applyFromArray($horizontal);
                 $sheet->getStyle("A$rows:F$rows")->applyFromArray($vertical);
-                $sheet->getStyle("D$rows:L$rows")->applyFromArray($right);
+                $sheet->getStyle("D$rows:M$rows")->applyFromArray($right);
                 $objPHPExcel->getActiveSheet()->getRowDimension("$rows")->setRowHeight(30);
-                $objPHPExcel->getActiveSheet()->getStyle("A$rows:L$rows")->getFont()->setBold( true );
+                $objPHPExcel->getActiveSheet()->getStyle("A$rows:M$rows")->getFont()->setBold( true );
 
         Header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="LAPORAN POSISI PERSEDIAAN PER REKENING.xlsx"');
