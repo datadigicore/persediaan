@@ -1425,12 +1425,12 @@ public function rekap_opname_sumber($data)
                     ->setCellValue("E$rows",$value['apbd'])
                     ->setCellValue("F$rows",$value['bos'])
                     ->setCellValue("G$rows",$value['blud'])
-                    ->setCellValue("I$rows",$value['bprov'])
-                    ->setCellValue("J$rows",$value['bpusat'])
-                    ->setCellValue("K$rows",$value['transfer'])
-                    ->setCellValue("L$rows",$value['lainnya'])
-                    ->setCellValue("M$rows",$value['pengeluaran'])
-                    ->setCellValue("N$rows",$saldo_akhir)
+                    ->setCellValue("H$rows",$value['bprov'])
+                    ->setCellValue("I$rows",$value['bpusat'])
+                    ->setCellValue("J$rows",$value['transfer'])
+                    ->setCellValue("K$rows",$value['lainnya'])
+                    ->setCellValue("L$rows",$value['pengeluaran'])
+                    ->setCellValue("M$rows",$saldo_akhir)
                     ;   
 
                     $sheet->getStyle("A$rows:M$rows")->applyFromArray($border);
