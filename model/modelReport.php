@@ -330,7 +330,7 @@ public function rekap_per_dok($data){
                 ;
         $rows = 13;
         $nomor=1;
-
+        $sheet->getStyle('I:K')->getNumberFormat()->setFormatCode('#,##0.00');
         foreach ($dataPerSKPD as $key => $value) {
             foreach ($value['rek_belanja'] as $key2 => $value2) {
                 foreach ($value2['rek_persediaan'] as $key3 => $value3) {
@@ -349,7 +349,7 @@ public function rekap_per_dok($data){
                         ->setCellValue("K$rows",$value2['nilai_kontrak'])
                         ->setCellValue("L$rows",$value4['keterangan'])
                         ;   
-                        $sheet->getStyle('J:K')->getNumberFormat()->setFormatCode('#,##0.00');
+                        
                         $objPHPExcel->getActiveSheet()->getStyle("B$rows")->getAlignment()->setWrapText(true); 
                         $sheet->getStyle("A$rows:L$rows")->applyFromArray($border);
                         $sheet->getStyle("B$rows")->applyFromArray($left);
@@ -384,16 +384,16 @@ public function rekap_per_dok($data){
         $total_rek = $apbd+$bos+$blud+$bpp+$lainnya;
         $objPHPExcel->setActiveSheetIndex(0)              
                 ->setCellValue("A$rows","GRAND TOTAL")
-                    ->setCellValue("G$rows",number_format($nilai_rek_persediaan,2,",","."))
-                    ->setCellValue("H$rows",number_format($nilai_non_persediaan,2,",","."))
+                    ->setCellValue("J$rows",$nilai_rek_persediaan)
+                    ->setCellValue("K$rows",$nilai_non_persediaan)
                     ;     
-                $sheet->getStyle("A$rows:H$rows")->applyFromArray($border);
+                $sheet->getStyle("A$rows:K$rows")->applyFromArray($border);
                 $sheet->getStyle("C$rows")->applyFromArray($left);
                 $sheet->getStyle("A$rows:B$rows")->applyFromArray($horizontal);
                 $sheet->getStyle("A$rows:B$rows")->applyFromArray($vertical);
                 $sheet->getStyle("I$rows:K$rows")->applyFromArray($right);
 
-                $sheet->mergeCells("A$rows:F$rows");
+                $sheet->mergeCells("A$rows:I$rows");
         // echo "ini excel";
         Header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="LAPORAN REKENING BELANJA PERSEDIAAN.xlsx"');
