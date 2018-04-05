@@ -1419,6 +1419,7 @@ public function rekap_opname_sumber($data)
             $saldo_akhir = $value['saldo_awal']+$value['apbd']+$value['blud']+$value['bprov']+$value['bpusat']+$value['transfer']+$value['lainnya']-$value['pengeluaran'];
               $sheet->mergeCells("A$rows:C$rows");
               if(count($dataFinal)>1){
+                $formula = "=D$rows+E$rows+F$rows+G$rows+H$rows+I$rows+J$rows+K$rows-L$rows";
                 $objPHPExcel->setActiveSheetIndex(0)              
                     ->setCellValue("A$rows","SUBTOTAL")
                     ->setCellValue("D$rows",$value['saldo_awal'])
@@ -1430,7 +1431,7 @@ public function rekap_opname_sumber($data)
                     ->setCellValue("J$rows",$value['transfer'])
                     ->setCellValue("K$rows",$value['lainnya'])
                     ->setCellValue("L$rows",$value['pengeluaran'])
-                    ->setCellValue("M$rows",$saldo_akhir)
+                    ->setCellValue("M$rows",$formula)
                     ;   
 
                     $sheet->getStyle("A$rows:M$rows")->applyFromArray($border);
@@ -1448,6 +1449,7 @@ public function rekap_opname_sumber($data)
 
         $saldo_akhir = $saldo_awal+$apbd+$bos+$blud+$bpusat+$bprov+$transfer+$lainnya-$pengeluaran;
         $sheet->mergeCells("A$rows:C$rows");
+        $formula = "=D$rows+E$rows+F$rows+G$rows+H$rows+I$rows+J$rows+K$rows-L$rows";
         $objPHPExcel->setActiveSheetIndex(0)              
                 ->setCellValue("A$rows","GRAND TOTAL")
                 ->setCellValue("D$rows",$saldo_awal)
@@ -1459,7 +1461,7 @@ public function rekap_opname_sumber($data)
                 ->setCellValue("J$rows",$transfer)
                 ->setCellValue("K$rows",$lainnya)
                 ->setCellValue("L$rows",$pengeluaran)
-                ->setCellValue("M$rows",$saldo_akhir)
+                ->setCellValue("M$rows",$formula)
                 ;   
 
                 $sheet->getStyle("A$rows:M$rows")->applyFromArray($border);
@@ -1476,7 +1478,8 @@ public function rekap_opname_sumber($data)
 
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-
+        $objWriter->setPreCalculateFormulas(true);
+        
         ob_end_clean();
         ob_start();
         $objWriter->save('php://output');
