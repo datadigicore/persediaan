@@ -447,66 +447,83 @@ public function laporan_belanja_persediaan($data){
     $nilai_non_persediaan   =0;
     $total                  =0;
     $apbd  = 0;
-    $bp = 0;
+    $bpusat = 0;
+    $bprov = 0;
     $bos = 0;
     $blud = 0;
     $lainnya = 0;
     $dataPerSKPD = array();
+    echo "<pre>";
     foreach ($result as $key => $value) {
-        // print_r($value);
+        print_r($value);
             // $dataPerSKPD[$value['kd_lokasi']]['nm_satker'] = $value['nm_satker'];
         $dataPerSKPD["$value[kd_lokasi]"]['nm_satker'] = $value['nm_satker'];
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['nama_rekening'] = $value['nama_rekening'];
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['nilai_kontrak'] += $value['nilai_kontrak'];
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['total_harga'] += $value['total_harga'];
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['grand_total'] += ($value['total_harga']+$value['nilai_kontrak']);
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['nama_rekening'] = $value['nama_rekening'];
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['nilai_kontrak'] += $value['nilai_kontrak'];
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['total_harga'] += $value['total_harga'];
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['grand_total'] += ($value['total_harga']+$value['nilai_kontrak']);
 
 
-      $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['total_harga'] += $value['total_harga'];
-      $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['nm_perk'] = $value['nm_perk'];
+      $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['total_harga'] += $value['total_harga'];
+      $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['nm_perk'] = $value['nm_perk'];
       if($value['jns_trans']=="M07"){
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['apbd'] += $value['total_harga'];
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['bos'] += 0;
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['blud'] += 0;
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['bpp'] += 0;
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['sumber_dana'] = "APBD";
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['apbd'] += $value['total_harga'];
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['bos'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['blud'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['bpusat'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['bprov'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['sumber_dana'] = "APBD";
         $apbd    += $val['total_harga'];
 
     }
-    elseif($value['jns_trans']=="M08"||$val['jns_trans']=="M09"){
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['apbd'] += 0;
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['bos'] += 0;
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['blud'] += 0;
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['bpp'] += $value['total_harga'];
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['sumber_dana'] = "Bantuan Pemprov/Pusat";
+    elseif($value['jns_trans']=="M08"){
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['apbd'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['bos'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['blud'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['bpusat'] += $value['total_harga'];
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['bprov'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['sumber_dana'] = "Bantuan Pemerintah Pusat";
 
-        $bp      += $val['total_harga'];
+        $bpusat     += $val['total_harga'];
+    }
+    elseif($value['jns_trans']=="M09"){
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['apbd'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['bos'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['blud'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['bprov'] += $value['total_harga'];
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['bpusat'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['sumber_dana'] = "Bantuan Pemerintah Provinsi";
+
+        $bprov      += $val['total_harga'];
     }
     elseif($value['jns_trans']=="M10"){
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['apbd'] += 0;
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['bos'] += $value['total_harga'];
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['blud'] += 0;
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['bpp'] += 0;
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['sumber_dana'] = "BOS";
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['apbd'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['bos'] += $value['total_harga'];
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['blud'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['bprov'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['bpusat'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['sumber_dana'] = "BOS";
         $bos     += $val['total_harga'];
     }
 
     elseif($value['jns_trans']=="M11"){
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['apbd'] += 0;
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['bos'] += 0;
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['blud'] += $value['total_harga'];
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['bpp'] += 0;
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['sumber_dana'] = "BLUD";
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['apbd'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['bos'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['blud'] += $value['total_harga'];
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['bprov'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['bpusat'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['sumber_dana'] = "BLUD";
         $blud    += $val['total_harga'];
     }
 
     elseif($value['jns_trans']=="M12"){
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['apbd'] += 0;
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['bos'] += 0;
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['blud'] += 0;
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['bpp'] += 0;
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['data'][$value['kd_perk']]['lainnya'] += $val['total_harga'];
-        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['kode_rekening']]['sumber_dana'] = "Lainnya";
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['apbd'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['bos'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['blud'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['bprov'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['bpusat'] += 0;
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['data'][$value['kd_perk']]['lainnya'] += $val['total_harga'];
+        $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['sumber_dana'] = "Lainnya";
          $lainnya += $val['total_harga'];
     }
     else{
@@ -640,57 +657,59 @@ public function laporan_belanja_persediaan($data){
 
             $rows++;
             foreach ($value['data'] as $key2 => $value2) {
-                foreach ($value2['data'] as $key3 => $value3) {
-                  $total_rek = $value3['apbd']+$value3['bos']+$value3['blud']+$value3['bpp']+$value3['lainnya'];
-                  $objPHPExcel->setActiveSheetIndex(0)              
-                    ->setCellValue("A$rows",$nomor)
-                    ->setCellValue("B$rows",$value2['sumber_dana'])
-                    ->setCellValue("C$rows",$key2)
-                    ->setCellValue("D$rows",$value2['nama_rekening'])
-                    ->setCellValue("E$rows",$key3)
-                    ->setCellValue("F$rows",$value3['nm_perk'])
-                    ->setCellValue("G$rows",$value3['total_harga'])
-                    ->setCellValue("H$rows",$value2['nilai_kontrak'])
-                    ;   
-                    $sheet->getStyle("A$rows:H$rows")->applyFromArray($border);
-                    $sheet->getStyle("D$rows")->applyFromArray($left);
-                    $sheet->getStyle("F$rows")->applyFromArray($left);
-                    $sheet->getStyle("B$rows:C$rows")->applyFromArray($horizontal);
-                    $sheet->getStyle("A$rows:H$rows")->applyFromArray($vertical);
-                    $sheet->getStyle("E$rows")->applyFromArray($horizontal);
-                    $sheet->getStyle("A$rows")->applyFromArray($horizontal);
-                    $sheet->getStyle("G$rows:H$rows")->applyFromArray($right);
-                    $objPHPExcel->getActiveSheet()->getRowDimension("$rows")->setRowHeight(40);
+                foreach ($value2['kode_rekening'] as $key4 => $value4) {
+                    foreach ($value4['data'] as $key3 => $value3) {
+                      $total_rek = $value3['apbd']+$value3['bos']+$value3['blud']+$value3['bpusat']+$value3['bprov']+$value3['lainnya'];
+                      $objPHPExcel->setActiveSheetIndex(0)              
+                        ->setCellValue("A$rows",$nomor)
+                        ->setCellValue("B$rows",$value4['sumber_dana'])
+                        ->setCellValue("C$rows",$key4)
+                        ->setCellValue("D$rows",$value4['nama_rekening'])
+                        ->setCellValue("E$rows",$key3)
+                        ->setCellValue("F$rows",$value3['nm_perk'])
+                        ->setCellValue("G$rows",$value3['total_harga'])
+                        ->setCellValue("H$rows",$value2['nilai_kontrak'])
+                        ;   
+                        $sheet->getStyle("A$rows:H$rows")->applyFromArray($border);
+                        $sheet->getStyle("D$rows")->applyFromArray($left);
+                        $sheet->getStyle("F$rows")->applyFromArray($left);
+                        $sheet->getStyle("B$rows:C$rows")->applyFromArray($horizontal);
+                        $sheet->getStyle("A$rows:H$rows")->applyFromArray($vertical);
+                        $sheet->getStyle("E$rows")->applyFromArray($horizontal);
+                        $sheet->getStyle("A$rows")->applyFromArray($horizontal);
+                        $sheet->getStyle("G$rows:H$rows")->applyFromArray($right);
+                        $objPHPExcel->getActiveSheet()->getRowDimension("$rows")->setRowHeight(40);
 
-                    $objPHPExcel->getActiveSheet()->getStyle("D$rows:H$rows")->getAlignment()->setWrapText(true); 
+                        $objPHPExcel->getActiveSheet()->getStyle("D$rows:H$rows")->getAlignment()->setWrapText(true); 
 
 
-                  $nomor++;
-                  $rows++;
-                }
+                      $nomor++;
+                      $rows++;
+                    }
 
-                $sheet->mergeCells("A$rows:F$rows"); 
-                $objPHPExcel->setActiveSheetIndex(0)             
-                    ->setCellValue("A$rows","SUBTOTAL")
-                    ->setCellValue("G$rows",$value2['total_harga'])
-                    ->setCellValue("H$rows",$value2['nilai_kontrak'])
-                    ;   
-                    $sheet->getStyle("A$rows:H$rows")->applyFromArray($border);
-                    $sheet->getStyle("D$rows")->applyFromArray($left);
-                    $sheet->getStyle("F$rows")->applyFromArray($left);
-                    $sheet->getStyle("B$rows:C$rows")->applyFromArray($horizontal);
-                    $sheet->getStyle("A$rows:H$rows")->applyFromArray($vertical);
-                    $sheet->getStyle("E$rows")->applyFromArray($horizontal);
-                    $sheet->getStyle("A$rows")->applyFromArray($horizontal);
-                    $sheet->getStyle("G$rows:H$rows")->applyFromArray($right);
-                    $objPHPExcel->getActiveSheet()->getRowDimension("$rows")->setRowHeight(30);
-                    $sheet->getStyle("A$rows:H$rows")->getFont()->setBold(true);
-                    $objPHPExcel->getActiveSheet()->getStyle("D$rows:H$rows")->getAlignment()->setWrapText(true); 
+                    $sheet->mergeCells("A$rows:F$rows"); 
+                    $objPHPExcel->setActiveSheetIndex(0)             
+                        ->setCellValue("A$rows","SUBTOTAL")
+                        ->setCellValue("G$rows",$value4['total_harga'])
+                        ->setCellValue("H$rows",$value4['nilai_kontrak'])
+                        ;   
+                        $sheet->getStyle("A$rows:H$rows")->applyFromArray($border);
+                        $sheet->getStyle("D$rows")->applyFromArray($left);
+                        $sheet->getStyle("F$rows")->applyFromArray($left);
+                        $sheet->getStyle("B$rows:C$rows")->applyFromArray($horizontal);
+                        $sheet->getStyle("A$rows:H$rows")->applyFromArray($vertical);
+                        $sheet->getStyle("E$rows")->applyFromArray($horizontal);
+                        $sheet->getStyle("A$rows")->applyFromArray($horizontal);
+                        $sheet->getStyle("G$rows:H$rows")->applyFromArray($right);
+                        $objPHPExcel->getActiveSheet()->getRowDimension("$rows")->setRowHeight(30);
+                        $sheet->getStyle("A$rows:H$rows")->getFont()->setBold(true);
+                        $objPHPExcel->getActiveSheet()->getStyle("D$rows:H$rows")->getAlignment()->setWrapText(true); 
 
-                  $rows++;
+                    $rows++;
             }
+         }
         }
-        $total_rek = $apbd+$bos+$blud+$bpp+$lainnya;
+        $total_rek = $apbd+$bos+$blud+$bpusat+$bprov+$lainnya;
         $objPHPExcel->setActiveSheetIndex(0)              
                 ->setCellValue("A$rows","GRAND TOTAL")
                     ->setCellValue("G$rows",number_format($nilai_rek_persediaan,2,",","."))
