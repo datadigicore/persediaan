@@ -455,7 +455,7 @@ public function laporan_belanja_persediaan($data){
     $dataPerSKPD = array();
     echo "<pre>";
     foreach ($result as $key => $value) {
-        print_r($value);
+        // print_r($value);
             // $dataPerSKPD[$value['kd_lokasi']]['nm_satker'] = $value['nm_satker'];
         $dataPerSKPD["$value[kd_lokasi]"]['nm_satker'] = $value['nm_satker'];
         $dataPerSKPD["$value[kd_lokasi]"]['data'][$value['jns_trans']]['kode_rekening'][$value['kode_rekening']]['nama_rekening'] = $value['nama_rekening'];
