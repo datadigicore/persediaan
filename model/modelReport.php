@@ -435,7 +435,6 @@ public function laporan_belanja_persediaan($data){
         AND thn_ang='$thn_ang' 
         AND tgl_dok>'$tgl_dok' 
         AND jns_trans!='M01'
-        AND jns_trans NOT LIKE 'P%'
         AND total_harga+nilai_kontrak > 0
         order by kd_lokasi asc, kode_rekening asc, kd_perk asc, jns_trans asc ";
 
